@@ -33,9 +33,7 @@ chmod +x $JAR_NAME
 
 echo "> $JAR_NAME 실행"
 
-IDLE_PROFILE=$(find_idle_profile)
-
 nohup java -jar \
     -Dspring.config.location=classpath:/application.properties \
-    -Dspring.profiles.active=$IDLE_PROFILE \
+    -Dspring.profiles.active=real \
     $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
