@@ -1,7 +1,7 @@
 #!/bin/bash
 
 REPOSITORY=/home/ec2-user/app/step
-PROJECT_NAME=capstone-project-tmate
+PROJECT_NAME=Capstone-TMATE
 
 echo "> Build 파일 복사"
 
@@ -9,7 +9,7 @@ cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
 echo "> 현재 구동 중인 어플리케이션 pid 확인"
 
-CURRENT_PID=$(pgrep -fl $PROJECT_NAME | grep jar | awk '{print $1}')
+CURRENT_PID=$(lsof -ti tcp:8080)
 
 echo "현재 구동 중인 어플리케이션 pid: $CURRENT_PID"
 
@@ -18,7 +18,7 @@ if [ -z "$CURRENT_PID" ]; then
 else
     echo "> kill -15 $CURRENT_PID"
     kill -15 "$CURRENT_PID"
-    sleep 5
+    sleep 3
 fi
 
 echo "> 새 어플리케이션 배포"
@@ -34,6 +34,6 @@ chmod +x $JAR_NAME
 echo "> $JAR_NAME 실행"
 
 nohup java -jar \
-    -Dspring.config.location=classpath:/application.properties,classpath:/application-real.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties \
+    -Dspring.config.location=classpath:/application.properties \
     -Dspring.profiles.active=real \
     $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
