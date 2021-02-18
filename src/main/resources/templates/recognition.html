@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+        <br><br>
+
+        <h1 class="mt-4">승인관리</h1>
+        <table class="table  table-earning table-light text-center">
+            <thead>
+            <tr>
+                <th>구분</th>
+                <th>소개</th>
+                <th>경력</th>
+                <th>승인 / 거절</th>
+            </tr>
+            </thead>
+            <tbody class="table-hover">
+            <tr>
+                <td>개인</td>
+                <td class="modalBtn">
+                    <div>
+                        <span class="badge bg-inprogress">개인</span>
+                        <span class="badge bg-grey">대구광역시</span>
+                        <span class="badge bg-grey">소나타</span>
+                    </div>
+                </td>
+                <td>2002-05-06~</td>
+                <td>
+                    <button class="btn btn-success" type="button">승인</button>
+                    <button class="btn btn-danger" type="button">거절</button>
+                </td>
+            </tr>
+            <tr>
+                <td>개인</td>
+                <td>
+                    <div>
+                        <span class="badge bg-inprogress">개인</span>
+                        <span class="badge bg-grey">대구광역시</span>
+                        <span class="badge bg-grey">소나타</span>
+                    </div>
+                </td>
+                <td>2002-05-06~</td>
+                <td>
+                    <button class="btn btn-success" type="button">승인</button>
+                    <button class="btn btn-danger" type="button">거절</button>
+                </td>
+            </tr>
+            <tr>
+                <td>법인</td>
+                <td>
+                    <div>
+                        <span class="badge bg-done">법인</span>
+                        <span class="badge bg-grey">대구광역시</span>
+                        <span class="badge bg-grey">소나타</span>
+                    </div>
+                </td>
+                <td>2002-05-06~</td>
+                <td>
+                    <button class="btn btn-success" type="button">승인</button>
+                    <button class="btn btn-danger" type="button">거절</button>
+                </td>
+            </tr>
+            <tr>
+                <td>법인</td>
+                <td>
+                    <div>
+                        <span class="badge bg-done">개인</span>
+                        <span class="badge bg-grey">대구광역시</span>
+                        <span class="badge bg-grey">소나타</span>
+                    </div>
+                </td>
+                <td>2002-05-06~</td>
+                <td>
+                    <button class="btn btn-success" type="button">승인</button>
+                    <button class="btn btn-danger" type="button">거절</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="">
+            <br>
+        </div>
+        <!-- 페이지 네이션 -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="active page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+<!-- 모달 -->
+        <div class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">기사 정보</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="float-left i-wh">
+                            <img src="images/icon/avatar-01.jpg">
+                        </div>
+                        <div class="float-left">
+                            <p>이름 : 하창현</p>
+                            <p>자격증번호 : 02-대구-00000</p>
+                            <p>차량 : 롤스로이스</p>
+                            <p>지역 : 대구광역시</p>
+                            <p>자격증취득일자 : 2002-05-06</p>
+                            <p>생년월일 : 1997-00-00</p>
+                            <p>휴대폰번호 : 010-0000-0000</p>
+                        </div>
+                        <div class="float-right">
+                            <p>asdddddddddddd</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+        <script>
+            $(document).ready(function () {
+                var modal = $(".modal");
+
+                $(".modalBtn").on("click", function (e) {
+                    modal.modal("show");
+                });
+
+            });
+        </script>
+    </th:block>
+</th:block>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+        <br><br><br><br><br><br><br><br>
+
+        <div class="wrap_cont">
+            <div class="area_tit">
+                <strong class="tit_corp">모두를 위한<br/>모든 이동 서비스!</strong>
+            </div>
+            <div class="area_cont">
+                <div id="serviceImageSlide" class="kSlide wrap_slide feature_slide"></div>
+                <div class="feature_info">
+                    <div class="wrap_condition">
+                        <div class="condition_info">
+                            <strong class="tit_subject">믿고 부르는 택시</strong>
+                            <p class="desc_info">언제 어디서나 필요할 때 택시를 호출하고, 앱으로 결제까지
+                                할 수 있어요. 다양한 호출 옵션으로 더 빠르고 편리하게
+                                원하는 곳까지 이동해보세요.</p>
+                        </div>
+                        <div class="condition_info">
+                            <strong class="tit_subject">세상 편한 대리운전</strong>
+                            <p class="desc_info">어렵게 설명할 필요 없이 앱으로 간편 호출,
+                                데이터 기반의 AI 추천 요금으로 더 빠르고 간편하게
+                                대리운전을 이용 할 수 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="wrap_condition">
+                        <div class="condition_info">
+                            <strong class="tit_subject">가까운 곳도 편하게</strong>
+                            <p class="desc_info">걷기엔 멀고 버스 타기엔 애매할 때, 내 주위 전기가전거를 쉽게 빌리고 편하게 달려보세요. 이용 후엔
+                                서비스 지역 내 원하는 곳에서 자유롭게 반납이 가능합니다.</p>
+                        </div>
+                        <div class="condition_info">
+                            <strong class="tit_subject">주차 고민 해결</strong>
+                            <p class="desc_info">이제 주차할 곳 찾아 헤매지 마세요. 목적지 근처 주차장 검색부터 예약/결제까지 앱으로 할 수 있어서
+                                주차가 더 편해집니다.</p>
+                        </div>
+                    </div>
+                    <div class="wrap_condition">
+                        <div class="condition_info">
+                            <strong class="tit_subject">함께 이동하는 즐거움</strong>
+                            <p class="desc_info">복잡한 출퇴근길도, 불금이나 야근 후에도 귀갓길 걱정 없이 같은 방향으로 이동하는 크루를 찾아 목적지까지 쉽게 갈 수 있어요.</p>
+                        </div>
+                        <div class="condition_info">
+                            <strong class="tit_subject">가장 빠른 길 안내</strong>
+                            <p class="desc_info">실시간 교통 정보를 기반으로 더 빠르게 도착할 수 있는 길을 추천해드려요. 현 위치 주변의 맛집, 주유소 등의 정보도 쉽게 찾아볼 수 있습니다.</p>
+                        </div>
+                    </div>
+                    <div class="wrap_condition">
+                        <div class="condition_info">
+                            <strong class="tit_subject">해외에서도 편리함 그대로</strong>
+                            <p class="desc_info">카카오 T로 해외에서도 차량을 호출할 수 있어요. 한글로 목적지 검색이 가능하며 원화로 예상 요금 확인하고 미리 등록한 카드로 자동결제가 이루어져 이동이 더 쉬워집니다.</p>
+                        </div>
+                        <div class="condition_info">
+                            <strong class="tit_subject">카카오 T 비즈니스</strong>
+                            <p class="desc_info">카카오 T의 편리함에 비용과 리소스를 절감하는 관리시스템을 더한 기업용 이동 서비스 입니다. (업무택시, 업무대리, 업무블랙, 그리고 업무내비 Beta (무료))</p>
+
+                        </div>
+                    </div>
+                    <div class="wrap_condition">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+            로그인
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <img src="images/icon/Tmate.png"/>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="username">Username</label>
+                                                <input id="username" type="text" name="username" required="required"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input id="password" type="password" name="password" required="required"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-remember">
+                                                    <input type="checkbox"/>Remember Me
+                                                </label><a class="form-recovery" href="#">Forgot Password?</a>
+                                            </div>
+                            <div class="form-group">
+                                <button type="submit">Log In</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </th:block>
+</th:block>
