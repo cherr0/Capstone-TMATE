@@ -17,3 +17,6 @@
     width: 115px;
     height: 200px;
 }
+.container-scroll{
+    overflow: hidden;
+}
