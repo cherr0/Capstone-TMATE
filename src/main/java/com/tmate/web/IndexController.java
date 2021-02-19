@@ -60,11 +60,11 @@ public class IndexController {
     // 기사 승인 대기 목록
     @GetMapping("/approval")
     public String approval() {
-        return "approval";
+        return "approvalList";
     }
 
     // 핫플레이스 목록 관리
-    @GetMapping("hotplace")
+    @GetMapping("/hotplace")
     public String hotplace() {
         return "hotplace";
     }
