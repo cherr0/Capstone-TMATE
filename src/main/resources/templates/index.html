@@ -14,22 +14,22 @@
   <link th:href="@{vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet">
 
   <!-- Custom Fonts -->
-  <link th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
-  <link th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic}" rel="stylesheet" type="text/css">
+  <link th:href="@{vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
   <link th:href="@{vendor/simple-line-icons/css/simple-line-icons.css}" rel="stylesheet">
 
   <!-- Custom CSS -->
   <link th:href="@{css/stylish-portfolio.min.css}" rel="stylesheet">
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery.min.js"></script>
+  <script th:href="@{vendor/jquery.min.js}"></script>
 
   <!-- Plugin JavaScript -->
-  <script src="vendor/jquery.easing.min.js"></script>
+  <script th:href="@{vendor/jquery.easing.min.js}"></script>
 
   <!-- Custom scripts for this template -->
-  <!--  <link th:href="@{/css/stylish-portfolio.min.css}" rel="stylesheet">-->
-  <script src="js/stylish-portfolio.min.js"></script>
+  <link th:href="@{/css/stylish-portfolio.min.css}" rel="stylesheet">
+  <script th:href="@{js/stylish-portfolio.min.js}"></script>
 
 </head>
 
@@ -40,7 +40,7 @@
 <div class="form-row float-right" >
   <button style="margin-right: 30px" type="button" class="btn btn-primary" >로그인</button>
 </div>
-<header th:src="@{images/bg-masthead.jpg}" class="masthead d-flex">
+<header th:background="@{images/bg-masthead.jpg}" class="masthead d-flex">
   <div class="container text-center my-auto">
 
     <h1 class="mb-1">T Mate</h1>
@@ -130,7 +130,7 @@
                 <p class="mb-0">비슷한 목적지의 승객과 같이 타고  <br>요금을저렴하게 내고  <br>이용할수있는 호출 옵션입니다.</p>
               </div>
             </div>
-            <img class="img-fluid" src="/images/portfolio-1.jpg" alt="">
+            <img class="img-fluid" th:href="@{images/portfolio-1.jpg}" alt="">
           </a>
         </div>
         <div class="col-lg-6">
@@ -141,10 +141,12 @@
                 <p class="mb-0" style="text-align: center;">혼자서 혹은 친구,가족과 함께 <br> 언제 어디서나 이용 가능한  <br>일반호출 옵션입니다.</p>
               </div>
             </div>
-            <img class="img-fluid" src="/images/portfolio-2.jpg" alt="">
+            <img class="img-fluid" th:href="@{images/portfolio-2.jpg}" alt="">
           </a>
         </div>
       </div>
+    </div>
+  </div>
 </section>
 
 
