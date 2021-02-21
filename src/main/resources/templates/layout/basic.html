@@ -41,7 +41,7 @@
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
             <a href="#">
-                <img src="images/icon/Tmate.png"/>
+                <img th:src="@{images/icon/Tmate.png}"/>
             </a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">
@@ -52,31 +52,19 @@
                             <i class="far fa-newspaper"></i>공지사항</a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a href="index.html">공지관리</a>
+                                <a th:href="@{/notice}">공지관리</a>
                             </li>
                             <li>
-                                <a href="index2.html">이벤트관리</a>
+                                <a th:href="@{/event}">이벤트관리</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a class="js-arrow" href="#">
-                            <i class="fas fa-headphones"></i>고객센터</a>
-                        <ul class="list-unstyled navbar__sub-list js-sub-list">
-                            <li>
-                                <a href="index.html">문의리스트</a>
-                            </li>
-                            <li>
-                                <a href="index2.html">FAQ관리</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="table.html">
+                        <a th:href="@{/user}">
                             <i class="far fa-address-card"></i>회원관리</a>
                     </li>
                     <li>
-                        <a href="form.html">
+                        <a th:href="@{/approval}">
                             <i class="fas fa-check"></i>승인관리</a>
                     </li>
                 </ul>
@@ -100,10 +88,10 @@
                             <i class="far fa-newspaper"></i>공지사항</a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a th:href="@{/noticeList}">공지관리</a>
+                                <a th:href="@{/notice}">공지관리</a>
                             </li>
                             <li>
-                                <a th:href="@{/eventList}">이벤트관리</a>
+                                <a th:href="@{/event}">이벤트관리</a>
                             </li>
                         </ul>
                     </li>
@@ -112,7 +100,7 @@
                             <i class="fas fa-map-marker-alt"></i>핫플레이스 관리</a>
                     </li>
                     <li>
-                        <a th:href="@{/userList}">
+                        <a th:href="@{/user}">
                             <i class="far fa-address-card"></i>회원관리</a>
                     </li>
                     <li>
