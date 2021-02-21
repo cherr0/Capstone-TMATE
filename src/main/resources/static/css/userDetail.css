@@ -1,0 +1,57 @@
+.profile-nav, .profile-info{
+    margin-top:30px;
+}
+
+.profile-nav .user-heading {
+    background: #fbc02d;
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    padding: 30px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-nav .user-heading.round a  {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: 10px solid rgba(255,255,255,0.3);
+    display: inline-block;
+}
+
+.profile-nav .user-heading a img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.profile-nav .user-heading h1 {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.profile-nav .user-heading span {
+    margin-top: 10px;
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+.bio-graph-info {
+    color: #89817e;
+}
+
+.bio-row {
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+    padding: 5px 15px;
+    margin-top: 35px;
+}
+
+.bio-row p span {
+    width: 100px;
+    display: inline-block;
+}
