@@ -1632,8 +1632,9 @@ section {
 .navbar-sidebar .navbar__list li a {
     display: block;
     color: #555;
-    font-size: 16px;
-    padding: 15px 0;
+    font-size: 20px;
+    padding: 17px 0;
+    font-weight: bolder;
 }
 
 .navbar-sidebar .navbar__list li a i {
