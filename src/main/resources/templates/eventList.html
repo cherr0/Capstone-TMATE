@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <br><br><br><br><br><br>
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- Main content -->
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+
+                                <h2 style="margin-top: auto">공지사항</h2>
+                                <div style="text-align: right ">
+                                    <button type="button" class="btn btn-primary">공지관리</button>
+                                    <button type="button" class="btn btn-primary">이벤트관리</button>
+                                </div>
+
+
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="table" class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th style="text-align: left"><input type="checkbox" name="_selected_all_">&nbsp;번호</th>
+                                        <th>제목</th>
+                                        <th>작성자</th>
+                                        <th>등록일</th>
+                                        <th>조회수</th>
+                                        <th>상태</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td style="text-align: left"><input type="checkbox" >&nbsp;&nbsp;1
+                                        </td>
+                                        <td>Tmate 이벤트입니다.</td>
+                                        <td>하창현</td>
+                                        <td>2021-02-17</td>
+                                        <td>4</td>
+                                        <td>비공개</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left"><input type="checkbox">&nbsp;&nbsp;2</td>
+                                        <td>Tmate 이벤트입니다.</td>
+                                        <td>박중원</td>
+                                        <td>2021-02-17</td>
+                                        <td>7</td>
+                                        <td>비공개</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left"><input type="checkbox">&nbsp;&nbsp;3</td>
+                                        <td>Tmate 이벤트입니다.</td>
+                                        <td>김진수</td>
+                                        <td>2021-02-17</td>
+                                        <td>4</td>
+                                        <td>공개</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left"><input type="checkbox">&nbsp;&nbsp;4</td>
+                                        <td>Tmate 이벤트입니다.</td>
+                                        <td>박한수</td>
+                                        <td>2021-02-17</td>
+                                        <td>13</td>
+                                        <td>비공개</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: left"><input type="checkbox">&nbsp;&nbsp;5</td>
+                                        <td>Tmate 이벤트입니다.</td>
+                                        <td>강병현</td>
+                                        <td>2021-02-17</td>
+                                        <td>41</td>
+                                        <td>공개</td>
+                                    </tr>
+                                    </tbody>
+                                    </tfoot>
+                                </table>
+                                <br>
+                                <div style="text-align: right ">
+                                    <button type="button" class="btn btn-info">글작성</button>
+                                    <button type="button" class="btn btn-info">삭제</button>
+                                </div>
+
+                                <nav>
+
+                                    <ul class="pagination justify-content-center">
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="active page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+        </div>
+        <!-- Main content -->
+
+
+    </th:block>
+</th:block>
+</html>
