@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+        <br><br><br><br>
+        <section class="welcome2 p-t-40 p-b-55">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="au-breadcrumb3">
+                            <div class="au-breadcrumb-left">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="welcome2-inner m-t-60">
+                            <div class="welcome2-greeting">
+                                <h1 class="title-6">반가워
+                                    <span>창현!</span>  오늘도 화이팅!!</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="statistic statistic2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="overview-item overview-item--c1">
+                            <div class="overview__inner">
+                                <div class="overview-box clearfix">
+                                    <div class="text">
+                                        <h2>395,368</h2>
+                                        <span>전체 유저 수</span>
+                                    </div>
+                                </div>
+                                <div class="overview-chart">
+                                    <canvas id="widgetChart1"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="overview-item overview-item--c2">
+                            <div class="overview__inner">
+                                <div class="overview-box clearfix">
+                                    <div class="text">
+                                        <h2>388,688</h2>
+                                        <span>전체 기사 수</span>
+                                    </div>
+                                </div>
+                                <div class="overview-chart">
+                                    <canvas id="widgetChart2"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="overview-item overview-item--c3">
+                            <div class="overview__inner">
+                                <div class="overview-box clearfix">
+                                    <div class="text">
+                                        <h2>7,593</h2>
+                                        <span>주간 이용량</span>
+                                    </div>
+                                </div>
+                                <div class="overview-chart">
+                                    <canvas id="widgetChart3"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="overview-item overview-item--c4">
+                            <div class="overview__inner">
+                                <div class="overview-box clearfix">
+                                    <div class="text">
+                                        <h2>958</h2>
+                                        <span>월간 노쇼 수</span>
+                                    </div>
+                                </div>
+                                <div class="overview-chart">
+                                    <canvas id="widgetChart4"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END STATISTIC-->
+
+        <!-- STATISTIC CHART-->
+        <section class="statistic-chart">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <!-- CHART-->
+                        <div class="statistic-chart-1">
+                            <h3 class="title-3 m-b-30">연간 이용 횟수</h3>
+                            <div class="chart-wrap">
+                                <canvas id="widgetChart5"></canvas>
+                            </div>
+                            <div class="statistic-chart-1-note">
+                                <span class="big"></span>
+                                <span> </span>
+                            </div>
+                        </div>
+                        <!-- END CHART-->
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <!-- TOP CAMPAIGN-->
+                        <div class="top-campaign">
+                            <h3 class="title-3 m-b-30">지역별 이용 순위</h3>
+                            <div class="table-responsive">
+                                <table class="table table-top-campaign">
+                                    <tbody>
+                                    <tr>
+                                        <td>1. 대구광역시</td>
+                                        <td>18,623회</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2. 서울특별시</td>
+                                        <td>12,874회</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3. 제주특별자치도</td>
+                                        <td>9,391회</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4. 부산광역시</td>
+                                        <td>9,147회</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5. 인천광역시</td>
+                                        <td>8,549회</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- END TOP CAMPAIGN-->
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <!-- CHART PERCENT-->
+                        <div class="chart-percent-2">
+                            <h3 class="title-3 m-b-30">나이대별 이용 비율</h3>
+                            <div class="chart-wrap">
+                                <canvas id="percent-chart2"></canvas>
+                                <div id="chartjs-tooltip">
+                                    <table></table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END CHART PERCENT-->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </th:block>
+</th:block>

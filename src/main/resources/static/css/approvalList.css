@@ -10,9 +10,11 @@
     vertical-align: baseline;
     border-radius: 0.25rem;
 }
-.badge:empty {
-    display: none;
+
+.bg-grey {
+    background-color: grey;
 }
+
 .i-wh {
     width: 115px;
     height: 200px;

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<style>
+    body{
+        overflow: hidden;
+    }
+</style>
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+        <link th:href="@{css/hotplace.css}" rel="stylesheet">
+        <body onload="initTmap();" class="mt-5">
+        <br><br>
+        <select id="selectLevel">
+            <option value="EPSG3857" selected="selected">EPSG3857</option>
+            <option value="KATECH">KATECH</option>
+            <option value="BESSELGEO">BESSELGEO</option>
+            <option value="BESSELTM">BESSELTM</option>
+            <option value="GRS80GEO">GRS80GEO</option>
+            <option value="GRS80TM">GRS80TM</option>
+        </select>
+        <span id="result"></span>
+
+
+        <div id="map_wrap" class="map_wrap">
+            <div id="map_div" class="map"></div>
+        </div>
+        <div class="scroll">
+            <table class="table table-earning table-light text-center">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>장소명</th>
+                    <th>출발지 선택 횟수</th>
+                    <th>도착지 선택 횟수</th>
+                    <th>수정 / 삭제</th>
+                </tr>
+                </thead>
+
+                <tbody class="table-hover ">
+                <tr>
+                    <td>1</td>
+                    <td class="modalBtn">
+                        대구광역시 동북로57길 5
+                    </td>
+                    <td>1회</td>
+                    <td>1회</td>
+                    <td>
+                        <button class="btn btn-primary" type="button">수정</button>
+                        <button class="btn btn-default" type="button">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td class="modalBtn">
+                        대구광역시 동북로57길 5
+                    </td>
+                    <td>1회</td>
+                    <td>1회</td>
+                    <td>
+                        <button class="btn btn-primary" type="button">수정</button>
+                        <button class="btn btn-default" type="button">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td class="modalBtn">
+                        대구광역시 동북로57길 5
+                    </td>
+                    <td>1회</td>
+                    <td>1회</td>
+                    <td>
+                        <button class="btn btn-primary" type="button">수정</button>
+                        <button class="btn btn-default" type="button">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td class="modalBtn">
+                        대구광역시 동북로57길 5
+                    </td>
+                    <td>1회</td>
+                    <td>1회</td>
+                    <td>
+                        <button class="btn btn-primary" type="button">수정</button>
+                        <button class="btn btn-default" type="button">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td class="modalBtn">
+                        대구광역시 동북로57길 5
+                    </td>
+                    <td>1회</td>
+                    <td>1회</td>
+                    <td>
+                        <button class="btn btn-primary" type="button">수정</button>
+                        <button class="btn btn-default" type="button">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td class="modalBtn">
+                        대구광역시 동북로57길 5
+                    </td>
+                    <td>1회</td>
+                    <td>1회</td>
+                    <td>
+                        <button class="btn btn-primary" type="button">수정</button>
+                        <button class="btn btn-default" type="button">삭제</button>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+        </body>
+        <script
+                src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7a3aedaa257443dab26e19a94f058d61"></script>
+        <script type="text/javascript">
+
+
+            var map;
+
+            function initTmap() {
+
+                // 1. 지도 띄우기
+                map = new Tmapv2.Map("map_div", {
+                    center: new Tmapv2.LatLng(37.570028, 126.986072),
+                    width: "100%",
+                    height: "600px",
+                    zoom: 15,
+                    zoomControl: true,
+                    scrollwheel: true
+
+                });
+                // 2. API 사용요청
+                var lon, lat;
+                map.addListener("click", function onClick(evt) {
+                    var mapLatLng = evt.latLng;
+
+                    coordConvert(mapLatLng._lng, mapLatLng._lat);
+                });
+
+                function coordConvert(lon, lat) {
+                    var selectLevel = $("#selectLevel").val();
+                    $.ajax({
+                        method: "GET",
+                        url: "https://apis.openapi.sk.com/tmap/geo/coordconvert?version=1&format=json&callback=result",
+                        async: false,
+                        data: {
+
+                            "appKey": "l7xx7a3aedaa257443dab26e19a94f058d61",
+                            "lon": lon,
+                            "lat": lat,
+                            "toCoord": selectLevel
+                        },
+                        success: function (response) {
+                            var resultCoordinate = response.coordinate;
+
+                            var lon2 = resultCoordinate.lon;
+                            var lat2 = resultCoordinate.lat;
+
+                            var result = lon + "," + lat + "->" + lon2 + "," + lat2;
+                            var resultDiv = document.getElementById("result");
+                            resultDiv.innerHTML = result;
+                        },
+                        error: function (request, status, error) {
+                            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                        }
+                    });
+
+                    function onClick(e) {
+                        // 클릭한 위치에 새로 마커를 찍기 위해 이전에 있던 마커들을 제거
+                        removeMarkers();
+
+                        lonlat = e.latLng;
+                        //Marker 객체 생성.
+                        marker = new Tmapv2.Marker({
+                            position: new Tmapv2.LatLng(lonlat.lat(), lonlat.lng()), //Marker의 중심좌표 설정.
+                            map: map //Marker가 표시될 Map 설정.
+                        });
+
+                        markers.push(marker);
+                    }
+
+
+                }
+            }
+        </script>
+    </th:block>
+</th:block>
+
+				

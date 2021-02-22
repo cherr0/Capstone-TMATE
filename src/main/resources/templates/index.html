@@ -1,108 +1,167 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+<head>
 
-    <th:block th:fragment="content">
-        <br><br><br><br><br><br><br><br>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-        <div class="wrap_cont">
-            <div class="area_tit">
-                <strong class="tit_corp">모두를 위한<br/>모든 이동 서비스!</strong>
+  <title>T mate</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link th:href="@{vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link th:href="@{vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+  <link th:href="@{vendor/simple-line-icons/css/simple-line-icons.css}" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link th:href="@{css/stylish-portfolio.min.css}" rel="stylesheet">
+
+  <!-- Bootstrap core JavaScript -->
+  <script th:href="@{vendor/jquery.min.js}"></script>
+
+  <!-- Plugin JavaScript -->
+  <script th:href="@{vendor/jquery.easing.min.js}"></script>
+
+  <!-- Custom scripts for this template -->
+  <link th:href="@{/css/stylish-portfolio.min.css}" rel="stylesheet">
+  <script th:href="@{js/stylish-portfolio.min.js}"></script>
+
+</head>
+
+<body id="page-top">
+
+
+<!-- Header -->
+<div class="form-row float-right" >
+  <button style="margin-right: 30px" type="button" class="btn btn-primary" >로그인</button>
+</div>
+<header th:background="@{images/bg-masthead.jpg}" class="masthead d-flex">
+  <div class="container text-center my-auto">
+
+    <h1 class="mb-1">T Mate</h1>
+    <h3 class="mb-5">
+      <em>안녕하세요 T Mate 입니다.</em>
+    </h3>
+
+    <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">더보기</a>
+  </div>
+  <div class="overlay"></div>
+
+</header>
+
+<!-- About -->
+<section class="content-section bg-light" id="about">
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h3>믿고 부르는 T Mate 택시 !</h3> <br><h4>이용 고객에게도 기사님에게도 편리한 T Mate 지금 소개합니다.</h4>
+        <br><br><br><a class="btn btn-dark btn-xl js-scroll-trigger" href="#services">더보기</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="content-section bg-primary text-white text-center" id="services">
+  <div class="container">
+    <div class="content-section-heading">
+      <h2 class="text-secondary mb-0">T Mate Services</h2>
+      <br><br>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-screen-smartphone"></i>
+          </span>
+        <h4>
+          <strong>편리한 매칭</strong>
+        </h4>
+        <p class="text-faded mb-5">비슷한 목적지면 누구나 <br>편리하게 매칭가능 !</p>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-pencil"></i>
+          </span>
+        <h4>
+          <strong>핫플레이스 지정</strong>
+        </h4>
+        <p class="text-faded mb-0">고객이 많은 지역에 빠른 매칭을 <br> 위한 핫플레이스 지정</p>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-like"></i>
+          </span>
+        <h4>
+          <strong>선호운행/평점기능</strong>
+        </h4>
+        <p class="text-faded mb-0"> 선호운행 설정 / 기사 평가로<br> 만족스로운 이동!</p>
+      </div>
+      <div class="col-lg-3 col-md-6">
+          <span class="service-icon rounded-circle mx-auto mb-3">
+            <i class="icon-mustache"></i>
+          </span>
+        <h4>
+          <strong>고객지원</strong>
+        </h4>
+        <p class="text-faded mb-0">카카오톡 고객센터 챗봇을 <br>이용해 고객님의 문제를<br> 빠른시일내에 해결해드립니다</p>
+      </div>
+    </div>
+  </div>
+</section>
+<br><br><br><br><br>
+<!-- Callout -->
+<section class="callout">
+  <div class="container text-center">
+    <h3 class="mx-auto mb-5">새로운 호출, 저렴하고 안전하게 타자 !</h3>
+    <div class="container">
+
+      <div class="row no-gutters">
+        <div class="col-lg-6">
+          <a class="portfolio-item" href="#!">
+            <div class="caption">
+              <div class="caption-content">
+                <div class="h2">동승호출</div>
+                <p class="mb-0">비슷한 목적지의 승객과 같이 타고  <br>요금을저렴하게 내고  <br>이용할수있는 호출 옵션입니다.</p>
+              </div>
             </div>
-            <div class="area_cont">
-                <div id="serviceImageSlide" class="kSlide wrap_slide feature_slide"></div>
-                <div class="feature_info">
-                    <div class="wrap_condition">
-                        <div class="condition_info">
-                            <strong class="tit_subject">믿고 부르는 택시</strong>
-                            <p class="desc_info">언제 어디서나 필요할 때 택시를 호출하고, 앱으로 결제까지
-                                할 수 있어요. 다양한 호출 옵션으로 더 빠르고 편리하게
-                                원하는 곳까지 이동해보세요.</p>
-                        </div>
-                        <div class="condition_info">
-                            <strong class="tit_subject">세상 편한 대리운전</strong>
-                            <p class="desc_info">어렵게 설명할 필요 없이 앱으로 간편 호출,
-                                데이터 기반의 AI 추천 요금으로 더 빠르고 간편하게
-                                대리운전을 이용 할 수 있습니다.</p>
-                        </div>
-                    </div>
-                    <div class="wrap_condition">
-                        <div class="condition_info">
-                            <strong class="tit_subject">가까운 곳도 편하게</strong>
-                            <p class="desc_info">걷기엔 멀고 버스 타기엔 애매할 때, 내 주위 전기가전거를 쉽게 빌리고 편하게 달려보세요. 이용 후엔
-                                서비스 지역 내 원하는 곳에서 자유롭게 반납이 가능합니다.</p>
-                        </div>
-                        <div class="condition_info">
-                            <strong class="tit_subject">주차 고민 해결</strong>
-                            <p class="desc_info">이제 주차할 곳 찾아 헤매지 마세요. 목적지 근처 주차장 검색부터 예약/결제까지 앱으로 할 수 있어서
-                                주차가 더 편해집니다.</p>
-                        </div>
-                    </div>
-                    <div class="wrap_condition">
-                        <div class="condition_info">
-                            <strong class="tit_subject">함께 이동하는 즐거움</strong>
-                            <p class="desc_info">복잡한 출퇴근길도, 불금이나 야근 후에도 귀갓길 걱정 없이 같은 방향으로 이동하는 크루를 찾아 목적지까지 쉽게 갈 수 있어요.</p>
-                        </div>
-                        <div class="condition_info">
-                            <strong class="tit_subject">가장 빠른 길 안내</strong>
-                            <p class="desc_info">실시간 교통 정보를 기반으로 더 빠르게 도착할 수 있는 길을 추천해드려요. 현 위치 주변의 맛집, 주유소 등의 정보도 쉽게 찾아볼 수 있습니다.</p>
-                        </div>
-                    </div>
-                    <div class="wrap_condition">
-                        <div class="condition_info">
-                            <strong class="tit_subject">해외에서도 편리함 그대로</strong>
-                            <p class="desc_info">카카오 T로 해외에서도 차량을 호출할 수 있어요. 한글로 목적지 검색이 가능하며 원화로 예상 요금 확인하고 미리 등록한 카드로 자동결제가 이루어져 이동이 더 쉬워집니다.</p>
-                        </div>
-                        <div class="condition_info">
-                            <strong class="tit_subject">카카오 T 비즈니스</strong>
-                            <p class="desc_info">카카오 T의 편리함에 비용과 리소스를 절감하는 관리시스템을 더한 기업용 이동 서비스 입니다. (업무택시, 업무대리, 업무블랙, 그리고 업무내비 Beta (무료))</p>
-
-                        </div>
-                    </div>
-                    <div class="wrap_condition">
-                    </div>
-                </div>
-            </div>
+            <img class="img-fluid" th:href="@{images/portfolio-1.jpg}" alt="">
+          </a>
         </div>
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-            로그인
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <img src="images/icon/Tmate.png"/>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="username">Username</label>
-                                                <input id="username" type="text" name="username" required="required"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input id="password" type="password" name="password" required="required"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-remember">
-                                                    <input type="checkbox"/>Remember Me
-                                                </label><a class="form-recovery" href="#">Forgot Password?</a>
-                                            </div>
-                            <div class="form-group">
-                                <button type="submit">Log In</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
+        <div class="col-lg-6">
+          <a class="portfolio-item" href="#!">
+            <div class="caption">
+              <div class="caption-content">
+                <div  class="h2" style="text-align: center;">일반호출</div>
+                <p class="mb-0" style="text-align: center;">혼자서 혹은 친구,가족과 함께 <br> 언제 어디서나 이용 가능한  <br>일반호출 옵션입니다.</p>
+              </div>
             </div>
+            <img class="img-fluid" th:href="@{images/portfolio-2.jpg}" alt="">
+          </a>
         </div>
-    </th:block>
-</th:block>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Footer -->
+
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+
+
+</body>
+
+</html>
