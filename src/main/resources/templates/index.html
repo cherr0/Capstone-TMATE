@@ -35,33 +35,44 @@
 
 <body id="page-top">
 
-
-<!-- Header -->
-<div class="form-row float-right" >
-  <button style="margin-right: 30px" type="button" class="btn btn-primary" >로그인</button>
-</div>
-<header th:background="@{images/bg-masthead.jpg}" class="masthead d-flex">
-  <div class="container text-center my-auto">
-
-    <h1 class="mb-1">T Mate</h1>
-    <h3 class="mb-5">
-      <em>안녕하세요 T Mate 입니다.</em>
-    </h3>
-
-    <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">더보기</a>
-  </div>
-  <div class="overlay"></div>
-
-</header>
-
-<!-- About -->
-<section class="content-section bg-light" id="about">
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-lg-10 mx-auto">
-        <h3>믿고 부르는 T Mate 택시 !</h3> <br><h4>이용 고객에게도 기사님에게도 편리한 T Mate 지금 소개합니다.</h4>
-        <br><br><br><a class="btn btn-dark btn-xl js-scroll-trigger" href="#services">더보기</a>
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <form class="grop-from" id="signup">
+    <div class="form-head"><span class="text"> </span><i class="icon-placeholder"></i></div>
+    <div class="form-body"><span class="error-text">Please Fill Out This Field</span>
+      <div class="form-controls">
+        <input id="control-name" placeholder="Name"/>
+        <input id="control-phone" placeholder="Phone No"/>
+        <input id="control-certNo" placeholder="Certification No"/>
       </div>
+    </div><a class="form-action"><i class="icon-action"></i></a>
+  </form>
+
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">T mate</li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#page-top">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <button class="">로그인</button>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#services">고객센터</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="masthead d-flex">
+    <div class="container text-center my-auto">
+      <h1 class="mb-1">T Mate</h1>
+      <h3 class="mb-5">
+        <em>안녕하세요 T mate 입니다.</em>
+      </h3>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">더보기</a>
     </div>
   </div>
 </section>

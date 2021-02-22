@@ -1,0 +1,271 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+*, *:after, *:before {
+    box-sizing: border-box;
+}
+
+body {
+    background: #eee;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.grop-from {
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    top: 50px;
+    left: 15%;
+    width: 360px;
+    height: 70px;
+    background: #fff;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border-radius: 50px;
+    z-index: 2;
+}
+
+.grop-from .form-body {
+    height: 70px;
+    overflow: hidden;
+    border-radius: 50px;
+}
+.grop-from .form-body .error-text {
+    position: absolute;
+    left: 80px;
+    top: 4px;
+    z-index: 25;
+    color: #b71c1c;
+    font-size: 10px;
+    font-weight: 600;
+    display: none;
+}
+.grop-from .form-body .form-controls {
+    position: relative;
+    z-index: 5;
+    transition: ease-in 0.2s;
+    top: 0;
+}
+.grop-from .form-body .form-controls input {
+    display: block;
+    width: 100%;
+    height: 70px;
+    padding: 10px 60px 10px 80px;
+    font-size: 18px;
+    color: #666;
+    border: none;
+}
+.grop-from .form-body .form-controls input:focus {
+    outline: none;
+}
+.grop-from .form-head {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 70px;
+    height: 100%;
+    background: #3213D7;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 70px;
+    font-size: 22px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 40;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    transition: ease-in 0.2s;
+}
+.grop-from .form-head .text {
+    display: none;
+}
+.grop-from .form-head .text:before {
+    font-family: 'Open Sans', sans-serif;
+}
+.grop-from .form-action {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #fefefe;
+    text-align: center;
+    right: 10px;
+    top: 50%;
+    border-radius: 50px;
+    transform: translateY(-50%);
+    z-index: 50;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+    outline: none;
+    color: inherit;
+}
+.grop-from .form-action:hover {
+    background: #f9f9f9;
+}
+.grop-from .form-action .icon-action {
+    transition: ease-in 0.2s;
+}
+.grop-from .form-action .icon-action:after {
+    line-height: 50px;
+    content: 'arrow_forward';
+}
+.grop-from .form-action .icon-action.back {
+    transform: rotate(180deg);
+}
+.grop-from .icon-placeholder {
+    font-size: 40px;
+    line-height: 70px;
+}
+.grop-from#signup {
+    color: #fff;
+}
+.grop-from#signup .form-head {
+    width: 100%;
+}
+.grop-from#signup .form-head .icon-placeholder {
+    display: none;
+}
+.grop-from#signup .form-head .text {
+    display: block;
+}
+.grop-from#signup .form-head .text:before {
+    content: 'Sign Up';
+}
+.grop-from#signup .form-action {
+    right: 100px;
+    background: none;
+    line-height: 65px;
+}
+.grop-from#signup .form-action .icon-action.back {
+    transform: rotate(0);
+}
+.grop-from#success {
+    color: #fff;
+}
+.grop-from#success .form-head {
+    width: 100%;
+    background: #00E676;
+}
+.grop-from#success .form-head .icon-placeholder {
+    display: none;
+}
+.grop-from#success .form-head .text {
+    display: block;
+}
+.grop-from#success .form-head .text:before {
+    content: 'Success';
+}
+.grop-from#success .form-action {
+    right: 90px;
+    background: none;
+    line-height: 65px;
+}
+.grop-from#success .form-action .icon-action.back {
+    transform: rotate(0);
+}
+.grop-from#success .form-action .icon-action:after {
+    content: 'mood';
+}
+.grop-from#name {
+    color: #9C27B0;
+}
+.grop-from#name .form-head {
+    background: #9C27B0;
+}
+.grop-from#name .form-head .icon-placeholder:after {
+    content: 'face';
+}
+.grop-from#phone {
+    color: #009688;
+}
+.grop-from#phone .form-head {
+    background: #009688;
+}
+.grop-from#phone .form-head .icon-placeholder:after {
+    content: 'phone';
+}
+.grop-from#phone .form-body .form-controls {
+    top: -70px;
+}
+.grop-from#email {
+    color: #039BE5;
+}
+.grop-from#email .form-head {
+    background: #039BE5;
+}
+.grop-from#email .form-head .icon-placeholder:after {
+    content: 'mail_outline';
+}
+.grop-from#email .form-body .form-controls {
+    top: -140px;
+}
+.grop-from#certNo {
+    color: #039BE5;
+}
+.grop-from#certNo .form-head {
+    background: #039BE5;
+}
+.grop-from#certNo .form-head .icon-placeholder:after {
+    content: 'lock_outline';
+}
+.grop-from#certNo .form-body .form-controls {
+    top: -140px;
+}
+.grop-from#password {
+    color: #37474F;
+}
+.grop-from#password .form-head {
+    background: #37474F;
+}
+.grop-from#password .form-head .icon-placeholder:after {
+    content: 'lock_outline';
+}
+.grop-from#password .form-body .form-controls {
+    top: -210px;
+}
+.grop-from#password-repeat {
+    color: #212121;
+}
+.grop-from#password-repeat .form-head {
+    background: #212121;
+}
+.grop-from#password-repeat .form-head .icon-placeholder:after {
+    content: 'lock';
+}
+.grop-from#password-repeat .form-body .form-controls {
+    top: -280px;
+}
+.grop-from.error .form-head {
+    background: #b71c1c !important;
+}
+.grop-from.error .form-head .icon-placeholder:after {
+    content: 'close' !important;
+}
+.grop-from.error .form-body .form-controls input:-moz-placeholder {
+    color: #b71c1c;
+}
+.grop-from.error .form-body .form-controls input::-moz-placeholder {
+    color: #b71c1c;
+}
+.grop-from.error .form-body .form-controls input:-ms-input-placeholder {
+    color: #b71c1c;
+}
+.grop-from.error .form-body .form-controls input::-webkit-input-placeholder {
+    color: #b71c1c;
+}
+
+.material-icons, .grop-from .form-action .icon-action, .icon-placeholder {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
