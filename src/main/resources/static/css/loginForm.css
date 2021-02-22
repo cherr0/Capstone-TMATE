@@ -1,13 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
-*, *:after, *:before {
-    box-sizing: border-box;
-}
-
-body {
-    background: #eee;
-    font-family: 'Open Sans', sans-serif;
-}
-
 .grop-from {
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
