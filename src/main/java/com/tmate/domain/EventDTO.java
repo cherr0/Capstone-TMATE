@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Blob;
 import java.sql.Timestamp;
 
 @Data
@@ -18,7 +19,7 @@ public class EventDTO {
     private String e_kind;
 
     // 이벤트 내용
-    private String e_contents;
+    private Blob e_contents;
 
     // 이벤트 시작 날짜
     private Timestamp e_s_date;
