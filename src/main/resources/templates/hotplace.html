@@ -10,7 +10,9 @@
 
     <th:block th:fragment="content">
         <link th:href="@{css/hotplace.css}" rel="stylesheet">
+
         <body onload="initTmap();">
+        <div class="map_size">
         <div>
             <input type="text" class="text_custom" id="searchKeyword" name="searchKeyword" value="서울시">
             <button id="btn_select">적용하기</button>
@@ -27,6 +29,7 @@
                 </div>
             </div>
             <div id="map_div" class="map_wrap" style="float:left"></div>
+        </div>
         </div>
         <div class="scroll table_size">
             <table class="table table-earning table-light text-center">
