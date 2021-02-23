@@ -15,10 +15,12 @@ public class HistoryDTO {
     private String merchant_uid;
 
     // 출발지
+    private String h_s_place;
     private double h_s_lttd;
     private double h_s_lngtd;
 
     // 도착지
+    private String h_f_place;
     private double h_f_lttd;
     private double h_f_lngtd;
 

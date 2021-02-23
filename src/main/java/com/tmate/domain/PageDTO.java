@@ -9,9 +9,9 @@ public class PageDTO {
     private boolean prev, next;
 
     private int total;
-    private com.capstone.tmate.domain.Criteria cri;
+    private Criteria cri;
 
-    public PageDTO(com.capstone.tmate.domain.Criteria cri, int total) {
+    public PageDTO(Criteria cri, int total) {
         this.cri = cri;
         this.total = total;
 

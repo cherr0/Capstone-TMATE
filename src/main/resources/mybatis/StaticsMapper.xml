@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.StaticsMapper">
+
+    <select id="getWeeklyUsers" resultType="_int">
+        select count(*)
+        from history
+        where to_date(substr(merchant_uid,10,6),'yyMMdd') between  sysdate - 7 and sysdate
+    </select>
+
+    <select id="getMonthlyUsers" resultType="com.tmate.domain.MonthlyUsersVO">
+        select to_date(substr(merchant_uid,10,4),'yyMM') as standard,  count(*) as users
+        from history
+        group by to_date(substr(merchant_uid,10,4),'yyMM')
+        order by to_date(substr(merchant_uid,10,4),'yyMM')
+    </select>
+
+    <select id="getUsersByAge" resultType="com.tmate.domain.UsersByAgeVO">
+        select trunc(age/10,0) as ageGroup , count(*) as count
+        from (select ((substr(sysdate,1,2) - substr(m_birth,1,2) + 100)) as age
+              from member)
+        group by trunc(age/10,0)
+        order by ageGroup
+    </select>
+
+    <select id="getHotPlaceList" resultType="com.tmate.domain.HotplaceCntVO">
+        select pl_name, pl_start
+        from place
+        order by pl_start desc
+    </select>
+
+</mapper>

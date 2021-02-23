@@ -23,6 +23,9 @@ public class BoardDTO {
     // 게시판 제목
     private String bd_title;
 
+    // 조회수
+    private int bd_count;
+
     // 작성일자
     private Timestamp bd_cre_date;
 

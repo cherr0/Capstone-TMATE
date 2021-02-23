@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.JoinMapper">
+
+    <select id="getHistoryByMember" resultType="com.tmate.domain.JoinHistoryVO">
+        select  h.merchant_uid, h.h_s_place ,h.h_s_lttd, h.h_s_lngtd, h_f_place, h.h_f_lttd, h.h_f_lngtd, h.h_s_time, h.h_e_time, m.m_name,c.car_no, c.car_model
+        from history h inner join member m on h.d_id = m.m_id
+                       inner join car c on m.m_id = c.m_id
+        where h.m_id = #{m_id}
+    </select>
+
+    <select id="getPointByMember" resultType="com.tmate.domain.JoinPointVO" >
+        select p.po_exact, p.po_result, p.po_course, p.po_time, m.m_point
+        from point p inner join member m on p.m_id = m.m_id
+        where p.m_id = #{m_id}
+    </select>
+
+    <select id="getDriver" resultType="com.tmate.domain.JoinDriverVO">
+        select d.d_id, m.m_name, d.d_license_no , c.car_model, m.m_birth
+        from member m inner join driver d on m.m_id = d.d_id inner join car c on d.d_id = c.m_id
+        where d.d_id = #{d_id}
+
+    </select>
+
+    <select id="getApprovalDrivers" resultType="com.tmate.domain.JoinApprovalVO">
+        select c.corp_code, d.d_id, d.d_license_no, v.car_model
+        from corp c inner join member m on c.d_id = m.m_id
+        inner join driver d on c.d_id = d.d_id
+        inner join car v on d.d_id = v.m_id
+        where d.d_j_date is null
+
+    </select>
+
+    <delete id="deleteDriver">
+        delete from driver
+        where d_id = #{d_id}
+    </delete>
+
+</mapper>

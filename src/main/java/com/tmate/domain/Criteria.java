@@ -12,7 +12,7 @@ public class Criteria {
     private String keword;
 
     public Criteria() {
-        this(1, 10);
+        this(1, 5);
     }
 
     public Criteria(int pageNum, int amount) {

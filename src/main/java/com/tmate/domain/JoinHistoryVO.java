@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 
-// 사용자 상세 페이지 이용내역
 @Data
 public class JoinHistoryVO {
 
@@ -15,10 +14,14 @@ public class JoinHistoryVO {
     private String m_id;
 
     // 출발지
+    private String h_s_place;
     private String h_s_lttd;
+    private String h_s_lngtd;
 
     // 도착지
-    private String h_s_lngtd;
+    private String h_f_place;
+    private String h_f_lttd;
+    private String h_f_lngtd;
 
     // 운행 시간
     private Timestamp h_s_time;
