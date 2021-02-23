@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <br><br><br><br><br><br>
+
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- Main content -->
+
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 style="margin-top: auto">공지사항</h2><hr><br>
+                                <div>   제목 : Tmate 입니다.&nbsp;&nbsp;&nbsp;&nbsp;
+                                        등록일 : 2021-02-17&nbsp;&nbsp;&nbsp;&nbsp;
+                                        작성자 : 하창현&nbsp;&nbsp;&nbsp;&nbsp;
+                                        상태 : (공개)
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                글 내용 <br>
+                                글 내용 <br>
+                                글 내용 <br>
+                                글 내용 <br>
+                                글 내용 <br>
+                                글 내용 <br>
+                                글 내용 <br>
+                                글 내용 <br>
+                                글 내용 <br>
+                                글 내용 <br>
+                                글 내용 <br>
+                                글 내용 <br>
+
+                            </div>
+                            <br>
+                        </div>
+                        <div style="text-align: right ">
+                            <button type="button" class="btn btn-primary">글 수정</button>
+                            <button type="button" class="btn btn-primary">글 목록</button>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+        </div>
+        <!-- Main content -->
+    </th:block>
+</th:block>
+</html>
