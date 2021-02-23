@@ -35,7 +35,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     // 관리자가 택시 승인을 하였을 시
     @Override
-    public int AllowApproval(String d_id) {
+    public int allowApproval(String d_id) {
         int check = membermapper.updateDate(d_id);
         return check;
     }

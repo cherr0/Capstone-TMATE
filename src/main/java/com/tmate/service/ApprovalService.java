@@ -15,7 +15,7 @@ public interface ApprovalService {
     public JoinDriverVO getDrivers(String d_id);
 
     // 관리자가 승인을 눌렀을 때
-    public int AllowApproval(String d_id);
+    public int allowApproval(String d_id);
 
     // 거절 눌렀을 시 삭제
     public int removeDriver(String d_id);
