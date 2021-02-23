@@ -556,7 +556,7 @@
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [
             {
               label: "My First dataset",
@@ -568,31 +568,25 @@
           ]
         },
         options: {
-          maintainAspectRatio: false,
-          responsive: true,
-          cutoutPercentage: 20,
-          animation: {
-            animateScale: true,
-            animateRotate: true
-          },
           legend: {
-            display: true,
-            position: 'bottom',
+            position: 'top',
             labels: {
-              fontSize: 14,
-              fontFamily: "Poppins,sans-serif"
+              fontFamily: 'Poppins'
             }
-
 
           },
           scales: {
             xAxes: [{
-              display: false,
-              categoryPercentage: 1,
-              barPercentage: 0.65
+              ticks: {
+                fontFamily: "Poppins"
+
+              }
             }],
             yAxes: [{
-              display: false
+              ticks: {
+                beginAtZero: true,
+                fontFamily: "Poppins"
+              }
             }]
           }
         }
@@ -1204,15 +1198,15 @@
     // single bar chart
     var ctx = document.getElementById("singelBarChart");
     if (ctx) {
-      ctx.height = 150;
+      ctx.height = 250;
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ["Sun", "Mon", "Tu", "Wed", "Th", "Fri", "Sat"],
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [
             {
               label: "My First dataset",
-              data: [40, 55, 75, 81, 56, 55, 40],
+              data: [40, 55, 75, 81, 56, 55, 40, 30, 55, 80, 33, 52],
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)"
