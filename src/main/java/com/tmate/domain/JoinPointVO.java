@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-
-// 사용자 상세 페이지 포인트 관리
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
