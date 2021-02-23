@@ -35,89 +35,23 @@
             <table class="table table-earning table-light text-center">
                 <thead>
                 <tr>
-                    <th>번호</th>
                     <th>장소명</th>
                     <th>출발지 선택 횟수</th>
                     <th>도착지 선택 횟수</th>
-                    <th>수정 / 삭제</th>
+                    <th>삭제</th>
                 </tr>
                 </thead>
                 <tbody class="table-hover ">
-                <tr>
-                    <td>1</td>
-                    <td class="modalBtn">
-                        대구광역시 동북로57길 5
-                    </td>
-                    <td>1회</td>
-                    <td>1회</td>
+                <tr th:each="placeList : ${placeList}">
+                    <td class="modalBtn" th:text="${placeList.pl_name}"></td>
+                    <td th:text="${placeList.pl_start}">1회</td>
+                    <td th:text="${placeList.pl_finish}">1회</td>
                     <td>
-                        <button class="btn btn-primary" type="button">수정</button>
-                        <button class="btn btn-default" type="button">삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td class="modalBtn">
-                        대구광역시 동북로57길 5
-                    </td>
-                    <td>1회</td>
-                    <td>1회</td>
-                    <td>
-                        <button class="btn btn-primary" type="button">수정</button>
-                        <button class="btn btn-default" type="button">삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td class="modalBtn">
-                        대구광역시 동북로57길 5
-                    </td>
-                    <td>1회</td>
-                    <td>1회</td>
-                    <td>
-                        <button class="btn btn-primary" type="button">수정</button>
-                        <button class="btn btn-default" type="button">삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td class="modalBtn">
-                        대구광역시 동북로57길 5
-                    </td>
-                    <td>1회</td>
-                    <td>1회</td>
-                    <td>
-                        <button class="btn btn-primary" type="button">수정</button>
-                        <button class="btn btn-default" type="button">삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td class="modalBtn">
-                        대구광역시 동북로57길 5
-                    </td>
-                    <td>1회</td>
-                    <td>1회</td>
-                    <td>
-                        <button class="btn btn-primary" type="button">수정</button>
-                        <button class="btn btn-default" type="button">삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td class="modalBtn">
-                        대구광역시 동북로57길 5
-                    </td>
-                    <td>1회</td>
-                    <td>1회</td>
-                    <td>
-                        <button class="btn btn-primary" type="button">수정</button>
                         <button class="btn btn-default" type="button">삭제</button>
                     </td>
                 </tr>
                 </tbody>
             </table>
-        </div>
         </div>
         </body>
         <script

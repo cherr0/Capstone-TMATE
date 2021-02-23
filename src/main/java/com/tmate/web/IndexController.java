@@ -196,7 +196,7 @@ public class IndexController {
 
         // 더미 데이터
         for(int i=1 ; i<=5 ; i++) {
-            JoinApprovalVO approval = new JoinApprovalVO();
+            JoinApprovalVO approval = new JoinApprovalVO(); //리스트
             approval.setD_id("d101012345678" + i);
             approval.setCorp_code("i");
             approval.setD_license_no("17-대구-2345" + i);
@@ -205,11 +205,11 @@ public class IndexController {
         }
 
         // 더미 데이터
-        for(int i=1 ; i<=5 ; i++) {
-            JoinDriverVO driver = new JoinDriverVO();
-            driver.setD_id("d101012345678" + i);
+       {
+            JoinDriverVO driver = new JoinDriverVO(); //모달
+            driver.setD_id("d101012345678");
             driver.setM_name("장동빈");
-            driver.setD_license_no("17-대구-2345" + i);
+            driver.setD_license_no("17-대구-2345");
             dvList.add(driver);
         }
 
