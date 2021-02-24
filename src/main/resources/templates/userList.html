@@ -12,14 +12,6 @@
             <h1 class="mt-4">회원관리</h1>
         </div>
         <br>
-        <form class="form-inline mt-2 mb-md-1" role="search">
-            <label>검색어:&nbsp &nbsp
-            <div class="form-group">
-
-                <input type="search" class="form-control mr-sm-2 mb-md-1 " placeholder="Search">
-            </div>
-            </label>
-        </form>
         <table class="table table-borderless table-striped table-earning">
 
             <thead>
@@ -29,113 +21,20 @@
                 <th class="text-center">휴대폰번호</th>
                 <th class="text-center">가입일자</th>
                 <th class="text-center">생년월일</th>
-                <th class="text-center">이용횟수</th>
                 <th class="text-center">등급</th>
                 <th class="text-center">상태</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr th:each="memberList : ${memberList}">
                 <td class="text-center">유저</td>
-                <td class="text-center">하창현</td>
-                <td class="text-center">010-1111-1111</td>
-                <td class="text-center">2021-01-15</td>
-                <td class="text-center">1997-00-00</td>
-                <td class="text-center">23회</td>
-                <td class="text-center">VIP</td>
-                <td class="text-center">정상</td>
+                <td class="text-center" th:text="${memberList.m_name}"></td>
+                <td class="text-center" th:text="${#strings.substring(memberList.m_id,2, 12)}"></td>
+                <td class="text-center" th:text="${#strings.substring(memberList.m_regdate,0, 10)}"></td>
+                <td class="text-center" th:text="${#strings.substring(memberList.m_birth,2, 10)}"></td>
+                <td class="text-center" th:text="${memberList.m_level}"></td>
+                <td class="text-center" th:text="${memberList.m_status}"></td>
             </tr>
-            <tr>
-                <td class="text-center">유저</td>
-                <td class="text-center">하창현</td>
-                <td class="text-center">010-1111-1111</td>
-                <td class="text-center">2021-01-15</td>
-                <td class="text-center">1997-00-00</td>
-                <td class="text-center">23회</td>
-                <td class="text-center">VIP</td>
-                <td class="text-center">정상</td>
-            </tr>
-            <tr>
-                <td class="text-center">유저</td>
-                <td class="text-center">하창현</td>
-                <td class="text-center">010-1111-1111</td>
-                <td class="text-center">2021-01-15</td>
-                <td class="text-center">1997-00-00</td>
-                <td class="text-center">23회</td>
-                <td class="text-center">VIP</td>
-                <td class="text-center">정상</td>
-            </tr>
-            <tr>
-                <td class="text-center">유저</td>
-                <td class="text-center modalBtn">하창현</td>
-                <td class="text-center">010-1111-1111</td>
-                <td class="text-center">2021-01-15</td>
-                <td class="text-center">1997-00-00</td>
-                <td class="text-center">23회</td>
-                <td class="text-center">VIP</td>
-                <td class="text-center">정상</td>
-            </tr>
-            <tr>
-                <td class="text-center">유저</td>
-                <td class="text-center modalBtn">하창현</td>
-                <td class="text-center">010-1111-1111</td>
-                <td class="text-center">2021-01-15</td>
-                <td class="text-center">1997-00-00</td>
-                <td class="text-center">23회</td>
-                <td class="text-center">VIP</td>
-                <td class="text-center">정상</td>
-            </tr>
-            <tr>
-                <td class="text-center">유저</td>
-                <td class="text-center modalBtn">하창현</td>
-                <td class="text-center">010-1111-1111</td>
-                <td class="text-center">2021-01-15</td>
-                <td class="text-center">1997-00-00</td>
-                <td class="text-center">23회</td>
-                <td class="text-center">VIP</td>
-                <td class="text-center">정상</td>
-            </tr>
-            <tr>
-                <td class="text-center">유저</td>
-                <td class="text-center modalBtn">하창현</td>
-                <td class="text-center">010-1111-1111</td>
-                <td class="text-center">2021-01-15</td>
-                <td class="text-center">1997-00-00</td>
-                <td class="text-center">23회</td>
-                <td class="text-center">VIP</td>
-                <td class="text-center">정상</td>
-            </tr>
-            <tr>
-                <td class="text-center">유저</td>
-                <td class="text-center modalBtn">하창현</td>
-                <td class="text-center">010-1111-1111</td>
-                <td class="text-center">2021-01-15</td>
-                <td class="text-center">1997-00-00</td>
-                <td class="text-center">23회</td>
-                <td class="text-center">VIP</td>
-                <td class="text-center">정상</td>
-            </tr>
-            <tr>
-                <td class="text-center">유저</td>
-                <td class="text-center modalBtn">하창현</td>
-                <td class="text-center">010-1111-1111</td>
-                <td class="text-center">2021-01-15</td>
-                <td class="text-center">1997-00-00</td>
-                <td class="text-center">23회</td>
-                <td class="text-center">VIP</td>
-                <td class="text-center">정상</td>
-            </tr>
-            <tr>
-                <td class="text-center">유저</td>
-                <td class="text-center modalBtn">하창현</td>
-                <td class="text-center">010-1111-1111</td>
-                <td class="text-center">2021-01-15</td>
-                <td class="text-center">1997-00-00</td>
-                <td class="text-center">23회</td>
-                <td class="text-center">VIP</td>
-                <td class="text-center">정상</td>
-            </tr>
-            </tbody>
         </table>
 
         <nav aria-label="Page navigation">
@@ -146,6 +45,11 @@
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item"><a class="page-link" href="#">4</a></li>
                 <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                <li class="page-item"><a class="page-link" href="#">7</a></li>
+                <li class="page-item"><a class="page-link" href="#">8</a></li>
+                <li class="page-item"><a class="page-link" href="#">9</a></li>
+                <li class="page-item"><a class="page-link" href="#">10</a></li>
                 <li class="page-item"><a class="page-link" href="#">다음</a></li>
             </ul>
         </nav>
