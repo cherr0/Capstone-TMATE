@@ -13,23 +13,23 @@
 
         <body onload="initTmap();">
         <div class="map_size">
-        <div>
-            <input type="text" class="text_custom" id="searchKeyword" name="searchKeyword" value="서울시">
-            <button id="btn_select">적용하기</button>
-        </div>
-        <div>
-            <div style="width: 30%; float:left;">
-                <div class="title"><strong>Search</strong> Results</div>
-                <div class="rst_wrap">
-                    <div class="rst mCustomScrollbar">
-                        <ul id="searchResult" name="searchResult">
-                            <li>검색결과</li>
-                        </ul>
+            <div>
+                <input type="text" class="text_custom" id="searchKeyword" name="searchKeyword" value="서울시">
+                <button id="btn_select">적용하기</button>
+            </div>
+            <div>
+                <div style="width: 30%; float:left;">
+                    <div class="title"><strong>Search</strong> Results</div>
+                    <div class="rst_wrap">
+                        <div class="rst mCustomScrollbar">
+                            <ul id="searchResult" name="searchResult">
+                                <li>검색결과</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
+                <div id="map_div" class="map_wrap" style="float:left"></div>
             </div>
-            <div id="map_div" class="map_wrap" style="float:left"></div>
-        </div>
         </div>
         <div class="scroll table_size">
             <table class="table table-earning table-light text-center">
@@ -47,7 +47,7 @@
                     <td th:text="${placeList.pl_start}">1회</td>
                     <td th:text="${placeList.pl_finish}">1회</td>
                     <td>
-                        <button class="btn btn-default" type="button">삭제</button>
+                        <button class="btn btn-default" type="button" id="hp-delete">삭제</button>
                     </td>
                 </tr>
                 </tbody>
