@@ -1,5 +1,4 @@
 .scroll {
-    height: 252px;
     overflow-y: scroll;
 }
 .map_size{
@@ -7,6 +6,6 @@
     height: 60vh;
 }
 .table_size{
-    width: 100vw;
-    height: 40vh;
+    width: 83vw;
+    height: 25vh;
 }
