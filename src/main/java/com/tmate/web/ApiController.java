@@ -1,9 +1,6 @@
 package com.tmate.web;
 
-import com.tmate.domain.DriverDTO;
 import com.tmate.domain.JoinDriverVO;
-import com.tmate.domain.SMSDTO;
-import com.tmate.domain.MemberDTO;
 import com.tmate.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,5 +26,6 @@ public class ApiController {
 
         return new ResponseEntity<>(driver, HttpStatus.OK);
     }
+
 
 }

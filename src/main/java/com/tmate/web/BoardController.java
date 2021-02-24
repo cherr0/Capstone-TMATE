@@ -3,7 +3,6 @@ package com.tmate.web;
 import com.tmate.domain.BoardDTO;
 import com.tmate.domain.Criteria;
 import com.tmate.service.BoardService;
-import com.tmate.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

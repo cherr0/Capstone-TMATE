@@ -6,14 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -40,6 +33,7 @@ public class IndexController {
 
         model.addAttribute("members", members);
         model.addAttribute("drivers", drivers);
+        model.addAttribute("weeklyUsers", weeklyUsers);
         model.addAttribute("monthlyUsers", monthlyUsers);
         model.addAttribute("usersByAge", usersByAge);
         model.addAttribute("placeByStart", placeByStart);
