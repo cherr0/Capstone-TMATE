@@ -6,12 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-
+@Controller
 public class IndexController_dump {
 
 
@@ -23,7 +24,7 @@ public class IndexController_dump {
 
     // 로그인 메인화면
     @GetMapping("/main")
-    public String main() {
+    public String main(MemberDTO member, HttpSession httpSession) {
         List<MonthlyUsersVO> monthlyUser = new ArrayList<>();
 
         // 더미 데이터
@@ -33,6 +34,7 @@ public class IndexController_dump {
             user.setUsers(i * ((int) Math.random() * 100));
         }
 
+        httpSession.setAttribute("member", member);
         return "main";
     }
 
@@ -57,6 +59,18 @@ public class IndexController_dump {
 
         model.addAttribute("noticeList", boardList);    // 공지 항목 보여주기
         return "noticeList";
+    }
+
+    // 공지 글 작성
+    @GetMapping("/noticewrite")
+    public String noticeWrite() {
+        return "noticeWrite";
+    }
+
+    // 공지 글 수정
+    @GetMapping("/noticemodify")
+    public String noticeModify() {
+        return "noticeModify";
     }
 
     // 공지 글 조회
@@ -97,6 +111,18 @@ public class IndexController_dump {
 
         model.addAttribute("eventList", eventList);
         return "eventList";
+    }
+
+    // 이벤트 작성
+    @GetMapping("/eventwrite")
+    public String eventWrite() {
+        return "eventWrite";
+    }
+
+    // 이벤트 수정
+    @GetMapping("eventmodify")
+    public String eventModify() {
+        return "eventModify";
     }
 
     // 이벤트 글 조회

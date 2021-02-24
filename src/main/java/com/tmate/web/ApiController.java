@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 public class ApiController {
 
-    private ApprovalService approvalService;
+    private final ApprovalService approvalService;
 
     // 승인 모달 창 사용 시 기사 정보 제공
     @PostMapping("/approval/{d_id}")
