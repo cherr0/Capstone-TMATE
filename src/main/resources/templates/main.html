@@ -4,7 +4,7 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
 
     <th:block th:fragment="content">
-        <br><br><br><br>
+
         <section class="welcome2 p-t-40 p-b-55">
             <div class="container">
                 <div class="row">
@@ -30,7 +30,7 @@
         <section class="statistic statistic2">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6 col-lg-3">
+                    <div class="col-sm-6 col-lg-4">
                         <div class="overview-item overview-item--c1">
                             <div class="overview__inner">
                                 <div class="overview-box clearfix">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-lg-3">
+                    <div class="col-sm-6 col-lg-4">
                         <div class="overview-item overview-item--c2">
                             <div class="overview__inner">
                                 <div class="overview-box clearfix">
@@ -60,28 +60,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-lg-3">
+                    <div class="col-sm-6 col-lg-4">
                         <div class="overview-item overview-item--c3">
                             <div class="overview__inner">
                                 <div class="overview-box clearfix">
                                     <div class="text">
                                         <h2>7,593</h2>
                                         <span>주간 이용량</span>
-                                    </div>
-                                </div>
-                                <div class="overview-chart">
-                                    <canvas id="widgetChart3"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="overview-item overview-item--c4">
-                            <div class="overview__inner">
-                                <div class="overview-box clearfix">
-                                    <div class="text">
-                                        <h2>958</h2>
-                                        <span>월간 노쇼 수</span>
                                     </div>
                                 </div>
                                 <div class="overview-chart">
@@ -107,9 +92,9 @@
                     <div class="col-md-6 col-lg-4">
                         <!-- CHART-->
                         <div class="statistic-chart-1">
-                            <h3 class="title-3 m-b-30">연간 이용 횟수</h3>
+                            <h3 class="title-3 m-b-30">월간 이용 횟수</h3>
                             <div class="chart-wrap">
-                                <canvas id="widgetChart5"></canvas>
+                                <canvas id="singelBarChart"></canvas>
                             </div>
                             <div class="statistic-chart-1-note">
                                 <span class="big"></span>
@@ -121,7 +106,7 @@
                     <div class="col-md-6 col-lg-4">
                         <!-- TOP CAMPAIGN-->
                         <div class="top-campaign">
-                            <h3 class="title-3 m-b-30">지역별 이용 순위</h3>
+                            <h3 class="title-3 m-b-30">핫플레이스 출발지 순위</h3>
                             <div class="table-responsive">
                                 <table class="table table-top-campaign">
                                     <tbody>
