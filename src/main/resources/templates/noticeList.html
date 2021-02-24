@@ -32,7 +32,7 @@
                                 <table id="table" class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-
+                                        <th>번호</th>
                                         <th>제목</th>
                                         <th>작성자</th>
                                         <th>등록일</th>
@@ -42,14 +42,13 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                    <tr th:each="eventList : ${eventList}">
-                                        <td th:text="${eventList.bd_id}"></td>
-                                        <td th:text="${eventList.bd_title}"></td>
-                                        <td th:text="${eventList.m_id}"></td>
-                                        <td th:text="${eventList.bd_cre_date}"></td>
-                                        <td>0</td>
-                                        <td th:text="${eventList.bd_status}"></td>
-                                    </tr>
+                                    <tr th:each="noticeList : ${noticeList}">
+                                        <td th:text="${noticeList.bd_id}"></td>
+                                        <td th:text="${noticeList.bd_title}"></td>
+                                        <td>하창현</td>
+                                        <td th:text="${noticeList.bd_cre_date}"></td>
+                                        <td th:text="${noticeList.bd_count}"></td>
+                                        <td>공개</td>
                                     </tr>
 
                                     </tbody>
@@ -57,7 +56,7 @@
                                 </table>
                                 <br>
                                 <div style="text-align: right ">
-                                    <button type="button" class="btn btn-info">글작성</button>
+                                    <button type="button" class="btn btn-info" onclick="location.href='/noticewrite'">글작성</button>
                                 </div>
 
                                 <nav>

@@ -15,30 +15,22 @@
                 <th>구분</th>
                 <th>소개</th>
                 <th>경력</th>
-                <th>승인 / 거절</th>
             </tr>
             </thead>
             <tbody class="table-hover">
             <tr th:each="apList : ${apList}">
-                <td th:if="${apList.corp_code == i}" th:text="${test}" ></td>
-                <td th:unless="${apList.corp_code == i}" th:text="${test1}" ></td>
+                <td th:if="${apList.corp_code == i}" th:text="개인" ></td>
+                <td th:unless="${apList.corp_code == i}" th:text="법인" ></td>
                 <td class="modalBtn">
                     <div>
                         <span class="badge bg-grey"  th:text="${#strings.substring(apList.d_license_no,3, 5)}"></span>
                         <span class="badge bg-grey" th:text="${apList.car_model}"></span>
                     </div>
                 </td>
-                <td th:text="${#strings.substring(apList.d_license_no,0, 2)}"></td>
-                <td>
-                    <button class="btn btn-success" type="button" id="app-approval">승인</button>
-                    <button class="btn btn-danger" type="button" id="app-refusal">거절</button>
-                </td>
+                <td th:text="|${#strings.substring(apList.d_license_no,0, 2)}년 취득|"></td>
             </tr>
             </tbody>
         </table>
-        <div class="">
-            <br>
-        </div>
         <!-- 페이지 네이션 -->
         <nav>
             <ul class="pagination justify-content-center">
@@ -79,11 +71,12 @@
                             <p th:text="|자격증번호 : ${dvList.d_license_no}|"></p>
                             <p th:text="|차량 : ${dvList.car_model}|"></p>
                             <p th:text="|지역 :  ${#strings.substring(dvList.d_license_no,3, 5)}|"></p>
-                            <p th:text="|휴대폰번호 : ${#strings.substring(dvList.d_id,2, 12)}|"></p>
+                            <p th:text="|휴대폰번호 : ${#strings.substring(dvList.d_id,2, 13)}|"></p>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button class="btn" type="button" id="allow-approval">승인</button>
+                        <button class="btn" type="button" id="remove-driver">거절</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
