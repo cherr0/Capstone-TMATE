@@ -29,14 +29,14 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">제목</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Tmate 이벤트입니다." id="title">
+                        <input type="text" class="form-control" id="title" th:text="${event.bd_title}">
                     </div>
                     <br>
                     <div class="input-group input-group-lg">
                         <div class="input-group-prepend">
                             <span class="input-group-text">내용</span>
                         </div>
-                        <textarea class="form-control" rows="5" id="content"></textarea>
+                        <textarea class="form-control" rows="5" id="content" th:text="${event.bd_contents}"></textarea>
                     </div>
                     <br>
 <!--                    <div class="input-group input-group-lg">-->
