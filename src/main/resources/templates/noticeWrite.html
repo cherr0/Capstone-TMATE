@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+<br><br><br><br><br><br>
+
+        <table>
+
+
+
+        <div id="main">
+            <section class="four">
+                <div class="container">
+                    <h2>공지사항 작성</h2><hr>
+                    <div style="float: right" class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            공개 <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">공개</a></li>
+                            <li><a href="#">비공개</a></li>
+                            <li><a href="#">예약</a></li>
+                        </ul>
+                    </div>
+                    </div>
+                    </div><br><br>
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">제목</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="제목을 작성해 주세요." id="title">
+                    </div>
+                    <br>
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">내용</span>
+                        </div>
+                        <textarea class="form-control" rows="5" id="content"></textarea>
+                    </div>
+                    <br>
+<!--                    <div class="input-group input-group-lg">-->
+<!--                        <div class="input-group-prepend">-->
+<!--                            <span class="input-group-text">작성자</span>-->
+<!--                        </div>-->
+<!--                        <input type="text" class="form-control" placeholder="작성자를 입력해 주세요" id="writer"><br>-->
+<!--                    </div>-->
+                    <br>
+                    <button id="back" class="btn btn-danger" style="float: right">뒤로</button>
+                    <button id="write" class="btn btn-primary modalBtn" style="float: right">글 등록</button>
+                </div>
+
+            </section>
+        </div>
+        </table>
+        </div>
+
+        <div class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">예약 일자</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                                가나다라마바사
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <script>
+            $(document).ready(function () {
+                var modal = $(".modal");
+
+                $(".modalBtn").on("click", function (e) {
+                    modal.modal("show");
+                });
+
+            });
+        </script>
+    </th:block>
+</th:block>
+</html>

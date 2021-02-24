@@ -19,15 +19,16 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h2 style="margin-top: auto">이벤트</h2><hr><br>
+                                <h2 style="margin-top: auto">공지사항</h2><hr><br>
                                 <div class="row">
-                                    <div class="col-sm-3"><p th:text="${event.bd_title}">제목 : Tmate 이벤트 입니다.</p></div>
-                                    <div class="col-sm-2"><p th:text="${event.bd_status}">등록일 : 2021-02-17</p></div>
-                                    <div class="col-sm-2"><p th:text="${event.bd_id}">작성자 : 하창현</p></div>
-                                    <div class="col-sm-2"><p th:text="${event.bd_status}">상태 : (공개)</p></div>
+                                    <div class="col-sm-3"><p th:text="${notice.bd_title}">제목 : Tmate 이벤트 입니다.</p></div>
+                                    <div class="col-sm-2"><p th:text="${notice.bd_status}">등록일 : 2021-02-17</p></div>
+                                    <div class="col-sm-2"><p th:text="${notice.bd_id}">작성자 : 하창현</p></div>
+                                    <div class="col-sm-2"><p th:text="${notice.bd_status}">상태 : (공개)</p></div>
                                 </div>
+                            </div>
                             <!-- /.card-header -->
-                            <div class="card-body" th:text="${event.bd_contents}">
+                            <div class="card-body" th:text="${notice.bd_contents}">
                             </div>
                             <br>
                         </div>
@@ -42,8 +43,6 @@
                 <!-- /.col -->
             </div>
             <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
         </section>
         <!-- /.content -->
     </th:block>
