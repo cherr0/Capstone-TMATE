@@ -27,13 +27,26 @@
             </thead>
             <tbody>
             <tr th:each="memberList : ${memberList}">
-                <td class="text-center">유저</td>
-                <td class="text-center" th:text="${memberList.m_name}"></td>
+                <td class="text-center" th:switch="${#strings.substring(memberList.m_id, 0, 1)}">
+                    <p th:case="u">유저</p>
+                    <p th:case="d">기사</p>
+                    <p th:case="a">관리자</p>
+                </td>
+                <td class="text-center" th:text="${memberList.m_name}" onclick="location.href='/user/{m_id}'"></td>
                 <td class="text-center" th:text="${#strings.substring(memberList.m_id,2, 12)}"></td>
                 <td class="text-center" th:text="${#strings.substring(memberList.m_regdate,0, 10)}"></td>
                 <td class="text-center" th:text="${#strings.substring(memberList.m_birth,2, 10)}"></td>
-                <td class="text-center" th:text="${memberList.m_level}"></td>
-                <td class="text-center" th:text="${memberList.m_status}"></td>
+                <td class="text-center" th:switch="${memberList.m_level}">
+                    <p th:case="0">일반</p>
+                    <p th:case="1">우수</p>
+                    <p th:case="2">최우수</p>
+                    <p th:case="3">VIP</p>
+                </td>
+                <td class="text-center" th:switch="${memberList.m_status}">
+                    <p th:case="0">정상</p>
+                    <p th:case="1">휴면</p>
+                    <p th:case="2">정지</p>
+                </td>
             </tr>
         </table>
 

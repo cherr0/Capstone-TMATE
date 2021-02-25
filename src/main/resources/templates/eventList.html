@@ -43,7 +43,7 @@
                                     <tbody>
                                     <tr>
                                     <tr th:each="eventList : ${eventList}">
-                                        <td th:text="${eventList.e_id}"></td>
+                                        <td th:text="${eventList.e_id}"  onclick="location.href='/event/{e_id}'"></td>
                                         <td th:text="${eventList.e_kind}"></td>
                                         <td>하창현</td>
                                         <td>2021-02-21</td>
