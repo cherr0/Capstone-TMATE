@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.BoardMapper">
+
+    <select id="getBoardList" resultType="com.tmate.domain.BoardDTO">
+        <![CDATA[
+            select bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_count ,m_id
+            from
+                    (
+                        select /*+ INDEX_DESC(board board_pk) */
+                          rownum rn, bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_count, m_id
+                        from
+                             board
+                        where rownum <= #{pageNum} * #{amount}
+                        )
+            where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+
+    <update id="update">
+        update board
+        set bd_title = #{bd_title},
+        bd_contents = #{bd_contents},
+        bd_cre_date = sysdate
+        where bd_id = #{bd_id}
+    </update>
+
+    <delete id="delete">
+        delete from board where bd_id = #{bd_id}
+    </delete>
+
+    <insert id="insert">
+        insert into board (bd_id, bd_status, bd_contents, bd_title, m_id)
+        values('not'||bd_sec.nextval,#{bd_status},#{bd_contents},#{bd_title},#{m_id})
+    </insert>
+
+    <select id="read" resultType="com.tmate.domain.BoardDTO">
+        select * from board where bd_id = #{bd_id}
+    </select>
+</mapper>
