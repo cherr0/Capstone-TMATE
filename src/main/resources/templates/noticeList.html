@@ -43,7 +43,7 @@
                                     <tbody>
                                     <tr>
                                     <tr th:each="noticeList : ${noticeList}">
-                                        <td th:text="${noticeList.bd_id}"></td>
+                                        <td th:text="${noticeList.bd_id}" onclick="location.href='/notice/{bd_id}'"></td>
                                         <td th:text="${noticeList.bd_title}"></td>
                                         <td>하창현</td>
                                         <td th:text="${noticeList.bd_cre_date}"></td>
@@ -52,7 +52,6 @@
                                     </tr>
 
                                     </tbody>
-                                    </tfoot>
                                 </table>
                                 <br>
                                 <div style="text-align: right ">
@@ -96,10 +95,6 @@
             <!-- /.container-fluid -->
         </section>
         <!-- /.content -->
-        </div>
-        <!-- Main content -->
-
-
     </th:block>
 </th:block>
 </html>
