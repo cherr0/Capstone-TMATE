@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.Membermapper">
+
+<!--    <insert id="insert">-->
+<!--        insert into member(m_id, m_name,m_profile, m_imei, m_birth, m_email, m_house,m_invite)-->
+<!--        values(#{m_id},#{m_name},#{m_profile,jdbcType=VARCHAR},#{m_imei},#{m_birth},-->
+<!--               #{m_email,jdbcType=VARCHAR},#{m_house,jdbcType=VARCHAR},null)-->
+<!--    </insert>-->
+
+    <select id="getList" resultType="com.tmate.domain.MemberDTO">
+         <![CDATA[
+        select m_id, m_name, m_regdate, m_level, m_status, m_birth
+        from
+            (
+                select rownum rn, m_id, m_name, m_regdate, m_level, m_status, m_birth
+                from
+                    member
+                where rownum <= #{pageNum} * #{amount}
+            )
+        where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+
+    <select id="getMemberByM_id" resultType="com.tmate.domain.MemberDTO">
+        select * from member
+        where m_id = #{m_id}
+    </select>
+
+    <select id="countMembers" resultType="_int">
+        select count(*)
+        from member
+        where m_id like 'u%'
+    </select>
+
+    <select id="countDrivers" resultType="_int">
+        select count(*)
+        from (select * from driver where d_j_date is not null)
+    </select>
+
+    <update id="updateDate">
+        update driver set d_j_date = sysdate where d_id = #{d_id}
+    </update>
+
+    <delete id="deleteMember">
+        delete from member
+        where m_id = #{m_id}
+    </delete>
+</mapper>
