@@ -23,7 +23,7 @@
         order by ageGroup
     </select>
 
-    <select id="getHotPlaceList" resultType="com.tmate.domain.HotplaceCntVO">
+    <select id="getHotPlaceList" resultType="com.tmate.domain.PlaceDTO">
         select pl_name, pl_start
         from place
         order by pl_start desc
