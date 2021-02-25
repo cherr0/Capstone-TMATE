@@ -19,7 +19,7 @@
                         <div class="card">
                             <div class="card-header">
 
-                                <h2 style="margin-top: auto">공지사항</h2>
+                                <h2 style="margin-top: auto">이벤트관리</h2>
                                 <div style="text-align: right ">
                                     <button type="button" class="btn btn-primary">공지관리</button>
                                     <button type="button" class="btn btn-primary">이벤트관리</button>
@@ -32,7 +32,7 @@
                                 <table id="table" class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th style="text-align: left"><input type="checkbox" name="_selected_all_">&nbsp;번호</th>
+                                        <th>번호</th>
                                         <th>제목</th>
                                         <th>작성자</th>
                                         <th>등록일</th>
@@ -42,53 +42,20 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td style="text-align: left"><input type="checkbox" >&nbsp;&nbsp;1
-                                        </td>
-                                        <td>Tmate 입니다.</td>
+                                    <tr th:each="noticeList : ${noticeList}">
+                                        <td th:text="${noticeList.bd_id}" onclick="location.href='/notice/{bd_id}'"></td>
+                                        <td th:text="${noticeList.bd_title}"></td>
                                         <td>하창현</td>
-                                        <td>2021-02-17</td>
-                                        <td>4</td>
-                                        <td>비공개</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: left"><input type="checkbox">&nbsp;&nbsp;2</td>
-                                        <td>Tmate 입니다.</td>
-                                        <td>박중원</td>
-                                        <td>2021-02-17</td>
-                                        <td>7</td>
-                                        <td>비공개</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: left"><input type="checkbox">&nbsp;&nbsp;3</td>
-                                        <td>Tmate입니다.</td>
-                                        <td>김진수</td>
-                                        <td>2021-02-17</td>
-                                        <td>4</td>
+                                        <td th:text="${noticeList.bd_cre_date}"></td>
+                                        <td th:text="${noticeList.bd_count}"></td>
                                         <td>공개</td>
                                     </tr>
-                                    <tr>
-                                        <td style="text-align: left"><input type="checkbox">&nbsp;&nbsp;4</td>
-                                        <td>Tmate 입니다.</td>
-                                        <td>박한수</td>
-                                        <td>2021-02-17</td>
-                                        <td>13</td>
-                                        <td>비공개</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: left"><input type="checkbox">&nbsp;&nbsp;5</td>
-                                        <td>Tmate 입니다.</td>
-                                        <td>강병현</td>
-                                        <td>2021-02-17</td>
-                                        <td>41</td>
-                                        <td>공개</td>
-                                    </tr>
+
                                     </tbody>
-                                    </tfoot>
                                 </table>
                                 <br>
                                 <div style="text-align: right ">
-                                    <button type="button" class="btn btn-info">글작성</button>
-                                    <button type="button" class="btn btn-info">삭제</button>
+                                    <button type="button" class="btn btn-info" onclick="location.href='/noticewrite'">글작성</button>
                                 </div>
 
                                 <nav>
@@ -104,6 +71,11 @@
                                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                                         <li class="page-item"><a class="page-link" href="#">4</a></li>
                                         <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">8</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">9</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">10</a></li>
                                         <li class="page-item">
                                             <a class="page-link" href="#" aria-label="Next">
                                                 <span aria-hidden="true">&raquo;</span>
@@ -123,10 +95,6 @@
             <!-- /.container-fluid -->
         </section>
         <!-- /.content -->
-        </div>
-        <!-- Main content -->
-
-
     </th:block>
 </th:block>
 </html>

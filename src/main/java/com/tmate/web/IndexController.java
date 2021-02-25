@@ -1,12 +1,19 @@
 package com.tmate.web;
 
+import com.tmate.domain.*;
+import com.tmate.service.MainService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
+
+@RequiredArgsConstructor
 @Controller
 public class IndexController {
 
+    private final MainService mainService;
 
     // 로그인 전 메인화면
     @GetMapping("/")
@@ -16,56 +23,21 @@ public class IndexController {
 
     // 로그인 메인화면
     @GetMapping("/main")
-    public String main() {
+    public String main(Model model) {
+        int members = mainService.countMembers();       // 총 유저 수
+        int drivers = mainService.countDrivers();       // 총 기사 수
+        int weeklyUsers = mainService.countWeeklyUsers();   // 주간 이용자 수
+        List<MonthlyUsersVO> monthlyUsers = mainService.countMonthlyUsers(); // 월간 이용자 수
+        List<UsersByAgeVO> usersByAge = mainService.countUsersByAge();  // 연령별 이용자 수
+        List<PlaceDTO> placeByStart = mainService.rankHotplaceByStart();    // 핫플레이스 이용 순위
+
+        model.addAttribute("members", members);
+        model.addAttribute("drivers", drivers);
+        model.addAttribute("weeklyUsers", weeklyUsers);
+        model.addAttribute("monthlyUsers", monthlyUsers);
+        model.addAttribute("usersByAge", usersByAge);
+        model.addAttribute("placeByStart", placeByStart);
         return "main";
     }
 
-    // 공지 목록
-    @GetMapping("/notice")
-    public String noticeList() {
-        return "noticeList";
-    }
-
-    // 공지 글 조회
-    @GetMapping("/notice/{bd_id}")
-    public String notceDetail(@PathVariable String bd_id) {
-
-        return "noticeDetail";
-    }
-
-    // 이벤트 목록
-    @GetMapping("/event")
-    public String eventList() {
-        return "eventList";
-    }
-
-    // 이벤트 글 조회
-    @GetMapping("/event/{bd_id}")
-    public String eventDetail(@PathVariable String bd_id) {
-        return "eventDetail";
-    }
-
-    // 회원 목록
-    @GetMapping("/user")
-    public String userList() {
-        return "userList";
-    }
-
-    // 회원 상세 조회
-    @GetMapping("/user/{u_id}")
-    public String userDetail(@PathVariable String u_id) {
-        return "userDetail";
-    }
-
-    // 기사 승인 대기 목록
-    @GetMapping("/approval")
-    public String approval() {
-        return "approvalList";
-    }
-
-    // 핫플레이스 목록 관리
-    @GetMapping("/hotplace")
-    public String hotplace() {
-        return "hotplace";
-    }
 }
