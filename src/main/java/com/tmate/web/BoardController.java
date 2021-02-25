@@ -53,7 +53,10 @@ public class BoardController {
 
     // 공지 수정 페이지
     @GetMapping("/noticemodify")
-    public String noticeModify() {
+    public String noticeModify(Model model,String bd_id) {
+        BoardDTO board = boardService.get(bd_id);
+
+        model.addAttribute("board", board);
         return "noticeModify";
     }
 

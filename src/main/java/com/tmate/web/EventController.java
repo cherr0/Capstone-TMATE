@@ -53,7 +53,10 @@ public class EventController {
 
     // 이벤트 글 수정 페이지
     @GetMapping("/eventmodify")
-    public String eventModify() {
+    public String eventModify(Model model, String e_id) {
+        EventDTO event = eventService.get(e_id);
+
+        model.addAttribute("event", event);
         return "eventModify";
     }
 
