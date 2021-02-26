@@ -30,7 +30,7 @@
     <select id="countMembers" resultType="_int">
         select count(*)
         from member
-        where m_id like 'u%'
+        where m_id like 'm%'
     </select>
 
     <select id="countDrivers" resultType="_int">
