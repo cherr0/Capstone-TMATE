@@ -18,9 +18,9 @@ public class HotplaceController {
 
     // 핫플레이스 목록 관리
     @GetMapping("/hotplace")
-    public String hotplace(Model model) {
+    public String hotPlace(Model model) {
         List<PlaceDTO> placeList = placeService.getHotPlaceList();
-
+        System.out.println("Controller hotPlace() use");
         model.addAttribute("placeList", placeList);
         return "hotplace";
     }
@@ -32,7 +32,7 @@ public class HotplaceController {
     // 핫플레이스 삭제
     @DeleteMapping("/api/hotplaceremove")
     public boolean hotplaceRemove(String p_id) {
-        System.out.println("DeleteMapping hotplaceRemove() place No : " + p_id);
+        System.out.println("DeleteMapping hotplace Remove() place No : " + p_id);
         return placeService.remove(p_id);
     }
 }

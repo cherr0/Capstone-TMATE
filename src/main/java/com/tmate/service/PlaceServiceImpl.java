@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlaceServiceImpl implements PlaceService{
 
-    private PlaceMapper placeMapper;
+    private final PlaceMapper placeMapper;
 
     @Override
     public List<PlaceDTO> getHotPlaceList() {
