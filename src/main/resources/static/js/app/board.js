@@ -23,6 +23,11 @@ const board = {
             _this.noticeRemove();
         });
 
+        // 글 목록
+        $('#notice-list').on('click', function () {
+           _this
+        });
+
     },
 
     // 공지 글 작성
@@ -95,6 +100,11 @@ const board = {
         }).fail(function (err) {
             alert(JSON.stringify(err));
         });
+    },
+
+    // 공지 리스트 돌아가기
+    noticeList : function () {
+        window.location.href = "/notice";
     }
 }
 
