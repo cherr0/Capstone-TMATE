@@ -6,10 +6,30 @@
 
     <th:block th:fragment="content">
         <link th:href="@{css/approvalList.css}" rel="stylesheet">
-        <br><br>
-
-        <h1 class="mt-4">승인관리</h1>
-        <table class="table  table-earning table-light text-center">
+        <div class="ap_title">
+            <h1 class="mt-4">승인관리</h1>
+            <h1 class="mt-4 ap_title_d">기사정보</h1>
+        </div>
+        <div class="apinfo-size float-right">
+            <div>
+                <div class="float-left ap_profile">
+                    <img src="images/icon/avatar-01.jpg">
+                </div>
+                <div class="float-left" th:each="dvList : ${dvList}">
+                    <p class="apinfo-font" th:text="|이름 : ${dvList.m_name}|"></p>
+                    <p class="apinfo-font" th:text="|생년월일 : ${dvList.m_birth}|"></p>
+                    <p class="apinfo-font" th:text="|자격증번호 : ${dvList.d_license_no}|"></p>
+                    <p class="apinfo-font" th:text="|차량 : ${dvList.car_model}|"></p>
+                    <p class="apinfo-font" th:text="|지역 :  ${#strings.substring(dvList.d_license_no,3, 5)}|"></p>
+                    <p class="apinfo-font" th:text="|휴대폰번호 : ${#strings.substring(dvList.d_id,2, 13)}|"></p>
+                    <div>
+                        <button class="btn" type="button" id="allow-approval">승인</button>
+                        <button class="btn" type="button" id="remove-driver">거절</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table  table-earning table-light text-center aptable-size">
             <thead>
             <tr>
                 <th>구분</th>
@@ -19,8 +39,10 @@
             </thead>
             <tbody class="table-hover">
             <tr th:each="apList : ${apList}">
-                <td th:if="${apList.corp_code == i}" th:text="개인" ></td>
-                <td th:unless="${apList.corp_code == i}" th:text="법인" ></td>
+                <td th:switch="${apList.corp_code}">
+                    <p th:case="c">법인</p>
+                    <p th:case="i">개인</p>
+                </td>
                 <td class="modalBtn">
                     <div>
                         <span class="badge bg-grey"  th:text="${#strings.substring(apList.d_license_no,3, 5)}"></span>
@@ -31,6 +53,7 @@
             </tr>
             </tbody>
         </table>
+
         <!-- 페이지 네이션 -->
         <nav>
             <ul class="pagination justify-content-center">
@@ -53,45 +76,6 @@
         </nav>
 
         <!-- 모달 -->
-        <div class="modal fade">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">기사 정보</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="float-left">
-                            <img src="images/icon/avatar-01.jpg">
-                        </div>
-                        <div class="float-left" th:each="dvList : ${dvList}">
-                            <p th:text="|이름 : ${dvList.m_name}|"></p>
-                            <p th:text="|생년월일 : ${dvList.m_birth}|"></p>
-                            <p th:text="|자격증번호 : ${dvList.d_license_no}|"></p>
-                            <p th:text="|차량 : ${dvList.car_model}|"></p>
-                            <p th:text="|지역 :  ${#strings.substring(dvList.d_license_no,3, 5)}|"></p>
-                            <p th:text="|휴대폰번호 : ${#strings.substring(dvList.d_id,2, 13)}|"></p>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn" type="button" id="allow-approval">승인</button>
-                        <button class="btn" type="button" id="remove-driver">거절</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
 
-
-        <script>
-            $(document).ready(function () {
-                var modal = $(".modal");
-
-                $(".modalBtn").on("click", function (e) {
-                    modal.modal("show");
-                });
-
-            });
-        </script>
     </th:block>
 </th:block>
