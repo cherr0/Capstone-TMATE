@@ -14,3 +14,28 @@
 .bg-grey {
     background-color: grey;
 }
+.aptable-size{
+    width: 48%;
+    height: 50vh;
+}
+.apinfo-size{
+    width: 48%;
+    background-color: #FFFFFF;
+    height: 50vh;
+}
+.apinfo-font{
+    font-size: 1.5rem;
+}
+.ap_profile{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 70%;
+    overflow: hidden;
+}
+.ap_title{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.ap_title_d{
+    margin-left: 1rem;
+}
