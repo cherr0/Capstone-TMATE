@@ -26,7 +26,7 @@
                                     <h2 style="margin-top: auto">이벤트</h2>
                                     <div class="row">
                                         <div class="col-sm-2"><p th:text="|번호 : ${event.e_id}|">번호 : not1</p></div>
-                                        <div class="col-sm-3"><p th:text="|제목 : ${event.e_kind}|">제목 : Tmate 이벤트 입니다.</p></div>
+                                        <div class="col-sm-3"><p th:text="|이벤트 이름 : ${event.e_kind}|">제목 : Tmate 이벤트 입니다.</p></div>
                                         <div class="col-sm-2"><p th:text="|시작 날짜 : ${event.e_s_date}|">시작 날짜 : 2021-02-17</p></div>
                                         <div class="col-sm-2"><p th:text="|종료 날짜 : ${event.e_e_date}|">종료 날짜 : 2021-02-17</p></div>
                                         <div class="col-sm-2"><p>작성자 : 하창현</p></div>
@@ -37,12 +37,12 @@
                                     </div>
                                     <br>
                                 </div>
-                                <div style="text-align: right ">
-                                    <button type="button" class="btn btn-primary" onclick="location.href='/event'" id="event-remove">삭제</button>
-                                    <button type="button" class="btn btn-primary"  id="event-detail-modify" onclick="location.href='/eventmodify'">글 수정</button>
-                                    <button type="button" class="btn btn-primary" onclick="location.href='/event'">글 목록</button>
-                                </div>
+                            <div style="text-align: right ">
+                                <button type="button" class="btn btn-primary" onclick="location.href='/event'" id="event-remove">삭제</button>
+                                <button type="button" class="btn btn-primary"  id="event-detail-modify">글 수정</button>
+                                <button type="button" class="btn btn-primary" id="event-list">글 목록</button>
                             </div>
+                            <!-- /.card-body -->
                         </div>
                     </div>
                 </div>
@@ -50,6 +50,7 @@
         </section>
     </div>
 </div>
+<input id="e_id" type="hidden" th:value="${event.e_id}">
 
 <footer th:replace="layout/basic :: footer">
 </footer>

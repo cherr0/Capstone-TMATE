@@ -52,8 +52,8 @@ public class EventController {
 
 
     // 이벤트 글 수정 페이지
-    @GetMapping("/eventmodify")
-    public String eventModify(Model model, String e_id) {
+    @GetMapping("/eventmodify/{e_id}")
+    public String eventModify(Model model,@PathVariable String e_id) {
         EventDTO event = eventService.get(e_id);
 
         model.addAttribute("event", event);

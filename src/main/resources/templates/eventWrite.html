@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/basic :: head}">
+
 </head>
 
 <body class="animsition">
@@ -27,9 +28,9 @@
                 </div>
                 <div class="input-group input-group-lg">
                     <div class="input-group-prepend">
-                        <span class="input-group-text">제목</span>
+                        <span class="input-group-text">이벤트 이름</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="제목을 작성해 주세요." id="event-write-title">
+                    <input type="text" class="form-control" placeholder="제목을 작성해 주세요." id="event-write-kind">
                 </div>
                 <br>
                 <div class="input-group input-group-lg">
@@ -38,8 +39,16 @@
                     </div>
                     <textarea class="form-control" rows="5" id="event-write-content"></textarea>
                 </div>
-                <button class="btn btn-danger" style="float: right" onclick="location.href='/event'">뒤로</button>
-                <button id="event-write" class="btn btn-primary modalBtn" style="float: right" onclick="location.href='/event'">글 등록</button>
+                <div id="datetimepicker1" class="input-append date">
+                    <input data-format="dd/MM/yyyy hh:mm:ss" type="text"/>
+                    <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
+                </div>
+                <div id="datetimepicker2" class="input-append date">
+                    <input data-format="dd/MM/yyyy hh:mm:ss" type="text"/>
+                    <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
+                </div>
+                <button class="btn btn-danger" style="float: right" id="return-event">뒤로</button>
+                <button id="event-write" class="btn btn-primary modalBtn" style="float: right">글 등록</button>
             </section>
         </section>
     </div>
@@ -47,5 +56,6 @@
 
 <footer th:replace="layout/basic :: footer">
 </footer>
+
 </body>
 </html>

@@ -5,27 +5,41 @@ const event = {
         const _this = this;
 
         // 글 작성
-        $('#board-write').on('click', function () {
+        $('#event-write').on('click', function () {
             _this.eventWrite();
         });
 
         // 글 수정
-        $('#board-modify').on('click', function () {
+        $('#event-modify').on('click', function () {
             _this.eventModify();
+        });
+
+        // 글 수정 화면 이동
+        $('#event-modify-move').on('click', function () {
+            _this.eventModMove();
         });
 
         // 글 삭제
         $('#board-delete').on('click', function () {
             _this.eventDelete();
-        })
+        });
 
+        // 리스트 이동
+        $('#return-event').on('click', function () {
+            _this.eventList();
+        });
+
+
+        $('#datetimepicker1').datetimepicker();
     },
 
     // 이벤트 작성
     eventWrite : function () {
         const data = {
-            title: $('#title').val(),
-            content: $('#content').val()
+            e_kind: $('#event-write-kind').val(),
+            content: $('#event-write-content').val(),
+            e_s_date: new Date(),
+            e_e_date: $('')
         };
 
         $.ajax({
@@ -63,6 +77,12 @@ const event = {
         });
     },
 
+    // 이벤트 글 수정 화면 이동
+    eventModMove : function () {
+        const e_id = $('#e_id').text();
+        window.location.href = '/eventmodify/' + e_id;
+    },
+
     // 이벤트 글 삭제
     eventDelete : function () {
         const data = {
@@ -81,7 +101,13 @@ const event = {
         }).fail(function (err) {
             alert(JSON.stringify(err));
         });
-    }
+    },
+
+
+    // 이벤트 리스트 이동
+    eventList : function () {
+        window.location.href = "/event";
+    },
 }
 
 event.init();
