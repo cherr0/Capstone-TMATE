@@ -1,52 +1,66 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
+</head>
 
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
-    <th:block th:fragment="content">
-        <br><br><br><br><br><br>
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic :: mobile"></aside>
+    <aside th:replace="layout/basic :: sidebar"></aside>
 
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- Main content -->
+    <div class="page-container">
+        <div th:replace="layout/basic :: header"></div>
+        <section class="container-fluid contents_size">
+            <br><br><br><br><br><br>
 
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h2 style="margin-top: auto">공지사항</h2><hr><br>
-                                <div class="row">
-                                    <div class="col-sm-2"><p th:text="|번호 : ${notice.bd_id}|">번호 : not1</p></div>
-                                    <div class="col-sm-3"><p th:text="|제목 : ${notice.bd_title}|">제목 : Tmate 이벤트 입니다.</p></div>
-                                    <div class="col-sm-2"><p th:text="|작성일자 : ${notice.bd_cre_date}|">시작 날짜 : 2021-02-17</p></div>
-                                    <div class="col-sm-2"><p>작성자 : 하창현</p></div>
-                                    <div class="col-sm-2"><p th:text="|상태 : ${notice.bd_status}|">상태 : (공개)</p></div>
-                                </div>
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body" th:text="${notice.bd_contents}">
-                            </div>
-                            <br>
-                        </div>
-                        <div style="text-align: right ">
-                            <button type="button" class="btn btn-primary" onclick="location.href='/notice'" id="notice-remove">삭제</button>
-                            <button type="button" class="btn btn-primary" onclick="location.href='/noticemodify'" id="noticedetail-motify">글 수정</button>
-                            <button type="button" class="btn btn-primary" onclick="location.href='/notice'">글 목록</button>
-                        </div>
-                        <!-- /.card-body -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
                     </div>
-                    <!-- /.card -->
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- Main content -->
+
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 style="margin-top: auto">공지사항</h2><hr><br>
+                                    <div class="row">
+                                        <div class="col-sm-2">번호 :<p id="bd_id" th:text="${notice.bd_id}"></p></div>
+                                        <div class="col-sm-3"><p th:text="|제목 : ${notice.bd_title}|">제목 : Tmate 이벤트 입니다.</p></div>
+                                        <div class="col-sm-2"><p th:text="|작성일자 : ${notice.bd_cre_date}|">시작 날짜 : 2021-02-17</p></div>
+                                        <div class="col-sm-2"><p>작성자 : 하창현</p></div>
+                                        <div class="col-sm-2"><p th:text="|상태 : ${notice.bd_status}|">상태 : (공개)</p></div>
+                                    </div>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body" th:text="${notice.bd_contents}">
+                                </div>
+                                <br>
+                            </div>
+                            <div style="text-align: right ">
+                                <button type="button" class="btn btn-primary" id="notice-remove">삭제</button>
+                                <button type="button" class="btn btn-primary" onclick="location.href='/noticemodify'">글 수정</button>
+                                <button type="button" class="btn btn-primary" onclick="location.href='/notice'">글 목록</button>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
                 </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.row -->
+                <!-- /.row -->
+            </section>
+            <!-- /.content -->
         </section>
-        <!-- /.content -->
-    </th:block>
-</th:block>
+    </div>
+</div>
+
+<footer th:replace="layout/basic :: footer">
+</footer>
+<script th:src="@{~/js/app/board.js}"></script>
+</body>
 </html>

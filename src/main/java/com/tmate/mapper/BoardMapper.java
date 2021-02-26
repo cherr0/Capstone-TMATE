@@ -19,7 +19,7 @@ public interface BoardMapper {
     int update(BoardDTO boardDTO);
 
     // 게시판 추가
-    void insert(BoardDTO boardDTO);
+    int insert(BoardDTO boardDTO);
 
     // 게시판 조회
     BoardDTO read(String bd_id);
