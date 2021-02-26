@@ -1,190 +1,188 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<meta charset="UTF-8">
-<style>
-    body{
-        overflow: hidden;
-    }
-</style>
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+<head th:replace="~{layout/basic :: head}">
+</head>
 
-    <th:block th:fragment="content">
-        <link th:href="@{css/hotplace.css}" rel="stylesheet">
+<body class="animsition" onload="initTmap();">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic :: mobile"></aside>
+    <aside th:replace="layout/basic :: sidebar"></aside>
 
-        <body onload="initTmap();">
-        <div class="map_size">
-            <div>
-                <input type="text" class="text_custom" id="searchKeyword" name="searchKeyword" value="서울시">
-                <button id="btn_select">적용하기</button>
-            </div>
-            <div>
-                <div style="width: 30%; float:left;">
-                    <div class="title"><strong>Search</strong> Results</div>
-                    <div class="rst_wrap">
-                        <div class="rst mCustomScrollbar">
-                            <ul id="searchResult" name="searchResult">
-                                <li>검색결과</li>
-                            </ul>
-                        </div>
-                    </div>
+    <div class="page-container">
+        <div th:replace="layout/basic :: header"></div>
+        <section class="container-fluid contents_size">
+            <link th:href="@{css/hotplace.css}" rel="stylesheet">
+            <div class="map_size">
+                <div>
+                    <input type="text" class="text_custom" id="searchKeyword" name="searchKeyword" value="서울시">
+                    <button id="btn_select">적용하기</button>
                 </div>
-                <div id="map_div" class="map_wrap" style="float:left"></div>
+                <div>
+                    <div style="width: 30%; float:left;">
+                        <div class="title"><strong>Search</strong> Results</div>
+                        <div class="rst_wrap">
+                            <div class="rst mCustomScrollbar">
+                                <ul id="searchResult" name="searchResult">
+                                    <li>검색결과</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="map_div" class="map_wrap" style="float:left"></div>
+                </div>
             </div>
-        </div>
-        <div class="scroll table_size">
-            <table class="table table-earning table-light text-center">
-                <thead>
-                <tr>
-                    <th>장소명</th>
-                    <th>출발지 선택 횟수</th>
-                    <th>도착지 선택 횟수</th>
-                    <th>삭제</th>
-                </tr>
-                </thead>
-                <tbody class="table-hover ">
-                <tr th:each="placeList : ${placeList}">
-                    <td th:text="|우편 번호 : ${placeList.pl_id}|"></td>
-                    <td class="modalBtn" th:text="|장소명 : ${placeList.pl_name}|"></td>
-                    <td th:text="|출발지 횟수 : ${placeList.pl_start}|">1회</td>
-                    <td th:text="|도착지 횟수 : ${placeList.pl_finish}|">1회</td>
-                    <td>
-                        <button class="btn btn-default" type="button" id="hp-delete">삭제</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        </body>
-
-        <!-- 모달 -->
-        <div class="modal fade">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">핫플레이스 정보</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="float-left">
-                            <img src="images/icon/avatar-01.jpg">
+            <div class="scroll table_size">
+                <table class="table table-earning table-light text-center">
+                    <thead>
+                    <tr>
+                        <th>장소명</th>
+                        <th>출발지 선택 횟수</th>
+                        <th>도착지 선택 횟수</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-hover ">
+                    <tr th:each="placeList : ${placeList}">
+                        <td th:text="|우편 번호 : ${placeList.pl_id}|"></td>
+                        <td class="modalBtn" th:text="|장소명 : ${placeList.pl_name}|"></td>
+                        <td th:text="|출발지 횟수 : ${placeList.pl_start}|">1회</td>
+                        <td th:text="|도착지 횟수 : ${placeList.pl_finish}|">1회</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 모달 -->
+            <div class="modal fade">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">핫플레이스 정보</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
                         </div>
-                        <div class="float-left" th:each="placeList : ${placeList}">
-                            <p th:text="|우편번호 : ${placeList.pl_id}|"></p>
-                            <p th:text="|장소명 : ${placeList.pl_name}|"></p>
-                            <p th:text="|위도 : ${placeList.pl_lttd}|"></p>
-                            <p th:text="|경도 : ${placeList.pl_lngtd}|"></p>
-                            <p th:text="|출발지 횟수 :  ${placeList.pl_start}|"></p>
-                            <p th:text="|도착지 횟수 : ${placeList.pl_start}|"></p>
+                        <div class="modal-body">
+                            <div class="float-left">
+                                <img src="images/icon/avatar-01.jpg">
+                            </div>
+                            <div class="float-left" th:each="placeList : ${placeList}">
+                                <p th:text="|우편번호 : ${placeList.pl_id}|"></p>
+                                <p th:text="|장소명 : ${placeList.pl_name}|"></p>
+                                <p th:text="|위도 : ${placeList.pl_lttd}|"></p>
+                                <p th:text="|경도 : ${placeList.pl_lngtd}|"></p>
+                                <p th:text="|출발지 횟수 :  ${placeList.pl_start}|"></p>
+                                <p th:text="|도착지 횟수 : ${placeList.pl_start}|"></p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn" type="button" id="hotplace-remove">삭제</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                        <div class="modal-footer">
+                            <button class="btn" type="button" id="hotplace-remove">삭제</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
 
-        <script>
-            $(document).ready(function () {
-                var modal = $(".modal");
+            <script>
+                $(document).ready(function () {
+                    var modal = $(".modal");
 
-                $(".modalBtn").on("click", function (e) {
-                    modal.modal("show");
-                });
-
-            });
-        </script>
-        <script
-                src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7a3aedaa257443dab26e19a94f058d61"></script>
-        <script type="text/javascript">
-
-
-            var map, marker;
-            var markerArr = [];
-            function initTmap(){
-                // 1. 지도 띄우기
-                map = new Tmapv2.Map("map_div", {
-                    center: new Tmapv2.LatLng(37.570028, 126.986072),
-                    width : "70%",
-                    height : "60vh",
-                    zoom : 15,
-                    zoomControl : true,
-                    scrollwheel : true
-
-                });
-
-                // 2. POI 통합 검색 API 요청
-                $("#btn_select").click(function(){
-
-                    var searchKeyword = $('#searchKeyword').val();
-                    $.ajax({
-                        method:"GET",
-                        url:"https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
-                        async:false,
-                        data:{
-                            "appKey" : "l7xx7a3aedaa257443dab26e19a94f058d61",
-                            "searchKeyword" : searchKeyword,
-                            "resCoordType" : "EPSG3857",
-                            "reqCoordType" : "WGS84GEO",
-                            "count" : 10
-                        },
-                        success:function(response){
-                            var resultpoisData = response.searchPoiInfo.pois.poi;
-
-                            // 기존 마커, 팝업 제거
-                            if(markerArr.length > 0){
-                                for(var i in markerArr){
-                                    markerArr[i].setMap(null);
-                                }
-                            }
-                            var innerHtml ="";	// Search Reulsts 결과값 노출 위한 변수
-                            var positionBounds = new Tmapv2.LatLngBounds();		//맵에 결과물 확인 하기 위한 LatLngBounds객체 생성
-
-                            for(var k in resultpoisData){
-
-                                var noorLat = Number(resultpoisData[k].noorLat);
-                                var noorLon = Number(resultpoisData[k].noorLon);
-                                var name = resultpoisData[k].name;
-
-                                var pointCng = new Tmapv2.Point(noorLon, noorLat);
-                                var projectionCng = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(pointCng);
-
-                                var lat = projectionCng._lat;
-                                var lon = projectionCng._lng;
-
-                                var markerPosition = new Tmapv2.LatLng(lat, lon);
-
-                                marker = new Tmapv2.Marker({
-                                    position : markerPosition,
-                                    //icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_a.png",
-                                    icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png",
-                                    iconSize : new Tmapv2.Size(24, 38),
-                                    title : name,
-                                    map:map
-                                });
-
-                                innerHtml += "<li><img src='http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png' style='vertical-align:middle;'/><span>"+name+"</span></li>";
-
-                                markerArr.push(marker);
-                                positionBounds.extend(markerPosition);	// LatLngBounds의 객체 확장
-                            }
-
-                            $("#searchResult").html(innerHtml);	//searchResult 결과값 노출
-                            map.panToBounds(positionBounds);	// 확장된 bounds의 중심으로 이동시키기
-                            map.zoomOut();
-
-                        },
-                        error:function(request,status,error){
-                            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                        }
+                    $(".modalBtn").on("click", function (e) {
+                        modal.modal("show");
                     });
+
                 });
-            }
+            </script>
+            <script
+                    src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xx7a3aedaa257443dab26e19a94f058d61"></script>
+            <script type="text/javascript">
 
-        </script>
-    </th:block>
-</th:block>
 
-				
+                var map, marker;
+                var markerArr = [];
+                function initTmap(){
+                    // 1. 지도 띄우기
+                    map = new Tmapv2.Map("map_div", {
+                        center: new Tmapv2.LatLng(37.570028, 126.986072),
+                        width : "70%",
+                        height : "60vh",
+                        zoom : 15,
+                        zoomControl : true,
+                        scrollwheel : true
+
+                    });
+
+                    // 2. POI 통합 검색 API 요청
+                    $("#btn_select").click(function(){
+
+                        var searchKeyword = $('#searchKeyword').val();
+                        $.ajax({
+                            method:"GET",
+                            url:"https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
+                            async:false,
+                            data:{
+                                "appKey" : "l7xx7a3aedaa257443dab26e19a94f058d61",
+                                "searchKeyword" : searchKeyword,
+                                "resCoordType" : "EPSG3857",
+                                "reqCoordType" : "WGS84GEO",
+                                "count" : 10
+                            },
+                            success:function(response){
+                                var resultpoisData = response.searchPoiInfo.pois.poi;
+
+                                // 기존 마커, 팝업 제거
+                                if(markerArr.length > 0){
+                                    for(var i in markerArr){
+                                        markerArr[i].setMap(null);
+                                    }
+                                }
+                                var innerHtml ="";	// Search Reulsts 결과값 노출 위한 변수
+                                var positionBounds = new Tmapv2.LatLngBounds();		//맵에 결과물 확인 하기 위한 LatLngBounds객체 생성
+
+                                for(var k in resultpoisData){
+
+                                    var noorLat = Number(resultpoisData[k].noorLat);
+                                    var noorLon = Number(resultpoisData[k].noorLon);
+                                    var name = resultpoisData[k].name;
+
+                                    var pointCng = new Tmapv2.Point(noorLon, noorLat);
+                                    var projectionCng = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(pointCng);
+
+                                    var lat = projectionCng._lat;
+                                    var lon = projectionCng._lng;
+
+                                    var markerPosition = new Tmapv2.LatLng(lat, lon);
+
+                                    marker = new Tmapv2.Marker({
+                                        position : markerPosition,
+                                        //icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_a.png",
+                                        icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png",
+                                        iconSize : new Tmapv2.Size(24, 38),
+                                        title : name,
+                                        map:map
+                                    });
+
+                                    innerHtml += "<li><img src='http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png' style='vertical-align:middle;'/><span>"+name+"</span></li>";
+
+                                    markerArr.push(marker);
+                                    positionBounds.extend(markerPosition);	// LatLngBounds의 객체 확장
+                                }
+
+                                $("#searchResult").html(innerHtml);	//searchResult 결과값 노출
+                                map.panToBounds(positionBounds);	// 확장된 bounds의 중심으로 이동시키기
+                                map.zoomOut();
+
+                            },
+                            error:function(request,status,error){
+                                console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                            }
+                        });
+                    });
+                }
+
+            </script>
+        </section>
+    </div>
+</div>
+
+<footer th:replace="layout/basic :: footer">
+</footer>
+</body>
+</html>
