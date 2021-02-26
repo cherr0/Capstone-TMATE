@@ -14,8 +14,8 @@ const board = {
         });
 
         // 글 수정 화면 이동
-        $('#modify-move').on('click', function () {
-            _this.modifyMove();
+        $('#notice-modify-move').on('click', function () {
+            _this.noticeModMove();
         });
 
         // 글 삭제
@@ -71,7 +71,7 @@ const board = {
     },
 
     // 글 수정 화면 이동
-    modifyMove : function () {
+    noticeModMove : function () {
       const bd_id = $('#bd_id').text();
 
       window.location.href = '/noticemodify/' + bd_id;
