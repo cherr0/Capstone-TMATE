@@ -13,10 +13,16 @@ const board = {
             _this.noticeModify();
         });
 
+        // 글 수정 화면 이동
+        $('#modify-move').on('click', function () {
+            _this.modifyMove();
+        });
+
         // 글 삭제
         $('#notice-remove').on('click', function () {
             _this.noticeRemove();
-        })
+        });
+
     },
 
     // 공지 글 작성
@@ -45,8 +51,9 @@ const board = {
     // 공지 글 수정
     noticeModify : function () {
         const data = {
-            title: $('#title').val(),
-            content: $('#content').val()
+            bd_id: $('#bd_id').val(),
+            bd_title: $('#title').val(),
+            bd_contents: $('#content').val()
         };
 
         $.ajax({
@@ -63,10 +70,17 @@ const board = {
         });
     },
 
+    // 글 수정 화면 이동
+    modifyMove : function () {
+      const bd_id = $('#bd_id').text();
+
+      window.location.href = '/noticemodify/' + bd_id;
+    },
+
 
     // 공지 글 삭제
     noticeRemove : function () {
-        let data = {
+        const data = {
             bd_id: $('#bd_id').text()
         };
         console.log(data.bd_id);

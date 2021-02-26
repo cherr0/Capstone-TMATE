@@ -21,7 +21,7 @@ public class BoardApiController {
 
     // 공지 수정 전송
     @PutMapping("/api/noticemodify")
-    public boolean noticeModify(BoardDTO board) {
+    public boolean noticeModify(@RequestBody BoardDTO board) {
         System.out.println("PutMapping noticeModify() board : " + board.toString());
 
         return boardService.modify(board);
