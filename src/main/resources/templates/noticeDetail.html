@@ -28,12 +28,22 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h2 style="margin-top: auto">공지사항</h2><hr><br>
-                                    <div class="row">
-                                        <div class="col-sm-2">번호 :<p id="bd_id" th:text="${notice.bd_id}"></p></div>
-                                        <div class="col-sm-3"><p th:text="|제목 : ${notice.bd_title}|">제목 : Tmate 이벤트 입니다.</p></div>
-                                        <div class="col-sm-2"><p th:text="|작성일자 : ${notice.bd_cre_date}|">시작 날짜 : 2021-02-17</p></div>
-                                        <div class="col-sm-2"><p>작성자 : 하창현</p></div>
-                                        <div class="col-sm-2"><p th:text="|상태 : ${notice.bd_status}|">상태 : (공개)</p></div>
+                                    <div>
+                                        <div>
+                                            <div class="detail_font">
+                                                <p th:text="${notice.bd_title}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-2"><p id="bd_id" th:text="|번호 : ${#strings.substring(notice.bd_id,3)}|"></p></div>
+                                            <div class="col-sm-2"><p th:text="|작성일자 : ${#strings.substring(notice.bd_cre_date,0,16)}|">시작 날짜 : 2021-02-17</p></div>
+                                            <div class="col-sm-2"><p>작성자 : 하창현</p></div>
+                                            <div class="col-sm-2" th:switch="${notice.bd_status}">
+                                                <p th:case="0">상태 : 공개</p>
+                                                <p th:case="1">상태 : 비공개</p>
+                                                <p th:case="2">상태 : 예약</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- /.card-header -->
