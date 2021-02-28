@@ -29,17 +29,28 @@ const event = {
             _this.eventList();
         });
 
+        // 캘린더 활성화
+        $('#event-time-start').datetimepicker();
+        $('#event-time-end').datetimepicker({
+            useCurrent: false
+        });
 
-        $('#datetimepicker1').datetimepicker();
+        // 셀렉터 활성화
+        $('.selectpicker').selectpicker({
+            style: 'btn-info',
+            size: 4
+        });
+
     },
 
     // 이벤트 작성
     eventWrite : function () {
         const data = {
             e_kind: $('#event-write-kind').val(),
-            content: $('#event-write-content').val(),
-            e_s_date: new Date(),
-            e_e_date: $('')
+            e_contents: $('#event-write-content').val(),
+            e_s_date: new Date($('#event-time-start').val()),
+            e_e_date: new Date($('#event-time-end').val()),
+            e_status: $('#event-write-status').val()
         };
 
         $.ajax({
