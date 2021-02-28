@@ -11,11 +11,11 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
           type: 'line',
           datasets: [{
-            data: [78, 81, 80, 45, 34, 12, 40],
-            label: 'Dataset',
+            data: [0, 13, 0, 0, 0, 0, 0],
+            label: '유저수',
             backgroundColor: 'rgba(255,255,255,.1)',
             borderColor: 'rgba(255,255,255,.55)',
           },]
@@ -79,11 +79,11 @@
     var design = {
       type: 'line',
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+        labels: ['1월', '2월', '3월', '4월', '5월', '6월'],
         type: 'line',
         datasets: [{
-          data: [1, 18, 9, 17, 34, 22],
-          label: 'Dataset',
+          data: [0, 0, 0, 0, 0, 0],
+          label: '기사수',
           backgroundColor: 'transparent',
           borderColor: 'rgba(255,255,255,.55)',
         },]
@@ -187,11 +187,11 @@
     var design = {
       type: 'bar',
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        labels: ['월', '화', '수', '목', '금', '토', '일'],
         datasets: [
           {
-            label: "My First dataset",
-            data: [78, 81, 80, 65, 58, 75, 60, 75, 65, 60, 60, 75],
+            label: "이용수",
+            data: [0, 0, 0, 1, 2, 0, 0],
             borderColor: "transparent",
             borderWidth: "0",
             backgroundColor: "rgba(255,255,255,.3)"
@@ -609,7 +609,7 @@
           datasets: [
             {
               label: "My First dataset",
-              data: [21, 34, 23, 11, 6, 5],
+              data: [0, 13, 0, 0, 0, 0],
               backgroundColor: [
                 '#32ffff',
                 '#32beff',
@@ -1202,11 +1202,11 @@
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
           datasets: [
             {
-              label: "My First dataset",
-              data: [40, 55, 75, 81, 56, 55, 40, 30, 55, 80, 33, 52],
+              label: "월간 이용수",
+              data: [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)"

@@ -13,7 +13,7 @@ public interface EventMapper {
     List<EventDTO> getList(Criteria cri);
 
     // 이벤트 삽입
-    void insert(EventDTO eventDTO);
+    int insert(EventDTO eventDTO);
 
     // 이벤트 삭제
     int delete(String e_id);

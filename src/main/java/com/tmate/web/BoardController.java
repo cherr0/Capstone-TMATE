@@ -43,39 +43,14 @@ public class BoardController {
     }
 
 
-    // 공지 글 작성 전송
-    @PostMapping("/api/noticewrite")
-    public void noticeWrite(BoardDTO board) {
-        System.out.println("PostMapping noticeWrite() board : " + board.toString());
-
-        boardService.register(board);
-    }
-
     // 공지 수정 페이지
-    @GetMapping("/noticemodify")
-    public String noticeModify(Model model,String bd_id) {
+    @GetMapping("/noticemodify/{bd_id}")
+    public String noticeModify(Model model,@PathVariable String bd_id) {
         BoardDTO board = boardService.get(bd_id);
 
         model.addAttribute("board", board);
         return "noticeModify";
     }
 
-
-    // 공지 수정 전송
-    @PutMapping("/api/noticemodify")
-    public boolean noticeModify(BoardDTO board) {
-        System.out.println("PutMapping noticeModify() board : " + board.toString());
-
-        return boardService.modify(board);
-    }
-
-
-    // 공지 삭제
-    @DeleteMapping("/api/noticeremove")
-    public boolean noticeRemove(String bd_id) {
-        System.out.println("DeleteMapping noticeRemove() board No : " + bd_id);
-
-        return boardService.remove(bd_id);
-    }
 
 }

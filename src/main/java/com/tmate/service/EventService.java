@@ -18,7 +18,7 @@ public interface EventService {
     public boolean modify(EventDTO eventDTO);
 
     // 등록
-    public void register(EventDTO eventDTO);
+    public boolean register(EventDTO eventDTO);
 
     // 상세페이지
     public EventDTO get(String e_id);
