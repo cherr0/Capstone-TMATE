@@ -6,12 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
+@RequestMapping("/api")
 @RestController
 public class BoardApiController {
     private final BoardService boardService;
 
     // 공지 글 작성 전송
-    @PostMapping("/api/noticewrite")
+    @PostMapping("/noticewrite")
     public boolean noticeWrite(@RequestBody BoardDTO board) {
         System.out.println("PostMapping noticeWrite() board : " + board.toString());
 
@@ -20,7 +21,7 @@ public class BoardApiController {
 
 
     // 공지 수정 전송
-    @PutMapping("/api/noticemodify")
+    @PutMapping("/noticemodify")
     public boolean noticeModify(@RequestBody BoardDTO board) {
         System.out.println("PutMapping noticeModify() board : " + board.toString());
 
@@ -29,7 +30,7 @@ public class BoardApiController {
 
 
     // 공지 삭제
-    @DeleteMapping("/api/noticeremove")
+    @DeleteMapping("/noticeremove")
     public boolean noticeRemove(String bd_id) {
         System.out.println("DeleteMapping noticeRemove() board No : " + bd_id);
 
