@@ -7,80 +7,98 @@
 <div class="page-wrapper">
     <aside th:replace="layout/basic :: mobile"></aside>
     <aside th:replace="layout/basic :: sidebar"></aside>
+    <link th:href="@{css/approvalList.css}" rel="stylesheet">
 
     <div class="page-container">
         <div th:replace="layout/basic :: header"></div>
-        <section class="container-fluid contents_size">
-            <link th:href="@{css/approvalList.css}" rel="stylesheet">
-            <div class="ap_title">
-                <h1 class="mt-4">승인관리</h1>
-                <h1 class="mt-4 ap_title_d">기사정보</h1>
-            </div>
-            <div class="apinfo-size float-right">
-                <div>
-                    <div class="float-left ap_profile">
-                        <img th:href="@{${dvList.m_profile}}">
-                    </div>
-                    <div class="float-left" th:each="dvList : ${dvList}">
-                        <p class="apinfo-font" th:text="|이름 : ${dvList.m_name}|"></p>
-                        <p class="apinfo-font" th:text="|생년월일 : ${dvList.m_birth}|"></p>
-                        <p class="apinfo-font" th:text="|자격증번호 : ${dvList.d_license_no}|"></p>
-                        <p class="apinfo-font" th:text="|차량 : ${dvList.car_model}|"></p>
-                        <p class="apinfo-font" th:text="|지역 :  ${#strings.substring(dvList.d_license_no,3, 5)}|"></p>
-                        <p class="apinfo-font" th:text="|휴대폰번호 : ${#strings.substring(dvList.d_id,2, 13)}|"></p>
-                        <div>
-                            <button class="btn" type="button" id="allow-approval">승인</button>
-                            <button class="btn" type="button" id="remove-driver">거절</button>
+        <div class="container-fluid contents_size">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header ap_title">
+                                    <h2 class="mt-4">승인관리</h2>
+                                    <h1 class="mt-4 ap_title_d">기사정보</h1>
+                                </div>
+                                <div class="card-body">
+                                    <div class="apinfo-size float-right">
+                                        <div class="d_info">
+                                            <div class="text-center ap_profile">
+                                                <div class="">
+                                                    <img th:src="@{images/icon/avatar-01.jpg}">
+                                                </div>
+                                                <div>
+                                                    <p class="apinfo-font" >박한수</p>
+                                                </div>
+                                            </div>
+                                            <div class="ap_d_info">
+                                                <p class="apinfo-font" >생년월일 :  1997-08-02</p>
+                                                <p class="apinfo-font" >자격증번호 : 17-대구-12345</p>
+                                                <p class="apinfo-font" >차량 : 소나타</p>
+                                                <p class="apinfo-font" >지역 : 대구</p>
+                                                <p class="apinfo-font" >현대폰번호 : 010-9958-5295</p>
+                                            </div>
+                                            <div class="ap_button">
+                                                <button class="btn btn-primary" type="button" id="allow-approval">승인</button>
+                                                <button class="btn btn-info" type="button" id="remove-driver">거절</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded aptable-size">
+                                        <thead>
+                                        <tr>
+                                            <th>구분</th>
+                                            <th>소개</th>
+                                            <th>경력</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="table-hover">
+                                        <tr th:each="apList : ${apList}">
+                                            <td th:switch="${apList.corp_code}">
+                                                <p th:case="c">법인</p>
+                                                <p th:case="i">개인</p>
+                                            </td>
+                                            <td><a></a>
+                                                <div>
+                                                    <span class="badge bg-grey"  th:text="${#strings.substring(apList.d_license_no,3, 5)}"></span>
+                                                    <span class="badge bg-grey" th:text="${apList.car_model}"></span>
+                                                </div>
+                                            </td>
+                                            <td th:text="|${#strings.substring(apList.d_license_no,0, 2)}년 취득|"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <nav>
+                                        <ul class="pagination justify-content-md-start pn">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">처음으로</span>
+                                                </a>
+                                            </li>
+                                            <li class="active page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">7</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">8</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">9</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">10</a></li>
+                                            <a class="page-link" href="#" aria-label="Next">
+                                                <span aria-hidden="true">다음</span>
+                                            </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <table class="table  table-earning table-light text-center aptable-size">
-                <thead>
-                <tr>
-                    <th>구분</th>
-                    <th>소개</th>
-                    <th>경력</th>
-                </tr>
-                </thead>
-                <tbody class="table-hover">
-                <tr th:each="apList : ${apList}">
-                    <td th:switch="${apList.corp_code}">
-                        <p th:case="c">법인</p>
-                        <p th:case="i">개인</p>
-                    </td>
-                    <td><a></a>
-                        <div>
-                            <span class="badge bg-grey"  th:text="${#strings.substring(apList.d_license_no,3, 5)}"></span>
-                            <span class="badge bg-grey" th:text="${apList.car_model}"></span>
-                        </div>
-                    </td>
-                    <td th:text="|${#strings.substring(apList.d_license_no,0, 2)}년 취득|"></td>
-                </tr>
-                </tbody>
-            </table>
-
-            <!-- 페이지 네이션 -->
-            <nav>
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="active page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </section>
+            </section>
+        </div>
     </div>
 </div>
 
