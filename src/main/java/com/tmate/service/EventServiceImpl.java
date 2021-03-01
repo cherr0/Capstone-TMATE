@@ -13,8 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
 
-    @Autowired
-    private EventMapper eventMapper;
+
+    private final EventMapper eventMapper;
 
     // 이벤트 리스트
     @Override
