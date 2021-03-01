@@ -35,7 +35,7 @@ public class MemberController {
     public String userDetail(@PathVariable String m_id, Model model) {
         Map<String, Object> memberDetail = memberService.getMemberDetail(m_id);
 
-        model.addAttribute("pointList", memberDetail);  // 회원 포인트 리스트
+        model.addAttribute("List", memberDetail);  // 회원 포인트 리스트
         return "userDetail";
     }
 

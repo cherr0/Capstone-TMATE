@@ -13,17 +13,30 @@ const board = {
             _this.noticeModify();
         });
 
+        // 글 수정 화면 이동
+        $('#notice-modify-move').on('click', function () {
+            _this.noticeModMove();
+        });
+
         // 글 삭제
-        $('#notice-delete').on('click', function () {
-            _this.noticeDelete();
-        })
+        $('#notice-remove').on('click', function () {
+            _this.noticeRemove();
+        });
+
+        // 글 목록
+        $('#notice-list').on('click', function () {
+           _this
+        });
+
     },
 
     // 공지 글 작성
     noticeWrite : function () {
         const data = {
-            title: $('#title').val(),
-            content: $('#content').val()
+            bd_title: $('#notice-write-title').val(),
+            bd_contents: $('#notice-write-content').val(),
+            bd_status: $('#notice-write-status').text(),
+            m_id: $('#m_id').val()
         };
 
         $.ajax({
@@ -43,14 +56,15 @@ const board = {
     // 공지 글 수정
     noticeModify : function () {
         const data = {
-            title: $('#title').val(),
-            content: $('#content').val()
+            bd_id: $('#bd_id').val(),
+            bd_title: $('#title').val(),
+            bd_contents: $('#content').val()
         };
 
         $.ajax({
             data: JSON.stringify(data),
             type: 'PUT',
-            url: 'api/noticemodify',
+            url: '/api/noticemodify',
             dataType: 'JSON',
             contentType: 'application/json; charset=utf-8'
         }).done(function () {
@@ -61,25 +75,36 @@ const board = {
         });
     },
 
+    // 글 수정 화면 이동
+    noticeModMove : function () {
+      const bd_id = $('#bd_id').text();
+
+      window.location.href = '/noticemodify/' + bd_id;
+    },
+
 
     // 공지 글 삭제
-    noticeDelete : function () {
+    noticeRemove : function () {
         const data = {
-            bd_id: $('#bd_id').val()
-        }
+            bd_id: $('#bd_id').text()
+        };
+        console.log(data.bd_id);
 
         $.ajax({
-            data: JSON.stringify(data),
+            data: data,
             type: 'DELETE',
-            url: 'api/noticedelete',
-            dataType: 'JSON',
-            contentType: 'application/json; charset=utf-8'
+            url: '/api/noticeremove',
         }).done(function () {
             alert("글 삭제 완료");
             window.location.href = '/notice';
         }).fail(function (err) {
             alert(JSON.stringify(err));
         });
+    },
+
+    // 공지 리스트 돌아가기
+    noticeList : function () {
+        window.location.href = "/notice";
     }
 }
 

@@ -19,7 +19,7 @@ public class EventDTO {
     private String e_kind;
 
     // 이벤트 내용
-    private Blob e_contents;
+    private String e_contents;
 
     // 이벤트 시작 날짜
     private Timestamp e_s_date;

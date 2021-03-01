@@ -8,7 +8,7 @@ import java.util.List;
 public interface BoardService {
 
 
-    public void register(BoardDTO boardDTO);
+    public boolean register(BoardDTO boardDTO);
 
     public BoardDTO get(String bd_id);
 

@@ -1,106 +1,109 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
+</head>
 
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
-    <th:block th:fragment="content">
-        <br><br><br><br><br><br>
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- Main content -->
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic :: mobile"></aside>
+    <aside th:replace="layout/basic :: sidebar"></aside>
 
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-
-                                <h2 style="margin-top: auto">이벤트관리</h2>
-                                <div style="text-align: right ">
-                                    <button type="button" class="btn btn-primary">공지관리</button>
-                                    <button type="button" class="btn btn-primary">이벤트관리</button>
-                                </div>
-
-
-                            </div>
-                            <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="table" class="table table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>번호</th>
-                                        <th>제목</th>
-                                        <th>작성자</th>
-                                        <th>등록일</th>
-                                        <th>조회수</th>
-                                        <th>상태</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                    <tr th:each="eventList : ${eventList}">
-                                        <td th:text="${eventList.e_id}"  onclick="location.href='/event/{e_id}'"></td>
-                                        <td th:text="${eventList.e_kind}"></td>
-                                        <td>하창현</td>
-                                        <td>2021-02-21</td>
-                                        <td>4</td>
-                                        <td>공개</td>
-                                    </tr>
-                                    </tr>
-
-                                    </tbody>
-                                    </tfoot>
-                                </table>
-                                <br>
-                                <div style="text-align: right ">
-                                    <button type="button" class="btn btn-info" onclick="location.href='/eventwrite'">글작성</button>
-                                </div>
-
-                                <nav>
-
-                                    <ul class="pagination justify-content-center">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="active page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">8</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">9</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
+    <div class="page-container">
+        <div th:replace="layout/basic :: header"></div>
+        <section class="container-fluid contents_size">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
                     </div>
-                    <!-- /.col -->
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- Main content -->
+
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 style="margin-top: auto">이벤트 관리</h2>
+                                </div>
+
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="table" class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                                        <thead>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>제목</th>
+                                            <th>작성자</th>
+                                            <th>등록일</th>
+                                            <th>조회수</th>
+                                            <th>상태</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                        <tr th:each="eventList : ${eventList}">
+                                            <td th:text="${eventList.e_id}"></td>
+                                            <td><a th:href="@{'/event/'+${eventList.e_kind}}"><span th:text="${eventList.e_kind}"></span></a></td>
+                                            <td>관리자</td>
+                                            <td>2021-02-21</td>
+                                            <td>4</td>
+                                            <td>공개</td>
+                                        </tr>
+                                        </tr>
+
+                                        </tbody>
+                                        </tfoot>
+                                    </table>
+                                    <br>
+                                    <div style="text-align: right ">
+                                        <button type="button" class="btn btn-info" onclick="location.href='/eventwrite'">글작성</button>
+                                    </div>
+
+                                    <nav>
+
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li class="active page-item"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">7</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">8</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">9</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">10</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
                 </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
+                <!-- /.container-fluid -->
+            </section>
+
+            <!--회원관리 테이블 끝-->
         </section>
-        <!-- /.content -->
-        </div>
-        <!-- Main content -->
+    </div>
+</div>
 
-
-    </th:block>
-</th:block>
+<footer th:replace="layout/basic :: footer">
+</footer>
+</body>
 </html>
