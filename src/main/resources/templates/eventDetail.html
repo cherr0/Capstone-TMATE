@@ -21,7 +21,7 @@
                                 </div>
                                 <div class="card-header-title">
                                     <div class="not-title">
-                                        <span class="float-left" th:text="| 제목 : ${event.e_kind}|">제목</span>
+                                        <span class="float-left" th:text="| 이벤트 이름 : ${event.e_kind}|">제목</span>
                                         <span class="float-right not-time" th:text="${#strings.substring(event.e_s_date,0,16)}"></span>
                                         <span class="float-right not-time" th:text="${#strings.substring(event.e_e_date,0,16)}"></span>
                                     </div>
@@ -56,6 +56,7 @@
         </div>
     </div>
 </div>
+<input id="e_id" type="hidden" th:value="${event.e_id}">
 <footer th:replace="layout/basic :: footer">
 </footer>
 </body>
