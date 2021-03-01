@@ -46,4 +46,11 @@
         delete from member
         where m_id = #{m_id}
     </delete>
+
+    <select id="searchPermission" resultType="com.tmate.domain.MemberDTO">
+        select *
+        from member
+        where substr(m_id,3,11) = ‘__{phoneNumber}%’
+          and m_name = ‘{name}’;
+    </select>
 </mapper>
