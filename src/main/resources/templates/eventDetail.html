@@ -2,56 +2,61 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/basic :: head}">
 </head>
-
 <body class="animsition">
 <div class="page-wrapper">
     <aside th:replace="layout/basic :: mobile"></aside>
     <aside th:replace="layout/basic :: sidebar"></aside>
+    <link th:href="@{css/detail.css}" rel="stylesheet">
 
     <div class="page-container">
         <div th:replace="layout/basic :: header"></div>
-        <section class="container-fluid contents_size">
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                    </div>
-                </div>
-            </section>
+        <div class="container-fluid contents_size">
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h2 style="margin-top: auto">이벤트</h2>
-                                    <div class="row">
-                                        <div class="col-sm-2"><p th:text="|번호 : ${event.e_id}|">번호 : not1</p></div>
-                                        <div class="col-sm-3"><p th:text="|이벤트 이름 : ${event.e_kind}|">제목 : Tmate 이벤트 입니다.</p></div>
-                                        <div class="col-sm-2"><p th:text="|시작 날짜 : ${event.e_s_date}|">시작 날짜 : 2021-02-17</p></div>
-                                        <div class="col-sm-2"><p th:text="|종료 날짜 : ${event.e_e_date}|">종료 날짜 : 2021-02-17</p></div>
-                                        <div class="col-sm-2"><p>작성자 : 하창현</p></div>
-                                        <div class="col-sm-2"><p>상태 : (공개)</p></div>
-                                    </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body" th:text="${event.e_contents}">
-                                    </div>
-                                    <br>
+                                    <h2>공지사항</h2>
                                 </div>
-                            <div style="text-align: right ">
-                                <button type="button" class="btn btn-primary" onclick="location.href='/event'" id="event-remove">삭제</button>
-                                <button type="button" class="btn btn-primary"  id="event-detail-modify">글 수정</button>
-                                <button type="button" class="btn btn-primary" id="event-list">글 목록</button>
+                                <div class="card-header-title">
+                                    <div class="not-title">
+                                        <span class="float-left" th:text="| 이벤트 이름 : ${event.e_kind}|">제목</span>
+                                        <span class="float-right not-time" th:text="${#strings.substring(event.e_s_date,0,16)}"></span>
+                                        <span class="float-right not-time" th:text="${#strings.substring(event.e_e_date,0,16)}"></span>
+                                    </div>
+                                </div>
+                                <div class="card-header-title">
+                                    <div>
+                                        <div>
+                                            <span>글번호</span>
+                                            <span th:text="| : ${#strings.substring(event.e_id,3)}|"></span>
+                                            <span> &#124; 관리자 &#124; </span>
+                                            <span class="no-font" >공개</span>
+                                            <span class="no-font" th:case="1">비공개</span>
+                                            <span class="no-font" th:case="2">예약</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <p th:text="${event.e_contents}">내용</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="float-right">
+                                        <button type="button" class="btn btn-primary" onclick="location.href='/event'" id="event-remove">삭제</button>
+                                        <button type="button" class="btn btn-info" id="event-detail-modify">글 수정</button>
+                                        <button type="button" class="btn btn-light" id="event-list">글 목록</button>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- /.card-body -->
                         </div>
                     </div>
                 </div>
             </section>
-        </section>
+        </div>
     </div>
 </div>
 <input id="e_id" type="hidden" th:value="${event.e_id}">
-
 <footer th:replace="layout/basic :: footer">
 </footer>
 </body>
