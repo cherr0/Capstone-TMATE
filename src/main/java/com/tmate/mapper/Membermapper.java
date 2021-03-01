@@ -2,6 +2,7 @@ package com.tmate.mapper;
 
 import com.tmate.domain.Criteria;
 import com.tmate.domain.MemberDTO;
+import com.tmate.domain.PhoneDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -35,4 +36,7 @@ public interface Membermapper {
 
     // 멤버 수 토탈 카운트
     int getTotalCount(Criteria cri);
+
+    // 유저 확인
+    MemberDTO searchPermission(PhoneDTO phone);
 }
