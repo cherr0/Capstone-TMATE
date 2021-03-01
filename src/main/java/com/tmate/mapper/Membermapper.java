@@ -32,4 +32,7 @@ public interface Membermapper {
 
     // 전체 기사 수
     int countDrivers();
+
+    // 멤버 수 토탈 카운트
+    int getTotalCount(Criteria cri);
 }

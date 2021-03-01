@@ -8,7 +8,7 @@ import java.util.List;
 public interface BoardService {
 
 
-    public void register(BoardDTO boardDTO);
+    public boolean register(BoardDTO boardDTO);
 
     public BoardDTO get(String bd_id);
 
@@ -18,4 +18,7 @@ public interface BoardService {
 
     // 글 목록 리스트
     public List<BoardDTO> getList(Criteria cri);
+
+    // 페이지 처리용 totalCount
+    public int totalCount(Criteria cri);
 }

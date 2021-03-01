@@ -15,8 +15,8 @@ public class BoardServiceImpl implements BoardService {
     private final BoardMapper boardMapper;
 
     @Override
-    public void register(BoardDTO boardDTO) {
-        boardMapper.insert(boardDTO);
+    public boolean register(BoardDTO boardDTO) {
+        return boardMapper.insert(boardDTO) == 1;
     }
 
     @Override
@@ -39,5 +39,10 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardDTO> getList(Criteria cri) {
 
         return boardMapper.getBoardList(cri);
+    }
+
+    @Override
+    public int totalCount(Criteria cri) {
+        return boardMapper.totalCount(cri);
     }
 }

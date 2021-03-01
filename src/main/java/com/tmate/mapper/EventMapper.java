@@ -24,5 +24,7 @@ public interface EventMapper {
     // 이벤트 상세페이지
     EventDTO read(String e_id);
 
+    // 이벤트 토탈 수
+    int getTotalCount(Criteria cri);
 
 }
