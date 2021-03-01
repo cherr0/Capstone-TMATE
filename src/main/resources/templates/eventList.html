@@ -65,6 +65,7 @@
                                     <nav>
 
                                         <ul class="pagination justify-content-center">
+<<<<<<< HEAD
                                             <li class="page-item">
                                                 <a class="page-link" href="#" aria-label="Previous">
                                                     <span aria-hidden="true">&laquo;</span>
@@ -85,6 +86,30 @@
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>
                                             </li>
+=======
+                                            <th:block th:if="${pageMaker.prev}">
+                                                <li class="page-item">
+                                                    <a class="page-link" th:href="@{/event(pageNum=${pageMaker.startPage-1})}" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                            </th:block>
+
+                                            <li th:class=" 'page-item ' + ${pageMaker.cri.pageNum == page?'active':''}" th:each="page: ${pageMaker.pageList}">
+                                                <a class="page-link" th:href="@{/event(pageNum=${page})}">
+                                                    [[${page}]]
+                                                </a>
+
+                                            </li>
+
+                                            <th:block th:if="${pageMaker.next}">
+                                                <li class="page-item">
+                                                    <a class="page-link" th:href="@{/event(pageNum=${pageMaker.endPage+1})}" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </th:block>
+>>>>>>> changhyeon
                                         </ul>
                                     </nav>
                                 </div>

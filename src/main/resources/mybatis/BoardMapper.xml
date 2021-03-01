@@ -4,24 +4,29 @@
 
     <select id="getBoardList" resultType="com.tmate.domain.BoardDTO">
         <![CDATA[
-            select bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_count ,m_id
-            from
-                    (
-                        select /*+ INDEX_DESC(board board_pk) */
-                          rownum rn, bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_count, m_id
-                        from
-                             board
-                        where rownum <= #{pageNum} * #{amount}
-                        )
-            where rn > (#{pageNum} - 1) * #{amount}
+        select bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_count ,m_id
+        from
+            (
+                select /*+ INDEX_DESC(board board_pk) */
+                    rownum rn, bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_count, m_id
+                from
+                    board
+                where rownum <= #{pageNum} * #{amount}
+            )
+        where rn > (#{pageNum} - 1) * #{amount}
         ]]>
     </select>
 
     <update id="update">
         update board
         set bd_title = #{bd_title},
+<<<<<<< HEAD
         bd_contents = #{bd_contents},
         bd_mod_date = sysdate
+=======
+            bd_contents = #{bd_contents},
+            bd_mod_date = sysdate
+>>>>>>> changhyeon
         where bd_id = #{bd_id}
     </update>
 
@@ -36,5 +41,9 @@
 
     <select id="read" resultType="com.tmate.domain.BoardDTO">
         select * from board where bd_id = #{bd_id}
+    </select>
+
+    <select id="totalCount" resultType="_int">
+        select count(*) from board
     </select>
 </mapper>

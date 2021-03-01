@@ -25,6 +25,9 @@ public interface BoardMapper {
     BoardDTO read(String bd_id);
 
 
+    // 공지사항 리스트 총 글 갯수
+    int totalCount(Criteria cri);
+
 
 
 }

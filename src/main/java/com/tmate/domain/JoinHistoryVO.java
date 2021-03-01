@@ -10,18 +10,14 @@ public class JoinHistoryVO {
     // 이용코드 - 동승여부, 탑승일
     private String merchant_uid;
 
-    // 회원 코드
-    private String m_id;
 
     // 출발지
     private String h_s_place;
-    private String h_s_lttd;
-    private String h_s_lngtd;
+
 
     // 도착지
     private String h_f_place;
-    private String h_f_lttd;
-    private String h_f_lngtd;
+
 
     // 운행 시간
     private Timestamp h_s_time;

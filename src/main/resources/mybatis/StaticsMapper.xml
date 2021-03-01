@@ -18,7 +18,7 @@
     <select id="getUsersByAge" resultType="com.tmate.domain.UsersByAgeVO">
         select trunc(age/10,0) as ageGroup , count(*) as count
         from (select ((substr(sysdate,1,2) - substr(m_birth,1,2) + 100)) as age
-              from member)
+            from member)
         group by trunc(age/10,0)
         order by ageGroup
     </select>

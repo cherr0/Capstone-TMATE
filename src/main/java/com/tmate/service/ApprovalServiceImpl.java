@@ -1,5 +1,6 @@
 package com.tmate.service;
 
+import com.tmate.domain.Criteria;
 import com.tmate.domain.JoinApprovalVO;
 import com.tmate.domain.JoinDriverVO;
 import com.tmate.mapper.JoinMapper;
@@ -19,9 +20,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 
     // 승인 대기중인 기사 리스트
     @Override
-    public List<JoinApprovalVO> getNoneApprovalList() {
+    public List<JoinApprovalVO> getNoneApprovalList(Criteria cri) {
 
-        List<JoinApprovalVO> drivers = joinMapper.getApprovalDrivers();
+        List<JoinApprovalVO> drivers = joinMapper.getApprovalDrivers(cri);
         return drivers;
     }
 
@@ -46,5 +47,11 @@ public class ApprovalServiceImpl implements ApprovalService {
     public int removeDriver(String d_id) {
         int check = membermapper.deleteMember(d_id);
         return check;
+    }
+
+    // 페이지 네이션 처리용 카운트 - 승인 대기중인 기사 수
+    @Override
+    public int getTotalApproCount(Criteria cri) {
+        return joinMapper.getTotalApproCount(cri);
     }
 }

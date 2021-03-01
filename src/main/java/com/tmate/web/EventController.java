@@ -2,6 +2,10 @@ package com.tmate.web;
 
 import com.tmate.domain.Criteria;
 import com.tmate.domain.EventDTO;
+<<<<<<< HEAD
+=======
+import com.tmate.domain.PageDTO;
+>>>>>>> changhyeon
 import com.tmate.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,6 +25,12 @@ public class EventController {
     public String eventList(Model model, Criteria cri) {
         List<EventDTO> eventList = eventService.getListEvent(cri);
 
+<<<<<<< HEAD
+=======
+        int total = eventService.getTotalCount(cri);
+
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
+>>>>>>> changhyeon
         model.addAttribute("eventList", eventList);     // 이벤트 목록
         return "eventList";
     }
@@ -43,6 +53,17 @@ public class EventController {
     }
 
 
+<<<<<<< HEAD
+=======
+    // 이벤트 글 작성
+    @PostMapping("/api/eventwrite")
+    public void eventWrite(EventDTO event) {
+        System.out.println("PostMapping eventWrite() event : " + event.toString());
+        eventService.register(event);
+    }
+
+
+>>>>>>> changhyeon
     // 이벤트 글 수정 페이지
     @GetMapping("/eventmodify/{e_id}")
     public String eventModify(Model model,@PathVariable String e_id) {
@@ -53,5 +74,22 @@ public class EventController {
     }
 
 
+<<<<<<< HEAD
 
+=======
+    // 이벤트 글 수정
+    @PutMapping("/api/eventmodify")
+    public boolean eventModify(EventDTO event) {
+        System.out.println("PutMapping eventModify() event : " + event.toString());
+        return eventService.modify(event);
+    }
+
+
+    // 이벤트 글 삭제
+    @DeleteMapping("/api/eventremove")
+    public boolean eventRemove(String e_id) {
+        System.out.println("DeleteMapping eventRemove() event No : " + e_id);
+        return eventService.remove(e_id);
+    }
+>>>>>>> changhyeon
 }

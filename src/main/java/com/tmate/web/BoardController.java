@@ -2,11 +2,20 @@ package com.tmate.web;
 
 import com.tmate.domain.BoardDTO;
 import com.tmate.domain.Criteria;
+<<<<<<< HEAD
+=======
+import com.tmate.domain.PageDTO;
+>>>>>>> changhyeon
 import com.tmate.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
+=======
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+>>>>>>> changhyeon
 
 import java.util.List;
 
@@ -21,7 +30,14 @@ public class BoardController {
     public String noticeList(Model model, Criteria cri) {
         List<BoardDTO> boardList = boardService.getList(cri);
 
+<<<<<<< HEAD
         model.addAttribute("noticeList", boardList);    // 공지 항목 보여주기
+=======
+        int total = boardService.totalCount(cri);
+
+        model.addAttribute("noticeList", boardList);    // 공지 항목 보여주기
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
+>>>>>>> changhyeon
         return "noticeList";
     }
 

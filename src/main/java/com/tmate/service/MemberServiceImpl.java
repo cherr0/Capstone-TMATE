@@ -1,18 +1,12 @@
 package com.tmate.service;
 
-import com.tmate.domain.Criteria;
-import com.tmate.domain.JoinHistoryVO;
-import com.tmate.domain.JoinPointVO;
-import com.tmate.domain.MemberDTO;
+import com.tmate.domain.*;
 import com.tmate.mapper.JoinMapper;
 import com.tmate.mapper.Membermapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -36,29 +30,48 @@ public class MemberServiceImpl implements MemberService {
 
     // 회원 상세페이지 이용내역 리스트
     @Override
-    public List<JoinHistoryVO> getHistoryList(String m_id) {
-        List<JoinHistoryVO> history = joinMapper.getHistoryByMember(m_id);
+    public List<JoinHistoryVO> getHistoryList(Criteria cri, String m_id) {
+        List<JoinHistoryVO> history = joinMapper.getHistoryByMember(cri,m_id);
         return history;
+    }
+
+    // 회원 페이지 처리 가능한 이용내역
+    @Override
+    public HistoryPageDTO getListPage(Criteria cri, String m_id) {
+        return new HistoryPageDTO(joinMapper.getTotalHistoryCount(m_id),
+                joinMapper.getHistoryByMember(cri,m_id));
     }
 
     // 회원 상세페이지 포인트 리스트
     @Override
-    public List<JoinPointVO> getPointList(String m_id) {
-        List<JoinPointVO> point = joinMapper.getPointByMember(m_id);
+    public List<JoinPointVO> getPointList(Criteria cri,String m_id) {
+        List<JoinPointVO> point = joinMapper.getPointByMember(cri, m_id);
         return point;
     }
 
-    // 회원 상세페이지 리스트
-    @Transactional
+    // 회원 페이지 처리 가능한 포인트 내역
+
+
     @Override
-    public Map<String, Object> getMemberDetail(String m_id) {
-        Map<String, Object> memberInfo = new HashMap<>();
-        // 회원
-        memberInfo.put("member", (MemberDTO)membermapper.getMemberByM_id(m_id));
-        // 이용내역
-        memberInfo.put("history", (List<JoinHistoryVO>)joinMapper.getHistoryByMember(m_id));
-        // 포인트
-        memberInfo.put("point", (List<JoinPointVO>)joinMapper.getPointByMember(m_id));
-        return memberInfo;
+    public PointPageDTO getPointListPage(Criteria cri, String m_id) {
+        return new PointPageDTO(joinMapper.getTotalPointCount(m_id),
+                joinMapper.getPointByMember(cri,m_id));
+    }
+
+    // 페이지 네이션 처리를 위한 total 카운트 구하는 로직
+    @Override
+    public int getTotalCount(Criteria cri) {
+        return membermapper.getTotalCount(cri);
+    }
+
+    // 페이지 네이션 처리를 위한 totalCount 구하는 로직
+    @Override
+    public int getTotalHistoryCount(String m_id) {
+        return joinMapper.getTotalHistoryCount(m_id);
+    }
+
+    @Override
+    public int getTotalPointCount(String m_id) {
+        return joinMapper.getTotalPointCount(m_id);
     }
 }

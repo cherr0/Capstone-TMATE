@@ -11,6 +11,17 @@
     <div class="page-container">
         <div th:replace="layout/basic :: header"></div>
         <div class="container-fluid contents_size">
+<<<<<<< HEAD
+=======
+            <br><br><br><br><br><br>
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- Main content -->
+>>>>>>> changhyeon
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -19,8 +30,14 @@
                                 <div class="card-header">
                                     <h2 style="margin-top: auto">공지관리</h2>
                                 </div>
+<<<<<<< HEAD
                                 <div class="card-body">
                                     <table id="table" class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+=======
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="table" class="table table-bordered table-hover">
+>>>>>>> changhyeon
                                         <thead>
                                         <tr>
                                             <th>번호</th>
@@ -34,10 +51,17 @@
                                         <tbody>
                                         <tr>
                                         <tr th:each="noticeList : ${noticeList}">
+<<<<<<< HEAD
                                             <td th:text="${#strings.substring(noticeList.bd_id,3)}"></td>
                                             <td class="text-left"><a th:href="@{'/notice/'+${noticeList.bd_id}}"><span th:text="${noticeList.bd_title}"></span></a></td>
                                             <td>하창현</td>
                                             <td th:text="${#strings.substring(noticeList.bd_cre_date,0,10)}"></td>
+=======
+                                            <td th:text="${noticeList.bd_id}"></td>
+                                            <td><a th:href="@{'/notice/'+${noticeList.bd_id}}"><span th:text="${noticeList.bd_title}"></span></a></td>
+                                            <td>하창현</td>
+                                            <td th:text="${noticeList.bd_cre_date}"></td>
+>>>>>>> changhyeon
                                             <td th:text="${noticeList.bd_count}"></td>
                                             <td>공개</td>
                                         </tr>
@@ -48,6 +72,7 @@
                                     <div style="text-align: right ">
                                         <button type="button" class="btn btn-info" onclick="location.href='/noticewrite'">글작성</button>
                                     </div>
+<<<<<<< HEAD
                                     <nav>
                                         <ul class="pagination justify-content-center">
                                             <li class="page-item">
@@ -78,6 +103,50 @@
                     </div>
                 </div>
             </section>
+=======
+
+                                    <nav>
+
+                                        <ul class="pagination justify-content-center">
+                                            <th:block th:if="${pageMaker.prev}">
+                                            <li class="page-item">
+                                                <a class="page-link" th:href="@{/notice(pageNum=${pageMaker.startPage-1})}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            </th:block>
+
+                                            <li th:class=" 'page-item ' + ${pageMaker.cri.pageNum == page?'active':''}" th:each="page: ${pageMaker.pageList}">
+                                                <a class="page-link" th:href="@{/notice(pageNum=${page})}">
+                                                    [[${page}]]
+                                                </a>
+
+                                            </li>
+
+                                            <th:block th:if="${pageMaker.next}">
+                                            <li class="page-item">
+                                                <a class="page-link" th:href="@{/notice(pageNum=${pageMaker.endPage+1})}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                            </th:block>
+                                        </ul>
+
+
+                                    </nav>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+>>>>>>> changhyeon
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@
 <div class="page-wrapper">
     <aside th:replace="layout/basic :: mobile"></aside>
     <aside th:replace="layout/basic :: sidebar"></aside>
+<<<<<<< HEAD
     <link th:href="@{css/approvalList.css}" rel="stylesheet">
 
     <div class="page-container">
@@ -103,6 +104,113 @@
         </div>
     </div>
 </div>
+=======
+
+    <div class="page-container">
+        <div th:replace="layout/basic :: header"></div>
+        <section class="container-fluid contents_size">
+            <link th:href="@{css/approvalList.css}" rel="stylesheet">
+            <div class="ap_title">
+                <h1 class="mt-4">승인관리</h1>
+                <h1 class="mt-4 ap_title_d">기사정보</h1>
+            </div>
+            <div class="apinfo-size float-right">
+                <div>
+                    <div class="float-left ap_profile">
+<!--                        <img th:href="@{${apList.m_profile}}">-->
+                    </div>
+                    <div class="float-left" th:each="dvList : ${dvList}">
+                        <p class="apinfo-font" th:text="|이름 : ${dvList.m_name}|"></p>
+                        <p class="apinfo-font" th:text="|생년월일 : ${dvList.m_birth}|"></p>
+                        <p class="apinfo-font" th:text="|자격증번호 : ${dvList.d_license_no}|"></p>
+                        <p class="apinfo-font" th:text="|차량 : ${dvList.car_model}|"></p>
+                        <p class="apinfo-font" th:text="|지역 :  ${#strings.substring(dvList.d_license_no,3, 5)}|"></p>
+                        <p class="apinfo-font" th:text="|휴대폰번호 : ${#strings.substring(dvList.d_id,2, 13)}|"></p>
+                        <div>
+                            <button class="btn" type="button" id="allow-approval">승인</button>
+                            <button class="btn" type="button" id="remove-driver">거절</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table  table-earning table-light text-center aptable-size">
+                <thead>
+                <tr>
+                    <th>기사번호</th>
+                    <th>구분</th>
+                    <th>소개</th>
+                    <th>경력</th>
+                </tr>
+                </thead>
+                <tbody class="table-hover">
+                <tr th:each="apList : ${apList}">
+                    <td class="btnId" th:text="${apList.d_id}"></td>
+                    <td th:switch="${apList.corp_code}">
+                        <p th:case="c">법인</p>
+                        <p th:case="i">개인</p>
+                    </td>
+                    <td><a></a>
+                        <div>
+                            <span class="badge bg-grey"  th:text="${#strings.substring(apList.d_license_no,3, 5)}"></span>
+                            <span class="badge bg-grey" th:text="${apList.car_model}"></span>
+                        </div>
+                    </td>
+                    <td th:text="|${#strings.substring(apList.d_license_no,0, 2)}년 취득|"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- 페이지 네이션 -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <th:block th:if="${pageMaker.prev}">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/approval(pageNum=${pageMaker.startPage-1})}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </th:block>
+
+                    <li th:class=" 'page-item ' + ${pageMaker.cri.pageNum == page?'active':''}" th:each="page: ${pageMaker.pageList}">
+                        <a class="page-link" th:href="@{/approval(pageNum=${page})}">
+                            [[${page}]]
+                        </a>
+
+                    </li>
+
+                    <th:block th:if="${pageMaker.next}">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/approval(pageNum=${pageMaker.endPage+1})}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </th:block>
+                </ul>
+            </nav>
+        </section>
+    </div>
+</div>
+
+<!--<script th:inline="javascript">-->
+<!--    $(document).ready(function(){-->
+
+
+<!--        $(".btnId").on("click",function () {-->
+
+<!--            var id = $(".btnId").text();-->
+<!--            console.log(id);-->
+
+<!--            $.ajax({-->
+<!--                url:'/api/' + id,-->
+<!--                method:'get',-->
+<!--                success:function (result){-->
+<!--                    console.log(result);-->
+<!--                }-->
+<!--            })-->
+<!--        });-->
+<!--    })-->
+<!--</script>-->
+>>>>>>> changhyeon
 
 <footer th:replace="layout/basic :: footer">
 </footer>
