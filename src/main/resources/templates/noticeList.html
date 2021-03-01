@@ -36,7 +36,7 @@
                                         <tr th:each="noticeList : ${noticeList}">
                                             <td th:text="${#strings.substring(noticeList.bd_id,3)}"></td>
                                             <td><a th:href="@{'/notice/'+${noticeList.bd_id}}"><span th:text="${noticeList.bd_title}"></span></a></td>
-                                            <td>하창현</td>
+                                            <td>관리자</td>
                                             <td th:text="${#strings.substring(noticeList.bd_cre_date,0,10)}"></td>
                                             <td th:text="${noticeList.bd_count}"></td>
                                             <td>공개</td>
