@@ -46,13 +46,6 @@ public class EventController {
         return "eventWrite";
     }
 
-    // 이벤트 글 작성
-    @PostMapping("/api/eventwrite")
-    public void eventWrite(EventDTO event) {
-        System.out.println("PostMapping eventWrite() event : " + event.toString());
-        eventService.register(event);
-    }
-
 
     // 이벤트 글 수정 페이지
     @GetMapping("/eventmodify/{e_id}")
@@ -63,19 +56,4 @@ public class EventController {
         return "eventModify";
     }
 
-
-    // 이벤트 글 수정
-    @PutMapping("/api/eventmodify")
-    public boolean eventModify(EventDTO event) {
-        System.out.println("PutMapping eventModify() event : " + event.toString());
-        return eventService.modify(event);
-    }
-
-
-    // 이벤트 글 삭제
-    @DeleteMapping("/api/eventremove")
-    public boolean eventRemove(String e_id) {
-        System.out.println("DeleteMapping eventRemove() event No : " + e_id);
-        return eventService.remove(e_id);
-    }
 }
