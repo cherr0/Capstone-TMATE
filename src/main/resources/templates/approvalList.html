@@ -48,19 +48,21 @@
                                     <table class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded aptable-size">
                                         <thead>
                                         <tr>
+                                            <th>기사번호</th>
                                             <th>구분</th>
                                             <th>소개</th>
                                             <th>경력</th>
                                         </tr>
                                         </thead>
                                         <tbody class="table-hover">
-                                        <tr th:each="apList : ${apList}">
+                                        <tr  th:each="apList : ${apList}">
+                                            <td class="btnId" th:text="${apList.d_id}"></td>
                                             <td th:switch="${apList.corp_code}">
                                                 <p th:case="c">법인</p>
                                                 <p th:case="i">개인</p>
                                             </td>
-                                            <td><a></a>
-                                                <div>
+                                            <td>
+                                                <div class="ap-vertical">
                                                     <span class="badge bg-grey"  th:text="${#strings.substring(apList.d_license_no,3, 5)}"></span>
                                                     <span class="badge bg-grey" th:text="${apList.car_model}"></span>
                                                 </div>

@@ -1,48 +1,69 @@
 .scroll {
     overflow-y: scroll;
+    padding-top: 1em;
 }
 .map_size{
-    width: 100vw;
-    height: 60vh;
     float: right;
 }
 .table_size{
     width: 83vw;
-    height: 23.15vh;
+    height: 24.5vh;
 }
 .hot-search{
     background-color: #FFFFFF;
     width: 25%;
     height: 57vh;
     float: left;
+    border-radius: 10px;
+    border : 1px solid #258fff;
 }
 .hot-box{
     height: 40px;
     width: 100%;
-    border: 1px solid #1b5ac2;
+    border: 1px solid #258fff;
+    border-radius: 10px;
 }
 .hot-input{
-    width: 80%;
+    width: 90%;
     height: 2.2em;
     padding: 10px;
     border: 0px;
     outline: none;
     float: left;
+    border-radius: 10px;
+
+    margin-left: 1em;
 }
 .hot-button{
-    width: 15%;
+    width: 5%;
     height: 2.35em;
     border: 0px;
-    background: #1b5ac2;
+    background: #258fff;
     float: right;
     outline: none;
     color: #FFFFFF;
+    border-radius: 10px;
+
+
 }
 .hot-info{
     text-indent: 1em;
     list-style: none;
-    margin-top: 1em;
-    padding: 5px 0px 5px 5px;
-    border-bottom: 1px solid #efefef;
-    font-size: 12px;
+}
+.hot-info-list{
+    padding: 2px 1px 2px 2px;
+    border-bottom: 1px solid #cfcfcf;
+    font-size: 14px;
+}
+.hot-search-box{
+    width: 100%;
+    height: 6.5em;
+    background-color: #258fff;
+    border-radius: 10px;
+}
+.hot-search-box h4{
+    padding-top: 0.5em;
+    margin-left: 1em;
+    margin-bottom: 0.7em;
+    color: #FFFFFF;
 }

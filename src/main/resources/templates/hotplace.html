@@ -16,9 +16,12 @@
                 </div>
             </div>
             <div class="hot-search">
-                <div class="hot-box">
-                    <input type="text" class=" hot-input" id="searchKeyword" name="searchKeyword">
-                    <button id="btn_select" class="hot-button">검색</button>
+                <div class="hot-search-box">
+                    <h4>통합검색</h4>
+                    <div class="hot-box">
+                        <input type="text" class=" hot-input" id="searchKeyword" name="searchKeyword">
+                        <button id="btn_select" class="hot-button"><i class="fas fa-search"></i> </button>
+                    </div>
                 </div>
                 <div class="rst_wrap">
                     <div class="rst mCustomScrollbar">
@@ -90,8 +93,8 @@
                     // 1. 지도 띄우기
                     map = new Tmapv2.Map("map_div", {
                         center: new Tmapv2.LatLng(37.570028, 126.986072),
-                        width : "70%",
-                        height : "60vh",
+                        width : "74%",
+                        height : "57vh",
                         zoom : 15,
                         zoomControl : true,
                         scrollwheel : true
@@ -137,7 +140,7 @@
                                         title : name,
                                         map:map
                                     });
-                                    innerHtml += "<li><img src='http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png' style='vertical-align:middle;'/><span>"+name+"</span></li>";
+                                    innerHtml += "<li class='hot-info-list'><img src='http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png' style='vertical-align:middle;'/><span>"+name+"</span></li>";
                                     markerArr.push(marker);
                                     positionBounds.extend(markerPosition); // LatLngBounds의 객체 확장
                                 }
