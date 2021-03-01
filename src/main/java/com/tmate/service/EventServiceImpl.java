@@ -13,8 +13,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
 
-    @Autowired
-    private EventMapper eventMapper;
+
+    private final EventMapper eventMapper;
 
     // 이벤트 리스트
     @Override
@@ -36,8 +36,8 @@ public class EventServiceImpl implements EventService {
 
     // 이벤트 등록
     @Override
-    public void register(EventDTO eventDTO) {
-        eventMapper.insert(eventDTO);
+    public boolean register(EventDTO eventDTO) {
+        return eventMapper.insert(eventDTO) == 1;
     }
 
 

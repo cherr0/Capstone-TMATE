@@ -21,7 +21,7 @@
         update board
         set bd_title = #{bd_title},
         bd_contents = #{bd_contents},
-        bd_cre_date = sysdate
+        bd_mod_date = sysdate
         where bd_id = #{bd_id}
     </update>
 

@@ -1,63 +1,73 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
 
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
-    <th:block th:fragment="content">
-        <br><br><br><br><br><br>
+</head>
 
-        <table>
+<body class="animsition">
 
+<div class="page-wrapper">
+    <aside th:replace="layout/basic :: mobile"></aside>
+    <aside th:replace="layout/basic :: sidebar"></aside>
 
-
-            <div id="main">
-                <section class="four">
-                    <div class="container">
-                        <h2>이벤트 작성</h2><hr>
-                        <div style="float: right" class="btn-group">
-                            <button id="eventwrite-status" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                공개 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">공개</a></li>
-                                <li><a href="#">비공개</a></li>
-                                <li><a href="#">예약</a></li>
-                            </ul>
-                        </div>
-
-
-                    </div><br><br>
-                    <div class="input-group input-group-lg">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">제목</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="제목을 작성해 주세요." id="eventwrite-title">
+    <div class="page-container">
+        <div th:replace="layout/basic :: header"></div>
+        <section class="container-fluid contents_size">
+            <section class="four">
+                <div class="container">
+                    <h2>이벤트 작성</h2>
+                        <select id="event-write-status">
+                            <option value="공개">공개</option>
+                            <option value="비공개">비공개</option>
+                            <option value="예약">예약</option>
+                        </select>
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">이벤트 이름</span>
                     </div>
-                    <br>
-                    <div class="input-group input-group-lg">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">내용</span>
-                        </div>
-                        <textarea class="form-control" rows="5" id="eventwrite-content"></textarea>
+                    <input type="text" class="form-control" placeholder="제목을 작성해 주세요." id="event-write-kind" />
+                </div>
+                <br>
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">내용</span>
                     </div>
-                    <br>
-                    <!--                    <div class="input-group input-group-lg">-->
-                    <!--                        <div class="input-group-prepend">-->
-                    <!--                            <span class="input-group-text">작성자</span>-->
-                    <!--                        </div>-->
-                    <!--                        <input type="text" class="form-control" placeholder="작성자를 입력해 주세요" id="writer"><br>-->
-                    <!--                    </div>-->
-                    <br>
-                    <button class="btn btn-danger" style="float: right" onclick="location.href='/event'">뒤로</button>
-                    <button id="event-write" class="btn btn-primary modalBtn" style="float: right" onclick="location.href='/event'">글 등록</button>
+                    <textarea class="form-control" rows="5" id="event-write-content"></textarea>
+                </div>
+                <br>
 
+                <div class="col-md-3 col-xs-4">
+                    <div class="form-group">
+                        <h5>시작일</h5>
+                        <div class="input-group date">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i> </div>
+                            <input type="text" class="form-control bootstrap-datetimepicker-widget" id="event-time-start"/>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="col-md-3 col-xs-4">
+                    <div class="form-group">
+                        <h5>종료일</h5>
+                        <div class="input-group date">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            <input type="text" class="form-control bootstrap-datetimepicker-widget" id="event-time-end"/>
+                        </div>
+                    </div>
+                </div>
 
+                <button class="btn btn-danger" style="float: right" id="return-event">뒤로</button>
+                <button id="event-write" class="btn btn-primary modalBtn" style="float: right">글 등록</button>
+            </section>
+        </section>
+    </div>
+</div>
+<script th:src="@{~/vendor/jquery.datetimepicker.full.min.js}"></script>
+<footer th:replace="layout/basic :: footer">
+</footer>
+<script th:src="@{~/js/app/event.js}"></script>
 
-                </section>
-            </div>
-        </table>
-        </div>
-
-
-    </th:block>
-</th:block>
+</body>
 </html>

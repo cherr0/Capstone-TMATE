@@ -19,6 +19,7 @@
 
     <!-- Bootstrap CSS-->
     <link th:href="@{~/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
+    <link th:href="@{~/vendor/bootstrap-select/bootstrap-select.min.css}" rel="stylesheet" media="all">
 
     <!-- Vendor CSS-->
     <link th:href="@{~/vendor/animsition/animsition.min.css}" rel="stylesheet" media="all">
@@ -35,7 +36,10 @@
     <link th:href="@{~/css/userDetail.css}" rel="stylesheet">
 
     <!-- Jquery JS-->
-    <script th:src="@{~/vendor/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{~/vendor/jquery-3.5.1.min.js}"></script>
+
+    <link th:href="@{~/css/jquery.datetimepicker.min.css}" rel="stylesheet" media="all">
+
 </head>
 <body class="animsition">
 
@@ -297,6 +301,7 @@
     <!-- Bootstrap JS-->
     <script th:src="@{~/vendor/bootstrap-4.1/popper.min.js}"></script>
     <script th:src="@{~/vendor/bootstrap-4.1/bootstrap.min.js}"></script>
+    <script th:src="@{~/vendor/bootstrap-select/bootstrap-select.min.js}"></script>
 
     <!-- Vendor JS -->
     <script th:src="@{~/vendor/slick/slick.min.js}"></script>
@@ -313,6 +318,14 @@
     <!-- Main JS-->
     <script th:src="@{~/js/main.js}"></script>
     <script th:src="@{~/js/modal.js}"></script>
+
+    <!-- ajax -->
+    <script th:src="@{~/js/app/approval.js}"></script>
+    <script th:src="@{~/js/app/member.js}"></script>
+    <script th:src="@{~/js/app/place.js}"></script>
+    <script th:src="@{~/js/app/board.js}"></script>
+
+    <!--  -->
 </footer>
 
 </body>
