@@ -20,13 +20,8 @@
     <update id="update">
         update board
         set bd_title = #{bd_title},
-<<<<<<< HEAD
-        bd_contents = #{bd_contents},
-        bd_mod_date = sysdate
-=======
             bd_contents = #{bd_contents},
             bd_mod_date = sysdate
->>>>>>> changhyeon
         where bd_id = #{bd_id}
     </update>
 

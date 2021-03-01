@@ -30,11 +30,7 @@
     <select id="countMembers" resultType="_int">
         select count(*)
         from member
-<<<<<<< HEAD
-        where m_id like 'm%'
-=======
         where m_id not like 'a%'
->>>>>>> changhyeon
     </select>
 
     <select id="countDrivers" resultType="_int">
@@ -51,17 +47,16 @@
         where m_id = #{m_id}
     </delete>
 
-<<<<<<< HEAD
     <select id="searchPermission" resultType="com.tmate.domain.MemberDTO">
         select *
         from member
         where substr(m_id,3,11) = ‘__{phoneNumber}%’
           and m_name = ‘{name}’;
-=======
+    </select>
+
     <select id="getTotalCount" resultType="_int">
         select count(*)
         from member
         where m_id not like 'a%'
->>>>>>> changhyeon
     </select>
 </mapper>
