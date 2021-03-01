@@ -19,8 +19,10 @@ repositories {
 }
 
 dependencies {
+    compile group: 'net.nurigo', name: 'javaSDK', version: '2.2'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.5.4'
     implementation 'com.oracle.ojdbc:ojdbc8:19.3.0.0'
     implementation 'com.oracle.ojdbc:ucp:19.3.0.0'
     implementation 'com.oracle.ojdbc:ons:19.3.0.0'
