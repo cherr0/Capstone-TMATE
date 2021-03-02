@@ -25,13 +25,12 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-
-                                    <h2 style="margin-top: auto">이벤트관리</h2>
-
+                                    <h2 style="margin-top: auto">이벤트 관리</h2>
                                 </div>
+
                                 <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="table" class="table table-bordered table-hover">
+                                    <table id="table" class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
                                         <thead>
                                         <tr>
                                             <th>번호</th>
@@ -47,7 +46,7 @@
                                         <tr th:each="eventList : ${eventList}">
                                             <td th:text="${eventList.e_id}"></td>
                                             <td><a th:href="@{'/event/'+${eventList.e_kind}}"><span th:text="${eventList.e_kind}"></span></a></td>
-                                            <td>하창현</td>
+                                            <td>관리자</td>
                                             <td>2021-02-21</td>
                                             <td>4</td>
                                             <td>공개</td>

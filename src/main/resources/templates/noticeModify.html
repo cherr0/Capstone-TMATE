@@ -2,55 +2,67 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/basic :: head}">
 </head>
-
 <body class="animsition">
 <div class="page-wrapper">
     <aside th:replace="layout/basic :: mobile"></aside>
     <aside th:replace="layout/basic :: sidebar"></aside>
-
     <div class="page-container">
         <div th:replace="layout/basic :: header"></div>
-        <section class="container-fluid contents_size">
-            <table>
-                <div id="main">
-                    <section class="four">
-                        <div class="container">
-                            <h2>공지사항 수정</h2><hr>
-                            <div style="float: right" class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    공개 <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">공개</a></li>
-                                    <li><a href="#">비공개</a></li>
-                                    <li><a href="#">예약</a></li>
-                                </ul>
+        <div class="container-fluid contents_size">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 style="margin-top: auto">공지사항 수정</h2>
+                                </div>
+                                <div class="card-header-title">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">제목</span>
+                                        <input type="text" class="form-control" id="title" th:text="${board.bd_title}">
+
+                                        <div class="btn-group justify-content-end">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <span id="notice-write-status" class="caret" th:text="${board.bd_status}">공개</span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">공개</a></li>
+                                                <li><a href="#">비공개</a></li>
+                                                <li><a href="#">예약</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">내용</span>
+                                        </div>
+                                        <textarea class="form-control" rows="10" id="notice-write-content" th:text="${board.bd_contents}"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <div class="float-right">
+                                        <button type="button" id="notice-write" class="btn btn-primary modalBtn">글 수정</button>
+                                    </div>
+                                    <div class="float-left">
+                                        <button type="button" id="back" class="btn btn-info" onclick="location.href='/notice'">뒤로</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="input-group input-group-lg">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">제목</span>
-                            </div>
-                            <input type="text" class="form-control" id="title" th:value="${board.bd_title}">
-                        </div>
-                        <br>
-                        <div class="input-group input-group-lg">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">내용</span>
-                            </div>
-                            <textarea class="form-control" rows="5" id="content" th:text="${board.bd_contents}"></textarea>
-                        </div>
-                        <button id="notice-list" class="btn btn-danger" style="float: right">뒤로</button>
-                        <button id="notice-modify" class="btn btn-primary modalBtn" style="float: right">글 수정</button>
-                    </section>
+                    </div>
                 </div>
-            </table>
-        </section>
+                <input type="hidden" th:value="a101091841243" id="m_id">
+            </section>
+        </div>
     </div>
 </div>
-<input id="bd_id" type="hidden" th:value="${board.bd_id}">
-
 <footer th:replace="layout/basic :: footer">
 </footer>
+<script th:src="@{~/js/app/board.js}"></script>
 </body>
 </html>
