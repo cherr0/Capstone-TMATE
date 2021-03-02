@@ -1,10 +1,10 @@
 $('.form-head').click(function(){
 
-    if($(this).closest('.grop-from').attr('id')=='signup'){
-        $('.grop-from').attr('id' , 'phone');
+    if($('.form-head').closest('.grop-from').attr('id')=='signup'){
+        $('.grop-from').attr('id' , 'name');
         $('.icon-action').addClass('back');
     }
-    else if($(this).closest('.grop-from').attr('id')=='success'){
+    else if($('.form-head').closest('.grop-from').attr('id')=='success'){
         $('.grop-from').attr('id' , 'signup');
         $('input').val('');
     }
@@ -14,7 +14,7 @@ $('.form-head').click(function(){
 
 $('.form-action').click(function(){
 
-    var form_id = $('.grop-from').attr('id');
+    let form_id = $('.grop-from').attr('id');
     console.log(form_id);
     console.log($('#control-' + form_id).val());
     $('.icon-action').addClass('back');
