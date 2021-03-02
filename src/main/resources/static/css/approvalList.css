@@ -14,14 +14,14 @@
     background-color: grey;
 }
 .aptable-size{
-    width: 48%;
-    height: 50vh;
+    padding: 2em;
+    height: 33em;
 }
 .apinfo-size{
-    width: 48%;
     background-color: #FFFFFF;
-    height: 56vh;
+    height: 33em;
     border: outset;
+    padding: 2em;
 }
 .apinfo-font{
     font-size: 1.5rem;
@@ -42,7 +42,8 @@
     margin-left: 1rem;
 }
 .pn{
-    margin-left: 60px;
+    display: block;
+    text-align: center;
 }
 .d_info{
     margin-top: 10px;
@@ -59,3 +60,4 @@
 .ap-vertical{
     vertical-align: middle;
 }
+
