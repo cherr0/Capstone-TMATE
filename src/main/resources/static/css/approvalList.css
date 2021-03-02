@@ -7,7 +7,6 @@
     color: #fff;
     text-align: center;
     white-space: nowrap;
-    vertical-align: baseline;
     border-radius: 0.25rem;
 }
 
@@ -21,7 +20,7 @@
 .apinfo-size{
     width: 48%;
     background-color: #FFFFFF;
-    height: 50vh;
+    height: 56vh;
     border: outset;
 }
 .apinfo-font{
@@ -56,4 +55,7 @@
     text-align: right;
     margin-right: 2rem;
     margin-top: 2rem;
+}
+.ap-vertical{
+    vertical-align: middle;
 }

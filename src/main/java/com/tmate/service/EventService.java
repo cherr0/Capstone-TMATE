@@ -23,4 +23,6 @@ public interface EventService {
     // 상세페이지
     public EventDTO get(String e_id);
 
+    // 페이지 네이션을 위한 이벤트 토탈 로직
+    public int getTotalCount(Criteria cri);
 }

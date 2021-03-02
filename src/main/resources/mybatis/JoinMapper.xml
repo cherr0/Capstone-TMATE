@@ -3,16 +3,25 @@
 <mapper namespace="com.tmate.mapper.JoinMapper">
 
     <select id="getHistoryByMember" resultType="com.tmate.domain.JoinHistoryVO">
-        select  h.merchant_uid, h.h_s_place ,h.h_s_lttd, h.h_s_lngtd, h_f_place, h.h_f_lttd, h.h_f_lngtd, h.h_s_time, h.h_e_time, m.m_name,c.car_no, c.car_model
-        from history h inner join member m on h.d_id = m.m_id
-                       inner join car c on m.m_id = c.m_id
-        where h.m_id = #{m_id}
+       <![CDATA[
+        select merchant_uid, h_s_place, h_f_place, h_s_time, h_e_time, m_name, car_no, car_model
+        from (select rownum rn,  h.merchant_uid as merchant_uid , h.h_s_place as h_s_place, h.h_f_place as h_f_place, h.h_s_time as h_s_time, h.h_e_time as h_e_time
+                   , m.m_name as m_name ,c.car_no as car_no , c.car_model as car_model
+              from history h inner join member m on h.d_id = m.m_id
+                             inner join car c on m.m_id = c.m_id
+              where h.m_id = #{m_id} and rownum <= #{cri.pageNum} * #{cri.amount})
+        where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+        ]]>
     </select>
 
     <select id="getPointByMember" resultType="com.tmate.domain.JoinPointVO" >
-        select p.po_exact, p.po_result, p.po_course, p.po_time, m.m_point
-        from point p inner join member m on p.m_id = m.m_id
-        where p.m_id = #{m_id}
+        <![CDATA[
+        select po_exact, po_result, po_course, po_time, m_point
+        from (select rownum rn,  p.po_exact as po_exact , p.po_result as po_result , p.po_course as po_course , p.po_time as po_time, m.m_point as m_point
+              from point p inner join member m on p.m_id = m.m_id
+              where p.m_id = #{m_id} and rownum <= #{cri.pageNum} * #{cri.amount})
+        where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+        ]]>
     </select>
 
     <select id="getDriver" resultType="com.tmate.domain.JoinDriverVO">
@@ -23,17 +32,44 @@
     </select>
 
     <select id="getApprovalDrivers" resultType="com.tmate.domain.JoinApprovalVO">
-        select c.corp_code, d.d_id, d.d_license_no, v.car_model
-        from corp c inner join member m on c.d_id = m.m_id
-        inner join driver d on c.d_id = d.d_id
-        inner join car v on d.d_id = v.m_id
-        where d.d_j_date is null
+        <![CDATA[
+        select corp_code, d_id, d_lisense_no , car_model
+        from (select rownum rn, c.corp_code as corp_code , d.d_id as d_id, d.d_license_no as d_lisense_no , v.car_model as car_model
+              from corp c inner join member m on c.d_id = m.m_id
+                          inner join driver d on c.d_id = d.d_id
+                          inner join car v on d.d_id = v.m_id
+              where d.d_j_date is null  and rownum <= #{pageNum} * #{amount})
+        where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
 
+    <select id="getTotalApproCount" resultType="_int">
+        select count(*)
+        from (select rownum rn, c.corp_code as corp_code , d.d_id as d_id, d.d_license_no as d_lisense_no , v.car_model as car_model
+              from corp c inner join member m on c.d_id = m.m_id
+                          inner join driver d on c.d_id = d.d_id
+                          inner join car v on d.d_id = v.m_id
+              where d.d_j_date is null)
     </select>
 
     <delete id="deleteDriver">
         delete from driver
         where d_id = #{d_id}
     </delete>
+
+    <select id="getTotalHistoryCount" resultType="_int">
+        select count(*)
+        from (select  h.merchant_uid, h.h_s_place , h_f_place, h.h_s_time, h.h_e_time, m.m_name,c.car_no, c.car_model
+              from history h inner join member m on h.d_id = m.m_id
+                             inner join car c on m.m_id = c.m_id
+              where h.m_id = #{m_id})
+    </select>
+
+    <select id="getTotalPointCount" resultType="_int">
+        select count(*)
+        from (select p.po_exact, p.po_result, p.po_course, p.po_time, m.m_point
+              from point p inner join member m on p.m_id = m.m_id
+              where p.m_id = #{m_id})
+    </select>
 
 </mapper>

@@ -1,7 +1,7 @@
 package com.tmate.web;
 
 import com.tmate.domain.JoinDriverVO;
-import com.tmate.service.*;
+import com.tmate.service.ApprovalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
-
-@RequiredArgsConstructor
 @RequestMapping("/api")
+@RequiredArgsConstructor
 @RestController
-public class ApiController {
+public class ApprovalApiController {
 
     private final ApprovalService approvalService;
 
@@ -26,6 +24,5 @@ public class ApiController {
 
         return new ResponseEntity<>(driver, HttpStatus.OK);
     }
-
 
 }

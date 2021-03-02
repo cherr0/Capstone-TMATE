@@ -46,4 +46,11 @@ public class EventServiceImpl implements EventService {
     public EventDTO get(String e_id) {
         return eventMapper.read(e_id);
     }
+
+    // 이벤트 총 토탈 갯수
+
+    @Override
+    public int getTotalCount(Criteria cri) {
+        return eventMapper.getTotalCount(cri);
+    }
 }

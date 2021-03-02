@@ -4,9 +4,6 @@
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
     <title>Dashboard</title>
@@ -246,23 +243,23 @@
                             <div class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="image">
-                                        <img th:src="@{~/images/icon/avatar-01.jpg}" alt="John Doe" />
+                                        <img th:src="@{${session.member.m_profile}}" />
                                     </div>
                                     <div class="content">
-                                        <a class="js-acc-btn" href="#">john doe</a>
+                                        <a class="js-acc-btn" href="#" th:text="${session.member.m_name}"></a>
                                     </div>
                                     <div class="account-dropdown js-dropdown">
                                         <div class="info clearfix">
                                             <div class="image">
                                                 <a href="#">
-                                                    <img th:src="@{~/images/icon/avatar-01.jpg}" alt="John Doe" />
+                                                    <img th:src="@{${session.member.m_profile}}" />
                                                 </a>
                                             </div>
                                             <div class="content">
                                                 <h5 class="name">
-                                                    <a href="#">john doe</a>
+                                                    <a href="#" th:text="${session.member.m_name}"></a>
                                                 </h5>
-                                                <span class="email">johndoe@example.com</span>
+                                                <span class="email" th:text="${session.member.m_email}"></span>
                                             </div>
                                         </div>
                                         <div class="account-dropdown__body">
@@ -298,6 +295,9 @@
 <!-- End Page Wrapper -->
 
 <footer th:fragment="footer">
+    <!-- Sweet Alert -->
+    <script th:src="@{~/vendor/sweetalert/sweetalert.min.js}"></script>
+
     <!-- Bootstrap JS-->
     <script th:src="@{~/vendor/bootstrap-4.1/popper.min.js}"></script>
     <script th:src="@{~/vendor/bootstrap-4.1/bootstrap.min.js}"></script>
@@ -324,8 +324,6 @@
     <script th:src="@{~/js/app/member.js}"></script>
     <script th:src="@{~/js/app/place.js}"></script>
     <script th:src="@{~/js/app/board.js}"></script>
-
-    <!--  -->
 </footer>
 
 </body>

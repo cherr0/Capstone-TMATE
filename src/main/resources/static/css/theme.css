@@ -14653,3 +14653,21 @@ section {
 .contents_size{
     margin-top: 90px;
 }
+.card-header-title {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.card-header-title .not-title {
+    font-size: 30px;
+    margin-bottom: 0.2em;
+    vertical-align: middle;
+}
+.card-header-title .not-title .not-time{
+    font-size: 15px;
+    line-height: 3em;
+}
+.no-font {
+    color: #454545;
+    font-weight: 900;
+}
+
