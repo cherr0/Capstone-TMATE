@@ -24,9 +24,11 @@
     </select>
 
     <select id="getHotPlaceList" resultType="com.tmate.domain.PlaceDTO">
-        select pl_name, pl_start
-        from place
-        order by pl_start desc
+        <![CDATA[
+            select pl_name, pl_start
+            from (select * from place order by pl_start desc)
+            where rownum <=5
+        ]]>
     </select>
 
 </mapper>
