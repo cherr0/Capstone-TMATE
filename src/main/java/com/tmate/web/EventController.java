@@ -2,6 +2,7 @@ package com.tmate.web;
 
 import com.tmate.domain.Criteria;
 import com.tmate.domain.EventDTO;
+import com.tmate.domain.PageDTO;
 import com.tmate.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class EventController {
     public String eventList(Model model, Criteria cri) {
         List<EventDTO> eventList = eventService.getListEvent(cri);
 
+        int total = eventService.getTotalCount(cri);
+
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
         model.addAttribute("eventList", eventList);     // 이벤트 목록
         return "eventList";
     }
@@ -51,7 +55,5 @@ public class EventController {
         model.addAttribute("event", event);
         return "eventModify";
     }
-
-
 
 }

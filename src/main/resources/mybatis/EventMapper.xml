@@ -42,4 +42,9 @@
         values('sp'||1||ev_seq.nextval,#{e_kind},#{e_contents},#{e_s_date},#{e_e_date})
     </insert>
 
+    <!-- 이벤트 토탈 갯수 -->
+    <select id="getTotalCount" resultType="_int">
+        select count(*)
+        from event
+    </select>
 </mapper>

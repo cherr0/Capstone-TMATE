@@ -184,9 +184,11 @@ public class IndexController_dump {
             Timestamp timestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
 
             history.setMerchant_uid("merchant_" + timestamp + "0");
+            /*
             history.setM_id(m_id);
             history.setH_s_lttd("출발지 " + i);
             history.setH_s_lngtd("도착지 " + i);
+             */
             history.setH_s_time(timestamp);
             history.setH_e_time(timestamp);
             history.setCar_no("123가567" + i);

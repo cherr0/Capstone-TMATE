@@ -10,4 +10,6 @@ public interface PlaceService {
     public List<PlaceDTO>  getHotPlaceList();
 
     public boolean remove(String pl_id);
+
+    public boolean register(PlaceDTO placeDTO);
 }

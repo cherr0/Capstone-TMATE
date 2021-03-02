@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api")
 @RestController
-public class EvnetApiController {
+public class EventApiController {
 
     private final EventService eventService;
 

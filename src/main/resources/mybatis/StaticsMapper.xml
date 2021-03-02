@@ -18,15 +18,17 @@
     <select id="getUsersByAge" resultType="com.tmate.domain.UsersByAgeVO">
         select trunc(age/10,0) as ageGroup , count(*) as count
         from (select ((substr(sysdate,1,2) - substr(m_birth,1,2) + 100)) as age
-              from member)
+            from member)
         group by trunc(age/10,0)
         order by ageGroup
     </select>
 
     <select id="getHotPlaceList" resultType="com.tmate.domain.PlaceDTO">
-        select pl_name, pl_start
-        from place
-        order by pl_start desc
+        <![CDATA[
+            select pl_name, pl_start
+            from (select * from place order by pl_start desc)
+            where rownum <=5
+        ]]>
     </select>
 
 </mapper>

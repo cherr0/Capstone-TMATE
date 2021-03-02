@@ -10,7 +10,7 @@ public interface PlaceMapper {
 
     List<PlaceDTO> getList();
 
-    void insert(PlaceDTO placeDTO);
+    int insert(PlaceDTO placeDTO);
 
     int delete(String pl_id);
 

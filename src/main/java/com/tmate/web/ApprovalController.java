@@ -1,6 +1,10 @@
 package com.tmate.web;
 
+
+import com.tmate.domain.Criteria;
 import com.tmate.domain.JoinApprovalVO;
+import com.tmate.domain.PageDTO;
+
 import com.tmate.service.ApprovalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,9 +23,11 @@ public class ApprovalController {
 
     // 기사 승인 대기 목록
     @GetMapping("/approval")
-    public String approval(Model model) {
-        List<JoinApprovalVO> noneApprovalList = approvalService.getNoneApprovalList();
+    public String approval(Model model, Criteria cri) {
+        List<JoinApprovalVO> noneApprovalList = approvalService.getNoneApprovalList(cri);
+        int total = approvalService.getTotalApproCount(cri);
 
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
         model.addAttribute("apList", noneApprovalList);
         return "approvalList";
     }

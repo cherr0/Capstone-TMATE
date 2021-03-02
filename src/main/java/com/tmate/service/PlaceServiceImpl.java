@@ -22,4 +22,15 @@ public class PlaceServiceImpl implements PlaceService{
     public boolean remove(String pl_id) {
         return placeMapper.delete(pl_id) == 1;
     }
+
+    @Override
+    public boolean register(PlaceDTO placeDTO) {
+
+        int i = placeMapper.insert(placeDTO);
+        if(i==1) {
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

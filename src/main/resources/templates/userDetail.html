@@ -17,21 +17,22 @@
                         <div class="panel">
                             <div class="user-heading round">
                                 <a href="#">
-                                    <img th:href="@{${List.get('member').m_profile}}" alt="">
+                                    <img th:href="@{${member.m_profile}}" alt="">
                                 </a>
+
                                 <h1 class="profile_name col-sm-auto col-md-auto" th:text="${List.get('member').m_name}">하창현</h1>
                                 <span class="badge bg-info" th:switch="${#strings.substring(List.get('member').m_id, 0, 1)}">
                                     <p th:case="m">유저</p>
                                     <p th:case="d">기사</p>
                                     <p th:case="a">관리자</p>
                                 </span>
-                                <span class="badge bg-info" th:switch="${List.get('member').m_level}">
+                                <span class="badge bg-info" th:switch="${member.m_level}">
                                     <p th:case="0">일반</p>
                                     <p th:case="1">우수</p>
                                     <p th:case="2">최우수</p>
                                     <p th:case="3">VIP</p>
                                 </span>
-                                <span class="badge bg-info" th:switch="${#strings.substring(List.get('member').m_id, 1, 2)}">
+                                <span class="badge bg-info" th:switch="${#strings.substring(member.m_id, 1, 2)}">
                                     <p th:case="1">남자</p>
                                     <p th:case="2">여자</p>
                                     <p th:case="3">남자</p>
@@ -45,22 +46,22 @@
                             <div class="panel-body bio-graph-info detail-box">
                                 <div class="row">
                                     <div class="bio-row">
-                                        <p th:text="|전화번호 : ${#strings.substring(List.get('member').m_id,2, 13)}|">: 010-1111-1111</p>
+                                        <p th:text="|전화번호 : ${#strings.substring(member.m_id,2, 13)}|">: 010-1111-1111</p>
                                     </div>
                                     <div class="bio-row">
-                                        <p th:text="|생년월일 : ${#strings.substring(List.get('member').m_birth,0, 10)}|">: 1997-00-00</p>
+                                        <p th:text="|생년월일 : ${#strings.substring(member.m_birth,2, 10)}|">: 1997-00-00</p>
                                     </div>
                                     <div class="bio-row">
-                                        <p th:text="|이용횟수 : ${List.get('member').m_n_use}|"> 23회</p>
+                                        <p th:text="|이용횟수 : ${member.m_n_use}|"> 23회</p>
                                     </div>
                                     <div class="bio-row">
-                                        <p th:text="|노쇼횟수 : ${List.get('member').m_count}|"> 0회</p>
+                                        <p th:text="|노쇼횟수 : ${member.m_count}|"> 0회</p>
                                     </div>
                                     <div class="bio-row">
-                                        <p th:text="|보유 포인트 : ${List.get('member').m_point}|">2500P</p>
+                                        <p th:text="|보유 포인트 : ${member.m_point}|">2500P</p>
                                     </div>
                                     <div class="bio-row">
-                                        <p th:text="|가입일자 : ${#strings.substring(List.get('member').m_regdate,0, 10)}|"> 2021-02-17</p>
+                                        <p th:text="|가입일자 : ${#strings.substring(member.m_regdate,0, 10)}|"> 2021-02-17</p>
                                     </div>
                                 </div>
                             </div>
@@ -77,6 +78,7 @@
                 <h2 class="col-sm-12 col-md-12 col-xs-12">이용내역</h2>
             </form>
 
+            <!-- 이용내역 -->
             <table class="table table-borderless table-striped table-earning">
 
                 <thead>
@@ -91,46 +93,20 @@
                     <th class="text-center">기사명</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="dto : ${List.get('history')}">
-                    <td class="text-center" th:switch="${#strings.substring(dto.merchant_uid,29, 30)}">
-                        <p th:case="0">일반</p>
-                        <p th:case="1">동승</p>
-                    </td>
-                    <td class="text-center" th:text="${#strings.substring(dto.merchant_uid,9, 18)}">2021-02-18</td>
-                    <td class="text-center" th:text="${dto.h_s_place}">영진전문대학교</td>
-                    <td class="text-center" th:text="${dto.h_f_place}">동대구역</td>
-                    <td class="text-center">
-                        <p th:text="${dto.h_s_time}"></p>-<p th:text="${h_e_time}"></p>
-                    </td>
-                    <td class="text-center" th:text="${dto.car_no}">00아0000</td>
-                    <td class="text-center" th:text="${dto.car_model}">롤스로이스</td>
-                    <td class="text-center" th:text="${dto.m_name}">하창현</td>
-                </tr>
+                <tbody class="history">
+
                 </tbody>
             </table>
 
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center mt-md-2">
-                    <li class="page-item disabled"><a class="page-link" href="#">처음으로</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                    <li class="page-item"><a class="page-link" href="#">7</a></li>
-                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                    <li class="page-item"><a class="page-link" href="#">9</a></li>
-                    <li class="page-item"><a class="page-link" href="#">10</a></li>
-                    <li class="page-item"><a class="page-link" href="#">다음</a></li>
-                </ul>
+            <!-- 이용내역 페이지 내이션 ajax 처리 해야됨 -->
+            <nav class="history-footer" aria-label="Page navigation">
+
             </nav>
 
             <br><br>
-            <!-- 포인트내역 -->
+<!--             포인트내역 -->
             <form class="form-inline mt-2 mb-md-1 justify-content-end" role="search">
-                <h2 class="col-sm-12 col-md-12 col-xs-12    ">포인트 내역</h2>
+                <h2 class="col-sm-12 col-md-12 col-xs-12">포인트 내역</h2>
             </form>
             <table class="table table-borderless table-striped table-earning">
 
@@ -143,38 +119,236 @@
                     <th class="text-center">보유포인트</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="dto : ${List.get('point')}">
-                    <td class="text-center" th:text="${dto.po_exact}">적립</td>
-                    <td class="text-center" th:text="${dto.po_result}">250</td>
-                    <td class="text-left" th:text="${dto.po_course}">탑승 혜택 포인트?</td>
-                    <td class="text-center" th:text="${dto.po_time}">2021-02-18-21:13</td>
-                    <td class="text-center" th:text="${dto.m_point}">300P</td>
-                </tr>
+                <tbody class="point">
+
                 </tbody>
             </table>
 
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center mt-md-2">
-                    <li class="page-item disabled"><a class="page-link" href="#">처음으로</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#">6</a></li>
-                    <li class="page-item"><a class="page-link" href="#">7</a></li>
-                    <li class="page-item"><a class="page-link" href="#">8</a></li>
-                    <li class="page-item"><a class="page-link" href="#">9</a></li>
-                    <li class="page-item"><a class="page-link" href="#">10</a></li>
-                    <li class="page-item"><a class="page-link" href="#">다음</a></li>
-                </ul>
+<!--            &lt;!&ndash; 포인트 내역 &ndash;&gt;-->
+            <nav class="point-footer" aria-label="Page navigation">
+
             </nav>
         </section>
     </div>
 </div>
 
+<script type="text/javascript" th:src="@{~/js/app/paging.js}"></script>
+<script th:inline="javascript" type="text/javascript">
+$(document).ready(function(){
+    var mIdValue = [[${member.m_id}]];
+    var historyUL = $(".history");
+    var pointUL = $(".point");
+
+    showList(1);
+    showPointList(1);
+
+    // 이용내역 페이징
+    function showList(page){
+        pageService.getList({m_id:mIdValue, page: page|| 1 },function (historyCnt,list) {
+
+            console.log("historyCnt: " + historyCnt);
+            console.log("list: " + list);
+
+            if(page == -1){
+                pageNum = Math.ceil(historyCnt/10.0);
+                showList(pageNum);
+                return;
+            }
+
+            let str="";
+
+            if(list == null || list.length == 0){
+                historyUL.html("");
+                return;
+            }
+
+            for(let i=0,len=list.length || 0; i < len; i++ ){
+                str += "<tr>";
+                switch (list[i].merchant_uid.substr(27,1)){
+                    case '0':
+                        str += "<td class='text-center'>일반</td>";
+                    break;
+                    case '1':
+                        str += "<td class='text-center'>동승</td>";
+                    break;
+                }
+                str += "<td class='text-center'>"+list[i].merchant_uid.substring(9,15)+"</td>";
+                str += "<td class='text-center'>"+list[i].h_s_place+"</td>";
+                str += "<td class='text-center'>"+list[i].h_f_place+"</td>";
+                str += "<td class='text-center'>"+"<span>"+list[i].h_s_time+"</span>"+-+"<span>+list[i].h_e_time+</span>"+"</td>";
+                str += "<td class='text-center'>"+list[i].car_no+"</td>";
+                str += "<td class='text-center'>"+list[i].car_model+"</td>";
+                str += "<td class='text-center'>"+list[i].m_name+"</td>";
+                str += "</tr>";
+            }
+
+            historyUL.html(str);
+
+            showHistoryPage(historyCnt);
+        }); // end history page function
+
+    } // end showList
+
+    var pageNum = 1;
+    var historyPageFooter = $(".history-footer");
+    var pointPageFooter = $(".point-footer");
+
+    function showHistoryPage(historyCnt){
+
+        let endNum = Math.ceil(pageNum / 10.0) * 10;
+        let startNum = endNum - 9;
+
+        let prev = startNum != 1;
+        let next = false;
+
+        if(endNum * 10 >= historyCnt){
+            endNum = Math.ceil(historyCnt/10.0);
+        }
+
+        if(endNum * 10 < historyCnt){
+            next = true;
+        }
+
+        let str = "<ul class='pagination justify-content-center'>";
+
+        if(prev){
+            str += "<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>Previous</a></li>";
+        }
+
+
+
+        for(let i = startNum ; i <= endNum; i++){
+            let active = pageNum  == i? "active":"";
+
+            str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+        }
+
+        if(next){
+            str += "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a></li>";
+        }
+
+        str += "</ul>";
+
+        console.log(str);
+
+        historyPageFooter.html(str);
+    }
+
+    historyPageFooter.on("click","li a",function(e){
+        e.preventDefault();
+        console.log("page click");
+
+        let targetPageNum = $(this).attr("href");
+
+        console.log("targetPageNum: " + targetPageNum);
+
+        pageNum = targetPageNum;
+
+        showList(pageNum);
+    });
+
+    // 포인트 페이징
+    function showPointList(page){
+        pageService.getPointList({m_id:mIdValue, page: page|| 1 },function (pointCnt,list) {
+
+            console.log("pointCnt: " + pointCnt);
+            console.log("list: " + list);
+
+            if(page == -1){
+                pageNum = Math.ceil(pointCnt/10.0);
+                showpointList(pageNum);
+                return;
+            }
+
+            let str="";
+
+            if(list == null || list.length == 0){
+                pointUL.html("");
+                return;
+            }
+
+            for(let i=0,len=list.length || 0; i < len; i++ ){
+                str += "<tr>";
+                switch (list[i].po_exact){
+                    case '0':
+                        str += "<td class='text-center'>사용</td>";
+                        break;
+                    case '1':
+                        str += "<td class='text-center'>적립</td>";
+                        break;
+                }
+                str += "<td class='text-center'>"+list[i].po_result+"</td>";
+                str += "<td class='text-center'>"+list[i].po_course+"</td>";
+                str += "<td class='text-center'>"+list[i].po_time+"</td>";
+                str += "<td class='text-center'>"+list[i].m_point+"</td>";
+                str += "</tr>";
+            }
+
+            pointUL.html(str);
+
+            showPointPage(pointCnt);
+        }); // end history page function
+
+    } // end showList
+
+    function showPointPage(pointCnt){
+
+        let endNum = Math.ceil(pageNum / 10.0) * 10;
+        let startNum = endNum - 9;
+
+        let prev = startNum != 1;
+        let next = false;
+
+        if(endNum * 10 >= pointCnt){
+            endNum = Math.ceil(pointCnt/10.0);
+        }
+
+        if(endNum * 10 < pointCnt){
+            next = true;
+        }
+
+        let str = "<ul class='pagination justify-content-center'>";
+
+        if(prev){
+            str += "<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>Previous</a></li>";
+        }
+
+
+
+        for(let i = startNum ; i <= endNum; i++){
+            let active = pageNum  == i? "active":"";
+
+            str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+        }
+
+        if(next){
+            str += "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a></li>";
+        }
+
+        str += "</ul>";
+
+        console.log(str);
+
+        pointPageFooter.html(str);
+    }
+
+    pointPageFooter.on("click","li a",function(e){
+        e.preventDefault();
+        console.log("page click");
+
+        let targetPageNum = $(this).attr("href");
+
+        console.log("targetPageNum: " + targetPageNum);
+
+        pageNum = targetPageNum;
+
+        showPointList(pageNum);
+    });
+
+})
+</script>
 <footer th:replace="layout/basic :: footer">
 </footer>
+
 </body>
 </html>

@@ -2,6 +2,8 @@ package com.tmate.web;
 
 import com.tmate.domain.BoardDTO;
 import com.tmate.domain.Criteria;
+import com.tmate.domain.PageDTO;
+
 import com.tmate.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,7 +23,10 @@ public class BoardController {
     public String noticeList(Model model, Criteria cri) {
         List<BoardDTO> boardList = boardService.getList(cri);
 
+        int total = boardService.totalCount(cri);
+
         model.addAttribute("noticeList", boardList);    // 공지 항목 보여주기
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
         return "noticeList";
     }
 

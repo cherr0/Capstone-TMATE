@@ -1,6 +1,9 @@
 package com.tmate.web;
 
-import com.tmate.domain.*;
+import com.tmate.domain.MonthlyUsersVO;
+import com.tmate.domain.PlaceDTO;
+import com.tmate.domain.UsersByAgeVO;
+
 import com.tmate.service.MainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -31,6 +34,14 @@ public class IndexController {
         List<UsersByAgeVO> usersByAge = mainService.countUsersByAge();  // 연령별 이용자 수
         List<PlaceDTO> placeByStart = mainService.rankHotplaceByStart();    // 핫플레이스 이용 순위
 
+
+        System.out.println("members = " + members);
+        System.out.println("drivers = " + drivers);
+        System.out.println("weeklyUsers = " + weeklyUsers);
+        System.out.println("monthlyUsers = " + monthlyUsers);
+        System.out.println("placeByStart = " + placeByStart);
+        System.out.println("usersByAge = " + usersByAge);
+
         model.addAttribute("members", members);
         model.addAttribute("drivers", drivers);
         model.addAttribute("weeklyUsers", weeklyUsers);
@@ -38,6 +49,18 @@ public class IndexController {
         model.addAttribute("usersByAge", usersByAge);
         model.addAttribute("placeByStart", placeByStart);
         return "main";
+    }
+
+    // 유저 메인화면
+    @GetMapping("/usermain")
+    public String userMain() {
+        return "userMain";
+    }
+
+    // 회원가입 QR 코드 사용하여 모바일 화면 연결
+    @GetMapping("/registerqrcode")
+    public String qrCode() {
+        return "registerQRcode";
     }
 
 }
