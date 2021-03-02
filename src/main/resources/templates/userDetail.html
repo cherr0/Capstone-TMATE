@@ -13,13 +13,13 @@
         <section class="container-fluid contents_size">
             <div class="container bootstrap snippets bootdey">
                 <div class="row">
-                    <div class="profile-nav col-md-3">
+                    <div class="profile-nav col-md-4 col-sm-12 col-xs-12">
                         <div class="panel">
                             <div class="user-heading round">
                                 <a href="#">
                                     <img th:href="@{${List.get('member').m_profile}}" alt="">
                                 </a>
-                                <h1 class="profile_name" th:text="${List.get('member').m_name}">하창현</h1>
+                                <h1 class="profile_name col-sm-auto col-md-auto" th:text="${List.get('member').m_name}">하창현</h1>
                                 <span class="badge bg-info" th:switch="${#strings.substring(List.get('member').m_id, 0, 1)}">
                                     <p th:case="m">유저</p>
                                     <p th:case="d">기사</p>
@@ -40,9 +40,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="profile-info col-md-9">
+                    <div class="profile-info col-md-8 col-sm-12 col-xs-12">
                         <div class="panel">
-                            <div class="panel-body bio-graph-info">
+                            <div class="panel-body bio-graph-info detail-box">
                                 <div class="row">
                                     <div class="bio-row">
                                         <p th:text="|전화번호 : ${#strings.substring(List.get('member').m_id,2, 13)}|">: 010-1111-1111</p>
@@ -74,12 +74,7 @@
             <!-- 이용내역 -->
 
             <form class="form-inline mt-2 mb-md-1 justify-content-end" role="search">
-                <h2 class="col-sm-9">이용내역</h2>
-                <label>검색어:&nbsp &nbsp
-                    <div class="form-group col-sm-9">
-                        <input type="search" class="form-control mr-sm-2 mb-md-1 " placeholder="Search">
-                    </div>
-                </label>
+                <h2 class="col-sm-12 col-md-12 col-xs-12">이용내역</h2>
             </form>
 
             <table class="table table-borderless table-striped table-earning">
@@ -135,12 +130,7 @@
             <br><br>
             <!-- 포인트내역 -->
             <form class="form-inline mt-2 mb-md-1 justify-content-end" role="search">
-                <h2 class="col-sm-9">포인트 내역</h2>
-                <label>검색어:&nbsp &nbsp
-                    <div class="form-group col-sm-9">
-                        <input type="search" class="form-control mr-sm-2 mb-md-1 " placeholder="Search">
-                    </div>
-                </label>
+                <h2 class="col-sm-12 col-md-12 col-xs-12    ">포인트 내역</h2>
             </form>
             <table class="table table-borderless table-striped table-earning">
 
