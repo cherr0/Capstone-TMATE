@@ -1,15 +1,16 @@
 package com.tmate.web;
 
-import com.tmate.domain.MonthlyUsersVO;
-import com.tmate.domain.PlaceDTO;
-import com.tmate.domain.UsersByAgeVO;
+import com.tmate.domain.*;
 
 import com.tmate.service.MainService;
+import com.tmate.service.MemberService;
+import com.tmate.service.SMSService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,6 +18,8 @@ import java.util.List;
 public class IndexController {
 
     private final MainService mainService;
+
+    private final SMSService smsService;
 
     // 로그인 전 메인화면
     @GetMapping("/")
@@ -26,7 +29,7 @@ public class IndexController {
 
     // 로그인 메인화면
     @GetMapping("/main")
-    public String main(Model model) {
+    public String main(Model model, HttpSession httpSession) {
         int members = mainService.countMembers();       // 총 유저 수
         int drivers = mainService.countDrivers();       // 총 기사 수
         int weeklyUsers = mainService.countWeeklyUsers();   // 주간 이용자 수
@@ -41,6 +44,12 @@ public class IndexController {
         System.out.println("monthlyUsers = " + monthlyUsers);
         System.out.println("placeByStart = " + placeByStart);
         System.out.println("usersByAge = " + usersByAge);
+
+        PhoneDTO phone = new PhoneDTO("박중원","01067501664","");
+
+        MemberDTO member = smsService.getPermission(phone);
+        httpSession.setAttribute("member",member);
+
 
         model.addAttribute("members", members);
         model.addAttribute("drivers", drivers);
