@@ -1,15 +1,16 @@
 package com.tmate.web;
 
-import com.tmate.domain.MonthlyUsersVO;
-import com.tmate.domain.PlaceDTO;
-import com.tmate.domain.UsersByAgeVO;
+import com.tmate.domain.*;
 
 import com.tmate.service.MainService;
+import com.tmate.service.SMSService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,6 +18,8 @@ import java.util.List;
 public class IndexController {
 
     private final MainService mainService;
+
+    private final SMSService smsService;
 
     // 로그인 전 메인화면
     @GetMapping("/")
@@ -63,4 +66,13 @@ public class IndexController {
         return "registerQRcode";
     }
 
+    @GetMapping("/testLogin")
+    public String testLogin(HttpSession httpSession) {
+        PhoneDTO phone = new PhoneDTO("박중원","01067501664","");
+
+        MemberDTO member = smsService.getPermission(phone);
+        httpSession.setAttribute("member",member);
+        System.out.println("테스트 로그인 완료");
+        return "main";
+    }
 }
