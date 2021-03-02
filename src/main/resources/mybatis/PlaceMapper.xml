@@ -12,4 +12,9 @@
         where pl_id = #{pl_id}
     </delete>
 
+    <insert id="insert">
+        insert into place (pl_id,pl_name,pl_lttd,pl_lngtd)
+        values (#{pl_id},#{pl_name},#{pl_lttd},#{pl_lngtd})
+    </insert>
+
 </mapper>
