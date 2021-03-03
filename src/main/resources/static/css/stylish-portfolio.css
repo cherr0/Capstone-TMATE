@@ -98,7 +98,7 @@ button {
   height: auto;
   padding-top: 8rem;
   padding-bottom: 8rem;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url("../images/bg-masthead.jpg");
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.7) 100%), url("../images/bg-main.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -115,7 +115,7 @@ button {
     height: 100vh;
   }
   .masthead h1 {
-    font-size: 5.5rem;
+    font-size: 10rem;
   }
 }
 
@@ -228,7 +228,7 @@ button {
 
 .callout {
   padding: 15rem 0;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url("../images/bg-callout.jpg");
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -262,12 +262,13 @@ button {
 
 .portfolio-item .caption .caption-content {
   color: #fff;
-  margin: auto 2rem 2rem;
+  margin: 80px auto;
 }
 
 .portfolio-item .caption .caption-content h2 {
   font-size: 0.8rem;
   text-transform: uppercase;
+
 }
 
 .portfolio-item .caption .caption-content p {
@@ -278,7 +279,6 @@ button {
 @media (min-width: 992px) {
   .portfolio-item {
     max-width: none;
-    margin: 0;
   }
   .portfolio-item .caption {
     transition: background-color 0.7s, -webkit-clip-path 0.25s ease-out;
@@ -286,19 +286,23 @@ button {
     transition: clip-path 0.25s ease-out, background-color 0.7s, -webkit-clip-path 0.25s ease-out;
     -webkit-clip-path: inset(0px);
     clip-path: inset(0px);
-  }
-  .portfolio-item .caption .caption-content {
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }/* 젤위에있는 잘모르는  사각형*/
+  .portfolio-item .caption .caption-content { /*글내용*/
     transition: opacity 0.25s;
     margin-left: 5rem;
     margin-right: 5rem;
-    margin-bottom: 5rem;
+    margin-bottom: -5rem;
   }
-  .portfolio-item img {
+  .portfolio-item img { /*이게 이미지*/
     transition: -webkit-clip-path 0.25s ease-out;
     transition: clip-path 0.25s ease-out;
     transition: clip-path 0.25s ease-out, -webkit-clip-path 0.25s ease-out;
     -webkit-clip-path: inset(-1px);
     clip-path: inset(-1px);
+    margin-left: 5rem;
+    margin-right: 5rem;
   }
   .portfolio-item:hover img {
     -webkit-clip-path: inset(2rem);
@@ -388,3 +392,24 @@ a:hover, a:focus, a:active {
 .text-secondary {
   color: #ecb807 !important;
 }
+
+.container .index-title {
+  display: inline;
+}
+
+.index-img {
+  text-align: center;
+}
+
+.index-img img{
+  width: 27em;
+  text-align: center;
+}
+
+.index-img .carousel-caption {
+  margin-bottom: 3em;
+  text-align: center;
+}
+
+
+

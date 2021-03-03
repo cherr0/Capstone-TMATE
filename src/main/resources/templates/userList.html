@@ -10,51 +10,55 @@
 
     <div class="page-container">
         <div th:replace="layout/basic :: header"></div>
-        <section class="container-fluid contents_size">
-            <br><br>
-            <!--회원관리 테이블 시작-->
-            <div class="card-header">
-                <h1 class="mt-4">회원관리</h1>
-            </div>
-            <br>
-            <table class="table table-borderless table-striped table-earning">
-                <thead>
-                <tr>
-                    <th class="text-center">구분</th>
-                    <th class="text-center">이름</th>
-                    <th class="text-center">휴대폰번호</th>
-                    <th class="text-center">가입일자</th>
-                    <th class="text-center">생년월일</th>
-                    <th class="text-center">등급</th>
-                    <th class="text-center">상태</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="memberList : ${memberList}">
-
-                    <td class="text-center" th:switch="${#strings.substring(memberList.m_id, 0, 1)}">
-                        <p th:case="m">유저</p>
-                        <p th:case="d">기사</p>
-                        <p th:case="a">관리자</p>
-                    </td>
-                    <td><a th:href="@{'/user/'+${memberList.m_id}}"><span th:text="${memberList.m_name}"></span></a></td>
-                    <td class="text-center" th:text="${#strings.substring(memberList.m_id,2, 13)}"></td>
-                    <td class="text-center" th:text="${#strings.substring(memberList.m_regdate,0, 10)}"></td>
-                    <td class="text-center" th:text="${#strings.substring(memberList.m_birth,2, 10)}"></td>
-                    <td class="text-center" th:switch="${memberList.m_level}">
-                        <p th:case="0">일반</p>
-                        <p th:case="1">우수</p>
-                        <p th:case="2">최우수</p>
-                        <p th:case="3">VIP</p>
-                    </td>
-                    <td class="text-center" th:switch="${memberList.m_status}">
-                        <p th:case="0">정상</p>
-                        <p th:case="1">휴면</p>
-                        <p th:case="2">정지</p>
-                    </td>
-                </tr>
-            </table>
-
+<div class="container-fluid contents_size">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 style="margin-top: auto">회원관리</h2>
+                        </div>
+                        <div class="card-body">
+                            <table id="table" class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">구분</th>
+                                    <th class="text-center">이름</th>
+                                    <th class="text-center">휴대폰번호</th>
+                                    <th class="text-center">가입일자</th>
+                                    <th class="text-center">생년월일</th>
+                                    <th class="text-center">등급</th>
+                                    <th class="text-center">상태</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="memberList : ${memberList}">
+                                    <td class="text-center" th:switch="${#strings.substring(memberList.m_id, 0, 1)}">
+                                        <p th:case="m">유저</p>
+                                        <p th:case="d">기사</p>
+                                        <p th:case="a">관리자</p>
+                                    </td>
+                                    <td><a th:href="@{'/user/'+${memberList.m_id}}"><span th:text="${memberList.m_name}"></span></a></td>
+                                    <td class="text-center">
+                                        <span th:text="${#strings.substring(memberList.m_id,2, 5)}"></span>-<span th:text="${#strings.substring(memberList.m_id,5, 9)}"></span>
+                                        -<span th:text="${#strings.substring(memberList.m_id,9, 13)}"></span>
+                                    </td>
+                                    <td class="text-center" th:text="${#strings.substring(memberList.m_regdate,0, 10)}"></td>
+                                    <td class="text-center" th:text="${#strings.substring(memberList.m_birth,2, 10)}"></td>
+                                    <td class="text-center" th:switch="${memberList.m_level}">
+                                        <p th:case="0">일반</p>
+                                        <p th:case="1">우수</p>
+                                        <p th:case="2">최우수</p>
+                                        <p th:case="3">VIP</p>
+                                    </td>
+                                    <td class="text-center" th:switch="${memberList.m_status}">
+                                        <p th:case="0">정상</p>
+                                        <p th:case="1">휴면</p>
+                                        <p th:case="2">정지</p>
+                                    </td>
+                                </tr>
+                            </table>
             <!-- 페이지 네이션 -->
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
@@ -83,7 +87,14 @@
                 </ul>
             </nav>
             <!--회원관리 테이블 끝-->
-        </section>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+         </div>
     </div>
 </div>
 
