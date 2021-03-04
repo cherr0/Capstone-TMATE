@@ -12,26 +12,12 @@
         <div th:replace="layout/basic :: header"></div>
         <section class="container-fluid contents_size">
             <section class="container-fluid contents_size">
-                <section class="welcome2 p-t-40 p-b-55">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="au-breadcrumb3">
-                                    <div class="au-breadcrumb-left">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="welcome2-inner m-t-60">
-                                    <div class="welcome2-greeting">
-                                        <h1 class="title-6">반가워
-                                            <span th:text="${session.member.m_name}"></span>  오늘도 화이팅!!</h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <section class="welcome2 p-t-40 p-b-55" id="img-bar">
+                    <div class="container" >
+                        <h1>
+                            <span class="txt-type" data-wait="2500" data-words='["어서오세요 TMATE입니다."]'></span>
+                        </h1>
+                        <h2>Welcome To My Website</h2>
                     </div>
                 </section>
                 <section class="statistic statistic2">

@@ -195,3 +195,64 @@ html {
 .modal-header img {
     margin: auto;
 }
+
+
+/*메인페이지 상단바*/
+#img-bar {
+    font-family: 'Raleway', sans-serif;
+    background: #333 url('https://image.ibb.co/n5A2HU/showcase.jpg') no-repeat center center / cover;
+    color: #FFFFFF;
+    overflow:hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 15em;
+    padding: 0 3rem;
+}
+
+#img-bar h1, h2 {
+    font-weight: 200;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+    color: #FFFFFF;
+}
+
+#img-bar h1 {
+    font-size: 3.5rem;
+}
+
+#img-bar h2 {
+    font-size: 2rem;
+    color: #aaa;
+}
+
+/* Cursor */
+.txt-type > .txt {
+    border-right: 0.2rem solid #777;
+}
+
+@media(min-width: 1200px) {
+    #img-bar h1 {
+        font-size: 5rem;
+    }
+}
+
+@media(max-width: 800px) {
+    #img-bar {
+        padding: 0 1rem;
+    }
+
+    #img-bar h1 {
+        font-size: 3rem;
+    }
+}
+
+@media(max-width: 500px) {
+    #img-bar h1 {
+        font-size: 2.5rem;
+    }
+
+    #img-bar h2 {
+        font-size: 1.5rem;
+    }
+}
