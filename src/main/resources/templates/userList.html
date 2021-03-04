@@ -2,10 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/basic :: head}">
 </head>
+
 <body class="animsition">
 <div class="page-wrapper">
     <aside th:replace="layout/basic :: mobile"></aside>
     <aside th:replace="layout/basic :: sidebar"></aside>
+
     <div class="page-container">
         <div th:replace="layout/basic :: header"></div>
 <div class="container-fluid contents_size">
@@ -95,6 +97,7 @@
          </div>
     </div>
 </div>
+
 <footer th:replace="layout/basic :: footer">
 </footer>
 </body>
