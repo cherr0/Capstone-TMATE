@@ -20,12 +20,12 @@ const event = {
         });
 
         // 글 삭제
-        $('#board-delete').on('click', function () {
+        $('#event-remove').on('click', function () {
             _this.eventDelete();
         });
 
         // 리스트 이동
-        $('#return-event').on('click', function () {
+        $('#event-list').on('click', function () {
             _this.eventList();
         });
 
@@ -49,8 +49,7 @@ const event = {
             e_kind: $('#event-write-kind').val(),
             e_contents: $('#event-write-content').val(),
             e_s_date: new Date($('#event-time-start').val()),
-            e_e_date: new Date($('#event-time-end').val()),
-            e_status: $('#event-write-status').val()
+            e_e_date: new Date($('#event-time-end').val())
         };
 
         $.ajax({
@@ -58,52 +57,70 @@ const event = {
             type: 'POST',
             url: '/api/eventwrite',
             dataType : 'JSON',
-            contentType:'application/json; charset=utf-8'
-        }).done(function () {
-            alert('글 작성 완료');
-            window.location.href = '/event';
-        }).fail(function (err) {
-            alert(JSON.stringify(err));
+            contentType:'application/json; charset=utf-8',
+            success : function () {
+                swal({
+                    title: "글 작성 성공",
+                    text: "작성이 완료되었습니다.",
+                    icon: "success"
+                });
+                window.location.href = "/event";
+            },
+            error : function () {
+                swal({
+                    title: "글 작성 실패",
+                    text: "어디 빠진 부분이 있는 것 같습니다.",
+                    icon: "error"
+                });
+            }
         });
     },
 
     // 이벤트 글 수정
     eventModify : function () {
         const data = {
-            title: $('title').val(),
-            content: $('#content').val()
+            e_id: $('#e_id').val(),
+            e_kind: $('#event-modify-kind').val(),
+            e_contents: $('#event-modify-content').val(),
+            e_s_date: new Date($('#event-time-start').val()),
+            e_e_date: new Date($('#event-time-end').val())
         };
 
         $.ajax({
             data: JSON.stringify(data),
             type: 'PUT',
-            url: 'api/eventmodify',
+            url: '/api/eventmodify',
             dataType: 'JSON',
             contentType: 'application/json; charset=utf-8'
-        }).done(function() {
-            alert('글 수정 완료');
-            window.location.href = '/event';
+        }).done(function () {
+            swal({
+                title: "글 수정 성공",
+                text: "수정이 완료되었습니다.",
+                icon: "success"
+            }).then(() => {
+                window.location.href = "/event";
+            });
         }).fail(function (err) {
-            alert(JSON.stringify(err));
-        });
+            alert(err);
+        })
     },
 
     // 이벤트 글 수정 화면 이동
     eventModMove : function () {
-        const e_id = $('#e_id').text();
+        const e_id = $('#e_id').val();
         window.location.href = '/eventmodify/' + e_id;
     },
 
     // 이벤트 글 삭제
     eventDelete : function () {
         const data = {
-            e_id: $('e_id').val()
+            e_id: $('#e_id').val()
         };
 
         $.ajax({
             data: JSON.stringify(data),
             type: 'DELETE',
-            url: 'api/eventremove',
+            url: '/api/eventremove',
             dataType: 'JSON',
             contentType: 'application/json; charset=utf-8'
         }).done(function () {

@@ -232,6 +232,7 @@ button {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #D9F7F7;
 }
 
 .callout h2 {
@@ -399,17 +400,24 @@ a:hover, a:focus, a:active {
 
 .index-img {
   text-align: center;
+  transition: all 0.5s linear;
 }
 
 .index-img img{
   width: 27em;
   text-align: center;
+  filter: brightness(70%);
 }
 
 .index-img .carousel-caption {
   margin-bottom: 3em;
   text-align: center;
 }
+
+#img-hover:hover{
+  transform: scale( 1.3 );
+}
+
 
 
 

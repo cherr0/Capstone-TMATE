@@ -26,4 +26,7 @@ public class EventDTO {
 
     // 이벤트 종료 날짜
     private Timestamp e_e_date;
+
+    // 조회수
+    private int e_count;
 }

@@ -4,12 +4,11 @@
 </head>
 <body class="animsition">
 <div class="page-wrapper">
-    <aside th:replace="layout/basic :: mobile"></aside>
-    <aside th:replace="layout/basic :: sidebar"></aside>
-    <link th:href="@{css/detail.css}" rel="stylesheet">
+    <aside th:replace="~{layout/basic :: mobile}"></aside>
+    <aside th:replace="~{layout/basic :: sidebar}"></aside>
 
     <div class="page-container">
-        <div th:replace="layout/basic :: header"></div>
+        <div th:replace="~{layout/basic :: header}"></div>
         <div class="container-fluid contents_size">
             <section class="content">
                 <div class="container-fluid">
@@ -22,8 +21,8 @@
                                 <div class="card-header-title">
                                     <div class="not-title">
                                         <span class="float-left" th:text="| 이벤트 이름 : ${event.e_kind}|">제목</span>
-                                        <span class="float-right not-time" th:text="${#strings.substring(event.e_s_date,0,16)}"></span>
-                                        <span class="float-right not-time" th:text="${#strings.substring(event.e_e_date,0,16)}"></span>
+                                        <span class="float-right not-time" th:text="${#dates.format(event.e_s_date,'yy-MM-dd')}"></span>
+                                        <span class="float-right not-time" th:text="${#dates.format(event.e_e_date,'yy-MM-dd')}"></span>
                                     </div>
                                 </div>
                                 <div class="card-header-title">
@@ -32,9 +31,6 @@
                                             <span>글번호</span>
                                             <span th:text="| : ${#strings.substring(event.e_id,3)}|"></span>
                                             <span> &#124; 관리자 &#124; </span>
-                                            <span class="no-font" >공개</span>
-                                            <span class="no-font" th:case="1">비공개</span>
-                                            <span class="no-font" th:case="2">예약</span>
                                         </div>
                                     </div>
                                 </div>
@@ -43,8 +39,8 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="float-right">
-                                        <button type="button" class="btn btn-primary" onclick="location.href='/event'" id="event-remove">삭제</button>
-                                        <button type="button" class="btn btn-info" id="event-detail-modify">글 수정</button>
+                                        <button type="button" class="btn btn-primary" id="event-remove">삭제</button>
+                                        <button type="button" class="btn btn-info" id="event-modify-move">글 수정</button>
                                         <button type="button" class="btn btn-light" id="event-list">글 목록</button>
                                     </div>
                                 </div>
@@ -56,8 +52,9 @@
         </div>
     </div>
 </div>
-<input id="e_id" type="hidden" th:value="${event.e_id}">
-<footer th:replace="layout/basic :: footer">
+<input id="e_id" type="hidden" th:value="${event.e_id}" />
+<footer th:replace="~{layout/basic :: footer}">
 </footer>
+<script th:src="@{~/js/app/event.js}"></script>
 </body>
 </html>

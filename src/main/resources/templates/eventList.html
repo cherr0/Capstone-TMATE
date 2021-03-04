@@ -35,26 +35,33 @@
                                         <tr>
                                             <th>번호</th>
                                             <th>제목</th>
-                                            <th>작성자</th>
-                                            <th>등록일</th>
-                                            <th>조회수</th>
-                                            <th>상태</th>
+                                            <th>이벤트 기간</th>
+                                            <th>시즌정보</th>
+                                                <th>종류</th>
+                                            <th>조회</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
                                         <tr th:each="eventList : ${eventList}">
-                                            <td th:text="${eventList.e_id}"></td>
-                                            <td><a th:href="@{'/event/'+${eventList.e_kind}}"><span th:text="${eventList.e_kind}"></span></a></td>
-                                            <td>관리자</td>
-                                            <td>2021-02-21</td>
-                                            <td>4</td>
-                                            <td>공개</td>
+                                            <td th:text="${#strings.substring(eventList.e_id,3)}"></td>
+                                            <td><a th:href="@{'/event/'+${eventList.e_id}}"><span th:text="${eventList.e_kind}"></span></a></td>
+                                            <td><span th:text="${#dates.format(eventList.e_s_date,'yyyy-MM-dd')}"></span> ~ <span th:text="${#dates.format(eventList.e_e_date,'yyyy-MM-dd')}"></span></td>
+                                            <td th:switch="${#strings.substring(eventList.e_id,0,2)}">
+                                                <p th:case="sp">봄</p>
+                                                <p th:case="sm">여름</p>
+                                                <p th:case="fa">가을</p>
+                                                <p th:case="wi">겨울</p>
+                                                <p th:case="de">비정기</p>
+                                                <p th:case="al">상시</p>
+                                            </td>
+                                            <td th:switch="${#strings.substring(eventList.e_id,2,3)}">
+                                                <p th:case="1">적립</p>
+                                                <p th:case="2">추첨</p>
+                                                <p th:case="3">선착순</p>
+                                            </td>
+                                            <td th:text="${eventList.e_count}"></td>
                                         </tr>
-                                        </tr>
-
                                         </tbody>
-                                        </tfoot>
                                     </table>
                                     <br>
                                     <div style="text-align: right ">

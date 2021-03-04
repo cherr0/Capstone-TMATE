@@ -22,9 +22,16 @@
   <link th:href="@{css/stylish-portfolio.css}" rel="stylesheet">
   <link th:href="@{css/loginForm.css}" rel="stylesheet">
 
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 </head>
 
 <body id="page-top">
+
+<script>
+  AOS.init();
+</script>
 
   <!-- Navigation -->
   <a class="menu-toggle rounded" href="#">
@@ -61,7 +68,7 @@
       <h3 class="mb-5">
         <em>안녕하세요 T mate 입니다.</em>
       </h3>
-      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">더보기</a>
+      <a class="btn btn-dark btn-xl js-scroll-trigger" href="#about">더보기</a>
     </div>
     <div class="overlay"></div>
   </header>
@@ -89,7 +96,7 @@
         <h2 class="mb-5">주요 서비스</h2>
       </div>
       <div class="row">
-        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0" data-aos="fade-up" data-aos-duration="1500">
           <span class="service-icon rounded-circle mx-auto mb-3">
             <i class="icon-screen-smartphone"></i>
           </span>
@@ -98,7 +105,7 @@
           </h4>
           <p class="text-faded mb-0">비슷한 목적지면 누구나 <br>편리하게 매칭 가능!</p>
         </div>
-        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
+        <div class="col-lg-3 col-md-6 mb-5 mb-lg-0" data-aos="fade-up" data-aos-duration="2000">
           <span class="service-icon rounded-circle mx-auto mb-3">
             <i class="icon-pencil"></i>
           </span>
@@ -107,7 +114,7 @@
           </h4>
           <p class="text-faded mb-0">고객이 많은 지역에 빠른 매칭을 <br> 위한 핫플레이스 지정</p>
         </div>
-        <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
+        <div class="col-lg-3 col-md-6 mb-5 mb-md-0" data-aos="fade-up" data-aos-duration="2500">
           <span class="service-icon rounded-circle mx-auto mb-3">
             <i class="icon-like"></i>
           </span>
@@ -116,7 +123,7 @@
           </h4>
           <p class="text-faded mb-0">선호운행 설정 / 기사 평가로 <br> 만족스러운 이동!</p>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-duration="3000">
           <span class="service-icon rounded-circle mx-auto mb-3">
             <i class="icon-mustache"></i>
           </span>
@@ -130,21 +137,21 @@
   </section>
 
   <!-- Callout -->
-  <div class="callout">
+  <div class="callout img-box">
     <div class="container text-center"><h2 class="index-title">새로운 호출, 저렴하고 안전하게 타자!</h2></div><br><br>
 
     <div class="container">
       <div class="row">
-        <div class="col-md-6 col-xs-12 col-sm-12 index-img">
-          <img src="images/portfolio-5.jpg" alt="" class="img-responsive">
+        <div class="col-md-6 col-xs-12 col-sm-12 index-img" id="img-hover">
+          <img src="images/portfolio-5.jpg" alt="" class="img-responsive" data-aos="zoom-out-right" data-aos-duration="1200">
           <div class="carousel-caption">
             <div><h3>동승호출</h3></div>
             <p><strong>비슷한 목적지의 승객과 같이 타고<br>요금을저렴하게 내고<br>이용할수있는 호출 옵션입니다.</strong></p>
           </div>
         </div>
 
-        <div class="col-md-6 col-xs-12 col-sm-12 index-img">
-          <img src="images/portfolio-6.jpg" alt="test" class="img-responsive">
+        <div class="col-md-6 col-xs-12 col-sm-12 index-img" id="img-hover">
+          <img src="images/portfolio-6.jpg" alt="test" class="img-responsive" data-aos="zoom-out-left" data-aos-duration="3000">
           <div class="carousel-caption">
             <div><h3>일반호출</h3></div>
             <p><strong>혼자서 혹은 친구,가족과 함께<br>언제 어디서나 이용 가능한<br>일반호출 옵션입니다.</strong></p>
