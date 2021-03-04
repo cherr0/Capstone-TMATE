@@ -25,6 +25,9 @@ public interface Membermapper {
     // 회원 삭제 -> 회원 및 기사 관련
     int deleteMember(String m_id);
 
+    // 드라이버 삭제
+    int deleteDriver(String d_id);
+
     // 승인 시 승인 날짜 변경
     int updateDate(String d_id);
 
