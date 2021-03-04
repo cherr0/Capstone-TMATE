@@ -21,7 +21,6 @@ public class EventController {
     @GetMapping("/event")
     public String eventList(Model model, Criteria cri) {
         List<EventDTO> eventList = eventService.getListEvent(cri);
-
         int total = eventService.getTotalCount(cri);
 
         model.addAttribute("pageMaker", new PageDTO(cri, total));
@@ -35,6 +34,7 @@ public class EventController {
     public String eventDetail(@PathVariable String e_id, Model model) {
         EventDTO event = eventService.get(e_id);
 
+        eventService.viewCount(e_id);
         model.addAttribute("event", event);   // 이벤트 내용
         return "eventDetail";
     }

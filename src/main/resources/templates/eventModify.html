@@ -16,6 +16,7 @@
                     <section class="four">
                         <div class="container">
                             <h2>이벤트 수정</h2><hr>
+                            <input type="hidden" id="e_id" th:value="${event.e_id}" />
                             <div style="float: right" class="btn-group">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     공개 <span class="caret"></span>
@@ -31,17 +32,19 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">제목</span>
                             </div>
-                            <input type="text" class="form-control" id="title" th:text="${event.e_kind}">
+                            <input type="text" class="form-control" id="event-modify-kind" th:value="${event.e_kind}">
                         </div>
                         <br>
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">내용</span>
                             </div>
-                            <textarea class="form-control" rows="5" id="content" th:text="${event.e_contents}"></textarea>
+                            <textarea class="form-control" rows="5" id="event-modify-content" th:text="${event.e_contents}"></textarea>
                         </div>
-                        <button id="back" class="btn btn-danger" style="float: right">뒤로</button>
-                        <button id="write" class="btn btn-primary modalBtn" style="float: right">글 수정</button>
+                        <input type="text" id="event-time-start" />
+                        <input type="text" id="event-time-end" />
+                        <button id="event-list" class="btn btn-danger" style="float: right">뒤로</button>
+                        <button id="event-modify" class="btn btn-primary" style="float: right">글 수정</button>
                     </section>
                 </div>
             </table>
@@ -49,8 +52,9 @@
         </section>
     </div>
 </div>
-
 <footer th:replace="layout/basic :: footer">
 </footer>
+
+<script th:src="@{~/js/app/event.js}"></script>
 </body>
 </html>

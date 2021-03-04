@@ -10,7 +10,7 @@ import java.util.List;
 public interface EventMapper {
 
     // 이벤트 리스트
-    List<EventDTO> getList(Criteria cri);
+    List<EventDTO> getListEvent(Criteria cri);
 
     // 이벤트 삽입
     int insert(EventDTO eventDTO);

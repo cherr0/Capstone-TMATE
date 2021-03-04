@@ -19,7 +19,7 @@ public class EventServiceImpl implements EventService {
     // 이벤트 리스트
     @Override
     public List<EventDTO> getListEvent(Criteria cri) {
-        return null;
+        return eventMapper.getListEvent(cri);
     }
 
     // 이벤트 제거
@@ -48,7 +48,6 @@ public class EventServiceImpl implements EventService {
     }
 
     // 이벤트 총 토탈 갯수
-
     @Override
     public int getTotalCount(Criteria cri) {
         return eventMapper.getTotalCount(cri);
