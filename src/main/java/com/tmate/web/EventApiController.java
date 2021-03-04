@@ -31,7 +31,7 @@ public class EventApiController {
 
     // 이벤트 글 삭제
     @DeleteMapping("/eventremove")
-    public boolean eventRemove(String e_id) {
+    public boolean eventRemove(@RequestBody String e_id) {
         System.out.println("DeleteMapping eventRemove() event No : " + e_id);
         return eventService.remove(e_id);
     }
