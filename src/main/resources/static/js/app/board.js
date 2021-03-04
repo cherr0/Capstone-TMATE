@@ -8,6 +8,11 @@ const board = {
             _this.noticeWrite();
         });
 
+        // 글 작성 화면 이동
+        $('#notice-write-move').on('click', function () {
+            _this.noticeWriMove();
+        })
+
         // 글 수정
         $('#notice-modify').on('click', function () {
             _this.noticeModify();
@@ -25,7 +30,7 @@ const board = {
 
         // 글 목록
         $('#notice-list').on('click', function () {
-           _this
+           _this.noticeList();
         });
 
     },
@@ -53,12 +58,18 @@ const board = {
         });
     },
 
+    // 공지 글 작성 화면 이동
+    noticeWriMove : function () {
+        window.location.href = '/noticewrite';
+    },
+
     // 공지 글 수정
     noticeModify : function () {
         const data = {
-            bd_id: $('#bd_id').val(),
-            bd_title: $('#title').val(),
-            bd_contents: $('#content').val()
+            bd_id: $('#notice-modify-id').val(),
+            bd_title: $('#notice-modify-title').val(),
+            bd_contents: $('#notice-modify-content').val(),
+            bd_status: $('#notice-modify-status').val()
         };
 
         $.ajax({
@@ -77,7 +88,7 @@ const board = {
 
     // 글 수정 화면 이동
     noticeModMove : function () {
-      const bd_id = $('#bd_id').text();
+      const bd_id = $('#bd_id').val();
 
       window.location.href = '/noticemodify/' + bd_id;
     },
@@ -86,7 +97,7 @@ const board = {
     // 공지 글 삭제
     noticeRemove : function () {
         const data = {
-            bd_id: $('#bd_id').text()
+            bd_id: $('#bd_id').val()
         };
         console.log(data.bd_id);
 
