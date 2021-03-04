@@ -7,6 +7,8 @@ import com.tmate.domain.PageDTO;
 
 import com.tmate.service.ApprovalService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,17 +34,5 @@ public class ApprovalController {
         return "approvalList";
     }
 
-    // 관리자 승인
-    @PostMapping("/api/approvalallow")
-    public int allowApproval(String d_id) {
-        System.out.println("PostMapping allowApproval() driver No : " + d_id);
-        return approvalService.allowApproval(d_id);
-    }
 
-    // 관리자 거절
-    @DeleteMapping("/api/approvalremove")
-    public int removeDriver(String d_id) {
-        System.out.println("PostMapping removeDriver() driver No : " + d_id);
-        return approvalService.removeDriver(d_id);
-    }
 }

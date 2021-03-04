@@ -45,7 +45,7 @@ public class ApprovalServiceImpl implements ApprovalService {
     // 거절 눌렀을 시 삭제 -> 기사만 지우고 추가정보는 나중에 재 작성
     @Override
     public int removeDriver(String d_id) {
-        int check = membermapper.deleteMember(d_id);
+        int check = membermapper.deleteDriver(d_id);
         return check;
     }
 

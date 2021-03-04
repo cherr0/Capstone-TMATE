@@ -24,13 +24,15 @@
                                                                             p-3 mb-5 bg-white rounded aptable-size">
                                             <thead>
                                             <tr>
+                                                <th>기사코드</th>
                                                 <th>구분</th>
                                                 <th>소개</th>
                                                 <th>경력</th>
                                             </tr>
                                             </thead>
-                                            <tbody class="table-hover">
+                                            <tbody id="apptable" class="table-hover">
                                             <tr th:each="apList : ${apList}">
+                                                <td  id="loadD_id" >[[${apList.d_id}]]</td>
                                                 <td th:switch="${apList.corp_code}">
                                                     <p th:case="c">법인</p>
                                                     <p th:case="i">개인</p>
@@ -43,7 +45,7 @@
                                                               th:text="${apList.car_model}"></span>
                                                     </div>
                                                 </td>
-                                                <td th:text="|${#strings.substring(apList.d_license_no,0, 2)}년 취득|"></td>
+                                                <td th:text="|${#strings.substring(apList.d_license_no,0, 1)}년 취득|"></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -82,25 +84,18 @@
                                     <div class="apinfo-size col-md-6 col-sm-12 col-xs-12">
                                         <div class="d_info">
                                             <div class="text-center ap_profile">
-                                                <div>
+                                                <div class="dProfile">
                                                     <!--<img th:href="@{${apList.m_profile}}" -->
                                                 </div>
-                                                <div>
-                                                    <p class="apinfo-font">박한수</p>
+                                                <div class="dname">
+
                                                 </div>
                                             </div>
-                                            <div class="ap_d_info">
-                                                <p class="apinfo-font">생년월일 : 1997-08-02</p>
-                                                <p class="apinfo-font">자격증번호 : 17-대구-12345</p>
-                                                <p class="apinfo-font">차량 : 소나타</p>
-                                                <p class="apinfo-font">지역 : 대구</p>
-                                                <p class="apinfo-font">현대폰번호 : 010-9958-5295</p>
+                                            <div class="dInfo ap_d_info">
+
                                             </div>
-                                            <div class="ap_button">
-                                                <button class="btn btn-primary" type="button" id="allow-approval">승인
-                                                </button>
-                                                <button class="btn btn-info" type="button" id="remove-driver">거절
-                                                </button>
+                                            <div class="dBtn ap_button">
+
                                             </div>
                                         </div>
                                     </div>
@@ -113,6 +108,8 @@
         </div>
     </div>
 </div>
+
+
 <footer th:replace="layout/basic :: footer">
 </footer>
 </body>

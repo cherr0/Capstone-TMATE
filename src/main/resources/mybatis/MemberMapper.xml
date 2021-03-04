@@ -47,6 +47,11 @@
         where m_id = #{m_id}
     </delete>
 
+    <delete id="deleteDriver">
+        delete from driver
+        where d_id = #{d_id}
+    </delete>
+
     <select id="searchPermission" resultType="com.tmate.domain.MemberDTO">
         select *
         from member
