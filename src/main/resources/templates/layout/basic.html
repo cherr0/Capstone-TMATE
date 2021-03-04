@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
+    <title>티메이트</title>
 
     <!-- Fontfaces CSS-->
     <link th:href="@{~/css/font-face.css}" rel="stylesheet" media="all">
@@ -51,8 +51,8 @@
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li >
-                        <a class="js-arrow" href="#">
+                    <li>
+                        <a class="js-arrow" href="#" >
                             <i class="far fa-newspaper"></i>공지사항</a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
@@ -81,35 +81,39 @@
     <aside class="menu-sidebar d-none d-lg-block" th:fragment="sidebar">
         <div class="logo">
             <a href="/main">
-                <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE" />
+                <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE"/>
             </a>
         </div>
-        <div class="menu-sidebar__content js-scrollbar1">
+        <div class="menu-sidebar__content js-scrollbar1" id="myDIV">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li>
-                        <a class="js-arrow" href="#">
-                            <i class="far fa-newspaper"></i>공지사항</a>
+                        <a th:href="@{/main}" class="menu-btn menu-btn-main">
+                            <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
+                    </li>
+                    <li>
+                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                            <i class="far fa-newspaper"></i><span class="menu-color">공지사항</span></a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a th:href="@{/notice}">공지관리</a>
+                                <a  th:href="@{/notice}"><span class="menu-color">공지관리</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}">이벤트관리</a>
+                                <a th:href="@{/event}"><span class="menu-color">이벤트관리</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a th:href="@{/hotplace}">
-                            <i class="fas fa-map-marker-alt"></i>핫플레이스 관리</a>
+                        <a th:href="@{/hotplace}" class="menu-btn menu-btn-hot">
+                            <i class="fas fa-map-marker-alt"></i><span class="menu-color">핫플레이스 관리</span></a>
                     </li>
                     <li>
-                        <a th:href="@{/user}">
-                            <i class="far fa-address-card"></i>회원관리</a>
+                        <a th:href="@{/user}" class="menu-btn menu-btn-user">
+                            <i class="far fa-address-card"></i><span class="menu-color">회원관리</span></a>
                     </li>
                     <li>
-                        <a th:href="@{/approval}">
-                            <i class="fas fa-check"></i>승인관리</a>
+                        <a th:href="@{/approval}" class="menu-btn menu-btn-app">
+                            <i class="fas fa-check"></i><span class="menu-color">승인관리</span></a>
                     </li>
                 </ul>
             </nav>
@@ -131,30 +135,9 @@
                             <div class="noti-wrap">
                                 <div class="noti__item js-item-menu">
                                     <i class="zmdi zmdi-comment-more"></i>
-                                    <span class="quantity">1</span>
                                     <div class="mess-dropdown js-dropdown">
                                         <div class="mess__title">
-                                            <p>You have 2 news message</p>
-                                        </div>
-                                        <div class="mess__item">
-                                            <div class="image img-cir img-40">
-                                                <img th:src="@{~/images/icon/avatar-06.jpg}" alt="Michelle Moreno" />
-                                            </div>
-                                            <div class="content">
-                                                <h6>Michelle Moreno</h6>
-                                                <p>Have sent a photo</p>
-                                                <span class="time">3 min ago</span>
-                                            </div>
-                                        </div>
-                                        <div class="mess__item">
-                                            <div class="image img-cir img-40">
-                                                <img th:src="@{~/images/icon/avatar-04.jpg}" alt="Diane Myers" />
-                                            </div>
-                                            <div class="content">
-                                                <h6>Diane Myers</h6>
-                                                <p>You are now connected on message</p>
-                                                <span class="time">Yesterday</span>
-                                            </div>
+                                            <p>메세지가 없습니다.</p>
                                         </div>
                                         <div class="mess__footer">
                                             <a href="#">View all messages</a>
@@ -163,37 +146,9 @@
                                 </div>
                                 <div class="noti__item js-item-menu">
                                     <i class="zmdi zmdi-email"></i>
-                                    <span class="quantity">1</span>
                                     <div class="email-dropdown js-dropdown">
                                         <div class="email__title">
-                                            <p>You have 3 New Emails</p>
-                                        </div>
-                                        <div class="email__item">
-                                            <div class="image img-cir img-40">
-                                                <img th:src="@{~/images/icon/avatar-06.jpg}" alt="Cynthia Harvey" />
-                                            </div>
-                                            <div class="content">
-                                                <p>Meeting about new dashboard...</p>
-                                                <span>Cynthia Harvey, 3 min ago</span>
-                                            </div>
-                                        </div>
-                                        <div class="email__item">
-                                            <div class="image img-cir img-40">
-                                                <img th:src="@{~/images/icon/avatar-05.jpg}" alt="Cynthia Harvey" />
-                                            </div>
-                                            <div class="content">
-                                                <p>Meeting about new dashboard...</p>
-                                                <span>Cynthia Harvey, Yesterday</span>
-                                            </div>
-                                        </div>
-                                        <div class="email__item">
-                                            <div class="image img-cir img-40">
-                                                <img th:src="@{~/images/icon/avatar-04.jpg}" alt="Cynthia Harvey" />
-                                            </div>
-                                            <div class="content">
-                                                <p>Meeting about new dashboard...</p>
-                                                <span>Cynthia Harvey, April 12,,2018</span>
-                                            </div>
+                                            <p>이메일이 없습니다.</p>
                                         </div>
                                         <div class="email__footer">
                                             <a href="#">See all emails</a>
@@ -202,37 +157,9 @@
                                 </div>
                                 <div class="noti__item js-item-menu">
                                     <i class="zmdi zmdi-notifications"></i>
-                                    <span class="quantity">3</span>
                                     <div class="notifi-dropdown js-dropdown">
                                         <div class="notifi__title">
-                                            <p>You have 3 Notifications</p>
-                                        </div>
-                                        <div class="notifi__item">
-                                            <div class="bg-c1 img-cir img-40">
-                                                <i class="zmdi zmdi-email-open"></i>
-                                            </div>
-                                            <div class="content">
-                                                <p>You got a email notification</p>
-                                                <span class="date">April 12, 2018 06:50</span>
-                                            </div>
-                                        </div>
-                                        <div class="notifi__item">
-                                            <div class="bg-c2 img-cir img-40">
-                                                <i class="zmdi zmdi-account-box"></i>
-                                            </div>
-                                            <div class="content">
-                                                <p>Your account has been blocked</p>
-                                                <span class="date">April 12, 2018 06:50</span>
-                                            </div>
-                                        </div>
-                                        <div class="notifi__item">
-                                            <div class="bg-c3 img-cir img-40">
-                                                <i class="zmdi zmdi-file-text"></i>
-                                            </div>
-                                            <div class="content">
-                                                <p>You got a new file</p>
-                                                <span class="date">April 12, 2018 06:50</span>
-                                            </div>
+                                            <p>알림이 없습니다.</p>
                                         </div>
                                         <div class="notifi__footer">
                                             <a href="#">All notifications</a>
@@ -243,7 +170,7 @@
                             <div class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="image">
-                                        <img th:src="@{${session.member.m_profile}}" />
+                                        <img th:src="@{${session.member.m_profile}}"/>
                                     </div>
                                     <div class="content">
                                         <a class="js-acc-btn" href="#" th:text="${session.member.m_name}"></a>
@@ -252,7 +179,7 @@
                                         <div class="info clearfix">
                                             <div class="image">
                                                 <a href="#">
-                                                    <img th:src="@{${session.member.m_profile}}" />
+                                                    <img th:src="@{${session.member.m_profile}}"/>
                                                 </a>
                                             </div>
                                             <div class="content">
@@ -324,6 +251,76 @@
     <script th:src="@{~/js/app/member.js}"></script>
     <script th:src="@{~/js/app/place.js}"></script>
     <script th:src="@{~/js/app/board.js}"></script>
+
+<!--    <script>-->
+<!--        var header = document.getElementById("myDIV");-->
+<!--        var btns = header.getElementsByClassName("menu-btn");-->
+<!--        if (window.location.pathname == '/main')-->
+<!--            $(function (){-->
+<!--                for (var i = 0; i < btns.length; i++) {-->
+<!--                    btns[i].addEventListener("click", function() {-->
+<!--                        var current = document.getElementsByClassName("menu-active");-->
+<!--                        current[0].className = current[0].className.replace(" menu-active", "");-->
+<!--                        this.className += " menu-active";-->
+<!--                    });-->
+<!--                }-->
+<!--            })-->
+<!--    </script>-->
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn-main");
+        if (window.location.pathname == '/main')
+            $(document).ready(function (){
+                $('.menu-btn-main').css('backgroundColor', '#0f1864');
+                for (var i = 0; i < btns.length; i++) {
+                    btns[i].addEventListener("click", function() {
+                        var current = document.getElementsByClassName("menu-active");
+                        current[0].className = current[0].className.replace(" menu-active", "");
+                        this.className += " menu-active";
+                    });
+                }
+            });
+    </script>
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/notice')
+            $(document).ready(function (){
+                $('.menu-btn-not').css('backgroundColor', '#0f1864');
+            });
+    </script>
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/hotplace')
+            $(document).ready(function (){
+                $('.menu-btn-hot').css('backgroundColor', '#0f1864');
+            });
+    </script>
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/user')
+            $(document).ready(function (){
+                $('.menu-btn-user').css('backgroundColor', '#0f1864');
+            });
+    </script>
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/approval')
+            $(document).ready(function (){
+                $('.menu-btn-app').css('backgroundColor', '#0f1864');
+            });
+    </script>
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/event')
+            $(document).ready(function (){
+                $('.menu-btn-not').css('backgroundColor', '#0f1864');
+            });
+    </script>
 </footer>
 
 </body>

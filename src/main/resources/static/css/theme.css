@@ -1582,8 +1582,14 @@ section {
     left: 0;
     top: 0;
     bottom: 0;
-    background: #fff;
+    background: #445ef8;
     overflow-y: auto;
+}
+.menu-color{
+    color: #FFFFFF;
+}
+a i{
+   color: #FFFFFF;
 }
 
 .menu-sidebar .logo {
@@ -1623,9 +1629,13 @@ section {
     height: -moz-calc(100vh - 75px);
     height: calc(100vh - 75px);
 }
-
+#mtilte{
+   list-style: none;
+}
+.clicked{
+    background-color: #0f1864;
+}
 .navbar-sidebar {
-    padding: 35px;
     padding-bottom: 0;
 }
 
@@ -1633,7 +1643,7 @@ section {
     display: block;
     color: #555;
     font-size: 20px;
-    padding: 17px 0;
+    padding: 20px;
     font-weight: bolder;
 }
 
@@ -1642,7 +1652,7 @@ section {
 }
 
 .navbar-sidebar .navbar__list li a:hover {
-    color: #4272d7;
+    color: #033092;
 }
 
 .navbar-sidebar .navbar__list li.active > a {
@@ -14670,4 +14680,22 @@ section {
     color: #454545;
     font-weight: 900;
 }
-
+.menu-btn-main{
+    cursor: pointer;
+}
+.menu-btn-not{
+    cursor: pointer;
+}
+.menu-btn-hot{
+    cursor: pointer;
+}
+.menu-btn-user{
+    cursor: pointer;
+}
+.menu-btn-app{
+    cursor: pointer;
+}
+.menu-active, .menu-btn:hover {
+    background-color: #0f1864;
+    color: white;
+}
