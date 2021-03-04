@@ -97,8 +97,9 @@ const event = {
                 title: "글 수정 성공",
                 text: "수정이 완료되었습니다.",
                 icon: "success"
+            }).then(() => {
+                window.location.href = "/event";
             });
-            window.location.href = "/event";
         }).fail(function (err) {
             alert(err);
         })
