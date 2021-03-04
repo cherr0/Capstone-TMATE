@@ -52,4 +52,10 @@ public class EventServiceImpl implements EventService {
     public int getTotalCount(Criteria cri) {
         return eventMapper.getTotalCount(cri);
     }
+
+    // 이벤트 글 조회수 증가
+    @Override
+    public void viewCount(String e_id) {
+        eventMapper.viewCount(e_id);
+    }
 }

@@ -25,4 +25,7 @@ public interface EventService {
 
     // 페이지 네이션을 위한 이벤트 토탈 로직
     public int getTotalCount(Criteria cri);
+
+    // 이벤트 글 조회수 증가
+    public void viewCount(String e_id);
 }

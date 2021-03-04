@@ -47,4 +47,9 @@
         select count(*)
         from event
     </select>
+
+    <!-- 이벤트 글 조회 수 증 -->
+    <update id="viewCount">
+        update event set e_count = e_count + 1 where e_id = #{e_id}
+    </update>
 </mapper>

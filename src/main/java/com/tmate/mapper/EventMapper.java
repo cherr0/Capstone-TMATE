@@ -27,4 +27,7 @@ public interface EventMapper {
     // 이벤트 토탈 수
     int getTotalCount(Criteria cri);
 
+    // 이벤트 글 조회 수 증가
+    void viewCount(String e_id);
+
 }
