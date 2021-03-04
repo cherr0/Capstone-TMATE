@@ -42,4 +42,8 @@
     <select id="totalCount" resultType="_int">
         select count(*) from board
     </select>
+
+    <update id="viewCount">
+        update board set bd_count = bd_count + 1 where bd_id = #{bd_id}
+    </update>
 </mapper>

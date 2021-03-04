@@ -35,6 +35,9 @@ public class BoardController {
     @GetMapping("/notice/{bd_id}")
     public String notceDetail(@PathVariable String bd_id, Model model) {
         BoardDTO notice = boardService.get(bd_id);
+        System.out.println("공지 게시글 열람 bd_id : " + bd_id);
+
+        boardService.viewCount(bd_id);
 
         model.addAttribute("notice", notice);   // 공지 내용
         return "noticeDetail";

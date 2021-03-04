@@ -45,4 +45,11 @@ public class BoardServiceImpl implements BoardService {
     public int totalCount(Criteria cri) {
         return boardMapper.totalCount(cri);
     }
+
+    @Override
+    public void viewCount(String bd_id) {
+        boardMapper.viewCount(bd_id);
+    }
+
+
 }

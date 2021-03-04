@@ -21,4 +21,6 @@ public interface BoardService {
 
     // 페이지 처리용 totalCount
     public int totalCount(Criteria cri);
+
+    public void viewCount(String bd_id);
 }
