@@ -21,6 +21,7 @@
                                 </div>
                                 <div class="card-header-title">
                                     <div class="not-title">
+                                        <input type="hidden" id="bd_id" th:value="${notice.bd_id}"/>
                                         <span class="float-left" th:text="| 제목 : ${notice.bd_title}|">제목</span>
                                         <span class="float-right not-time" th:text="${#strings.substring(notice.bd_cre_date,0,16)}"></span>
                                     </div>

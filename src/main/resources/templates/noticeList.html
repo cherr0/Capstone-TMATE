@@ -25,7 +25,6 @@
                                         <tr>
                                             <th>번호</th>
                                             <th>제목</th>
-                                            <th>작성자</th>
                                             <th>등록일</th>
                                             <th>조회수</th>
                                             <th>상태</th>
@@ -36,17 +35,20 @@
                                         <tr th:each="noticeList : ${noticeList}">
                                             <td th:text="${#strings.substring(noticeList.bd_id,3)}"></td>
                                             <td><a th:href="@{'/notice/'+${noticeList.bd_id}}"><span th:text="${noticeList.bd_title}"></span></a></td>
-                                            <td>관리자</td>
                                             <td th:text="${#strings.substring(noticeList.bd_cre_date,0,10)}"></td>
                                             <td th:text="${noticeList.bd_count}"></td>
-                                            <td>공개</td>
+                                            <td th:switch="${noticeList.bd_status}">
+                                                <p th:case="0">공개</p>
+                                                <p th:case="1">비공개</p>
+                                                <p th:case="2">예약</p>
+                                            </td>
                                         </tr>
 
                                         </tbody>
                                     </table>
                                     <br>
                                     <div style="text-align: right ">
-                                        <button type="button" class="btn btn-info" onclick="location.href='/noticewrite'">글작성</button>
+                                        <button type="button" class="btn btn-info" id="notice-write-move">글작성</button>
                                     </div>
 
                                     <nav>
