@@ -11,14 +11,6 @@
     <div class="page-container">
         <div th:replace="layout/basic :: header"></div>
         <div class="container-fluid contents_size">
-            <br><br><br><br><br><br>
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
                     <div class="row">
@@ -27,9 +19,8 @@
                                 <div class="card-header">
                                     <h2 style="margin-top: auto">공지관리</h2>
                                 </div>
-                                <!-- /.card-header -->
                                 <div class="card-body">
-                                    <table id="table" class="table table-bordered table-hover">
+                                    <table id="table" class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
                                         <thead>
                                         <tr>
                                             <th>번호</th>
@@ -43,10 +34,10 @@
                                         <tbody>
                                         <tr>
                                         <tr th:each="noticeList : ${noticeList}">
-                                            <td th:text="${noticeList.bd_id}"></td>
+                                            <td th:text="${#strings.substring(noticeList.bd_id,3)}"></td>
                                             <td><a th:href="@{'/notice/'+${noticeList.bd_id}}"><span th:text="${noticeList.bd_title}"></span></a></td>
-                                            <td>하창현</td>
-                                            <td th:text="${noticeList.bd_cre_date}"></td>
+                                            <td>관리자</td>
+                                            <td th:text="${#strings.substring(noticeList.bd_cre_date,0,10)}"></td>
                                             <td th:text="${noticeList.bd_count}"></td>
                                             <td>공개</td>
                                         </tr>
