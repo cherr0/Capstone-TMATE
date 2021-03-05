@@ -7,6 +7,7 @@ import com.tmate.domain.PageDTO;
 
 import com.tmate.service.ApprovalService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
+@Log4j2
 public class ApprovalController {
 
     private final ApprovalService approvalService;
@@ -27,6 +29,7 @@ public class ApprovalController {
     @GetMapping("/approval")
     public String approval(Model model, Criteria cri) {
         List<JoinApprovalVO> noneApprovalList = approvalService.getNoneApprovalList(cri);
+        log.info(noneApprovalList);
         int total = approvalService.getTotalApproCount(cri);
 
         model.addAttribute("pageMaker", new PageDTO(cri, total));

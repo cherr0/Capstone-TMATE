@@ -7,6 +7,7 @@ import com.tmate.mapper.JoinMapper;
 import com.tmate.mapper.Membermapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,8 +44,10 @@ public class ApprovalServiceImpl implements ApprovalService {
 
 
     // 거절 눌렀을 시 삭제 -> 기사만 지우고 추가정보는 나중에 재 작성
+    @Transactional
     @Override
     public int removeDriver(String d_id) {
+        membermapper.deleteCar(d_id); // 차량 지우고
         int check = membermapper.deleteDriver(d_id);
         return check;
     }
