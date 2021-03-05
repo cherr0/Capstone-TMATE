@@ -52,6 +52,11 @@
         where d_id = #{d_id}
     </delete>
 
+    <delete id="deleteCar">
+        delete from car
+        where m_id = #{d_id}
+    </delete>
+
     <select id="searchPermission" resultType="com.tmate.domain.MemberDTO">
         select *
         from member

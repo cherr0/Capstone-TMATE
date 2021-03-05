@@ -71,7 +71,7 @@ const approval = {
                     let rid = data.d_id;
                     console.log(rid);
                     $.ajax({
-                        url:'/api/approvalremove',
+                        url:'/api/approvalremove/'+rid,
                         method:'delete',
                         data:rid,
                         success:function (result) {
