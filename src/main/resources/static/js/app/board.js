@@ -40,7 +40,7 @@ const board = {
         const data = {
             bd_title: $('#notice-write-title').val(),
             bd_contents: $('#notice-write-content').val(),
-            bd_status: $('#notice-write-status').text(),
+            bd_status: $('#notice-write-status option:selected').val(),
             m_id: $('#m_id').val()
         };
 
