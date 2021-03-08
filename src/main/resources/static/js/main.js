@@ -598,82 +598,96 @@
   }
 
   try {
+    var chartData2 = [];
+
+    $.getJSON("/api/chart2",function (result) {
+
+      $.each(result,function (inx, obj) {
+          chartData2.push(obj.count);
+      });
+
+      createChart2();
+    })
 
     // Percent Chart 2
-    var ctx = document.getElementById("percent-chart2");
-    if (ctx) {
-      ctx.height = 262;
-      var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          datasets: [
-            {
-              label: "My First dataset",
-              data: [0, 13, 0, 0, 0, 0],
-              backgroundColor: [
-                '#32ffff',
-                '#32beff',
-                '#328eff',
-                '#325eff',
-                '#3235ff',
-                '#7a32ff'
-              ],
-              hoverBackgroundColor: [
-                '#32ffff',
-                '#32beff',
-                '#328eff',
-                '#325eff',
-                '#3235ff',
-                '#7a32ff'
-              ],
-              borderWidth: [
-                1,1,1,1,1,1,
-              ],
-              hoverBorderColor: [
-                'transparent',
-                'transparent',
-                'transparent',
-                'transparent',
-                'transparent',
-                'transparent'
-              ]
-            }
-          ],
-          labels: [
-            '10대',
-            '20대',
-            '30대',
-            '40대',
-            '50대',
-            '기타'
-          ]
-        },
-        options: {
-          maintainAspectRatio: false,
-          responsive: true,
-          cutoutPercentage: 60,
-          animation: {
-            animateScale: true,
-            animateRotate: true
-          },
-          legend: {
-            display: true,
-            position: 'bottom',
-            labels: {
-              fontSize: 14,
-              fontFamily: "Poppins,sans-serif"
-            }
+    function createChart2() {
 
+      var ctx = document.getElementById("percent-chart2");
+      if (ctx) {
+        ctx.height = 262;
+        var myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            datasets: [
+              {
+                label: "My First dataset",
+                data: chartData2,
+                backgroundColor: [
+                  '#32ffff',
+                  '#32beff',
+                  '#328eff',
+                  '#325eff',
+                  '#3235ff',
+                  '#7a32ff'
+                ],
+                hoverBackgroundColor: [
+                  '#32ffff',
+                  '#32beff',
+                  '#328eff',
+                  '#325eff',
+                  '#3235ff',
+                  '#7a32ff'
+                ],
+                borderWidth: [
+                  1, 1, 1, 1, 1, 1,
+                ],
+                hoverBorderColor: [
+                  'transparent',
+                  'transparent',
+                  'transparent',
+                  'transparent',
+                  'transparent',
+                  'transparent'
+                ]
+              }
+            ],
+            labels: [
+              '10대',
+              '20대',
+              '30대',
+              '40대',
+              '50대',
+              '기타'
+            ]
           },
-          tooltips: {
-            titleFontFamily: "Poppins",
-            xPadding: 15,
-            yPadding: 10,
-            caretPadding: 0,
-            bodyFontSize: 16,
+          options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            cutoutPercentage: 60,
+            animation: {
+              animateScale: true,
+              animateRotate: true
+            },
+            legend: {
+              display: true,
+              position: 'bottom',
+              labels: {
+                fontSize: 14,
+                fontFamily: "Poppins,sans-serif"
+              }
+
+            },
+            tooltips: {
+              titleFontFamily: "Poppins",
+              xPadding: 15,
+              yPadding: 10,
+              caretPadding: 0,
+              bodyFontSize: 16,
+            }
           }
-        }
-      });
+        });
+      }
+
     }
 
   } catch (error) {
@@ -1195,7 +1209,24 @@
 
   try {
 
+    var chartData = [];
+
+    $.getJSON("/api/chart1",function (result) {
+
+      console.log(result);
+
+      $.each(result, function (inx, obj) {
+        console.log('obj는 ' + obj);
+        console.log('obj.users는 ' + obj.users);
+        chartData.push(obj.users);
+      });
+
+      createChart();
+    });
+
     // single bar chart
+  function createChart() {
+
     var ctx = document.getElementById("singelBarChart");
     if (ctx) {
       ctx.height = 250;
@@ -1206,7 +1237,7 @@
           datasets: [
             {
               label: "월간 이용수",
-              data: [0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+              data: chartData,
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)"
@@ -1238,6 +1269,7 @@
         }
       });
     }
+  }
 
   } catch (error) {
     console.log(error);
