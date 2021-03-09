@@ -27,7 +27,7 @@ public class HotplaceController {
         List<PlaceDTO> placeList = placeService.getHotPlaceList();
         System.out.println("Controller hotPlace() use");
         model.addAttribute("placeList", placeList);
-        return "hotplace";
+        return "/admin/hotplace";
     }
 
 

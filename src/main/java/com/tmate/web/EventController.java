@@ -25,7 +25,7 @@ public class EventController {
 
         model.addAttribute("pageMaker", new PageDTO(cri, total));
         model.addAttribute("eventList", eventList);     // 이벤트 목록
-        return "eventList";
+        return "/admin/eventList";
     }
 
 
@@ -36,14 +36,14 @@ public class EventController {
 
         eventService.viewCount(e_id);
         model.addAttribute("event", event);   // 이벤트 내용
-        return "eventDetail";
+        return "/admin/eventDetail";
     }
 
 
     // 이벤트 글 작성 페이지
     @GetMapping("/eventwrite")
     public String eventWrite() {
-        return "eventWrite";
+        return "/admin/eventWrite";
     }
 
 
@@ -53,7 +53,7 @@ public class EventController {
         EventDTO event = eventService.get(e_id);
 
         model.addAttribute("event", event);
-        return "eventModify";
+        return "/admin/eventModify";
     }
 
 }

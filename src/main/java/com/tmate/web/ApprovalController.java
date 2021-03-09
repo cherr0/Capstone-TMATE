@@ -34,7 +34,7 @@ public class ApprovalController {
 
         model.addAttribute("pageMaker", new PageDTO(cri, total));
         model.addAttribute("apList", noneApprovalList);
-        return "approvalList";
+        return "/admin/approvalList";
     }
 
 
