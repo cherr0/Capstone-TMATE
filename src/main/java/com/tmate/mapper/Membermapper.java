@@ -28,6 +28,9 @@ public interface Membermapper {
     // 드라이버 삭제
     int deleteDriver(String d_id);
 
+    // 승인 거절 시 차량 삭제
+    int deleteCar(String d_id);
+
     // 승인 시 승인 날짜 변경
     int updateDate(String d_id);
 

@@ -28,7 +28,7 @@ public class MemberController {
 
         model.addAttribute("pageMaker", new PageDTO(cri, total));
         model.addAttribute("memberList", memberList); // 멤버 목록
-        return "userList";
+        return "/admin/userList";
     }
 
     // 회원 상세 조회
@@ -46,7 +46,7 @@ public class MemberController {
 
         model.addAttribute("member", member);
 
-        return "userDetail";
+        return "/admin/userDetail";
     }
 
 
