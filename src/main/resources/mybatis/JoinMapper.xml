@@ -72,4 +72,16 @@
               where p.m_id = #{m_id})
     </select>
 
+    <select id="getMainWeeklyPointList" resultType="com.tmate.domain.JoinPointVO">
+        select p.po_exact as po_exact , p.po_result as po_result , p.po_course as po_course , p.po_time as po_time, m.m_point as m_point
+        from point p inner join member m on p.m_id = m.m_id
+        where p.m_id = #{m_id} and po_time between  systimestamp - 7 and systimestamp
+    </select>
+
+    <select id="getMainWeeklyHistoryList" resultType="com.tmate.domain.JoinHistoryVO">
+        select merchant_uid, h_allfare, m_name, h_s_place, h_f_place, car_no, car_model
+        from history h inner join member m on h.d_id = m.m_id
+                       inner join car c on m.m_id = c.m_id
+        where h.m_id = #{m_id} and to_date(substr(merchant_uid,10,6),'yyMMdd') between  sysdate - 7 and sysdate
+    </select>
 </mapper>

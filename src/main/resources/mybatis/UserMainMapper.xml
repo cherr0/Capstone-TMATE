@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.UserMainMapper">
+
+    <select id="getUsersYearsCount" resultType="com.tmate.domain.user.UserYearsCapacityVO">
+        select to_date(substr(merchant_uid,10,4),'yyMM') as standard,  count(*) as users
+        from history
+        where m_id = #{m_id}
+        group by to_date(substr(merchant_uid,10,4),'yyMM')
+        order by to_date(substr(merchant_uid,10,4),'yyMM')
+    </select>
+
+    <select id="getCountLike" resultType="_int">
+        select count(*)  from review where substr(r_code,0,14)=#{m_id} and substr(r_code,15) like 'L%'
+    </select>
+
+    <select id="getCountDisLike" resultType="_int">
+        select count(*)  from review where substr(r_code,0,14)=#{m_id} and substr(r_code,15) like 'H%'
+    </select>
+
+    <select id="getCountBan" resultType="_int">
+        select count(*) from ban where m_id = #{m_id};
+    </select>
+
+    <!--  카드 관리  -->
+    <select id="getPaymentByM_id" resultType="com.tmate.domain.PaymentDTO">
+        select * from payment where m_id = #{m_id}
+    </select>
+
+    <!--  알림 전송  -->
+    <select id="getNotifiByM_id" resultType="com.tmate.domain.NotificationDTO">
+        select * from notification where m_id = #{m_id}
+    </select>
+
+    <!-- 알림 전송 삭제 -->
+    <delete id="deleteNotifi">
+        delete from notification
+        where n_phone = #{n_phone}
+    </delete>
+
+    <!-- 결제 이력 -->
+    <select id="getReceiptByM_id" resultType="com.tmate.domain.ReceiptDTO">
+        select * from receipt where m_id = #{m_id}
+    </select>
+
+    <select id="getCountReceipt" resultType="_int">
+        select count(*)
+        from (select r.imp_uid, r.re_crn, r.re_time, r.re_amt, r.use_cash, p.pay_company
+              from receipt r inner join payment p on r.m_id = p.m_id
+              where p.m_id = #{m_id});
+    </select>
+
+    <select id="getReceiptListPaging" resultType="com.tmate.domain.JoinReceiptVO">
+        <![CDATA[
+            select imp_uid, re_crn, re_time, re_amt, use_cash, pay_company
+            from (select rownum rn, r.imp_uid as imp_uid, r.re_crn as re_crn, r.re_time as re_time, r.re_amt as re_amt, r.use_cash as use_cash, p.pay_company as pay_company
+            from receipt r inner join payment p on r.m_id = p.m_id
+            where p.m_id = #{m_id} and rownum <= #{pageNum} * #{amount})
+            where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+</mapper>
