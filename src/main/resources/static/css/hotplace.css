@@ -25,7 +25,7 @@
     border-radius: 10px;
 }
 .hot-input{
-    width: 90%;
+    width: 80%;
     height: 2.2em;
     padding: 10px;
     border: 0px;
@@ -36,16 +36,14 @@
     margin-left: 1em;
 }
 .hot-button{
-    width: 5%;
-    height: 2.35em;
+    width: 4%;
+    height: 2em;
     border: 0px;
     background: #258fff;
-    float: right;
     outline: none;
     color: #FFFFFF;
     border-radius: 10px;
-
-
+    padding-left: 0.5em;
 }
 .hot-info{
     text-indent: 1em;

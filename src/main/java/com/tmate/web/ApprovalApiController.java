@@ -37,8 +37,8 @@ public class ApprovalApiController {
     }
 
     // 관리자 거절
-    @DeleteMapping("/approvalremove")
-    public ResponseEntity<Integer> removeDriver(String rid) {
+    @DeleteMapping("/approvalremove/{rid}")
+    public ResponseEntity<Integer> removeDriver(@PathVariable("rid") String rid) {
         System.out.println("PostMapping removeDriver() driver No : " + rid);
         String substring = rid.substring(0, 14);
         log.info(substring);

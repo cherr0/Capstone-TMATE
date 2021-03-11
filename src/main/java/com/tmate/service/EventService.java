@@ -10,7 +10,7 @@ public interface EventService {
     // 리스트 페이지
     public List<EventDTO> getListEvent(Criteria cri);
 
-    // 삭제
+    // 이벤트 비공개 처리
     public boolean remove(String e_id);
 
 

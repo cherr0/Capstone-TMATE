@@ -14,6 +14,9 @@ public class JoinHistoryVO {
     // 출발지
     private String h_s_place;
 
+    // 총요금
+    private String h_allfare;
+
 
     // 도착지
     private String h_f_place;
