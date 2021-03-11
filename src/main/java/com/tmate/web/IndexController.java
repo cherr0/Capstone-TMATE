@@ -28,7 +28,7 @@ public class IndexController {
     }
 
     // 로그인 메인화면
-    @GetMapping("main")
+    @GetMapping("/main")
     public String main(Model model) {
         int members = mainService.countMembers();       // 총 유저 수
         int drivers = mainService.countDrivers();       // 총 기사 수
@@ -49,7 +49,7 @@ public class IndexController {
         model.addAttribute("drivers", drivers);
         model.addAttribute("weeklyUsers", weeklyUsers);
         model.addAttribute("placeByStart", placeByStart);
-        return "/admin/main";
+        return "admin/main";
     }
 
     // 유저 메인화면
@@ -64,13 +64,13 @@ public class IndexController {
         return "/admin/registerQRcode";
     }
 
-    @GetMapping("testLogin")
+    @GetMapping("/testLogin")
     public String testLogin(HttpSession httpSession) {
         PhoneDTO phone = new PhoneDTO("박중원","01067501664","");
 
         MemberDTO member = smsService.getPermission(phone);
         httpSession.setAttribute("member",member);
         System.out.println("테스트 로그인 완료");
-        return "/admin/main";
+        return "admin/main";
     }
 }
