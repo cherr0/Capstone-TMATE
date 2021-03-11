@@ -14699,3 +14699,11 @@ a i{
     background-color: #0f1864;
     color: white;
 }
+
+#myInput {
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 0.5em;
+    float: right;
+}
