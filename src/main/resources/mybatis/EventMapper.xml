@@ -17,10 +17,11 @@
         ]]>
     </select>
 
-    <delete id="delete">
-        delete from event
+    <update id="remove">
+        update event
+        set e_status = '1'
         where e_id = #{e_id}
-    </delete>
+    </update>
 
     <update id="update">
         update event
@@ -48,7 +49,7 @@
         from event
     </select>
 
-    <!-- 이벤트 글 조회 수 증 -->
+    <!-- 이벤트 글 조회 수 증가 -->
     <update id="viewCount">
         update event set e_count = e_count + 1 where e_id = #{e_id}
     </update>

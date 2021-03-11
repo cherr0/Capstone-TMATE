@@ -15,8 +15,8 @@ public interface EventMapper {
     // 이벤트 삽입
     int insert(EventDTO eventDTO);
 
-    // 이벤트 삭제
-    int delete(String e_id);
+    // 이벤트 비공개
+    int remove(String e_id);
 
     // 이벤트 수정
     int update(EventDTO eventDTO);
