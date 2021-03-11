@@ -27,7 +27,7 @@ public class BoardController {
 
         model.addAttribute("noticeList", boardList);    // 공지 항목 보여주기
         model.addAttribute("pageMaker", new PageDTO(cri, total));
-        return "/admin/noticeList";
+        return "admin/noticeList";
     }
 
 
@@ -40,7 +40,7 @@ public class BoardController {
         boardService.viewCount(bd_id);
 
         model.addAttribute("notice", notice);   // 공지 내용
-        return "/admin/noticeDetail";
+        return "admin/noticeDetail";
     }
 
 
