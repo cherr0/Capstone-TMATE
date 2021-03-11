@@ -28,7 +28,7 @@ public class IndexController {
     }
 
     // 로그인 메인화면
-    @GetMapping("/main")
+    @GetMapping("main")
     public String main(Model model) {
         int members = mainService.countMembers();       // 총 유저 수
         int drivers = mainService.countDrivers();       // 총 기사 수
@@ -64,7 +64,7 @@ public class IndexController {
         return "/admin/registerQRcode";
     }
 
-    @GetMapping("/testLogin")
+    @GetMapping("testLogin")
     public String testLogin(HttpSession httpSession) {
         PhoneDTO phone = new PhoneDTO("박중원","01067501664","");
 
