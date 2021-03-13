@@ -25,7 +25,7 @@ public class EventController {
 
         model.addAttribute("pageMaker", new PageDTO(cri, total));
         model.addAttribute("eventList", eventList);     // 이벤트 목록
-        return "/admin/eventList";
+        return "admin/eventList";
     }
 
 
@@ -36,7 +36,7 @@ public class EventController {
 
         eventService.viewCount(e_id);
         model.addAttribute("event", event);   // 이벤트 내용
-        return "/admin/eventDetail";
+        return "admin/eventDetail";
     }
 
 

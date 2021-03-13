@@ -29,10 +29,10 @@ public class EventApiController {
     }
 
 
-    // 이벤트 글 삭제
-    @DeleteMapping("/eventremove")
-    public boolean eventRemove(@RequestBody String e_id) {
-        System.out.println("DeleteMapping eventRemove() event No : " + e_id);
+    // 이벤트 글 비공개 처리
+    @PutMapping("/eventremove/{e_id}")
+    public boolean eventRemove(@PathVariable("e_id") String e_id) {
+        System.out.println("PutMapping eventRemove() event No : " + e_id);
         return eventService.remove(e_id);
     }
 }

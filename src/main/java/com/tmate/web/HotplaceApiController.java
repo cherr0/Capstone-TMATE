@@ -1,13 +1,17 @@
 package com.tmate.web;
 
 
+import com.tmate.domain.MonthlyUsersVO;
 import com.tmate.domain.PlaceDTO;
 import com.tmate.service.PlaceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -29,5 +33,14 @@ public class HotplaceApiController {
     public boolean hotplaceRemove(String p_id) {
         System.out.println("DeleteMapping hotplace Remove() place No : " + p_id);
         return placeService.remove(p_id);
+    }
+
+    @GetMapping(value = "/placelist",
+            produces =
+                    {MediaType.APPLICATION_JSON_VALUE,
+                            MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<List<PlaceDTO>> getMonthlyList() {
+        log.info("핫플레이스 리스트 보내는 중");
+        return new ResponseEntity<>(placeService.getHotPlaceList(),HttpStatus.OK) ;
     }
 }

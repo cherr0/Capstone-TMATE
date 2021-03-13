@@ -1,7 +1,7 @@
 package com.tmate.web;
 
 import com.tmate.domain.Criteria;
-import com.tmate.domain.PointPageDTO;
+import com.tmate.domain.HistoryPageDTO;
 import com.tmate.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/point/*")
+@RequestMapping("/history/*")
 @RestController
 @Log4j2
 @RequiredArgsConstructor
-public class PointController {
+public class HistoryApiController {
 
     private final MemberService memberService;
 
@@ -27,14 +27,14 @@ public class PointController {
             produces = {
                     MediaType.APPLICATION_XML_VALUE,
                     MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<PointPageDTO> getList(@PathVariable("m_id") String m_id, @PathVariable("page") int page) {
+    public ResponseEntity<HistoryPageDTO> getList( @PathVariable("m_id") String m_id, @PathVariable("page") int page) {
 
         Criteria cri = new Criteria(page,10);
 
-        log.info("get point List m_id: " + m_id);
+        log.info("get history List m_id: " + m_id);
         log.info(cri);
 
 
-        return new ResponseEntity<>(memberService.getPointListPage(cri,m_id), HttpStatus.OK);
+        return new ResponseEntity<>(memberService.getListPage(cri,m_id), HttpStatus.OK);
     }
 }

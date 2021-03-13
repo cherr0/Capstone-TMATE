@@ -16,7 +16,7 @@
                 select rownum rn, m_id, m_name, m_regdate, m_level, m_status, m_birth
                 from
                     member
-                where rownum <= #{pageNum} * #{amount} and m_id not like 'a%'
+                where m_id  like 'm%' and rownum <= #{pageNum} * #{amount}
             )
         where rn > (#{pageNum} - 1) * #{amount}
         ]]>
@@ -67,6 +67,6 @@
     <select id="getTotalCount" resultType="_int">
         select count(*)
         from member
-        where m_id not like 'a%'
+        where m_id  like 'm%'
     </select>
 </mapper>

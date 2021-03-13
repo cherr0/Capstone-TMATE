@@ -49,19 +49,19 @@ public class IndexController {
         model.addAttribute("drivers", drivers);
         model.addAttribute("weeklyUsers", weeklyUsers);
         model.addAttribute("placeByStart", placeByStart);
-        return "/admin/main";
+        return "admin/main";
     }
 
     // 유저 메인화면
     @GetMapping("/usermain")
     public String userMain() {
-        return "/admin/userMain";
+        return "admin/userMain";
     }
 
     // 회원가입 QR 코드 사용하여 모바일 화면 연결
     @GetMapping("/registerqrcode")
     public String qrCode() {
-        return "/admin/registerQRcode";
+        return "admin/registerQRcode";
     }
 
     @GetMapping("/testLogin")
@@ -71,6 +71,6 @@ public class IndexController {
         MemberDTO member = smsService.getPermission(phone);
         httpSession.setAttribute("member",member);
         System.out.println("테스트 로그인 완료");
-        return "/admin/main";
+        return "admin/main";
     }
 }

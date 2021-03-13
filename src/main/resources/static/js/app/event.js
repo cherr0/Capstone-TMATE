@@ -19,9 +19,9 @@ const event = {
             _this.eventModMove();
         });
 
-        // 글 삭제
+        // 글 비공개 처리
         $('#event-remove').on('click', function () {
-            _this.eventDelete();
+            _this.eventRemove();
         });
 
         // 리스트 이동
@@ -63,8 +63,10 @@ const event = {
                     title: "글 작성 성공",
                     text: "작성이 완료되었습니다.",
                     icon: "success"
+                }).then(() => {
+                    window.location.href = "/event";
                 });
-                window.location.href = "/event";
+
             },
             error : function () {
                 swal({
@@ -111,23 +113,28 @@ const event = {
         window.location.href = '/eventmodify/' + e_id;
     },
 
-    // 이벤트 글 삭제
-    eventDelete : function () {
-        const data = {
-            e_id: $('#e_id').val()
-        };
+    // 이벤트 글 비공개 처리
+    eventRemove : function () {
+        e_id = $('#e_id').val()
 
         $.ajax({
-            data: JSON.stringify(data),
-            type: 'DELETE',
-            url: '/api/eventremove',
-            dataType: 'JSON',
-            contentType: 'application/json; charset=utf-8'
+            data: e_id,
+            type: 'PUT',
+            url: '/api/eventremove/' + e_id
         }).done(function () {
-            alert('글 삭제 완료');
-            window.location.href = '/event';
+            swal({
+                title: "글 삭제 성공",
+                text: "삭제가 완료되었습니다.",
+                icon: "success"
+            }).then(() => {
+                window.location.href = "/event";
+            });
         }).fail(function (err) {
-            alert(JSON.stringify(err));
+            swal({
+                title: "글 삭제 실패",
+                text: JSON.stringify(err),
+                icon: "success"
+            });
         });
     },
 

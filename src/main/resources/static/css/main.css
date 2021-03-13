@@ -210,20 +210,17 @@ html {
     padding: 0 3rem;
 }
 
-#img-bar h1, h2 {
+.img-bar-wright {
     font-weight: 200;
     margin-top: 0.4rem;
     margin-bottom: 0.4rem;
-    color: #FFFFFF;
+    font-size: 4rem !important;
+    color: #FFFFFF !important;
 }
 
-#img-bar h1 {
-    font-size: 2.2rem;
-}
-
-#img-bar h2 {
+.img-bar-wel {
     font-size: 2rem;
-    color: #aaa;
+    color: #fff !important;
 }
 
 /* Cursor */

@@ -22,10 +22,11 @@ public class EventServiceImpl implements EventService {
         return eventMapper.getListEvent(cri);
     }
 
-    // 이벤트 제거
+    // 이벤트 비공개 처리
     @Override
     public boolean remove(String e_id) {
-        return eventMapper.delete(e_id) == 1;
+        System.out.println("EventService remove() e_id No : " + e_id);
+        return eventMapper.remove(e_id) == 1;
     }
 
     // 이벤트 수정
@@ -39,7 +40,6 @@ public class EventServiceImpl implements EventService {
     public boolean register(EventDTO eventDTO) {
         return eventMapper.insert(eventDTO) == 1;
     }
-
 
     // 글 상세 페이지
     @Override
