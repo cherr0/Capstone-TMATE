@@ -1,10 +1,13 @@
+// 지도를 생성할 시에 넣을 전체적인 지도 옵션
 const mapOptions = {
     center: new naver.maps.LatLng(35.89683009319399, 128.62088787917372),
     zoom: 13
 };
 
+// Map(지도를 삽입할 HTML 요소의 id, 지도의 옵션 객체);
 const map = new naver.maps.Map('map', mapOptions);
 
+// 핫플레이스로 지정된 값들을 넣을 배열
 let data = [];
 
 $.getJSON("/api/placelist", function (result) {
@@ -91,8 +94,16 @@ function getClickHandler(i) {
     }
 }
 
-// 현재 위치 마커 최초 1회만 실행되도록 설정
-let currentUse = true;
+function setMarker(latlng) {
+    marker = new naver.maps.Marker({
+        map: map,
+        position: latlng,
+        icon: { // 커스텀 아이콘으로 변경
+            content: '<img class="pulse" draggable="false" unselectable="on" src="https://myfirstmap.s3.ap-northeast-2.amazonaws.com/circle.png">',
+            anchor: new naver.maps.Point(11,11)
+        }
+    });
+}
 
 $("#current").click(() => {
     if("geolocation" in navigator) {
@@ -100,20 +111,9 @@ $("#current").click(() => {
             const lat = position.coords.latitude;   // 현재 위치 위도값
             const lng = position.coords.longitude;  // 현재 위치 경도값
             const latlng = new naver.maps.LatLng(lat,lng);  // 위도, 경도값 받아오기
-            if (currentUse) {
-                marker = new naver.maps.Marker({
-                    map: map,
-                    position: latlng,
-                    icon: { // 커스텀 아이콘으로 변경
-                        content: '<img class="pulse" draggable="false" unselectable="on" src="https://myfirstmap.s3.ap-northeast-2.amazonaws.com/circle.png">',
-                        anchor: new naver.maps.Point(11,11)
-                    }
-                });
-                currentUse = false;
-            }else {
 
-            }
-
+            $('.pulse').remove();   // 기존의 마커를 제거
+            setMarker(latlng);  // 마커 생성
 
             // 현재 위치가 찍혀질 경우 화면이 이동됨
             map.setZoom(14,false);
