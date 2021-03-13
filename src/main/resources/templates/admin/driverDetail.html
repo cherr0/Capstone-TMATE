@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+  <aside th:replace="layout/basic :: mobile"></aside>
+  <aside th:replace="layout/basic :: sidebar"></aside>
+
+  <div class="page-container">
+    <div th:replace="layout/basic :: header"></div>
+    <link th:href="@{css/hotplace.css}" rel="stylesheet">
+    <section class="container-fluid contents_size">
+      <div class="container bootstrap snippets bootdey">
+        <div class="row">
+          <div class="profile-nav col-md-4 col-sm-12 col-xs-12">
+            <div class="panel">
+              <div class="user-heading round">
+                <a href="#">
+                  <img src="" alt="">
+                </a>
+
+                <h1 class="profile_name col-sm-auto col-md-auto">박한수</h1>
+                <span class="badge bg-info">기사</span>
+                <span class="badge bg-info">남자</span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-info col-md-8 col-sm-12 col-xs-12">
+            <div class="panel">
+              <div class="panel-body bio-graph-info detail-box">
+                <div class="row">
+                  <div class="d-bio-row">전화번호: 010-5408-9299</div>
+                  <div class="d-bio-row">생년월일: 1997-00-00</div>
+                  <div class="d-bio-row">차량번호: 33바 3364</div>
+                  <div class="d-bio-row">자격증번호: 15-대구-35523</div>
+                  <div class="d-bio-row">승인일자: 2021-02-15</div>
+                  <div class="d-bio-row">운행횟수: 15회</div>
+                  <div class="d-bio-row">좋아요/싫어요: 14 / 1</div>
+                  <div class="d-bio-row">계좌: 카카오 3333-06-9548059</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <br><br>
+      <!-- 이용내역 -->
+
+      <form class="form-inline mt-2 mb-md-1 justify-content-end" role="search">
+        <h2 class="col-sm-12 col-md-12 col-xs-12">이용내역</h2>
+      </form>
+
+      <!-- 이용내역 -->
+      <table class="table table-borderless table-striped table-earning table-bordered">
+
+        <thead>
+        <tr>
+          <th class="text-center">동승여부</th>
+          <th class="text-center">운행날짜</th>
+          <th class="text-center">운행시간</th>
+          <th class="text-center">출발지</th>
+          <th class="text-center">도착지</th>
+          <th class="text-center">요금</th>
+        </tr>
+        </thead>
+        <tbody class="history">
+          <tr>
+            <td class="text-center">동승</td>
+            <td class="text-center">2021-02-25</td>
+            <td class="text-center">20:58 ~ 21:22</td>
+            <td class="text-center">영진전문대</td>
+            <td class="text-center">성서청구타운</td>
+            <td class="text-center">12300</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">동승</td>
+            <td class="text-center">2021-02-25</td>
+            <td class="text-center">20:58 ~ 21:22</td>
+            <td class="text-center">영진전문대</td>
+            <td class="text-center">성서청구타운</td>
+            <td class="text-center">12300</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">동승</td>
+            <td class="text-center">2021-02-25</td>
+            <td class="text-center">20:58 ~ 21:22</td>
+            <td class="text-center">영진전문대</td>
+            <td class="text-center">성서청구타운</td>
+            <td class="text-center">12300</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">동승</td>
+            <td class="text-center">2021-02-25</td>
+            <td class="text-center">20:58 ~ 21:22</td>
+            <td class="text-center">영진전문대</td>
+            <td class="text-center">성서청구타운</td>
+            <td class="text-center">12300</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">동승</td>
+            <td class="text-center">2021-02-25</td>
+            <td class="text-center">20:58 ~ 21:22</td>
+            <td class="text-center">영진전문대</td>
+            <td class="text-center">성서청구타운</td>
+            <td class="text-center">12300</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 이용내역 페이지 내이션 ajax 처리 해야됨 -->
+      <nav class="history-footer" aria-label="Page navigation">
+
+      </nav>
+
+      <br><br>
+      <!--             포인트내역 -->
+      <form class="form-inline mt-2 mb-md-1 justify-content-end" role="search">
+        <h2 class="col-sm-12 col-md-12 col-xs-12">평점 이력</h2>
+      </form>
+      <table class="table table-borderless table-striped table-earning table-bordered">
+
+        <thead>
+        <tr>
+          <th class="text-center">평가</th>
+          <th class="text-center">평가 일자</th>
+          <th class="text-center">사유</th>
+        </tr>
+        </thead>
+        <tbody class="point">
+          <tr>
+            <td class="text-center">좋아요</td>
+            <td class="text-center">2021-02-25</td>
+            <td class="text-center">친절해요</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">좋아요</td>
+            <td class="text-center">2021-02-25</td>
+            <td class="text-center">친절해요</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">좋아요</td>
+            <td class="text-center">2021-02-25</td>
+            <td class="text-center">친절해요</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">좋아요</td>
+            <td class="text-center">2021-02-25</td>
+            <td class="text-center">친절해요</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">좋아요</td>
+            <td class="text-center">2021-02-25</td>
+            <td class="text-center">친절해요</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <!--            &lt;!&ndash; 포인트 내역 &ndash;&gt;-->
+      <nav class="point-footer" aria-label="Page navigation">
+
+      </nav>
+
+      <br><br>
+      <!-- 블랙리스트 -->
+      <form class="form-inline mt-2 mb-md-1 justify-content-end" role="search">
+        <h2 class="col-sm-12 col-md-12 col-xs-12">블랙리스트</h2>
+      </form>
+      <div class="scroll ben-table_size">
+        <table class="table table-borderless table-striped table-earning table-bordered">
+
+          <thead class="ben-head">
+          <tr>
+            <th class="text-center">회원코드</th>
+            <th class="text-center">이름</th>
+            <th class="text-center">사유</th>
+          </tr>
+          </thead>
+          <tbody class="point">
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          <tr>
+            <td class="text-center">m101054089299</td>
+            <td class="text-center">박한수</td>
+            <td class="text-center">술먹고 진상을 부립니다.</td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>
+<footer th:replace="layout/basic :: footer">
+</footer>
+
+</body>
+</html>
