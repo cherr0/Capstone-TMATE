@@ -1,10 +1,9 @@
 package com.tmate.mapper;
 
 import com.tmate.domain.*;
-import com.tmate.domain.user.MainWeeklyHistoryVO;
-import com.tmate.domain.user.MainWeeklyPointVO;
 import com.tmate.domain.user.UserYearsCapacityVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -45,5 +44,5 @@ public interface UserMainMapper {
     public int getCountReceipt(String m_id);
 
     // 결제 이력 페이징 처리 리스트
-    public List<JoinReceiptVO> getReceiptListPaging(Criteria cri, String m_id);
+    public List<JoinReceiptVO> getReceiptListPaging(@Param("cri") Criteria cri, String m_id);
 }
