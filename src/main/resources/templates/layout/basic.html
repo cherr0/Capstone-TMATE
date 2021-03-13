@@ -105,11 +105,19 @@
                     </li>
                     <li>
                         <a th:href="@{/hotplace}" class="menu-btn menu-btn-hot">
-                            <i class="fas fa-map-marker-alt"></i><span class="menu-color">핫플레이스 관리</span></a>
+                            <i class="fas fa-map-marker-alt"></i><span class="menu-color">핫플레이스관리</span></a>
                     </li>
                     <li>
-                        <a th:href="@{/user}" class="menu-btn menu-btn-user">
-                            <i class="far fa-address-card"></i><span class="menu-color">회원관리</span></a>
+                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                            <i class="far fa-newspaper"></i><span class="menu-color">회원관리</span></a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <li>
+                                <a  th:href="@{/user}"><span class="menu-color">유저관리</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/driver}"><span class="menu-color">기사관리</span></a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a th:href="@{/approval}" class="menu-btn menu-btn-app">
