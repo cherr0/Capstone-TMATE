@@ -886,24 +886,24 @@
     //bar chart
     var ctx = document.getElementById("barChart");
     if (ctx) {
-      ctx.height = 200;
+      ctx.height = 70;
       var myChart = new Chart(ctx, {
         type: 'bar',
         defaultFontFamily: 'Poppins',
         data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월",],
           datasets: [
             {
-              label: "My First dataset",
-              data: [65, 59, 80, 81, 56, 55, 40],
+              label: "적립 포인트",
+              data: [500, 150, 300, 200, 550, 1000, 350, 100, 50, 350, 150, 600],
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)",
               fontFamily: "Poppins"
             },
             {
-              label: "My Second dataset",
-              data: [28, 48, 40, 19, 86, 27, 90],
+              label: "사용 포인트",
+              data: [200, 550, 100, 500, 750, 200, 150, 200, 300, 150, 200, 400],
               borderColor: "rgba(0,0,0,0.09)",
               borderWidth: "0",
               backgroundColor: "rgba(0,0,0,0.07)",
