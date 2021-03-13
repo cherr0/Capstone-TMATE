@@ -1,6 +1,6 @@
 const mapOptions = {
-    center: new naver.maps.LatLng(37.3595704, 127.105399),
-    zoom: 10
+    center: new naver.maps.LatLng(35.89683009319399, 128.62088787917372),
+    zoom: 13
 };
 
 const map = new naver.maps.Map('map', mapOptions);
@@ -29,8 +29,8 @@ $.getJSON("/api/placelist", function (result) {
 const markerList = [];  // 지도 상 찍힌 마크
 const infowindowlist = [];  // 마크에 해당하는 인포창
 
-// DB 상의 데이터를 받아와서 값대로 마크를 찍어줌 function setMarker(data) {
-
+// DB 상의 데이터를 받아와서 값대로 마크를 찍어줌
+function setMarker(data) {
     for (let i in data) {
         let target = data[i];
         let latlng = new naver.maps.LatLng(target.pl_lttd, target.pl_lngtd);
