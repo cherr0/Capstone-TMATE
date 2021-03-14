@@ -10,7 +10,7 @@ import java.util.List;
 public interface DriverMapper {
 
     // 기사 리스트
-    public List<JoinDriversVO> getList(@Param("cri") Criteria cri, String d_id);
+    public List<JoinDriversVO> getList(@Param("cri") Criteria cri);
 
     // 기사 좋아요
     public int getLikeCount(String d_id);
