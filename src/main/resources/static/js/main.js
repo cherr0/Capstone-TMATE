@@ -886,24 +886,146 @@
     //bar chart
     var ctx = document.getElementById("barChart");
     if (ctx) {
-      ctx.height = 200;
+      ctx.height = 70;
       var myChart = new Chart(ctx, {
         type: 'bar',
         defaultFontFamily: 'Poppins',
         data: {
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월",],
           datasets: [
             {
-              label: "My First dataset",
-              data: [65, 59, 80, 81, 56, 55, 40],
+              label: "적립 포인트",
+              data: [500, 150, 300, 200, 550, 1000, 350, 100, 50, 350, 150, 600],
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)",
               fontFamily: "Poppins"
             },
             {
-              label: "My Second dataset",
-              data: [28, 48, 40, 19, 86, 27, 90],
+              label: "사용 포인트",
+              data: [200, 550, 100, 500, 750, 200, 150, 200, 300, 150, 200, 400],
+              borderColor: "rgba(0,0,0,0.09)",
+              borderWidth: "0",
+              backgroundColor: "rgba(0,0,0,0.07)",
+              fontFamily: "Poppins"
+            }
+          ]
+        },
+        options: {
+          legend: {
+            position: 'top',
+            labels: {
+              fontFamily: 'Poppins'
+            }
+
+          },
+          scales: {
+            xAxes: [{
+              ticks: {
+                fontFamily: "Poppins"
+
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                fontFamily: "Poppins"
+              }
+            }]
+          }
+        }
+      });
+    }
+
+
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    //payment-bar chart
+    var ctx = document.getElementById("payment-barChart");
+    if (ctx) {
+      ctx.height = 70;
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        defaultFontFamily: 'Poppins',
+        data: {
+          labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월",],
+          datasets: [
+            {
+              label: "카드결제",
+              data: [6, 10, 13, 5, 8, 3, 21, 8, 6, 12, 10, 9],
+              borderColor: "rgba(0, 123, 255, 0.9)",
+              borderWidth: "0",
+              backgroundColor: "rgba(0, 123, 255, 0.5)",
+              fontFamily: "Poppins"
+            },
+            {
+              label: "현금결제",
+              data: [1, 3, 8, 3, 12, 2, 6, 13, 2, 3, 5, 7],
+              borderColor: "rgba(0,0,0,0.09)",
+              borderWidth: "0",
+              backgroundColor: "rgba(0,0,0,0.07)",
+              fontFamily: "Poppins"
+            }
+          ]
+        },
+        options: {
+          legend: {
+            position: 'top',
+            labels: {
+              fontFamily: 'Poppins'
+            }
+
+          },
+          scales: {
+            xAxes: [{
+              ticks: {
+                fontFamily: "Poppins"
+
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                fontFamily: "Poppins"
+              }
+            }]
+          }
+        }
+      });
+    }
+
+
+  } catch (error) {
+    console.log(error);
+  }
+
+  //history-barchart
+
+  try {
+    //bar chart
+    var ctx = document.getElementById("history-barChart");
+    if (ctx) {
+      ctx.height = 70;
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        defaultFontFamily: 'Poppins',
+        data: {
+          labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월",],
+          datasets: [
+            {
+              label: "일반 횟수",
+              data: [1, 3, 8, 3, 12, 2, 6, 13, 2, 3, 5, 7],
+              borderColor: "rgba(0, 123, 255, 0.9)",
+              borderWidth: "0",
+              backgroundColor: "rgba(0, 123, 255, 0.5)",
+              fontFamily: "Poppins"
+            },
+            {
+              label: "동승 횟수",
+              data: [6, 10, 13, 5, 8, 3, 21, 8, 6, 12, 10, 9],
               borderColor: "rgba(0,0,0,0.09)",
               borderWidth: "0",
               backgroundColor: "rgba(0,0,0,0.07)",

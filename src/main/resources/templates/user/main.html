@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic2 :: head}">
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic2 :: mobile"></aside>
+    <aside th:replace="layout/basic2 :: sidebar"></aside>
+
+    <div class="page-container">
+        <div th:replace="layout/basic2 :: header"></div>
+        <section class="container-fluid contents_size">
+            <section class="container-fluid contents_size">
+                <section class="user-top-bar">
+                    <div class="container ">
+                        <div class="row user-top-box">
+                            <img src="images/icon/Tmate.png" class="col-sm-2 col-md-2 col-xs-2"/>
+                            <div class="col-sm-6 col-md-6 col-xs-6 user-bar-content">
+                                <th:block th:switch="${memberp?.m_level}">
+                                    <div class="user-level" th:case="0">일반</div>
+                                    <div class="user-level" th:case="1">우수</div>
+                                    <div class="user-level" th:case="2">최우수</div>
+                                    <div class="user-level" th:case="3">VIP</div>
+                                </th:block>
+                                <div>
+                                    <span class="top-name" th:text="${session.member.m_name}">강병현</span>회원님의 등급은
+                                        <th:block th:switch="${memberp?.m_level}">
+                                            <span class="top-level" th:case="0">일반</span>
+                                            <span class="top-level" th:case="1">우수</span>
+                                            <span class="top-level" th:case="2">최우수</span>
+                                            <span class="top-level" th:case="3">VIP</span>
+                                        </th:block>
+                                     입니다.
+
+                                </div>
+                                <div>
+                                    <div class="con-tooltip bottom">
+                                        <p class="tooltip-title"> 등급혜택 </p>
+                                        <th:block th:switch="${memberp?.m_level}">
+                                            <div th:case="0" class="tooltip">
+                                                <p>현재 등급의 혜택은</p><p>1% 입니다.</p>
+                                            </div>
+                                            <div th:case="1" class="tooltip">
+                                                <p>현재 등급의 혜택은</p><p>2% 입니다.</p>
+                                            </div>
+                                            <div th:case="2" class="tooltip">
+                                                <p>현재 등급의 혜택은</p><p>3% 입니다.</p>
+                                            </div>
+                                            <div th:case="3" class="tooltip">
+                                                <p>현재 등급의 혜택은</p><p>5% 입니다.</p>
+                                            </div>
+                                        </th:block>
+                                    </div>
+
+                                    <div class="con-tooltip bottom">
+                                        <p class="tooltip-title"> 승급조건 </p>
+                                        <th:block th:switch="${memberp?.m_level}">
+                                            <div th:case="0" class="tooltip ">
+                                                <p class="t-position">5회 이상 우수 회원입니다.</p>
+                                            </div>
+                                            <div th:case="1" class="tooltip ">
+                                                <p class="t-position">10회 이상 최우수 회원입니다.</p>
+                                            </div>
+                                            <div th:case="2" class="tooltip ">
+                                                <p class="t-position">20회 이상 VIP 회원입니다.</p>
+                                            </div>
+                                            <div th:case="3" class="tooltip ">
+                                                <p class="t-position">현재 최고 등급입니다.</p>
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-xs-4 user-bar-content" id="user-bar-point">
+                                <div class="text-right">현재 보유 포인트: <span class="u-point" th:text="${memberp?.m_point}">500</span><span class="u-point-p">P</span></div>
+                                <button class="btn btn-dark float-right mt-2">포인트 내역</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="statistic statistic2">
+                    <div class="container">
+                        <div class="row user-data-box">
+                            <div class="simpledata-box col-sm-1.9 col-md-1.9 col-xs-1.9">
+                                <div class="simpledata-title">일반 이용 횟수</div>
+                                <div class="simpledata-content"><span class="simpledata-data" th:text="${memberp?.m_n_use}">20</span><span>회</span></div>
+                            </div>
+                            <div class="simpledata-box col-sm-1.9 col-md-1.9 col-xs-1.9">
+                                <div class="simpledata-title">동승 이용 횟수</div>
+                                <div class="simpledata-content"><span class="simpledata-data" th:text="${memberp?.m_t_use}">20</span><span>회</span></div>
+                            </div>
+                            <div class="simpledata-box col-sm-1.9 col-md-1.9 col-xs-1.9">
+                                <div class="simpledata-title">노쇼 횟수</div>
+                                <div class="simpledata-content"><span class="simpledata-data" th:text="${memberp?.m_count}">20</span><span>회</span></div>
+                            </div>
+                            <div class="simpledata-box col-sm-1.9 col-md-1.9 col-xs-1.9">
+                                <div class="simpledata-title">블랙 횟수</div>
+                                <div class="simpledata-content"><span class="simpledata-data" th:text="${ban}">20</span><span>회</span></div>
+                            </div>
+                            <div class="simpledata-box col-sm-1.9 col-md-1.9 col-xs-1.9">
+                                <div class="simpledata-title">좋아요 횟수</div>
+                                <div class="simpledata-content"><span class="simpledata-data" th:text="${like}">20</span><span>회</span></div>
+                            </div>
+                            <div class="simpledata-box col-sm-1.9 col-md-1.9 col-xs-1.9">
+                                <div class="simpledata-title">싫어요 횟수</div>
+                                <div class="simpledata-content"><span class="simpledata-data" th:text="${dislike}">20</span><span>회</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- END STATISTIC-->
+
+                <!-- 이용내역 -->
+                <section class="statistic statistic2">
+                    <div>
+                        <span class="col-sm-4 col-md-4 col-xs-4 user-table-title">일주일 이용내역</span>
+                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" class="col-sm-4 col-xs-4 col-md-4">
+                    </div>
+                    <table id="myTable" class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                        <thead class="hot-table">
+                        <tr>
+                            <th class="text-center">구분</th>
+                            <th class="text-center">탑승일자</th>
+                            <th class="text-center">이용금액</th>
+                            <th class="text-center">출발지</th>
+                            <th class="text-center">도착지</th>
+                            <th class="text-center">차량 및 차량번호</th>
+                            <th class="text-center">기사명</th>
+                        </tr>
+                        </thead>
+                        <tbody class="history">
+                        <tr th:each="h : ${history}">
+                          <td class="text-center" th:text="${h.merchant_uid}"></td>
+                            <td class="text-center" th:text="${h.merchant_uid}"></td>
+                            <td class="text-center" th:text="${h.h_allfare}"></td>
+                            <td class="text-center" th:text="${h.h_s_place}"></td>
+                            <td class="text-center" th:text="${h.h_f_place}"></td>
+                            <td class="text-center" th:text="|${h.car_model}/${h.car_no}|"></td>
+                            <td class="text-center" th:text="${h.m_name}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <!-- 이용내역 끝 -->
+
+
+                <!-- 포인트내역 -->
+                <section class="statistic statistic2 scroll">
+                    <div>
+                        <span class="col-sm-4 col-md-4 col-xs-4 user-table-title">일주일 포인트내역</span>
+                        <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search for names.." title="Type in a name" class="col-sm-4 col-xs-4 col-md-4">
+                    </div>
+                    <table id="myTable2" class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                        <thead class="hot-table">
+                        <tr>
+                            <th class="text-center">구분</th>
+                            <th class="text-center">금액</th>
+                            <th class="text-center">내용</th>
+                            <th class="text-center">변동 시간</th>
+                        </tr>
+                        </thead>
+                        <tbody class="point">
+                        <tr th:each="p : ${point}">
+                           <td class="text-center" th:switch="${p.po_exact}">
+                               <p th:case="0">적립</p>
+                               <p th:case="1">사용</p>
+                           </td>
+                           <td class="text-center" th:text="${p.po_result}"></td>
+                           <td class="text-center" th:text="${p.po_course}"></td>
+                           <td class="text-center" th:text="${p.po_time}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <!-- 포인트내역 끝 -->
+
+            </section>
+        </section>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function myFunction2() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput2");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable2");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+
+<footer th:replace="layout/basic2 :: footer">
+</footer>
+</body>
+</html>

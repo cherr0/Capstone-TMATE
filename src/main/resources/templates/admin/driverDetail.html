@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+  <aside th:replace="layout/basic :: mobile"></aside>
+  <aside th:replace="layout/basic :: sidebar"></aside>
+
+  <div class="page-container">
+    <div th:replace="layout/basic :: header"></div>
+    <link th:href="@{css/hotplace.css}" rel="stylesheet">
+    <section class="container-fluid contents_size">
+      <div class="container bootstrap snippets bootdey">
+
+        <div class="row">
+          <div class="profile-nav col-md-4 col-sm-12 col-xs-12">
+            <div class="panel">
+              <div class="user-heading round">
+                <a href="#">
+                  <img src="" alt="">
+                </a>
+                <h1 class="profile_name col-sm-auto col-md-auto" th:text="${driver.m_name}">박한수</h1>
+                <span class="badge bg-info">기사</span>
+                <span class="badge bg-info" th:switch="${#strings.substring(driver.m_id, 1, 2)}">
+                  <p th:case="1">남자</p>
+                  <p th:case="2">여자</p>
+                  <p th:case="3">남자</p>
+                  <p th:case="4">여자</p>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-info col-md-8 col-sm-12 col-xs-12">
+            <div class="panel">
+              <div class="panel-body bio-graph-info detail-box">
+                <div class="row">
+                  <div class="d-bio-row" >
+                    <p th:text="|전화번호 : ${#strings.substring(driver.m_id,2, 13)}|">: 010-1111-1111</p>
+                  </div>
+                  <div class="d-bio-row">
+                    <p th:text="|생년월일 : ${#strings.substring(driver.m_birth,2, 10)}|">: 1997-00-00</p>
+                  </div>
+                  <div class="d-bio-row">
+                    <p th:text="|차량번호 : ${driver.car_no}|">: 1997-00-00</p>
+                  </div>
+                  <div class="d-bio-row">
+                    <p th:text="|자격증번호 : ${driver.d_license_no}|">: 15-대구-35523</p>
+                  </div>
+                  <div class="d-bio-row">
+                    <p th:text="|승인일자 : ${driver.d_j_date}|">: 2021-02-15</p>
+                  </div>
+
+                  <div class="d-bio-row">
+                    <p th:text="|운행횟수 : ${history}회|">: 15</p>
+                  </div>
+
+                  <div class="d-bio-row">
+                    <p th:text="|좋아요/싫어요 : ${like}/${dislike}|">: 14/1</p>
+                  </div>
+                  <div class="d-bio-row">
+                    <p th:text="|계좌: ${driver.ac_num}|">: 카카오 3333-06-9548059</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <br><br>
+      <!-- 운행내역 -->
+
+      <form class="form-inline mt-2 mb-md-1 justify-content-end" role="search">
+        <h2 class="col-sm-12 col-md-12 col-xs-12">운행내역</h2>
+      </form>
+
+      <!-- 운행내역 -->
+      <table class="table table-borderless table-striped table-earning table-bordered">
+
+        <thead>
+        <tr>
+          <th class="text-center">동승여부</th>
+          <th class="text-center">운행날짜</th>
+          <th class="text-center">운행시간</th>
+          <th class="text-center">출발지</th>
+          <th class="text-center">도착지</th>
+          <th class="text-center">요금</th>
+        </tr>
+        </thead>
+        <tbody class="history">
+          <tr>
+
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 이용내역 페이지 내이션 ajax 처리 해야됨 -->
+      <nav class="history-footer" aria-label="Page navigation">
+
+      </nav>
+
+      <br><br>
+      <!--             평점이력 -->
+      <form class="form-inline mt-2 mb-md-1 justify-content-end" role="search">
+        <h2 class="col-sm-12 col-md-12 col-xs-12">평점 이력</h2>
+      </form>
+      <table class="table table-borderless table-striped table-earning table-bordered">
+
+        <thead>
+        <tr>
+          <th class="text-center">평가</th>
+          <th class="text-center">평가 일자</th>
+          <th class="text-center">사유</th>
+        </tr>
+        </thead>
+        <tbody class="review">
+          <tr>
+
+          </tr>
+
+        </tbody>
+      </table>
+
+      <!--            &lt;!&ndash; 포인트 내역 &ndash;&gt;-->
+      <nav class="review-footer" aria-label="Page navigation">
+
+      </nav>
+
+      <br><br>
+      <!-- 블랙리스트 -->
+      <form class="form-inline mt-2 mb-md-1 justify-content-end" role="search">
+        <h2 class="col-sm-12 col-md-12 col-xs-12">블랙리스트</h2>
+      </form>
+      <div class="scroll ben-table_size">
+        <table class="table table-borderless table-striped table-earning table-bordered">
+
+          <thead class="ben-head">
+          <tr>
+            <th class="text-center">회원코드</th>
+            <th class="text-center">이름</th>
+            <th class="text-center">사유</th>
+          </tr>
+          </thead>
+          <tbody class="point">
+          <tr th:each="ban : ${banList}">
+            <td class="text-center" th:text="${ban.m_id}"></td>
+            <td class="text-center" th:text="${ban.m_name}"></td>
+            <td class="text-center" th:text="${ban.ban_reason}"></td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>
+<script type="text/javascript" th:src="@{~/js/app/paging.js}"></script>
+<script th:inline="javascript" type="text/javascript">
+  $(document).ready(function(){
+    var mIdValue = [[${driver.m_id}]];
+    var historyUL = $(".history");
+    var reviewUL = $(".review");
+
+    showList(1);
+    showReviewList(1);
+
+    // 이용내역 페이징
+    function showList(page){
+      pageService.getHistoryDList({m_id:mIdValue, page: page|| 1 },function (historyCnt,list) {
+
+        console.log("historyCnt: " + historyCnt);
+        console.log("list: " + list);
+
+        if(page == -1){
+          pageNum = Math.ceil(historyCnt/10.0);
+          showList(pageNum);
+          return;
+        }
+
+        let str="";
+
+        if(list == null || list.length == 0){
+          historyUL.html("");
+          return;
+        }
+
+        for(let i=0,len=list.length || 0; i < len; i++ ){
+          str += "<tr>";
+          switch (list[i].merchant_uid.substr(27,1)){
+            case '0':
+              str += "<td class='text-center'>일반</td>";
+              break;
+            case '1':
+              str += "<td class='text-center'>동승</td>";
+              break;
+          }
+          str += "<td class='text-center'>"+list[i].merchant_uid.substring(9,15)+"</td>";
+          str += "<td class='text-center'>"+"<span>"+list[i].h_s_time+"</span>"+-+"<span>+list[i].h_e_time+</span>"+"</td>";
+          str += "<td class='text-center'>"+list[i].h_s_place+"</td>";
+          str += "<td class='text-center'>"+list[i].h_f_place+"</td>";
+          str += "<td class='text-center'>"+list[i].h_allfare+"</td>";
+          str += "</tr>";
+        }
+
+        historyUL.html(str);
+
+        showHistoryPage(historyCnt);
+      }); // end history page function
+
+    } // end showList
+
+    var pageNum = 1;
+    var historyPageFooter = $(".history-footer");
+    var reviewPageFooter = $(".review-footer");
+
+    function showHistoryPage(historyCnt){
+
+      let endNum = Math.ceil(pageNum / 10.0) * 10;
+      let startNum = endNum - 9;
+
+      let prev = startNum != 1;
+      let next = false;
+
+      if(endNum * 10 >= historyCnt){
+        endNum = Math.ceil(historyCnt/10.0);
+      }
+
+      if(endNum * 10 < historyCnt){
+        next = true;
+      }
+
+      let str = "<ul class='pagination justify-content-center'>";
+
+      if(prev){
+        str += "<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>Previous</a></li>";
+      }
+
+
+
+      for(let i = startNum ; i <= endNum; i++){
+        let active = pageNum  == i? "active":"";
+
+        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+      }
+
+      if(next){
+        str += "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a></li>";
+      }
+
+      str += "</ul>";
+
+      console.log(str);
+
+      historyPageFooter.html(str);
+    }
+
+    historyPageFooter.on("click","li a",function(e){
+      e.preventDefault();
+      console.log("page click");
+
+      let targetPageNum = $(this).attr("href");
+
+      console.log("targetPageNum: " + targetPageNum);
+
+      pageNum = targetPageNum;
+
+      showList(pageNum);
+    });
+
+    // 평점 페이징
+    function showReviewList(page){
+      pageService.getReviewDList({m_id:mIdValue, page: page|| 1 },function (reviewCnt,list) {
+
+        console.log("reviewCnt: " + reviewCnt);
+        console.log("list: " + list);
+
+        if(page == -1){
+          pageNum = Math.ceil(reviewCnt/10.0);
+          showReviewList(pageNum);
+          return;
+        }
+
+        let str="";
+
+        if(list == null || list.length == 0){
+          reviewUL.html("");
+          return;
+        }
+
+        for(let i=0,len=list.length || 0; i < len; i++ ){
+          str += "<tr>";
+          switch (list[i].r_code.substr(13,1)){
+            case 'L':
+              str += "<td class='text-center'>좋아요</td>";
+              break;
+            case 'H':
+              str += "<td class='text-center'>싫어요</td>";
+              break;
+          }
+          str += "<td class='text-center'>"+list[i].merchant_uid.substring(9,19)+"</td>";
+          str += "<td class='text-center'>"+list[i].r_reason+"</td>";
+          str += "</tr>";
+        }
+
+        reviewUL.html(str);
+
+        showReviewPage(reviewCnt);
+      }); // end history page function
+
+    } // end showList
+
+    function showReviewPage(reviewCnt){
+
+      let endNum = Math.ceil(pageNum / 10.0) * 10;
+      let startNum = endNum - 9;
+
+      let prev = startNum != 1;
+      let next = false;
+
+      if(endNum * 10 >= reviewCnt){
+        endNum = Math.ceil(reviewCnt/10.0);
+      }
+
+      if(endNum * 10 < reviewCnt){
+        next = true;
+      }
+
+      let str = "<ul class='pagination justify-content-center'>";
+
+      if(prev){
+        str += "<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>Previous</a></li>";
+      }
+
+
+
+      for(let i = startNum ; i <= endNum; i++){
+        let active = pageNum  == i? "active":"";
+
+        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+      }
+
+      if(next){
+        str += "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a></li>";
+      }
+
+      str += "</ul>";
+
+      console.log(str);
+
+      reviewPageFooter.html(str);
+    }
+
+    reviewPageFooter.on("click","li a",function(e){
+      e.preventDefault();
+      console.log("page click");
+
+      let targetPageNum = $(this).attr("href");
+
+      console.log("targetPageNum: " + targetPageNum);
+
+      pageNum = targetPageNum;
+
+      showReviewList(pageNum);
+    });
+
+
+    });
+</script>
+<footer th:replace="layout/basic :: footer">
+</footer>
+
+</body>
+</html>

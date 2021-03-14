@@ -19,7 +19,7 @@
     </select>
 
     <select id="getCountBan" resultType="_int">
-        select count(*) from ban where m_id = #{m_id};
+        select count(*) from ban where m_id = #{m_id}
     </select>
 
     <!--  카드 관리  -->
@@ -46,17 +46,30 @@
     <select id="getCountReceipt" resultType="_int">
         select count(*)
         from (select r.imp_uid, r.re_crn, r.re_time, r.re_amt, r.use_cash, p.pay_company
-              from receipt r inner join payment p on r.m_id = p.m_id
-              where p.m_id = #{m_id});
+              from receipt r inner join payment p on r.customer_uid = p.customer_uid
+              where r.m_id = #{m_id})
     </select>
 
     <select id="getReceiptListPaging" resultType="com.tmate.domain.JoinReceiptVO">
         <![CDATA[
             select imp_uid, re_crn, re_time, re_amt, use_cash, pay_company
             from (select rownum rn, r.imp_uid as imp_uid, r.re_crn as re_crn, r.re_time as re_time, r.re_amt as re_amt, r.use_cash as use_cash, p.pay_company as pay_company
-            from receipt r inner join payment p on r.m_id = p.m_id
-            where p.m_id = #{m_id} and rownum <= #{pageNum} * #{amount})
-            where rn > (#{pageNum} - 1) * #{amount}
+            from receipt r inner join payment p on r.customer_uid = p.customer_uid
+            where r.m_id = #{m_id} and rownum <= #{cri.pageNum} * #{cri.amount})
+            where rn > (#{cri.pageNum} - 1) * #{cri.amount}
         ]]>
+    </select>
+
+    <select id="getMainWeeklyPointList" resultType="com.tmate.domain.JoinPointVO">
+        select p.po_exact as po_exact , p.po_result as po_result , p.po_course as po_course , p.po_time as po_time, m.m_point as m_point
+        from point p inner join member m on p.m_id = m.m_id
+        where p.m_id = #{m_id} and po_time between  systimestamp - 7 and systimestamp
+    </select>
+
+    <select id="getMainWeeklyHistoryList" resultType="com.tmate.domain.JoinHistoryVO">
+        select merchant_uid, h_allfare, m_name, h_s_place, h_f_place, car_no, car_model
+        from history h inner join member m on h.d_id = m.m_id
+                       inner join car c on m.m_id = c.m_id
+        where h.m_id = #{m_id} and to_date(substr(merchant_uid,10,6),'yyMMdd') between  sysdate - 7 and sysdate
     </select>
 </mapper>

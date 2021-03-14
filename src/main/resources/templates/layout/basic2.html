@@ -42,7 +42,7 @@
 
 <div class="page-wrapper">
     <!-- HEADER MOBILE-->
-    <aside class="menu-sidebar d-none d-lg-block" th:fragment="mobile">
+    <aside class="user-menu-sidebar d-none d-lg-block" th:fragment="mobile">
         <div class="logo">
             <a href="/main">
                 <img th:src="@{~/images/icon/Tmate.png}"/>
@@ -52,24 +52,50 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li>
-                        <a class="js-arrow" href="#" >
-                            <i class="far fa-newspaper"></i>공지사항</a>
+                        <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
+                            <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
+                    </li>
+                    <li>
+                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                            <i class="fa fa-calendar"></i><span class="menu-color">공지사항</span>
+                        </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a th:href="@{/notice}">공지관리</a>
+                                <a th:href="@{/tuser/notice}"><span class="menu-color">공지사항</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}">이벤트관리</a>
+                                <a th:href="@{/tuesr/event}"><span class="menu-color">이벤트</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a th:href="@{/user}">
-                            <i class="far fa-address-card"></i>회원관리</a>
+                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                            <i class="fa fa-user-circle"></i><span class="menu-color">My T 프로필</span>
+                        </a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <li>
+                                <a  th:href="@{/tuser/profile}"><span class="menu-color">개인정보 및 수정</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/tuser/noficard}"><span class="menu-color">지인알림 & 카드 관리</span></a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a th:href="@{/approval}">
-                            <i class="fas fa-check"></i>승인관리</a>
+                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                            <i class="fa fa-list-alt"></i><span class="menu-color">My T 이력</span>
+                        </a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <li>
+                                <a  th:href="@{/tuser/pointd}"><span class="menu-color">포인트 내역</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/tuser/paymentd}"><span class="menu-color">결제 이력</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/tuser/historyd}"><span class="menu-color">이용 내역</span></a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -78,7 +104,7 @@
     <!-- END HEADER MOBILE-->
 
     <!-- MENU SIDEBAR-->
-    <aside class="menu-sidebar d-none d-lg-block" th:fragment="sidebar">
+    <aside class="user-menu-sidebar d-none d-lg-block" th:fragment="sidebar">
         <div class="logo">
             <a href="/main">
                 <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE"/>
@@ -88,40 +114,50 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li>
-                        <a th:href="@{/main}" class="menu-btn menu-btn-main">
+                        <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
                             <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
                     </li>
                     <li>
                         <a class="js-arrow menu-btn menu-btn-not" href="#">
-                            <i class="far fa-newspaper"></i><span class="menu-color">공지사항</span></a>
+                            <i class="fa fa-calendar"></i><span class="menu-color">공지사항</span>
+                        </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/notice}"><span class="menu-color">공지관리</span></a>
+                                <a  th:href="@{/tuser/notice}"><span class="menu-color">공지사항</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}"><span class="menu-color">이벤트관리</span></a>
+                                <a th:href="@{/tuser/event}"><span class="menu-color">이벤트</span></a>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <a th:href="@{/hotplace}" class="menu-btn menu-btn-hot">
-                            <i class="fas fa-map-marker-alt"></i><span class="menu-color">핫플레이스관리</span></a>
                     </li>
                     <li>
                         <a class="js-arrow menu-btn menu-btn-not" href="#">
-                            <i class="far fa-newspaper"></i><span class="menu-color">회원관리</span></a>
+                            <i class="fa fa-user-circle"></i><span class="menu-color">My T 프로필</span>
+                        </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/user}"><span class="menu-color">유저관리</span></a>
+                                <a  th:href="@{/tuser/profile}"><span class="menu-color">개인정보 및 수정</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/driver}"><span class="menu-color">기사관리</span></a>
+                                <a th:href="@{/tuser/event}"><span class="menu-color">지인알림 & 카드 관리</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a th:href="@{/approval}" class="menu-btn menu-btn-app">
-                            <i class="fas fa-check"></i><span class="menu-color">승인관리</span></a>
+                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                            <i class="fa fa-list-alt"></i><span class="menu-color">My T 이력</span>
+                        </a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <li>
+                                <a  th:href="@{/tuser/pointd(m_id=${session.member.m_id})}"><span class="menu-color">포인트 내역</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/tuser/paymentd(m_id=${session.member.m_id})}"><span class="menu-color">결제 이력</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/tuser/historyd(m_id=${session.member.m_id})}"><span class="menu-color">이용 내역</span></a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -175,49 +211,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="account-wrap">
-                                <div class="account-item clearfix js-item-menu">
-                                    <div class="image">
-                                        <img th:src="@{${session.member.m_profile}}"/>
-                                    </div>
-                                    <div class="content">
-                                        <a class="js-acc-btn" href="#" th:text="${session.member.m_name}"></a>
-                                    </div>
-                                    <div class="account-dropdown js-dropdown">
-                                        <div class="info clearfix">
-                                            <div class="image">
-                                                <a href="#">
-                                                    <img th:src="@{${session.member.m_profile}}"/>
-                                                </a>
-                                            </div>
-                                            <div class="content">
-                                                <h5 class="name">
-                                                    <a href="#" th:text="${session.member.m_name}"></a>
-                                                </h5>
-                                                <span class="email" th:text="${session.member.m_email}"></span>
-                                            </div>
-                                        </div>
-                                        <div class="account-dropdown__body">
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-account"></i>Account</a>
-                                            </div>
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
-                                            </div>
-                                            <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                            </div>
-                                        </div>
-                                        <div class="account-dropdown__footer">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-power"></i>Logout</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -263,20 +256,20 @@
     <script th:src="@{~/js/app/place.js}"></script>
     <script th:src="@{~/js/app/board.js}"></script>
 
-<!--    <script>-->
-<!--        var header = document.getElementById("myDIV");-->
-<!--        var btns = header.getElementsByClassName("menu-btn");-->
-<!--        if (window.location.pathname == '/main')-->
-<!--            $(function (){-->
-<!--                for (var i = 0; i < btns.length; i++) {-->
-<!--                    btns[i].addEventListener("click", function() {-->
-<!--                        var current = document.getElementsByClassName("menu-active");-->
-<!--                        current[0].className = current[0].className.replace(" menu-active", "");-->
-<!--                        this.className += " menu-active";-->
-<!--                    });-->
-<!--                }-->
-<!--            })-->
-<!--    </script>-->
+    <!--    <script>-->
+    <!--        var header = document.getElementById("myDIV");-->
+    <!--        var btns = header.getElementsByClassName("menu-btn");-->
+    <!--        if (window.location.pathname == '/main')-->
+    <!--            $(function (){-->
+    <!--                for (var i = 0; i < btns.length; i++) {-->
+    <!--                    btns[i].addEventListener("click", function() {-->
+    <!--                        var current = document.getElementsByClassName("menu-active");-->
+    <!--                        current[0].className = current[0].className.replace(" menu-active", "");-->
+    <!--                        this.className += " menu-active";-->
+    <!--                    });-->
+    <!--                }-->
+    <!--            })-->
+    <!--    </script>-->
     <script>
         var header = document.getElementById("myDIV");
         var btns = header.getElementsByClassName("menu-btn-main");

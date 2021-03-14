@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic2 :: mobile"></aside>
+    <aside th:replace="layout/basic2 :: sidebar"></aside>
+
+    <div class="page-container">
+        <div th:replace="layout/basic2 :: header"></div>
+        <section class="container-fluid contents_size">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 style="margin-top: auto">이용 내역</h2>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 com-xs-12 point-chart">
+                                    <div class="au-card m-b-30">
+                                        <div class="au-card-inner">
+                                            <h3 class="title-2 m-b-40">2021년 내역</h3>
+                                            <canvas id="history-barChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" class="col-sm-4 col-xs-4 col-md-4">
+                                <table id="myTable" class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">동승여부</th>
+                                        <th class="text-center">탑승일</th>
+                                        <th class="text-center">출발지</th>
+                                        <th class="text-center">도착지</th>
+                                        <th class="text-center">운행시간</th>
+                                        <th class="text-center">차량번호</th>
+                                        <th class="text-center">차량모델</th>
+                                        <th class="text-center">기사명</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="point text-center table-hover">
+                                    <tr th:each="h : ${history}">
+                                        <td class="text-center" th:switch="${#strings.substring(h.merchant_uid,27)}">
+                                            <p th:case="0">일반</p>
+                                            <p th:case="1">동승</p>
+                                        </td>
+                                        <td class="text-center" th:text="${#strings.substring(h.merchant_uid,9,15)}"></td>
+                                        <td class="text-center" th:text="${h.h_s_place}"></td>
+                                        <td class="text-center" th:text="${h.h_f_place}"></td>
+                                        <td class="text-center"><span th:text="${#strings.substring(h.h_s_time,0,16)}"></span>
+                                        -<span th:text="${#strings.substring(h.h_e_time,0,16)}"></span></td>
+                                        <td class="text-center" th:text="${h.car_no}"></td>
+                                        <td class="text-center" th:text="${h.car_model}"></td>
+                                        <td class="text-center" th:text="${h.m_name}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- 페이지 네이션 -->
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <th:block th:if="${pageMaker.prev}">
+                                            <li class="page-item">
+                                                <a class="page-link" th:href="@{/tuser/historyd(pageNum=${pageMaker.startPage-1},m_id=${session.member.m_id})}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                        </th:block>
+
+                                        <li th:class=" 'page-item ' + ${pageMaker.cri.pageNum == page?'active':''}" th:each="page: ${pageMaker.pageList}">
+                                            <a class="page-link" th:href="@{/tuser/historyd(pageNum=${page},m_id=${session.member.m_id})}">
+                                                [[${page}]]
+                                            </a>
+
+                                        </li>
+
+                                        <th:block th:if="${pageMaker.next}">
+                                            <li class="page-item">
+                                                <a class="page-link" th:href="@{/tuser/historyd(pageNum=${pageMaker.endPage+1},m_id=${session.member.m_id})}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </th:block>
+                                    </ul>
+                                </nav>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+
+<footer th:replace="layout/basic2 :: footer">
+</footer>
+
+</body>
+</html>
