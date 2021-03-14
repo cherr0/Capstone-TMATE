@@ -205,7 +205,7 @@ function selectSearchMarker(res) {
         console.log(search_arr[i].title);
         if(search_arr[i].title == res){
             const latlng = search_arr[i].position;
-            map.setZoom(14, false); // 확대 위치 설정
+            map.setZoom(18, false); // 확대 위치 설정
             map.panTo(latlng);  // 지도 위치 변경
             console.log('실행 완료');
             break;
