@@ -25,12 +25,15 @@ $.getJSON("/api/placelist", function (result) {
         naver.maps.Event.addListener(map,"click",ClickMap(i));  // 맵을 클릭했을때 ClickMap 이 호출됨
         naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
     }
+
 });
 
 
 
-const markerList = [];  // 지도 상 찍힌 마크
-const infowindowlist = [];  // 마크에 해당하는 인포창
+let markerList = [];  // 지도 상 찍힌 마크
+let infoWindowList = [];  // 마크에 해당하는 인포창
+let search_arr = [];    // 검색한 값 리스트
+let searchInfoList = [];    // 검색한 값의 해당하는 인포
 
 // DB 상의 데이터를 받아와서 값대로 마크를 찍어줌
 function setDBMarker(data) {
@@ -63,7 +66,7 @@ function setDBMarker(data) {
 
 
         markerList.push(marker);
-        infowindowlist.push(infowindow);
+        infoWindowList.push(infowindow);
     }
 }
 
@@ -74,7 +77,7 @@ function setDBMarker(data) {
 // 맵의 마커가 아닌 다른 곳이 클릭 될 경우 infoWindow가 열린 것을 찾은 뒤 닫아준다.
 function ClickMap(i) {
     return function () {
-        const infowindow = infowindowlist[i];
+        const infowindow = infoWindowList[i];
         infowindow.close();
     }
 }
@@ -85,10 +88,23 @@ function ClickMap(i) {
 function getClickHandler(i) {
     return function () {
         const marker = markerList[i];
-        const infowindow = infowindowlist[i];
+        const infowindow = infoWindowList[i];
         if(infowindow.getMap()) {
             infowindow.close();
 
+        }else {
+            infowindow.open(map, marker);
+        }
+    }
+}
+
+
+function getSearchClickHandler(i) {
+    return function () {
+        const marker = search_arr[i];
+        const infowindow = searchInfoList[i];
+        if(infowindow.getMap()) {
+            infowindow.close();
         }else {
             infowindow.open(map, marker);
         }
@@ -141,7 +157,7 @@ $("#search_button").on("click", function(e) {
 
 
 
-let search_arr = [];
+
 
 /*
     data: 목적지를 바탕으로 검색한 결과
@@ -160,6 +176,7 @@ function placeSearchCB(data, status, pagination) {
             }
         }
 
+        console.log(data);
 
         for(i in data){// 검색된 데이터의 결과를 가져옴.
             const target = data[i];
@@ -168,12 +185,16 @@ function placeSearchCB(data, status, pagination) {
             const title = target.place_name;
             let latlng = new naver.maps.LatLng(lat, lng);
 
+            console.log(target);
+
+            // 검색 데이터 마커
             marker = new naver.maps.Marker({
                 title: title,
                 position: latlng,
                 map: map
             });
 
+            // 리스트에 값 추가
             $('#search-list').append(`
                 <li>
                     <a id="${title}" onclick="selectSearchMarker($(this).attr('id'))">
@@ -182,7 +203,29 @@ function placeSearchCB(data, status, pagination) {
                 </li>
             `);
 
+            const content = `<div class='searchwindow_wrap'>
+                    <div class='infowindow_title'>${target.place_name}</div>
+                    <div class='infowindow_date'><i class="fas fa-map-signs"></i> ${target.category_name}</div>
+                    <div class='infowindow_content'><i class="fas fa-map-marker-alt"></i> ${target.road_address_name}</div>
+                    <div class='infowindow_date'><i class="fas fa-phone"></i> ${target.phone}</div>
+                    <a href="${target.place_url}">링크</a>
+                    <div>
+                        <button class="hotplace-register btn-primary btn-sm" style="float: right">추가</button>
+                    </div>
+                </div>`;
+
+            const infowindow = new naver.maps.InfoWindow({
+                content: content,
+                backgroundColor: "#00ff0000",
+                borderColor: "#00ff0000",
+                anchorSize: new naver.maps.Size(0,0)
+            });
+
             search_arr.push(marker);
+            searchInfoList.push(infowindow);
+
+
+            naver.maps.Event.addListener(search_arr[i], "click", getSearchClickHandler(i));
         }
 
         console.log("search_arr : " + search_arr);
