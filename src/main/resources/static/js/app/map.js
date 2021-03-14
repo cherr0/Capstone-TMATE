@@ -151,6 +151,8 @@ let search_arr = [];
 function placeSearchCB(data, status, pagination) {
     if(status === kakao.maps.services.Status.OK) {
         if(search_arr.length != 0) {
+            $('#search-list').empty(); // 내부 요소 전체 제거
+
             for(i in search_arr) {
                 console.log("실행됨");
                 let pre_marker = search_arr[i];
@@ -174,16 +176,16 @@ function placeSearchCB(data, status, pagination) {
 
             $('#search-list').append(`
                 <li>
-                    <a href="#">
-                        <i class="fa fa-book"></i>
-                        <span>${marker.title}</span>
+                    <a id="${title}" onclick="selectSearchMarker($(this).attr('id'))">
+                        <span>${title}</span>
                     </a>
                 </li>
             `);
 
             search_arr.push(marker);
         }
-        console.log(search_arr);
+
+        console.log("search_arr : " + search_arr);
 
         const latlng = search_arr[0].position;
 
@@ -195,6 +197,21 @@ function placeSearchCB(data, status, pagination) {
     }
 }
 
+
+
+function selectSearchMarker(res) {
+    console.log('값 넘어온다 : ' + res);
+    for(i in search_arr) {
+        console.log(search_arr[i].title);
+        if(search_arr[i].title == res){
+            const latlng = search_arr[i].position;
+            map.setZoom(14, false); // 확대 위치 설정
+            map.panTo(latlng);  // 지도 위치 변경
+            console.log('실행 완료');
+            break;
+        }
+    }
+}
 
 // sidebar
 $(".sidebar-dropdown > a").click(function() {
