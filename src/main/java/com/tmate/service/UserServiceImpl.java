@@ -20,18 +20,26 @@ public class UserServiceImpl implements UserService {
     private final JoinMapper joinMapper;
 
     @Override
-    public Map<String, Object> getMainPage(String m_id) {
+    public MemberDTO getMainPage(String m_id) {
 
-        Map<String, Object> mainMap = new HashMap<>();
+        MemberDTO member = membermapper.getMemberByM_id(m_id);
 
-        mainMap.put("member", membermapper.getMemberByM_id(m_id));
-        mainMap.put("weeklyHistory", userMainMapper.getMainWeeklyHistoryList(m_id));
-        mainMap.put("weeklyPoint", userMainMapper.getMainWeeklyPointList(m_id));
-        mainMap.put("countBan",userMainMapper.getCountBan(m_id));
-        mainMap.put("countGood", userMainMapper.getCountLike(m_id));
-        mainMap.put("countBad", userMainMapper.getCountDisLike(m_id));
+        return member;
+    }
 
-        return mainMap;
+    @Override
+    public int totalCountLike(String m_id) {
+        return userMainMapper.getCountLike(m_id);
+    }
+
+    @Override
+    public int totalCountDislike(String m_id) {
+        return userMainMapper.getCountDisLike(m_id);
+    }
+
+    @Override
+    public int totalCountBan(String m_id) {
+        return userMainMapper.getCountBan(m_id);
     }
 
     // My 이력 - 이용 내역
@@ -50,6 +58,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<JoinReceiptVO> getMyReceiptList(Criteria cri, String m_id) {
         return userMainMapper.getReceiptListPaging(cri, m_id);
+    }
+
+    // My 이력 - 결제 이력 개수
+
+    @Override
+    public int totalReceiptCount(String m_id) {
+        return userMainMapper.getCountReceipt(m_id);
     }
 
     // 프로필 수정 - 개인 정보

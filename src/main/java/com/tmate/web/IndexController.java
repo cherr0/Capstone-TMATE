@@ -73,4 +73,13 @@ public class IndexController {
         System.out.println("테스트 로그인 완료");
         return "admin/main";
     }
+
+    @GetMapping("/testLogin2")
+    public String testLogin2(HttpSession httpSession) {
+        PhoneDTO phone = new PhoneDTO("허시현","01067681960","");
+
+        MemberDTO member = smsService.getPermission(phone);
+        httpSession.setAttribute("member", member);
+        return "user/main";
+    }
 }
