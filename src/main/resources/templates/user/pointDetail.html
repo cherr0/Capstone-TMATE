@@ -37,47 +37,48 @@
                                         <th class="text-center">금액</th>
                                         <th class="text-center">내용</th>
                                         <th class="text-center">변동시간</th>
-                                        <th class="text-center">보유포인트</th>
                                     </tr>
                                     </thead>
                                     <tbody class="point text-center table-hover">
-                                    <tr>
-                                        <td>적립</td>
-                                        <td>300</td>
-                                        <td>이벤트 적립</td>
-                                        <td>2021-03-11-16:21</td>
-                                        <td>10300</td>
-                                    </tr>
-                                    <tr>
-                                        <td>적립</td>
-                                        <td>300</td>
-                                        <td>이벤트 적립</td>
-                                        <td>2021-03-11-16:21</td>
-                                        <td>10300</td>
-                                    </tr>
-                                    <tr>
-                                        <td>적립</td>
-                                        <td>300</td>
-                                        <td>이벤트 적립</td>
-                                        <td>2021-03-11-16:21</td>
-                                        <td>10300</td>
-                                    </tr>
-                                    <tr>
-                                        <td>적립</td>
-                                        <td>300</td>
-                                        <td>이벤트 적립</td>
-                                        <td>2021-03-11-16:21</td>
-                                        <td>10300</td>
-                                    </tr>
-                                    <tr>
-                                        <td>적립</td>
-                                        <td>300</td>
-                                        <td>이벤트 적립</td>
-                                        <td>2021-03-11-16:21</td>
-                                        <td>10300</td>
+                                    <tr th:each="p:${point}">
+                                        <td class="text-center" th:switch="${p.po_exact}">
+                                            <p th:case="0">적립</p>
+                                            <p th:case="1">사용</p>
+                                        </td>
+                                        <td class="text-center" th:text="${p.po_result}"></td>
+                                        <td class="text-center" th:text="${p.po_course}"></td>
+                                        <td class="text-center" th:text="${#strings.substring(p.po_time,0,16)}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
+                                <!-- 페이지 네이션 -->
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <th:block th:if="${pageMaker.prev}">
+                                            <li class="page-item">
+                                                <a class="page-link" th:href="@{/tuser/pointd(pageNum=${pageMaker.startPage-1},m_id=${session.member.m_id})}" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                        </th:block>
+
+                                        <li th:class=" 'page-item ' + ${pageMaker.cri.pageNum == page?'active':''}" th:each="page: ${pageMaker.pageList}">
+                                            <a class="page-link" th:href="@{/tuser/pointd(pageNum=${page},m_id=${session.member.m_id})}">
+                                                [[${page}]]
+                                            </a>
+
+                                        </li>
+
+                                        <th:block th:if="${pageMaker.next}">
+                                            <li class="page-item">
+                                                <a class="page-link" th:href="@{/tuser/pointd(pageNum=${pageMaker.endPage+1},m_id=${session.member.m_id})}" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </th:block>
+                                    </ul>
+                                </nav>
+
                             </div>
                         </div>
                     </div>

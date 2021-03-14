@@ -52,7 +52,7 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li>
-                        <a th:href="@{/main}" class="menu-btn menu-btn-main">
+                        <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
                             <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
                     </li>
                     <li>
@@ -61,10 +61,10 @@
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/notice}"><span class="menu-color">공지사항</span></a>
+                                <a th:href="@{/tuser/notice}"><span class="menu-color">공지사항</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}"><span class="menu-color">이벤트</span></a>
+                                <a th:href="@{/tuesr/event}"><span class="menu-color">이벤트</span></a>
                             </li>
                         </ul>
                     </li>
@@ -74,10 +74,10 @@
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/notice}"><span class="menu-color">개인정보 및 수정</span></a>
+                                <a  th:href="@{/tuser/profile}"><span class="menu-color">개인정보 및 수정</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}"><span class="menu-color">지인알림 & 카드 관리</span></a>
+                                <a th:href="@{/tuser/noficard}"><span class="menu-color">지인알림 & 카드 관리</span></a>
                             </li>
                         </ul>
                     </li>
@@ -87,13 +87,13 @@
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/notice}"><span class="menu-color">포인트 내역</span></a>
+                                <a  th:href="@{/tuser/pointd}"><span class="menu-color">포인트 내역</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}"><span class="menu-color">결제 이력</span></a>
+                                <a th:href="@{/tuser/paymentd}"><span class="menu-color">결제 이력</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}"><span class="menu-color">이용 내역</span></a>
+                                <a th:href="@{/tuser/historyd}"><span class="menu-color">이용 내역</span></a>
                             </li>
                         </ul>
                     </li>
@@ -114,7 +114,7 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li>
-                        <a th:href="@{/main}" class="menu-btn menu-btn-main">
+                        <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
                             <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
                     </li>
                     <li>
@@ -123,10 +123,10 @@
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/notice}"><span class="menu-color">공지사항</span></a>
+                                <a  th:href="@{/tuser/notice}"><span class="menu-color">공지사항</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}"><span class="menu-color">이벤트</span></a>
+                                <a th:href="@{/tuser/event}"><span class="menu-color">이벤트</span></a>
                             </li>
                         </ul>
                     </li>
@@ -136,10 +136,10 @@
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/notice}"><span class="menu-color">개인정보 및 수정</span></a>
+                                <a  th:href="@{/tuser/profile}"><span class="menu-color">개인정보 및 수정</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}"><span class="menu-color">지인알림 & 카드 관리</span></a>
+                                <a th:href="@{/tuser/event}"><span class="menu-color">지인알림 & 카드 관리</span></a>
                             </li>
                         </ul>
                     </li>
@@ -149,13 +149,13 @@
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/notice}"><span class="menu-color">포인트 내역</span></a>
+                                <a  th:href="@{/tuser/pointd(m_id=${session.member.m_id})}"><span class="menu-color">포인트 내역</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}"><span class="menu-color">결제 이력</span></a>
+                                <a th:href="@{/tuser/paymentd(m_id=${session.member.m_id})}"><span class="menu-color">결제 이력</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}"><span class="menu-color">이용 내역</span></a>
+                                <a th:href="@{/tuser/historyd(m_id=${session.member.m_id})}"><span class="menu-color">이용 내역</span></a>
                             </li>
                         </ul>
                     </li>
