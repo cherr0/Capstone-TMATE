@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic2 :: mobile"></aside>
+    <aside th:replace="layout/basic2 :: sidebar"></aside>
+
+    <div class="page-container">
+        <div th:replace="layout/basic2 :: header"></div>
+        <section class="container-fluid contents_size">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 style="margin-top: auto">이용 내역</h2>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="col-lg-12 col-md-12 col-sm-12 com-xs-12 point-chart">
+                                    <div class="au-card m-b-30">
+                                        <div class="au-card-inner">
+                                            <h3 class="title-2 m-b-40">2021년 내역</h3>
+                                            <canvas id="history-barChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" class="col-sm-4 col-xs-4 col-md-4">
+                                <table id="myTable" class="table  table-earning table-light text-center table-striped table-bordered table-hover shadow p-3 mb-5 bg-white rounded">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">동승여부</th>
+                                        <th class="text-center">탑승일</th>
+                                        <th class="text-center">출발지</th>
+                                        <th class="text-center">도착지</th>
+                                        <th class="text-center">운행시간</th>
+                                        <th class="text-center">차량번호</th>
+                                        <th class="text-center">차량모델</th>
+                                        <th class="text-center">기사명</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="point text-center table-hover">
+                                    <tr>
+                                        <td>동승</td>
+                                        <td>21-02-25</td>
+                                        <td>영진전문대</td>
+                                        <td>성서청구타운</td>
+                                        <td>2021-02-25 20:52 ~ 2021-02-25 21:17</td>
+                                        <td>33바3364</td>
+                                        <td>그랜져</td>
+                                        <td>박한수</td>
+                                    </tr>
+                                    <tr>
+                                        <td>동승</td>
+                                        <td>21-02-25</td>
+                                        <td>영진전문대</td>
+                                        <td>성서청구타운</td>
+                                        <td>2021-02-25 20:52 ~ 2021-02-25 21:17</td>
+                                        <td>33바3364</td>
+                                        <td>그랜져</td>
+                                        <td>박한수</td>
+                                    </tr>
+                                    <tr>
+                                        <td>동승</td>
+                                        <td>21-02-25</td>
+                                        <td>영진전문대</td>
+                                        <td>성서청구타운</td>
+                                        <td>2021-02-25 20:52 ~ 2021-02-25 21:17</td>
+                                        <td>33바3364</td>
+                                        <td>그랜져</td>
+                                        <td>박한수</td>
+                                    </tr>
+                                    <tr>
+                                        <td>동승</td>
+                                        <td>21-02-25</td>
+                                        <td>영진전문대</td>
+                                        <td>성서청구타운</td>
+                                        <td>2021-02-25 20:52 ~ 2021-02-25 21:17</td>
+                                        <td>33바3364</td>
+                                        <td>그랜져</td>
+                                        <td>박한수</td>
+                                    </tr>
+                                    <tr>
+                                        <td>동승</td>
+                                        <td>21-02-25</td>
+                                        <td>영진전문대</td>
+                                        <td>성서청구타운</td>
+                                        <td>2021-02-25 20:52 ~ 2021-02-25 21:17</td>
+                                        <td>33바3364</td>
+                                        <td>그랜져</td>
+                                        <td>박한수</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
+
+<footer th:replace="layout/basic2 :: footer">
+</footer>
+
+</body>
+</html>

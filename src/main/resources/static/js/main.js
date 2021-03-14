@@ -943,6 +943,67 @@
   }
 
   try {
+    //bar chart
+    var ctx = document.getElementById("history-barChart");
+    if (ctx) {
+      ctx.height = 70;
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        defaultFontFamily: 'Poppins',
+        data: {
+          labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월",],
+          datasets: [
+            {
+              label: "일반 횟수",
+              data: [1, 3, 8, 3, 12, 2, 6, 13, 2, 3, 5, 7],
+              borderColor: "rgba(0, 123, 255, 0.9)",
+              borderWidth: "0",
+              backgroundColor: "rgba(0, 123, 255, 0.5)",
+              fontFamily: "Poppins"
+            },
+            {
+              label: "동승 횟수",
+              data: [6, 10, 13, 5, 8, 3, 21, 8, 6, 12, 10, 9],
+              borderColor: "rgba(0,0,0,0.09)",
+              borderWidth: "0",
+              backgroundColor: "rgba(0,0,0,0.07)",
+              fontFamily: "Poppins"
+            }
+          ]
+        },
+        options: {
+          legend: {
+            position: 'top',
+            labels: {
+              fontFamily: 'Poppins'
+            }
+
+          },
+          scales: {
+            xAxes: [{
+              ticks: {
+                fontFamily: "Poppins"
+
+              }
+            }],
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                fontFamily: "Poppins"
+              }
+            }]
+          }
+        }
+      });
+    }
+
+
+  } catch (error) {
+    console.log(error);
+  }
+
+
+  try {
 
     //radar chart
     var ctx = document.getElementById("radarChart");
