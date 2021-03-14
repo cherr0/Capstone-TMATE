@@ -51,7 +51,7 @@ function setDBMarker(data) {
         <div class='infowindow_content'>우편번호 : ${target.pl_id}</div>
         <div class='infowindow_date'>출발지 횟수 : ${target.pl_start}</div>
         <div class='infowindow_date'>도착지 횟수 : ${target.pl_finish}</div>
-        <button class="hotplace-delete btn-primary btn-sm">삭제</button>
+        <button class="hotplace-delete btn-default btn-sm">삭제</button>
         </div>`;
 
         const infowindow = new naver.maps.InfoWindow({
@@ -114,7 +114,7 @@ $("#current").click(() => {
             const latlng = new naver.maps.LatLng(lat,lng);  // 위도, 경도값 받아오기
 
             $('.pulse').remove();   // 기존의 마커를 제거
-            setMarker(latlng);  // 마커 생
+            setMarker(latlng);  // 마커 생성
 
             // 현재 위치가 찍혀질 경우 화면이 이동됨
             map.setZoom(14,false);
@@ -164,7 +164,7 @@ function placeSearchCB(data, status, pagination) {
             const lat = target.y;
             const lng = target.x;
             const title = target.place_name;
-            const latlng = new naver.maps.LatLng(lat, lng);
+            let latlng = new naver.maps.LatLng(lat, lng);
 
             marker = new naver.maps.Marker({
                 title: title,
