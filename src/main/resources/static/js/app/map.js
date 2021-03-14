@@ -1,10 +1,13 @@
+// 지도를 생성할 시에 넣을 전체적인 지도 옵션
 const mapOptions = {
     center: new naver.maps.LatLng(35.89683009319399, 128.62088787917372),
     zoom: 13
 };
 
+// Map(지도를 삽입할 HTML 요소의 id, 지도의 옵션 객체);
 const map = new naver.maps.Map('map', mapOptions);
 
+// 핫플레이스로 지정된 값들을 넣을 배열
 let data = [];
 
 $.getJSON("/api/placelist", function (result) {
@@ -15,7 +18,7 @@ $.getJSON("/api/placelist", function (result) {
     });
 
     console.log(data);
-    setMarker(data);
+    setDBMarker(data);
 
     // 마커 리스트를 확인해서 infowindow 삭제
     for(let i=0 ; i < markerList.length ; i++) {
@@ -30,7 +33,7 @@ const markerList = [];  // 지도 상 찍힌 마크
 const infowindowlist = [];  // 마크에 해당하는 인포창
 
 // DB 상의 데이터를 받아와서 값대로 마크를 찍어줌
-function setMarker(data) {
+function setDBMarker(data) {
     for (let i in data) {
         let target = data[i];
         let latlng = new naver.maps.LatLng(target.pl_lttd, target.pl_lngtd);
@@ -48,6 +51,7 @@ function setMarker(data) {
         <div class='infowindow_content'>우편번호 : ${target.pl_id}</div>
         <div class='infowindow_date'>출발지 횟수 : ${target.pl_start}</div>
         <div class='infowindow_date'>도착지 횟수 : ${target.pl_finish}</div>
+        <button class="hotplace-delete btn-default btn-sm">삭제</button>
         </div>`;
 
         const infowindow = new naver.maps.InfoWindow({
@@ -91,8 +95,16 @@ function getClickHandler(i) {
     }
 }
 
-// 현재 위치 마커 최초 1회만 실행되도록 설정
-let currentUse = true;
+function setMarker(latlng) {
+    marker = new naver.maps.Marker({
+        map: map,
+        position: latlng,
+        icon: { // 커스텀 아이콘으로 변경
+            content: '<img class="pulse" draggable="false" unselectable="on" src="https://myfirstmap.s3.ap-northeast-2.amazonaws.com/circle.png">',
+            anchor: new naver.maps.Point(11,11)
+        }
+    });
+}
 
 $("#current").click(() => {
     if("geolocation" in navigator) {
@@ -100,20 +112,9 @@ $("#current").click(() => {
             const lat = position.coords.latitude;   // 현재 위치 위도값
             const lng = position.coords.longitude;  // 현재 위치 경도값
             const latlng = new naver.maps.LatLng(lat,lng);  // 위도, 경도값 받아오기
-            if (currentUse) {
-                marker = new naver.maps.Marker({
-                    map: map,
-                    position: latlng,
-                    icon: { // 커스텀 아이콘으로 변경
-                        content: '<img class="pulse" draggable="false" unselectable="on" src="https://myfirstmap.s3.ap-northeast-2.amazonaws.com/circle.png">',
-                        anchor: new naver.maps.Point(11,11)
-                    }
-                });
-                currentUse = false;
-            }else {
 
-            }
-
+            $('.pulse').remove();   // 기존의 마커를 제거
+            setMarker(latlng);  // 마커 생성
 
             // 현재 위치가 찍혀질 경우 화면이 이동됨
             map.setZoom(14,false);
@@ -149,26 +150,44 @@ let search_arr = [];
 */
 function placeSearchCB(data, status, pagination) {
     if(status === kakao.maps.services.Status.OK) {
+        if(search_arr.length != 0) {
+            $('#search-list').empty(); // 내부 요소 전체 제거
 
-        for(target in data){// 데이터의 결과를 가져옴.
+            for(i in search_arr) {
+                console.log("실행됨");
+                let pre_marker = search_arr[i];
+                pre_marker.setMap(null);
+            }
+        }
+
+
+        for(i in data){// 검색된 데이터의 결과를 가져옴.
+            const target = data[i];
             const lat = target.y;
             const lng = target.x;
-            const latlng = new naver.maps.LatLng(lat, lng);
+            const title = target.place_name;
+            let latlng = new naver.maps.LatLng(lat, lng);
 
             marker = new naver.maps.Marker({
+                title: title,
                 position: latlng,
                 map: map
             });
 
-            if(search_arr.length == 0) {
-                search_arr.push(marker);
-            }else {
-                search_arr.push(marker);
-                let pre_marker = search_arr.splice(0,1);
-                pre_marker[0].setMap(null);
-            }
+            $('#search-list').append(`
+                <li>
+                    <a id="${title}" onclick="selectSearchMarker($(this).attr('id'))">
+                        <span>${title}</span>
+                    </a>
+                </li>
+            `);
+
+            search_arr.push(marker);
         }
 
+        console.log("search_arr : " + search_arr);
+
+        const latlng = search_arr[0].position;
 
         map.setZoom(14, false); // 확대 위치 설정
         map.panTo(latlng);  // 지도 위치 변경
@@ -178,6 +197,21 @@ function placeSearchCB(data, status, pagination) {
     }
 }
 
+
+
+function selectSearchMarker(res) {
+    console.log('값 넘어온다 : ' + res);
+    for(i in search_arr) {
+        console.log(search_arr[i].title);
+        if(search_arr[i].title == res){
+            const latlng = search_arr[i].position;
+            map.setZoom(14, false); // 확대 위치 설정
+            map.panTo(latlng);  // 지도 위치 변경
+            console.log('실행 완료');
+            break;
+        }
+    }
+}
 
 // sidebar
 $(".sidebar-dropdown > a").click(function() {
@@ -208,4 +242,3 @@ $("#close-sidebar").click(function() {
 $("#show-sidebar").click(function() {
     $(".page-wrapper").addClass("toggled");
 });
-
