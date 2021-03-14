@@ -38,10 +38,47 @@ let pageService = (function () {
         });
     }
 
+    function getHistoryDList(param,callback,error) {
+        console.log("getHistoryDList");
+        let m_id = param.m_id;
+        let page = param.page || 1;
+
+        $.getJSON("/pagesh/"+m_id+"/"+page,
+            function (data) {
+                if (callback) {
+                    callback(data.historyCnt, data.list);
+                }
+            }).fail(function (xhr,status,err) {
+            if (error) {
+                error();
+            }
+        });
+    }
+
+    function getReviewDList(param,callback,error) {
+        console.log("getReviewDList");
+        let m_id = param.m_id;
+        let page = param.page || 1;
+
+        $.getJSON("/pagesr/"+m_id+"/"+page,
+            function (data) {
+                if (callback) {
+                    callback(data.reviewCnt, data.list);
+                }
+            }).fail(function (xhr,status,err) {
+            if (error) {
+                error();
+            }
+        });
+
+    }
+
 
     return {
         getList:getList,
-        getPointList:getPointList
+        getPointList:getPointList,
+        getHistoryDList:getHistoryDList,
+        getReviewDList:getReviewDList
     };
 
 })();
