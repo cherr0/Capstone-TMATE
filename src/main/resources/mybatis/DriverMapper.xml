@@ -5,14 +5,14 @@
     <!-- 기사 리스트 -->
     <select id="getList" resultType="com.tmate.domain.JoinDriversVO">
         <![CDATA[
-        select rownum rn, m.m_id as m_id, m.m_name as m_name , m.m_birth as m_birth, d.d_j_date as d_j_date , c.car_no as car_no, c.car_model as car_model
+        select  m_id, m_name , m_birth, d_j_date , car_no, car_model
         from
             (
                 select rownum rn, m.m_id as m_id, m.m_name as m_name , m.m_birth as m_birth, d.d_j_date as d_j_date , c.car_no as car_no, c.car_model as car_model
                 from
                     member m inner join driver d on m.m_id = d.d_id
                              inner join car c on d.d_id = c.m_id
-              where  rownum <= #{cri.pageNum} * #{cri.amount})
+              where d_j_date is not null and  rownum <= #{cri.pageNum} * #{cri.amount})
         where rn > (#{cri.pageNum} - 1) * #{cri.amount}
         ]]>
     </select>
@@ -37,7 +37,7 @@
         <![CDATA[
         select r_code, r_reason , merchant_uid
         from (select rownum rn , r_code, r_reason, merchant_uid
-        from review where m_id =#{d_id} and rownum <=#{cri.pageNum} * #{cri.amount})
+        from review where substr(r_code,0,13) =#{d_id} and rownum <=#{cri.pageNum} * #{cri.amount})
         where rn > (#{cri.pageNum} - 1) * #{cri.amount}
         ]]>
     </select>
@@ -61,6 +61,12 @@
     <select id="getCountReview" resultType="_int">
         select count(*)
         from review
-        where m_id = #{d_id}
+        where substr(r_code,0,13) = #{d_id}
+    </select>
+
+    <select id="getBanListByd_id" resultType="com.tmate.domain.JoinBanVO">
+        select b.m_id , m.m_name, b.ban_reason
+        from ban b inner join member m on b.m_id = m.m_id
+        where d_id = #{d_id}
     </select>
 </mapper>
