@@ -42,7 +42,7 @@
 
 <div class="page-wrapper">
     <!-- HEADER MOBILE-->
-    <aside class="menu-sidebar d-none d-lg-block" th:fragment="mobile">
+    <aside class="user-menu-sidebar d-none d-lg-block" th:fragment="mobile">
         <div class="logo">
             <a href="/main">
                 <img th:src="@{~/images/icon/Tmate.png}"/>
@@ -52,24 +52,50 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li>
-                        <a class="js-arrow" href="#" >
-                            <i class="far fa-newspaper"></i>공지사항</a>
+                        <a th:href="@{/main}" class="menu-btn menu-btn-main">
+                            <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
+                    </li>
+                    <li>
+                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                            <i class="fa fa-calendar"></i><span class="menu-color">공지사항</span>
+                        </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a th:href="@{/notice}">공지관리</a>
+                                <a  th:href="@{/notice}"><span class="menu-color">공지사항</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}">이벤트관리</a>
+                                <a th:href="@{/event}"><span class="menu-color">이벤트</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a th:href="@{/user}">
-                            <i class="far fa-address-card"></i>회원관리</a>
+                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                            <i class="fa fa-user-circle"></i><span class="menu-color">My T 프로필</span>
+                        </a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <li>
+                                <a  th:href="@{/notice}"><span class="menu-color">개인정보 및 수정</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/event}"><span class="menu-color">지인알림 & 카드 관리</span></a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a th:href="@{/approval}">
-                            <i class="fas fa-check"></i>승인관리</a>
+                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                            <i class="fa fa-list-alt"></i><span class="menu-color">My T 이력</span>
+                        </a>
+                        <ul class="list-unstyled navbar__sub-list js-sub-list">
+                            <li>
+                                <a  th:href="@{/notice}"><span class="menu-color">포인트 내역</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/event}"><span class="menu-color">결제 이력</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/event}"><span class="menu-color">이용 내역</span></a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>
@@ -78,7 +104,7 @@
     <!-- END HEADER MOBILE-->
 
     <!-- MENU SIDEBAR-->
-    <aside class="menu-sidebar d-none d-lg-block" th:fragment="sidebar">
+    <aside class="user-menu-sidebar d-none d-lg-block" th:fragment="sidebar">
         <div class="logo">
             <a href="/main">
                 <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE"/>
@@ -93,14 +119,14 @@
                     </li>
                     <li>
                         <a class="js-arrow menu-btn menu-btn-not" href="#">
-                            <i class="fa fa-calendar"></i><span class="menu-color">T MATE 예약</span>
+                            <i class="fa fa-calendar"></i><span class="menu-color">공지사항</span>
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/notice}"><span class="menu-color">My T 예약</span></a>
+                                <a  th:href="@{/notice}"><span class="menu-color">공지사항</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/event}"><span class="menu-color">My T 예약 신청</span></a>
+                                <a th:href="@{/event}"><span class="menu-color">이벤트</span></a>
                             </li>
                         </ul>
                     </li>
