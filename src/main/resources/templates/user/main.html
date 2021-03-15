@@ -15,7 +15,7 @@
                 <section class="user-top-bar">
                     <div class="container ">
                         <div class="row user-top-box">
-                            <img src="images/icon/Tmate.png" class="col-sm-2 col-md-2 col-xs-2"/>
+                            <img src="/images/icon/Tmate.png" class="col-sm-2 col-md-2 col-xs-2"/>
                             <div class="col-sm-6 col-md-6 col-xs-6 user-bar-content">
                                 <th:block th:switch="${memberp?.m_level}">
                                     <div class="user-level" th:case="0">일반</div>
@@ -131,8 +131,11 @@
                         </thead>
                         <tbody class="history">
                         <tr th:each="h : ${history}">
-                          <td class="text-center" th:text="${h.merchant_uid}"></td>
-                            <td class="text-center" th:text="${h.merchant_uid}"></td>
+                          <td class="text-center" th:switch="${#strings.substring(h.merchant_uid,27)}">
+                              <p th:case="0">동승</p>
+                              <p th:case="1">일반</p>
+                          </td>
+                            <td class="text-center" th:text="${#strings.substring(h.merchant_uid,9,15)}"></td>
                             <td class="text-center" th:text="${h.h_allfare}"></td>
                             <td class="text-center" th:text="${h.h_s_place}"></td>
                             <td class="text-center" th:text="${h.h_f_place}"></td>

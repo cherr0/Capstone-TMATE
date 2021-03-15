@@ -35,7 +35,7 @@
                                             </th>
                                             <td>
                                                 <div>
-                                                    <img class="profile-img" src="images/icon/Untitled-1.jpg">
+                                                    <img class="profile-img" src="/images/icon/Untitled-1.jpg">
                                                 </div>
                                                 <p>
                                                     회원님의 프로필 사진을 등록해 주세요.
@@ -51,7 +51,7 @@
                                                 <p>이름</p>
                                             </th>
                                             <td>
-                                                <input type="text" value="강병현">
+                                                <input type="text" th:value="${member.m_name}" readonly>
                                             </td>
                                             <td>
                                             </td>
@@ -62,7 +62,7 @@
                                                 휴대전화
                                             </th>
                                             <td>
-                                                <input type="text" value="01062480673">
+                                                <input type="text" th:value="${#strings.substring(member.m_id,2,13)}">
                                                 <p>전화번호는 - 뺴고 작성해 주십시오</p>
                                             </td>
                                             <td class="m-btn-td">
@@ -75,7 +75,7 @@
                                                 생년월일
                                             </th>
                                             <td>
-                                                <p>1997-09-04</p>
+                                                <p th:text="${#strings.substring(member.m_birth,0,10)}">1997-09-04</p>
                                             </td>
                                             <td class="m-btn-td">
                                             </td>
@@ -86,7 +86,7 @@
                                                 이메일
                                             </th>
                                             <td>
-                                                <input type="text" value="maple09_04@naver.com">
+                                                <input type="text" th:value="${member.m_email}" readonly>
                                             </td>
                                             <td class="m-btn-td">
                                                 <button type="button" class="btn-sm btn-default m-btn">이메일 변경</button>
@@ -98,7 +98,7 @@
                                                 주소
                                             </th>
                                             <td>
-                                                <input type="text" value="대구 달서구 용산동 성서청구타운 105동 405호">
+                                                <input type="text" th:value="${member.m_house}">
                                             </td>
                                             <td class="m-btn-td">
                                                 <button type="button" class="btn-sm btn-default m-btn">주소 변경</button>
@@ -109,8 +109,11 @@
                                             <th scope="row">
                                                 등급
                                             </th>
-                                            <td>
-                                                <p>VIP</p>
+                                            <td th:switch="${member.m_level}">
+                                                <p th:case="0">일반</p>
+                                                <p th:case="1">우수</p>
+                                                <p th:case="2">최우수</p>
+                                                <p th:case="3">VIP</p>
                                             </td>
                                             <td>
                                                 <p></p>
