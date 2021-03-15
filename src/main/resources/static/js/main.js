@@ -883,120 +883,175 @@
   }
 
   try {
-    //bar chart
-    var ctx = document.getElementById("barChart");
-    if (ctx) {
-      ctx.height = 70;
-      var myChart = new Chart(ctx, {
-        type: 'bar',
-        defaultFontFamily: 'Poppins',
-        data: {
-          labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월",],
-          datasets: [
-            {
-              label: "적립 포인트",
-              data: [500, 150, 300, 200, 550, 1000, 350, 100, 50, 350, 150, 600],
-              borderColor: "rgba(0, 123, 255, 0.9)",
-              borderWidth: "0",
-              backgroundColor: "rgba(0, 123, 255, 0.5)",
-              fontFamily: "Poppins"
-            },
-            {
-              label: "사용 포인트",
-              data: [200, 550, 100, 500, 750, 200, 150, 200, 300, 150, 200, 400],
-              borderColor: "rgba(0,0,0,0.09)",
-              borderWidth: "0",
-              backgroundColor: "rgba(0,0,0,0.07)",
-              fontFamily: "Poppins"
-            }
-          ]
-        },
-        options: {
-          legend: {
-            position: 'top',
-            labels: {
-              fontFamily: 'Poppins'
-            }
 
+    let m_id = $("#m_id").text();
+    console.log(m_id);
+    var chartData7 = [];
+    var chartData8 = [];
+
+    $.getJSON("/chart/usepoint/" + m_id, function (result) {
+      console.log(result);
+      const nlen = result.use.length;
+      const tlen = result.get.length;
+
+
+      for (let i = 0; i < nlen; i++) {
+        chartData7[parseInt(result.use[i].standard.substr(6,1))-1]=result.use[i].count;
+        console.log(chartData5);
+      }
+
+      for (let j = 0; j < tlen; j++) {
+        chartData8[parseInt(result.get[j].standard.substr(6,1))-1]=result.get[j].count;
+        console.log(chartData6);
+      }
+
+      createChart5();
+    });
+
+    function createChart5() {
+
+      //bar chart
+      var ctx = document.getElementById("barChart");
+      if (ctx) {
+        ctx.height = 70;
+        var myChart = new Chart(ctx, {
+          type: 'bar',
+          defaultFontFamily: 'Poppins',
+          data: {
+            labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월",],
+            datasets: [
+              {
+                label: "적립 포인트",
+                data: chartData8,
+                borderColor: "rgba(0, 123, 255, 0.9)",
+                borderWidth: "0",
+                backgroundColor: "rgba(0, 123, 255, 0.5)",
+                fontFamily: "Poppins"
+              },
+              {
+                label: "사용 포인트",
+                data: chartData7,
+                borderColor: "rgba(0,0,0,0.09)",
+                borderWidth: "0",
+                backgroundColor: "rgba(0,0,0,0.07)",
+                fontFamily: "Poppins"
+              }
+            ]
           },
-          scales: {
-            xAxes: [{
-              ticks: {
-                fontFamily: "Poppins"
+          options: {
+            legend: {
+              position: 'top',
+              labels: {
+                fontFamily: 'Poppins'
+              }
 
-              }
-            }],
-            yAxes: [{
-              ticks: {
-                beginAtZero: true,
-                fontFamily: "Poppins"
-              }
-            }]
+            },
+            scales: {
+              xAxes: [{
+                ticks: {
+                  fontFamily: "Poppins"
+
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  fontFamily: "Poppins"
+                }
+              }]
+            }
           }
-        }
-      });
+        });
+      }
     }
-
 
   } catch (error) {
     console.log(error);
   }
 
   try {
-    //payment-bar chart
-    var ctx = document.getElementById("payment-barChart");
-    if (ctx) {
-      ctx.height = 70;
-      var myChart = new Chart(ctx, {
-        type: 'bar',
-        defaultFontFamily: 'Poppins',
-        data: {
-          labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월",],
-          datasets: [
-            {
-              label: "카드결제",
-              data: [6, 10, 13, 5, 8, 3, 21, 8, 6, 12, 10, 9],
-              borderColor: "rgba(0, 123, 255, 0.9)",
-              borderWidth: "0",
-              backgroundColor: "rgba(0, 123, 255, 0.5)",
-              fontFamily: "Poppins"
-            },
-            {
-              label: "현금결제",
-              data: [1, 3, 8, 3, 12, 2, 6, 13, 2, 3, 5, 7],
-              borderColor: "rgba(0,0,0,0.09)",
-              borderWidth: "0",
-              backgroundColor: "rgba(0,0,0,0.07)",
-              fontFamily: "Poppins"
-            }
-          ]
-        },
-        options: {
-          legend: {
-            position: 'top',
-            labels: {
-              fontFamily: 'Poppins'
-            }
 
+    let m_id = $("#m_id").text();
+    console.log(m_id);
+    var chartData5 = [];
+    var chartData6 = [];
+
+    $.getJSON("/chart/card/" + m_id, function (result) {
+      console.log(result);
+      const nlen = result.card.length;
+      const tlen = result.cash.length;
+      const standard = result.card[0].standard.substr(6,1);
+      console.log(standard);
+
+      for (let i = 0; i < nlen; i++) {
+        chartData5[parseInt(result.card[i].standard.substr(6,1))-1]=result.card[i].count;
+        console.log(chartData5);
+      }
+
+      for (let j = 0; j < tlen; j++) {
+        chartData6[parseInt(result.cash[j].standard.substr(6,1))-1]=result.cash[j].count;
+        console.log(chartData6);
+      }
+
+      createChart4();
+    });
+
+    function createChart4() {
+
+      //payment-bar chart
+      var ctx = document.getElementById("payment-barChart");
+      if (ctx) {
+        ctx.height = 70;
+        var myChart = new Chart(ctx, {
+          type: 'bar',
+          defaultFontFamily: 'Poppins',
+          data: {
+            labels: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월",],
+            datasets: [
+              {
+                label: "카드결제",
+                data: chartData5,
+                borderColor: "rgba(0, 123, 255, 0.9)",
+                borderWidth: "0",
+                backgroundColor: "rgba(0, 123, 255, 0.5)",
+                fontFamily: "Poppins"
+              },
+              {
+                label: "현금결제",
+                data: chartData6,
+                borderColor: "rgba(0,0,0,0.09)",
+                borderWidth: "0",
+                backgroundColor: "rgba(0,0,0,0.07)",
+                fontFamily: "Poppins"
+              }
+            ]
           },
-          scales: {
-            xAxes: [{
-              ticks: {
-                fontFamily: "Poppins"
+          options: {
+            legend: {
+              position: 'top',
+              labels: {
+                fontFamily: 'Poppins'
+              }
 
-              }
-            }],
-            yAxes: [{
-              ticks: {
-                beginAtZero: true,
-                fontFamily: "Poppins"
-              }
-            }]
+            },
+            scales: {
+              xAxes: [{
+                ticks: {
+                  fontFamily: "Poppins"
+
+                }
+              }],
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true,
+                  fontFamily: "Poppins"
+                }
+              }]
+            }
           }
-        }
-      });
+        });
+      }
     }
-
 
   } catch (error) {
     console.log(error);
@@ -1005,6 +1060,37 @@
   //history-barchart
 
   try {
+
+    let m_id = $("#m_id").text();
+    console.log(m_id);
+    var chartData3 = [];
+    var chartData4 = [];
+
+    $.getJSON("/chart/together/" + m_id, function (result) {
+      console.log(result);
+      console.log(result.normal.length);
+      const nlen = result.normal.length;
+      const tlen = result.together.length;
+      const standard = result.normal[0].standard.substr(6,1);
+      console.log(standard);
+
+      for (let i = 0; i < nlen; i++) {
+        chartData3[parseInt(result.normal[i].standard.substr(6,1))-1]=result.normal[i].count;
+        console.log(chartData3);
+      }
+
+      for (let j = 0; j < tlen; j++) {
+        chartData4[parseInt(result.together[j].standard.substr(6,1))-1]=result.normal[j].count;
+        console.log(chartData4);
+      }
+
+      createChart3();
+    });
+
+
+
+  function createChart3() {
+
     //bar chart
     var ctx = document.getElementById("history-barChart");
     if (ctx) {
@@ -1017,7 +1103,7 @@
           datasets: [
             {
               label: "일반 횟수",
-              data: [1, 3, 8, 3, 12, 2, 6, 13, 2, 3, 5, 7],
+              data: chartData3,
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -1025,7 +1111,7 @@
             },
             {
               label: "동승 횟수",
-              data: [6, 10, 13, 5, 8, 3, 21, 8, 6, 12, 10, 9],
+              data: chartData4,
               borderColor: "rgba(0,0,0,0.09)",
               borderWidth: "0",
               backgroundColor: "rgba(0,0,0,0.07)",
@@ -1058,7 +1144,7 @@
         }
       });
     }
-
+  }
 
   } catch (error) {
     console.log(error);
