@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic2 :: mobile"></aside>
+    <aside th:replace="layout/basic2 :: sidebar"></aside>
+
+    <div class="page-container">
+        <div th:replace="layout/basic2 :: header"></div>
+        <section class="container-fluid contents_size">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 style="margin-top: auto">프로필 정보</h2>
+                            </div>
+                            <div class="card-body">
+                                <table class="profile-table table">
+                                    <colgroup>
+                                        <col style="width: 190px">
+                                        <col style="width: *">
+                                        <col style="width: 50%">
+                                    </colgroup>
+                                    <thead>
+                                        <button type="button" class="btn btn-info float-right mb-2">수정</button>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">
+                                                사진
+                                            </th>
+                                            <td>
+                                                <div>
+                                                    <img class="profile-img" src="images/icon/Untitled-1.jpg">
+                                                </div>
+                                                <p>
+                                                    회원님의 프로필 사진을 등록해 주세요.
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn-default btn-sm w100 m-btn">사진변경</button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">
+                                                <p>이름</p>
+                                            </th>
+                                            <td>
+                                                <input type="text" value="강병현">
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">
+                                                휴대전화
+                                            </th>
+                                            <td>
+                                                <input type="text" value="01062480673">
+                                                <p>전화번호는 - 뺴고 작성해 주십시오</p>
+                                            </td>
+                                            <td class="m-btn-td">
+                                                <button type="button" class="btn-sm btn-default m-btn">휴대전화 변경</button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">
+                                                생년월일
+                                            </th>
+                                            <td>
+                                                <p>1997-09-04</p>
+                                            </td>
+                                            <td class="m-btn-td">
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">
+                                                이메일
+                                            </th>
+                                            <td>
+                                                <input type="text" value="maple09_04@naver.com">
+                                            </td>
+                                            <td class="m-btn-td">
+                                                <button type="button" class="btn-sm btn-default m-btn">이메일 변경</button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">
+                                                주소
+                                            </th>
+                                            <td>
+                                                <input type="text" value="대구 달서구 용산동 성서청구타운 105동 405호">
+                                            </td>
+                                            <td class="m-btn-td">
+                                                <button type="button" class="btn-sm btn-default m-btn">주소 변경</button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">
+                                                등급
+                                            </th>
+                                            <td>
+                                                <p>VIP</p>
+                                            </td>
+                                            <td>
+                                                <p></p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="social-check col-sm-6 col-md-6 col-lg-6">
+                                    <section class="profile-section">
+                                        <header>
+                                            <h2>소셜 로그인 연동</h2>
+                                        </header>
+                                        <br>
+                                        <div class="social-list">
+                                            <div class="controls">
+                                                <div class="row">
+                                                    <img src="/images/kakao.png" class="social-img">
+                                                    <div class="social-connect">
+                                                        <h3>카카오 로그인 연동</h3>
+                                                        <input class='toggle justify-content-end' type="checkbox" name='check-3' checked='checked' />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="controls">
+                                                <div class="row">
+                                                    <img src="/images/naver.png" class="social-img">
+                                                    <div class="social-connect">
+                                                        <h3>네이버 로그인 연동</h3>
+                                                        <input class='toggle justify-content-end' type="checkbox" name='check-3' checked='checked' />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+<footer th:replace="layout/basic2 :: footer">
+</footer>
+
+</body>
+</html>
