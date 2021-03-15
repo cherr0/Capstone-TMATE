@@ -15,14 +15,20 @@
                 <section class="user-top-bar">
                     <div class="container ">
                         <div class="row user-top-box">
-                            <img src="images/icon/Tmate.png" class="col-sm-2 col-md-2 col-xs-2"/>
-                            <div class="col-sm-6 col-md-6 col-xs-6 user-bar-content">
+                            <div class="col-sm-2 col-md-2 col-xs-2">
                                 <th:block th:switch="${memberp?.m_level}">
-                                    <div class="user-level" th:case="0">일반</div>
-                                    <div class="user-level" th:case="1">우수</div>
-                                    <div class="user-level" th:case="2">최우수</div>
-                                    <div class="user-level" th:case="3">VIP</div>
+                                    <div th:case="0" class="user-level-image"><img src="/images/slver.png"/></div>
+                                    <div th:case="1" class="user-level-image"><img src="/images/gold.png"/></div>
+                                    <div th:case="2" class="user-level-image"><img src="/images/platinum.png"/></div>
+                                    <div th:case="3" class="user-level-image"><img src="/images/vip.png"/></div>
                                 </th:block>
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-xs-6 user-bar-content">
+                                    <div class="container" >
+                                        <h1>
+                                            <span class="txt-type img-bar-wright2" data-wait="2500" data-words='["어서오세요 TMATE입니다."]'></span>
+                                        </h1>
+                                    </div>
                                 <div>
                                     <span class="top-name" th:text="${session.member.m_name}">강병현</span>회원님의 등급은
                                         <th:block th:switch="${memberp?.m_level}">
