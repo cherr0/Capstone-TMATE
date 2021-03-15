@@ -33,8 +33,8 @@
 
     <select id="getApprovalDrivers" resultType="com.tmate.domain.JoinApprovalVO">
         <![CDATA[
-        select corp_code, d_id, d_lisense_no , car_model
-        from (select rownum rn, c.corp_code as corp_code , d.d_id as d_id, d.d_license_no as d_lisense_no , v.car_model as car_model
+        select corp_code, d_id, d_license_no , car_model
+        from (select rownum rn, c.corp_code as corp_code , d.d_id as d_id, d.d_license_no as d_license_no , v.car_model as car_model
               from corp c inner join member m on c.d_id = m.m_id
                           inner join driver d on c.d_id = d.d_id
                           inner join car v on d.d_id = v.m_id

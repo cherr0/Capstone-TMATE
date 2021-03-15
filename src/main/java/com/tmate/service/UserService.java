@@ -50,4 +50,22 @@ public interface UserService {
     // 프로필 지인 알림전송 관리
     public List<NotificationDTO> getNotifiList(String m_id);
 
+    // 차트 관련
+    // 월간 포인트 - 사용
+    public List<ChartDTO> monthlyUsePoint(String m_id);
+
+    // 월간 포인트 - 적립
+    public List<ChartDTO> monthlyGetPoint(String m_id);
+
+    // 월간 이용 내역 - 동승
+    public List<ChartDTO> monthlyTogether(String m_id);
+
+    // 월간 이용 내역 - 일반
+    public List<ChartDTO> monthlyNormal(String m_id);
+
+    // 월간 결제 이력 - 카드
+    public List<ChartDTO> monthlyUseCard(String m_id);
+
+    // 월간 결제 이력 - 현금
+    public List<ChartDTO> monthlyUseCash(String m_id);
 }

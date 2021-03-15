@@ -136,7 +136,7 @@
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/tuser/profile}"><span class="menu-color">개인정보 및 수정</span></a>
+                                <a  th:href="@{/tuser/profiled(m_id=${session.member.m_id})}"><span class="menu-color">개인정보 및 수정</span></a>
                             </li>
                             <li>
                                 <a th:href="@{/tuser/event}"><span class="menu-color">지인알림 & 카드 관리</span></a>
@@ -211,6 +211,51 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="account-wrap">
+                                <div class="account-item clearfix js-item-menu">
+                                    <div class="image">
+                                        <img th:src="@{${session.member.m_profile}}"/>
+                                    </div>
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#" th:text="${session.member.m_name}"></a>
+                                    </div>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img th:src="@{${session.member.m_profile}}"/>
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#" th:text="${session.member.m_name}"></a>
+                                                </h5>
+                                                <span class="email" th:text="${session.member.m_email}"></span>
+                                                <p id="m_id" th:text="${session.member.m_id}"></p>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__body">
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-account"></i>Account</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                            </div>
+                                            <div class="account-dropdown__item">
+                                                <a href="#">
+                                                    <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__footer">
+                                            <a href="#">
+                                                <i class="zmdi zmdi-power"></i>Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -247,7 +292,7 @@
     <script th:src="@{~/vendor/select2/select2.min.js}"></script>
 
     <!-- Main JS-->
-    <script th:src="@{~/js/main.js}"></script>
+    <script th:inline="javascript" th:src="@{~/js/main.js}"></script>
     <script th:src="@{~/js/modal.js}"></script>
 
     <!-- ajax -->
