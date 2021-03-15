@@ -46,8 +46,8 @@
                                     <tbody class="point text-center table-hover">
                                     <tr th:each="h : ${history}">
                                         <td class="text-center" th:switch="${#strings.substring(h.merchant_uid,27)}">
-                                            <p th:case="0">일반</p>
-                                            <p th:case="1">동승</p>
+                                            <p th:case="1">일반</p>
+                                            <p th:case="0">동승</p>
                                         </td>
                                         <td class="text-center" th:text="${#strings.substring(h.merchant_uid,9,15)}"></td>
                                         <td class="text-center" th:text="${h.h_s_place}"></td>
