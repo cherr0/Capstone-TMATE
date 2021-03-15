@@ -15,16 +15,14 @@
                 <section class="user-top-bar">
                     <div class="container ">
                         <div class="row user-top-box">
-
-                            <img src="/images/icon/Tmate.png" class="col-sm-2 col-md-2 col-xs-2"/>
-                            <div class="col-sm-6 col-md-6 col-xs-6 user-bar-content">
-
+                            <div class="col-sm-2 col-md-2 col-xs-2">
                                 <th:block th:switch="${memberp?.m_level}">
                                     <div th:case="0" class="user-level-image"><img src="/images/slver.png"/></div>
                                     <div th:case="1" class="user-level-image"><img src="/images/gold.png"/></div>
                                     <div th:case="2" class="user-level-image"><img src="/images/platinum.png"/></div>
                                     <div th:case="3" class="user-level-image"><img src="/images/vip.png"/></div>
                                 </th:block>
+
                             </div>
                             <div class="col-sm-6 col-md-6 col-xs-6 user-bar-content">
                                     <div class="container" >
