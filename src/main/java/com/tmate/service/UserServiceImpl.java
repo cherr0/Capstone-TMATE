@@ -3,6 +3,7 @@ package com.tmate.service;
 import com.tmate.domain.*;
 import com.tmate.mapper.JoinMapper;
 import com.tmate.mapper.Membermapper;
+import com.tmate.mapper.StaticsMapper;
 import com.tmate.mapper.UserMainMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserService {
     private final UserMainMapper userMainMapper;
     private final Membermapper membermapper;
     private final JoinMapper joinMapper;
+    private final StaticsMapper staticsMapper;
 
     @Override
     public MemberDTO getMainPage(String m_id) {
@@ -95,5 +97,36 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<NotificationDTO> getNotifiList(String m_id) {
         return userMainMapper.getNotifiByM_id(m_id);
+    }
+
+
+    @Override
+    public List<ChartDTO> monthlyUsePoint(String m_id) {
+        return staticsMapper.getCountUsePoint(m_id);
+    }
+
+    @Override
+    public List<ChartDTO> monthlyGetPoint(String m_id) {
+        return staticsMapper.getCountGetPoint(m_id);
+    }
+
+    @Override
+    public List<ChartDTO> monthlyTogether(String m_id) {
+        return staticsMapper.getCountTogether(m_id);
+    }
+
+    @Override
+    public List<ChartDTO> monthlyNormal(String m_id) {
+        return staticsMapper.getCountNormal(m_id);
+    }
+
+    @Override
+    public List<ChartDTO> monthlyUseCard(String m_id) {
+        return staticsMapper.getCountUseCard(m_id);
+    }
+
+    @Override
+    public List<ChartDTO> monthlyUseCash(String m_id) {
+        return staticsMapper.getCountUseCash(m_id);
     }
 }
