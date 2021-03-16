@@ -20,7 +20,7 @@ $.getJSON("/api/placelist", function (result) {
     console.log(data);
     setDBMarker(data);
 
-    // 마커 리스트를 확인해서 infowindow 삭제
+    // 마커 리스트를 확인해서 infowindow 삭제하고 보여줌
     for(let i=0 ; i < markerList.length ; i++) {
         naver.maps.Event.addListener(map,"click",ClickMap(i));  // 맵을 클릭했을때 ClickMap 이 호출됨
         naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
@@ -48,13 +48,14 @@ function setDBMarker(data) {
                 anchor: new naver.maps.Point(12,12)
             }
         });
+        console.log(target);
 
-        const content = `<div class='infowindow_wrap'>
+        const content = `<div id="place${i}" class='infowindow_wrap'>
         <div class='infowindow_title'>${target.pl_name}</div>
-        <div class='infowindow_content'>우편번호 : ${target.pl_id}</div>
-        <div class='infowindow_date'>출발지 횟수 : ${target.pl_start}</div>
-        <div class='infowindow_date'>도착지 횟수 : ${target.pl_finish}</div>
-        <button class="hotplace-delete btn-default btn-sm">삭제</button>
+        <div>우편번호 : <span class='infowindow_content'>${target.pl_id}</span></div>
+        <div>출발지 횟수 : <span class='infowindow_pl_start'>${target.pl_start}</span></div>
+        <div>도착지 횟수 : <span class='infowindow_pl_finish'>${target.pl_finish}</span></div>
+        <button class="btn-default btn-sm" onclick="place.placeRemove($(this).parent())">삭제</button>
         </div>`;
 
         const infowindow = new naver.maps.InfoWindow({
