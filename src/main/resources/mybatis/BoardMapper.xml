@@ -17,6 +17,15 @@
         ]]>
     </select>
 
+    <select id="read" resultType="com.tmate.domain.BoardDTO">
+        select * from board where bd_id = #{bd_id}
+    </select>
+
+    <select id="totalCount" resultType="_int">
+        select count(*) from board
+    </select>
+
+
     <update id="update">
         update board
         set bd_title = #{bd_title},
@@ -34,14 +43,6 @@
         insert into board (bd_id, bd_status, bd_contents, bd_title, m_id)
         values('not'||bd_sec.nextval,#{bd_status},#{bd_contents},#{bd_title},#{m_id})
     </insert>
-
-    <select id="read" resultType="com.tmate.domain.BoardDTO">
-        select * from board where bd_id = #{bd_id}
-    </select>
-
-    <select id="totalCount" resultType="_int">
-        select count(*) from board
-    </select>
 
     <update id="viewCount">
         update board set bd_count = bd_count + 1 where bd_id = #{bd_id}
