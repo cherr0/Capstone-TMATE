@@ -17,5 +17,7 @@ public class JoinDriverVO {
 
     private String car_model;
 
+    private String car_no;
+
     private String m_birth;
 }

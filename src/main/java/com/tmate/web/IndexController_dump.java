@@ -254,8 +254,8 @@ public class IndexController_dump {
             PlaceDTO place = new PlaceDTO();
             place.setPl_id("14458");
             place.setPl_name("중구 대포동 419-23");
-            place.setPl_lttd(Math.random() * 200);
-            place.setPl_lngtd(Math.random() * 200);
+            place.setPl_lat(Math.random() * 200);
+            place.setPl_lng(Math.random() * 200);
             place.setPl_start(0);
             place.setPl_finish(0);
             placeList.add(place);

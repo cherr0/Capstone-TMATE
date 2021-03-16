@@ -414,3 +414,18 @@ html {
     font-weight: bold;
     color: #00a2e3;
 }
+.user-level-image {
+    position: relative;
+    top: 2em;
+}
+
+.img-bar-wright2 {
+    font-weight: bold;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+    font-size: 2rem !important;
+    color: #333 !important;
+}
+.container{
+    margin-top: 0.5em;
+}

@@ -64,5 +64,12 @@ public class UserController {
         return "/user/historyDetail";
     }
 
+    @GetMapping("/profiled")
+    public String userProfiled(String m_id, Model model) {
+        MemberDTO member = userService.getMainPage(m_id);
+        model.addAttribute("member", member);
+        return "/user/profileModify";
+    }
+
 
 }
