@@ -106,7 +106,7 @@
     <!-- MENU SIDEBAR-->
     <aside class="user-menu-sidebar d-none d-lg-block" th:fragment="sidebar">
         <div class="logo">
-            <a href="/main">
+            <a th:href="@{/tuser/main(m_id=${session.member.m_id})}">
                 <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE"/>
             </a>
         </div>

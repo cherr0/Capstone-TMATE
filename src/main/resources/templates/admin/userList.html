@@ -46,7 +46,11 @@
                                         -<span th:text="${#strings.substring(memberList.m_id,9, 13)}"></span>
                                     </td>
                                     <td class="text-center" th:text="${#strings.substring(memberList.m_regdate,0, 10)}"></td>
-                                    <td class="text-center" th:text="${#strings.substring(memberList.m_birth,2, 10)}"></td>
+                                    <td class="text-center">
+                                        <span th:text="${#strings.substring(memberList.m_birth,2, 4)}"></span>.
+                                        <span th:text="${#strings.substring(memberList.m_birth,5, 7)}"></span>.
+                                        <span th:text="${#strings.substring(memberList.m_birth,8, 10)}"></span>
+                                    </td>
                                     <td class="text-center" th:switch="${memberList.m_level}">
                                         <p th:case="0">일반</p>
                                         <p th:case="1">우수</p>

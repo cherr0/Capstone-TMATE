@@ -25,7 +25,7 @@
     </select>
 
     <select id="getDriver" resultType="com.tmate.domain.JoinDriverVO">
-        select d.d_id, m.m_name, d.d_license_no , c.car_model, m.m_birth
+        select d.d_id, m.m_name, d.d_license_no , c.car_no ,c.car_model, m.m_birth
         from member m inner join driver d on m.m_id = d.d_id inner join car c on d.d_id = c.m_id
         where d.d_id = #{d_id}
 

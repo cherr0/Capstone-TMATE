@@ -45,7 +45,7 @@
                                             <p th:case="0">적립</p>
                                             <p th:case="1">사용</p>
                                         </td>
-                                        <td class="text-center" th:text="${p.po_result}"></td>
+                                        <td class="text-center" th:text="|${p.po_result}포인트|"></td>
                                         <td class="text-center" th:text="${p.po_course}"></td>
                                         <td class="text-center" th:text="${#strings.substring(p.po_time,0,16)}"></td>
                                     </tr>
