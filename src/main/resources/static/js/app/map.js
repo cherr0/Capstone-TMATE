@@ -79,7 +79,15 @@ function setDBMarker(data) {
 function ClickMap(i) {
     return function () {
         const infowindow = infoWindowList[i];
-        infowindow.close();
+        const searchInfoWindow = searchInfoList[i];
+
+        if(infowindow != null) {
+            infowindow.close();
+        }
+        if(searchInfoWindow != null) {
+            searchInfoWindow.close();
+        }
+
     }
 }
 
