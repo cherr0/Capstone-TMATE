@@ -29,8 +29,8 @@ public class HotplaceApiController {
     }
 
     // 핫플레이스 삭제
-    @DeleteMapping("/hotplaceremove")
-    public boolean hotplaceRemove(String p_id) {
+    @DeleteMapping("/hotplaceremove/{pl_id}")
+    public boolean hotplaceRemove(@PathVariable("pl_id") String p_id) {
         System.out.println("DeleteMapping hotplace Remove() place No : " + p_id);
         return placeService.remove(p_id);
     }
