@@ -183,6 +183,9 @@ function placeSearchCB(data, status, pagination) {
                 let pre_marker = search_arr[i];
                 pre_marker.setMap(null);
             }
+
+            search_arr = [];
+            searchInfoList = [];
         }
 
         console.log(data);
