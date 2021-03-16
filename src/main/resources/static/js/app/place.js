@@ -10,7 +10,7 @@ const place = {
 
     // 핫플레이스 삭제
     placeRemove : function (event) {
-        const pl_id = event.find('.infowindow_content').html();
+        const pl_id = event.find('.pl_id').val();
 
         $.ajax({
            data: pl_id,
@@ -23,7 +23,7 @@ const place = {
                 text: "핫플레이스 삭제가 완료되었습니다.",
                 icon: "success"
             }).then(() => {
-                window.location.href = '/hotplace';
+                window.location.href = "/hotplace";
             })
 
         }).fail(function (err) {
