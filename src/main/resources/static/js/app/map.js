@@ -39,7 +39,7 @@ let searchInfoList = [];    // 검색한 값의 해당하는 인포
 function setDBMarker(data) {
     for (let i in data) {
         let target = data[i];
-        let latlng = new naver.maps.LatLng(target.pl_lttd, target.pl_lngtd);
+        let latlng = new naver.maps.LatLng(target.pl_lat, target.pl_lng);
         marker = new naver.maps.Marker({
             map: map,
             position: latlng,
@@ -51,10 +51,11 @@ function setDBMarker(data) {
         console.log(target);
 
         const content = `<div id="place${i}" class='infowindow_wrap'>
+        <input class="pl_id" type="hidden" value="${target.pl_id}"/>
         <div class='infowindow_title'>${target.pl_name}</div>
-        <div>우편번호 : <span class='infowindow_content'>${target.pl_id}</span></div>
-        <div>출발지 횟수 : <span class='infowindow_pl_start'>${target.pl_start}</span></div>
-        <div>도착지 횟수 : <span class='infowindow_pl_finish'>${target.pl_finish}</span></div>
+        <div>주소 : <span class='infowindow_address'>${target.pl_address}</span></div>
+        <div>출발지 횟수 : ${target.pl_start}</div>
+        <div>도착지 횟수 : ${target.pl_finish}</div>
         <button class="btn-default btn-sm" onclick="place.placeRemove($(this).parent())">삭제</button>
         </div>`;
 
@@ -216,13 +217,16 @@ function placeSearchCB(data, status, pagination) {
             `);
 
             const content = `<div class='searchwindow_wrap'>
+                    <input class="infowindow_id" type="hidden" value="${target.id}"/>
+                    <input class="infowindow_lat" type="hidden" value="${target.y}"/>
+                    <input class="infowindow_lng" type="hidden" value="${target.x}"/>
                     <div class='infowindow_title'>${target.place_name}</div>
-                    <div class='infowindow_date'><i class="fas fa-map-signs"></i> ${target.category_name}</div>
-                    <div class='infowindow_content'><i class="fas fa-map-marker-alt"></i> ${target.road_address_name}</div>
-                    <div class='infowindow_date'><i class="fas fa-phone"></i> ${target.phone}</div>
+                    <div><i class="fas fa-map-signs"></i> <span class='infowindow_category'>${target.category_name}</span></div>
+                    <div><i class="fas fa-map-marker-alt"></i> <span class='infowindow_address'>${target.address_name}</span></div>
+                    <div><i class="fas fa-phone"></i> <span class='infowindow_tel'>${target.phone}</span></div>
                     <a href="${target.place_url}">링크</a>
                     <div>
-                        <button class="hotplace-register btn-primary btn-sm" style="float: right">추가</button>
+                        <button class="btn-primary btn-sm" style="float: right" onclick="place.placeRegister($(this).parent().parent())">추가</button>
                     </div>
                 </div>`;
 
@@ -240,8 +244,6 @@ function placeSearchCB(data, status, pagination) {
             naver.maps.Event.addListener(search_arr[i], "click", getSearchClickHandler(i));
         }
 
-        console.log("search_arr : " + search_arr);
-
         const latlng = search_arr[0].position;
 
         map.setZoom(14, false); // 확대 위치 설정
@@ -257,7 +259,6 @@ function placeSearchCB(data, status, pagination) {
 function selectSearchMarker(res) {
     console.log('값 넘어온다 : ' + res);
     for(i in search_arr) {
-        console.log(search_arr[i].title);
         if(search_arr[i].title == res){
             const latlng = search_arr[i].position;
             map.setZoom(18, false); // 확대 위치 설정

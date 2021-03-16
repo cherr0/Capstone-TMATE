@@ -13,8 +13,8 @@
     </delete>
 
     <insert id="insert">
-        insert into place (pl_id,pl_name,pl_lttd,pl_lngtd)
-        values (#{pl_id},#{pl_name},#{pl_lttd},#{pl_lngtd})
+        insert into place (pl_id,pl_address,pl_name,pl_lat,pl_lng)
+        values (#{pl_id},#{pl_address},#{pl_name},#{pl_lat},#{pl_lng})
     </insert>
 
 </mapper>
