@@ -931,9 +931,9 @@
               {
                 label: "사용 포인트",
                 data: chartData7,
-                borderColor: "rgba(0,0,0,0.09)",
+                borderColor: "rgba(123,195,243,0.9)",
                 borderWidth: "0",
-                backgroundColor: "rgba(0,0,0,0.07)",
+                backgroundColor: "rgba(123,195,243,0.5)",
                 fontFamily: "Poppins"
               }
             ]
@@ -1019,9 +1019,9 @@
               {
                 label: "현금결제",
                 data: chartData6,
-                borderColor: "rgba(0,0,0,0.09)",
+                borderColor: "rgba(123,195,243,0.9)",
                 borderWidth: "0",
-                backgroundColor: "rgba(0,0,0,0.07)",
+                backgroundColor: "rgba(123,195,243,0.5)",
                 fontFamily: "Poppins"
               }
             ]
@@ -1112,9 +1112,9 @@
             {
               label: "동승 횟수",
               data: chartData4,
-              borderColor: "rgba(0,0,0,0.09)",
+              borderColor: "rgba(123,195,243,0.9)",
               borderWidth: "0",
-              backgroundColor: "rgba(0,0,0,0.07)",
+              backgroundColor: "rgba(123,195,243,0.5)",
               fontFamily: "Poppins"
             }
           ]
