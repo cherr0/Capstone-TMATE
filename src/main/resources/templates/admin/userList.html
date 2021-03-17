@@ -42,8 +42,7 @@
                                     </td>
                                     <td><a th:href="@{'/user/'+${memberList.m_id}}"><span th:text="${memberList.m_name}"></span></a></td>
                                     <td class="text-center">
-                                        <span th:text="${#strings.substring(memberList.m_id,2, 5)}"></span>-<span th:text="${#strings.substring(memberList.m_id,5, 9)}"></span>
-                                        -<span th:text="${#strings.substring(memberList.m_id,9, 13)}"></span>
+                                        <span th:text="${#strings.substring(memberList.m_id,2, 5)}"></span>-<span th:text="${#strings.substring(memberList.m_id,5, 9)}"></span>-<span th:text="${#strings.substring(memberList.m_id,9, 13)}"></span>
                                     </td>
                                     <td class="text-center" th:text="${#strings.substring(memberList.m_regdate,0, 10)}"></td>
                                     <td class="text-center">

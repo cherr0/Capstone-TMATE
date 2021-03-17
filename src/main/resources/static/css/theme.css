@@ -15058,4 +15058,10 @@ td {
 .menu-active, .menu-btn2:hover span{
     color: white !important;
 }
+.event-calendar{
+    margin-top: 0.7em;
+}
+.event-calendar input{
+    width: 15em;
+}
 
