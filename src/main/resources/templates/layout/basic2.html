@@ -13,6 +13,8 @@
     <link th:href="@{~/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
     <link th:href="@{~/vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" media="all">
     <link th:href="@{~/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS-->
     <link th:href="@{~/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
@@ -114,48 +116,48 @@
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
                     <li>
-                        <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
-                            <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
+                        <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn2 menu-btn-main">
+                            <i class="fas fa-home"></i><span class="menu-color2">메인 화면</span></a>
                     </li>
                     <li>
-                        <a class="js-arrow menu-btn menu-btn-not" href="#">
-                            <i class="fa fa-calendar"></i><span class="menu-color">공지사항</span>
+                        <a class="js-arrow menu-btn2 menu-btn-not" href="#">
+                            <i class="fa fa-calendar"></i><span class="menu-color2">공지사항</span>
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/tuser/notice}"><span class="menu-color">공지사항</span></a>
+                                <a  th:href="@{/tuser/notice}"><span class="menu-color2 menu-btn2">공지사항</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/event}"><span class="menu-color">이벤트</span></a>
+                                <a th:href="@{/tuser/event}"><span class="menu-color2 menu-btn2">이벤트</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a class="js-arrow menu-btn menu-btn-not" href="#">
-                            <i class="fa fa-user-circle"></i><span class="menu-color">My T 프로필</span>
+                        <a class="js-arrow menu-btn2 menu-btn-not" href="#">
+                            <i class="fa fa-user-circle"></i><span class="menu-color2">My T 프로필</span>
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/tuser/profiled(m_id=${session.member.m_id})}"><span class="menu-color">개인정보 및 수정</span></a>
+                                <a  th:href="@{/tuser/profiled(m_id=${session.member.m_id})}"><span class="menu-color2 menu-btn2">개인정보 및 수정</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/event}"><span class="menu-color">지인알림 & 카드 관리</span></a>
+                                <a th:href="@{/tuser/event}"><span class="menu-color2 menu-btn2">지인알림 & 카드 관리</span></a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a class="js-arrow menu-btn menu-btn-not" href="#">
-                            <i class="fa fa-list-alt"></i><span class="menu-color">My T 이력</span>
+                        <a class="js-arrow menu-btn2 menu-btn-not" href="#">
+                            <i class="fa fa-list-alt"></i><span class="menu-color2">My T 이력</span>
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/tuser/pointd(m_id=${session.member.m_id})}"><span class="menu-color">포인트 내역</span></a>
+                                <a  th:href="@{/tuser/pointd(m_id=${session.member.m_id})}"><span class="menu-color2 menu-btn2">포인트 내역</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/paymentd(m_id=${session.member.m_id})}"><span class="menu-color">결제 이력</span></a>
+                                <a th:href="@{/tuser/paymentd(m_id=${session.member.m_id})}"><span class="menu-color2 menu-btn2">결제 이력</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/historyd(m_id=${session.member.m_id})}"><span class="menu-color">이용 내역</span></a>
+                                <a th:href="@{/tuser/historyd(m_id=${session.member.m_id})}"><span class="menu-color2 menu-btn2">이용 내역</span></a>
                             </li>
                         </ul>
                     </li>

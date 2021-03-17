@@ -6,12 +6,14 @@ import com.tmate.domain.PageDTO;
 
 import com.tmate.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Log4j2
 @RequiredArgsConstructor
 @Controller
 public class BoardController {
@@ -21,9 +23,15 @@ public class BoardController {
     // 공지 목록
     @GetMapping("/notice")
     public String noticeList(Model model, Criteria cri) {
+
+        log.info("공지사항 불러오기");
+
         List<BoardDTO> boardList = boardService.getList(cri);
 
         int total = boardService.totalCount(cri);
+
+        log.info("보드 리스트 : " + boardList);
+        log.info("공지사항 총 개수 : " + total);
 
         model.addAttribute("noticeList", boardList);    // 공지 항목 보여주기
         model.addAttribute("pageMaker", new PageDTO(cri, total));
@@ -37,7 +45,7 @@ public class BoardController {
         BoardDTO notice = boardService.get(bd_id);
         System.out.println("공지 게시글 열람 bd_id : " + bd_id);
 
-        boardService.viewCount(bd_id);
+//        boardService.viewCount(bd_id);
 
         model.addAttribute("notice", notice);   // 공지 내용
         return "admin/noticeDetail";
