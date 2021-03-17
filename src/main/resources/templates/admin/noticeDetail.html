@@ -30,7 +30,7 @@
                                     <div>
                                         <div th:switch="${notice.bd_status}">
                                             <span>글번호</span>
-                                            <span th:text="| : ${#strings.substring(notice.bd_id,3)}|"></span>
+                                            <span th:text="| : ${#strings.substring(notice.bd_id,2)}|"></span>
                                             <span> &#124; 관리자 &#124; </span>
                                             <span class="no-font" th:case="0">공개</span>
                                             <span class="no-font" th:case="1">비공개</span>

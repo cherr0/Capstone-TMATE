@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic2 :: head}">
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic2 :: mobile"></aside>
+    <aside th:replace="layout/basic2 :: sidebar"></aside>
+
+    <div class="page-container">
+        <div th:replace="layout/basic2 :: header"></div>
+        <div class="container-fluid contents_size">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 style="margin-top: auto">공지사항</h2>
+                                </div>
+                                <div class="card-body">
+                                    <table id="table" class="table table-light text-center table-striped table-hover shadow p-3 mb-5 bg-white rounded">
+                                        <thead>
+                                        <tr>
+                                            <th>번호</th>
+                                            <th>제목</th>
+                                            <th>등록일</th>
+                                            <th>조회수</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="board : ${boardList}">
+                                            <td class="text-center" th:text="${#strings.substring(board.bd_id,2)}"></td>
+                                            <td class="text-center"><a th:href="@{'/tuser/notice/'+${board.bd_id}}"><span th:text="${board.bd_title}"></span></a></td>
+                                            <td class="text-center" th:text="${#strings.substring(board.bd_cre_date,0,10)}"></td>
+                                            <td class="text-center" th:text="${board.bd_count}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                   
+                                    <nav>
+                                        <ul class="pagination justify-content-center">
+                                            <th:block th:if="${pageMaker.prev}">
+                                                <li class="page-item">
+                                                    <a class="page-link" th:href="@{/tuser/notice(pageNum=${pageMaker.startPage-1})}" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                            </th:block>
+
+                                            <li th:class=" 'page-item ' + ${pageMaker.cri.pageNum == page?'active':''}" th:each="page: ${pageMaker.pageList}">
+                                                <a class="page-link" th:href="@{/tuser/notice(pageNum=${page})}">
+                                                    [[${page}]]
+                                                </a>
+
+                                            </li>
+
+                                            <th:block th:if="${pageMaker.next}">
+                                                <li class="page-item">
+                                                    <a class="page-link" th:href="@{/tuser/notice(pageNum=${pageMaker.endPage+1})}" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </th:block>
+                                        </ul>
+
+
+                                    </nav>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+    </div>
+</div>
+
+<footer th:replace="layout/basic2 :: footer">
+</footer>
+</body>
+</html>

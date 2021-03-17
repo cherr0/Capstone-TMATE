@@ -29,24 +29,35 @@
     <nav id="sidebar" class="sidebar-wrapper">
         <div class="sidebar-content">
             <div class="sidebar-brand">
-                <a href="#">pro sidebar</a>
+                <a href="#">핫플레이스 관리</a>
                 <div id="close-sidebar">
                     <i class="fas fa-times"></i>
                 </div>
             </div>
             <div class="sidebar-header">
-                <div class="user-pic">
-                    <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
+                <div th:if="${session.member == null}">
+                    <div class="user-pic">
+                        <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">로그인 후 사용</span>
+                        <span class="user-role">Guest</span>
+                        <span class="user-status">
+                      <i class="fa fa-circle status-offline"></i><span>Offline</span>
+                        </span>
+                    </div>
                 </div>
-                <div class="user-info">
-                <span class="user-name">Jhon
-                  <strong>Smith</strong>
-                </span>
-                    <span class="user-role">Administrator</span>
-                    <span class="user-status">
-                  <i class="fa fa-circle"></i>
-                  <span>Online</span>
-                </span>
+                <div th:unless="${session.member == null}">
+                    <div class="user-pic">
+                        <img class="img-responsive img-rounded" th:src="@{${session.member.m_profile}}" alt="User picture">
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" th:text="${session.member.m_name}"></span>
+                        <span class="user-role">관리자</span>
+                        <span class="user-status">
+                      <i class="fa fa-circle"></i><span>Online</span>
+                    </span>
+                    </div>
                 </div>
             </div>
             <!-- sidebar-header  -->
@@ -81,14 +92,8 @@
             <a id="current" href="#">
                 <i class="fas fa-street-view"></i>
             </a>
-            <a href="#">
-                <i class="fas fa-home"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-cog"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-power-off"></i>
+            <a href="/main">
+                <i class="fas fa-sign-out-alt"></i>
             </a>
         </div>
     </nav>
