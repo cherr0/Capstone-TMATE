@@ -1437,7 +1437,7 @@
 
     var ctx = document.getElementById("singelBarChart");
     if (ctx) {
-      ctx.height = 250;
+      ctx.height = 100;
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {

@@ -429,3 +429,11 @@ html {
 .container{
     margin-top: 0.5em;
 }
+.overview-box h1 {
+    color: #FFFFFF;
+    font-size: 33px;
+    font-weight: bolder;
+}
+.overview-box h3{
+    color: #FFFFFF;
+}

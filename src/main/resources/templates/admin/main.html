@@ -15,7 +15,7 @@
                 <section class="welcome2 p-t-40 p-b-55" id="img-bar">
                     <div class="container" >
                         <h1>
-                            <span class="txt-type img-bar-wright" data-wait="2500" data-words='["어서오세요 TMATE입니다."]'></span>
+                            <span class="txt-type img-bar-wright" data-wait="2000" data-words='["어서오세요 TMATE입니다."]'></span>
                         </h1>
                         <h2 class="img-bar-wel">Welcome To My Website</h2>
                     </div>
@@ -28,8 +28,8 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="text">
-                                                <h2 th:text="${members}">395,368</h2>
-                                                <span>전체 유저 수</span>
+                                                <h1 >전체 유저 수</h1>
+                                                <h3 th:text="${members}">395,368</h3>
                                             </div>
                                         </div>
                                         <div class="overview-chart">
@@ -43,8 +43,8 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="text">
-                                                <h2 th:text="${drivers}">388,688</h2>
-                                                <span>전체 기사 수</span>
+                                                <h1>전체 기사 수</h1>
+                                                <h3 th:text="${drivers}">388,688</h3>
                                             </div>
                                         </div>
                                         <div class="overview-chart">
@@ -58,8 +58,8 @@
                                     <div class="overview__inner">
                                         <div class="overview-box clearfix">
                                             <div class="text">
-                                                <h2 th:text="${weeklyUsers}">7,593</h2>
-                                                <span>주간 이용량</span>
+                                                <h1>주간 이용량</h1>
+                                                <h3 th:text="${weeklyUsers}">7,593</h3>
                                             </div>
                                         </div>
                                         <div class="overview-chart">
@@ -84,14 +84,17 @@
                         <div class="row">
                             <div class="col-md-6 col-lg-4">
                                 <!-- CHART-->
-                                <div class="statistic-chart-1">
-                                    <h3 class="title-3 m-b-30">월간 이용 횟수</h3>
-                                    <div class="chart-wrap">
-                                        <canvas id="singelBarChart"></canvas>
-                                    </div>
-                                    <div class="statistic-chart-1-note">
-                                        <span class="big"></span>
-                                        <span> </span>
+                                <div class="top-campaign">
+                                    <h3 class="title-3 m-b-30">탑승지 순위</h3>
+                                    <div class="table-responsive">
+                                        <table class="table table-top-campaign">
+                                            <tbody>
+                                            <tr th:each="placeByStart : ${placeByStart}">
+                                                <td th:text="${placeByStart.pl_name}">1. 대구광역시</td>
+                                                <td th:text="${placeByStart.pl_start}">18,623회</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                                 <!-- END CHART-->
@@ -126,6 +129,27 @@
                                 </div>
                                 <!-- END CHART PERCENT-->
                             </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="statistic-chart">
+                    <div class="container">
+                        <div class="row">
+                                    <!-- CHART-->
+                            <div class="chart-box col-sm-12 col-md-12 col-lg-12">
+                                    <div class="statistic-chart-1 chart-box">
+                                        <h3 class="title-3 m-b-30">월간 이용 횟수</h3>
+                                        <div class="chart-wrap">
+                                            <canvas id="singelBarChart"></canvas>
+                                        </div>
+                                        <div class="statistic-chart-1-note">
+                                            <span class="big"></span>
+                                            <span> </span>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </section>
