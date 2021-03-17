@@ -13,6 +13,10 @@
     <link th:href="@{~/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
     <link th:href="@{~/vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" media="all">
     <link th:href="@{~/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS-->
     <link th:href="@{~/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
@@ -108,7 +112,7 @@
                             <i class="fas fa-map-marker-alt"></i><span class="menu-color">핫플레이스관리</span></a>
                     </li>
                     <li>
-                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                        <a class="js-arrow menu-btn menu-btn-user          ">
                             <i class="far fa-newspaper"></i><span class="menu-color">회원관리</span></a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
@@ -330,6 +334,14 @@
         if (window.location.pathname == '/event')
             $(document).ready(function (){
                 $('.menu-btn-not').css('backgroundColor', '#0f1864');
+            });
+    </script>
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/driver')
+            $(document).ready(function (){
+                $('.menu-btn-user').css('backgroundColor', '#0f1864');
             });
     </script>
 </footer>

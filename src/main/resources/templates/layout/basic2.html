@@ -13,6 +13,10 @@
     <link th:href="@{~/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
     <link th:href="@{~/vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" media="all">
     <link th:href="@{~/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS-->
     <link th:href="@{~/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
@@ -131,7 +135,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                        <a class="js-arrow menu-btn menu-btn-profile" href="#">
                             <i class="fa fa-user-circle"></i><span class="menu-color">My T 프로필</span>
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
@@ -144,7 +148,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                        <a class="js-arrow menu-btn menu-btn-history" href="#">
                             <i class="fa fa-list-alt"></i><span class="menu-color">My T 이력</span>
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
@@ -318,7 +322,7 @@
     <script>
         var header = document.getElementById("myDIV");
         var btns = header.getElementsByClassName("menu-btn-main");
-        if (window.location.pathname == '/main')
+        if (window.location.pathname == '/tuser/main')
             $(document).ready(function (){
                 $('.menu-btn-main').css('backgroundColor', '#0f1864');
                 for (var i = 0; i < btns.length; i++) {
@@ -333,7 +337,7 @@
     <script>
         var header = document.getElementById("myDIV");
         var btns = header.getElementsByClassName("menu-btn");
-        if (window.location.pathname == '/notice')
+        if (window.location.pathname == '/tuser/notice')
             $(document).ready(function (){
                 $('.menu-btn-not').css('backgroundColor', '#0f1864');
             });
@@ -341,33 +345,43 @@
     <script>
         var header = document.getElementById("myDIV");
         var btns = header.getElementsByClassName("menu-btn");
-        if (window.location.pathname == '/hotplace')
-            $(document).ready(function (){
-                $('.menu-btn-hot').css('backgroundColor', '#0f1864');
-            });
-    </script>
-    <script>
-        var header = document.getElementById("myDIV");
-        var btns = header.getElementsByClassName("menu-btn");
-        if (window.location.pathname == '/user')
-            $(document).ready(function (){
-                $('.menu-btn-user').css('backgroundColor', '#0f1864');
-            });
-    </script>
-    <script>
-        var header = document.getElementById("myDIV");
-        var btns = header.getElementsByClassName("menu-btn");
-        if (window.location.pathname == '/approval')
-            $(document).ready(function (){
-                $('.menu-btn-app').css('backgroundColor', '#0f1864');
-            });
-    </script>
-    <script>
-        var header = document.getElementById("myDIV");
-        var btns = header.getElementsByClassName("menu-btn");
-        if (window.location.pathname == '/event')
+        if (window.location.pathname == '/tuser/event')
             $(document).ready(function (){
                 $('.menu-btn-not').css('backgroundColor', '#0f1864');
+            });
+    </script>
+
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/tuser/profiled')
+            $(document).ready(function (){
+                $('.menu-btn-profile').css('backgroundColor', '#0f1864');
+            });
+    </script>
+
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/tuser/pointd')
+            $(document).ready(function (){
+                $('.menu-btn-history').css('backgroundColor', '#0f1864');
+            });
+    </script>
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/tuser/paymentd')
+            $(document).ready(function (){
+                $('.menu-btn-history').css('backgroundColor', '#0f1864');
+            });
+    </script>
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/tuser/historyd')
+            $(document).ready(function (){
+                $('.menu-btn-history').css('backgroundColor', '#0f1864');
             });
     </script>
 </footer>
