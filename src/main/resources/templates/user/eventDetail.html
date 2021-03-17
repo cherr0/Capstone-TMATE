@@ -20,7 +20,7 @@
                                 </div>
                                 <div class="card-header-title">
                                     <div class="not-title">
-                                        <span class="float-left">반올림 이벤트</span>
+                                        <span class="float-left" th:text="${event.bd_title}">반올림 이벤트</span>
                                         <span class="float-right not-time">2021-03-31</span>
                                         <span class="float-right not-time">2021-03-01 ~ </span>
                                     </div>
@@ -28,19 +28,19 @@
                                 <div class="card-header-title">
                                     <div>
                                         <div>
-                                            <span>글번호</span>
-                                            <span>1</span>
+                                            <span th:text="${#strings.substring(event.bd_id,4)}">글번호</span>
+                                            <span th:text="${event.bd_count}">1</span>
                                             <span> &#124; 관리자 &#124; </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <img src="/images/kakao.png" alt="...">
-                                    <p>반올림 이벤트입니다.</p>
+                                    <p th:text="${event.bd_contents}">반올림 이벤트입니다.</p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="float-right">
-                                        <button type="button" class="btn btn-light" id="event-list">글 목록</button>
+                                        <a th:href="@{/tuser/event}"><button type="button" class="btn btn-light" id="event-list">글 목록</button></a>
                                     </div>
                                 </div>
                             </div>

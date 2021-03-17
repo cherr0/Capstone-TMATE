@@ -20,22 +20,22 @@
                                 </div>
                                 <div class="card-header-title">
                                     <div class="not-title">
-                                        <span class="float-left" th:text="| 이벤트 이름 : ${event.e_kind}|">제목</span>
-                                        <span class="float-right not-time" th:text="${#dates.format(event.e_s_date,'yy-MM-dd')}"></span>
-                                        <span class="float-right not-time" th:text="${#dates.format(event.e_e_date,'yy-MM-dd')}"></span>
+                                        <span class="float-left" th:text="| 이벤트 이름 : ${event.bd_title}|">제목</span>
+                                        <span class="float-right not-time" th:text="${#dates.format(event.bd_s_date,'yy-MM-dd')}"></span>
+                                        <span class="float-right not-time" th:text="${#dates.format(event.bd_e_date,'yy-MM-dd')}"></span>
                                     </div>
                                 </div>
                                 <div class="card-header-title">
                                     <div>
                                         <div>
                                             <span>글번호</span>
-                                            <span th:text="| : ${#strings.substring(event.e_id,3)}|"></span>
+                                            <span th:text="| : ${#strings.substring(event.bd_id,3)}|"></span>
                                             <span> &#124; 관리자 &#124; </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <p th:text="${event.e_contents}">내용</p>
+                                    <p th:text="${event.bd_contents}">내용</p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="float-right">
@@ -52,7 +52,7 @@
         </div>
     </div>
 </div>
-<input id="e_id" type="hidden" th:value="${event.e_id}" />
+<input id="e_id" type="hidden" th:value="${event.bd_id}" />
 <footer th:replace="~{layout/basic :: footer}">
 </footer>
 <script th:src="@{~/js/app/event.js}"></script>
