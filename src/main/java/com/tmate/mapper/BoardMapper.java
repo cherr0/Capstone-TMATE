@@ -24,6 +24,9 @@ public interface BoardMapper {
     // 게시판 업데이트 -> 상태도 같이 하고 내용도 같이 바뀐다.
     int update(BoardDTO boardDTO);
 
+    // 이벤트 업데이트
+    int updateE(BoardDTO boardDTO);
+
     // 게시판 추가
     int insert(BoardDTO boardDTO);
 
@@ -42,5 +45,6 @@ public interface BoardMapper {
     // 게시판 조회수 증가 --> 사용자에게만 넣자
     void viewCount(String bd_id);
 
-
+    // 이벤트 글 삽입
+    int insertEvent(BoardDTO boardDTO);
 }

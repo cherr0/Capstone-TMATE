@@ -1,6 +1,7 @@
 package com.tmate.web;
 
 import com.tmate.domain.*;
+import com.tmate.service.BoardService;
 import com.tmate.service.MemberService;
 import com.tmate.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,8 @@ public class UserController {
     private final UserService userService;
 
     private final MemberService memberService;
+
+    private final BoardService boardService;
 
     @GetMapping("/main")
     public String userMain(String m_id, Model model) {
@@ -71,5 +74,49 @@ public class UserController {
         return "/user/profileModify";
     }
 
+    @GetMapping("/notice")
+    public String userNoticeList(Criteria cri, Model model) {
+        log.info("사용자 페이지 공지사항");
+        List<BoardDTO> boardList = boardService.getUserBoardList(cri);
+        int total = boardService.getUserBoardCount();
 
+        log.info("넘어가는 공지사항 : " + boardList);
+        log.info("넘어가는 개수 : " + total);
+
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
+        return "/user/noticeList";
+    }
+
+    @GetMapping("/notice/{bd_id}")
+    public String userNotice(@PathVariable("bd_id") String bd_id, Model model) {
+        log.info("넘어오는 글번호 : " + bd_id);
+        BoardDTO boardDTO = boardService.getN(bd_id);
+
+        model.addAttribute("board", boardDTO);
+        return "/user/noticeDetail";
+    }
+
+
+    @GetMapping("/event")
+    public String userEventList(Criteria cri, Model model) {
+        log.info("이벤트 리스트 - 사용자 컨트롤러");
+        List<BoardDTO> eventList = boardService.getEventList(cri);
+        int total = boardService.totalECount(cri);
+
+        model.addAttribute("event", eventList);
+        model.addAttribute("pageMaker", new PageDTO(cri, total));
+        return "/user/eventList";
+    }
+
+    @GetMapping("/event/{bd_id}")
+    public String userEvent(@PathVariable("bd_id") String bd_id, Model model) {
+        log.info("넘어오는 글번호 : " + bd_id);
+        BoardDTO boardDTO = boardService.getN(bd_id);
+
+        log.info("조회되는 글 정보 : " + boardDTO);
+
+        model.addAttribute("event", boardDTO);
+        return "/user/eventDetail";
+    }
 }
