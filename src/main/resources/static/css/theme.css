@@ -14987,11 +14987,15 @@ td {
 .not-time{
     border-right: #c7c7c7 0.5px solid;
 }
+.not-count{
+    border-right: #c7c7c7 0.5px solid;
+}
 .not-info {
     font-size: 15px;
 }
 .not-info span{
     margin-right: 0.3em;
+    padding-right: 0.3em;
 }
 .not-content img {
     width: 100%;
@@ -15006,8 +15010,9 @@ td {
     float: left;
     margin-top: 40px;
     width: 100%;
-    padding-bottom: 180px;
-    background-color: #fff
+    padding-bottom: 100px;
+    background-color: #fff;
+    height: 3em;
 }
 .page_move_btn {
     float: left;

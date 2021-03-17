@@ -20,17 +20,16 @@
                                 </div>
                                 <div class="card-header-title">
                                     <div class="not-title">
-                                        <span class="float-left" th:text="${event.bd_title}">반올림 이벤트</span>
-                                        <span class="float-right not-time">2021-03-31</span>
-                                        <span class="float-right not-time">2021-03-01 ~ </span>
-                                    </div>
-                                </div>
-                                <div class="card-header-title">
-                                    <div>
-                                        <div>
-                                            <span th:text="${#strings.substring(event.bd_id,4)}">글번호</span>
-                                            <span th:text="${event.bd_count}">1</span>
-                                            <span> &#124; 관리자 &#124; </span>
+                                        <div class="float-left" th:text="${event.bd_title}">3월 정기점검</div>
+                                        <div class="float-right">
+                                            <a th:href="@{/tuser/notice}"><button type="button" class="btn btn-light" id="event-list">글 목록</button></a>
+                                        </div>
+                                        <br>
+                                        <div class="not-info">
+                                            <img src="/images/kakao.png" class="not-img">
+                                            <span class="not-writer">관리자</span>
+                                            <span class="not-time" th:text="${#strings.substring(event.bd_cre_date,0,10)}"> 2021-03-01 </span>
+                                            <span class="not-count" th:text="${event.bd_count}"> 3333 </span>
                                         </div>
                                     </div>
                                 </div>
@@ -38,10 +37,35 @@
                                     <img src="/images/kakao.png" alt="...">
                                     <p th:text="${event.bd_contents}">반올림 이벤트입니다.</p>
                                 </div>
-                                <div class="card-footer">
-                                    <div class="float-right">
-                                        <a th:href="@{/tuser/event}"><button type="button" class="btn btn-light" id="event-list">글 목록</button></a>
-                                    </div>
+                                <div class="page_move">
+                                    <ul>
+                                        <li>
+                                                <span class="page_move_btn">
+                                                    <a href="">
+                                                        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                                                        이전글
+                                                    </a>
+                                                </span>
+                                            <p class="not-footer-title">
+                                                <a href="">이전글이 없습니다.</a>
+                                            </p>
+                                        </li>
+                                        <li>
+                                                <span class="page_move_btn">
+                                                    <a href="">
+                                                        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                        다음글
+                                                    </a>
+                                                </span>
+                                            <div>
+                                                <a href="">다음글이 없습니다.</a>
+                                                <div class="page_move_info">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    14:49
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
