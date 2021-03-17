@@ -41,22 +41,15 @@ const event = {
             size: 4
         });
 
-        // 글 작성 펭이지에서 뒤로가기
-        $('#return-event').on('click', function () {
-            _this.eventReturn();
-        });
-
     },
 
     // 이벤트 작성
     eventWrite : function () {
         const data = {
-            bd_title: $('#event-write-kind').val(),
-            keyword:$('#event-write-status').val() + $('#event-write-exact').val(),
-            bd_contents: $('#event-write-content').val(),
-            bd_s_date: new Date($('#event-time-start').val()),
-            bd_e_date: new Date($('#event-time-end').val()),
-            m_id: $('#m_id').val()
+            e_kind: $('#event-write-kind').val(),
+            e_contents: $('#event-write-content').val(),
+            e_s_date: new Date($('#event-time-start').val()),
+            e_e_date: new Date($('#event-time-end').val())
         };
 
         $.ajax({
@@ -88,12 +81,11 @@ const event = {
     // 이벤트 글 수정
     eventModify : function () {
         const data = {
-            bd_id: $('#e_id').val(),
-            bd_title: $('#event-modify-kind').val(),
-            bd_status: $('#event-modify-status').val(),
-            bd_contents: $('#event-modify-content').val(),
-            bd_s_date: new Date($('#event-time-start').val()),
-            bd_e_date: new Date($('#event-time-end').val())
+            e_id: $('#e_id').val(),
+            e_kind: $('#event-modify-kind').val(),
+            e_contents: $('#event-modify-content').val(),
+            e_s_date: new Date($('#event-time-start').val()),
+            e_e_date: new Date($('#event-time-end').val())
         };
 
         $.ajax({
@@ -117,22 +109,18 @@ const event = {
 
     // 이벤트 글 수정 화면 이동
     eventModMove : function () {
-        const bd_id = $('#e_id').val();
-        window.location.href = '/eventmodify/' + bd_id;
+        const e_id = $('#e_id').val();
+        window.location.href = '/eventmodify/' + e_id;
     },
 
-    eventReturn: function () {
-        window.location.href = '/event';
-    },
-
-    // 이벤트 글 삭제 처리
+    // 이벤트 글 비공개 처리
     eventRemove : function () {
-        bd_id = $('#e_id').val()
+        e_id = $('#e_id').val()
 
         $.ajax({
-            data: bd_id,
-            type: 'delete',
-            url: '/api/eventremove/' + bd_id
+            data: e_id,
+            type: 'PUT',
+            url: '/api/eventremove/' + e_id
         }).done(function () {
             swal({
                 title: "글 삭제 성공",

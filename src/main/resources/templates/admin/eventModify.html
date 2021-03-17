@@ -16,34 +16,33 @@
                     <section class="four">
                         <div class="container">
                             <h2>이벤트 수정</h2><hr>
-                            <input type="hidden" id="e_id" th:value="${event.bd_id}" />
+                            <input type="hidden" id="e_id" th:value="${event.e_id}" />
                             <div style="float: right" class="btn-group">
-<!--                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
-<!--                                    공개 <span class="caret"></span>-->
-<!--                                </button>-->
-<!--                                <ul class="dropdown-menu" role="menu">-->
-<!--                                    <li><a href="#">공개</a></li>-->
-<!--                                    <li><a href="#">비공개</a></li>-->
-<!--                                    <li><a href="#">예약</a></li>-->
-<!--                                </ul>-->
-
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    공개 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">공개</a></li>
+                                    <li><a href="#">비공개</a></li>
+                                    <li><a href="#">예약</a></li>
+                                </ul>
                             </div>
                         </div><br><br>
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">제목</span>
                             </div>
-                            <input type="text" class="form-control" id="event-modify-kind" th:value="${event.bd_title}">
+                            <input type="text" class="form-control" id="event-modify-kind" th:value="${event.e_kind}">
                         </div>
                         <br>
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">내용</span>
                             </div>
-                            <textarea class="form-control" rows="5" id="event-modify-content" th:text="${event.bd_contents}"></textarea>
+                            <textarea class="form-control" rows="5" id="event-modify-content" th:text="${event.e_contents}"></textarea>
                         </div>
-                        <input type="text" id="event-time-start" th:value="${event.bd_s_date}" />
-                        <input type="text" id="event-time-end" th:value="${event.bd_e_date}" />
+                        <input type="text" id="event-time-start" />
+                        <input type="text" id="event-time-end" />
                         <button id="event-list" class="btn btn-danger" style="float: right">뒤로</button>
                         <button id="event-modify" class="btn btn-primary" style="float: right">글 수정</button>
                     </section>

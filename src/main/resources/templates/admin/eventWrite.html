@@ -17,17 +17,9 @@
                 <div class="container">
                     <h2>이벤트 작성</h2>
                         <select id="event-write-status">
-                            <option value="sp">봄</option>
-                            <option value="sm">여름</option>
-                            <option value="fa">가을</option>
-                            <option value="wi">겨울</option>
-                            <option value="de">비정기</option>
-                            <option value="al">상시</option>
-                        </select>
-                        <select id="event-write-exact">
-                            <option value="0">적립</option>
-                            <option value="1">추천</option>
-                            <option value="2">선착순</option>
+                            <option value="공개">공개</option>
+                            <option value="비공개">비공개</option>
+                            <option value="예약">예약</option>
                         </select>
                 </div>
                 <br>
@@ -65,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <input id="m_id" type="hidden" th:value="${session.member.m_id}"/>
+
                 <button class="btn btn-danger" style="float: right" id="return-event">뒤로</button>
                 <button id="event-write" class="btn btn-primary modalBtn" style="float: right">글 등록</button>
             </section>

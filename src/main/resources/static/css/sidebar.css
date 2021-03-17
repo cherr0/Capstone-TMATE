@@ -198,10 +198,6 @@ body {
     color: #5cb85c;
 }
 
-.status-offline {
-    color: #838383 !important;
-}
-
 /*-----------------------sidebar-search------------------------*/
 
 .sidebar-wrapper .sidebar-search > div {

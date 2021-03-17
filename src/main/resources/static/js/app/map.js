@@ -133,7 +133,6 @@ function setMarker(latlng) {
 }
 
 $("#current").click(() => {
-    console.log(navigator);
     if("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(function (position) {
             const lat = position.coords.latitude;   // 현재 위치 위도값
@@ -142,8 +141,6 @@ $("#current").click(() => {
 
             $('.pulse').remove();   // 기존의 마커를 제거
             setMarker(latlng);  // 마커 생성
-
-            console.log('위치 정보 가져오는 중');
 
             // 현재 위치가 찍혀질 경우 화면이 이동됨
             map.setZoom(14,false);
@@ -301,5 +298,3 @@ $("#close-sidebar").click(function() {
 $("#show-sidebar").click(function() {
     $(".page-wrapper").addClass("toggled");
 });
-
-console.log('map.js 실행됨');

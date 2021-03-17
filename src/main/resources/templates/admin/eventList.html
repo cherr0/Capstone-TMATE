@@ -43,10 +43,10 @@
                                         </thead>
                                         <tbody>
                                         <tr th:each="eventList : ${eventList}">
-                                            <td th:text="${#strings.substring(eventList.bd_id,3)}"></td>
-                                            <td><a th:href="@{'/event/'+${eventList.bd_id}}"><span th:text="${eventList.bd_title}"></span></a></td>
-                                            <td><span th:text="${#dates.format(eventList.bd_s_date,'yyyy-MM-dd')}"></span> ~ <span th:text="${#dates.format(eventList.bd_e_date,'yyyy-MM-dd')}"></span></td>
-                                            <td th:switch="${#strings.substring(eventList.bd_id,0,2)}">
+                                            <td th:text="${#strings.substring(eventList.e_id,3)}"></td>
+                                            <td><a th:href="@{'/event/'+${eventList.e_id}}"><span th:text="${eventList.e_kind}"></span></a></td>
+                                            <td><span th:text="${#dates.format(eventList.e_s_date,'yyyy-MM-dd')}"></span> ~ <span th:text="${#dates.format(eventList.e_e_date,'yyyy-MM-dd')}"></span></td>
+                                            <td th:switch="${#strings.substring(eventList.e_id,0,2)}">
                                                 <p th:case="sp">봄</p>
                                                 <p th:case="sm">여름</p>
                                                 <p th:case="fa">가을</p>
@@ -54,12 +54,12 @@
                                                 <p th:case="de">비정기</p>
                                                 <p th:case="al">상시</p>
                                             </td>
-                                            <td th:switch="${#strings.substring(eventList.bd_id,2,3)}">
-                                                <p th:case="0">적립</p>
-                                                <p th:case="1">추첨</p>
-                                                <p th:case="2">선착순</p>
+                                            <td th:switch="${#strings.substring(eventList.e_id,2,3)}">
+                                                <p th:case="1">적립</p>
+                                                <p th:case="2">추첨</p>
+                                                <p th:case="3">선착순</p>
                                             </td>
-                                            <td th:text="${eventList.bd_count}"></td>
+                                            <td th:text="${eventList.e_count}"></td>
                                         </tr>
                                         </tbody>
                                     </table>

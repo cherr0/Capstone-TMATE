@@ -5,7 +5,6 @@ import com.tmate.domain.Criteria;
 import com.tmate.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,11 +31,6 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public boolean eModify(BoardDTO boardDTO) {
-        return boardMapper.updateE(boardDTO) == 1;
-    }
-
-    @Override
     public boolean remove(String bd_id) {
         return boardMapper.delete(bd_id) == 1;
     }
@@ -58,41 +52,4 @@ public class BoardServiceImpl implements BoardService {
     }
 
 
-    @Override
-    public List<BoardDTO> getEventList(Criteria cri) {
-        return boardMapper.getEventList(cri);
-    }
-
-    @Override
-    public int totalECount(Criteria cri) {
-        return boardMapper.totalEventCount();
-    }
-
-    @Override
-    public boolean eRegister(BoardDTO boardDTO) {
-        return boardMapper.insertEvent(boardDTO) == 1;
-    }
-
-    /*
-    * 사용자 서비스
-    * */
-
-    @Override
-    public List<BoardDTO> getUserBoardList(Criteria cri) {
-        return boardMapper.getBoardUserList(cri);
-    }
-
-    @Override
-    public int getUserBoardCount() {
-        return boardMapper.totalUserCount();
-    }
-
-    @Transactional
-    @Override
-    public BoardDTO getN(String bd_id) {
-        BoardDTO boardDTO = boardMapper.read(bd_id);
-        boardMapper.viewCount(bd_id);
-
-        return boardDTO;
-    }
 }
