@@ -14994,12 +14994,15 @@ td {
 .not-count{
     border-right: #c7c7c7 0.5px solid;
 }
+.no-font{
+    border-right: #c7c7c7 0.5px solid;
+}
 .not-info {
     font-size: 15px;
 }
 .not-info span{
     margin-right: 0.3em;
-    padding-right: 0.3em;
+    padding-right: 0.5em;
 }
 .not-content img {
     width: 100%;
