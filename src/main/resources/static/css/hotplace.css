@@ -70,3 +70,10 @@
     position: sticky;
     top: 0;
 }
+.ben-head th {
+    position: sticky;
+    top: 0;
+}
+.ben-table_size {
+    height: 20em;
+}
