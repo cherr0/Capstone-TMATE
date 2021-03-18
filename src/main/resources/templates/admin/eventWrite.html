@@ -38,7 +38,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="event-calendar col-sm-12 col-md-12 col-lg-12 row">
+                                    <div class="event-calendar row col-sm-12 col-md-12 col-lg-12">
                                         <div class="col-sm-2.5 col-md-2.5 col-lg-2.5">
                                             <span>시작일</span>
                                             <input type="text" id="event-time-start" placeholder="날짜를 선택해 주세요"/>
@@ -47,6 +47,26 @@
                                         <div class="col-sm-2.5 col-md-2.5 col-lg-2.5">
                                             <span>종료일</span>
                                             <input type="text" id="event-time-end" placeholder="날짜를 선택해 주세요"/>
+                                        </div>
+
+                                        <div class="col-sm-6 col-lg-6 col-md-6">
+
+                                                <span>이벤트 종류 </span>
+                                                <select id="event-write-status">
+                                                    <option value="sp">봄</option>
+                                                    <option value="sm">여름</option>
+                                                    <option value="fa">가을</option>
+                                                    <option value="wi">겨울</option>
+                                                    <option value="de">비정기</option>
+                                                    <option value="al">상시</option>
+                                                </select>
+
+                                                <select id="event-write-exact">
+                                                    <option value="0">적립</option>
+                                                    <option value="1">추천</option>
+                                                    <option value="2">선착순</option>
+                                                </select>
+
                                         </div>
                                     </div>
                                 </div>
