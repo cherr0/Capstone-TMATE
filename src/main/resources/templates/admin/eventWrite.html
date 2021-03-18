@@ -1,81 +1,86 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/basic :: head}">
-
 </head>
-
 <body class="animsition">
-
 <div class="page-wrapper">
     <aside th:replace="layout/basic :: mobile"></aside>
     <aside th:replace="layout/basic :: sidebar"></aside>
-
     <div class="page-container">
         <div th:replace="layout/basic :: header"></div>
-        <section class="container-fluid contents_size">
-            <section class="four">
-                <div class="container">
-                    <h2>이벤트 작성</h2>
-                        <select id="event-write-status">
-                            <option value="sp">봄</option>
-                            <option value="sm">여름</option>
-                            <option value="fa">가을</option>
-                            <option value="wi">겨울</option>
-                            <option value="de">비정기</option>
-                            <option value="al">상시</option>
-                        </select>
-                        <select id="event-write-exact">
-                            <option value="0">적립</option>
-                            <option value="1">추천</option>
-                            <option value="2">선착순</option>
-                        </select>
-                </div>
-                <br>
-                <div class="input-group input-group-lg">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">이벤트 이름</span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="제목을 작성해 주세요." id="event-write-kind" />
-                </div>
-                <br>
-                <div class="input-group input-group-lg">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">내용</span>
-                    </div>
-                    <textarea class="form-control" rows="5" id="event-write-content"></textarea>
-                </div>
-                <br>
+        <div class="container-fluid contents_size">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 style="margin-top: auto">이벤트 작성</h2>
+                                </div>
+                                <div class="card-header-title">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">제목</span>
+                                        <input type="text" class="form-control" placeholder="제목을 작성해 주세요." id="notice-write-title">
 
-                <div class="col-md-3 col-xs-4">
-                    <div class="form-group">
-                        <h5>시작일</h5>
-                        <div class="input-group date">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i> </div>
-                            <input type="text" class="form-control bootstrap-datetimepicker-widget" id="event-time-start"/>
+                                        <div class="btn-group justify-content-end">
+                                            <!--                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
+                                            <!--                                                <span id="notice-write-status" class="caret">공개</span>-->
+                                            <!--                                            </button>-->
+                                            <!--                                            <ul class="dropdown-menu" role="menu">-->
+                                            <!--                                                <li><a href="#">공개</a></li>-->
+                                            <!--                                                <li><a href="#">비공개</a></li>-->
+                                            <!--                                                <li><a href="#">예약</a></li>-->
+                                            <!--                                            </ul>-->
+                                            <select id="notice-write-status">
+                                                <option value="0">공개</option>
+                                                <option value="1">비공개</option>
+                                                <option value="2">예약</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="event-calendar col-sm-12 col-md-12 col-lg-12 row">
+                                        <div class="col-sm-2.5 col-md-2.5 col-lg-2.5">
+                                            <span>시작일</span>
+                                            <input type="text" id="event-time-start" placeholder="날짜를 선택해 주세요"/>
+                                        </div>
+
+                                        <div class="col-sm-2.5 col-md-2.5 col-lg-2.5">
+                                            <span>종료일</span>
+                                            <input type="text" id="event-time-end" placeholder="날짜를 선택해 주세요"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="card-body">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">내용</span>
+                                        </div>
+                                        <textarea class="form-control" rows="10" id="notice-write-content" placeholder="내용을 입력해 주세요."></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <div class="float-right">
+                                        <button type="button" id="notice-write" class="btn btn-primary modalBtn">글 등록</button>
+                                    </div>
+                                    <div class="float-left">
+                                        <button type="button" id="back" class="btn btn-info" onclick="location.href='/notice'">뒤로</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="col-md-3 col-xs-4">
-                    <div class="form-group">
-                        <h5>종료일</h5>
-                        <div class="input-group date">
-                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                            <input type="text" class="form-control bootstrap-datetimepicker-widget" id="event-time-end"/>
-                        </div>
-                    </div>
-                </div>
-                <input id="m_id" type="hidden" th:value="${session.member.m_id}"/>
-                <button class="btn btn-danger" style="float: right" id="return-event">뒤로</button>
-                <button id="event-write" class="btn btn-primary modalBtn" style="float: right">글 등록</button>
+                <input type="hidden" th:value="${session.member.m_id}" id="m_id">
             </section>
-        </section>
+        </div>
     </div>
 </div>
-<script th:src="@{~/vendor/jquery.datetimepicker.full.min.js}"></script>
 <footer th:replace="layout/basic :: footer">
 </footer>
 <script th:src="@{~/js/app/event.js}"></script>
-
 </body>
 </html>
