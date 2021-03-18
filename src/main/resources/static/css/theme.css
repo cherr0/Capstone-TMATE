@@ -1645,9 +1645,13 @@ a i{
 .navbar-sidebar .navbar__list li a {
     display: block;
     color: #555;
-    font-size: 30px;
+    font-size: 25px;
     padding: 20px;
     font-weight: bolder;
+}
+
+.navbar-sidebar .navbar__list li a span{
+    font-family: 'Noto Sans KR', sans-serif;
 }
 
 .navbar-sidebar .navbar__list li a i {
@@ -14698,7 +14702,7 @@ a i{
 .menu-btn-app{
     cursor: pointer;
 }
-.menu-active, .menu-btn:hover {
+.menu-active, .menu-btn:hover{
     background-color: #0f1864;
     color: white;
 }
@@ -14719,7 +14723,7 @@ a i{
     left: 0;
     top: 0;
     bottom: 0;
-    background: #9AD5C3;
+    background: #8695e7;
     overflow-y: auto;
 }
 
@@ -15064,4 +15068,3 @@ td {
 .event-calendar input{
     width: 15em;
 }
-
