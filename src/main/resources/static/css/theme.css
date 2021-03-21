@@ -1251,14 +1251,9 @@ section {
     -webkit-justify-content: space-between;
     -moz-box-pack: justify;
     -ms-flex-pack: justify;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
-@media (min-width: 992px) and (max-width: 1199px) {
-    .header-wrap .account-item > .content {
-        display: none;
-    }
-}
 
 @media (max-width: 991px) {
     .header-wrap {
