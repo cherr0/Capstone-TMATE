@@ -50,13 +50,34 @@ const event = {
 
     // 이벤트 작성
     eventWrite : function () {
+
+        let boardImageDTOList = [];
+
+        $(".uploadResult li").each(function (i,obj) {
+            console.log(obj);
+            console.dir(obj)
+            console.log(obj.dataset.uuid);
+            console.log(obj.dataset.path);
+            console.log(obj.dataset.name);
+
+            boardImageDTOList.push({
+                img_name:obj.dataset.name,
+                path:obj.dataset.path,
+                uuid:obj.dataset.uuid
+            });
+
+            console.log(boardImageDTOList);
+
+        });
+
         const data = {
-            bd_title: $('#event-write-kind').val(),
+            bd_title: $('#event-write-title').val(),
             keyword:$('#event-write-status').val() + $('#event-write-exact').val(),
             bd_contents: $('#event-write-content').val(),
             bd_s_date: new Date($('#event-time-start').val()),
             bd_e_date: new Date($('#event-time-end').val()),
-            m_id: $('#m_id').val()
+            m_id: $('#m_id').val(),
+            boardImageDTOList:boardImageDTOList
         };
 
         $.ajax({
@@ -87,13 +108,34 @@ const event = {
 
     // 이벤트 글 수정
     eventModify : function () {
+
+        let boardImageDTOList = [];
+
+        $(".uploadResult li").each(function (i,obj) {
+            console.log(obj);
+            console.dir(obj)
+            console.log(obj.dataset.uuid);
+            console.log(obj.dataset.path);
+            console.log(obj.dataset.name);
+
+            boardImageDTOList.push({
+                img_name:obj.dataset.name,
+                path:obj.dataset.path,
+                uuid:obj.dataset.uuid
+            });
+
+            console.log(boardImageDTOList);
+
+        });
+
         const data = {
             bd_id: $('#e_id').val(),
             bd_title: $('#event-modify-kind').val(),
             bd_status: $('#event-modify-status').val(),
             bd_contents: $('#event-modify-content').val(),
             bd_s_date: new Date($('#event-time-start').val()),
-            bd_e_date: new Date($('#event-time-end').val())
+            bd_e_date: new Date($('#event-time-end').val()),
+            boardImageDTOList:boardImageDTOList
         };
 
         $.ajax({

@@ -54,6 +54,49 @@
                                     </div>
                                 </div>
 
+                                <style>
+                                    .uploadResult{
+                                        width: 100%;
+                                        background-color: gray;
+                                        margin-top: 10px;
+                                    }
+
+                                    .uploadResult ul{
+                                        display: flex;
+                                        flex-flow: row;
+                                        justify-content: center;
+                                        align-items: center;
+                                        vertical-align: top;
+                                        overflow: auto;
+                                    }
+
+                                    .uploadResult ul li{
+                                        list-style: none;
+                                        padding: 10px;
+                                        margin-left: 2em;
+                                    }
+
+                                    .uploadResult ul li img{
+                                        width: 100px;
+                                    }
+
+
+                                </style>
+
+                                <div class="uploadResult">
+                                    <ul>
+                                        <th:block th:each="eventImage : ${eimages}">
+                                        <li th:data-name="${eventImage.img_name}" th:data-path="${eventImage.path}" th:data-uuid="${eventImage.uuid}">
+                                            <div>
+                                            <button type="button" th:data-uuid="${eventImage.uuid}" th:data-file="${eventImage.getImageURL()}" class="btn btn-warning btn-sm">X</button>
+                                            <br>
+                                            <img th:if="${eventImage.path != null}" th:src="|/api/display?fileName=${eventImage.getThumbnailURL()}|">
+                                            </div>
+                                        </li>
+                                        </th:block>
+                                    </ul>
+                                </div>
+
                                 <div class="card-footer">
                                     <div class="float-right">
                                         <button type="button" id="notice-modify" class="btn btn-primary modalBtn">글 수정</button>
@@ -70,6 +113,30 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(".uploadResult").on("click", "li button", function (e) {
+        console.log("delete file");
+
+        var targetFile = $(this).data("file");
+
+        var uuid = $(this).data("uuid");
+        console.log(uuid);
+
+        var targetLi = $(this).closest("li");
+
+        $.ajax({
+            url:'/api/removeFile',
+            data:{fileName:targetFile, uuid:uuid},
+            dataType: 'text',
+            type:'POST',
+            success: function (result) {
+                alert(result);
+                targetLi.remove();
+            }
+        }); // $.ajax
+    });
+</script>
 <footer th:replace="layout/basic :: footer">
 </footer>
 <script th:src="@{~/js/app/event.js}"></script>
