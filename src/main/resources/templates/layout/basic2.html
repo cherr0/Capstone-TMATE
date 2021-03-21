@@ -35,6 +35,8 @@
     <link th:href="@{~/css/theme.css}" rel="stylesheet" media="all">
     <link th:href="@{~/css/main.css}" rel="stylesheet" media="all">
     <link th:href="@{~/css/userDetail.css}" rel="stylesheet">
+    <link th:href="@{~/css/loginModal.css}" rel="stylesheet">
+    <link th:href="@{~/css/loginForm.css}" rel="stylesheet">
 
     <!-- Jquery JS-->
     <script th:src="@{~/vendor/jquery-3.5.1.min.js}"></script>
@@ -55,7 +57,7 @@
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li>
+                    <li th:unless="${session.member == null}">
                         <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
                             <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
                     </li>
@@ -109,7 +111,13 @@
 
     <!-- MENU SIDEBAR-->
     <aside class="user-menu-sidebar d-none d-lg-block" th:fragment="sidebar">
-        <div class="logo">
+
+        <div class="logo" th:if="${session.member == null}">
+            <a href="#">
+                <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE"/>
+            </a>
+        </div>
+        <div class="logo" th:unless="${session.member == null}">
             <a th:href="@{/tuser/main(m_id=${session.member.m_id})}">
                 <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE"/>
             </a>
@@ -117,7 +125,7 @@
         <div class="menu-sidebar__content js-scrollbar1" id="myDIV">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li>
+                    <li th:unless="${session.member == null}">
                         <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
                             <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
                     </li>
@@ -134,7 +142,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li th:unless="${session.member == null}">
                         <a class="js-arrow menu-btn menu-btn-profile" href="#">
                             <i class="fa fa-user-circle"></i><span class="menu-color">My T 프로필</span>
                         </a>
@@ -147,7 +155,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li th:unless="${session.member == null}">
                         <a class="js-arrow menu-btn menu-btn-history" href="#">
                             <i class="fa fa-list-alt"></i><span class="menu-color">My T 이력</span>
                         </a>
@@ -216,7 +224,37 @@
                                 </div>
                             </div>
 
-                            <div class="account-wrap">
+                            <div th:if="${session.member == null}" class="account-wrap">
+                                <div class="account-item clearfix js-item-menu">
+                                    <div class="image">
+                                        <img th:src="@{~/images/icon/guest-profile2.png}"/>
+                                    </div>
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#">로그인 해주세요</a>
+                                    </div>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img th:src="@{~/images/icon/guest-profile2.png}"/>
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#">Guest</a>
+                                                </h5>
+                                                <span class="email">default</span>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__footer">
+                                            <a id="myBtn" data-toggle="modal" href="#myModal">
+                                                <i class="zmdi zmdi-power"></i>Login</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div th:unless="${session.member == null}" class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="image">
                                         <img th:src="@{${session.member.m_profile}}"/>
@@ -272,6 +310,46 @@
 <!-- End Page Wrapper -->
 
 <footer th:fragment="footer">
+
+    <!-- 로그인 모달 -->
+    <div class="modal" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content"  id="login-form">
+                <div class="index-modal-header">
+                    <div class="heading">Login to <span class="login-T">T</span> <span class="login-MATE">MATE</span></div>
+                </div>
+                <div class="modal-body">
+                    <div class="left">
+                        <div class="connect">QR 로그인</div>
+                        <div>
+                            <img th:src="@{~/images/qrcode.png}" class="qr-code">
+                            <div class="connect">아직 아이디가 없으신가요?</div>
+                            <a href="/testLogin2">테스트 로그인2</a>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="connect">소셜 로그인</div>
+                        <a href="" class="facebook" >
+                            <!--       <span class="fontawesome-facebook"></span> -->
+                            <img th:src="@{~/images/kakao.png}" alt="test" class="naver-image">
+                        </a> <br />
+
+                        <a href="" class="twitter">
+                            <!--       <span class="fontawesome-twitter"></span> -->
+                            <img th:src="@{~/images/naver.png}" alt="test" class="naver-image">
+                        </a> <br />
+                        <a href="" class="google-plus">
+                            <!--       <span class="fontawesome-google-plus"></span> -->
+                            <i class="fab fa-google-plus" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- Datetimepicker -->
     <script th:src="@{~/vendor/jquery.datetimepicker.full.js}"></script>
 
@@ -298,6 +376,7 @@
     <!-- Main JS-->
     <script th:inline="javascript" th:src="@{~/js/main.js}"></script>
     <script th:src="@{~/js/modal.js}"></script>
+    <script th:src="@{~/js/qrcode.js}"></script>
 
     <!-- ajax -->
     <script th:src="@{~/js/app/approval.js}"></script>
