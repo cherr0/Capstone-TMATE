@@ -64,7 +64,7 @@ div#login-form:after {
     width: 0.12em;
     top: -7em;
     left: 0.5em;
-    z-index: 900;
+    z-index: 100000;
     -moz-box-shadow: 0 9.6em 0 0 rgba(128, 128, 128, 0.3);
     -webkit-box-shadow: 0 9.6em 0 0 rgba(128, 128, 128, 0.3);
     box-shadow: 0 9.6em 0 0 rgba(128, 128, 128, 0.3);
