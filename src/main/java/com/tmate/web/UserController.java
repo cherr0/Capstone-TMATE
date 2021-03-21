@@ -119,4 +119,11 @@ public class UserController {
         model.addAttribute("event", boardDTO);
         return "/user/eventDetail";
     }
+
+    @GetMapping("/payment")
+    public String paymentByUser(String m_id, Model model) {
+        List<PaymentDTO> paymentList = userService.getPaymentList(m_id);
+        model.addAttribute("paymentList", paymentList);
+        return "user/userCard";
+    }
 }

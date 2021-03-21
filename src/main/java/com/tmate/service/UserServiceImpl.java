@@ -1,10 +1,7 @@
 package com.tmate.service;
 
 import com.tmate.domain.*;
-import com.tmate.mapper.JoinMapper;
-import com.tmate.mapper.Membermapper;
-import com.tmate.mapper.StaticsMapper;
-import com.tmate.mapper.UserMainMapper;
+import com.tmate.mapper.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +17,7 @@ public class UserServiceImpl implements UserService {
     private final Membermapper membermapper;
     private final JoinMapper joinMapper;
     private final StaticsMapper staticsMapper;
+    private final PaymentMapper paymentMapper;
 
     @Override
     public MemberDTO getMainPage(String m_id) {
@@ -90,7 +88,23 @@ public class UserServiceImpl implements UserService {
     // 프로필 - 카드 관리
     @Override
     public List<PaymentDTO> getPaymentList(String m_id) {
-        return userMainMapper.getPaymentByM_id(m_id);
+        return paymentMapper.getPaymentList(m_id);
+    }
+
+    // 프로필 - 카드 상세 조회
+    @Override
+    public PaymentDTO readPayment(String customer_uid) {
+        return paymentMapper.getPaymentByCustomer(customer_uid);
+    }
+
+    @Override
+    public boolean removePayment(String customer_uid) {
+        return paymentMapper.delete(customer_uid) == 1;
+    }
+
+    @Override
+    public boolean registerPayment(PaymentDTO paymentDTO) {
+        return paymentMapper.insert(paymentDTO) == 1;
     }
 
     // 프로필 - 알림 전송

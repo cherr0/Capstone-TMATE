@@ -22,11 +22,17 @@ CREDIT_VALI           VARCHAR2(32)
 PAY_COM_REG           CHAR(10)
     * */
 
+    // 빌링키
+    private String customer_uid;
+
     // 회원 번호
     private String m_id;
 
     // pg사
     private String pay_pg;
+
+    // 대표카드 여부
+    private String pay_rep;
 
     // 회사
     private String pay_company;

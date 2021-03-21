@@ -44,8 +44,18 @@ public interface UserService {
 
     // 프로필 개인 정보 탈퇴
 
-    // 프로필 카드 관리
+    // 프로필 카드 관리 관련
+    // 1. 카드 리스트 조회
     public List<PaymentDTO> getPaymentList(String m_id);
+
+    // 2. 카드 상세 조회
+    public PaymentDTO readPayment(String customer_uid);
+
+    // 3. 카드 삭제
+    public boolean removePayment(String customer_uid);
+
+    // 4. 카드 추가
+    public boolean registerPayment(PaymentDTO paymentDTO);
 
     // 프로필 지인 알림전송 관리
     public List<NotificationDTO> getNotifiList(String m_id);
