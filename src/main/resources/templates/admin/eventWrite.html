@@ -20,7 +20,7 @@
                                 <div class="card-header-title">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">제목</span>
-                                        <input type="text" class="form-control" placeholder="제목을 작성해 주세요." id="notice-write-title">
+                                        <input type="text" class="form-control" placeholder="제목을 작성해 주세요." id="event-write-title">
 
                                         <div class="btn-group justify-content-end">
                                             <!--                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
@@ -78,7 +78,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">내용</span>
                                         </div>
-                                        <textarea class="form-control" rows="10" id="notice-write-content" placeholder="내용을 입력해 주세요.">
+                                        <textarea class="form-control" rows="10" id="event-write-content" placeholder="내용을 입력해 주세요.">
                                         </textarea>
                                     </div>
                                 </div>
@@ -91,6 +91,33 @@
                                     </div>
                                 </div>
 
+                                <style>
+                                    .uploadResult{
+                                        width: 100%;
+                                        background-color: gray;
+                                        margin-top: 10px;
+                                    }
+
+                                    .uploadResult ul{
+                                        display: flex;
+                                        flex-flow: row;
+                                        justify-content: center;
+                                        align-items: center;
+                                        vertical-align: top;
+                                        overflow: auto;
+                                    }
+
+                                    .uploadResult ul li{
+                                        list-style: none;
+                                        padding: 10px;
+                                        margin-left: 2em;
+                                    }
+
+                                    .uploadResult ul li img{
+                                        width: 100px;
+                                    }
+                                </style>
+
                                 <div class="uploadResult">
                                     <ul>
 
@@ -99,7 +126,7 @@
 
                                 <div class="card-footer">
                                     <div class="float-right">
-                                        <button type="button" id="notice-write" class="btn btn-primary modalBtn">글 등록</button>
+                                        <button type="button" id="event-write" class="btn btn-primary modalBtn">글 등록</button>
                                     </div>
                                     <div class="float-left">
                                         <button type="button" id="back" class="btn btn-info" onclick="location.href='/notice'">뒤로</button>
@@ -196,7 +223,7 @@
             $(uploadResultArr).each(function (i, obj) {
                 console.log(obj);
 
-                str += "<li data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+                str += "<li data-name='" + obj.img_name + "' data-path='"+obj.path+"' data-uuid='"+obj.uuid+"'>";
                 str + " <div>";
                 str += "<button type='button' data-file=\'" + obj.imageURL + "\' "
                 str += "class='btn-warning btn-sm'>X</button><br>";
@@ -207,6 +234,26 @@
 
             uploadUL.append(str);
         }
+
+        $(".uploadResult").on("click", "li button", function (e) {
+
+            console.log("delete file");
+
+            var targetFile = $(this).data("file");
+
+            var targetLi = $(this).closest("li");
+
+            $.ajax({
+                url:'/api/removeFile',
+                data:{fileName:targetFile},
+                dataType: 'text',
+                type:'POST',
+                success: function (result) {
+                    alert(result);
+                    targetLi.remove();
+                }
+            }); // $.ajax
+        });
     });
 </script>
 <footer th:replace="layout/basic :: footer">

@@ -1,14 +1,12 @@
 package com.tmate.web;
 
-import com.tmate.domain.BoardDTO;
-import com.tmate.domain.Criteria;
-import com.tmate.domain.EventDTO;
-import com.tmate.domain.PageDTO;
+import com.tmate.domain.*;
 import com.tmate.service.BoardService;
 import com.tmate.service.EventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +37,7 @@ public class EventController {
 
 
     // 이벤트 글 조회
+    @Transactional
     @GetMapping("/event/{bd_id}")
     public String eventDetail(@PathVariable("bd_id") String bd_id, Model model) {
 //        EventDTO event = eventService.get(e_id);
@@ -46,7 +45,9 @@ public class EventController {
 //        eventService.viewCount(e_id);
 
         BoardDTO event = boardService.get(bd_id);
-        model.addAttribute("event", event);   // 이벤트 내용
+        List<BoardImageDTO> boardImageList = boardService.getBoardImageList(bd_id);
+        model.addAttribute("event", event);
+        model.addAttribute("eimages", boardImageList);
         return "admin/eventDetail";
     }
 
@@ -62,8 +63,10 @@ public class EventController {
     @GetMapping("/eventmodify/{bd_id}")
     public String eventModify(Model model,@PathVariable("bd_id") String bd_id) {
         BoardDTO event = boardService.get(bd_id);
+        List<BoardImageDTO> boardImageList = boardService.getBoardImageList(bd_id);
 
         model.addAttribute("event", event);
+        model.addAttribute("eimages", boardImageList);
         return "/admin/eventModify";
     }
 

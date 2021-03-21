@@ -1,7 +1,9 @@
 package com.tmate.service;
 
 import com.tmate.domain.BoardDTO;
+import com.tmate.domain.BoardImageDTO;
 import com.tmate.domain.Criteria;
+import com.tmate.mapper.BoardImageMapper;
 import com.tmate.mapper.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardMapper boardMapper;
+
+    private final BoardImageMapper boardImageMapper;
 
     @Override
     public boolean register(BoardDTO boardDTO) {
@@ -32,8 +36,18 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public boolean eModify(BoardDTO boardDTO) {
-        return boardMapper.updateE(boardDTO) == 1;
+    public void eModify(BoardDTO boardDTO) {
+        boardMapper.updateE(boardDTO);
+
+        if (boardDTO.getBoardImageDTOList() == null || boardDTO.getBoardImageDTOList().size() <= 0) {
+            return;
+        }
+
+        boardDTO.getBoardImageDTOList().forEach(i -> {
+            i.setBd_id(boardDTO.getBd_id());
+            boardImageMapper.insert(i);
+        });
+
     }
 
     @Override
@@ -68,14 +82,33 @@ public class BoardServiceImpl implements BoardService {
         return boardMapper.totalEventCount();
     }
 
+    @Transactional
     @Override
-    public boolean eRegister(BoardDTO boardDTO) {
+    public void eRegister(BoardDTO boardDTO) {
 
-        BoardDTO event = new BoardDTO();
-        event.setKeyword(boardDTO.getKeyword());
-        event.setBd_title(boardDTO.getBd_title());
-        event.setBd_contents(boardDTO.getBd_contents());
-        return boardMapper.insertEvent(boardDTO) == 1;
+        boardMapper.insertEvent(boardDTO);
+
+        if (boardDTO.getBoardImageDTOList() == null || boardDTO.getBoardImageDTOList().size() <= 0) {
+            return;
+        }
+
+        boardDTO.getBoardImageDTOList().forEach(i -> {
+
+            i.setBd_id(boardDTO.getBd_id());
+            boardImageMapper.insert(i);
+        });
+
+
+    }
+
+    @Override
+    public void removeImage(String uuid) {
+        boardImageMapper.delete(uuid);
+    }
+
+    @Override
+    public List<BoardImageDTO> getBoardImageList(String bd_id) {
+        return boardImageMapper.findByBd_id(bd_id);
     }
 
     /*

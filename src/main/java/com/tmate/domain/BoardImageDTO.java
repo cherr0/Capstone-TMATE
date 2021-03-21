@@ -9,8 +9,11 @@ import java.net.URLEncoder;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class BoardImageDTO {
 
+    // 파일 시퀀스
+    private int inum;
 
     // 파일 이름
     private String img_name;
@@ -20,6 +23,15 @@ public class BoardImageDTO {
 
     // 경로
     private String path;
+
+    // 글 외래키
+    private String bd_id;
+
+    public BoardImageDTO(String img_name, String uuid, String path) {
+        this.img_name = img_name;
+        this.uuid = uuid;
+        this.path = path;
+    }
 
 
 

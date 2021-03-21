@@ -11,7 +11,9 @@ import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,10 +44,14 @@ public class EventApiController {
 
 
     // 이벤트 글 작성
-    @PostMapping("/eventwrite")
+    @PostMapping(value = "/eventwrite",
+            produces =
+                    {MediaType.APPLICATION_JSON_VALUE,
+                            MediaType.APPLICATION_XML_VALUE})
     public boolean eventWrite(@RequestBody BoardDTO event) {
         System.out.println("PostMapping eventWrite() event : " + event.toString());
-        return boardService.eRegister(event);
+        boardService.eRegister(event);
+        return true;
     }
 
 
@@ -53,7 +59,8 @@ public class EventApiController {
     @PutMapping("/eventmodify")
     public boolean eventModify(@RequestBody BoardDTO event) {
         System.out.println("PutMapping eventModify() event : " + event.toString());
-        return boardService.eModify(event);
+        boardService.eModify(event);
+        return true;
     }
 
 
@@ -119,7 +126,7 @@ public class EventApiController {
 
 
     @GetMapping("/display")
-    public ResponseEntity<byte[]> getFile(String fileName) {
+    public ResponseEntity<byte[]> getFile(String fileName, String size) {
 
 
         ResponseEntity<byte[]> result = null;
@@ -130,6 +137,10 @@ public class EventApiController {
             log.info("fileName: " + srcFileName);
 
             File file = new File(uploadPath + File.separator + srcFileName);
+
+            if (size != null && size.equals("1")) {
+                file = new File(file.getParent(), file.getName().substring(2));
+            }
 
             log.info("file: " + file);
 
@@ -148,11 +159,17 @@ public class EventApiController {
     }
 
     @PostMapping("/removeFile")
-    public ResponseEntity<Boolean> removeFile(String fileName) {
+    public ResponseEntity<Boolean> removeFile(String fileName, @Nullable String uuid) {
 
+        log.info("uuid: "+uuid);
         String srcFileName = null;
 
         try {
+
+            if (uuid != null && uuid.length() != 0) {
+                boardService.removeImage(uuid);
+            }
+
             srcFileName = URLDecoder.decode(fileName, "UTF-8");
 
             File file = new File(uploadPath + File.separator + srcFileName);

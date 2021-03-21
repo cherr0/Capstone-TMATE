@@ -96,8 +96,13 @@
     </insert>
 
     <insert id="insertEvent">
+
+        <selectKey keyProperty="bd_id" order="BEFORE" resultType="string">
+            select #{keyword}||ev_sec.nextval from dual
+        </selectKey>
+
         insert into board (bd_id, bd_status, bd_contents, bd_title, bd_s_date,bd_e_date,m_id)
-        values(#{keyword}||ev_sec.nextval,'0',#{bd_contents},#{bd_title},#{bd_s_date},#{bd_e_date},#{m_id})
+        values(#{bd_id},'0',#{bd_contents},#{bd_title},#{bd_s_date},#{bd_e_date},#{m_id})
     </insert>
 
     <update id="viewCount">
