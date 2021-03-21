@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic2 :: mobile"></aside>
+    <aside th:replace="layout/basic2 :: sidebar"></aside>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <div class="page-container">
+        <div th:replace="layout/basic2 :: header"></div>
+        <link th:href="@{/css/userCard.css}" rel="stylesheet">
+        <section class="container-fluid contents_size">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 style="margin-top: auto">카드관리</h2>
+                            </div>
+                            <div class="card-body">
+                                    <div class="my-wallet">
+
+                                        <div class="my-wallet-sidebar">
+
+                                            <h1 class="my-wallet-title">내 전자지갑
+                                                <div class="add-account">
+                                                    <a data-toggle="modal" href="#myModal" > &#43; </a>
+                                                </div>
+                                            </h1><!-- /.my-wallet__title -->
+                                            <div class="active-account"></div><!-- /.active-account -->
+
+                                            <div class="accounts-container">
+
+                                                <div class="account" data-account="6337">
+                                                    <span class="float-right">대표</span>
+                                                    <div class="account-card-type is-visa"></div>
+                                                    <div class="account-number">3244 **** **** 6337</div>
+                                                    <div class="account-expiration">Valid Thru: 01/19</div>
+                                                </div><!-- /.account -->
+
+                                                <div class="account" data-account="2558">
+                                                    <div class="account-card-type is-amex"></div>
+                                                    <div class="account-number">4412 **** **** 2558</div>
+                                                    <div class="account-expiration">Valid Thru: 01/19</div>
+                                                </div><!-- /.account -->
+
+                                                <div class="account" data-account="8253">
+                                                    <div class="account-card-type is-mastercard"></div>
+                                                    <div class="account-number">4437 **** **** 8253</div>
+                                                    <div class="account-expiration">Valid Thru: 01/19</div>
+                                                </div><!-- /.account -->
+
+                                            </div><!-- /.accounts-container -->
+
+                                        </div><!-- /.my-wallet__sidebar -->
+
+                                        <div class="account-details-container">
+                                            <div class="transaction-history-placeholder">카드를 선택해주세요</div>
+
+                                            <div class="account-details" data-account="6337">
+
+                                                <div class="account-balance">
+                                                    카드정보
+                                                    <div class="value-unit">
+                                                        <a href=""><span class="card-delete">삭제</span></a><!-- /.subunit -->
+                                                    </div><!-- /.unit -->
+                                                </div><!-- /.account-balance -->
+
+                                                <div class="transaction-history">
+
+                                                    <div class="card-detail">
+                                                        <img src="/images/kakao.png">
+                                                        <div>
+                                                            ****6337
+                                                        </div>
+                                                    </div><!-- /.transaction -->
+
+                                                    <div class="card-Expiration">
+                                                        <div class="transaction-merchant">
+                                                            만료일
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            01/2019
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card-Expiration">
+                                                        <div class="transaction-merchant">
+                                                            청구 주소
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            대구 달서구 용산동
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            416-5
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            42618
+                                                        </div>
+                                                    </div><!-- /.transaction -->
+
+                                                    <div class="card-detail">
+                                                        <div class="transaction-date">
+                                                            선호하는 결제수단
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            <a href="">선호하는 수단으로 설정</a>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /.transaction-history -->
+
+                                            </div><!-- /.account-details -->
+
+                                            <div class="account-details" data-account="2558">
+
+                                                <div class="account-balance">
+                                                    카드정보
+                                                    <div class="value-unit">
+                                                        <a href=""><span class="card-delete">삭제</span></a><!-- /.subunit -->
+                                                    </div><!-- /.unit -->
+                                                </div><!-- /.account-balance -->
+
+                                                <div class="transaction-history">
+
+                                                    <div class="card-detail">
+                                                        <img src="/images/kakao.png">
+                                                        <div>
+                                                            ****6337
+                                                        </div>
+                                                    </div><!-- /.transaction -->
+
+                                                    <div class="card-Expiration">
+                                                        <div class="transaction-merchant">
+                                                            만료일
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            01/2019
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card-Expiration">
+                                                        <div class="transaction-merchant">
+                                                            청구 주소
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            대구 달서구 용산동
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            416-5
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            42618
+                                                        </div>
+                                                    </div><!-- /.transaction -->
+
+                                                    <div class="card-detail">
+                                                        <div class="transaction-date">
+                                                            선호하는 결제수단
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            <a href="">선호하는 수단으로 설정</a>
+                                                        </div>
+                                                    </div>
+
+                                                </div><!-- /.transaction-history -->
+
+                                            </div><!-- /.account-details -->
+
+                                            <div class="account-details" data-account="8253">
+
+                                                <div class="account-balance">
+                                                    카드정보
+                                                    <div class="value-unit">
+                                                        <a href=""><span class="card-delete">삭제</span></a><!-- /.subunit -->
+                                                    </div><!-- /.unit -->
+                                                </div><!-- /.account-balance -->
+
+                                                <div class="transaction-history">
+
+                                                    <div class="card-detail">
+                                                        <img src="/images/kakao.png">
+                                                        <div>
+                                                            ****6337
+                                                        </div>
+                                                    </div><!-- /.transaction -->
+
+                                                    <div class="card-Expiration">
+                                                        <div class="transaction-merchant">
+                                                            만료일
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            01/2019
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card-Expiration">
+                                                        <div class="transaction-merchant">
+                                                            청구 주소
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            대구 달서구 용산동
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            416-5
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            42618
+                                                        </div>
+                                                    </div><!-- /.transaction -->
+
+                                                    <div class="card-detail">
+                                                        <div class="transaction-date">
+                                                            선호하는 결제수단
+                                                        </div>
+                                                        <div class="transaction-date">
+                                                            <a href="">선호하는 수단으로 설정</a>
+                                                        </div>
+                                                    </div>
+
+                                                </div><!-- /.transaction-history -->
+
+                                            </div><!-- /.account-details -->
+
+                                        </div><!-- /.my-wallet__account-details -->
+
+                                    </div><!-- /.my-wallet -->
+
+                                <!-- Modal 시작 -->
+                                <div class="modal fade" id="myModal" role="dialog">
+                                    <div class="modal-dialog modal-lg">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="index-modal-header">
+                                                <h1 class="heading">카드추가</h1>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="wrapper" id="app">
+                                                    <div class="card-form">
+                                                        <div class="card-list">
+                                                            <div class="card-item" v-bind:class="{ '-active' : isCardFlipped }">
+                                                                <div class="card-item__side -front">
+                                                                    <div class="card-item__focus" v-bind:class="{'-active' : focusElementStyle }" v-bind:style="focusElementStyle" ref="focusElement"></div>
+                                                                    <div class="card-item__cover">
+                                                                        <img v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'" class="card-item__bg">
+                                                                    </div>
+
+                                                                    <div class="card-item__wrapper">
+                                                                        <div class="card-item__top">
+                                                                            <img src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png" class="card-item__chip">
+                                                                            <div class="card-item__type">
+                                                                                <transition name="slide-fade-up">
+                                                                                    <img v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'" v-if="getCardType" v-bind:key="getCardType" alt="" class="card-item__typeImg">
+                                                                                </transition>
+                                                                            </div>
+                                                                        </div>
+                                                                        <label for="cardNumber" class="card-item__number" ref="cardNumber">
+                                                                            <template v-if="getCardType === 'amex'">
+                <span v-for="(n, $index) in amexCardMask" :key="$index">
+                  <transition name="slide-fade-up">
+                    <div class="card-item__numberItem" v-if="$index > 4 && $index < 14 && cardNumber.length > $index && n.trim() !== ''">*</div>
+                    <div class="card-item__numberItem" :class="{ '-active' : n.trim() === '' }" :key="$index" v-else-if="cardNumber.length > $index">
+                      {{cardNumber[$index]}}
+                    </div>
+                    <div class="card-item__numberItem" :class="{ '-active' : n.trim() === '' }" v-else :key="$index + 1">{{n}}</div>
+                  </transition>
+                </span>
+                                                                            </template>
+
+                                                                            <template v-else>
+                <span v-for="(n, $index) in otherCardMask" :key="$index">
+                  <transition name="slide-fade-up">
+                    <div class="card-item__numberItem" v-if="$index > 4 && $index < 15 && cardNumber.length > $index && n.trim() !== ''">*</div>
+                    <div class="card-item__numberItem" :class="{ '-active' : n.trim() === '' }" :key="$index" v-else-if="cardNumber.length > $index">
+                      {{cardNumber[$index]}}
+                    </div>
+                    <div class="card-item__numberItem" :class="{ '-active' : n.trim() === '' }" v-else :key="$index + 1">{{n}}</div>
+                  </transition>
+                </span>
+                                                                            </template>
+                                                                        </label>
+                                                                        <div class="card-item__content">
+                                                                            <div class="card-item__date" ref="cardDate">
+                                                                                <label for="cardMonth" class="card-item__dateTitle">Expires</label>
+                                                                                <label for="cardMonth" class="card-item__dateItem">
+                                                                                    <transition name="slide-fade-up">
+                                                                                        <span v-if="cardMonth" v-bind:key="cardMonth">{{cardMonth}}</span>
+                                                                                        <span v-else key="2">MM</span>
+                                                                                    </transition>
+                                                                                </label>
+                                                                                /
+                                                                                <label for="cardYear" class="card-item__dateItem">
+                                                                                    <transition name="slide-fade-up">
+                                                                                        <span v-if="cardYear" v-bind:key="cardYear">{{String(cardYear).slice(2,4)}}</span>
+                                                                                        <span v-else key="2">YY</span>
+                                                                                    </transition>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-item__side -back">
+                                                                    <div class="card-item__cover">
+                                                                        <img v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + currentCardBackground + '.jpeg'" class="card-item__bg">
+                                                                    </div>
+                                                                    <div class="card-item__band"></div>
+                                                                    <div class="card-item__cvv">
+                                                                        <div class="card-item__cvvTitle">CVV</div>
+                                                                        <div class="card-item__cvvBand">
+              <span v-for="(n, $index) in cardCvv" :key="$index">
+                *
+              </span>
+
+                                                                        </div>
+                                                                        <div class="card-item__type">
+                                                                            <img v-bind:src="'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' + getCardType + '.png'" v-if="getCardType" class="card-item__typeImg">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-form__inner">
+                                                            <div class="card-input">
+                                                                <label for="cardNumber" class="card-input__label">카드번호</label>
+                                                                <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
+                                                            </div>
+                                                            <div class="card-form__row">
+                                                                <div class="card-form__col">
+                                                                    <div class="card-form__group">
+                                                                        <label for="cardMonth" class="card-input__label">유효기간</label>
+                                                                        <select class="card-input__input -select" id="cardMonth" v-model="cardMonth" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate">
+                                                                            <option value="" disabled selected>Month</option>
+                                                                            <option v-bind:value="n < 10 ? '0' + n : n" v-for="n in 12" v-bind:disabled="n < minCardMonth" v-bind:key="n">
+                                                                                {{n < 10 ? '0' + n : n}}
+                                                                            </option>
+                                                                        </select>
+                                                                        <select class="card-input__input -select" id="cardYear" v-model="cardYear" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate">
+                                                                            <option value="" disabled selected>Year</option>
+                                                                            <option v-bind:value="$index + minCardYear" v-for="(n, $index) in 12" v-bind:key="n">
+                                                                                {{$index + minCardYear}}
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-form__col -cvv">
+                                                                    <div class="card-input">
+                                                                        <label for="cardCvv" class="card-input__label">CVC</label>
+                                                                        <input type="text" class="card-input__input" id="cardCvv" v-mask="'####'" maxlength="4" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <button class="card-form__button">
+                                                                Submit
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- modal 끝 -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- 카드정렬 js -->
+<script>
+    (function($) {
+        $(document).ready(function() {
+
+            // Card Shuffle
+            function sortCards() {
+                var cards = $('.account:not(.is-selected)', '.my-wallet-sidebar'),
+                    i = 0;
+
+                $('.is-stationary').removeClass('is-stationary');
+
+                cards.each(function(i) {
+                    var index = i;
+
+                    $(this).css({
+                        'top': (180 / (cards.length-1)) * index + 'px'
+                    });
+
+                    i++;
+
+                    if( cards.length === i || cards.length <= 2 ) {
+                        $(this).addClass('is-stationary');
+                    }
+                });// END each
+            }
+
+            sortCards();
+
+            // Set active account
+            $(document).on('click','.my-wallet-sidebar .account:not(.is-selected)', function() {
+                var card = $(this),
+                    account = $('[data-account="' + $(this).attr('data-account') +'"]'),
+                    selected = $('.is-selected'),
+                    placeholder = $('.transaction-history-placeholder');
+
+                account.addClass('is-selected');
+                placeholder.addClass('is-hidden');
+                selected.removeClass('is-selected');
+                setTimeout( sortCards, 10);
+            });
+
+            // Add Account
+            $('.account-number').mask('9999 9999 9999 9999', {placeholder:'**** **** **** ****'});
+            $.mask.definitions['a']='';
+            $('.account-expiration').mask('Valid Thru: 99/99');
+
+            // Modal
+            $('.add-account').on('click', function() {
+                $('.add-account-modal').addClass('is-visible');
+            });
+
+            function addAccount() {
+                var accountNum = $('input.account-number').val(),
+                    accountExp = $('input.account-expiration').val(),
+                    cardType = $('.account-card-type.is-selected').attr('data-card-type'),
+                    accountsContainer = $('.accounts-container'),
+                    html,
+                    htmlHistory;
+
+                html = '<div class="account" data-account="' + accountNum.substr(15) + '">'
+                    + '<div class="account-card-type ' + cardType + '"></div>'
+                    + '<div class="account-number">**** **** **** ' + accountNum.substr(15) + '</div>'
+                    + '<div class="account-expiration">' + accountExp + '</div>'
+                    + '</div><!-- /.account -->';
+
+                htmlHistory = '<div class="account-details" data-account="' + accountNum.substr(15) + '"><div class="account-balance">Current Balance<div class="value-unit">$0.<sup class="value-subunit">00</sup><!-- /.subunit --></div><!-- /.unit --></div><!-- /.account-balance --><div class="temp-account">Pending New Account</div></div><!-- /.account --></div><!-- /.account-details -->';
+
+                if( accountNum != '' && accountExp != '' ) {
+                    accountsContainer.append(html);
+                    $('.account-details-container').append(htmlHistory);
+                    $('input.account-number, input.account-expiration').val('');
+                    $('.add-account-modal').removeClass('is-visible');
+                } else {
+                    $('.new-account').addClass('has-error');
+                    setTimeout( function() {
+                        $('.new-account').removeClass('has-error');
+                    }, 400);
+                }
+            }
+
+            var addAccountButton = $('.new-account button');
+
+            addAccountButton.on('click', function() {
+                addAccount();
+                sortCards();
+            });
+
+            // Close modal on overlay click
+            $('.add-account-modal .overlay').on('click', function () {
+                $('.add-account-modal').removeClass('is-visible');
+            });
+
+            // Select card type
+            $('.new-account .account-card-type').on('click',function() {
+                $('.account-card-type.is-selected').removeClass('is-selected');
+                $(this).addClass('is-selected');
+            });
+
+        });
+    })(jQuery);
+</script>
+<!-- 카드정렬 js 끝-->
+
+
+<!-- 카드추가 js -->
+<script>
+    /*
+See on github: https://github.com/muhammederdem/credit-card-form
+*/
+
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                currentCardBackground: Math.floor(Math.random() * 25 + 1), // just for fun :D
+                cardName: "",
+                cardNumber: "",
+                cardMonth: "",
+                cardYear: "",
+                cardCvv: "",
+                minCardYear: new Date().getFullYear(),
+                amexCardMask: "#### ###### #####",
+                otherCardMask: "#### #### #### ####",
+                cardNumberTemp: "",
+                isCardFlipped: false,
+                focusElementStyle: null,
+                isInputFocused: false
+            };
+        },
+        mounted() {
+            this.cardNumberTemp = this.otherCardMask;
+            document.getElementById("cardNumber").focus();
+        },
+        computed: {
+            getCardType() {
+                let number = this.cardNumber;
+                let re = new RegExp("^4");
+                if (number.match(re) != null) return "visa";
+
+                re = new RegExp("^(34|37)");
+                if (number.match(re) != null) return "amex";
+
+                re = new RegExp("^5[1-5]");
+                if (number.match(re) != null) return "mastercard";
+
+                re = new RegExp("^6011");
+                if (number.match(re) != null) return "discover";
+
+                re = new RegExp("^9792");
+                if (number.match(re) != null) return "troy";
+
+                return "visa"; // default type
+            },
+            generateCardNumberMask() {
+                return this.getCardType === "amex"
+                    ? this.amexCardMask
+                    : this.otherCardMask;
+            },
+            minCardMonth() {
+                if (this.cardYear === this.minCardYear) return new Date().getMonth() + 1;
+                return 1;
+            }
+        },
+        watch: {
+            cardYear() {
+                if (this.cardMonth < this.minCardMonth) {
+                    this.cardMonth = "";
+                }
+            }
+        },
+        methods: {
+            flipCard(status) {
+                this.isCardFlipped = status;
+            },
+            focusInput(e) {
+                this.isInputFocused = true;
+                let targetRef = e.target.dataset.ref;
+                let target = this.$refs[targetRef];
+                this.focusElementStyle = {
+                    width: `${target.offsetWidth}px`,
+                    height: `${target.offsetHeight}px`,
+                    transform: `translateX(${target.offsetLeft}px) translateY(${target.offsetTop}px)`
+                };
+            },
+            blurInput() {
+                let vm = this;
+                setTimeout(() => {
+                    if (!vm.isInputFocused) {
+                        vm.focusElementStyle = null;
+                    }
+                }, 300);
+                vm.isInputFocused = false;
+            }
+        }
+    });
+
+</script>
+
+<footer th:replace="layout/basic2 :: footer">
+</footer>
+
+</body>
+</html>
