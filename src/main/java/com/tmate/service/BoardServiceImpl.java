@@ -70,6 +70,11 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public boolean eRegister(BoardDTO boardDTO) {
+
+        BoardDTO event = new BoardDTO();
+        event.setKeyword(boardDTO.getKeyword());
+        event.setBd_title(boardDTO.getBd_title());
+        event.setBd_contents(boardDTO.getBd_contents());
         return boardMapper.insertEvent(boardDTO) == 1;
     }
 

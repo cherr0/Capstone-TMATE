@@ -34,24 +34,19 @@
 
                                             <div class="accounts-container">
 
-                                                <div class="account" data-account="6337">
-                                                    <span class="float-right">대표</span>
-                                                    <div class="account-card-type is-visa"></div>
-                                                    <div class="account-number">3244 **** **** 6337</div>
-                                                    <div class="account-expiration">Valid Thru: 01/19</div>
-                                                </div><!-- /.account -->
+                                                <th:block th:each="payment : ${paymentList}">
+                                                    <div class="account mycard" th:data-account="${#strings.substring(payment.credit_no,0,4)}">
+                                                        <input type="hidden" th:value="${payment.customer_uid}">
+                                                        <span class="float-right" th:switch="${payment.pay_rep}">
+                                                            <th:block th:case="0">후보</th:block>
+                                                            <th:block th:case="1">대표</th:block>
+                                                        </span>
+                                                        <div class="account-card-type is-visa"></div>
+                                                        <div class="account-number">**** **** **** ****</div>
+                                                        <div class="account-expiration">Valid Thru: 01/19</div>
+                                                    </div><!-- /.account -->
 
-                                                <div class="account" data-account="2558">
-                                                    <div class="account-card-type is-amex"></div>
-                                                    <div class="account-number">4412 **** **** 2558</div>
-                                                    <div class="account-expiration">Valid Thru: 01/19</div>
-                                                </div><!-- /.account -->
-
-                                                <div class="account" data-account="8253">
-                                                    <div class="account-card-type is-mastercard"></div>
-                                                    <div class="account-number">4437 **** **** 8253</div>
-                                                    <div class="account-expiration">Valid Thru: 01/19</div>
-                                                </div><!-- /.account -->
+                                                </th:block>
 
                                             </div><!-- /.accounts-container -->
 
@@ -60,169 +55,7 @@
                                         <div class="account-details-container">
                                             <div class="transaction-history-placeholder">카드를 선택해주세요</div>
 
-                                            <div class="account-details" data-account="6337">
 
-                                                <div class="account-balance">
-                                                    카드정보
-                                                    <div class="value-unit">
-                                                        <a href=""><span class="card-delete">삭제</span></a><!-- /.subunit -->
-                                                    </div><!-- /.unit -->
-                                                </div><!-- /.account-balance -->
-
-                                                <div class="transaction-history">
-
-                                                    <div class="card-detail">
-                                                        <img src="/images/kakao.png">
-                                                        <div>
-                                                            ****6337
-                                                        </div>
-                                                    </div><!-- /.transaction -->
-
-                                                    <div class="card-Expiration">
-                                                        <div class="transaction-merchant">
-                                                            만료일
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            01/2019
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="card-Expiration">
-                                                        <div class="transaction-merchant">
-                                                            청구 주소
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            대구 달서구 용산동
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            416-5
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            42618
-                                                        </div>
-                                                    </div><!-- /.transaction -->
-
-                                                    <div class="card-detail">
-                                                        <div class="transaction-date">
-                                                            선호하는 결제수단
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            <a href="">선호하는 수단으로 설정</a>
-                                                        </div>
-                                                    </div>
-                                                </div><!-- /.transaction-history -->
-
-                                            </div><!-- /.account-details -->
-
-                                            <div class="account-details" data-account="2558">
-
-                                                <div class="account-balance">
-                                                    카드정보
-                                                    <div class="value-unit">
-                                                        <a href=""><span class="card-delete">삭제</span></a><!-- /.subunit -->
-                                                    </div><!-- /.unit -->
-                                                </div><!-- /.account-balance -->
-
-                                                <div class="transaction-history">
-
-                                                    <div class="card-detail">
-                                                        <img src="/images/kakao.png">
-                                                        <div>
-                                                            ****6337
-                                                        </div>
-                                                    </div><!-- /.transaction -->
-
-                                                    <div class="card-Expiration">
-                                                        <div class="transaction-merchant">
-                                                            만료일
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            01/2019
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="card-Expiration">
-                                                        <div class="transaction-merchant">
-                                                            청구 주소
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            대구 달서구 용산동
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            416-5
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            42618
-                                                        </div>
-                                                    </div><!-- /.transaction -->
-
-                                                    <div class="card-detail">
-                                                        <div class="transaction-date">
-                                                            선호하는 결제수단
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            <a href="">선호하는 수단으로 설정</a>
-                                                        </div>
-                                                    </div>
-
-                                                </div><!-- /.transaction-history -->
-
-                                            </div><!-- /.account-details -->
-
-                                            <div class="account-details" data-account="8253">
-
-                                                <div class="account-balance">
-                                                    카드정보
-                                                    <div class="value-unit">
-                                                        <a href=""><span class="card-delete">삭제</span></a><!-- /.subunit -->
-                                                    </div><!-- /.unit -->
-                                                </div><!-- /.account-balance -->
-
-                                                <div class="transaction-history">
-
-                                                    <div class="card-detail">
-                                                        <img src="/images/kakao.png">
-                                                        <div>
-                                                            ****6337
-                                                        </div>
-                                                    </div><!-- /.transaction -->
-
-                                                    <div class="card-Expiration">
-                                                        <div class="transaction-merchant">
-                                                            만료일
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            01/2019
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="card-Expiration">
-                                                        <div class="transaction-merchant">
-                                                            청구 주소
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            대구 달서구 용산동
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            416-5
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            42618
-                                                        </div>
-                                                    </div><!-- /.transaction -->
-
-                                                    <div class="card-detail">
-                                                        <div class="transaction-date">
-                                                            선호하는 결제수단
-                                                        </div>
-                                                        <div class="transaction-date">
-                                                            <a href="">선호하는 수단으로 설정</a>
-                                                        </div>
-                                                    </div>
-
-                                                </div><!-- /.transaction-history -->
-
-                                            </div><!-- /.account-details -->
 
                                         </div><!-- /.my-wallet__account-details -->
 
@@ -372,6 +205,79 @@
         </section>
     </div>
 </div>
+
+<!-- 카드 정보 불러오는 js -->
+<script th:inline="javascript" type="text/javascript">
+    $(document).ready(function () {
+
+
+
+        $(".mycard").on("click",function (e){
+
+            console.log(e.currentTarget.childNodes[1].value);
+            console.log(typeof e);
+            console.log(typeof e.currentTarget.childNodes);
+
+            let customer_uid = e.currentTarget.childNodes[1].value;
+            console.log(customer_uid);
+
+            let cardUL = $(".account-details-container");
+            let str;
+            $.ajax({
+                method:'POST',
+                url:'/api/tuser/mycard',
+                data:customer_uid,
+                success:function (result) {
+                    console.log(result);
+                    str += "<input class='uid' type='hidden'>";
+                    str += "<div class='.account-details'>";
+                    str += "<div class='account-balance'>카드정보";
+                    str += "<div class='value-unit'><button class='btn btn-info card-delete'>삭제</button>";
+                    str += "</div></div>";
+                    str += "<div class='transaction-history'>";
+                    str += "<div class='card-detail'><img src='/images/kakao.png'><div>********</div></div>";
+                    str += "<div class='card-Expiration'><div class='transaction-merchant'>만료일</div>";
+                    str += "<div class='transaction-date'>"+result.credit_vali+"</div></div>";
+                    str += "<div class='card-Expiration'><div class='transaction-merchant'>청구주소</div>";
+                    str += "<div class='transaction-date'>대구 달서구 용산동</div>";
+                    str += "<div class='transaction-date'>416-5</div>";
+                    str += "<div class='transaction-date'>42618</div></div>";
+                    str += "<div class='card-detail'><div class='transaction-date'>선호하는 결제수단</div>";
+                    str += "<div class='transaction-date'><a href=''>선호하는 수단으로 설정</a></div>";
+                    str += "</div></div></div>";
+                    cardUL.html(str);
+                    $('.uid').val(result.customer_uid);
+
+                    $(".card-delete").on("click",function () {
+                        let customer_uid = $('.uid').val();
+                        console.log('삭제될까?');
+                        $.ajax({
+                            url:'/api/tuser/remove/'+customer_uid,
+                            method:'DELETE',
+                            success: function () {
+
+                                alert("삭제완료");
+                                window.location.href="/tuser/payment?m_id="+[[${session.member.m_id}]];
+
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        })
+                    })
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+
+            })
+        });
+
+
+
+    })
+</script>
 <!-- 카드정렬 js -->
 <script>
     (function($) {

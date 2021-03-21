@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -40,6 +42,9 @@ public class BoardDTO {
 
     // 이벤트 종료 일자
     private Timestamp bd_e_date;
+
+    // 이벤트 이미지들
+    private List<BoardImageDTO> boardImageDTOList = new ArrayList<>();
 
 
     // 연관관계

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.PaymentMapper">
+
+    <select id="getPaymentList" resultType="com.tmate.domain.PaymentDTO">
+        select * from payment where m_id = #{m_id}
+    </select>
+
+    <select id="getPaymentByCustomer" resultType="com.tmate.domain.PaymentDTO">
+        select * from payment where customer_uid = #{customer_uid}
+    </select>
+
+    <insert id="insert">
+        insert into payment (customer_uid, m_id, pay_pg, pay_rep, pay_company, credit_no, credit_pw, credit_cvc, credit_vali)
+        values(#{customer_uid},#{m_id},'pg','0',#{pay_company},#{credit_no},#{credit_pw},#{credit_pw},#{credit_cvc},#{credit_vali})
+    </insert>
+
+    <delete id="delete">
+        delete from payment where customer_uid = #{customer_uid}
+    </delete>
+
+</mapper>
