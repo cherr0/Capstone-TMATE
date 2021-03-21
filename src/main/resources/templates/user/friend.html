@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic2 :: mobile"></aside>
+    <aside th:replace="layout/basic2 :: sidebar"></aside>
+
+    <div class="page-container">
+        <div th:replace="layout/basic2 :: header"></div>
+        <section class="container-fluid contents_size">
+            <link th:href="@{/css/friend.css}" rel="stylesheet">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 style="margin-top: auto">지인알림</h2>
+                    </div>
+                    <div class="card-body">
+                        <!-- 지인요청 -->
+                        <div class="container">
+                            <div id="main" class="card card-body">
+                                <h2 class="title">지인 추가요청</h2>
+                                <form id="addForm" class="form-inline mb-3">
+                                    <input type="text" class="form-control mr-2" id="item">
+                                    <input type="submit" class="btn btn-primary" value="추가하기">
+                                </form>
+                                <h2 class="title">요청한 회원</h2>
+                                <ul id="items" class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-info btn-sm float-right delete friend-btn">요청 취소</button>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-info btn-sm float-right delete friend-btn">요청 취소</button>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-info btn-sm float-right delete friend-btn">요청 취소</button>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-info btn-sm float-right delete friend-btn">요청 취소</button>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> <!-- 지인요청 끝 -->
+
+                        <!-- 받은 요청 -->
+                        <div class="container">
+                            <div class="card card-body">
+                                <h2 class="title">요청받은 회원</h2>
+                                <ul id="items1" class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-info btn-sm float-right delete friend-btn">거절</button>
+                                            <button class="btn btn-primary btn-sm float-right friend-btn">수락</button>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-info btn-sm float-right delete friend-btn">거절</button>
+                                            <button class="btn btn-primary btn-sm float-right friend-btn">수락</button>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-info btn-sm float-right delete friend-btn">거절</button>
+                                            <button class="btn btn-primary btn-sm float-right friend-btn">수락</button>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-info btn-sm float-right delete friend-btn">거절</button>
+                                            <button class="btn btn-primary btn-sm float-right friend-btn">수락</button>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> <!-- 받은 요청 끝 -->
+
+                        <!-- 추가된 지인 -->
+                        <div class="container">
+                            <div  class="card card-body">
+                                <h2 class="title">추가된 지인</h2>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-default btn-sm float-right friend-btn">확인</button>
+                                            <select class="friend-select float-right">
+                                                <option value="알림받기">알림받기</option>
+                                                <option value="알림거절">알림거절</option>
+                                            </select>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-default btn-sm float-right friend-btn">확인</button>
+                                            <select class="friend-select float-right">
+                                                <option value="알림받기">알림받기</option>
+                                                <option value="알림거절">알림거절</option>
+                                            </select>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-default btn-sm float-right friend-btn">확인</button>
+                                            <select class="friend-select float-right">
+                                                <option value="알림받기">알림받기</option>
+                                                <option value="알림거절">알림거절</option>
+                                            </select>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <div class="friend-request">
+                                            <span>강병현</span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>
+                                            <button class="btn btn-default btn-sm float-right friend-btn">확인</button>
+                                            <select class="friend-select float-right">
+                                                <option value="알림받기">알림받기</option>
+                                                <option value="알림거절">알림거절</option>
+                                            </select>
+                                            <div>010-6248-0673</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> <!-- 추가된 지인 끝 -->
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- 추가 삭제 js -->
+<script>
+    var form = document.getElementById('addForm');
+    var itemList = document.getElementById('items');
+    var filter = document.getElementById('filter');
+
+    // Form submit event
+    form.addEventListener('submit', addItem);
+    // Delete event
+    itemList.addEventListener('click', removeItem);
+    // Filter event
+    filter.addEventListener('keyup', filterItems);
+
+    // Add item
+    function addItem(e){
+        e.preventDefault();
+
+        // Get input value
+        var newItem = document.getElementById('item').value;
+
+        // Create new li element
+        var li = document.createElement('li');
+        // Add class
+        li.className = 'list-group-item';
+        // Add text node with input value
+        li.appendChild(document.createTextNode(newItem));
+
+        // Create del button element
+        var deleteBtn = document.createElement('button');
+
+        // Add classes to del button
+        deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+        // Append text node
+        deleteBtn.appendChild(document.createTextNode('X'));
+
+        // Append button to li
+        li.appendChild(deleteBtn);
+
+        // Append li to list
+        itemList.appendChild(li);
+    }
+
+    // Remove item
+    function removeItem(e){
+        if(e.target.classList.contains('delete')){
+            if(confirm('정말 요청을 취소하시겠습니까?')){
+                var li = e.target.parentElement;
+                itemList.removeChild(li);
+            }
+        }
+    }
+
+    // Filter Items
+    function filterItems(e){
+        // convert text to lowercase
+        var text = e.target.value.toLowerCase();
+        // Get lis
+        var items = itemList.getElementsByTagName('li');
+        // Convert to an array
+        Array.from(items).forEach(function(item){
+            var itemName = item.firstChild.textContent;
+            if(itemName.toLowerCase().indexOf(text) != -1){
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+
+<script>
+    var form = document.getElementById('addForm');
+    var itemList = document.getElementById('items1');
+    var filter = document.getElementById('filter');
+
+    // Form submit event
+    form.addEventListener('submit', addItem);
+    // Delete event
+    itemList.addEventListener('click', removeItem);
+    // Filter event
+    filter.addEventListener('keyup', filterItems);
+
+    // Remove item
+    function removeItem(e){
+        if(e.target.classList.contains('delete')){
+            if(confirm('정말 요청을 거절하시겠습니까?')){
+                var li = e.target.parentElement;
+                itemList.removeChild(li);
+            }
+        }
+    }
+
+    // Filter Items
+    function filterItems(e){
+        // convert text to lowercase
+        var text = e.target.value.toLowerCase();
+        // Get lis
+        var items = itemList.getElementsByTagName('li');
+        // Convert to an array
+        Array.from(items).forEach(function(item){
+            var itemName = item.firstChild.textContent;
+            if(itemName.toLowerCase().indexOf(text) != -1){
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+<footer th:replace="layout/basic2 :: footer">
+</footer>
+
+</body>
+</html>
