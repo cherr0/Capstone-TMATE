@@ -1,6 +1,7 @@
 package com.tmate.web;
 
 import com.tmate.domain.*;
+import com.tmate.domain.user.ApprovalDTO;
 import com.tmate.service.BoardService;
 import com.tmate.service.MemberService;
 import com.tmate.service.UserService;
@@ -125,5 +126,16 @@ public class UserController {
         List<PaymentDTO> paymentList = userService.getPaymentList(m_id);
         model.addAttribute("paymentList", paymentList);
         return "user/userCard";
+    }
+
+    @GetMapping("/friend")
+    public String friendByUser(String m_id, Model model) {
+
+        List<NotificationDTO> myNotifiList = userService.getMyNotifiList(m_id);
+        List<ApprovalDTO> myApproValList = userService.getMyApproValList(m_id);
+
+        model.addAttribute("myNotifi", myNotifiList);
+        model.addAttribute("myAppro", myApproValList);
+        return "user/friend";
     }
 }

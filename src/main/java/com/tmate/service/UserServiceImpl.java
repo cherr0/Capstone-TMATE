@@ -1,6 +1,7 @@
 package com.tmate.service;
 
 import com.tmate.domain.*;
+import com.tmate.domain.user.ApprovalDTO;
 import com.tmate.mapper.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserService {
     private final JoinMapper joinMapper;
     private final StaticsMapper staticsMapper;
     private final PaymentMapper paymentMapper;
+    private final FriendMapper friendMapper;
 
     @Override
     public MemberDTO getMainPage(String m_id) {
@@ -113,6 +115,47 @@ public class UserServiceImpl implements UserService {
         return userMainMapper.getNotifiByM_id(m_id);
     }
 
+    @Override
+    public List<NotificationDTO> getMyNotifiList(String m_id) {
+        return friendMapper.findListMyFriends(m_id);
+    }
+
+    // 검색 조회
+    @Override
+    public List<MemberDTO> getSearchList(String phone) {
+        return friendMapper.findByPhone(phone);
+    }
+
+    // 승인 요청 클릭시
+    @Override
+    public void registerApproval(ApprovalDTO approvalDTO) {
+        friendMapper.insertMyApproval(approvalDTO);
+    }
+
+    // 나에게 승인 요청한 회원들
+    @Override
+    public List<ApprovalDTO> getMyApproValList(String m_id) {
+        return friendMapper.findListMyApproval(m_id);
+    }
+
+    // 승인 거절시
+    @Override
+    public void removeApproval(String id, String m_id) {
+        friendMapper.deleteApproval(id,m_id);
+    }
+
+    // 승인 버튼 눌렀을 시 알림전송에 들어가게 된다.
+    @Override
+    public void registerNotifi(NotificationDTO notificationDTO) {
+        friendMapper.insertNotifi(notificationDTO);
+    }
+
+    // 지인요청 활성화 비활성화 상태 업데이트
+
+    @Override
+    public void modifyN_whether(NotificationDTO notificationDTO) {
+        friendMapper.updateFlag(notificationDTO);
+    }
 
     @Override
     public List<ChartDTO> monthlyUsePoint(String m_id) {
@@ -143,4 +186,6 @@ public class UserServiceImpl implements UserService {
     public List<ChartDTO> monthlyUseCash(String m_id) {
         return staticsMapper.getCountUseCash(m_id);
     }
+
+
 }
