@@ -1,6 +1,7 @@
 package com.tmate.service;
 
 import com.tmate.domain.*;
+import com.tmate.domain.user.ApprovalDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -78,4 +79,27 @@ public interface UserService {
 
     // 월간 결제 이력 - 현금
     public List<ChartDTO> monthlyUseCash(String m_id);
+
+
+    // 지인 알림 관련
+    // 1. 나의 지인 리스트
+    public List<NotificationDTO> getMyNotifiList(String m_id);
+
+    // 2. 회원 검색 리스트 - by 폰번호
+    public List<MemberDTO> getSearchList(String phone);
+
+    // 3. 승인요청 인서트
+    public void registerApproval(ApprovalDTO approvalDTO);
+
+    // 4. 나에게 승인 요청한 회원들
+    public List<ApprovalDTO> getMyApproValList(String m_id);
+
+    // 5. 거절 버튼 누를때 서비스
+    public void removeApproval(String id, String m_id);
+
+    //6 . 승인 시 알림전송 인서트
+    public void registerNotifi(NotificationDTO notificationDTO);
+
+    // 7. 활성화 비활성화 상태 업데이트
+    public void modifyN_whether(NotificationDTO notificationDTO);
 }

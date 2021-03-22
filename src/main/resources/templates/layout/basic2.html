@@ -151,7 +151,10 @@
                                 <a  th:href="@{/tuser/profiled(m_id=${session.member.m_id})}"><span class="menu-color">개인정보 및 수정</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/payment(m_id=${session.member.m_id})}"><span class="menu-color">지인알림 & 카드 관리</span></a>
+                                <a th:href="@{/tuser/payment(m_id=${session.member.m_id})}"><span class="menu-color">카드 관리</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/tuser/friend(m_id=${session.member.m_id})}"><span class="menu-color">지인알림 관리</span></a>
                             </li>
                         </ul>
                     </li>
