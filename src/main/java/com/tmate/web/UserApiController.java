@@ -37,6 +37,15 @@ public class UserApiController {
         return new ResponseEntity<>(payment, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/registercard",
+            produces =
+                    {MediaType.APPLICATION_JSON_VALUE,
+                            MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Boolean> registerCard(@RequestBody PaymentDTO paymentDTO) {
+        log.info("등록할려는 카드 정보 : " + paymentDTO);
+        return new ResponseEntity<>(userService.registerPayment(paymentDTO), HttpStatus.OK);
+    }
+
     @DeleteMapping("/remove/{customer_uid}")
     public ResponseEntity<Boolean> removeCard(@PathVariable("customer_uid") String customer_uid) {
         log.info("삭제시 넘어오는 빌링키 : " + customer_uid);

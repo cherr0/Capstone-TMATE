@@ -151,7 +151,6 @@ public class UserServiceImpl implements UserService {
     }
 
     // 지인요청 활성화 비활성화 상태 업데이트
-
     @Override
     public void modifyN_whether(NotificationDTO notificationDTO) {
         friendMapper.updateFlag(notificationDTO);
