@@ -180,43 +180,9 @@
     </div>
   </div>
 
-<!-- 로그인 모달 -->
-<div class="modal fade" id="myModal" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <!-- Modal content-->
-    <div class="modal-content"  id="login-form">
-      <div class="index-modal-header">
-        <div class="heading">Login to <span class="login-T">T</span> <span class="login-MATE">MATE</span></div>
-      </div>
-      <div class="modal-body">
-          <div class="left">
-            <div class="connect">QR 로그인</div>
-            <div>
-              <img src="images/qrcode.png" class="qr-code">
-              <div class="connect">아직 아이디가 없으신가요?</div>
-            </div>
-          </div>
-          <div class="right">
-            <div class="connect">소셜 로그인</div>
-            <a href="" class="facebook" >
-              <!--       <span class="fontawesome-facebook"></span> -->
-              <img src="images/kakao.png" alt="test" class="naver-image">
-            </a> <br />
-
-            <a href="" class="twitter">
-              <!--       <span class="fontawesome-twitter"></span> -->
-              <img src="images/naver.png" alt="test" class="naver-image">
-            </a> <br />
-            <a href="" class="google-plus">
-              <!--       <span class="fontawesome-google-plus"></span> -->
-              <i class="fab fa-google-plus" aria-hidden="true"></i>
-            </a>
-          </div>
-    </div>
-
-  </div>
-  </div>
-</div>
+  <!-- 로그인 모달 -->
+  <th:block th:replace="~{loginForm :: loginModal}">
+  </th:block>
 
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
