@@ -14942,18 +14942,19 @@ input[type="checkbox"]:checked.toggle:after {
 }
 
 .event-thumbnail{
-    width: 285px;
-    height: 370px;
-    margin: 0px auto;
+    width: 18em;
     border: solid 1px #000000;
+
+}
+.event-thumbnail-box{
+    margin: 0 auto;
+    padding-bottom: 3em;
 }
 
 .thumbnail img {
-    width: 285px;
-    height: 200px;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
 }
-.caption h3 {
+.caption h4 {
     margin-bottom: 1em;
 }
 .caption .event-btn {

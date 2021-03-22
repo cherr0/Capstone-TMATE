@@ -32,11 +32,11 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <th:block th:each="e : ${event}">
-                                            <div class="col-sm-6 col-md-4">
+                                            <div class="event-thumbnail-box">
                                                 <div class="thumbnail event-thumbnail">
                                                     <img src="/images/kakao.png" alt="...">
                                                     <div class="caption">
-                                                        <h3 class="text-center" th:text="${e.bd_title}">반올림 이벤트</h3>
+                                                        <h4 class="text-center" th:text="${e.bd_title}">반올림 이벤트</h4>
                                                         <p><a th:href="@{'/tuser/event/'+${e.bd_id}}" class="btn btn-primary event-btn" role="button">이벤트 조회</a>
                                                     </div>
                                                     <div class="event-date">
