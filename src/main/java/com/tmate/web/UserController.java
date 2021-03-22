@@ -148,4 +148,10 @@ public class UserController {
         model.addAttribute("myAppro", myApproValList);
         return "user/friend";
     }
+
+    // 사용자 핫플레이스 검색
+    @GetMapping("/place")
+    public String placeByUser() {
+        return "user/place";
+    }
 }
