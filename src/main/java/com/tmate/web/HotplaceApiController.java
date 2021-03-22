@@ -35,6 +35,7 @@ public class HotplaceApiController {
         return placeService.remove(p_id);
     }
 
+    // 핫플레이스 리스트 조회
     @GetMapping(value = "/placelist",
             produces =
                     {MediaType.APPLICATION_JSON_VALUE,
@@ -43,4 +44,5 @@ public class HotplaceApiController {
         log.info("핫플레이스 리스트 보내는 중");
         return new ResponseEntity<>(placeService.getHotPlaceList(),HttpStatus.OK) ;
     }
+
 }

@@ -25,6 +25,7 @@ public class UserController {
 
     private final BoardService boardService;
 
+    // 메인화면
     @GetMapping("/main")
     public String userMain(String m_id, Model model) {
         log.info("넘어오는 회원번호 : " + m_id);
@@ -37,6 +38,7 @@ public class UserController {
         return "/user/main";
     }
 
+    // 사용자 포인트 디테일 확인
     @GetMapping("/pointd")
     public String userPointD(String m_id, Criteria cri, Model model) {
         List<JoinPointVO> pointList = userService.getMyPointList(cri, m_id);
@@ -47,6 +49,7 @@ public class UserController {
         return "/user/pointDetail";
     }
 
+    // 사용자 사용내역 확인
     @GetMapping("/paymentd")
     public String userPaymentD(String m_id, Criteria cri, Model model) {
         List<JoinReceiptVO> receiptList = userService.getMyReceiptList(cri, m_id);
@@ -57,6 +60,7 @@ public class UserController {
         return "/user/paymentDetail";
     }
 
+    // 사용자 이용기록 확인
     @GetMapping("/historyd")
     public String userHistoryD(Criteria cri, String m_id, Model model) {
         List<JoinHistoryVO> historyList = userService.getMyHistoryList(cri, m_id);
@@ -68,6 +72,7 @@ public class UserController {
         return "/user/historyDetail";
     }
 
+    // 사용자 프로필 수정
     @GetMapping("/profiled")
     public String userProfiled(String m_id, Model model) {
         MemberDTO member = userService.getMainPage(m_id);
@@ -75,6 +80,7 @@ public class UserController {
         return "/user/profileModify";
     }
 
+    // 사용자 공지사항 확인
     @GetMapping("/notice")
     public String userNoticeList(Criteria cri, Model model) {
         log.info("사용자 페이지 공지사항");
@@ -89,6 +95,7 @@ public class UserController {
         return "/user/noticeList";
     }
 
+    // 사용자 공지사항 세부 내용 확인
     @GetMapping("/notice/{bd_id}")
     public String userNotice(@PathVariable("bd_id") String bd_id, Model model) {
         log.info("넘어오는 글번호 : " + bd_id);
@@ -98,7 +105,7 @@ public class UserController {
         return "/user/noticeDetail";
     }
 
-
+    // 사용자 이벤트 리스트 확인
     @GetMapping("/event")
     public String userEventList(Criteria cri, Model model) {
         log.info("이벤트 리스트 - 사용자 컨트롤러");
@@ -110,6 +117,7 @@ public class UserController {
         return "/user/eventList";
     }
 
+    // 사용자 이벤트 세부내용 확인
     @GetMapping("/event/{bd_id}")
     public String userEvent(@PathVariable("bd_id") String bd_id, Model model) {
         log.info("넘어오는 글번호 : " + bd_id);
@@ -121,6 +129,7 @@ public class UserController {
         return "/user/eventDetail";
     }
 
+    // 사용자 결제정보 확인
     @GetMapping("/payment")
     public String paymentByUser(String m_id, Model model) {
         List<PaymentDTO> paymentList = userService.getPaymentList(m_id);
@@ -128,6 +137,7 @@ public class UserController {
         return "user/userCard";
     }
 
+    // 사용자 지인 확인
     @GetMapping("/friend")
     public String friendByUser(String m_id, Model model) {
 
@@ -137,5 +147,11 @@ public class UserController {
         model.addAttribute("myNotifi", myNotifiList);
         model.addAttribute("myAppro", myApproValList);
         return "user/friend";
+    }
+
+    // 사용자 핫플레이스 검색
+    @GetMapping("/place")
+    public String placeByUser() {
+        return "user/place";
     }
 }
