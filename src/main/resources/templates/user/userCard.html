@@ -41,7 +41,17 @@
                                                             <th:block th:case="0">후보</th:block>
                                                             <th:block th:case="1">대표</th:block>
                                                         </span>
-                                                        <div class="account-card-type is-visa"></div>
+                                                        <div class="account-card-type" th:switch="${payment.pay_company}">
+                                                            <img th:case="신한" src="/images/card_logo/shinhan.png">
+                                                            <img th:case="농협" src="/images/card_logo/농협은행.png">
+                                                            <img th:case="국민" src="/images/card_logo/자산 1.png">
+                                                            <img th:case="현대" src="/images/card_logo/Hyundai.png">
+                                                            <img th:case="삼성" src="/images/card_logo/삼성카드.png">
+                                                            <img th:case="롯데" src="/images/card_logo/롯데카드.png">
+                                                            <img th:case="하나" src="/images/card_logo/하나은행.png">
+                                                            <img th:case="우리" src="/images/card_logo/우리.png">
+                                                            <img th:case="기업" src="/images/card_logo/ibk.png">
+                                                        </div>
                                                         <div class="account-number">**** **** **** ****</div>
                                                         <div class="account-expiration">Valid Thru: 01/19</div>
                                                     </div><!-- /.account -->
@@ -55,8 +65,6 @@
                                         <div class="account-details-container">
                                             <div class="transaction-history-placeholder">카드를 선택해주세요</div>
 
-
-
                                         </div><!-- /.my-wallet__account-details -->
 
                                     </div><!-- /.my-wallet -->
@@ -67,7 +75,7 @@
                                         <!-- Modal content-->
                                         <div class="modal-content">
                                             <div class="index-modal-header">
-                                                <h1 class="heading">카드추가</h1>
+                                                <h1 class="heading text-center">카드추가</h1>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="wrapper" id="app">
@@ -155,9 +163,24 @@
                                                             </div>
                                                         </div>
                                                         <div class="card-form__inner">
+
                                                             <div class="card-input">
+                                                                카드사: <select class="payCompany">
+                                                                <option value="우리">우리</option>
+                                                                <option value="신한">신한</option>
+                                                                <option value="국민">국민</option>
+                                                                <option value="현대">현대</option>
+                                                                <option value="삼성">삼성</option>
+                                                                <option value="롯데">롯데</option>
+                                                                <option value="농협">농협</option>
+                                                                <option value="하나">하나</option>
+                                                                <option value="기업">기업</option>
+                                                            </select>
                                                                 <label for="cardNumber" class="card-input__label">카드번호</label>
                                                                 <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off">
+
+                                                                <label  class="card-input__label">비밀번호</label>
+                                                                <input type="password" id="cardPw" class="card-input__input"   v-on:focus="focusInput" v-on:blur="blurInput" autocomplete="off">
                                                             </div>
                                                             <div class="card-form__row">
                                                                 <div class="card-form__col">
@@ -185,7 +208,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            <button class="card-form__button">
+                                                            <button class="card-form__button submitBtn">
                                                                 Submit
                                                             </button>
                                                         </div>
@@ -209,6 +232,42 @@
 <!-- 카드 정보 불러오는 js -->
 <script th:inline="javascript" type="text/javascript">
     $(document).ready(function () {
+
+
+        $('.submitBtn').on("click", function () {
+            let m_id = [[${session.member.m_id}]];
+            let pay_company = $('.payCompany').val();
+            let credit_no = $('#cardNumber').val().replace(/ /g,"");
+            let credit_pw = $('#cardPw').val();
+            let credit_cvc = $('#cardCvv').val();
+            let credit_vali = $('#cardMonth').val()+"/"+$('#cardYear').val().substr(2,2);
+
+            const data = {
+                m_id:m_id,
+                pay_company:pay_company,
+                credit_no:credit_no,
+                credit_pw:credit_pw,
+                credit_cvc:credit_cvc,
+                credit_vali:credit_vali
+            };
+
+            $.ajax({
+                url:'/api/tuser/registercard',
+                type:'POST',
+                data:JSON.stringify(data),
+                contentType:'application/json; charset=utf-8',
+                success: function () {
+                    alert("카드 등록");
+                    window.location.href="/tuser/payment?m_id="+[[${session.member.m_id}]];
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            })
+
+            console.log(data);
+
+        });
 
 
 
@@ -235,7 +294,37 @@
                     str += "<div class='value-unit'><button class='btn btn-info card-delete'>삭제</button>";
                     str += "</div></div>";
                     str += "<div class='transaction-history'>";
-                    str += "<div class='card-detail'><img src='/images/kakao.png'><div>********</div></div>";
+                    str += "<div class='card-detail'>";
+                    switch (result.pay_company) {
+                        case "신한":
+                            str += "<img src='/images/card_image/신한카드1.png'>";
+                            break;
+                        case "우리":
+                            str += "<img src='/images/card_image/우리카드2.png'>";
+                            break;
+                        case "국민":
+                            str += "<img src='/images/card_image/국민카드1.png'>";
+                            break;
+                        case "현대":
+                            str += "<img src='/images/card_image/현대카드2.png'>";
+                            break;
+                        case "삼성":
+                            str += "<img src='/images/card_image/삼성카드1.png'>";
+                            break;
+                        case "롯데":
+                            str += "<img src='/images/card_image/롯데카드.png'>";
+                            break;
+                        case "농협":
+                            str += "<img src='/images/card_image/농협카드1.png'>";
+                            break;
+                        case "하나":
+                            str += "<img src='/images/card_image/keb카드1.png'>";
+                            break;
+                        case "기업":
+                            str += "<img src='/images/card_image/기업은행카드2.png'>";
+                            break;
+                    }
+                    str += "<div>********</div></div>";
                     str += "<div class='card-Expiration'><div class='transaction-merchant'>만료일</div>";
                     str += "<div class='transaction-date'>"+result.credit_vali+"</div></div>";
                     str += "<div class='card-Expiration'><div class='transaction-merchant'>청구주소</div>";

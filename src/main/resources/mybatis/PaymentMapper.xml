@@ -12,7 +12,7 @@
 
     <insert id="insert">
         insert into payment (customer_uid, m_id, pay_pg, pay_rep, pay_company, credit_no, credit_pw, credit_cvc, credit_vali)
-        values(#{customer_uid},#{m_id},'pg','0',#{pay_company},#{credit_no},#{credit_pw},#{credit_pw},#{credit_cvc},#{credit_vali})
+        values(to_char(systimestamp,'yyMMddhh24missff')||pa_sec.nextval,#{m_id},'pg','0',#{pay_company},#{credit_no},#{credit_pw},#{credit_cvc},#{credit_vali})
     </insert>
 
     <delete id="delete">
