@@ -126,7 +126,7 @@ div.right a {
     -webkit-border-radius: 0.3em;
     border-radius: 0.3em;
 }
-div.right a.facebook {
+div.right a.kakao {
     background: #fff200;
     margin-top: 0.8em;
     -moz-transition: all 0.15s ease-in-out;
@@ -134,27 +134,29 @@ div.right a.facebook {
     -webkit-transition: all 0.15s ease-in-out;
     transition: all 0.15s ease-in-out;
 }
-div.right a.facebook:hover {
+div.right a.kakao:hover {
     background: #fff200;
+    opacity: 70%;
 }
-div.right a.twitter {
+div.right a.naver {
     background: #09c120;
     -moz-transition: all 0.15s ease-in-out;
     -o-transition: all 0.15s ease-in-out;
     -webkit-transition: all 0.15s ease-in-out;
     transition: all 0.15s ease-in-out;
 }
-div.right a.twitter:hover {
+div.right a.naver:hover {
     background: #09c120;
+    opacity: 70%;
 }
-div.right a.google-plus {
+div.right a.google {
     background: #e9544f;
     -moz-transition: all 0.15s ease-in-out;
     -o-transition: all 0.15s ease-in-out;
     -webkit-transition: all 0.15s ease-in-out;
     transition: all 0.15s ease-in-out;
 }
-div.right a.google-plus:hover {
+div.right a.google:hover {
     background: rgba(233, 84, 79, 0.8);
 }
 
