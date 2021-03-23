@@ -59,7 +59,19 @@
     </select>
 
     <select id="read" resultType="com.tmate.domain.BoardDTO">
-        select * from board where bd_id = #{bd_id}
+        select *
+        from (
+                 select bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_mod_date, bd_count, m_id,
+                        LEAD(bd_title,1,'다음글') OVER(ORDER BY bd_id) next_title,
+                        LEAD(bd_id,1,'다음 글이 없습니다') OVER(ORDER BY bd_id) next_id,
+                        LEAD(bd_cre_date,1) OVER(ORDER BY bd_id) next_cre_date,
+                        LAG(bd_title,1,'이전글') OVER(ORDER BY bd_id) prev_title,
+                        LAG(bd_id,1,'이전 글이 없습니다') OVER(ORDER BY bd_id) prev_id,
+                        LAG(bd_cre_date,1) OVER(ORDER BY bd_id) prev_cre_date
+                 from board
+                 order by bd_id
+             )
+        where bd_id = #{bd_id}
     </select>
 
     <select id="totalCount" resultType="_int">
