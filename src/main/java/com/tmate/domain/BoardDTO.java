@@ -46,10 +46,24 @@ public class BoardDTO {
     // 이벤트 이미지들
     private List<BoardImageDTO> boardImageDTOList = new ArrayList<>();
 
+    // 다음 글 코드
+    private String next_id;
 
-    // 연관관계
-    // 회원 코드 아마 관리자
+    // 다음 글 타이틀
+    private String next_title;
+
+    // 다음 글 작성 시간
+    private Timestamp next_cre_date;
+
+    // 이전 글 코드
+    private String prev_id;
+
+    // 이전 글 타이틀
+    private String prev_title;
+
+    // 이전 글 작성 시간
+    private Timestamp prev_cre_date;
+
+    // 작성자 회원 코드
     private String m_id;
-
-
 }
