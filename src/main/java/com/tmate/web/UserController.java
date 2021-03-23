@@ -94,7 +94,7 @@ public class UserController {
         log.info("넘어오는 글번호 : " + bd_id);
         BoardDTO boardDTO = boardService.getN(bd_id);
 
-        model.addAttribute("board", boardDTO);
+        model.addAttribute("notice", boardDTO);
         return "/user/noticeDetail";
     }
 
