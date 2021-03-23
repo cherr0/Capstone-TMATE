@@ -104,13 +104,13 @@
 
     <insert id="insert">
         insert into board (bd_id, bd_status, bd_contents, bd_title, m_id)
-        values('nt'||nt_sec.nextval,#{bd_status},#{bd_contents},#{bd_title},#{m_id})
+        values('nt'||LPAD(nt_sec.nextval,6,'0'),#{bd_status},#{bd_contents},#{bd_title},#{m_id})
     </insert>
 
     <insert id="insertEvent">
 
         <selectKey keyProperty="bd_id" order="BEFORE" resultType="string">
-            select #{keyword}||ev_sec.nextval from dual
+            select #{keyword}||LPAD(nt_sec.nextval,6,'0') from dual
         </selectKey>
 
         insert into board (bd_id, bd_status, bd_contents, bd_title, bd_s_date,bd_e_date,m_id)
