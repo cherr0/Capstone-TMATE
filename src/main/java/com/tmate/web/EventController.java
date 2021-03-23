@@ -2,7 +2,6 @@ package com.tmate.web;
 
 import com.tmate.domain.*;
 import com.tmate.service.BoardService;
-import com.tmate.service.EventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import java.util.List;
 @Controller
 public class EventController {
 
-    private final EventService eventService;
     private final BoardService boardService;
 
     // 이벤트 목록
