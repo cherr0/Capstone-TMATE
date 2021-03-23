@@ -1,17 +1,23 @@
 package com.tmate.service;
 
+
 import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
 import com.tmate.mapper.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class UserServiceImpl implements UserService {
 
     private final UserMainMapper userMainMapper;
@@ -106,7 +112,42 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerPayment(PaymentDTO paymentDTO) {
+
+        String credit_no = paymentDTO.getCredit_no().substring(0,12);
+        String nohashcredit = paymentDTO.getCredit_no().substring(12);
+        log.info("암호화하는번호"+credit_no);
+
+        String hashpw = BCrypt.hashpw(credit_no, BCrypt.gensalt());
+        log.info("뒷자리빼고 암호화한값" + hashpw+nohashcredit);
+        paymentDTO.setCredit_no(hashpw+nohashcredit);
+
+        String credit_pw = BCrypt.hashpw(paymentDTO.getCredit_pw(), BCrypt.gensalt());
+        paymentDTO.setCredit_pw(credit_pw);
+        log.info("비밀번호"+credit_pw);
+        String cvc = BCrypt.hashpw(paymentDTO.getCredit_cvc(), BCrypt.gensalt());
+        log.info("암호화"+cvc);
+        paymentDTO.setCredit_cvc(cvc);
+
         return paymentMapper.insert(paymentDTO) == 1;
+    }
+
+    // 카드 대표 활성화
+
+    @Transactional
+    @Override
+    public boolean modifyRep(String customer_uid, String m_id) {
+
+        String c_id = paymentMapper.findPayment(m_id);
+
+        if (c_id == customer_uid) {
+            return true;
+        }else if(c_id != null && c_id != customer_uid) {
+            paymentMapper.updateDRep(c_id);
+            return paymentMapper.updateRep(customer_uid) ==1;
+        }else {
+            return paymentMapper.updateRep(customer_uid) == 1;
+        }
+
     }
 
     // 프로필 - 알림 전송

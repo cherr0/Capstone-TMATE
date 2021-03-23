@@ -35,7 +35,7 @@
                                             <div class="accounts-container">
 
                                                 <th:block th:each="payment : ${paymentList}">
-                                                    <div class="account mycard" th:data-account="${#strings.substring(payment.credit_no,0,4)}">
+                                                    <div class="account mycard" th:data-account="${payment.credit_no}">
                                                         <input type="hidden" th:value="${payment.customer_uid}">
                                                         <span class="float-right" th:switch="${payment.pay_rep}">
                                                             <th:block th:case="0">후보</th:block>
@@ -50,10 +50,10 @@
                                                             <img th:case="롯데" src="/images/card_logo/롯데카드.png">
                                                             <img th:case="하나" src="/images/card_logo/하나은행.png">
                                                             <img th:case="우리" src="/images/card_logo/우리.png">
-                                                            <img th:case="기업" src="/images/card_logo/ibk.png">
+                                                            <img th:case="기업" src="/images/card_logo/ibk.jpg">
                                                         </div>
-                                                        <div class="account-number">**** **** **** ****</div>
-                                                        <div class="account-expiration">Valid Thru: 01/19</div>
+                                                        <div class="account-number" th:text="|**** **** **** ${payment.credit_no}|">**** **** **** ****</div>
+                                                        <div class="account-expiration" th:text="|Valid Thru: ${payment.credit_vali}|">Valid Thru: 01/19</div>
                                                     </div><!-- /.account -->
 
                                                 </th:block>
@@ -324,15 +324,13 @@
                             str += "<img src='/images/card_image/기업은행카드2.png'>";
                             break;
                     }
-                    str += "<div>********</div></div>";
+                    str += "<div>"+"****"+result.credit_no+"</div></div>";
                     str += "<div class='card-Expiration'><div class='transaction-merchant'>만료일</div>";
                     str += "<div class='transaction-date'>"+result.credit_vali+"</div></div>";
                     str += "<div class='card-Expiration'><div class='transaction-merchant'>청구주소</div>";
-                    str += "<div class='transaction-date'>대구 달서구 용산동</div>";
-                    str += "<div class='transaction-date'>416-5</div>";
-                    str += "<div class='transaction-date'>42618</div></div>";
+                    str += "<div class='transaction-date'>대구광역시 북구 산격3동 1228-10</div>";
                     str += "<div class='card-detail'><div class='transaction-date'>선호하는 결제수단</div>";
-                    str += "<div class='transaction-date'><a href=''>선호하는 수단으로 설정</a></div>";
+                    str += "<div class='transaction-date'><button class='btn btn-primary repBtn'>선호하는 수단으로 설정</button></div>";
                     str += "</div></div></div>";
                     cardUL.html(str);
                     $('.uid').val(result.customer_uid);
@@ -353,7 +351,25 @@
                                 console.log(error);
                             }
                         })
-                    })
+                    });
+
+                    $(".repBtn").on('click', function () {
+                        let c_uid = $(".uid").val();
+                        let m_id = [[${session.member.m_id}]];
+
+                        $.ajax({
+                            url:'/api/tuser/updaterep/'+c_uid+"/"+m_id,
+                            type:'PUT',
+                            success: function () {
+                                alert("대표 지정 완료");
+                                window.location.href="/tuser/payment?m_id="+[[${session.member.m_id}]];
+                            },
+                            error:function (error) {
+                                console.log(error);
+                            }
+                        })
+
+                    });
 
                 },
                 error: function (error) {
