@@ -2,9 +2,7 @@ package com.tmate.web;
 
 import com.tmate.domain.BoardDTO;
 import com.tmate.domain.BoardImageDTO;
-import com.tmate.domain.EventDTO;
 import com.tmate.service.BoardService;
-import com.tmate.service.EventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
