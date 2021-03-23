@@ -46,7 +46,7 @@
                                                     </a>
                                                 </span>
                                                 <div>
-                                                    <a th:href="@{'/notice/'+${notice.prev_id}}" th:text="${notice.prev_title}"></a>
+                                                    <a th:href="@{'/tuser/notice/'+${notice.prev_id}}" th:text="${notice.prev_title}"></a>
                                                     <div class="page_move_info">
                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                                                         <span th:text="${#dates.format(notice.prev_cre_date, 'MM/dd HH:mm')}"></span>
@@ -61,7 +61,7 @@
                                                     </a>
                                                 </span>
                                                 <div>
-                                                    <a th:href="@{'/notice/'+${notice.next_id}}" th:text="${notice.next_title}"></a>
+                                                    <a th:href="@{'/tuser/notice/'+${notice.next_id}}" th:text="${notice.next_title}"></a>
                                                     <div class="page_move_info">
                                                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                                                         <span th:text="${#dates.format(notice.next_cre_date, 'MM/dd HH:mm')}"></span>
