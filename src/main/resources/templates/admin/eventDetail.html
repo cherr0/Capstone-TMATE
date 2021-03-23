@@ -98,9 +98,13 @@
                                                         이전글
                                                     </a>
                                                 </span>
-                                            <p class="not-footer-title">
-                                                <a href="">이전글이 없습니다.</a>
-                                            </p>
+                                            <div>
+                                                <a th:href="@{'/event/'+${event.prev_id}}" th:text="${event.prev_title}"></a>
+                                                <div class="page_move_info">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                    <span th:text="${#dates.format(event.prev_cre_date, 'MM/dd HH:mm')}"></span>
+                                                </div>
+                                            </div>
                                         </li>
                                         <li>
                                                 <span class="page_move_btn">
@@ -110,10 +114,10 @@
                                                     </a>
                                                 </span>
                                             <div>
-                                                <a href="">다음글이 없습니다.</a>
+                                                <a th:href="@{'/event/'+${event.next_id}}" th:text="${event.next_title}"></a>
                                                 <div class="page_move_info">
                                                     <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                                    14:49
+                                                    <span th:text="${#dates.format(event.next_cre_date, 'MM/dd HH:mm')}"></span>
                                                 </div>
                                             </div>
                                         </li>
