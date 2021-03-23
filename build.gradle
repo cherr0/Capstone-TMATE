@@ -29,6 +29,7 @@ dependencies {
     implementation 'com.oracle.ojdbc:osdt_cert:19.3.0.0'
     implementation 'com.oracle.ojdbc:osdt_core:19.3.0.0'
     implementation 'com.oracle.ojdbc:simplefan:19.3.0.0'
+    implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
     compileOnly 'org.projectlombok:lombok'

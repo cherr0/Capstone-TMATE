@@ -58,6 +58,9 @@ public interface UserService {
     // 4. 카드 추가
     public boolean registerPayment(PaymentDTO paymentDTO);
 
+    // 5. 카드 대표 설정
+    public boolean modifyRep(String customer_uid, String m_id);
+
     // 프로필 지인 알림전송 관리
     public List<NotificationDTO> getNotifiList(String m_id);
 

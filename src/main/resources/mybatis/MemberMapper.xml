@@ -58,6 +58,7 @@
     </delete>
 
 
+
     <select id="searchPermission" resultType="com.tmate.domain.MemberDTO">
         select *
         from member

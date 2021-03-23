@@ -20,4 +20,13 @@ public interface PaymentMapper {
 
     // 카드 상세
     PaymentDTO getPaymentByCustomer(String customer_uid);
+
+    // 대표카드 지정
+    int updateRep(String customer_uid);
+
+    // 대표 카드 비활성화 -> 활성화 된거 찾고 비활성화 시킨다.
+    int updateDRep(String custoemr_uid);
+
+    // 대표 카드 -> 찾기->
+    String findPayment(String m_id);
 }
