@@ -1614,7 +1614,17 @@ a i{
 
 .menu-sidebar .navbar__list .navbar__sub-list {
     display: none;
+    background: #687cfa;
+
+}
+
+.navbar__sub-list .js-sub{
     padding-left: 34px;
+}
+
+.menu-sidebar .navbar__list .navbar__sub-list li:hover{
+    background: #97a3f3;
+    transition: background 1s ease-in-out;
 }
 
 .menu-sidebar .navbar__list .navbar__sub-list li a {
@@ -14768,7 +14778,20 @@ a i{
 
 .user-menu-sidebar .navbar__list .navbar__sub-list {
     display: none;
+}
+
+.js-sub-list {
+    background: #6472c2;
+    transition: background 2s ease-in-out;
+}
+
+.js-sub-list .js-sub{
     padding-left: 34px;
+}
+
+.js-sub-list li:hover{
+    background: #4d5cb1;
+    transition: background 1s ease-in-out;
 }
 
 .user-menu-sidebar .navbar__list .navbar__sub-list li a {
