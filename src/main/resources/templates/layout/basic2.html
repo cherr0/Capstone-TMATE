@@ -163,6 +163,10 @@
                         </ul>
                     </li>
                     <li th:unless="${session.member == null}">
+                        <a th:href="@{/tuser/place}" class="menu-btn menu-btn-app">
+                            <i class="fas fa-check"></i><span class="menu-color">핫플레이스</span></a>
+                    </li>
+                    <li th:unless="${session.member == null}">
                         <a class="js-arrow menu-btn menu-btn-history" href="#">
                             <i class="fa fa-list-alt"></i><span class="menu-color">My T 이력</span>
                         </a>
