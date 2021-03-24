@@ -8,6 +8,7 @@ import com.tmate.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -106,11 +107,13 @@ public class UserController {
     }
 
     // 사용자 이벤트 리스트 확인
+    @Transactional
     @GetMapping("/event")
     public String userEventList(Criteria cri, Model model) {
         log.info("이벤트 리스트 - 사용자 컨트롤러");
         List<BoardDTO> eventList = boardService.getEventList(cri);
         int total = boardService.totalECount(cri);
+
 
         model.addAttribute("event", eventList);
         model.addAttribute("pageMaker", new PageDTO(cri, total));
@@ -118,13 +121,14 @@ public class UserController {
     }
 
     // 사용자 이벤트 세부내용 확인
+    @Transactional
     @GetMapping("/event/{bd_id}")
     public String userEvent(@PathVariable("bd_id") String bd_id, Model model) {
         log.info("넘어오는 글번호 : " + bd_id);
         BoardDTO boardDTO = boardService.getN(bd_id);
-
+        List<BoardImageDTO> boardImageList = boardService.getBoardImageList(bd_id);
         log.info("조회되는 글 정보 : " + boardDTO);
-
+        model.addAttribute("eimages", boardImageList);
         model.addAttribute("event", boardDTO);
         return "/user/eventDetail";
     }

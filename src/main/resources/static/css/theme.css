@@ -14979,6 +14979,7 @@ input[type="checkbox"]:checked.toggle:after {
 }
 .caption h4 {
     margin-bottom: 1em;
+    word-break: keep-all;
 }
 .caption .event-btn {
     width: 100%;

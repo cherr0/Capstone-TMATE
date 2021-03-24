@@ -22,7 +22,7 @@
                                     <div class="not-title">
                                         <div class="float-left" th:text="${event.bd_title}">3월 정기점검</div>
                                         <div class="float-right">
-                                            <a th:href="@{/tuser/notice}"><button type="button" class="btn btn-light" id="event-list">글 목록</button></a>
+                                            <a th:href="@{/tuser/event}"><button type="button" class="btn btn-light" id="event-list">글 목록</button></a>
                                         </div>
                                         <br>
                                         <div class="not-info">
@@ -34,7 +34,11 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <img src="/images/kakao.png" alt="...">
+                                    <th:block th:each="eventImage:${eimages}">
+                                        <div>
+                                             <img th:if="${eventImage.path != null}" th:src="|/api/display?fileName=${eventImage.getImageURL()}|">
+                                        </div>
+                                    </th:block>
                                     <p th:text="${event.bd_contents}">반올림 이벤트입니다.</p>
                                 </div>
                                 <div class="page_move">

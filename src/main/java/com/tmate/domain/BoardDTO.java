@@ -46,6 +46,7 @@ public class BoardDTO {
     // 이벤트 이미지들
     private List<BoardImageDTO> boardImageDTOList = new ArrayList<>();
 
+
     // 다음 글 코드
     private String next_id;
 
