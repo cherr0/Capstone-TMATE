@@ -1462,9 +1462,9 @@
           },
           scales: {
             xAxes: [{
+              barPercentage: 0.6,
               ticks: {
                 fontFamily: "Poppins"
-
               }
             }],
             yAxes: [{

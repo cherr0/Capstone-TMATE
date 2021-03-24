@@ -200,7 +200,7 @@ html {
 /*메인페이지 상단바*/
 #img-bar {
     font-family: 'Raleway', sans-serif;
-    background: #333 url('https://image.ibb.co/n5A2HU/showcase.jpg') no-repeat center center / cover;
+    background: #333 url('https://image.ibb.co/n5A2HU/showcase.jpg') no-repeat center 60% / cover;
     color: #FFFFFF;
     overflow:hidden;
     display: flex;
