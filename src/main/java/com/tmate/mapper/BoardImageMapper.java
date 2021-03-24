@@ -13,4 +13,6 @@ public interface BoardImageMapper {
     public void delete(String uuid);
 
     public List<BoardImageDTO> findByBd_id(String bd_id);
+
+    public List<BoardImageDTO> findBoardImageList();
 }

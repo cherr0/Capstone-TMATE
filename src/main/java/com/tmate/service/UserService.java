@@ -105,4 +105,7 @@ public interface UserService {
 
     // 7. 활성화 비활성화 상태 업데이트
     public void modifyN_whether(NotificationDTO notificationDTO);
+
+    // 이벤트 리스트
+    public List<BoardImageDTO> getBoardImageList();
 }

@@ -14,4 +14,8 @@
     <select id="findByBd_id" resultType="com.tmate.domain.BoardImageDTO">
         select * from boardImage where bd_id = #{bd_id}
     </select>
+
+    <select id="findBoardImageList">
+        select * from boardImage
+    </select>
 </mapper>

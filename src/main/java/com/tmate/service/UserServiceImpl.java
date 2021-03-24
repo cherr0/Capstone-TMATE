@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
     private final StaticsMapper staticsMapper;
     private final PaymentMapper paymentMapper;
     private final FriendMapper friendMapper;
+    private final BoardImageMapper boardImageMapper;
 
     @Override
     public MemberDTO getMainPage(String m_id) {
@@ -227,5 +228,8 @@ public class UserServiceImpl implements UserService {
         return staticsMapper.getCountUseCash(m_id);
     }
 
-
+    @Override
+    public List<BoardImageDTO> getBoardImageList() {
+        return boardImageMapper.findBoardImageList();
+    }
 }
