@@ -23,18 +23,9 @@
                                         <input type="text" class="form-control" placeholder="제목을 작성해 주세요." id="notice-write-title">
 
                                         <div class="btn-group justify-content-end">
-<!--                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
-<!--                                                <span id="notice-write-status" class="caret">공개</span>-->
-<!--                                            </button>-->
-<!--                                            <ul class="dropdown-menu" role="menu">-->
-<!--                                                <li><a href="#">공개</a></li>-->
-<!--                                                <li><a href="#">비공개</a></li>-->
-<!--                                                <li><a href="#">예약</a></li>-->
-<!--                                            </ul>-->
                                             <select id="notice-write-status">
                                                 <option value="0">공개</option>
                                                 <option value="1">비공개</option>
-                                                <option value="2">예약</option>
                                             </select>
                                         </div>
                                     </div>
@@ -70,6 +61,5 @@
 </div>
 <footer th:replace="layout/basic :: footer">
 </footer>
-<script th:src="@{~/js/app/board.js}"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.tmate.service;
 
 import com.tmate.domain.*;
+import com.tmate.domain.user.ApprovalDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -44,8 +45,21 @@ public interface UserService {
 
     // 프로필 개인 정보 탈퇴
 
-    // 프로필 카드 관리
+    // 프로필 카드 관리 관련
+    // 1. 카드 리스트 조회
     public List<PaymentDTO> getPaymentList(String m_id);
+
+    // 2. 카드 상세 조회
+    public PaymentDTO readPayment(String customer_uid);
+
+    // 3. 카드 삭제
+    public boolean removePayment(String customer_uid);
+
+    // 4. 카드 추가
+    public boolean registerPayment(PaymentDTO paymentDTO);
+
+    // 5. 카드 대표 설정
+    public boolean modifyRep(String customer_uid, String m_id);
 
     // 프로필 지인 알림전송 관리
     public List<NotificationDTO> getNotifiList(String m_id);
@@ -68,4 +82,30 @@ public interface UserService {
 
     // 월간 결제 이력 - 현금
     public List<ChartDTO> monthlyUseCash(String m_id);
+
+
+    // 지인 알림 관련
+    // 1. 나의 지인 리스트
+    public List<NotificationDTO> getMyNotifiList(String m_id);
+
+    // 2. 회원 검색 리스트 - by 폰번호
+    public List<MemberDTO> getSearchList(String phone);
+
+    // 3. 승인요청 인서트
+    public void registerApproval(ApprovalDTO approvalDTO);
+
+    // 4. 나에게 승인 요청한 회원들
+    public List<ApprovalDTO> getMyApproValList(String m_id);
+
+    // 5. 거절 버튼 누를때 서비스
+    public void removeApproval(String id, String m_id);
+
+    //6 . 승인 시 알림전송 인서트
+    public void registerNotifi(NotificationDTO notificationDTO);
+
+    // 7. 활성화 비활성화 상태 업데이트
+    public void modifyN_whether(NotificationDTO notificationDTO);
+
+    // 이벤트 리스트
+    public List<BoardImageDTO> getBoardImageList();
 }

@@ -2,59 +2,143 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{layout/basic :: head}">
 </head>
-
 <body class="animsition">
 <div class="page-wrapper">
     <aside th:replace="layout/basic :: mobile"></aside>
     <aside th:replace="layout/basic :: sidebar"></aside>
-
     <div class="page-container">
         <div th:replace="layout/basic :: header"></div>
-        <section class="container-fluid contents_size">
-            <table>
-                <div id="main">
-                    <section class="four">
-                        <div class="container">
-                            <h2>이벤트 수정</h2><hr>
-                            <input type="hidden" id="e_id" th:value="${event.e_id}" />
-                            <div style="float: right" class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    공개 <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">공개</a></li>
-                                    <li><a href="#">비공개</a></li>
-                                    <li><a href="#">예약</a></li>
-                                </ul>
+        <div class="container-fluid contents_size">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2 style="margin-top: auto">이벤트 수정</h2>
+                                </div>
+                                <div class="card-header-title">
+                                    <div class="input-group-prepend">
+                                        <input type="hidden" id="notice-modify-id" th:value="${event.bd_id}" />
+                                        <span class="input-group-text">제목</span>
+                                        <input type="text" class="form-control" id="notice-modify-title" th:value="${event.bd_title}">
+
+                                        <div class="btn-group justify-content-end">
+                                            <select id="notice-modify-status">
+                                                <option value="0">공개</option>
+                                                <option value="1">비공개</option>
+                                                <option value="2">예약</option>
+                                            </select>
+                                        </div>
+                                        <br>
+                                    </div>
+                                    <div class="event-calendar col-sm-12 col-md-12 col-lg-12 row">
+                                        <div class="col-sm-2.5 col-md-2.5 col-lg-2.5">
+                                            <span>시작일</span>
+                                            <input type="text" id="event-time-start" th:value="${event.bd_s_date}" />
+                                        </div>
+
+                                        <div class="col-sm-2.5 col-md-2.5 col-lg-2.5">
+                                            <span>종료일</span>
+                                            <input type="text" id="event-time-end" th:value="${event.bd_e_date}" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">내용</span>
+                                        </div>
+                                        <textarea class="form-control" rows="10" id="notice-modify-content" th:text="${event.bd_contents}"></textarea>
+                                    </div>
+                                </div>
+
+                                <style>
+                                    .uploadResult{
+                                        width: 100%;
+                                        background-color: gray;
+                                        margin-top: 10px;
+                                    }
+
+                                    .uploadResult ul{
+                                        display: flex;
+                                        flex-flow: row;
+                                        justify-content: center;
+                                        align-items: center;
+                                        vertical-align: top;
+                                        overflow: auto;
+                                    }
+
+                                    .uploadResult ul li{
+                                        list-style: none;
+                                        padding: 10px;
+                                        margin-left: 2em;
+                                    }
+
+                                    .uploadResult ul li img{
+                                        width: 100px;
+                                    }
+
+
+                                </style>
+
+                                <div class="uploadResult">
+                                    <ul>
+                                        <th:block th:each="eventImage : ${eimages}">
+                                        <li th:data-name="${eventImage.img_name}" th:data-path="${eventImage.path}" th:data-uuid="${eventImage.uuid}">
+                                            <div>
+                                            <button type="button" th:data-uuid="${eventImage.uuid}" th:data-file="${eventImage.getImageURL()}" class="btn btn-warning btn-sm">X</button>
+                                            <br>
+                                            <img th:if="${eventImage.path != null}" th:src="|/api/display?fileName=${eventImage.getThumbnailURL()}|">
+                                            </div>
+                                        </li>
+                                        </th:block>
+                                    </ul>
+                                </div>
+
+                                <div class="card-footer">
+                                    <div class="float-right">
+                                        <button type="button" id="notice-modify" class="btn btn-primary modalBtn">글 수정</button>
+                                    </div>
+                                    <div class="float-left">
+                                        <button type="button" id="notice-list" class="btn btn-info">뒤로</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div><br><br>
-                        <div class="input-group input-group-lg">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">제목</span>
-                            </div>
-                            <input type="text" class="form-control" id="event-modify-kind" th:value="${event.e_kind}">
                         </div>
-                        <br>
-                        <div class="input-group input-group-lg">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">내용</span>
-                            </div>
-                            <textarea class="form-control" rows="5" id="event-modify-content" th:text="${event.e_contents}"></textarea>
-                        </div>
-                        <input type="text" id="event-time-start" />
-                        <input type="text" id="event-time-end" />
-                        <button id="event-list" class="btn btn-danger" style="float: right">뒤로</button>
-                        <button id="event-modify" class="btn btn-primary" style="float: right">글 수정</button>
-                    </section>
+                    </div>
                 </div>
-            </table>
-            <!--회원관리 테이블 끝-->
-        </section>
+            </section>
+        </div>
     </div>
 </div>
+
+<script>
+    $(".uploadResult").on("click", "li button", function (e) {
+        console.log("delete file");
+
+        var targetFile = $(this).data("file");
+
+        var uuid = $(this).data("uuid");
+        console.log(uuid);
+
+        var targetLi = $(this).closest("li");
+
+        $.ajax({
+            url:'/api/removeFile',
+            data:{fileName:targetFile, uuid:uuid},
+            dataType: 'text',
+            type:'POST',
+            success: function (result) {
+                alert(result);
+                targetLi.remove();
+            }
+        }); // $.ajax
+    });
+</script>
 <footer th:replace="layout/basic :: footer">
 </footer>
-
 <script th:src="@{~/js/app/event.js}"></script>
 </body>
 </html>

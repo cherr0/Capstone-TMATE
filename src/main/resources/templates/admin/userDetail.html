@@ -22,7 +22,7 @@
 
                                 <h1 class="profile_name col-sm-auto col-md-auto" th:text="${member.m_name}">하창현</h1>
                                 <span class="badge bg-info" th:switch="${#strings.substring(member.m_id, 0, 1)}">
-                                    <p th:case="m">유저</p>
+                                    <p th:case="m">고객</p>
                                     <p th:case="d">기사</p>
                                     <p th:case="a">관리자</p>
                                 </span>

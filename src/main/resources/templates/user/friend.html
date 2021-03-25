@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/basic :: head}">
+</head>
+
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="layout/basic2 :: mobile"></aside>
+    <aside th:replace="layout/basic2 :: sidebar"></aside>
+
+    <div class="page-container">
+        <div th:replace="layout/basic2 :: header"></div>
+        <section class="container-fluid contents_size">
+            <link th:href="@{/css/friend.css}" rel="stylesheet">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 style="margin-top: auto">지인알림</h2>
+                    </div>
+                    <div class="card-body">
+                        <!-- 지인요청 -->
+                        <div class="container">
+                            <div id="main" class="card card-body">
+                                <h2 class="title">지인 추가요청(번호로 검색)</h2>
+                                <form id="addForm" class="form-inline mb-3">
+                                    <input type="text" class="form-control mr-2" id="searchP">
+                                    <input type="submit" class="searchBtn btn btn-primary" value="추가하기">
+                                </form>
+                                <h2 class="title">검색된 회원</h2>
+                                <ul id="items" class="list-group search-member">
+<!--                                    <li class="list-group-item">-->
+<!--                                        <div class="friend-request">-->
+<!--                                            <span>강병현</span>-->
+<!--                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress">대구광역시 달서구</span>-->
+<!--                                            <button class="btn btn-info btn-sm float-right delete friend-btn">승인 요청</button>-->
+<!--                                            <div>010-6248-0673</div>-->
+<!--                                        </div>-->
+<!--                                    </li>-->
+                                </ul>
+                            </div>
+                        </div> <!-- 지인요청 끝 -->
+
+                        <!-- 받은 요청 -->
+                        <div class="container">
+                            <div class="card card-body">
+                                <h2 class="title">요청한 회원</h2>
+                                <ul id="items1" class="list-group">
+                                    <li class="list-group-item" th:each="appro : ${myAppro}">
+                                        <div class="friend-request">
+                                            <input class="mids" type="hidden" th:value="${appro.m_id}">
+                                            <input class="ids" type="hidden" th:value="${appro.id}">
+                                            <span class="n_name" th:text="${appro.name}">강병현</span>
+                                            <span th:switch="${#strings.substring(id,1,2)}">
+                                                <p th:case="1">남자</p>
+                                                <p th:case="3">남자</p>
+                                                <p th:case="2">여자</p>
+                                                <p th:case="4">여자</p>
+                                            </span>
+                                            <span th:text="${#strings.substring(appro.birth,2,10)}"></span>
+                                            <span class="col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress" th:text="|${#strings.substring(sum_address,0,13)}*************|">대구광역시 달서구</span>
+                                            <button class="btn btn-info btn-sm float-right reject delete friend-btn">거절</button>
+                                            <button class="btn btn-primary btn-sm float-right agree friend-btn">수락</button>
+                                            <div>[[${#strings.substring(appro.id,2,5)}]]-[[${#strings.substring(appro.id,5,9)}]]-[[${#strings.substring(appro.id,9,13)}]]</div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div> <!-- 받은 요청 끝 -->
+
+                        <!-- 추가된 지인 -->
+                        <div class="container">
+                            <div  class="card card-body">
+                                <h2 class="title">My T 지인</h2>
+                                <ul class="list-group">
+                                    <li class="list-group-item" th:each="notifi : ${myNotifi}">
+                                        <div class="friend-request">
+                                            <input class="n_phone"  type="hidden" th:value="${notifi.n_phone}">
+                                            <span class="notifiName">[[${notifi.n_name}]]</span>
+                                            <span th:switch="${notifi.n_whether}">
+                                                <p th:case="0">비활성화</p>
+                                                <p th:case="1">활성화</p>
+                                            </span>
+                                            <button class="btn btn-default btn-sm select float-right friend-btn">확인</button>
+                                            <select class="friend-select n_whether float-right">
+                                                <option value="1">알림받기</option>
+                                                <option value="0">알림거절</option>
+                                            </select>
+                                            <div th:text="${notifi.n_phone}">010-6248-0673</div>
+                                        </div>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </div> <!-- 추가된 지인 끝 -->
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+
+    $(document).ready(function () {
+
+
+    var searchUL = $(".search-member");
+
+    $(".searchBtn").on("click", function () {
+        let phone = $("#searchP").val();
+        let str;
+        $.ajax({
+            url:'/api/tuser/search',
+            type:'POST',
+            data:phone,
+            success: function (result) {
+                console.log(result[0]);
+                for (let i = 0; i < result.length; i++) {
+                    str += "<li class='list-group-item'><div class='friend-request'>";
+                    str += "<input class='m_id' type='hidden' value='"+result[i].m_id+"'>";
+                    str += "<span class='m_name'>"+result[i].m_name+"</span>";
+                    switch (result[i].m_id.substr(1,1)) {
+                        case'2':
+                            str += "  <span>여</span>";
+                            break;
+                        case '4':
+                            str += "  <span>여</span>";
+                            break;
+                        case '1':
+                            str += "  <span>남</span>";
+                            break;
+                        case '3':
+                            str += "  <span>남</span>";
+                            break;
+                    }
+                    str += "     <span class='m_birth'>"+result[i].m_birth.substr(2,8)+"</span>";
+                    if (result[i].m_house) {
+                        str += "<span class='col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress'>"+
+                            result[i].m_house.substr(0,13)+'***************'+"</span>";
+                    }else{
+                        str += "<span class='col-sm-6 col-md-6 col-lg-6 offset-3 friend-adress'>주소 정보 없음</span>";
+                    }
+                    str += "<button class='btn btn-info btn-sm float-right delete friend-btn approBtn'>승인 요청</button>";
+                    str += "<div>"+result[i].m_id.substring(2,5)+'-'+result[i].m_id.substring(5,9)
+                        +'-'+result[i].m_id.substring(9,13)+"</div>";
+
+                }
+                searchUL.html(str);
+
+                $('.approBtn').on("click",function () {
+                    let m_id = $('.m_id').val();
+                    let m_name = [[${session.member.m_name}]];
+                    let birth = [[${session.member.m_birth}]];
+                    let sum_address = [[${session.member.m_house}]];
+                    let id = [[${session.member.m_id}]];
+
+                    const data = {
+                        m_id:m_id,
+                        name:m_name,
+                        birth:birth,
+                        sum_address:sum_address,
+                        id:id
+                    }
+                    console.log(data);
+
+                    $.ajax({
+                        url:'/api/tuser/approval',
+                        type:'POST',
+                        data:JSON.stringify(data),
+                        contentType:'application/json; charset=utf-8',
+                        success:function () {
+                            alert("요청을 보내었습니다.");
+                        }
+                    })
+                })
+            },
+            error:function (error) {
+                console.log(error);
+            }
+        });
+
+    });
+
+        $(".reject").on("click", function () {
+            console.log('클릭이벤트');
+
+            let id = $('.ids').val();
+            let m_id = $('.mids').val();
+
+
+
+            $.ajax({
+                url:'/api/tuser/removeAppro/'+id+"/"+m_id,
+                type:'DELETE',
+                success: function () {
+                    alert("삭제 성공");
+                    window.location.href="/tuser/friend?m_id="+[[${session.member.m_id}]];
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        });
+
+        $(".agree").on("click", function () {
+            let n_phone = [[${#strings.substring(session.member.m_id,2,13)}]];
+            let n_name = [[${session.member.m_name}]];
+            let m_id = $('.mids').val();
+            let id = $('.ids').val();
+
+            let data = {
+                n_phone:n_phone,
+                n_name:n_name,
+                m_id:id
+            };
+
+            $.ajax({
+                url:'/api/tuser/agree/'+m_id,
+                type:'PUT',
+                data:JSON.stringify(data),
+                contentType:'application/json; charset=utf-8',
+                success: function () {
+                    alert("승인완료");
+                    window.location.href="/tuser/friend?m_id="+[[${session.member.m_id}]];
+
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        });
+
+        $(".select").on("click", function () {
+            let n_whether = $('.n_whether').val();
+            let n_name = $('.notifiName').val();
+            let n_phone = $('.n_phone').val();
+            let m_id = [[${session.member.m_id}]];
+
+            let data = {
+                n_whether:n_whether,
+                n_phone:n_phone,
+                n_name:n_name,
+                m_id:m_id
+            }
+
+            $.ajax({
+                url:'/api/tuser/updatestat',
+                type:'PUT',
+                data:JSON.stringify(data),
+                contentType:'application/json; charset=utf-8',
+                success: function () {
+                    alert("상태 변경");
+                    window.location.href="/tuser/friend?m_id="+[[${session.member.m_id}]];
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+
+            })
+
+        });
+
+    });
+
+</script>
+
+<!-- 추가 삭제 js-->
+<script>
+    var form = document.getElementById('addForm');
+    var itemList = document.getElementById('items');
+    var filter = document.getElementById('filter');
+
+    // Form submit event
+    form.addEventListener('submit', addItem);
+    // Delete event
+    itemList.addEventListener('click', removeItem);
+    // Filter event
+    filter.addEventListener('keyup', filterItems);
+
+    // Add item
+    function addItem(e){
+        e.preventDefault();
+
+        // Get input value
+        var newItem = document.getElementById('item').value;
+
+        // Create new li element
+        var li = document.createElement('li');
+        // Add class
+        li.className = 'list-group-item';
+        // Add text node with input value
+        li.appendChild(document.createTextNode(newItem));
+
+        // Create del button element
+        var deleteBtn = document.createElement('button');
+
+        // Add classes to del button
+        deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+
+        // Append text node
+        deleteBtn.appendChild(document.createTextNode('X'));
+
+        // Append button to li
+        li.appendChild(deleteBtn);
+
+        // Append li to list
+        itemList.appendChild(li);
+    }
+
+    // Remove item
+    // function removeItem(e){
+    //     if(e.target.classList.contains('delete')){
+    //         if(confirm('정말 요청을 취소하시겠습니까?')){
+    //             var li = e.target.parentElement;
+    //             itemList.removeChild(li);
+    //         }
+    //     }
+    // }
+
+    // Filter Items
+    function filterItems(e){
+        // convert text to lowercase
+        var text = e.target.value.toLowerCase();
+        // Get lis
+        var items = itemList.getElementsByTagName('li');
+        // Convert to an array
+        Array.from(items).forEach(function(item){
+            var itemName = item.firstChild.textContent;
+            if(itemName.toLowerCase().indexOf(text) != -1){
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+
+<script>
+    var form = document.getElementById('addForm');
+    var itemList = document.getElementById('items1');
+    var filter = document.getElementById('filter');
+
+    // Form submit event
+    form.addEventListener('submit', addItem);
+    // Delete event
+    itemList.addEventListener('click', removeItem);
+    // Filter event
+    filter.addEventListener('keyup', filterItems);
+
+    // // Remove item
+    // function removeItem(e){
+    //     if(e.target.classList.contains('delete')){
+    //         if(confirm('정말 요청을 거절하시겠습니까?')){
+    //             var li = e.target.parentElement;
+    //             itemList.removeChild(li);
+    //         }
+    //     }
+    // }
+
+    // Filter Items
+    function filterItems(e){
+        // convert text to lowercase
+        var text = e.target.value.toLowerCase();
+        // Get lis
+        var items = itemList.getElementsByTagName('li');
+        // Convert to an array
+        Array.from(items).forEach(function(item){
+            var itemName = item.firstChild.textContent;
+            if(itemName.toLowerCase().indexOf(text) != -1){
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+<footer th:replace="layout/basic2 :: footer">
+</footer>
+
+</body>
+</html>

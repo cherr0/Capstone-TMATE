@@ -17,7 +17,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h2 style="margin-top: auto">유저관리</h2>
+                            <h2 style="margin-top: auto">고객관리</h2>
                         </div>
                         <div class="card-body">
                             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" class="col-sm-4 col-xs-4 col-md-4">
@@ -42,8 +42,7 @@
                                     </td>
                                     <td><a th:href="@{'/user/'+${memberList.m_id}}"><span th:text="${memberList.m_name}"></span></a></td>
                                     <td class="text-center">
-                                        <span th:text="${#strings.substring(memberList.m_id,2, 5)}"></span>-<span th:text="${#strings.substring(memberList.m_id,5, 9)}"></span>
-                                        -<span th:text="${#strings.substring(memberList.m_id,9, 13)}"></span>
+                                        <span th:text="${#strings.substring(memberList.m_id,2, 5)}"></span>-<span th:text="${#strings.substring(memberList.m_id,5, 9)}"></span>-<span th:text="${#strings.substring(memberList.m_id,9, 13)}"></span>
                                     </td>
                                     <td class="text-center" th:text="${#strings.substring(memberList.m_regdate,0, 10)}"></td>
                                     <td class="text-center">

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.FriendMapper">
+
+    <select id="findListMyFriends" resultType="com.tmate.domain.NotificationDTO">
+        select *
+        from notification
+        where m_id = #{m_id}
+    </select>
+
+    <select id="findByPhone" resultType="com.tmate.domain.MemberDTO">
+        select *
+        from member
+        where substr(m_id,3,11) = #{phone}
+    </select>
+
+    <select id="findListMyApproval" resultType="com.tmate.domain.user.ApprovalDTO">
+        select * from approval
+        where m_id = #{m_id}
+    </select>
+
+    <insert id="insertMyApproval">
+        insert into approval(seq,id,name,birth,sum_address,appro_flag,m_id)
+        values(ap_sec.nextval,#{id},#{name},#{birth},#{sum_address,jdbcType=VARCHAR},'0',#{m_id})
+    </insert>
+
+    <delete id="deleteApproval">
+        delete from approval
+        where id = #{id} and m_id = #{m_id}
+    </delete>
+
+    <insert id="insertNotifi">
+        insert into notification(n_phone,m_id, n_name,n_whether)
+        values (#{n_phone},#{m_id},#{n_name},'0')
+    </insert>
+
+    <update id="updateFlag">
+        update notification
+        set n_whether = #{n_whether}
+        where n_phone = #{n_phone} and m_id =#{m_id}
+    </update>
+
+
+</mapper>

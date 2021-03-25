@@ -35,6 +35,12 @@ const member = {
         $('input').keyup(function(){
             _this.inputKeyup();
         });
+
+
+        $("#myBtn").click(function(){
+            $("#myModal").modal();
+        });
+
     },
 
     // 인증번호 보내기

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="~{layout/basic2 :: head}">
+</head>
+<body class="animsition">
+<div class="page-wrapper">
+    <aside th:replace="~{layout/basic2 :: mobile}"></aside>
+    <aside th:replace="~{layout/basic2 :: sidebar}"></aside>
+
+    <div class="page-container">
+        <div th:replace="~{layout/basic2 :: header}"></div>
+        <div class="container-fluid contents_size">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2>공지사항</h2>
+                                </div>
+                                <div class="card-header-title">
+                                    <div class="not-title">
+                                        <div class="float-left" th:text="${notice.bd_title}">3월 정기점검</div>
+                                        <div class="float-right">
+                                            <a th:href="@{/tuser/notice}"><button type="button" class="btn btn-light" id="event-list">글 목록</button></a>
+                                        </div>
+                                        <br>
+                                        <div class="not-info">
+                                            <img src="/images/kakao.png" class="not-img">
+                                            <span class="not-writer">관리자</span>
+                                            <span class="not-time" th:text="${#strings.substring(notice.bd_cre_date,0,10)}"> 2021-03-01 </span>
+                                            <span class="not-count" th:text="${notice.bd_count}"> 3333 </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body not-content">
+                                    [[${notice.bd_contents}]]
+                                </div>
+                                <div class="page_move">
+                                        <ul>
+                                            <li>
+                                                <span class="page_move_btn">
+                                                    <a href="">
+                                                        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                                                        이전글
+                                                    </a>
+                                                </span>
+                                                <div>
+                                                    <a th:href="@{'/tuser/notice/'+${notice.prev_id}}" th:text="${notice.prev_title}"></a>
+                                                    <div class="page_move_info">
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                        <span th:text="${#dates.format(notice.prev_cre_date, 'MM/dd HH:mm')}"></span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <span class="page_move_btn">
+                                                    <a href="">
+                                                        <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                                        다음글
+                                                    </a>
+                                                </span>
+                                                <div>
+                                                    <a th:href="@{'/tuser/notice/'+${notice.next_id}}" th:text="${notice.next_title}"></a>
+                                                    <div class="page_move_info">
+                                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                        <span th:text="${#dates.format(notice.next_cre_date, 'MM/dd HH:mm')}"></span>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{layout/basic2 :: footer}">
+</footer>
+<script th:src="@{~/js/app/event.js}"></script>
+</body>
+</html>

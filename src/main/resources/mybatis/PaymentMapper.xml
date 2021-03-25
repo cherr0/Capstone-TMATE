@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.PaymentMapper">
+
+    <select id="getPaymentList" resultType="com.tmate.domain.PaymentDTO">
+        select customer_uid,pay_rep, substr(credit_no,61,4) as credit_no, pay_company, credit_vali from payment where m_id = #{m_id}
+    </select>
+
+    <select id="getPaymentByCustomer" resultType="com.tmate.domain.PaymentDTO">
+        select customer_uid, substr(credit_no,61,4) as credit_no, pay_company, credit_vali from payment where customer_uid = #{customer_uid}
+    </select>
+
+    <insert id="insert">
+        insert into payment (customer_uid, m_id, pay_pg, pay_rep, pay_company, credit_no, credit_pw, credit_cvc, credit_vali)
+        values(to_char(systimestamp,'yyMMddhh24missff')||pa_sec.nextval,#{m_id},'pg','0',#{pay_company},#{credit_no},#{credit_pw},#{credit_cvc},#{credit_vali})
+    </insert>
+
+    <delete id="delete">
+        delete from payment where customer_uid = #{customer_uid}
+    </delete>
+
+    <select id="findPayment" resultType="string">
+        select customer_uid
+        from payment
+        where pay_rep = '1' and m_id = #{m_id}
+    </select>
+
+    <update id="updateDRep">
+        update payment
+        set pay_rep = '0'
+        where customer_uid = #{customer_uid}
+    </update>
+
+    <update id="updateRep">
+        update payment
+        set pay_rep = '1'
+        where customer_uid = #{customer_uid}
+    </update>
+
+</mapper>

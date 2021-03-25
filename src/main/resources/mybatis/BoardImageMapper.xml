@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.BoardImageMapper">
+
+    <insert id="insert">
+        insert into boardImage (inum,img_name,path,uuid,bd_id)
+        values(bi_sec.nextval,#{img_name},#{path},#{uuid},#{bd_id})
+    </insert>
+
+    <delete id="delete">
+        delete from boardImage where uuid = #{uuid}
+    </delete>
+
+    <select id="findByBd_id" resultType="com.tmate.domain.BoardImageDTO">
+        select * from boardImage where bd_id = #{bd_id}
+    </select>
+
+    <select id="findBoardImageList">
+        select * from boardImage
+    </select>
+</mapper>

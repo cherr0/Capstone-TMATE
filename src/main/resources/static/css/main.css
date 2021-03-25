@@ -200,7 +200,7 @@ html {
 /*메인페이지 상단바*/
 #img-bar {
     font-family: 'Raleway', sans-serif;
-    background: #333 url('https://image.ibb.co/n5A2HU/showcase.jpg') no-repeat center center / cover;
+    background: #333 url('https://image.ibb.co/n5A2HU/showcase.jpg') no-repeat center 60% / cover;
     color: #FFFFFF;
     overflow:hidden;
     display: flex;
@@ -352,6 +352,7 @@ html {
     transition: all 0.3s ease-in-out;
     text-align: center;
     vertical-align: middle !important;
+    word-break: keep-all;
 }
 /* tooltip  after*/
 .tooltip::after {
@@ -428,4 +429,12 @@ html {
 }
 .container{
     margin-top: 0.5em;
+}
+.overview-box h1 {
+    color: #FFFFFF;
+    font-size: 33px;
+    font-weight: bolder;
+}
+.overview-box h3{
+    color: #FFFFFF;
 }

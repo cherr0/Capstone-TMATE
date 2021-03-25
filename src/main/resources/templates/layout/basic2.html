@@ -13,6 +13,14 @@
     <link th:href="@{~/vendor/font-awesome-4.7/css/font-awesome.min.css}" rel="stylesheet" media="all">
     <link th:href="@{~/vendor/font-awesome-5/css/fontawesome-all.min.css}" rel="stylesheet" media="all">
     <link th:href="@{~/vendor/mdi-font/css/material-design-iconic-font.min.css}" rel="stylesheet" media="all">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" th:href="@{~/images/favicon.png}">
+    <link rel="icon" th:href="@{~/images/favicon.png}">
 
     <!-- Bootstrap CSS-->
     <link th:href="@{~/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet" media="all">
@@ -31,6 +39,8 @@
     <link th:href="@{~/css/theme.css}" rel="stylesheet" media="all">
     <link th:href="@{~/css/main.css}" rel="stylesheet" media="all">
     <link th:href="@{~/css/userDetail.css}" rel="stylesheet">
+    <link th:href="@{~/css/loginModal.css}" rel="stylesheet">
+    <link th:href="@{~/css/loginForm.css}" rel="stylesheet">
 
     <!-- Jquery JS-->
     <script th:src="@{~/vendor/jquery-3.5.1.min.js}"></script>
@@ -51,7 +61,7 @@
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li>
+                    <li th:unless="${session.member == null}">
                         <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
                             <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
                     </li>
@@ -105,7 +115,13 @@
 
     <!-- MENU SIDEBAR-->
     <aside class="user-menu-sidebar d-none d-lg-block" th:fragment="sidebar">
-        <div class="logo">
+
+        <div class="logo" th:if="${session.member == null}">
+            <a href="#">
+                <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE"/>
+            </a>
+        </div>
+        <div class="logo" th:unless="${session.member == null}">
             <a th:href="@{/tuser/main(m_id=${session.member.m_id})}">
                 <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE"/>
             </a>
@@ -113,7 +129,7 @@
         <div class="menu-sidebar__content js-scrollbar1" id="myDIV">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li>
+                    <li th:unless="${session.member == null}">
                         <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
                             <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
                     </li>
@@ -123,39 +139,46 @@
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/tuser/notice}"><span class="menu-color">공지사항</span></a>
+                                <a  th:href="@{/tuser/notice}"><span class="menu-color js-sub">공지사항</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/event}"><span class="menu-color">이벤트</span></a>
+                                <a th:href="@{/tuser/event}"><span class="menu-color js-sub">이벤트</span></a>
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                    <li th:unless="${session.member == null}">
+                        <a class="js-arrow menu-btn menu-btn-profile" href="#">
                             <i class="fa fa-user-circle"></i><span class="menu-color">My T 프로필</span>
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/tuser/profiled(m_id=${session.member.m_id})}"><span class="menu-color">개인정보 및 수정</span></a>
+                                <a  th:href="@{/tuser/profiled(m_id=${session.member.m_id})}"><span class="menu-color js-sub">개인정보 및 수정</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/event}"><span class="menu-color">지인알림 & 카드 관리</span></a>
+                                <a th:href="@{/tuser/payment(m_id=${session.member.m_id})}"><span class="menu-color js-sub">카드 관리</span></a>
+                            </li>
+                            <li>
+                                <a th:href="@{/tuser/friend(m_id=${session.member.m_id})}"><span class="menu-color js-sub">지인알림 관리</span></a>
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a class="js-arrow menu-btn menu-btn-not" href="#">
+                    <li th:unless="${session.member == null}">
+                        <a th:href="@{/tuser/place}" class="menu-btn menu-btn-app">
+                            <i class="fas fa-check"></i><span class="menu-color">핫플레이스</span></a>
+                    </li>
+                    <li th:unless="${session.member == null}">
+                        <a class="js-arrow menu-btn menu-btn-history" href="#">
                             <i class="fa fa-list-alt"></i><span class="menu-color">My T 이력</span>
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/tuser/pointd(m_id=${session.member.m_id})}"><span class="menu-color">포인트 내역</span></a>
+                                <a  th:href="@{/tuser/pointd(m_id=${session.member.m_id})}"><span class="menu-color js-sub">포인트 내역</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/paymentd(m_id=${session.member.m_id})}"><span class="menu-color">결제 이력</span></a>
+                                <a th:href="@{/tuser/paymentd(m_id=${session.member.m_id})}"><span class="menu-color js-sub">결제 이력</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/historyd(m_id=${session.member.m_id})}"><span class="menu-color">이용 내역</span></a>
+                                <a th:href="@{/tuser/historyd(m_id=${session.member.m_id})}"><span class="menu-color js-sub">이용 내역</span></a>
                             </li>
                         </ul>
                     </li>
@@ -212,7 +235,37 @@
                                 </div>
                             </div>
 
-                            <div class="account-wrap">
+                            <div th:if="${session.member == null}" class="account-wrap">
+                                <div class="account-item clearfix js-item-menu">
+                                    <div class="image">
+                                        <img th:src="@{~/images/icon/guest-profile2.png}"/>
+                                    </div>
+                                    <div class="content">
+                                        <a class="js-acc-btn" href="#">로그인 해주세요</a>
+                                    </div>
+                                    <div class="account-dropdown js-dropdown">
+                                        <div class="info clearfix">
+                                            <div class="image">
+                                                <a href="#">
+                                                    <img th:src="@{~/images/icon/guest-profile2.png}"/>
+                                                </a>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="name">
+                                                    <a href="#">Guest</a>
+                                                </h5>
+                                                <span class="email">default</span>
+                                            </div>
+                                        </div>
+                                        <div class="account-dropdown__footer">
+                                            <a id="myBtn" data-toggle="modal" href="#myModal">
+                                                <i class="zmdi zmdi-power"></i>Login</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div th:unless="${session.member == null}" class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="image">
                                         <img th:src="@{${session.member.m_profile}}"/>
@@ -268,6 +321,11 @@
 <!-- End Page Wrapper -->
 
 <footer th:fragment="footer">
+
+    <!-- 로그인 모달 -->
+    <th:block th:replace="~{loginForm :: loginModal}">
+    </th:block>
+
     <!-- Datetimepicker -->
     <script th:src="@{~/vendor/jquery.datetimepicker.full.js}"></script>
 
@@ -294,6 +352,7 @@
     <!-- Main JS-->
     <script th:inline="javascript" th:src="@{~/js/main.js}"></script>
     <script th:src="@{~/js/modal.js}"></script>
+    <script th:src="@{~/js/qrcode.js}"></script>
 
     <!-- ajax -->
     <script th:src="@{~/js/app/approval.js}"></script>
@@ -318,7 +377,7 @@
     <script>
         var header = document.getElementById("myDIV");
         var btns = header.getElementsByClassName("menu-btn-main");
-        if (window.location.pathname == '/main')
+        if (window.location.pathname == '/tuser/main')
             $(document).ready(function (){
                 $('.menu-btn-main').css('backgroundColor', '#0f1864');
                 for (var i = 0; i < btns.length; i++) {
@@ -333,7 +392,7 @@
     <script>
         var header = document.getElementById("myDIV");
         var btns = header.getElementsByClassName("menu-btn");
-        if (window.location.pathname == '/notice')
+        if (window.location.pathname == '/tuser/notice')
             $(document).ready(function (){
                 $('.menu-btn-not').css('backgroundColor', '#0f1864');
             });
@@ -341,33 +400,43 @@
     <script>
         var header = document.getElementById("myDIV");
         var btns = header.getElementsByClassName("menu-btn");
-        if (window.location.pathname == '/hotplace')
-            $(document).ready(function (){
-                $('.menu-btn-hot').css('backgroundColor', '#0f1864');
-            });
-    </script>
-    <script>
-        var header = document.getElementById("myDIV");
-        var btns = header.getElementsByClassName("menu-btn");
-        if (window.location.pathname == '/user')
-            $(document).ready(function (){
-                $('.menu-btn-user').css('backgroundColor', '#0f1864');
-            });
-    </script>
-    <script>
-        var header = document.getElementById("myDIV");
-        var btns = header.getElementsByClassName("menu-btn");
-        if (window.location.pathname == '/approval')
-            $(document).ready(function (){
-                $('.menu-btn-app').css('backgroundColor', '#0f1864');
-            });
-    </script>
-    <script>
-        var header = document.getElementById("myDIV");
-        var btns = header.getElementsByClassName("menu-btn");
-        if (window.location.pathname == '/event')
+        if (window.location.pathname == '/tuser/event')
             $(document).ready(function (){
                 $('.menu-btn-not').css('backgroundColor', '#0f1864');
+            });
+    </script>
+
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/tuser/profiled')
+            $(document).ready(function (){
+                $('.menu-btn-profile').css('backgroundColor', '#0f1864');
+            });
+    </script>
+
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/tuser/pointd')
+            $(document).ready(function (){
+                $('.menu-btn-history').css('backgroundColor', '#0f1864');
+            });
+    </script>
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/tuser/paymentd')
+            $(document).ready(function (){
+                $('.menu-btn-history').css('backgroundColor', '#0f1864');
+            });
+    </script>
+    <script>
+        var header = document.getElementById("myDIV");
+        var btns = header.getElementsByClassName("menu-btn");
+        if (window.location.pathname == '/tuser/historyd')
+            $(document).ready(function (){
+                $('.menu-btn-history').css('backgroundColor', '#0f1864');
             });
     </script>
 </footer>

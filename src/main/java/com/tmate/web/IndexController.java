@@ -82,4 +82,13 @@ public class IndexController {
         httpSession.setAttribute("member", member);
         return "user/main";
     }
+
+    @GetMapping("/testLogin3")
+    public String testLogin3(HttpSession httpSession) {
+        PhoneDTO phone = new PhoneDTO("하창현","01091840042","");
+
+        MemberDTO member = smsService.getPermission(phone);
+        httpSession.setAttribute("member", member);
+        return "user/main";
+    }
 }

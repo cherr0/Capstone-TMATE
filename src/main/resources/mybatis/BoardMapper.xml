@@ -7,22 +7,75 @@
         select bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_count ,m_id
         from
             (
-                select /*+ INDEX_DESC(board board_pk) */
+                select
                     rownum rn, bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_count, m_id
                 from
                     board
-                where rownum <= #{pageNum} * #{amount}
+                where bd_id like 'nt%' and  rownum <= #{pageNum} * #{amount}
+                order by to_number(substr(bd_id,3)) desc
+                )
+        where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+
+    <select id="getEventList" resultType="com.tmate.domain.BoardDTO">
+        <![CDATA[
+        select bd_id,  bd_contents, bd_title, bd_count ,bd_s_date,bd_e_date,m_id
+        from
+            (
+                select
+                    rownum rn, bd_id,  bd_contents, bd_title, bd_s_date,bd_e_date ,bd_count, m_id
+                from
+                    board
+                where bd_id not like 'nt%' and  rownum <= #{pageNum} * #{amount}
+                order by to_number(substr(bd_id,4)) desc
             )
         where rn > (#{pageNum} - 1) * #{amount}
         ]]>
     </select>
 
+    <select id="getBoardUserList" resultType="com.tmate.domain.BoardDTO">
+        <![CDATA[
+        select bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_count ,m_id
+        from
+            (
+                select
+                    rownum rn, bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_count, m_id
+                from
+                    board
+                where bd_id like 'nt%' and bd_status = '0' and  rownum <= #{pageNum} * #{amount}
+                order by to_number(substr(bd_id,3)) desc
+            )
+        where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+
+    <select id="totalUserCount" resultType="_int">
+        select count(*) from board where bd_id like 'nt%' and bd_status='0'
+    </select>
+
+    <select id="totalEventCount" resultType="_int">
+        select count(*) from board where bd_id not like 'nt%'
+    </select>
+
     <select id="read" resultType="com.tmate.domain.BoardDTO">
-        select * from board where bd_id = #{bd_id}
+        select *
+        from (
+                 select bd_id, bd_status, bd_contents, bd_title, bd_cre_date, bd_mod_date, bd_count, m_id,
+                        LEAD(bd_title,1,'다음글') OVER(ORDER BY bd_id) next_title,
+                        LEAD(bd_id,1,'다음 글이 없습니다') OVER(ORDER BY bd_id) next_id,
+                        LEAD(bd_cre_date,1) OVER(ORDER BY bd_id) next_cre_date,
+                        LAG(bd_title,1,'이전글') OVER(ORDER BY bd_id) prev_title,
+                        LAG(bd_id,1,'이전 글이 없습니다') OVER(ORDER BY bd_id) prev_id,
+                        LAG(bd_cre_date,1) OVER(ORDER BY bd_id) prev_cre_date
+                 from board
+                 order by bd_id
+             )
+        where bd_id = #{bd_id}
     </select>
 
     <select id="totalCount" resultType="_int">
-        select count(*) from board
+        select count(*) from board where bd_id like 'nt%'
     </select>
 
 
@@ -35,13 +88,33 @@
         where bd_id = #{bd_id}
     </update>
 
+    <update id="updateE">
+        update board
+        set bd_title = #{bd_title},
+            bd_contents = #{bd_contents},
+            bd_mod_date = sysdate,
+            bd_s_date = #{bd_s_date},
+            bd_e_date = #{bd_e_date}
+        where bd_id = #{bd_id}
+    </update>
+
     <delete id="delete">
         delete from board where bd_id = #{bd_id}
     </delete>
 
     <insert id="insert">
         insert into board (bd_id, bd_status, bd_contents, bd_title, m_id)
-        values('not'||bd_sec.nextval,#{bd_status},#{bd_contents},#{bd_title},#{m_id})
+        values('nt'||LPAD(nt_sec.nextval,6,'0'),#{bd_status},#{bd_contents},#{bd_title},#{m_id})
+    </insert>
+
+    <insert id="insertEvent">
+
+        <selectKey keyProperty="bd_id" order="BEFORE" resultType="string">
+            select #{keyword}||LPAD(nt_sec.nextval,6,'0') from dual
+        </selectKey>
+
+        insert into board (bd_id, bd_status, bd_contents, bd_title, bd_s_date,bd_e_date,m_id)
+        values(#{bd_id},'0',#{bd_contents},#{bd_title},#{bd_s_date},#{bd_e_date},#{m_id})
     </insert>
 
     <update id="viewCount">
