@@ -55,7 +55,7 @@ public class IndexController {
     // 유저 메인화면
     @GetMapping("/usermain")
     public String userMain() {
-        return "admin/userMain";
+        return "user/main";
     }
 
     // 회원가입 QR 코드 사용하여 모바일 화면 연결

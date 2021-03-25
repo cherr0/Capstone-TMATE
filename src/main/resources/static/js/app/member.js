@@ -135,7 +135,7 @@ const member = {
                     console.log("member permission : '" + permission + "'");
 
                     switch (permission) {
-                        case 'c' :
+                        case 'm' :
                         case 'd' :
                             window.location.href = '/usermain';
                             break;
