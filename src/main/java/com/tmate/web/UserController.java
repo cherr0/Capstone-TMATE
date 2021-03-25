@@ -125,7 +125,7 @@ public class UserController {
     @GetMapping("/event/{bd_id}")
     public String userEvent(@PathVariable("bd_id") String bd_id, Model model) {
         log.info("넘어오는 글번호 : " + bd_id);
-        BoardDTO boardDTO = boardService.getN(bd_id);
+        BoardDTO boardDTO = boardService.getE(bd_id);
         List<BoardImageDTO> boardImageList = boardService.getBoardImageList(bd_id);
         log.info("조회되는 글 정보 : " + boardDTO);
         model.addAttribute("eimages", boardImageList);
