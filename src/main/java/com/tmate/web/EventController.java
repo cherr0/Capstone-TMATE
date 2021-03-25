@@ -60,7 +60,7 @@ public class EventController {
     // 이벤트 글 수정 페이지
     @GetMapping("/eventmodify/{bd_id}")
     public String eventModify(Model model,@PathVariable("bd_id") String bd_id) {
-        BoardDTO event = boardService.get(bd_id);
+        BoardDTO event = boardService.getE(bd_id);
         List<BoardImageDTO> boardImageList = boardService.getBoardImageList(bd_id);
 
         model.addAttribute("event", event);
