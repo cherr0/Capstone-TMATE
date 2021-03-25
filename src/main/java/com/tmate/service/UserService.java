@@ -42,6 +42,7 @@ public interface UserService {
     public MemberDTO getMember(String m_id);
 
     // 프로필 개인 정보 수정
+    public boolean modifyMember(MemberDTO memberDTO);
 
     // 프로필 개인 정보 탈퇴
 

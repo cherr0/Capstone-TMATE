@@ -22,6 +22,12 @@
         ]]>
     </select>
 
+    <update id="updateMember">
+        update member
+        set m_house = #{m_house}, m_email = #{m_email}
+        where m_id = #{m_id}
+    </update>
+
     <select id="getMemberByM_id" resultType="com.tmate.domain.MemberDTO">
         select * from member
         where m_id = #{m_id}
