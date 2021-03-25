@@ -42,7 +42,7 @@ public class EventController {
 
 //        eventService.viewCount(e_id);
 
-        BoardDTO event = boardService.get(bd_id);
+        BoardDTO event = boardService.getE(bd_id);
         List<BoardImageDTO> boardImageList = boardService.getBoardImageList(bd_id);
         model.addAttribute("event", event);
         model.addAttribute("eimages", boardImageList);

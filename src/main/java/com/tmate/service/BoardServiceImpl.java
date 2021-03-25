@@ -133,4 +133,14 @@ public class BoardServiceImpl implements BoardService {
 
         return boardDTO;
     }
+
+    @Transactional
+    @Override
+    public BoardDTO getE(String bd_id) {
+
+        BoardDTO boardDTO = boardMapper.readE(bd_id);
+        boardMapper.viewCount(bd_id);
+
+        return boardDTO;
+    }
 }

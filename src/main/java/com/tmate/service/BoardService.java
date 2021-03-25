@@ -13,6 +13,8 @@ public interface BoardService {
 
     public BoardDTO get(String bd_id);
 
+    public BoardDTO getE(String bd_id);
+
     public boolean modify(BoardDTO boardDTO);
 
     public boolean remove(String bd_id);
