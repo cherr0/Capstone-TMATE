@@ -20,7 +20,7 @@ public interface Membermapper {
     void insertMember(MemberDTO memberDTO);
 
     // 회원 수정
-    void updateMember(MemberDTO memberDTO);
+    int updateMember(MemberDTO memberDTO);
 
     // 회원 삭제 -> 회원 및 기사 관련
     int deleteMember(String m_id);

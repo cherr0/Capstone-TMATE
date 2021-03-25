@@ -121,4 +121,10 @@ public class UserApiController {
 
         return new ResponseEntity<>(userService.modifyRep(customer_uid, m_id),HttpStatus.OK);
     }
+
+    @PostMapping("/modifymem")
+    public ResponseEntity<Boolean> modifymem(@RequestBody MemberDTO memberDTO) {
+        log.info("수정 될려는 멤버 정보 " + memberDTO);
+        return new ResponseEntity<>(userService.modifyMember(memberDTO), HttpStatus.OK);
+    }
 }
