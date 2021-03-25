@@ -234,10 +234,17 @@
             })
         });
 
-        $(".select").on("click", function () {
-            let n_whether = $('.n_whether').val();
-            let n_name = $('.notifiName').val();
-            let n_phone = $('.n_phone').val();
+        $(".select").on("click", function (e) {
+            console.log(e);
+
+            console.log($(this));
+            console.log($(this).siblings('input.n_phone').val());
+            console.log($(this).siblings('select.n_whether').val());
+            console.log($(this).siblings('span.notifiName').val());
+
+            let n_whether = $(this).siblings('select.n_whether').val();
+            let n_name = $(this).siblings('span.notifiName').val();
+            let n_phone = $(this).siblings('input.n_phone').val();
             let m_id = [[${session.member.m_id}]];
 
             let data = {
