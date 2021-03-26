@@ -22,6 +22,7 @@ public class My_info_Fragment extends Fragment {
     private TextView tv_point;
     private TextView tv_preference;
     private TextView tv_alert;
+    private TextView tv_history;
 
     @Nullable
     @Override
@@ -68,6 +69,16 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 NotificationFragment notificationFragment = new NotificationFragment();
                 transaction.replace(R.id.frameLayout, notificationFragment);
+                transaction.commit();
+            }
+        });
+        tv_history = view.findViewById(R.id.tv_history);
+        tv_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                historyFragment hf = new historyFragment();
+                transaction.replace(R.id.frameLayout, hf);
                 transaction.commit();
             }
         });
