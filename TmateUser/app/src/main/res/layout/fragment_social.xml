@@ -65,56 +65,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="소셜계정 회원가입"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btn_reg"
-        app:layout_constraintTop_toBottomOf="@+id/btn_reg" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="웹서비스 이용을 위한 소셜 회원가입입니다."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.231"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-    <Button
-        android:id="@+id/kakao"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="50dp"
-        android:backgroundTint="#F9E000"
-        android:drawableLeft="@drawable/kakao"
-        android:gravity="left|center_vertical"
-        android:text="카카오로 회원가입"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#02BC19"
-        android:drawableLeft="@drawable/naver"
-        android:gravity="left|center_vertical"
-        android:text="네이버로 회원가입"
-        android:textSize="17sp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/kakao"
-        app:layout_constraintStart_toStartOf="@+id/kakao"
-        app:layout_constraintTop_toBottomOf="@+id/kakao" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
