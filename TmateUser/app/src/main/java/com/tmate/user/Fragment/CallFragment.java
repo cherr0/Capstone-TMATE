@@ -4,30 +4,42 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.tmate.user.MatchingFragment;
 import com.tmate.user.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class CallFragment extends Fragment {
+    ArrayList<String> list;
     private View view;
-    private TextView tv_together;
-    private TextView tv_normal;
+    private LinearLayout Ll_together;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_call, container, false);
 
-        tv_together = view.findViewById(R.id.tv_together);
-        tv_together.setOnClickListener(new View.OnClickListener() {
+        Ll_together = view.findViewById(R.id.Ll_together);
+        Ll_together.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(MainViewActivity.this, MapActivity.class);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                MatchingFragment matchingFragment = new MatchingFragment();
+                transaction.replace(R.id.frameLayout, matchingFragment);
+                transaction.commit();
             }
         });
         return view;
