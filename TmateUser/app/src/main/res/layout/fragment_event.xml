@@ -23,7 +23,12 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView41">
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/event_close_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="134dp" />
 
     </FrameLayout>
 
