@@ -23,6 +23,7 @@ public class My_info_Fragment extends Fragment {
     private TextView tv_preference;
     private TextView tv_alert;
     private TextView tv_history;
+    private TextView tv_bookmark;
 
     @Nullable
     @Override
@@ -82,6 +83,18 @@ public class My_info_Fragment extends Fragment {
                 transaction.commit();
             }
         });
+
+        tv_bookmark = view.findViewById(R.id.tv_bookmark);
+        tv_bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                favoritesFragment favoritesFragment = new favoritesFragment();
+                transaction.replace(R.id.frameLayout, favoritesFragment);
+                transaction.commit();
+            }
+        });
+
 
 
 
