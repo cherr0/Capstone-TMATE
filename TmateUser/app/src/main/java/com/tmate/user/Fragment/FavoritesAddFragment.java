@@ -11,13 +11,16 @@ import androidx.fragment.app.Fragment;
 
 import com.tmate.user.R;
 
+public class FavoritesAddFragment extends Fragment {
+    private View view;
 
-public class EventFragment extends Fragment {
-    ViewGroup viewGroup;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_event, container, false);
-        return viewGroup;
+
+        view = inflater.inflate(R.layout.fragment_favorites_add, container, false);
+
+        return view;
     }
 }
+

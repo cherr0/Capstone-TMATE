@@ -27,8 +27,11 @@
             android:theme="@style/Theme.Tmate"
             android:name=".MainViewActivity">
         </activity>
-
         <activity android:name=".EventDetailActivity"></activity>
+        <activity android:name=".MatchingDetailActivity"
+            android:theme="@style/Theme.Tmate">
+
+        </activity>
     </application>
 
 </manifest>
