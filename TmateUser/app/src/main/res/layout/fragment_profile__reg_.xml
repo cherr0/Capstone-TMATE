@@ -117,9 +117,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.105"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+            app:layout_constraintTop_toBottomOf="@+id/et_house" />
+
+
         <EditText
-            android:id="@+id/editTextTextEmailAddress"
+            android:id="@+id/et_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -131,7 +133,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/et_house"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"

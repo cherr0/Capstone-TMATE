@@ -17,7 +17,7 @@ public interface Membermapper {
     MemberDTO getMemberByM_id(String m_id);
 
     // 회원 가입
-    void insertMember(MemberDTO memberDTO);
+    int insertMember(MemberDTO memberDTO);
 
     // 회원 수정
     int updateMember(MemberDTO memberDTO);
