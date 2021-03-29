@@ -17,6 +17,7 @@ import com.tmate.user.R;
 public class SNFragment extends Fragment {
     private View view;
     private Button btn_profile;
+    Bundle bundle;
 
     @Nullable
     @Override
@@ -24,11 +25,20 @@ public class SNFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_s_n, container, false);
 
         btn_profile = view.findViewById(R.id.btn_profile);
+
+        if (getArguments() != null) {
+            bundle = new Bundle();
+            bundle.putString("m_name", getArguments().getString("m_name"));
+            bundle.putString("m_id", getArguments().getString("m_id"));
+            bundle.putString("m_birth", getArguments().getString("m_birth"));
+        }
+
         btn_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 Profile_Reg_Fragment profile_reg_fragment = new Profile_Reg_Fragment();
+                profile_reg_fragment.setArguments(bundle);
                 transaction.replace(R.id.fm_main, profile_reg_fragment);
                 transaction.commit();
             }

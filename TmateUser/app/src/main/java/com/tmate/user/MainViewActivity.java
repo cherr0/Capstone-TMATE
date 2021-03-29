@@ -1,6 +1,9 @@
 package com.tmate.user;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -29,6 +32,13 @@ public class MainViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
+
+        Intent intent = getIntent();
+
+
+        setPreference("m_id", intent.getStringExtra("m_id"));
+
+        Log.d("Get Preference : ", getPreferenceString("m_id"));
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
 
@@ -60,5 +70,19 @@ public class MainViewActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // 데이터 저장 함수
+    public void setPreference(String key, String value){
+        SharedPreferences pref = getSharedPreferences("loginUser", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    // 데이터 불러오기 함수
+    public String getPreferenceString(String key){
+        SharedPreferences pref = getSharedPreferences("loginUser", MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 }
