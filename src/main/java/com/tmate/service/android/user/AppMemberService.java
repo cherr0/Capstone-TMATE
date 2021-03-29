@@ -1,8 +1,13 @@
 package com.tmate.service.android.user;
 
+import com.tmate.domain.MemberDTO;
+
+import java.util.Map;
+
 public interface AppMemberService {
 
     // 회원가입 - register
+    public Boolean registerMember(Map<String,String> map);
 
     // 회원 정보 - 프로필
 
