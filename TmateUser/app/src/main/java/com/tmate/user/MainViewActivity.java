@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tmate.user.Fragment.BoardingFragment;
 import com.tmate.user.Fragment.CallFragment;
-import com.tmate.user.Fragment.EventFragment;
+import com.tmate.user.Fragment.EventCloseFragment;
 import com.tmate.user.Fragment.My_info_Fragment;
 
 
@@ -23,7 +23,7 @@ public class MainViewActivity extends AppCompatActivity {
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private final CallFragment callFragment = new CallFragment();
     private final BoardingFragment boardingFragment = new BoardingFragment();
-    private final EventFragment eventFragment = new EventFragment();
+    private final EventCloseFragment eventFragment = new EventCloseFragment();
     private final My_info_Fragment my_info_fragment = new My_info_Fragment();
     private BottomNavigationView bottomNavigationView;
 

@@ -12,26 +12,32 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.EventAdapter;
-import com.tmate.user.R;
 import com.tmate.user.EventData;
+import com.tmate.user.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+public class event_close_item_stop extends Fragment {
 
-public class EventFragment extends Fragment {
     ArrayList<String> list;
+    private View v;
 
     private EventAdapter adapter;
+
+    public static event_close_item_stop newInstance() {
+        event_close_item_stop ecis = new event_close_item_stop();
+        return ecis;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_event,container,false);
+        v = inflater.inflate(R.layout.event_close_itemp_stop,container,false);
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.event_close_recycle);
+        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.event_stop);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -47,27 +53,19 @@ public class EventFragment extends Fragment {
     private void getData() {
         // 임의의 데이터입니다.
         List<Integer> listImage = Arrays.asList(
-                R.drawable.spring_event,
                 R.drawable.summer_event,
-                R.drawable.fall_event,
-                R.drawable.winter_event
+                R.drawable.fall_event
         );
         List<String> listTitle = Arrays.asList(
-                "봄 이벤트",
                 "여름 이벤트",
-                "가을 이벤트",
-                "겨울 이벤트"
+                "가을 이벤트"
         );
         List<String> listSubTitle = Arrays.asList(
-                "신학기 맞이 이벤트",
                 "여름방학 맞이 이벤트",
-                "식욕의 계절 이벤트",
-                "겨울방학 맞이 이벤트");
+                "식욕의 계절 이벤트");
         List<String> listDate = Arrays.asList(
-                "21.03.22 ~ 21.04.25",
-                "21.07.06 ~ 21.08.06",
-                "21.09.09 ~ 21.10.29",
-                "21.12.03 ~ 22.01.03"
+                "20.07.06 ~ 20.08.06",
+                "20.09.09 ~ 20.10.29"
         );
 
         for (int i = 0; i < listTitle.size(); i++) {
