@@ -26,6 +26,7 @@ public class CallFragment extends Fragment {
     ArrayList<String> list;
     private View view;
     private LinearLayout Ll_together;
+    private LinearLayout Ll_solo;
 
     @Nullable
     @Override
@@ -39,6 +40,17 @@ public class CallFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 MatchingFragment matchingFragment = new MatchingFragment();
                 transaction.replace(R.id.frameLayout, matchingFragment);
+                transaction.commit();
+            }
+        });
+
+        Ll_solo = view.findViewById(R.id.Ll_solo);
+        Ll_solo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                CallGeneralFragment callGeneralFragment = new CallGeneralFragment();
+                transaction.replace(R.id.frameLayout, callGeneralFragment);
                 transaction.commit();
             }
         });
