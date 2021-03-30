@@ -1,6 +1,7 @@
 package com.tmate.user.Fragment;
 
 import com.tmate.user.data.Member;
+import com.tmate.user.data.UserHistroy;
 
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,11 @@ interface InsertAPI {
 }
 
 interface SelectAPI {
+    // 상세 프로필 정보
     @GET("select/{m_id}")
     Call<Member> selectProfile(@Path("m_id") String m_id);
+
+    // 유저 이용 내역 정보
+    @GET("historys/{m_id}")
+    Call<List<UserHistroy>> selectHistory(@Path("m_id") String m_id);
 }
