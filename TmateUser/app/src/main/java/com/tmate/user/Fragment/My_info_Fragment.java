@@ -26,6 +26,7 @@ public class My_info_Fragment extends Fragment {
     private TextView tv_history;
     private TextView tv_notice;
     private TextView tv_bookmark;
+    private TextView tv_card;
 
     @Nullable
     @Override
@@ -115,6 +116,16 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 FriendFragment friendFragment = new FriendFragment();
                 transaction.replace(R.id.frameLayout, friendFragment);
+                transaction.commit();
+            }
+        });
+        tv_card = view.findViewById(R.id.tv_card);
+        tv_card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                card_management cm  = new card_management();
+                transaction.replace(R.id.frameLayout, cm);
                 transaction.commit();
             }
         });
