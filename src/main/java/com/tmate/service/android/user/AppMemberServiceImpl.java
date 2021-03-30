@@ -2,16 +2,17 @@ package com.tmate.service.android.user;
 
 import com.tmate.domain.MemberDTO;
 import com.tmate.mapper.Membermapper;
+import com.tmate.mapper.UserMainMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,9 @@ public class AppMemberServiceImpl implements AppMemberService {
 
     // 멤버 mapper 의존
     private final Membermapper membermapper;
+
+    // userMainMapper 의존
+    private final UserMainMapper userMainMapper;
 
     //  회원가입 등록
     @Override
@@ -61,5 +65,23 @@ public class AppMemberServiceImpl implements AppMemberService {
         
         // insertMember 실행
         return membermapper.insertMember(member) == 1;
+    }
+
+
+    // 프로필란에 회원정보 넣기
+    @Transactional
+    @Override
+    public MemberDTO getMemberProfile(String m_id) {
+        log.info("회원 정보 서비스 로직 처리중");
+
+        MemberDTO member = membermapper.getMemberByM_id(m_id);
+
+        int like = userMainMapper.getCountLike(m_id);
+        int dislike = userMainMapper.getCountDisLike(m_id);
+
+        member.setLike(like);
+        member.setDislike(dislike);
+
+        return member;
     }
 }

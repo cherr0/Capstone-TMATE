@@ -1,13 +1,14 @@
 package com.tmate.web.android;
 
+import com.tmate.domain.MemberDTO;
 import com.tmate.service.android.user.AppMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,5 +25,12 @@ public class AndroidApiController {
 
 
         return appMemberService.registerMember(memberDTO);
+    }
+
+    @GetMapping("/select/{m_id}")
+    public ResponseEntity<MemberDTO> getProfile(@PathVariable("m_id") String m_id) {
+        log.info("넘어오는 회원 번호 : " + m_id);
+
+        return new ResponseEntity<>(appMemberService.getMemberProfile(m_id), HttpStatus.OK);
     }
 }
