@@ -1,5 +1,8 @@
 package com.tmate.user.Fragment;
 
+import com.tmate.user.data.Member;
+
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
@@ -7,7 +10,9 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public class DataService {
 
@@ -20,10 +25,18 @@ public class DataService {
             .build();
 
     public InsertAPI insert = retrofitClient.create(InsertAPI.class);
+
+    public SelectAPI select = retrofitClient.create(SelectAPI.class);
+
 }
 
 
 interface InsertAPI {
     @POST("register")
     Call<Boolean> insertOne(@Body Map<String, String> map);
+}
+
+interface SelectAPI {
+    @GET("select/{m_id}")
+    Call<Member> selectProfile(@Path("m_id") String m_id);
 }

@@ -25,4 +25,6 @@ public class Member {
     private int m_point;
     private String m_invite;
     private String m_profile;
+    private int like;
+    private int dislike;
 }
