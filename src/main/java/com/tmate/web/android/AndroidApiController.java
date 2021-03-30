@@ -1,5 +1,6 @@
 package com.tmate.web.android;
 
+import com.tmate.domain.JoinHistoryVO;
 import com.tmate.domain.MemberDTO;
 import com.tmate.service.android.user.AppMemberService;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,13 @@ public class AndroidApiController {
         log.info("넘어오는 회원 번호 : " + m_id);
 
         return new ResponseEntity<>(appMemberService.getMemberProfile(m_id), HttpStatus.OK);
+    }
+
+    @GetMapping("/historys/{m_id}")
+    public ResponseEntity<List<JoinHistoryVO>> getHistory(@PathVariable("m_id") String m_id) {
+        log.info("이용내역 요청 시 넘어오는 회원 번호 : " + m_id);
+
+
+        return new ResponseEntity<>(appMemberService.getMemberHistoryList(m_id),HttpStatus.OK);
     }
 }
