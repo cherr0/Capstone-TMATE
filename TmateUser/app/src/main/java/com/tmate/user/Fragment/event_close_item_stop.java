@@ -20,34 +20,35 @@ import java.util.Arrays;
 import java.util.List;
 
 public class event_close_item_stop extends Fragment {
-
-    ArrayList<String> list;
-    private View v;
-
-    private EventAdapter adapter;
+    private ArrayList<EventData> arrayList;
+    private View view;
+    private EventAdapter eventAdapter;
+    private LinearLayoutManager linearLayoutManager;
+    private RecyclerView recyclerView;
 
     public static event_close_item_stop newInstance() {
         event_close_item_stop ecis = new event_close_item_stop();
         return ecis;
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.event_close_itemp_stop, container, false);
 
-        v = inflater.inflate(R.layout.event_close_itemp_stop,container,false);
+        recyclerView = view.findViewById(R.id.event_stop);
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.event_stop);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new EventAdapter();
-        recyclerView.setAdapter(adapter);
+        arrayList = new ArrayList<>();
 
-
+        eventAdapter = new EventAdapter(arrayList);
+        recyclerView.setAdapter(eventAdapter);
         getData();
-        return v;
+
+        return view;
     }
 
     private void getData() {
@@ -76,12 +77,8 @@ public class event_close_item_stop extends Fragment {
             data.setTv_subTitle(listSubTitle.get(i));
             data.setTv_date(listDate.get(i));
 
-
-            // 각 값이 들어간 data를 adapter에 추가합니다.
-            adapter.addItem(data);
+            // adapter의 값이 변경되었다는 것을 알려줍니다.
+            eventAdapter.notifyDataSetChanged();
         }
-
-        // adapter의 값이 변경되었다는 것을 알려줍니다.
-        adapter.notifyDataSetChanged();
     }
 }

@@ -33,7 +33,8 @@
         <activity
             android:name=".MainViewActivity"
             android:theme="@style/Theme.Tmate"></activity>
-        <activity android:name=".EventDetailActivity" />
+        <activity android:name=".EventDetailActivity"
+            android:theme="@style/Theme.Tmate"/>
         <activity
             android:name=".MatchingDetailActivity"
             android:theme="@style/Theme.Tmate"></activity>
