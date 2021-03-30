@@ -1,10 +1,14 @@
 package com.tmate.user.Fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +30,7 @@ public class My_info_Fragment extends Fragment {
     private TextView tv_history;
     private TextView tv_notice;
     private TextView tv_bookmark;
+    private Button service;
 
     @Nullable
     @Override
@@ -119,8 +124,22 @@ public class My_info_Fragment extends Fragment {
             }
         });
 
+        service = view.findViewById(R.id.service);
+        service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                {
+                    Toast.makeText(getContext(), "카카오톡 이동", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_xlxnzUK/chat"));
+                    startActivity(intent);
+
+                }
 
 
+                }
+
+        });
         return view;
-    }
-}
+        }
+        }
+
