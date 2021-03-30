@@ -50,6 +50,10 @@ public class MemberDTO {
     // 집 주소
     private String m_house;
 
+    private int like;
+
+    private int dislike;
+
 
 
 }
