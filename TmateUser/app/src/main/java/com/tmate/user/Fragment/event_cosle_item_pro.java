@@ -5,14 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.EventAdapter;
 import com.tmate.user.EventData;
+
 import com.tmate.user.R;
 
 import java.util.ArrayList;
@@ -20,33 +23,35 @@ import java.util.Arrays;
 import java.util.List;
 
 public class event_cosle_item_pro extends Fragment {
-    ArrayList<String> list;
-    private View v;
-
-    private EventAdapter adapter;
+    private ArrayList<EventData> arrayList;
+    private View view;
+    private EventAdapter eventAdapter;
+    private LinearLayoutManager linearLayoutManager;
+    private RecyclerView recyclerView;
 
     public static event_cosle_item_pro newInstance() {
-        event_cosle_item_pro ecip = new event_cosle_item_pro();
+        event_cosle_item_pro  ecip = new event_cosle_item_pro();
         return ecip;
     }
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.event_close_item_pro, container, false);
 
-        v = inflater.inflate(R.layout.event_close_item_pro,container,false);
+        recyclerView = view.findViewById(R.id.event_pro);
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.event_pro);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new EventAdapter();
-        recyclerView.setAdapter(adapter);
+        arrayList = new ArrayList<>();
 
-
+        eventAdapter = new EventAdapter(arrayList);
+        recyclerView.setAdapter(eventAdapter);
         getData();
-        return v;
+
+        return view;
     }
 
     private void getData() {
@@ -68,21 +73,17 @@ public class event_cosle_item_pro extends Fragment {
                 "21.03.22 ~ 21.04.25",
                 "21.12.03 ~ 22.01.03"
         );
-
         for (int i = 0; i < listTitle.size(); i++) {
             // 각 List의 값들을 data 객체에 set 해줍니다.
-            EventData data = new EventData();
-            data.setIv_event(listImage.get(i));
-            data.setTv_title(listTitle.get(i));
-            data.setTv_subTitle(listSubTitle.get(i));
-            data.setTv_date(listDate.get(i));
-
-
+            EventData eventData = new EventData();
+            eventData.setIv_event(listImage.get(i));
+            eventData.setTv_title(listTitle.get(i));
+            eventData.setTv_subTitle(listSubTitle.get(i));
+            eventData.setTv_date(listDate.get(i));
             // 각 값이 들어간 data를 adapter에 추가합니다.
-            adapter.addItem(data);
+            eventAdapter.addItem(eventData);
         }
-
         // adapter의 값이 변경되었다는 것을 알려줍니다.
-        adapter.notifyDataSetChanged();
+        eventAdapter.notifyDataSetChanged();
     }
 }
