@@ -2,6 +2,8 @@ package com.tmate.web.android;
 
 import com.tmate.domain.JoinHistoryVO;
 import com.tmate.domain.MemberDTO;
+import com.tmate.domain.PhoneDTO;
+import com.tmate.service.SMSService;
 import com.tmate.service.android.user.AppMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,6 +21,8 @@ import java.util.Map;
 public class AndroidApiController {
 
     private final AppMemberService appMemberService;
+
+    private final SMSService smsService;
 
     @PostMapping("/register")
     public Boolean registerMember(@RequestBody Map<String, String> memberDTO) {
@@ -40,6 +44,30 @@ public class AndroidApiController {
         log.info("이용내역 요청 시 넘어오는 회원 번호 : " + m_id);
 
 
-        return new ResponseEntity<>(appMemberService.getMemberHistoryList(m_id),HttpStatus.OK);
+        return new ResponseEntity<>(appMemberService.getMemberHistoryList(m_id), HttpStatus.OK);
+    }
+
+
+    // 휴대폰 인증번호
+    @PostMapping("/sendsms")
+    public ResponseEntity<Boolean> sendSMS(@RequestBody PhoneDTO phoneDTO) {
+        log.info("인증번호 전송 sendSMS() Phone Num : " + phoneDTO.toString());
+
+        return new ResponseEntity<>(smsService.certifiedPhoneNumber(phoneDTO), HttpStatus.OK);
+    }
+
+    // 휴대폰 인증 확인
+    @PostMapping("/confirm")
+    public ResponseEntity<Integer> confirm(@RequestBody PhoneDTO phoneDTO) {
+        if(smsService.confirmNumber.equals(phoneDTO.getConfirm())){
+            log.info("실제 인증번호 : " + smsService.confirmNumber);
+            log.info("적은 인증번호 : " + phoneDTO.getConfirm());
+            return new  ResponseEntity<>(SMSService.CONFIRM,HttpStatus.OK);
+        }else {
+            log.info("실제 인증번호 : " + smsService.confirmNumber);
+            log.info("적은 인증번호 : " + phoneDTO.getConfirm());
+
+            return  new  ResponseEntity<>(SMSService.REJECT,HttpStatus.BAD_REQUEST);
+        }
     }
 }

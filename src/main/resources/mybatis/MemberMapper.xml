@@ -4,7 +4,7 @@
 
         <insert id="insertMember">
             insert into member(m_id, m_name, m_imei,m_birth, m_email,m_house)
-            values(#{m_id},#{m_name},'1111',#{m_birth,jdbcType=TIMESTAMP},#{m_email,jdbcType=VARCHAR},#{m_house})
+            values(#{m_id},#{m_name},#{m_imei},#{m_birth,jdbcType=TIMESTAMP},#{m_email,jdbcType=VARCHAR},#{m_house})
         </insert>
 
     <select id="getList" resultType="com.tmate.domain.MemberDTO">
