@@ -1,5 +1,6 @@
 package com.tmate.user;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,52 +11,56 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class NoticeAdapter extends  RecyclerView.Adapter<NoticeHolder>{
+public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.CustomViewHolder> {
 
-    ArrayList<NoticeData> items = new ArrayList<>();
+    private ArrayList<NoticeData> arrayList;
 
-
+    public NoticeAdapter(ArrayList<NoticeData> arrayList){this.arrayList = arrayList;}
 
     @NonNull
     @Override
-    public NoticeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NoticeAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_notice_item, parent, false);
-        return new NoticeHolder(view);
-    }
-
-
-    @Override
-    public void onBindViewHolder(@NonNull NoticeHolder holder, int position) {
-        holder.onBind(items.get(position));
+        NoticeAdapter.CustomViewHolder holder = new NoticeAdapter.CustomViewHolder(view);
+        return holder;
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return (null != arrayList ? arrayList.size() : 0);
     }
 
+    public void addItem(NoticeData noticeData) {arrayList.add(noticeData);}
 
+    public void addItem(NoticeAdapter noticeAdapter){
 
-    public void addItem(NoticeData data) {
-        items.add(data);
     }
 
+    @Override
+    public void onBindViewHolder(@NonNull NoticeAdapter.CustomViewHolder holder, int position) {
+        holder.notice_title.setText(arrayList.get(position).getNotice_title());
+        holder.notice_date.setText(arrayList.get(position).getNotice_date());
 
-
-}
-
-class NoticeHolder extends RecyclerView.ViewHolder {
-    TextView notice_title;
-    TextView notice_date;
-
-    void onBind(NoticeData data) {
-        notice_title.setText(data.getNotice_title());
-        notice_date.setText(data.getNotice_date());
+        holder.itemView.setTag(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), NoticeDetailActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
-    public NoticeHolder(@NonNull View itemView) {
-        super(itemView);
-        notice_title = itemView.findViewById(R.id.notice_title);
-        notice_date = itemView.findViewById(R.id.notice_date);
+    public class CustomViewHolder extends RecyclerView.ViewHolder{
+
+        protected TextView notice_title;
+        protected TextView notice_date;
+
+        public CustomViewHolder(View itemView) {
+            super(itemView);
+
+            this.notice_title = (TextView) itemView.findViewById(R.id.notice_title);
+            this.notice_date = (TextView) itemView.findViewById(R.id.notice_date);
+        }
     }
 }

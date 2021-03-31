@@ -23,9 +23,9 @@ import java.util.List;
 public class NoticeFragment extends Fragment {
 
 
-    ArrayList<String> list;
+    private ArrayList<NoticeData> arrayList;
 
-    private NoticeAdapter adapter;
+    private NoticeAdapter noticeAdapter;
 
     @Nullable
     @Override
@@ -38,8 +38,10 @@ public class NoticeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new NoticeAdapter();
-        recyclerView.setAdapter(adapter);
+        arrayList = new ArrayList<>();
+
+        noticeAdapter = new NoticeAdapter(arrayList);
+        recyclerView.setAdapter(noticeAdapter);
 
 
         getData();
@@ -63,16 +65,16 @@ public class NoticeFragment extends Fragment {
 
         for (int i = 0; i < listTitle.size(); i++) {
             // 각 List의 값들을 data 객체에 set 해줍니다.
-            NoticeData data = new NoticeData();
-            data.setNotice_title(listTitle.get(i));
-            data.setNotice_date(listDate.get(i));
+            NoticeData noticeData = new NoticeData();
+            noticeData.setNotice_title(listTitle.get(i));
+            noticeData.setNotice_date(listDate.get(i));
 
 
             // 각 값이 들어간 data를 adapter에 추가합니다.
-            adapter.addItem(data);
+            noticeAdapter.addItem(noticeData);
         }
 
         // adapter의 값이 변경되었다는 것을 알려줍니다.
-        adapter.notifyDataSetChanged();
+        noticeAdapter.notifyDataSetChanged();
     }
 }

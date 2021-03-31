@@ -36,6 +36,8 @@
             android:theme="@style/Theme.Tmate"></activity>
         <activity android:name=".EventDetailActivity"
             android:theme="@style/Theme.Tmate"/>
+        <activity android:name=".NoticeDetailActivity"
+            android:theme="@style/Theme.Tmate"/>
         <activity
             android:name=".MatchingDetailActivity"
             android:theme="@style/Theme.Tmate"></activity>
