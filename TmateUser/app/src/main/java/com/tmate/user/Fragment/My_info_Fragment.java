@@ -48,6 +48,7 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 ProfileFragment profileFragment = new ProfileFragment();
                 transaction.replace(R.id.frameLayout, profileFragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -59,6 +60,7 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 PointFragment pointFragment = new PointFragment();
                 transaction.replace(R.id.frameLayout, pointFragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -70,6 +72,7 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 PreferenceFragment preferenceFragment = new PreferenceFragment();
                 transaction.replace(R.id.frameLayout, preferenceFragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -81,6 +84,7 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 NotificationFragment notificationFragment = new NotificationFragment();
                 transaction.replace(R.id.frameLayout, notificationFragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -91,6 +95,7 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 historyFragment hf = new historyFragment();
                 transaction.replace(R.id.frameLayout, hf);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -101,6 +106,7 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 NoticeFragment nf = new NoticeFragment();
                 transaction.replace(R.id.frameLayout, nf);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -112,6 +118,7 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 favoritesFragment favoritesFragment = new favoritesFragment();
                 transaction.replace(R.id.frameLayout, favoritesFragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -124,6 +131,7 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 FriendFragment friendFragment = new FriendFragment();
                 transaction.replace(R.id.frameLayout, friendFragment);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -134,6 +142,7 @@ public class My_info_Fragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 card_management cm  = new card_management();
                 transaction.replace(R.id.frameLayout, cm);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -146,14 +155,11 @@ public class My_info_Fragment extends Fragment {
                     Toast.makeText(getContext(), "카카오톡 이동", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_xlxnzUK/chat"));
                     startActivity(intent);
-
                 }
-
-
-                }
+            }
 
         });
         return view;
-        }
-        }
+    }
+}
 
