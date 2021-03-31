@@ -26,6 +26,7 @@ public class MainViewActivity extends AppCompatActivity {
     private final EventCloseFragment eventFragment = new EventCloseFragment();
     private final My_info_Fragment my_info_fragment = new My_info_Fragment();
     private BottomNavigationView bottomNavigationView;
+    public static int navbarFlag  = 0;
 
 
     @Override
@@ -51,18 +52,22 @@ public class MainViewActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.call : {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
+                        navbarFlag = 0;
                         return true;
                     }
                     case R.id.bo_info : {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, boardingFragment).commitAllowingStateLoss();
+                        navbarFlag = R.id.bo_info;
                         return true;
                     }
                     case R.id.event : {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, eventFragment).commitAllowingStateLoss();
+                        navbarFlag = R.id.event;
                         return true;
                     }
                     case R.id.more : {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, my_info_fragment).commitAllowingStateLoss();
+                        navbarFlag = R.id.more;
                         return true;
                     }
 
@@ -84,5 +89,22 @@ public class MainViewActivity extends AppCompatActivity {
     public String getPreferenceString(String key){
         SharedPreferences pref = getSharedPreferences("loginUser", MODE_PRIVATE);
         return pref.getString(key, "");
+    }
+
+    @Override
+    public void onBackPressed() {
+        switch (navbarFlag) {
+
+            case R.id.bo_info : case R.id.event : case R.id.more :
+                bottomNavigationView.setSelectedItemId(R.id.call);
+                break;
+            case 3:
+                bottomNavigationView.setSelectedItemId(R.id.more);
+                break;
+            default :
+
+        }
+
+
     }
 }
