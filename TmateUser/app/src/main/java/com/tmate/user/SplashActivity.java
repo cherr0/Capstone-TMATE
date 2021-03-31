@@ -2,7 +2,11 @@ package com.tmate.user;
 
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.pharid.splash.lib.activity.AnimatedSplash;
@@ -11,10 +15,17 @@ import com.pharid.splash.lib.model.ConfigSplash;
 
 public class SplashActivity extends AnimatedSplash {
 
+    String imei = "";
+
+
+    @SuppressLint("HardwareIds")
     @Override
     public void initSplash(ConfigSplash configSplash) {
 
         /* you don't have to override every property */
+
+
+        imei = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
         //Customize Circular Reveal
         configSplash.setBackgroundColor(R.color.white); //any color you want form colors.xml
@@ -37,7 +48,9 @@ public class SplashActivity extends AnimatedSplash {
 
     @Override
     public void animationsFinished() {
-        startActivity(new Intent(getApplication(), LoginActivity.class));
+        Intent intent = new Intent(getApplication(), LoginActivity.class);
+        intent.putExtra("m_imei", imei);
+        startActivity(intent);
         SplashActivity.this.finish();
     }
 }

@@ -54,7 +54,7 @@ public class AppMemberServiceImpl implements AppMemberService {
         // 회원 이름
         member.setM_name(map.get("m_name"));
 
-        
+        member.setM_imei(map.get("m_imei"));
         /*
         * 
         * 회원 집주소, 회원 이메일 null 값 체크뒤 DTO에 저장

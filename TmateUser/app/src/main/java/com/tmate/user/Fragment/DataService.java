@@ -1,6 +1,7 @@
 package com.tmate.user.Fragment;
 
 import com.tmate.user.data.Member;
+import com.tmate.user.data.PhoneDTO;
 import com.tmate.user.data.UserHistroy;
 
 import java.util.List;
@@ -16,8 +17,9 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public class DataService {
-
-    private String BASE_URL = "http://172.26.1.156:9090/member/"; // 기본 URL
+    // 애뮬레이터용
+//    private String BASE_URL = "http://10.0.2.2:9090/member/";
+    private String BASE_URL = "http://172.26.2.70:9090/member/"; // 기본 URL
 
     Retrofit retrofitClient = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -45,4 +47,12 @@ interface SelectAPI {
     // 유저 이용 내역 정보
     @GET("historys/{m_id}")
     Call<List<UserHistroy>> selectHistory(@Path("m_id") String m_id);
+
+    // 휴대폰 인증
+    @POST("sendsms")
+    Call<Boolean> sendSMS(@Body PhoneDTO phoneDTO);
+
+    // 휴대폰 인증 정보 확인
+    @POST("confirm")
+    Call<Integer> confirm(@Body PhoneDTO phoneDTO);
 }
