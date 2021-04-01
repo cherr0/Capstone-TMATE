@@ -1,5 +1,6 @@
 package com.tmate.user.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tmate.user.CallGeneralActivity;
+import com.tmate.user.MainViewActivity;
 import com.tmate.user.MatchingFragment;
 import com.tmate.user.R;
 
@@ -48,10 +51,8 @@ public class CallFragment extends Fragment {
         Ll_solo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                CallGeneralFragment callGeneralFragment = new CallGeneralFragment();
-                transaction.replace(R.id.frameLayout, callGeneralFragment);
-                transaction.commit();
+                Intent intent = new Intent(getContext(), CallGeneralActivity.class);
+                startActivity(intent);
             }
         });
         return view;
