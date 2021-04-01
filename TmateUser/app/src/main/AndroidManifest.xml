@@ -14,12 +14,14 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:icon="@drawable/icon"
+        android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".LoginActivity"
+        <activity android:name=".CallGeneralActivity"
             android:theme="@style/Theme.Tmate"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Theme.Tmate" />
         <activity
             android:name=".SplashActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -33,14 +35,16 @@
         </activity>
         <activity
             android:name=".MainViewActivity"
-            android:theme="@style/Theme.Tmate"></activity>
-        <activity android:name=".EventDetailActivity"
-            android:theme="@style/Theme.Tmate"/>
-        <activity android:name=".NoticeDetailActivity"
-            android:theme="@style/Theme.Tmate"/>
+            android:theme="@style/Theme.Tmate" />
+        <activity
+            android:name=".EventDetailActivity"
+            android:theme="@style/Theme.Tmate" />
+        <activity
+            android:name=".NoticeDetailActivity"
+            android:theme="@style/Theme.Tmate" />
         <activity
             android:name=".MatchingDetailActivity"
-            android:theme="@style/Theme.Tmate"></activity>
+            android:theme="@style/Theme.Tmate" />
     </application>
 
 </manifest>

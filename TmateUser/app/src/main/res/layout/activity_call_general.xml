@@ -8,15 +8,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout31"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/btn_back_general"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -29,11 +28,11 @@
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:text="결제 정보 확인"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,51 +42,54 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
-        android:layout_width="408dp"
-        android:layout_height="54dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
-        android:layout_marginTop="15dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout31"
-        app:layout_constraintVertical_bias="0.404">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout31">
 
-        <ImageView
-            android:id="@+id/imageView8"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView3"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/hu"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/default_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="16dp"
             android:gravity="center_vertical"
             android:text="박한수"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView8"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/circleImageView3"
+            app:layout_constraintStart_toEndOf="@+id/circleImageView3"
+            app:layout_constraintTop_toTopOf="@+id/circleImageView3" />
 
         <TextView
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
+            android:layout_marginEnd="16dp"
             android:gravity="right"
             android:text="2.0km"
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/textView19"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/textView19" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,22 +99,17 @@
         android:layout_height="595dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout31"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/tv_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="504dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="출발지"
             android:textColor="#BEC2CE"
-            app:layout_constraintBottom_toTopOf="@+id/btn_fare"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,7 +130,7 @@
             android:id="@+id/tv_end_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:text="경북대학교 대구 캠퍼스 북문"
             android:textColor="#000000"
@@ -145,11 +142,10 @@
             android:id="@+id/tv_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="도착지"
             android:textColor="#BEC2CE"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/view5"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
 
         <View
@@ -157,55 +153,51 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="#54A3CD"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.143" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_start_place" />
 
         <View
             android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="#54A3CD"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_end_place"
-            app:layout_constraintVertical_bias="0.05" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_end_place" />
 
         <View
             android:id="@+id/view4"
             android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="#54A3CD"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view"
-            app:layout_constraintVertical_bias="0.422" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <View
             android:id="@+id/view6"
             android:layout_width="0dp"
             android:layout_height="3dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="#54A3CD"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view"
-            app:layout_constraintVertical_bias="0.649" />
+            app:layout_constraintTop_toBottomOf="@+id/fare1" />
 
         <TextView
             android:id="@+id/textView"
@@ -262,50 +254,44 @@
             android:id="@+id/fare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="운행요금"
             android:textColor="#BEC2CE"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/view4"
             app:layout_constraintTop_toTopOf="@+id/view4" />
 
         <TextView
             android:id="@+id/fare1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="예상 요금"
             android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/fare"
             app:layout_constraintTop_toBottomOf="@+id/fare" />
 
         <TextView
             android:id="@+id/fare2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="316dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:gravity="center"
             android:text="3600원"
             android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fare" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/fare1" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout34"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view6"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toBottomOf="@+id/view6">
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -313,9 +299,8 @@
         <Button
             android:id="@+id/btn_fare"
             android:layout_width="130dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginBottom="45dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
             android:background="#69AAEA"
             android:drawableTop="@drawable/ic_card"
             android:drawableTint="#403D3D"
@@ -323,15 +308,15 @@
             android:text="자동결제"
             android:textColor="#ffffff"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout34"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout34" />
 
         <Button
             android:id="@+id/btn_fare2"
             android:layout_width="130dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginBottom="45dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="48dp"
             android:background="#94E2EA"
             android:drawableTop="@drawable/ic_coin"
             android:drawableTint="#272525"
@@ -339,8 +324,9 @@
             android:text="만나서 결제"
             android:textColor="#ffffff"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btn_fare" />
+            app:layout_constraintBottom_toBottomOf="@+id/btn_fare"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout34"
+            app:layout_constraintTop_toTopOf="@+id/btn_fare" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
