@@ -270,15 +270,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="48dp"
-        android:text="설정 하기"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout22"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout22"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout22" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
