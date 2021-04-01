@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,11 @@ public class My_info_Fragment extends Fragment {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clearPerferences(getActivity().getApplicationContext());
+                clearPerferences(getContext());
+                SharedPreferences preferences = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
+                String m_id = preferences.getString("m_id", null);
+                Log.d("과연 이값은: ", m_id);
+
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
             }
@@ -193,7 +198,7 @@ public class My_info_Fragment extends Fragment {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = pref.edit();
         editor.remove("m_id");
-        editor.commit();
+        editor.apply();
     }
 }
 
