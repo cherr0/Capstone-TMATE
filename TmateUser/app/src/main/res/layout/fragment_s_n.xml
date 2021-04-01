@@ -118,4 +118,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/time_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/et_confirmNum"
+        app:layout_constraintTop_toBottomOf="@+id/et_confirmNum" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

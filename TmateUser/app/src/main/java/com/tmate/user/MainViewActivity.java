@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,8 @@ public class MainViewActivity extends AppCompatActivity {
     private final My_info_Fragment my_info_fragment = new My_info_Fragment();
     private BottomNavigationView bottomNavigationView;
     public static int navbarFlag  = 0;
+    private long backBtnTime = 0;
+
 
 
     @Override
@@ -52,7 +55,7 @@ public class MainViewActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.call : {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
-                        navbarFlag = 0;
+                        navbarFlag = R.id.call;
                         return true;
                     }
                     case R.id.bo_info : {
@@ -93,6 +96,7 @@ public class MainViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         switch (navbarFlag) {
 
             case R.id.bo_info : case R.id.event : case R.id.more :
@@ -101,6 +105,16 @@ public class MainViewActivity extends AppCompatActivity {
             case 3:
                 bottomNavigationView.setSelectedItemId(R.id.more);
                 break;
+            case R.id.call :
+                long curTime = System.currentTimeMillis();
+                long gapTime = curTime - backBtnTime;
+
+                if (0 <= gapTime && 2000 >= gapTime){
+                    super.onBackPressed();
+                } else {
+                    backBtnTime = curTime;
+                    Toast.makeText(this, "한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+                }
             default :
 
         }
