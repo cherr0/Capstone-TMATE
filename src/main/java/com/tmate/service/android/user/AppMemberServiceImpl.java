@@ -1,6 +1,8 @@
 package com.tmate.service.android.user;
 
+import com.tmate.domain.JoinHistoryVO;
 import com.tmate.domain.MemberDTO;
+import com.tmate.mapper.JoinMapper;
 import com.tmate.mapper.Membermapper;
 import com.tmate.mapper.UserMainMapper;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,9 @@ public class AppMemberServiceImpl implements AppMemberService {
 
     // userMainMapper 의존
     private final UserMainMapper userMainMapper;
+
+    // joinMapper 의존
+    private final JoinMapper joinMapper;
 
     //  회원가입 등록
     @Override
@@ -49,7 +54,7 @@ public class AppMemberServiceImpl implements AppMemberService {
         // 회원 이름
         member.setM_name(map.get("m_name"));
 
-        
+        member.setM_imei(map.get("m_imei"));
         /*
         * 
         * 회원 집주소, 회원 이메일 null 값 체크뒤 DTO에 저장
@@ -83,5 +88,15 @@ public class AppMemberServiceImpl implements AppMemberService {
         member.setDislike(dislike);
 
         return member;
+    }
+
+    // 유저 이용내역 리스트
+
+    @Override
+    public List<JoinHistoryVO> getMemberHistoryList(String m_id) {
+        log.info("회원 이용 내역 서비스 로직 처리중");
+
+
+        return joinMapper.findHistoryToApp(m_id);
     }
 }

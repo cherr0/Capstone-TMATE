@@ -25,12 +25,16 @@ public class BlankFragment extends Fragment {
     private final SNFragment snFragment = new SNFragment();
     private EditText et_name,et_phone,et_birth;
     private RadioButton radioButton6, radioButton7;
-
+    Bundle bundle;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_blank, container, false);
+
+        if (getArguments() != null) {
+            bundle = getArguments();
+        }
 
         et_name = view.findViewById(R.id.et_name);
         et_phone = view.findViewById(R.id.et_phone);
@@ -43,7 +47,8 @@ public class BlankFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Bundle bundle = new Bundle();
+
+
                 bundle.putString("m_name", et_name.getText().toString());
                 if (radioButton6.isChecked()) {
                     bundle.putString("m_id","m1"+et_phone.getText().toString()+"0");
