@@ -19,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.tmate.user.MainViewActivity;
 import com.tmate.user.LoginActivity;
 import com.tmate.user.R;
 
@@ -52,6 +53,7 @@ public class My_info_Fragment extends Fragment {
         constraintLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainViewActivity.navbarFlag = 3;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 ProfileFragment profileFragment = new ProfileFragment();
                 transaction.replace(R.id.frameLayout, profileFragment);
@@ -74,6 +76,7 @@ public class My_info_Fragment extends Fragment {
         tv_point.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainViewActivity.navbarFlag = 3;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 PointFragment pointFragment = new PointFragment();
                 transaction.replace(R.id.frameLayout, pointFragment);
@@ -86,6 +89,7 @@ public class My_info_Fragment extends Fragment {
         tv_preference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainViewActivity.navbarFlag = 3;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 PreferenceFragment preferenceFragment = new PreferenceFragment();
                 transaction.replace(R.id.frameLayout, preferenceFragment);
@@ -98,6 +102,7 @@ public class My_info_Fragment extends Fragment {
         tv_alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainViewActivity.navbarFlag = 3;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 NotificationFragment notificationFragment = new NotificationFragment();
                 transaction.replace(R.id.frameLayout, notificationFragment);
@@ -109,6 +114,7 @@ public class My_info_Fragment extends Fragment {
         tv_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainViewActivity.navbarFlag = 3;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 historyFragment hf = new historyFragment();
                 transaction.replace(R.id.frameLayout, hf);
@@ -120,6 +126,7 @@ public class My_info_Fragment extends Fragment {
         tv_notice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainViewActivity.navbarFlag = 3;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 NoticeFragment nf = new NoticeFragment();
                 transaction.replace(R.id.frameLayout, nf);
@@ -132,6 +139,7 @@ public class My_info_Fragment extends Fragment {
         tv_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainViewActivity.navbarFlag = 3;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 favoritesFragment favoritesFragment = new favoritesFragment();
                 transaction.replace(R.id.frameLayout, favoritesFragment);
@@ -145,6 +153,7 @@ public class My_info_Fragment extends Fragment {
         tv_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainViewActivity.navbarFlag = 3;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 FriendFragment friendFragment = new FriendFragment();
                 transaction.replace(R.id.frameLayout, friendFragment);
@@ -156,6 +165,7 @@ public class My_info_Fragment extends Fragment {
         tv_card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainViewActivity.navbarFlag = 3;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 card_management cm  = new card_management();
                 transaction.replace(R.id.frameLayout, cm);
