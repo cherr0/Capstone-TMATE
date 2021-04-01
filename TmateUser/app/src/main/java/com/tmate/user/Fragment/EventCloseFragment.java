@@ -28,7 +28,7 @@ public class EventCloseFragment extends Fragment {
         epa = new EventPagerAdapter(getFragmentManager());
 
         TabLayout tl = v.findViewById(R.id.tab_layout);
-        vp.setAdapter(epa);
+        vp.setAdapter(new EventPagerAdapter (getChildFragmentManager()));
         tl.setupWithViewPager(vp);
 
         return v;
