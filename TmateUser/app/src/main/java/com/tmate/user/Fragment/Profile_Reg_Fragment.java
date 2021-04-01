@@ -44,6 +44,7 @@ public class Profile_Reg_Fragment extends Fragment {
             map.put("m_id", getArguments().getString("m_id"));
             map.put("m_name", getArguments().getString("m_name"));
             map.put("m_birth", getArguments().getString("m_birth"));
+            map.put("m_imei", getArguments().getString("m_imei"));
         }
 
         btn_submit = rootview.findViewById(R.id.btn_submit);

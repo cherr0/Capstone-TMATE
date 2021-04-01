@@ -76,7 +76,7 @@ public class event_close_item_stop extends Fragment {
             data.setTv_title(listTitle.get(i));
             data.setTv_subTitle(listSubTitle.get(i));
             data.setTv_date(listDate.get(i));
-
+            eventAdapter.addItem(data);
             // adapter의 값이 변경되었다는 것을 알려줍니다.
             eventAdapter.notifyDataSetChanged();
         }

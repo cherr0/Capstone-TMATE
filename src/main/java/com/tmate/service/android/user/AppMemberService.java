@@ -1,5 +1,6 @@
 package com.tmate.service.android.user;
 
+import com.tmate.domain.JoinHistoryVO;
 import com.tmate.domain.MemberDTO;
 
 import java.util.List;
@@ -12,6 +13,9 @@ public interface AppMemberService {
 
     // 회원 정보 - 프로필 + 좋아요 + 싫어요 횟수
     public MemberDTO getMemberProfile(String m_id);
+
+    // 이용 내역 - 유저 이용 내역
+    public List<JoinHistoryVO> getMemberHistoryList(String m_id);
 
 
 

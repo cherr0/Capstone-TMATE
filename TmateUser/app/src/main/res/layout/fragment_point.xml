@@ -12,6 +12,7 @@
         android:layout_height="300dp"
         android:background="#4D67B5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -43,14 +44,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            android:text="P 6000"
+            android:layout_marginRight="10dp"
+            android:text="P"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toStartOf="@+id/totalPo"
+            app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+        <TextView
+            android:id="@+id/totalPo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="6000"
             android:textColor="#FFFFFF"
             android:textSize="32sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
+
         <TextView
+            android:id="@+id/textView30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
@@ -88,8 +103,11 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout10">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pointRecy"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
