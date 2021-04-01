@@ -7,6 +7,7 @@ import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,34 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.fragment_my_info_, container, false);
 
         constraintLayout3 = view.findViewById(R.id.constraintLayout3);
+
+        constraintLayout3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainViewActivity.navbarFlag = 3;
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                ProfileFragment profileFragment = new ProfileFragment();
+                transaction.replace(R.id.frameLayout, profileFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        btn_logout = view.findViewById(R.id.btn_logout);
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearPerferences(getContext());
+                SharedPreferences preferences = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
+                String m_id = preferences.getString("m_id", null);
+                Log.d("과연 이값은: ", m_id);
+
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         tv_point = view.findViewById(R.id.tv_point);
         tv_preference = view.findViewById(R.id.tv_preference);
         tv_alert = view.findViewById(R.id.tv_alert);
@@ -80,7 +109,7 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = pref.edit();
         editor.remove("m_id");
-        editor.commit();
+        editor.apply();
     }
 
     @Override
