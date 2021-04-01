@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -28,6 +29,7 @@ public class favoritesFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private Button btn_add;
     private FavoritesAddFragment favoritesAddFragment;
+    private ImageView btn_back_favorites;
 
 
     @Nullable
@@ -54,6 +56,16 @@ public class favoritesFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 FavoritesAddFragment favoritesAddFragment = new FavoritesAddFragment();
                 transaction.replace(R.id.frameLayout, favoritesAddFragment).commit();
+            }
+        });
+
+        btn_back_favorites = rootView.findViewById(R.id.btn_back_favorites);
+        btn_back_favorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                My_info_Fragment my_info_fragment = new My_info_Fragment();
+                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
             }
         });
 
