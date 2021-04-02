@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,8 @@ public class card_management  extends Fragment {
     Button button;
     LinearLayout nocard;
     ArrayList<String> list;
+
+    private ImageView btn_back_cardManagement;
 
     private CardAdapter adapter;
 
@@ -59,6 +62,15 @@ public class card_management  extends Fragment {
             }
         });
 
+        btn_back_cardManagement = v.findViewById(R.id.btn_back_cardManagement);
+        btn_back_cardManagement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                My_info_Fragment my_info_fragment = new My_info_Fragment();
+                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+            }
+        });
 
         return v;
     }

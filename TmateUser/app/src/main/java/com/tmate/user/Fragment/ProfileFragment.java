@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,6 +32,7 @@ import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
     private View view;
+    private ImageView btn_back_profile;
 
     DataService dataService = new DataService();
 
@@ -48,6 +50,15 @@ public class ProfileFragment extends Fragment {
 
         findData();
 
+        btn_back_profile = view.findViewById(R.id.btn_back_profile);
+        btn_back_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                My_info_Fragment my_info_fragment = new My_info_Fragment();
+                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+            }
+        });
 
         return view;
     }
