@@ -38,6 +38,9 @@ public class MemberDTO {
     // 노쇼 카운트
     private int m_count;
 
+    // imei
+    private String m_imei;
+
     // 등급
     private String m_level;
 
@@ -49,6 +52,10 @@ public class MemberDTO {
 
     // 집 주소
     private String m_house;
+
+    private int like;
+
+    private int dislike;
 
 
 

@@ -33,4 +33,11 @@ public interface JoinMapper {
 
     // 회원 상세페이지 포인트 토탈 카운트
     int getTotalPointCount(String m_id);
+
+    /*
+    * 안드로이드 용
+    *
+    * */
+
+    List<JoinHistoryVO> findHistoryToApp(String m_id);
 }

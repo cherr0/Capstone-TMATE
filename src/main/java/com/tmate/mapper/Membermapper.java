@@ -17,10 +17,10 @@ public interface Membermapper {
     MemberDTO getMemberByM_id(String m_id);
 
     // 회원 가입
-    void insertMember(MemberDTO memberDTO);
+    int insertMember(MemberDTO memberDTO);
 
     // 회원 수정
-    void updateMember(MemberDTO memberDTO);
+    int updateMember(MemberDTO memberDTO);
 
     // 회원 삭제 -> 회원 및 기사 관련
     int deleteMember(String m_id);

@@ -151,6 +151,14 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    // 프로필 수정
+
+
+    @Override
+    public boolean modifyMember(MemberDTO memberDTO) {
+        return membermapper.updateMember(memberDTO) == 1;
+    }
+
     // 프로필 - 알림 전송
     @Override
     public List<NotificationDTO> getNotifiList(String m_id) {

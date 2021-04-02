@@ -2,11 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tmate.mapper.Membermapper">
 
-    <!--    <insert id="insert">-->
-    <!--        insert into member(m_id, m_name,m_profile, m_imei, m_birth, m_email, m_house,m_invite)-->
-    <!--        values(#{m_id},#{m_name},#{m_profile,jdbcType=VARCHAR},#{m_imei},#{m_birth},-->
-    <!--               #{m_email,jdbcType=VARCHAR},#{m_house,jdbcType=VARCHAR},null)-->
-    <!--    </insert>-->
+        <insert id="insertMember">
+            insert into member(m_id, m_name, m_imei,m_birth, m_email,m_house)
+            values(#{m_id},#{m_name},#{m_imei},#{m_birth,jdbcType=TIMESTAMP},#{m_email,jdbcType=VARCHAR},#{m_house})
+        </insert>
 
     <select id="getList" resultType="com.tmate.domain.MemberDTO">
          <![CDATA[
@@ -21,6 +20,12 @@
         where rn > (#{pageNum} - 1) * #{amount}
         ]]>
     </select>
+
+    <update id="updateMember">
+        update member
+        set m_house = #{m_house}, m_email = #{m_email}
+        where m_id = #{m_id}
+    </update>
 
     <select id="getMemberByM_id" resultType="com.tmate.domain.MemberDTO">
         select * from member

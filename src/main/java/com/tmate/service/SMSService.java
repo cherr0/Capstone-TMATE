@@ -21,7 +21,8 @@ public class SMSService {
     private static final String api_key = "NCSILQQGTJKYU1AL";  // coolsms api key
     private static final String api_searet = "1DODZAILXFPRRRDWVAEU8GPSEBUMLBM7";  // coolsms api secret key
 
-    public final String confirmNumber = createKey();
+//    public final String confirmNumber = createKey();
+    public String confirmNumber;
     public static final int CONFIRM = 1;    // 인증 확인
     public static final int REJECT = 0;     // 인증 실패
 
@@ -29,6 +30,7 @@ public class SMSService {
 
         Message coolsms = new Message(api_key, api_searet);
 
+        confirmNumber = createKey();
         phone.setConfirm(confirmNumber);
 
         System.out.println("수신자 번호 : " + phone.getPhoneNumber());
@@ -57,7 +59,7 @@ public class SMSService {
         return membermapper.searchPermission(phone);
     }
 
-    //		인증코드 만들기
+    //		인증코드 만들기 -> 휴대폰 인증 번호 및 초대 코드용
     public String createKey() {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
