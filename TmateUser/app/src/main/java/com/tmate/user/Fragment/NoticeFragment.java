@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +26,7 @@ public class NoticeFragment extends Fragment {
 
 
     private ArrayList<NoticeData> arrayList;
-
+    private ImageView btn_back_notice;
     private NoticeAdapter noticeAdapter;
 
     @Nullable
@@ -43,6 +45,15 @@ public class NoticeFragment extends Fragment {
         noticeAdapter = new NoticeAdapter(arrayList);
         recyclerView.setAdapter(noticeAdapter);
 
+        btn_back_notice = v.findViewById(R.id.btn_back_notice);
+        btn_back_notice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                My_info_Fragment my_info_fragment = new My_info_Fragment();
+                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+            }
+        });
 
         getData();
         return v;

@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,13 +18,8 @@ import com.tmate.user.R;
 import com.tmate.user.adapter.pointAdapter;
 import com.tmate.user.data.PointData;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 public class PointFragment extends Fragment {
@@ -34,6 +31,7 @@ public class PointFragment extends Fragment {
     List<Integer> listporesult;
     List<String> listCourse;
     List<Integer> mPoint;
+    private ImageView btn_back_point;
 
 
     @Nullable
@@ -49,6 +47,16 @@ public class PointFragment extends Fragment {
 
         adapter = new pointAdapter();
         recyclerView.setAdapter(adapter);
+
+        btn_back_point = v.findViewById(R.id.btn_back_point);
+        btn_back_point.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                My_info_Fragment my_info_fragment = new My_info_Fragment();
+                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+            }
+        });
 
         getData();
 

@@ -7,10 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +33,7 @@ public class historyFragment extends Fragment {
 
     DataService dataService = new DataService();
     private historyAdapter adapter;
+    private ImageView btn_back_history;
 
     @Nullable
     @Override
@@ -45,9 +49,21 @@ public class historyFragment extends Fragment {
         adapter = new historyAdapter();
         recyclerView.setAdapter(adapter);
 
-
         getData();
+
+        btn_back_history = v.findViewById(R.id.btn_back_history);
+        btn_back_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                My_info_Fragment my_info_fragment = new My_info_Fragment();
+                fragmentTransaction.replace(R.id.frameLayout, my_info_fragment).commit();
+            }
+        });
+
         return v;
+
+
     }
 
     private void getData() {
@@ -102,4 +118,6 @@ public class historyFragment extends Fragment {
         SharedPreferences pref = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         return pref.getString(key, "");
     }
+
+
 }

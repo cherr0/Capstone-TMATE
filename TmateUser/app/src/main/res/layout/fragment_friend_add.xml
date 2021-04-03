@@ -13,10 +13,12 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/btn_back_friendadd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -33,7 +35,7 @@
             android:layout_marginBottom="16dp"
             android:text="지인 등록"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +60,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="01079459563"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView45" />
@@ -73,6 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayoutf"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
@@ -84,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView46">
 
         <TextView
-            android:id="@+id/textView47"
+            android:id="@+id/search_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -94,45 +96,58 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView48"
+            android:id="@+id/search_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="남"
-            app:layout_constraintBottom_toBottomOf="@+id/textView47"
-            app:layout_constraintStart_toEndOf="@+id/textView47"
-            app:layout_constraintTop_toTopOf="@+id/textView47" />
+            app:layout_constraintBottom_toBottomOf="@+id/search_name"
+            app:layout_constraintStart_toEndOf="@+id/search_name"
+            app:layout_constraintTop_toTopOf="@+id/search_name" />
 
         <TextView
+            android:id="@+id/search_birth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="97-11-01"
-            app:layout_constraintBottom_toBottomOf="@+id/textView48"
-            app:layout_constraintStart_toEndOf="@+id/textView48"
-            app:layout_constraintTop_toTopOf="@+id/textView48" />
+            app:layout_constraintBottom_toBottomOf="@+id/search_gender"
+            app:layout_constraintStart_toEndOf="@+id/search_gender"
+            app:layout_constraintTop_toTopOf="@+id/search_gender" />
 
         <TextView
+            android:id="@+id/search_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="010-6248-0674"
-            app:layout_constraintStart_toStartOf="@+id/textView47"
-            app:layout_constraintTop_toBottomOf="@+id/textView48" />
+            app:layout_constraintStart_toStartOf="@+id/search_name"
+            app:layout_constraintTop_toBottomOf="@+id/search_gender" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
+        android:id="@+id/btn_approval"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:backgroundTint="#536DFE"
-        android:text="친구 등록"
+        android:text="지인 요청"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="316dp"
+        android:layout_marginTop="116dp"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

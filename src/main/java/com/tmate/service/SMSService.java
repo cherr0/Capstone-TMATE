@@ -59,7 +59,7 @@ public class SMSService {
         return membermapper.searchPermission(phone);
     }
 
-    //		인증코드 만들기
+    //		인증코드 만들기 -> 휴대폰 인증 번호 및 초대 코드용
     public String createKey() {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();

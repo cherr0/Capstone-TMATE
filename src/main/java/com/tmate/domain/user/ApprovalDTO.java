@@ -17,9 +17,9 @@ public class ApprovalDTO {
 
     private String name;
 
-    private Timestamp birth;
-
     private String sum_address;
+
+    private Timestamp birth;
 
     private String appro_flag;
 

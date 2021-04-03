@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TmateDriver">
-        <activity android:name=".ActivityLogin">
+        <activity android:name=".MainViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
