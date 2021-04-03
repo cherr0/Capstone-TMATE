@@ -21,7 +21,7 @@
 
     <insert id="insertMyApproval">
         insert into approval(seq,id,name,birth,sum_address,appro_flag,m_id)
-        values(ap_sec.nextval,#{id},#{name},#{birth},#{sum_address,jdbcType=VARCHAR},'0',#{m_id})
+        values(ap_sec.nextval,#{id},#{name},#{birth,jdbcType=TIMESTAMP},#{sum_address,jdbcType=VARCHAR},'0',#{m_id})
     </insert>
 
     <delete id="deleteApproval">

@@ -1,23 +1,21 @@
-package com.tmate.domain.user;
+package com.tmate.user.data;
+
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApprovalDTO {
+public class Approval {
 
     private int seq;
 
     private String id;
 
     private String name;
-
-    private String sum_address;
 
     private Timestamp birth;
 
