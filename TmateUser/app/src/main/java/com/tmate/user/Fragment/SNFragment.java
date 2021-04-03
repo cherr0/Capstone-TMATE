@@ -32,6 +32,7 @@ public class SNFragment extends Fragment {
     TextView time_counter;
     CountDownTimer countDownTimer;
     final int MILLISINFUTURE = 180 * 1000; //총 시간 (180초 = 5분)
+//    final  int MILLISINFUTURE = 5 * 1000;
     final int COUNT_DOWN_INTERVAL = 1000; //onTick 메소드를 호출할 간격 (1초)
 
     EditText et_confirmNum;
@@ -93,6 +94,7 @@ public class SNFragment extends Fragment {
                                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                                     Profile_Reg_Fragment profile_reg_fragment = new Profile_Reg_Fragment();
                                     profile_reg_fragment.setArguments(bundle);
+                                    countDownTimer.cancel();
                                     transaction.replace(R.id.fm_main, profile_reg_fragment);
                                     transaction.commit();
                                 }
