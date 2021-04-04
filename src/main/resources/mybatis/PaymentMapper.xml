@@ -15,6 +15,11 @@
         values(to_char(systimestamp,'yyMMddhh24missff')||pa_sec.nextval,#{m_id},'pg','0',#{pay_company},#{credit_no},#{credit_pw},#{credit_cvc},#{credit_vali})
     </insert>
 
+    <insert id="kakaoReady">
+        insert into TEMP_RECEIPT(tid,M_ID,D_ID)
+        values(${tid},${partner_order_id},${partner_user_id})
+    </insert>
+
     <delete id="delete">
         delete from payment where customer_uid = #{customer_uid}
     </delete>
