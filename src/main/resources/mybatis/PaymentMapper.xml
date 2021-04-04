@@ -17,7 +17,7 @@
 
     <insert id="kakaoReady">
         insert into temp_receipt(tid, m_id, d_id, re_time)
-        values(${tid},${m_id},${d_id},systimestamp)
+        values(#{tid},#{m_id},#{d_id},#{re_time})
     </insert>
 
     <select id="kakaoReadyRes" resultType="com.tmate.domain.KakaoDTO">
@@ -27,7 +27,7 @@
              from temp_receipt
              order by re_time desc
                  )
-        where m_id=${m_id} and rownum=1
+        where m_id=#{m_id} and rownum=1
     </select>
 
     <delete id="delete">
