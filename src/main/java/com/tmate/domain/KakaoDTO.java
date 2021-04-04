@@ -18,7 +18,7 @@ public class KakaoDTO {
     private String re_crn;
 
     // 결제 시간
-    private Date approved_at;
+    private Date re_time;
 
     // 금액
     private int re_amt;
