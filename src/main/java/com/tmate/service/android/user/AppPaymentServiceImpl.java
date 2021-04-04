@@ -24,7 +24,7 @@ public class AppPaymentServiceImpl implements AppPaymentService {
 
         KakaoDTO kakao = new KakaoDTO();
 
-        long re_time = new Date(map.get("created_at")).getTime();
+        long re_time = Long.parseLong(map.get("created_at"));
 
         kakao.setTid(map.get("mid"));
         kakao.setM_id(map.get("partner_user_id"));
