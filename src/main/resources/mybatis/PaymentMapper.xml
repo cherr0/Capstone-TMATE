@@ -17,7 +17,7 @@
 
     <insert id="kakaoReady">
         insert into TEMP_RECEIPT(tid,M_ID,D_ID,re_time)
-        values(${tid},${partner_order_id},${partner_user_id},${created_at})
+        values(${tid},${m_id},${d_id},${re_time})
     </insert>
 
     <select id="kakaoReadyRes" resultType="com.tmate.domain.KakaoDTO">
