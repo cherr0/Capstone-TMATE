@@ -48,7 +48,7 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
 
 
     // 테스트용 로그아웃 버튼
-    private Button btn_logout;
+
     private Button service;
     private TextView tv_card;
 
@@ -80,19 +80,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
             }
         });
 
-        btn_logout = view.findViewById(R.id.btn_logout);
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearPerferences(getContext());
-                SharedPreferences preferences = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
-                String m_id = preferences.getString("m_id", null);
-                Log.d("과연 이값은: ", m_id);
-
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
         tv_point = view.findViewById(R.id.tv_point);
@@ -103,7 +90,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
         tv_notice = view.findViewById(R.id.tv_notice);
         tv_bookmark = view.findViewById(R.id.tv_bookmark);
         service = view.findViewById(R.id.service);
-        btn_logout = view.findViewById(R.id.btn_logout);
         tv_card = view.findViewById(R.id.tv_card);
 
 
@@ -116,7 +102,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
         tv_notice.setOnClickListener(this);
         tv_bookmark.setOnClickListener(this);
         service.setOnClickListener(this);
-        btn_logout.setOnClickListener(this);
         tv_card.setOnClickListener(this);
 
         return view;
@@ -181,11 +166,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_xlxnzUK/chat"));
                 startActivity(intent);
                 return;
-            }
-            case R.id.btn_logout : {
-                clearPerferences(getActivity().getApplicationContext());
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
             }
             case R.id.tv_card : {
                 card_management card_management = new card_management();
