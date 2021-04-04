@@ -30,6 +30,12 @@
         where m_id=#{m_id} and rownum=1
     </select>
 
+    <update id="kakaoApprove">
+        update temp_receipt
+        set aid=#{aid} and re_amt = #{re_amt}
+        where tid = #{tid}
+    </update>
+
     <delete id="delete">
         delete from payment where customer_uid = #{customer_uid}
     </delete>

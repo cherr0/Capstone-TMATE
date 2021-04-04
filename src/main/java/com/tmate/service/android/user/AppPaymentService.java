@@ -12,5 +12,5 @@ public interface AppPaymentService {
     public KakaoDTO kakaoReadyRes(String m_id);
 
     // 결제 승인
-    public Boolean kakaoApprove(Map<String, String> map);
+    public Boolean kakaoApprove(KakaoDTO kakaoDTO);
 }
