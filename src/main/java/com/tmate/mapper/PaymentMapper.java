@@ -36,4 +36,7 @@ public interface PaymentMapper {
 
     // 카카오페이 결제 준비 값 조회
     KakaoDTO kakaoReadyRes(String m_id);
+
+    // 카카오페이 결제 승인 res 값 인서트
+    int kakaoApprove(KakaoDTO kakaoDTO);
 }
