@@ -22,45 +22,51 @@
 
 <input id="tid" type="hidden" th:value="${result.tid}"/>
 <input id="partner_order_id" type="hidden" th:value="${result.d_id}"/>
+<button id="submit">전송</button>
 <script>
 
-    let data = {
-        cid:'TC0ONETIME',
-        tid: $('#tid').val(),
-        partner_order_id:$('partner_order_id').val(),
-        partner_user_id:$('partner_user_id').val(),
-        pg_token: $('#pg_token').val()
-    }
+    $('#result').on('click', function () {
 
-    $.ajax({
-        data: JSON.stringify(data),
-        type: 'POST',
-        url: 'https://kapi.kakao.com/v1/payment/approve',
-        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
-        success : function (result) {
+        $('#result').text('클릭됨');
 
-            let resData = {
-                tid: result.tid,
-                aid: result.aid,
-                re_amt: result.amount.total
-            }
-
-            $.ajax({
-                data: JSON.stringify(resData),
-                type: 'PUT',
-                url: '/api/kakaoApprove',
-                success : function (result) {
-                    $('#result').text(result);
-                    window.history.back();
-                },
-                error : function (e) {
-                    $('#result').text(e);
-                }
-            })
+        let data = {
+            cid:'TC0ONETIME',
+            tid: $('#tid').val(),
+            partner_order_id:$('partner_order_id').val(),
+            partner_user_id:$('partner_user_id').val(),
+            pg_token: $('#pg_token').val()
         }
 
+        $.ajax({
+            data: JSON.stringify(data),
+            type: 'POST',
+            url: 'https://kapi.kakao.com/v1/payment/approve',
+            contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+            success : function (result) {
 
-    });
+                let resData = {
+                    tid: result.tid,
+                    aid: result.aid,
+                    re_amt: result.amount.total
+                }
+
+                $.ajax({
+                    data: JSON.stringify(resData),
+                    type: 'PUT',
+                    url: '/api/kakaoApprove',
+                    success : function (result) {
+                        $('#result').text(result);
+                        window.history.back();
+                    },
+                    error : function (e) {
+                        $('#result').text(e);
+                    }
+                })
+            }
+
+
+        });
+    })
 </script>
 
 </body>
