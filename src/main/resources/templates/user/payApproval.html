@@ -35,12 +35,16 @@
             pg_token: $('#pg_token').val()
         }
 
+
+        console.log(data);
+
         $.ajax({
             data: JSON.stringify(data),
             type: 'POST',
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded;charset=utf-8");
                 xhr.setRequestHeader("Authorization","KakaoAK e24eec29f82748733f7a2be2de93c236");
+                xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
             },
             url: 'https://kapi.kakao.com/v1/payment/approve',
             success : function (result) {
