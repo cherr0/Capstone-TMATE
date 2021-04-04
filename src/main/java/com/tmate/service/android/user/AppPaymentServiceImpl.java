@@ -31,6 +31,8 @@ public class AppPaymentServiceImpl implements AppPaymentService {
         kakao.setD_id(map.get("partner_order_id"));
         kakao.setRe_time(new Timestamp(re_time));
 
+        log.info("보내는 값 " + kakao);
+
         return paymentMapper.kakaoReady(kakao) == 1;
     }
 

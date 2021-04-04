@@ -16,7 +16,7 @@
     </insert>
 
     <insert id="kakaoReady">
-        insert into TEMP_RECEIPT(tid, M_ID, D_ID, re_time)
+        insert into temp_receipt(tid, m_id, d_id, re_time)
         values(${tid},${m_id},${d_id},${re_time})
     </insert>
 
@@ -24,7 +24,7 @@
         select *
         from (
              select *
-             from TEMP_RECEIPT
+             from temp_receipt
              order by re_time desc
                  )
         where m_id=${m_id} and rownum=1
