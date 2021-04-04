@@ -18,6 +18,7 @@
 <div>
     <span>결제금액 : </span><span id="amount" th:text="${result.re_amt}"></span>
 </div>
+<div id="result"></div>
 
 <input id="tid" type="hidden" th:value="${result.tid}"/>
 <input id="partner_order_id" type="hidden" th:value="${result.d_id}"/>
@@ -48,11 +49,12 @@
                 data: JSON.stringify(resData),
                 type: 'PUT',
                 url: '/api/kakaoApprove',
-                success : function () {
+                success : function (result) {
+                    $('#result').text(result);
                     window.history.back();
                 },
                 error : function (e) {
-
+                    $('#result').text(e);
                 }
             })
         }
