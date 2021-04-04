@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "461365737021",
+    "project_id": "tmate-3ee77",
+    "storage_bucket": "tmate-3ee77.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461365737021:android:b61099cee5a521becb9c54",
+        "android_client_info": {
+          "package_name": "com.tmate.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461365737021-8th4mp0jqpuhesjgdr8cre3m31hohns5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_QaMPkbXDoz5gF4xCLkqJNSekcaU679s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461365737021-8th4mp0jqpuhesjgdr8cre3m31hohns5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
