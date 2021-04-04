@@ -27,7 +27,7 @@
              from TEMP_RECEIPT
              order by re_time desc
                  )
-        where ${m_id} and rownum=1
+        where m_id=${m_id} and rownum=1
     </select>
 
     <delete id="delete">
