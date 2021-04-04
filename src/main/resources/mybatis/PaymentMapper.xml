@@ -16,7 +16,7 @@
     </insert>
 
     <insert id="kakaoReady">
-        insert into TEMP_RECEIPT(tid,M_ID,D_ID,re_time)
+        insert into TEMP_RECEIPT(tid, M_ID, D_ID, re_time)
         values(${tid},${m_id},${d_id},${re_time})
     </insert>
 
