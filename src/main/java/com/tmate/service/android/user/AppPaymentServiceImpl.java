@@ -27,7 +27,7 @@ public class AppPaymentServiceImpl implements AppPaymentService {
         kakao.setTid(map.get("mid"));
         kakao.setM_id(map.get("partner_user_id"));
         kakao.setD_id(map.get("partner_order_id"));
-        kakao.setApproved_at(new Date(map.get("created_at")));
+        kakao.setRe_time(new Date(map.get("created_at")));
 
         return paymentMapper.kakaoReady(kakao) == 1;
     }
