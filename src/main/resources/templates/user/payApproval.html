@@ -18,16 +18,14 @@
 <div>
     <span>결제금액 : </span><span id="amount" th:text="${result.re_amt}"></span>
 </div>
-<div id="result"></div>
-
 <input id="tid" type="hidden" th:value="${result.tid}"/>
 <input id="partner_order_id" type="hidden" th:value="${result.d_id}"/>
 <button id="submit">전송</button>
 <script>
+    console.log('스크립트 실행됨');
 
     $('#result').on('click', function () {
-
-        $('#result').text('클릭됨');
+        console.log('클릭됨');
 
         let data = {
             cid:'TC0ONETIME',
@@ -43,7 +41,7 @@
             url: 'https://kapi.kakao.com/v1/payment/approve',
             contentType: 'application/x-www-form-urlencoded;charset=utf-8',
             success : function (result) {
-
+                console.log('실행 성공');
                 let resData = {
                     tid: result.tid,
                     aid: result.aid,
@@ -59,9 +57,12 @@
                         window.history.back();
                     },
                     error : function (e) {
-                        $('#result').text(e);
+                        console.log(e);
                     }
                 })
+            },
+            error: function (e) {
+                console.log(e);
             }
 
 
