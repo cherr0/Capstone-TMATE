@@ -20,7 +20,7 @@ public class AppPaymentServiceImpl implements AppPaymentService {
     @Override
     public Boolean kakaoReady(Map<String, String> map) {
 
-        log.info("결제 준비 날아오는 정보 " + map);
+        log.info("결제 준비 날아오는 정보 : " + map);
 
         KakaoDTO kakao = new KakaoDTO();
 
@@ -42,7 +42,10 @@ public class AppPaymentServiceImpl implements AppPaymentService {
     }
 
     @Override
-    public Boolean kakaoApprove(Map<String, String> map) {
-        return null;
+    public Boolean kakaoApprove(KakaoDTO kakaoDTO) {
+
+        log.info("결제 승인 날아오는 정보 : " + kakaoDTO);
+
+        return paymentMapper.kakaoApprove(kakaoDTO) == 1;
     }
 }
