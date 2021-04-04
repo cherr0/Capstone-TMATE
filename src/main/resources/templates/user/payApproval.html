@@ -8,18 +8,20 @@
 </head>
 <body>
 <div>결제가 정상적으로 완료되었습니다.</div>
-<div id="pg_token" th:text="${token}"></div>
+<div th:text="${token}"></div>
 <div>
     <span>결제일시 : </span><span th:text="${result.re_time}"></span>
 </div>
 <div>
-    <span>구매자 코드 : </span><span id="partner_user_id" th:text="${result.m_id}"></span>
+    <span>구매자 코드 : </span><span  th:text="${result.m_id}"></span>
 </div>
 <div>
     <span>결제금액 : </span><span id="amount" th:text="${result.re_amt}"></span>
 </div>
 <input id="tid" type="hidden" th:value="${result.tid}"/>
 <input id="partner_order_id" type="hidden" th:value="${result.d_id}"/>
+<input id="partner_user_id" type="hidden" th:value="${result.m_id}"/>
+<input id="pg_token" type="hidden" th:value="${token}"/>
 <button id="submit">전송</button>
 <script>
     console.log('스크립트 실행됨');
@@ -30,8 +32,8 @@
         let data = {
             cid:'TC0ONETIME',
             tid: $('#tid').val(),
-            partner_order_id:$('#partner_order_id').val(),
-            partner_user_id:$('#partner_user_id').val(),
+            partner_order_id: $('#partner_order_id').val(),
+            partner_user_id: $('#partner_user_id').val(),
             pg_token: $('#pg_token').val()
         }
 
