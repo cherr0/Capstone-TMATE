@@ -2,6 +2,7 @@ package com.tmate.domain;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -18,7 +19,7 @@ public class KakaoDTO {
     private String re_crn;
 
     // 결제 시간
-    private Date re_time;
+    private Timestamp re_time;
 
     // 금액
     private int re_amt;
