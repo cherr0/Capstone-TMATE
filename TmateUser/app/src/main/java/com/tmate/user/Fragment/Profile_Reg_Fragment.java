@@ -69,13 +69,14 @@ public class Profile_Reg_Fragment extends Fragment {
                             Log.d("response", response.body().toString());
                             Intent intent = new Intent(getActivity(), MainViewActivity.class);
                             intent.putExtra("m_id", map.get("m_id"));
+                            intent.putExtra("m_name", map.get("m_name"));
                             startActivity(intent);
                         }
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<Boolean> call, Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
 

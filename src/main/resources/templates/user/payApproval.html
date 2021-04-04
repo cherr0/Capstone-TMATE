@@ -8,13 +8,13 @@
 <div>결제가 정상적으로 완료되었습니다.</div>
 <div th:text="${token}"></div>
 <div>
-    <span>결제일시 : </span><span></span>
+    <span>결제일시 : </span><span th:text="${result.re_time}"></span>
 </div>
 <div>
-    <span>상품명 : </span><span></span>
+    <span>구매자 코드 : </span><span th:text="${result.m_id}"></span>
 </div>
 <div>
-    <span>결제금액 : </span><span></span>
+    <span>결제금액 : </span><span th:text="${result.re_amt}"></span>
 </div>
 
 <input type="hidden" >
