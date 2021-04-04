@@ -33,4 +33,7 @@ public interface PaymentMapper {
 
     // 카카오페이 결제 준비 res 값 인서트
     int kakaoReady(KakaoDTO kakaoDTO);
+
+    // 카카오페이 결제 준비 값 조회
+    KakaoDTO kakaoReadyRes(String m_id);
 }

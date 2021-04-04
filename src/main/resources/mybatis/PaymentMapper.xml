@@ -16,9 +16,19 @@
     </insert>
 
     <insert id="kakaoReady">
-        insert into TEMP_RECEIPT(tid,M_ID,D_ID)
-        values(${tid},${partner_order_id},${partner_user_id})
+        insert into TEMP_RECEIPT(tid,M_ID,D_ID,re_time)
+        values(${tid},${partner_order_id},${partner_user_id},${created_at})
     </insert>
+
+    <select id="kakaoReadyRes" resultType="com.tmate.domain.KakaoDTO">
+        select *
+        from (
+             select *
+             from TEMP_RECEIPT
+             order by re_time desc
+                 )
+        where ${m_id} and rownum=1
+    </select>
 
     <delete id="delete">
         delete from payment where customer_uid = #{customer_uid}

@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Map;
 
 @Service
@@ -25,8 +27,18 @@ public class AppPaymentServiceImpl implements AppPaymentService {
         kakao.setTid(map.get("mid"));
         kakao.setM_id(map.get("partner_user_id"));
         kakao.setD_id(map.get("partner_order_id"));
+        kakao.setApproved_at(new Date(map.get("created_at")));
 
         return paymentMapper.kakaoReady(kakao) == 1;
     }
 
+    @Override
+    public KakaoDTO kakaoReadyRes(String m_id) {
+        return paymentMapper.kakaoReadyRes(m_id);
+    }
+
+    @Override
+    public Boolean kakaoApprove(Map<String, String> map) {
+        return null;
+    }
 }
