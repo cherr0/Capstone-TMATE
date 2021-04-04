@@ -1,5 +1,6 @@
 package com.tmate.mapper;
 
+import com.tmate.domain.KakaoDTO;
 import com.tmate.domain.PaymentDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -29,4 +30,7 @@ public interface PaymentMapper {
 
     // 대표 카드 -> 찾기->
     String findPayment(String m_id);
+
+    // 카카오페이 결제 준비 res 값 인서트
+    int kakaoReady(KakaoDTO kakaoDTO);
 }
