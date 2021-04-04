@@ -29,7 +29,7 @@ public class AppPaymentServiceImpl implements AppPaymentService {
         kakao.setTid(map.get("tid"));
         kakao.setM_id(map.get("partner_user_id"));
         kakao.setD_id(map.get("partner_order_id"));
-        kakao.setRe_time(new Timestamp(re_time));
+//        kakao.setRe_time(new Timestamp(re_time));
 
         log.info("보내는 값 " + kakao);
 
