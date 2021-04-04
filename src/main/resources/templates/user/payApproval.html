@@ -39,7 +39,8 @@
             data: JSON.stringify(data),
             type: 'POST',
             headers: {
-                "Authorization" : "KakaoAK e24eec29f82748733f7a2be2de93c236"
+                "Authorization" : "KakaoAK e24eec29f82748733f7a2be2de93c236",
+                "Access-Control-Allow-Origin": "*"
             },
             url: 'https://kapi.kakao.com/v1/payment/approve',
             contentType: 'application/x-www-form-urlencoded;charset=utf-8',
