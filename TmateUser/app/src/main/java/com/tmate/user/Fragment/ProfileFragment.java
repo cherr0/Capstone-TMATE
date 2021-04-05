@@ -46,6 +46,7 @@ import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
 import com.tmate.user.R;
 import com.tmate.user.data.Member;
+import com.tmate.user.data.Social;
 
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
@@ -62,6 +63,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
     private View view;
     private ImageView btn_back_profile;
 
+    // 레트로핏2 서비스
     DataService dataService = new DataService();
 
     ImageView iv_level;
@@ -77,6 +79,9 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
 
     // 카카오 로그인 관련
     private ISessionCallback mSessionCallback; // 카카오 로그인 관리하는 친구
+
+    // 계정 연동 DB 연결을 위함
+    Social social;
 
     // 프래그 먼트 처음 수행 되는 곳
     @Nullable
@@ -132,9 +137,31 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                     // 로그인 성공
                     @Override
                     public void onSuccess(MeV2Response result) {
+                        String m_id = getPreferenceString("m_id");
                         Log.d("연동한 계정 이름 : ", result.getKakaoAccount().getProfile().getNickname());
                         Log.d("연동한 이메일 : ", result.getKakaoAccount().getEmail());
-                        Toast.makeText(getActivity(), "카카오 계정을 연동하셨습니다.", Toast.LENGTH_SHORT).show();
+
+                        social = new Social();
+                        social.setS_email(result.getKakaoAccount().getEmail());
+                        social.setM_id(m_id);
+
+                        dataService.insert.socialAccount(social).enqueue(new Callback<Boolean>() {
+                            @Override
+                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                if (response.isSuccessful()) {
+                                    if (response.code() == 200) {
+                                        Toast.makeText(getActivity(), "카카오 계정을 연동하셨습니다.", Toast.LENGTH_SHORT).show();
+                                        Session.getCurrentSession().removeCallback(mSessionCallback);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Boolean> call, Throwable t) {
+
+                            }
+                        });
+
                     }
                 });
 
@@ -188,9 +215,29 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) { // 로그인이 성공하면
-                            Toast.makeText(getActivity(),"연동 성공",Toast.LENGTH_SHORT).show();
+                            String m_id = getPreferenceString("m_id");
                             Log.d("구글 계정 연동 이메일 정보", account.getEmail());
                             Log.d("구글 계정 연동한 유저 이름", account.getDisplayName());
+                            social = new Social();
+                            social.setS_email(account.getEmail());
+                            social.setM_id(m_id);
+
+                            dataService.insert.socialAccount(social).enqueue(new Callback<Boolean>() {
+                                @Override
+                                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                    if (response.isSuccessful()) {
+                                        if (response.code() == 200) {
+                                            Toast.makeText(getActivity(), "구글 계정 연동 성공적으로 마쳤습니다.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Boolean> call, Throwable t) {
+
+                                }
+                            });
+
 
                         } else{ // 로그인 실패
                             Toast.makeText(getActivity(), "연동 실패", Toast.LENGTH_SHORT).show();
