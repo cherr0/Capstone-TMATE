@@ -5,6 +5,7 @@
     <title>Title</title>
     <!-- Jquery JS-->
     <script th:src="@{~/vendor/jquery-3.5.1.min.js}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <div>결제가 정상적으로 완료되었습니다.</div>
@@ -29,6 +30,7 @@
     $('#submit').on('click', function () {
         console.log('클릭됨');
 
+        /*
         let data = {
             cid:'TC0ONETIME',
             tid: $('#tid').val(),
@@ -36,22 +38,36 @@
             partner_user_id: $('#partner_user_id').val(),
             pg_token: $('#pg_token').val()
         }
+        */
+        const url = "/kakao/approveSub";
 
+        let form = new FormData();
+        form.append("tid", $('#tid').val());
+        form.append("cid", 'TC0ONETIME');
+        form.append("partner_order_id", $('#partner_order_id').val());
+        form.append("partner_user_id", $('#partner_user_id').val());
+        form.append("pg_token",$('#pg_token').val());
 
-        console.log(data);
+        console.log(form);
 
+        axios.post(url, form)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(error.response);
+            })
+
+        /*
         $.ajax({
-            data: JSON.stringify(data),
+            data: data,
             type: 'POST',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded;charset=utf-8");
-                xhr.setRequestHeader("Authorization","KakaoAK e24eec29f82748733f7a2be2de93c236");
-                xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-                xhr.setRequestHeader("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
-            },
-            url: 'https://kapi.kakao.com/v1/payment/approve',
-            success : function (result) {
+            url: '/kakao/approveSub',
+            contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+            success: function (result) {
                 console.log('실행 성공');
+                console.log(result);
+
                 let resData = {
                     tid: result.tid,
                     aid: result.aid,
@@ -63,21 +79,25 @@
                     type: 'PUT',
                     url: '/api/kakaoApprove',
                     success : function (result) {
-                        $('#result').text(result);
+                        console.log(result);
                         window.history.back();
                     },
                     error : function (e) {
                         console.log(e);
                     }
-                })
+                });
+
             },
             error: function (e) {
                 console.log(e);
             }
 
 
+
+
         });
-    })
+         */
+    });
 </script>
 
 </body>
