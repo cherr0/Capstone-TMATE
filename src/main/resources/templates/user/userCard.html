@@ -235,7 +235,7 @@
 
 
         $('.submitBtn').on("click", function () {
-            let m_id = [[${session.member.m_id}]];
+            let m_id = [[${#authentication.principal.m_id}]];
             let pay_company = $('.payCompany').val();
             let credit_no = $('#cardNumber').val().replace(/ /g,"");
             let credit_pw = $('#cardPw').val();
@@ -258,7 +258,7 @@
                 contentType:'application/json; charset=utf-8',
                 success: function () {
                     alert("카드 등록");
-                    window.location.href="/tuser/payment?m_id="+[[${session.member.m_id}]];
+                    window.location.href="/tuser/payment?m_id="+[[${#authentication.principal.m_id}]];
                 },
                 error: function (error) {
                     console.log(error)
@@ -344,7 +344,7 @@
                             success: function () {
 
                                 alert("삭제완료");
-                                window.location.href="/tuser/payment?m_id="+[[${session.member.m_id}]];
+                                window.location.href="/tuser/payment?m_id="+[[${#authentication.principal.m_id}]];
 
                             },
                             error: function (error) {
@@ -355,14 +355,14 @@
 
                     $(".repBtn").on('click', function () {
                         let c_uid = $(".uid").val();
-                        let m_id = [[${session.member.m_id}]];
+                        let m_id = [[${#authentication.principal.m_id}]];
 
                         $.ajax({
                             url:'/api/tuser/updaterep/'+c_uid+"/"+m_id,
                             type:'PUT',
                             success: function () {
                                 alert("대표 지정 완료");
-                                window.location.href="/tuser/payment?m_id="+[[${session.member.m_id}]];
+                                window.location.href="/tuser/payment?m_id="+[[${#authentication.principal.m_id}]];
                             },
                             error:function (error) {
                                 console.log(error);

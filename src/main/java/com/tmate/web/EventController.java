@@ -4,6 +4,7 @@ import com.tmate.domain.*;
 import com.tmate.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ public class EventController {
     private final BoardService boardService;
 
     // 이벤트 목록
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/event")
     public String eventList(Model model, Criteria cri) {
         log.info("이벤트 리스트 컨트롤러");
@@ -35,6 +37,7 @@ public class EventController {
 
 
     // 이벤트 글 조회
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     @GetMapping("/event/{bd_id}")
     public String eventDetail(@PathVariable("bd_id") String bd_id, Model model) {
@@ -51,6 +54,7 @@ public class EventController {
 
 
     // 이벤트 글 작성 페이지
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/eventwrite")
     public String eventWrite() {
         return "/admin/eventWrite";
@@ -58,6 +62,7 @@ public class EventController {
 
 
     // 이벤트 글 수정 페이지
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/eventmodify/{bd_id}")
     public String eventModify(Model model,@PathVariable("bd_id") String bd_id) {
         BoardDTO event = boardService.getE(bd_id);

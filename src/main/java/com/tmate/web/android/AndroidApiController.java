@@ -1,9 +1,6 @@
 package com.tmate.web.android;
 
-import com.tmate.domain.JoinHistoryVO;
-import com.tmate.domain.MemberDTO;
-import com.tmate.domain.NotificationDTO;
-import com.tmate.domain.PhoneDTO;
+import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
 import com.tmate.service.SMSService;
 import com.tmate.service.UserService;
@@ -154,5 +151,13 @@ public class AndroidApiController {
         userService.modifyN_whether(notificationDTO);
 
         return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/social")
+    public ResponseEntity<Boolean> regiterSocial(@RequestBody SocialDTO socialDTO) {
+        log.info("App에서 소셜 연동 할 시: " + socialDTO);
+
+        return new ResponseEntity<>(appMemberService.registerSocialEmail(socialDTO), HttpStatus.OK);
     }
 }

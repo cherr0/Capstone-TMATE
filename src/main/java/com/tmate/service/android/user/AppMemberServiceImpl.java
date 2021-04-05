@@ -2,6 +2,8 @@ package com.tmate.service.android.user;
 
 import com.tmate.domain.JoinHistoryVO;
 import com.tmate.domain.MemberDTO;
+import com.tmate.domain.MemberRole;
+import com.tmate.domain.SocialDTO;
 import com.tmate.mapper.JoinMapper;
 import com.tmate.mapper.Membermapper;
 import com.tmate.mapper.UserMainMapper;
@@ -91,12 +93,26 @@ public class AppMemberServiceImpl implements AppMemberService {
     }
 
     // 유저 이용내역 리스트
-
     @Override
     public List<JoinHistoryVO> getMemberHistoryList(String m_id) {
         log.info("회원 이용 내역 서비스 로직 처리중");
 
 
         return joinMapper.findHistoryToApp(m_id);
+    }
+
+
+    // 소셜 계정 연동 시
+    @Transactional
+    @Override
+    public Boolean registerSocialEmail(SocialDTO socialDTO) {
+
+        String m_id = socialDTO.getM_id();
+
+        membermapper.insertSocialEmail(socialDTO);
+
+        MemberRole memberRole = new MemberRole("USER",m_id);
+
+        return membermapper.insertMemberRole(memberRole) == 1;
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="sidebar-header">
-                <div th:if="${session.member == null}">
+                <div sec:authorize="!isAuthenticated()">
                     <div class="user-pic">
                         <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
                     </div>
@@ -51,12 +51,12 @@
                         </span>
                     </div>
                 </div>
-                <div th:unless="${session.member == null}">
+                <div sec:authorize="isAuthenticated()">
                     <div class="user-pic">
-                        <img class="img-responsive img-rounded" th:src="@{${session.member.m_profile}}" alt="User picture">
+                        <img class="img-responsive img-rounded" th:src="@{${#authentication.principal.m_profile}}" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name" th:text="${session.member.m_name}"></span>
+                        <span class="user-name" th:text="${#authentication.principal.m_name}"></span>
                         <span class="user-role">관리자</span>
                         <span class="user-status">
                       <i class="fa fa-circle"></i><span>Online</span>

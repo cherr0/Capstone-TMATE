@@ -1,10 +1,15 @@
 package com.tmate.domain;
 
+import com.google.inject.internal.util.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -56,6 +61,20 @@ public class MemberDTO {
     private int like;
 
     private int dislike;
+
+    // 소셜 여부
+    private String m_s_flag;
+
+    // 소셜 이메일
+    private String s_email;
+
+    // 패스워드 -임시
+    private String password;
+
+    // 권한
+    private List<MemberRole> role = new ArrayList<>();
+
+
 
 
 

@@ -136,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" th:value="${session.member.m_id}" id="m_id">
+                <input type="hidden" th:value="${#authentication.principal.m_id}" id="m_id">
             </section>
         </div>
     </div>
