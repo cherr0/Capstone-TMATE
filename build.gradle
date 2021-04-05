@@ -21,6 +21,9 @@ repositories {
 dependencies {
     compile group: 'net.nurigo', name: 'javaSDK', version: '2.2'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
     implementation 'com.oracle.ojdbc:ojdbc8:19.3.0.0'
     implementation 'com.oracle.ojdbc:ucp:19.3.0.0'
@@ -36,7 +39,10 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
     compile group: 'net.coobird', name:'thumbnailator', version:'0.4.12'
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
+    compile group: 'org.thymeleaf.extras', name:'thymeleaf-extras-java8time'
 }
 
 test {

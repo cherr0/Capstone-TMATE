@@ -2,11 +2,14 @@ package com.tmate.web;
 
 import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
+import com.tmate.security.dto.AuthMemberDTO;
 import com.tmate.service.BoardService;
 import com.tmate.service.MemberService;
 import com.tmate.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -27,8 +30,10 @@ public class UserController {
     private final BoardService boardService;
 
     // 메인화면
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/main")
-    public String userMain(String m_id, Model model) {
+    public String userMain(@AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
+        String m_id = authMemberDTO.getM_id();
         log.info("넘어오는 회원번호 : " + m_id);
         model.addAttribute("memberp", userService.getMainPage(m_id));
         model.addAttribute("like", userService.totalCountLike(m_id));

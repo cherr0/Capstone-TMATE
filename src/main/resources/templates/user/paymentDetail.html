@@ -60,14 +60,14 @@
                                     <ul class="pagination justify-content-center">
                                         <th:block th:if="${pageMaker.prev}">
                                             <li class="page-item">
-                                                <a class="page-link" th:href="@{/tuser/paymentd(pageNum=${pageMaker.startPage-1},m_id=${session.member.m_id})}" aria-label="Previous">
+                                                <a class="page-link" th:href="@{/tuser/paymentd(pageNum=${pageMaker.startPage-1},m_id=${#authentication.principal.m_id})}" aria-label="Previous">
                                                     <span aria-hidden="true">&laquo;</span>
                                                 </a>
                                             </li>
                                         </th:block>
 
                                         <li th:class=" 'page-item ' + ${pageMaker.cri.pageNum == page?'active':''}" th:each="page: ${pageMaker.pageList}">
-                                            <a class="page-link" th:href="@{/tuser/paymentd(pageNum=${page},m_id=${session.member.m_id})}">
+                                            <a class="page-link" th:href="@{/tuser/paymentd(pageNum=${page},m_id=${#authentication.principal.m_id})}">
                                                 [[${page}]]
                                             </a>
 
@@ -75,7 +75,7 @@
 
                                         <th:block th:if="${pageMaker.next}">
                                             <li class="page-item">
-                                                <a class="page-link" th:href="@{/tuser/paymentd(pageNum=${pageMaker.endPage+1},m_id=${session.member.m_id})}" aria-label="Next">
+                                                <a class="page-link" th:href="@{/tuser/paymentd(pageNum=${pageMaker.endPage+1},m_id=${#authentication.principal.m_id})}" aria-label="Next">
                                                     <span aria-hidden="true">&raquo;</span>
                                                 </a>
                                             </li>

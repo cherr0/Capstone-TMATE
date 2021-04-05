@@ -4,6 +4,7 @@ import com.tmate.user.data.Approval;
 import com.tmate.user.data.Member;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.PhoneDTO;
+import com.tmate.user.data.Social;
 import com.tmate.user.data.UserHistroy;
 
 import java.util.List;
@@ -49,6 +50,10 @@ interface InsertAPI {
     // 내가 지인에게 승인을 요청할 시
     @POST("approval")
     Call<Boolean> approvalFriend(@Body Approval approval);
+
+    // 소셜 로그인 연동
+    @POST("social")
+    Call<Boolean> socialAccount(@Body Social social);
 }
 
 interface SelectAPI {
