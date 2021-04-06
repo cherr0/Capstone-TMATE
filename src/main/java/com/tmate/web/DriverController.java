@@ -29,7 +29,7 @@ public class DriverController {
         int total = driverService.countTotalDrivers();
         model.addAttribute("pageMaker", new PageDTO(cri, total));
         model.addAttribute("drivers",drivers);
-        return"/admin/driverList";
+        return"admin/driverList";
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -49,6 +49,6 @@ public class DriverController {
         model.addAttribute("dislike", like);
         model.addAttribute("history", history);
 
-        return "/admin/driverDetail";
+        return "admin/driverDetail";
     }
 }
