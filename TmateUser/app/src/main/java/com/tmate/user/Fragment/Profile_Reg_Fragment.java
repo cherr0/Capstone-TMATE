@@ -35,7 +35,7 @@ public class Profile_Reg_Fragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.fragment_profile__reg_, container, false);
+        ViewGroup rootview = (ViewGroup)inflater.inflate(R.layout.fragment_profile_reg, container, false);
 
         et_house = (EditText) rootview.findViewById(R.id.et_house);
         et_email = (EditText) rootview.findViewById(R.id.et_email);

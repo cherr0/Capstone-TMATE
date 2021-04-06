@@ -28,7 +28,7 @@ public class FavoritesAddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                favoritesFragment favoritesFragment = new favoritesFragment();
+                FavoritesFragment favoritesFragment = new FavoritesFragment();
                 transaction.replace(R.id.frameLayout, favoritesFragment).commit();
             }
         });

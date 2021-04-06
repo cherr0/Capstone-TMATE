@@ -14,7 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.tmate.user.R;
 
-public class EventCloseFragment extends Fragment {
+public class EventFragment extends Fragment {
     private FragmentPagerAdapter epa;
 
     @Nullable

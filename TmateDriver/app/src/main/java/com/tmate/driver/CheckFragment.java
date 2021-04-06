@@ -1,35 +1,33 @@
-package com.tmate.user.Fragment;
+package com.tmate.driver;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.tmate.user.R;
 
-public class NotificationFragment extends Fragment {
-
+public class CheckFragment extends Fragment {
     private View view;
-    private ImageView btn_back_notification;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_notification, container, false);
+        view = inflater.inflate(R.layout.fragment_check, container, false);
 
-        btn_back_notification = view.findViewById(R.id.btn_back_notification);
-        btn_back_notification.setOnClickListener(new View.OnClickListener() {
+        Button btn_black_list = view.findViewById(R.id.btn_black_list);
+        btn_black_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                MoreFragment more_fragment = new MoreFragment();
-                transaction.replace(R.id.frameLayout, more_fragment).commit();
+                BlackListSelectFragment blackListSelectFragment = new BlackListSelectFragment();
+                transaction.replace(R.id.frame_check, blackListSelectFragment).commit();
+
             }
         });
 

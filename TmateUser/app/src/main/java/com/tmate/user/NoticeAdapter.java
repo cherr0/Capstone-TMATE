@@ -20,7 +20,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.CustomView
     @NonNull
     @Override
     public NoticeAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_notice_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_notice, parent, false);
         NoticeAdapter.CustomViewHolder holder = new NoticeAdapter.CustomViewHolder(view);
         return holder;
     }

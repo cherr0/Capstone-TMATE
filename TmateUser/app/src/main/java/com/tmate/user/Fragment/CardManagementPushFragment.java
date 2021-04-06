@@ -18,7 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.tmate.user.R;
 
 
-public class card_management_push extends Fragment {
+public class CardManagementPushFragment extends Fragment {
 
     Button cm_card;
     private View v;
@@ -30,7 +30,7 @@ public class card_management_push extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.card_management_push, container, false);
+        v = inflater.inflate(R.layout.fragment_card_management_push, container, false);
 
         cm_card = v.findViewById(R.id.cm_card);
         corpDivision = v.findViewById(R.id.corp_division);
@@ -68,7 +68,7 @@ public class card_management_push extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                        card_management cmd = new card_management();
+                        CardManagementFragment cmd = new CardManagementFragment();
                         transaction.replace(R.id.frameLayout, cmd).commit();
                     }
                 });
@@ -89,8 +89,8 @@ public class card_management_push extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                card_management card_management = new card_management();
-                transaction.replace(R.id.frameLayout, card_management).commit();
+                CardManagementFragment CardManagementFragment = new CardManagementFragment();
+                transaction.replace(R.id.frameLayout, CardManagementFragment).commit();
             }
         });
 

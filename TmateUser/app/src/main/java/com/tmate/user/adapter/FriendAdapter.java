@@ -9,12 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmate.user.Fragment.DataService;
 import com.tmate.user.R;
 import com.tmate.user.data.FriendData;
 import com.tmate.user.data.Notification;
@@ -25,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
+public class FriendAdapter extends  RecyclerView.Adapter<FriendHolder> {
 
     // 레트로핏
     AdapterDataService dataService = new AdapterDataService();
@@ -41,15 +39,15 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
     ArrayList<FriendData> items = new ArrayList<>();
     @NonNull
     @Override
-    public friendHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.friend_item, parent, false);
+    public FriendHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_friend, parent, false);
         context = parent.getContext();
         pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
-        return new friendHolder(view);
+        return new FriendHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull friendHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FriendHolder holder, int position) {
         holder.onBind(items.get(position));
 
         notification = new Notification();
@@ -139,7 +137,7 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
         items.add(data);
     }
 }
-class friendHolder extends RecyclerView.ViewHolder {
+class FriendHolder extends RecyclerView.ViewHolder {
     ImageView iv_alert;
     ImageView iv_delete;
     TextView tv_name;
@@ -150,7 +148,7 @@ class friendHolder extends RecyclerView.ViewHolder {
         tv_name.setText(data.getTv_name());
         tv_phone.setText(data.getTv_phone());
     }
-    public friendHolder(@NonNull View itemView) {
+    public FriendHolder(@NonNull View itemView) {
         super(itemView);
         iv_alert = itemView.findViewById(R.id.iv_alert);
         iv_delete = itemView.findViewById(R.id.iv_delete);

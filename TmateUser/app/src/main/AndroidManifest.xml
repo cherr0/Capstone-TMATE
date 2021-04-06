@@ -47,7 +47,7 @@
             android:name=".MatchingDetailActivity"
             android:theme="@style/Theme.Tmate" />
 
-        <meta-data
+        <meta-historyData
             android:name="com.kakao.sdk.AppKey"
             android:value="583c7d64136fbad413fb2ce275aee959" />
     </application>

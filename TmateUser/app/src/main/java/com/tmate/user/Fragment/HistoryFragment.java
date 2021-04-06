@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -21,32 +20,31 @@ import com.tmate.user.R;
 import com.tmate.user.data.UserHistroy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class historyFragment extends Fragment {
+public class HistoryFragment extends Fragment {
     ArrayList<String> list;
 
     DataService dataService = new DataService();
-    private historyAdapter adapter;
+    private HistoryAdapter adapter;
     private ImageView btn_back_history;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.history,container,false);
+        View v = inflater.inflate(R.layout.fragment_history,container,false);
 
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.hcard);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new historyAdapter();
+        adapter = new HistoryAdapter();
         recyclerView.setAdapter(adapter);
 
         getData();
@@ -56,8 +54,8 @@ public class historyFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                My_info_Fragment my_info_fragment = new My_info_Fragment();
-                fragmentTransaction.replace(R.id.frameLayout, my_info_fragment).commit();
+                MoreFragment more_fragment = new MoreFragment();
+                fragmentTransaction.replace(R.id.frameLayout, more_fragment).commit();
             }
         });
 
@@ -78,24 +76,24 @@ public class historyFragment extends Fragment {
                         List<UserHistroy> histroyList = response.body();
                         Log.d("넘어오는 이용내역 리스트", histroyList.toString());
                         for (int i = 0; i < histroyList.size(); i++) {
-                            Data data = new Data();
-                            data.setCarinfo(histroyList.get(i).getCar_no()+" | "+histroyList.get(i).getCar_model());
-                            data.setDrivername(histroyList.get(i).getM_name());
-                            data.setStart(histroyList.get(i).getH_s_place());
-                            data.setFinish(histroyList.get(i).getH_f_place());
-                            data.setTime(histroyList.get(i).getH_s_time().toString().substring(10,16)+" - "+histroyList.get(i).getH_e_time().toString().substring(10,16));
-                            data.setDate(histroyList.get(i).getMerchant_uid().substring(9,11)+"/"+histroyList.get(i).getMerchant_uid().substring(11,13)+"/"+histroyList.get(i).getMerchant_uid().substring(13,15));
+                            HistoryData historyData = new HistoryData();
+                            historyData.setCarinfo(histroyList.get(i).getCar_no()+" | "+histroyList.get(i).getCar_model());
+                            historyData.setDrivername(histroyList.get(i).getM_name());
+                            historyData.setStart(histroyList.get(i).getH_s_place());
+                            historyData.setFinish(histroyList.get(i).getH_f_place());
+                            historyData.setTime(histroyList.get(i).getH_s_time().toString().substring(10,16)+" - "+histroyList.get(i).getH_e_time().toString().substring(10,16));
+                            historyData.setDate(histroyList.get(i).getMerchant_uid().substring(9,11)+"/"+histroyList.get(i).getMerchant_uid().substring(11,13)+"/"+histroyList.get(i).getMerchant_uid().substring(13,15));
                             switch (histroyList.get(i).getMerchant_uid().substring(27)) {
                                 case "0":
-                                    data.setTogether("동승");
+                                    historyData.setTogether("동승");
                                     break;
 
                                 case "1":
-                                    data.setTogether("일반");
+                                    historyData.setTogether("일반");
                                     break;
                             }
 
-                            adapter.addItem(data);
+                            adapter.addItem(historyData);
                         }
 
                         adapter.notifyDataSetChanged();

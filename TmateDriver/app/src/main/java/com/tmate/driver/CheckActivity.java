@@ -1,8 +1,9 @@
 package com.tmate.driver;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 public class CheckActivity extends AppCompatActivity {
 
@@ -10,5 +11,9 @@ public class CheckActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        CheckFragment checkFragment = new CheckFragment();
+        transaction.replace(R.id.frame_check, checkFragment).commit();
     }
 }

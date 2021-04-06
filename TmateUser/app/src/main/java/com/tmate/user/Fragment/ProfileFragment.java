@@ -35,8 +35,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
@@ -49,10 +47,6 @@ import com.tmate.user.data.Member;
 import com.tmate.user.data.Social;
 
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -181,8 +175,8 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                My_info_Fragment my_info_fragment = new My_info_Fragment();
-                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+                MoreFragment more_fragment = new MoreFragment();
+                transaction.replace(R.id.frameLayout, more_fragment).commit();
             }
         });
 

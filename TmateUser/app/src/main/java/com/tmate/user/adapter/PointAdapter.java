@@ -12,18 +12,17 @@ import com.tmate.user.R;
 import com.tmate.user.data.PointData;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeoutException;
 
-public class pointAdapter extends  RecyclerView.Adapter<pointHolder> {
+public class PointAdapter extends  RecyclerView.Adapter<PointHolder> {
     ArrayList<PointData> items = new ArrayList<>();
     @NonNull
     @Override
-    public pointHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PointHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_point_item, parent, false);
-        return new pointHolder(view);
+        return new PointHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull pointHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PointHolder holder, int position) {
         holder.onBind(items.get(position));
     }
     @Override
@@ -34,7 +33,7 @@ public class pointAdapter extends  RecyclerView.Adapter<pointHolder> {
         items.add(data);
     }
 }
-class pointHolder extends RecyclerView.ViewHolder {
+class PointHolder extends RecyclerView.ViewHolder {
     TextView poTime;
     TextView poResult;
     TextView mPoint;
@@ -48,7 +47,7 @@ class pointHolder extends RecyclerView.ViewHolder {
         poExact.setText(data.getPoExact());
         poCourse.setText(data.getPoCourse());
     }
-    public pointHolder(@NonNull View itemView) {
+    public PointHolder(@NonNull View itemView) {
         super(itemView);
 
         poTime = itemView.findViewById(R.id.poTime);

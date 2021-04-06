@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.My_info_Fragment">
+    tools:context=".Fragment.MoreFragment">
 
     <FrameLayout
         android:layout_width="match_parent"

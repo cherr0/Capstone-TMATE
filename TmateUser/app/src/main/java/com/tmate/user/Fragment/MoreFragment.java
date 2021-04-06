@@ -3,17 +3,14 @@ package com.tmate.user.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,9 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.tmate.user.FavoritesData;
 import com.tmate.user.MainViewActivity;
-import com.tmate.user.LoginActivity;
 import com.tmate.user.R;
 import com.tmate.user.data.Member;
 
@@ -32,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class My_info_Fragment extends Fragment implements View.OnClickListener{
+public class MoreFragment extends Fragment implements View.OnClickListener{
     private ConstraintLayout constraintLayout3;
     private View view;
     private TextView tv_point;
@@ -148,7 +143,7 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
                 return ;
             }
             case R.id.tv_history : {
-                historyFragment historyFragment = new historyFragment();
+                HistoryFragment historyFragment = new HistoryFragment();
                 transaction.replace(R.id.frameLayout, historyFragment).commit();
                 return ;
             }
@@ -158,7 +153,7 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
                 return ;
             }
             case R.id.tv_bookmark : {
-                favoritesFragment favoritesFragment = new favoritesFragment();
+                FavoritesFragment favoritesFragment = new FavoritesFragment();
                 transaction.replace(R.id.frameLayout, favoritesFragment).commit();
                 return ;
             }
@@ -168,8 +163,8 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
                 return;
             }
             case R.id.tv_card : {
-                card_management card_management = new card_management();
-                transaction.replace(R.id.frameLayout, card_management).commit();
+                CardManagementFragment CardManagementFragment = new CardManagementFragment();
+                transaction.replace(R.id.frameLayout, CardManagementFragment).commit();
             }
             default: return;
         }

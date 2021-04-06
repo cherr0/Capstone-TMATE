@@ -22,7 +22,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Cust
     @NonNull
     @Override
     public FavoritesAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorites_item_list,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorites,parent,false);
         CustomViewHolder holder = new CustomViewHolder(view);
 
         return holder;

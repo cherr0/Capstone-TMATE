@@ -28,8 +28,8 @@ public class PreferenceFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                My_info_Fragment my_info_fragment = new My_info_Fragment();
-                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+                MoreFragment more_fragment = new MoreFragment();
+                transaction.replace(R.id.frameLayout, more_fragment).commit();
             }
         });
 

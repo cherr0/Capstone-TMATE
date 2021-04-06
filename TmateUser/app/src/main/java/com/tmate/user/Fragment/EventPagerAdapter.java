@@ -16,9 +16,9 @@ public class EventPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0 :
-                return event_cosle_item_pro.newInstance();
+                return EventProFragment.newInstance();
             case 1 :
-                return event_close_item_stop.newInstance();
+                return EventStopFragment.newInstance();
             default: return null;
         }
 

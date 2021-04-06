@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.R;
-import com.tmate.user.adapter.pointAdapter;
+import com.tmate.user.adapter.PointAdapter;
 import com.tmate.user.data.PointData;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.List;
 
 public class PointFragment extends Fragment {
     ArrayList<String> list;
-    private pointAdapter adapter;
+    private PointAdapter adapter;
     TextView totalPo;
     List<String> listTime;
     List<String> listExpact;
@@ -45,7 +45,7 @@ public class PointFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new pointAdapter();
+        adapter = new PointAdapter();
         recyclerView.setAdapter(adapter);
 
         btn_back_point = v.findViewById(R.id.btn_back_point);
@@ -53,8 +53,8 @@ public class PointFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                My_info_Fragment my_info_fragment = new My_info_Fragment();
-                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+                MoreFragment more_fragment = new MoreFragment();
+                transaction.replace(R.id.frameLayout, more_fragment).commit();
             }
         });
 

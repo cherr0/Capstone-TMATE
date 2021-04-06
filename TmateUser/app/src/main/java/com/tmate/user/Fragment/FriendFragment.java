@@ -20,14 +20,13 @@ import android.widget.ImageView;
 
 import com.tmate.user.R;
 import com.tmate.user.adapter.RequestFriendAdapter;
-import com.tmate.user.adapter.friendAdapter;
+import com.tmate.user.adapter.FriendAdapter;
 import com.tmate.user.data.Approval;
 import com.tmate.user.data.FriendData;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.RequestFriendData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,7 +36,7 @@ import retrofit2.Response;
 public class FriendFragment extends Fragment {
     ArrayList<String> list;
     private View view;
-    private friendAdapter adpater;
+    private FriendAdapter adpater;
     private RequestFriendAdapter adapter2;
     private Button btn_add;
 
@@ -63,7 +62,7 @@ public class FriendFragment extends Fragment {
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
         recyclerView2.setLayoutManager(linearLayoutManager2);
 
-        adpater = new friendAdapter();
+        adpater = new FriendAdapter();
         recyclerView.setAdapter(adpater);
 
         adapter2 = new RequestFriendAdapter();
@@ -87,8 +86,8 @@ public class FriendFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                My_info_Fragment my_info_fragment = new My_info_Fragment();
-                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+                MoreFragment more_fragment = new MoreFragment();
+                transaction.replace(R.id.frameLayout, more_fragment).commit();
             }
         });
 

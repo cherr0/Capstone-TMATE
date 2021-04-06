@@ -1,6 +1,6 @@
 package com.tmate.user.Fragment;
 
-public class Data {
+public class HistoryData {
     String together;
     String start;
     String finish;

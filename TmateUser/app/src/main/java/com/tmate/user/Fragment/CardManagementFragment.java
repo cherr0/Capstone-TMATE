@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class card_management  extends Fragment {
+public class CardManagementFragment extends Fragment {
     Button button;
     LinearLayout nocard;
     ArrayList<String> list;
@@ -37,7 +37,7 @@ public class card_management  extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.card_management,container,false);
+        View v = inflater.inflate(R.layout.fragment_card_management,container,false);
 
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.cardlist_recy);
 
@@ -57,7 +57,7 @@ public class card_management  extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                card_management_push cpf = new card_management_push();
+                CardManagementPushFragment cpf = new CardManagementPushFragment();
                 transaction.replace(R.id.frameLayout, cpf).commit();
             }
         });
@@ -67,8 +67,8 @@ public class card_management  extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                My_info_Fragment my_info_fragment = new My_info_Fragment();
-                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+                MoreFragment more_fragment = new MoreFragment();
+                transaction.replace(R.id.frameLayout, more_fragment).commit();
             }
         });
 
