@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,7 +46,7 @@ public class CarFragment  extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 CarAddFragment cf = new CarAddFragment();
-                transaction.replace(R.id.fm, cf);
+                transaction.replace(R.id.frame, cf);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

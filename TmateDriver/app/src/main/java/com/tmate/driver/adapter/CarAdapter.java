@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,10 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
 import com.tmate.driver.data.CarData;
-import com.tmate.driver.databinding.CarRecycleBinding;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeoutException;
 
 public class CarAdapter extends RecyclerView.Adapter<CarHolder> {
     ArrayList<CarData> items = new ArrayList<>();
@@ -102,6 +99,4 @@ class CarHolder extends RecyclerView.ViewHolder {
         carModel = itemView.findViewById(R.id.car_model);
         delete = itemView.findViewById(R.id.delete);
     }
-
-
 }
