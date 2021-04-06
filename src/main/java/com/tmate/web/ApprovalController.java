@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +27,7 @@ public class ApprovalController {
     private final ApprovalService approvalService;
 
     // 기사 승인 대기 목록
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/approval")
     public String approval(Model model, Criteria cri) {
         List<JoinApprovalVO> noneApprovalList = approvalService.getNoneApprovalList(cri);

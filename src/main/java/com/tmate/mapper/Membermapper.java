@@ -1,8 +1,6 @@
 package com.tmate.mapper;
 
-import com.tmate.domain.Criteria;
-import com.tmate.domain.MemberDTO;
-import com.tmate.domain.PhoneDTO;
+import com.tmate.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -45,4 +43,16 @@ public interface Membermapper {
 
     // 유저 확인
     MemberDTO searchPermission(PhoneDTO phone);
+
+    // App 소셜 로그인 연동 부분 관련 작업
+    int insertSocialEmail(SocialDTO socialDTO);
+
+    // App 소셜 로그인 시 멤버 권한 삽입 작업
+    int insertMemberRole(MemberRole memberRole);
+
+    // 소셜 연동 유저 조회
+    MemberDTO findSocialMember(String email);
+
+    // 권한 조회
+    List<MemberRole> findRoleList(String m_id);
 }

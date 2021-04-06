@@ -1,8 +1,11 @@
 package com.tmate.driver;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.tmate.driver.Fragment.CarFragment;
 import com.tmate.driver.Fragment.NoticeFragment;
 import com.tmate.driver.databinding.ActivityDrawerBinding;
 import com.tmate.driver.databinding.ActivityMainViewBinding;
@@ -23,6 +27,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     private ActivityDrawerBinding drawerBinding;
     private View drawerView ;
     private TextView profile, history, car, review, black_list, notice, statistics;
+    private Button service;
 
 
     @Override
@@ -44,6 +49,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         black_list = findViewById(R.id.black_list);
         notice = findViewById(R.id.notice);
         statistics = findViewById(R.id.statistics);
+        service = findViewById(R.id.service);
 
         profile.setOnClickListener(this);
         history.setOnClickListener(this);
@@ -52,7 +58,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         black_list.setOnClickListener(this);
         notice.setOnClickListener(this);
         statistics.setOnClickListener(this);
-
+        service.setOnClickListener(this);
 
 
 
@@ -118,7 +124,18 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
                 binding.drawerLayout.closeDrawers();
                 return;
             }
-
+            case R.id.history : {
+                HistoryFragment historyFragment = new HistoryFragment();
+                transaction.replace(R.id.frame, historyFragment).commit();
+                binding.drawerLayout.closeDrawers();
+                return;
+            }
+            case R.id.car : {
+                CarFragment carFragment = new CarFragment();
+                transaction.replace(R.id.frame, carFragment).commit();
+                binding.drawerLayout.closeDrawers();
+                return;
+            }
             case R.id.notice : {
                 NoticeFragment noticeFragment = new NoticeFragment();
                 transaction.replace(R.id.frame, noticeFragment).commit();
@@ -135,6 +152,10 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
                 Blacklist_managementFragment blacklistManagementFragment = new Blacklist_managementFragment();
                 transaction.replace(R.id.frame, blacklistManagementFragment).commit();
                 binding.drawerLayout.closeDrawers();
+            }
+            case R.id.service : {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_tdxjxoK/chat"));
+                startActivity(intent);
                 return;
             }
             default: return;

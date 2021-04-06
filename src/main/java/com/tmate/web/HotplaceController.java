@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +23,7 @@ public class HotplaceController {
     private final PlaceService placeService;
 
     // 핫플레이스 목록 관리
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/hotplace")
     public String hotPlace(Model model) {
         List<PlaceDTO> placeList = placeService.getHotPlaceList();
