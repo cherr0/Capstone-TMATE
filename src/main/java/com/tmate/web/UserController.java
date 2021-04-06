@@ -41,7 +41,7 @@ public class UserController {
         model.addAttribute("ban", userService.totalCountBan(m_id));
         model.addAttribute("history", userService.getWeeklyHistoryList(m_id));
         model.addAttribute("point", userService.getWeeklyPointList(m_id));
-        return "/user/main";
+        return "user/main";
     }
 
     // 사용자 포인트 디테일 확인
@@ -52,7 +52,7 @@ public class UserController {
 
         model.addAttribute("point", pointList);
         model.addAttribute("pageMaker", new PageDTO(cri, total));
-        return "/user/pointDetail";
+        return "user/pointDetail";
     }
 
     // 사용자 사용내역 확인
@@ -63,7 +63,7 @@ public class UserController {
 
         model.addAttribute("receipt", receiptList);
         model.addAttribute("pageMaker", new PageDTO(cri, total));
-        return "/user/paymentDetail";
+        return "user/paymentDetail";
     }
 
     // 사용자 이용기록 확인
@@ -75,7 +75,7 @@ public class UserController {
         model.addAttribute("history", historyList);
         model.addAttribute("pageMaker", new PageDTO(cri, total));
 
-        return "/user/historyDetail";
+        return "user/historyDetail";
     }
 
     // 사용자 프로필 수정
@@ -83,7 +83,7 @@ public class UserController {
     public String userProfiled(String m_id, Model model) {
         MemberDTO member = userService.getMainPage(m_id);
         model.addAttribute("member", member);
-        return "/user/profileModify";
+        return "user/profileModify";
     }
 
     // 사용자 공지사항 확인
@@ -98,7 +98,7 @@ public class UserController {
 
         model.addAttribute("boardList", boardList);
         model.addAttribute("pageMaker", new PageDTO(cri, total));
-        return "/user/noticeList";
+        return "user/noticeList";
     }
 
     // 사용자 공지사항 세부 내용 확인
@@ -108,7 +108,7 @@ public class UserController {
         BoardDTO boardDTO = boardService.getN(bd_id);
 
         model.addAttribute("notice", boardDTO);
-        return "/user/noticeDetail";
+        return "user/noticeDetail";
     }
 
     // 사용자 이벤트 리스트 확인
@@ -122,7 +122,7 @@ public class UserController {
 
         model.addAttribute("event", eventList);
         model.addAttribute("pageMaker", new PageDTO(cri, total));
-        return "/user/eventList";
+        return "user/eventList";
     }
 
     // 사용자 이벤트 세부내용 확인
@@ -135,7 +135,7 @@ public class UserController {
         log.info("조회되는 글 정보 : " + boardDTO);
         model.addAttribute("eimages", boardImageList);
         model.addAttribute("event", boardDTO);
-        return "/user/eventDetail";
+        return "user/eventDetail";
     }
 
     // 사용자 결제정보 확인

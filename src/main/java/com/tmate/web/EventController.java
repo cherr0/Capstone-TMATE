@@ -57,7 +57,7 @@ public class EventController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/eventwrite")
     public String eventWrite() {
-        return "/admin/eventWrite";
+        return "admin/eventWrite";
     }
 
 
@@ -70,7 +70,7 @@ public class EventController {
 
         model.addAttribute("event", event);
         model.addAttribute("eimages", boardImageList);
-        return "/admin/eventModify";
+        return "admin/eventModify";
     }
 
 }
