@@ -148,6 +148,11 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
                 binding.drawerLayout.closeDrawers();
                 return;
             }
+            case R.id.black_list : {
+                Blacklist_managementFragment blacklistManagementFragment = new Blacklist_managementFragment();
+                transaction.replace(R.id.frame, blacklistManagementFragment).commit();
+                binding.drawerLayout.closeDrawers();
+            }
             case R.id.service : {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_tdxjxoK/chat"));
                 startActivity(intent);

@@ -28,7 +28,7 @@ public class CarAddFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 CarFragment cf = new CarFragment();
-                transaction.replace(R.id.fm, cf);
+                transaction.replace(R.id.frame, cf);
                 transaction.commit();
             }
         });

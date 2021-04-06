@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:text="차량관리"
+            android:text="블랙리스트 관리"
             android:textColor="@color/black"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -33,24 +33,14 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/car_list"
-        android:layout_marginBottom="20dp"
+        android:id="@+id/history_card"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/go_caradd"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout31" />
-
-    <Button
-        android:id="@+id/go_caradd"
-        android:text="추가하기"
-        android:textSize="24sp"
-        android:textColor="@color/white"
-        android:backgroundTint="#4254BC"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 
@@ -60,5 +50,3 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-

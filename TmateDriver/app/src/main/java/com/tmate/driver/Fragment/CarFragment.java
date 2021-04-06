@@ -49,7 +49,7 @@ public class CarFragment  extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 CarAddFragment cf = new CarAddFragment();
-                transaction.replace(R.id.fm, cf);
+                transaction.replace(R.id.frame, cf);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
