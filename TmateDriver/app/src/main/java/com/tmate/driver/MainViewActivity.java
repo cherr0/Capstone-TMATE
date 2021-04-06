@@ -19,8 +19,6 @@ import com.tmate.driver.Fragment.NoticeFragment;
 import com.tmate.driver.databinding.ActivityDrawerBinding;
 import com.tmate.driver.databinding.ActivityMainViewBinding;
 
-import org.w3c.dom.Text;
-
 public class MainViewActivity extends AppCompatActivity  implements View.OnClickListener{
 
     private ActivityMainViewBinding binding;

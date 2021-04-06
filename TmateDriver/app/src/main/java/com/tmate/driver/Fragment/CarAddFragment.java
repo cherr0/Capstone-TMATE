@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.tmate.driver.R;
 import com.tmate.driver.databinding.FragmentCarAddBinding;
-import com.tmate.driver.databinding.FragmentCarBinding;
 
 public class CarAddFragment extends Fragment {
     private FragmentCarAddBinding b;
