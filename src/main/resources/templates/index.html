@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="utf-8">
@@ -53,13 +53,19 @@
         <li class="nav-item">
           <a class="nav-link" href="/tuser/place">핫플레이스</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/tuser/">고객센터</a>
-        </li>
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="/tuser/">고객센터</a>-->
+<!--        </li>-->
       </ul>
     </div>
-    <div class="nav-item login-btn">
+    <div class="nav-item login-btn" sec:authorize="!isAuthenticated()">
       <a class="nav-link" data-toggle="modal" href="#myModal"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a>
+    </div>
+    <div class="nav-item login-btn" sec:authorize="isAuthenticated()">
+      <i class="fas fa-sign-in-alt"></i> <span>[[${#authentication.principal.m_name}]]님</span>
+      <form action="/logout" method="post">
+        <input type="submit" class="btn btn-primary" value="Logout"/>
+      </form>
     </div>
   </div>
 </nav>
