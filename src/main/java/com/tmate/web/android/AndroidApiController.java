@@ -4,6 +4,7 @@ import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
 import com.tmate.service.SMSService;
 import com.tmate.service.UserService;
+import com.tmate.service.android.common.CommonService;
 import com.tmate.service.android.user.AppMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,11 +22,15 @@ import java.util.Map;
 @Log4j2
 public class AndroidApiController {
 
+    // App 사용자 서비스
     private final AppMemberService appMemberService;
 
+    // 유저 서비스
     private final UserService userService;
 
+    // 휴대폰 인증 서비스
     private final SMSService smsService;
+
 
     @PostMapping("/register")
     public Boolean registerMember(@RequestBody Map<String, String> memberDTO) {
@@ -160,4 +165,8 @@ public class AndroidApiController {
 
         return new ResponseEntity<>(appMemberService.registerSocialEmail(socialDTO), HttpStatus.OK);
     }
+
+
+
+
 }
