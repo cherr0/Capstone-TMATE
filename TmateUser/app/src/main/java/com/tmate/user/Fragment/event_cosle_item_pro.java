@@ -1,6 +1,7 @@
 package com.tmate.user.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,15 @@ import com.tmate.user.EventAdapter;
 import com.tmate.user.EventData;
 
 import com.tmate.user.R;
+import com.tmate.user.data.EventDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class event_cosle_item_pro extends Fragment {
     private ArrayList<EventData> arrayList;
@@ -28,6 +34,8 @@ public class event_cosle_item_pro extends Fragment {
     private EventAdapter eventAdapter;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
+
+    CommonService commonService = new CommonService();
 
     public static event_cosle_item_pro newInstance() {
         event_cosle_item_pro  ecip = new event_cosle_item_pro();
@@ -56,34 +64,56 @@ public class event_cosle_item_pro extends Fragment {
 
     private void getData() {
         // 임의의 데이터입니다.
-        List<Integer> listImage = Arrays.asList(
-                R.drawable.spring_event,
-                R.drawable.summer_event,
-                R.drawable.fall_event,
-                R.drawable.winter_event
-        );
-        List<String> listTitle = Arrays.asList(
-                "봄 이벤트",
-                "겨울 이벤트"
-        );
-        List<String> listSubTitle = Arrays.asList(
-                "신학기 맞이 이벤트",
-                "겨울방학 맞이 이벤트");
-        List<String> listDate = Arrays.asList(
-                "21.03.22 ~ 21.04.25",
-                "21.12.03 ~ 22.01.03"
-        );
-        for (int i = 0; i < listTitle.size(); i++) {
-            // 각 List의 값들을 data 객체에 set 해줍니다.
-            EventData eventData = new EventData();
-            eventData.setIv_event(listImage.get(i));
-            eventData.setTv_title(listTitle.get(i));
-            eventData.setTv_subTitle(listSubTitle.get(i));
-            eventData.setTv_date(listDate.get(i));
-            // 각 값이 들어간 data를 adapter에 추가합니다.
-            eventAdapter.addItem(eventData);
-        }
-        // adapter의 값이 변경되었다는 것을 알려줍니다.
-        eventAdapter.notifyDataSetChanged();
+
+        commonService.eventAPI.getEventList().enqueue(new Callback<List<EventDTO>>() {
+            @Override
+            public void onResponse(Call<List<EventDTO>> call, Response<List<EventDTO>> response) {
+                if (response.isSuccessful()) {
+                    if (response.code() == 200) {
+                        List<EventDTO> eventDTOList = response.body();
+                        Log.d("넘어오는 이벤트 정보", eventDTOList.toString());
+                        for (int i = 0; i < eventDTOList.size(); i++) {
+                            EventData eventData = new EventData();
+                            // 기본 이미지
+                            eventData.setIv_event(R.drawable.tmateevent);
+                            //날짜 작업
+                            String st = eventDTOList.get(i).getBd_s_date().toString();
+                            String et = eventDTOList.get(i).getBd_e_date().toString();
+                            eventData.setTv_date(st.substring(2,4)+"."+st.substring(5,7)+"."+st.substring(8,10)+"~"+et.substring(2,4)+"."+et.substring(5,7)+"."+et.substring(8,10));
+                            // 제목
+                            switch (eventDTOList.get(i).getBd_id().substring(0,2)) {
+                                case "wi":
+                                    eventData.setTv_title("겨울 이벤트");
+                                    break;
+                                case "sm" :
+                                    eventData.setTv_title("여름 이벤트");
+                                    break;
+                                case "sp":
+                                    eventData.setTv_title("봄 이벤트");
+                                    break;
+                                case "fa":
+                                    eventData.setTv_title("가을 이벤트");
+                                    break;
+                            }
+                            // 부제목
+                            eventData.setTv_subTitle(eventDTOList.get(i).getBd_title());
+
+                            // 상세화면을 위해서 bd_id를 넣어준다.
+                            eventData.setTv_bd_id(eventDTOList.get(i).getBd_id());
+
+                            eventAdapter.addItem(eventData);
+                        }
+
+                        eventAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<EventDTO>> call, Throwable t) {
+
+            }
+        });
+
     }
 }
