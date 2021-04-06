@@ -67,4 +67,9 @@ public class BoardDTO {
 
     // 작성자 회원 코드
     private String m_id;
+
+    /*
+    * 이벤트로 넘길 URL 주소
+    * */
+    private String imgURL;
 }
