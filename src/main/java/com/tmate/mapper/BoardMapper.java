@@ -50,4 +50,10 @@ public interface BoardMapper {
 
     // 이벤트 글 삽입
     int insertEvent(BoardDTO boardDTO);
+
+
+    /* ------------------------
+            App 관련 mapper
+       ------------------------ */
+    List<BoardDTO> getNoticeList();
 }
