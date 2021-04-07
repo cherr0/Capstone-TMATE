@@ -30,7 +30,7 @@ public class SMSService {
 
         Message coolsms = new Message(api_key, api_searet);
 
-        confirmNumber = createKey();
+        confirmNumber = createKey2();
         phone.setConfirm(confirmNumber);
 
         System.out.println("수신자 번호 : " + phone.getPhoneNumber());
@@ -85,5 +85,13 @@ public class SMSService {
 
         System.out.println("생성된 인증번호 : " + key.toString());
         return key.toString();
+    }
+
+
+    public String createKey2() {
+
+        int authNum = (int)(Math.random()*10000)+89999;
+
+        return "" + authNum;
     }
 }

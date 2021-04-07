@@ -37,23 +37,22 @@ public class pointAdapter extends  RecyclerView.Adapter<pointHolder> {
 class pointHolder extends RecyclerView.ViewHolder {
     TextView poTime;
     TextView poResult;
-    TextView mPoint;
     TextView poExact;
     TextView poCourse;
 
     void onBind(PointData data) {
-        poTime.setText(data.getPoTime());
-        poResult.setText(Integer.toString(data.getPoResult()));
-        mPoint.setText(Integer.toString(data.getmPoint()));
-        poExact.setText(data.getPoExact());
-        poCourse.setText(data.getPoCourse());
+        poTime.setText(data.getPo_time().toString().substring(0,19));
+        poResult.setText(data.getPo_result()+"");
+//        mPoint.setText(data.get);
+        poExact.setText(data.getPo_exact());
+        poCourse.setText(data.getPo_course());
     }
+
     public pointHolder(@NonNull View itemView) {
         super(itemView);
 
         poTime = itemView.findViewById(R.id.poTime);
         poResult = itemView.findViewById(R.id.poResult);
-        mPoint = itemView.findViewById(R.id.mPoint);
         poExact = itemView.findViewById(R.id.poExact);
         poCourse = itemView.findViewById(R.id.poCourse);
     }

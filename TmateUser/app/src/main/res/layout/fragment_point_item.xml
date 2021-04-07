@@ -65,31 +65,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:layout_marginRight="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="잔여 포인트"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/mPoint" />
 
 
-    <TextView
-        android:id="@+id/mPoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="500"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView16" />
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="p"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/poResult"
-        app:layout_constraintTop_toBottomOf="@+id/poResult" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

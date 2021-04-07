@@ -1546,6 +1546,31 @@ section {
     vertical-align: middle;
 }
 
+.account-dropdown__item form {
+    display: block;
+    color: #333;
+    padding: 15px 25px;
+    font-size: 14px;
+}
+
+.account-dropdown__item form:hover {
+    background: #4272d7;
+    color: #fff;
+}
+
+.account-dropdown__item form:hover .input_logout{
+    background: #4272d7;
+    color: #fff;
+}
+
+.account-dropdown__item form i {
+    line-height: 1;
+    margin-right: 20px;
+    font-size: 18px;
+    color: #FFFFFF;
+    vertical-align: middle;
+}
+
 .account-dropdown__body {
     padding: 12px 0;
 }
@@ -2595,6 +2620,14 @@ a i{
     color: #fff;
 }
 
+.setting-menu .account-dropdown__item form {
+    color: #555;
+}
+
+.setting-menu .account-dropdown__item form:hover {
+    color: #fff;
+}
+
 .show-sidebar {
     right: 0;
 }
@@ -2923,6 +2956,15 @@ a i{
 .setting-dropdown .account-dropdown__item a:hover {
     color: #fff;
 }
+
+.setting-dropdown .account-dropdown__item form {
+    color: #555;
+}
+
+.setting-dropdown .account-dropdown__item form:hover {
+    color: #fff;
+}
+
 
 .header-button-item {
     cursor: pointer;
@@ -15090,4 +15132,7 @@ td {
 }
 .event-calendar input{
     width: 15em;
+}
+.input_logout{
+    background-color: #FFFFFF;
 }

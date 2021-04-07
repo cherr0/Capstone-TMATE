@@ -2,6 +2,7 @@ package com.tmate.mapper;
 
 import com.tmate.domain.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -55,4 +56,21 @@ public interface Membermapper {
 
     // 권한 조회
     List<MemberRole> findRoleList(String m_id);
+
+    /*
+    * APP 포인트 내역
+    * 포인트 내역
+    * 총 포인트 가져오는 로직, 업데이트 하는 로직, 포인트 내역 리스트로 받아오는 것
+    * */
+
+    // 멤버 총요금 업데이트 시 값 변경 하기 위함
+    int updateM_point(@Param("m_id") String m_id,@Param("fare") int fare);
+
+    int insertPoint(PointDTO pointDTO);
+
+    // 포인트 리스트 가져오기
+    List<PointDTO> findPointListByM_id(String m_id);
+
+    // 총 요금 가져오기
+    int findM_Point(String m_id);
 }

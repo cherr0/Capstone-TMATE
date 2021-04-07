@@ -1,9 +1,11 @@
 package com.tmate.user.Fragment;
 
+import com.tmate.user.FavoritesData;
 import com.tmate.user.data.Approval;
 import com.tmate.user.data.Member;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.PhoneDTO;
+import com.tmate.user.data.PointData;
 import com.tmate.user.data.Social;
 import com.tmate.user.data.UserHistroy;
 
@@ -22,9 +24,8 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public class DataService {
-    // 애뮬레이터용
-//    private String BASE_URL = "http://10.0.2.2:9090/member/";
-    private String BASE_URL = "http://192.168.1.3:9090/member/"; // 기본 URL
+
+    private String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/member/"; // 기본 URL
 
     Retrofit retrofitClient = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -85,8 +86,15 @@ interface SelectAPI {
     @GET("myapproval/{m_id}")
     Call<List<Approval>> myApprovalList(@Path("m_id") String m_id);
 
-}
+    // 포인트 -> 잔여 포인트와 포인트 리스트 가져오기
+    @GET("point/{m_id}")
+    Call<List<PointData>> getPointList(@Path("m_id") String m_id);
 
+    // 즐겨 찾기 -> 즐겨찾기 리스트 가져오기
+    @GET("bookmark/{m_id}")
+    Call<List<FavoritesData>> getBookmarkList(@Path("m_id") String m_id);
+
+}
 interface UpdateAPI{
 
 
