@@ -167,6 +167,18 @@ public class AndroidApiController {
     }
 
 
+    @GetMapping("/point/{m_id}")
+    public ResponseEntity<List<PointDTO>> getPointList(@PathVariable("m_id") String m_id) {
+        log.info("포인트 이력 가져오기 :" + m_id);
 
+        return new ResponseEntity<>(appMemberService.getPointListByM_id(m_id), HttpStatus.OK);
+    }
+
+    @GetMapping("/bookmark/{m_id}")
+    public ResponseEntity<List<BookmarkDTO>> getBookmarkList(@PathVariable("m_id") String m_id) {
+        log.info("App 즐겨 찾기 찾습니다. 준비하세요 : " + m_id);
+
+        return new ResponseEntity<>(appMemberService.getBookmarkListByM_id(m_id), HttpStatus.OK);
+    }
 
 }
