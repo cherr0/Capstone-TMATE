@@ -12,15 +12,18 @@
     <uses-permission android:name="android.permission.READ_OWNER_DATA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".CustomKaKaoApplication"
         android:icon="@drawable/ic_logo"
         android:label="@string/app_name"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CallGeneralActivity"
+        <activity android:name=".ChatActivity"
             android:theme="@style/Theme.Tmate"></activity>
+        <activity
+            android:name=".CallGeneralActivity"
+            android:theme="@style/Theme.Tmate" />
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.Tmate" />
