@@ -1,6 +1,10 @@
 package com.tmate.user;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,11 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tmate.user.Fragment.MatchingAdapter;
 import com.tmate.user.Fragment.MatchingData;
@@ -42,9 +42,22 @@ public class MatchingFragment extends Fragment {
 
         arrayList = new ArrayList<>();
 
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refresh_layout);
+
         matchingAdapter = new MatchingAdapter(arrayList);
         recyclerView.setAdapter(matchingAdapter);
         getData();
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                arrayList.clear();
+                getData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
 
         btn_add = view.findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {
