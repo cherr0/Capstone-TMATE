@@ -138,4 +138,8 @@
     <update id="viewCount">
         update board set bd_count = bd_count + 1 where bd_id = #{bd_id}
     </update>
+
+    <select id="getNoticeList" resultType="com.tmate.domain.BoardDTO">
+        select * from board where bd_id like 'nt%' order by bd_cre_date desc
+    </select>
 </mapper>
