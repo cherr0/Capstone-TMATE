@@ -41,6 +41,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.CustomViewHo
 
     @Override
     public void onBindViewHolder(@NonNull EventAdapter.CustomViewHolder holder, int position) {
+
         holder.iv_event.setImageResource(arrayList.get(position).getIv_event());
         holder.tv_title.setText(arrayList.get(position).getTv_title());
         holder.tv_subTitle.setText(arrayList.get(position).getTv_subTitle());

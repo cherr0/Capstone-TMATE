@@ -23,7 +23,7 @@ import retrofit2.http.Path;
 
 public class DataService {
     // 애뮬레이터용
-    private String BASE_URL = "http://10.0.2.2:9090/member/";
+    private String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/member/";
 //    private String BASE_URL = "http://172.26.1.230:9090/member/"; // 기본 URL
 
     Retrofit retrofitClient = new Retrofit.Builder()

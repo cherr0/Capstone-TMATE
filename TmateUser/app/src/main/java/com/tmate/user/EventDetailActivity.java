@@ -47,7 +47,7 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://10.0.2.2:9090"+"/api/display?fileName="+imgURL);
+                    URL url = new URL("http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080"+"/api/display?fileName="+imgURL);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                     conn.setDoInput(true);
                     conn.connect();
