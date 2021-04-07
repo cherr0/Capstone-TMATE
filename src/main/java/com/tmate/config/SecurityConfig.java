@@ -22,10 +22,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 
-
+        http.authorizeRequests()
+                .antMatchers("/").permitAll();
 
         http.csrf().disable();
-
+        http.logout().logoutUrl("/logout").logoutSuccessUrl("/");
         http.oauth2Login().successHandler(sucessHandler());
     }
 

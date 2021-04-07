@@ -1,6 +1,7 @@
 package com.tmate.user.Fragment;
 
 import com.tmate.user.data.Notice;
+import com.tmate.user.data.EventDTO;
 
 import java.util.List;
 
@@ -24,10 +25,27 @@ public class CommonService {
                 .build();
 
     public NoticeAPI notice = retrofitClient.create(NoticeAPI.class);
+    public EventAPI eventAPI = retrofitClient.create(EventAPI.class);
 }
 
 interface NoticeAPI {
     // 공지사항 리스트 조회
     @GET("noticeList")
     Call<List<Notice>> getNoticeList();
+}
+
+interface EventAPI{
+
+    // 진행중인 이벤트 리스트 던지는 것
+    @GET("eventplist")
+    Call<List<EventDTO>> getEventList();
+
+    // 종료된 이벤트 리스트 던지는 것
+    @GET("eventflist")
+    Call<List<EventDTO>> getFinishEventList();
+
+    // 글 상세보기
+    @GET("readevent/{bd_id}")
+    Call<EventDTO> readEvent(@Path("bd_id") String bd_id);
+
 }

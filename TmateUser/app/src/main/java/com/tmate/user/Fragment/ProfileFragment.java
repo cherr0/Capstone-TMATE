@@ -208,6 +208,12 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Session.getCurrentSession().removeCallback(mSessionCallback);
+    }
+
     private void resultLogin(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         auth.signInWithCredential(credential)
@@ -365,4 +371,6 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
 }

@@ -60,7 +60,7 @@ public class BoardController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/noticewrite")
     public String noticeWrite() {
-        return "/admin/noticeWrite";
+        return "admin/noticeWrite";
     }
 
 
@@ -71,7 +71,7 @@ public class BoardController {
         BoardDTO board = boardService.get(bd_id);
 
         model.addAttribute("board", board);
-        return "/admin/noticeModify";
+        return "admin/noticeModify";
     }
 
 

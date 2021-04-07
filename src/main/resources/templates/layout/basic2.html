@@ -290,21 +290,22 @@
                                         </div>
                                         <div class="account-dropdown__body">
                                             <div class="account-dropdown__item">
-                                                <a href="#">
+                                                <a th:href="@{/tuser/profiled(m_id=${#authentication.principal.m_id})}">
                                                     <i class="zmdi zmdi-account"></i>Account</a>
                                             </div>
                                             <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                                <a th:href="@{/tuser/friend(m_id=${#authentication.principal.m_id})}">
+                                                    <i class="zmdi zmdi-settings"></i>MyFriend</a>
                                             </div>
                                             <div class="account-dropdown__item">
-                                                <a href="#">
+                                                <a th:href="@{/tuser/payment(m_id=${#authentication.principal.m_id})}">
                                                     <i class="zmdi zmdi-money-box"></i>Billing</a>
                                             </div>
-                                        </div>
-                                        <div class="account-dropdown__footer">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-power"></i>Logout</a>
+                                            <div class="account-dropdown__item">
+                                                <form action="/logout" method="post">
+                                                    <i class="zmdi zmdi-power"></i><input type="submit" value="Logout"/>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
