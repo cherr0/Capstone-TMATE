@@ -138,4 +138,27 @@
     <update id="viewCount">
         update board set bd_count = bd_count + 1 where bd_id = #{bd_id}
     </update>
+
+    <select id="findProgressEvent" resultType="com.tmate.domain.BoardDTO">
+        <![CDATA[
+            select * from board
+            where bd_id not like 'nt%' and bd_e_date > systimestamp
+            order by bd_e_date desc
+        ]]>
+    </select>
+
+    <select id="findFinishedEvent" resultType="com.tmate.domain.BoardDTO">
+        <![CDATA[
+            select * from board
+            where bd_id not like 'nt%' and bd_e_date < systimestamp
+            order by bd_e_date desc
+        ]]>
+    </select>
+
+    <select id="findEventByBd_id" resultType="com.tmate.domain.BoardDTO">
+        select *
+        from board
+        where bd_id = #{bd_id}
+    </select>
+
 </mapper>

@@ -5,6 +5,7 @@ public class EventData {
     private String tv_title;
     private String tv_subTitle;
     private String tv_date;
+    private String tv_bd_id;
 
     public int getIv_event() {
         return iv_event;
@@ -36,5 +37,13 @@ public class EventData {
 
     public void setTv_date(String tv_date) {
         this.tv_date = tv_date;
+    }
+
+    public String getTv_bd_id() {
+        return tv_bd_id;
+    }
+
+    public void setTv_bd_id(String tv_bd_id) {
+        this.tv_bd_id = tv_bd_id;
     }
 }
