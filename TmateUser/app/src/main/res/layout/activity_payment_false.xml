@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PaymentFalseActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fl_constraintLayout"
+        android:layout_marginTop="100dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/fl_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="결제의 실패 하였습니다."
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/sc_constraintLayout" />
+
+
+        <TextView
+            android:id="@+id/fl_fare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6,000원"
+            android:textColor="#FF4646"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:textSize="40sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_title" />
+
+        <TextView
+            android:id="@+id/fl_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:text="이용 상품"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_fare" />
+
+        <TextView
+            android:id="@+id/fl_taxi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:text="일반 택시"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintStart_toEndOf="@+id/fl_product"
+            app:layout_constraintTop_toBottomOf="@+id/fl_fare" />
+
+        <TextView
+            android:id="@+id/fl_reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:text="실패 사유"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_product" />
+
+        <TextView
+            android:id="@+id/fl_reason_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:text="결제 오류"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintStart_toEndOf="@+id/fl_reason"
+            app:layout_constraintTop_toBottomOf="@+id/fl_taxi" />
+
+
+        <TextView
+            android:id="@+id/fl_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#000000"
+            android:text="출발지"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_reason"/>
+
+        <TextView
+            android:id="@+id/fl_start_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
+            android:text="영진전문대 후문"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/fl_start"
+            app:layout_constraintTop_toBottomOf="@+id/fl_reason_name"/>
+
+        <TextView
+            android:id="@+id/fl_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="도착지"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_start" />
+
+        <TextView
+            android:id="@+id/fl_end_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp"
+            android:text="대구 삼덕소방서"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/fl_end"
+            app:layout_constraintTop_toBottomOf="@+id/fl_start_name" />
+
+
+        <Button
+            android:id="@+id/fl_btn_re"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="#FFABAB"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="다시 시도"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_end_name" />
+        <Button
+            android:id="@+id/fl_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="취소"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fl_btn_re" />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
