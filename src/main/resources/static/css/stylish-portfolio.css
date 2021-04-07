@@ -418,10 +418,21 @@ a:hover, a:focus, a:active {
   margin-right: 1.1em;
 }
 
+
 .login-btn {
-  margin-left: 10em;
   font-size: 1.2rem;
   font-weight: bold;
-  color: #7d8ae3;
+  color: #7D8AE3;
+}
+.btn_img{
+  width: 80px;
+  height: 80px;
+}
+.text_size{
+  vertical-align: middle;
+  font-size: 30px;
+}
+.gravity{
+  vertical-align: middle;
 }
 

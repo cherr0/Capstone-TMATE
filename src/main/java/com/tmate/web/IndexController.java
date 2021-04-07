@@ -5,6 +5,7 @@ import com.tmate.domain.*;
 import com.tmate.service.MainService;
 import com.tmate.service.SMSService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class IndexController {
     }
 
     // 로그인 메인화면
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/main")
     public String main(Model model) {
         int members = mainService.countMembers();       // 총 유저 수
@@ -74,21 +76,5 @@ public class IndexController {
         return "admin/main";
     }
 
-    @GetMapping("/testLogin2")
-    public String testLogin2(HttpSession httpSession) {
-        PhoneDTO phone = new PhoneDTO("허시현","01067681960","");
 
-        MemberDTO member = smsService.getPermission(phone);
-        httpSession.setAttribute("member", member);
-        return "user/main";
-    }
-
-    @GetMapping("/testLogin3")
-    public String testLogin3(HttpSession httpSession) {
-        PhoneDTO phone = new PhoneDTO("하창현","01091840042","");
-
-        MemberDTO member = smsService.getPermission(phone);
-        httpSession.setAttribute("member", member);
-        return "user/main";
-    }
 }

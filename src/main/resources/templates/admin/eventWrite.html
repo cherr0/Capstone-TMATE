@@ -78,8 +78,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">내용</span>
                                         </div>
-                                        <textarea class="form-control" rows="10" id="event-write-content" placeholder="내용을 입력해 주세요.">
-                                        </textarea>
+                                        <textarea class="form-control" rows="10" id="event-write-content" placeholder="내용을 입력해 주세요."></textarea>
                                     </div>
                                 </div>
 
@@ -136,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" th:value="${session.member.m_id}" id="m_id">
+                <input type="hidden" th:value="${#authentication.principal.m_id}" id="m_id">
             </section>
         </div>
     </div>

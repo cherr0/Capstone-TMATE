@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class card_management_push extends Fragment {
     LinearLayout corpDivision;
     LinearLayout bank;
     TextView bank_name_select;
+    private ImageView btn_back_cardadd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,6 +83,17 @@ public class card_management_push extends Fragment {
 
     }
 });
+
+        btn_back_cardadd = v.findViewById(R.id.btn_back_cardadd);
+        btn_back_cardadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                card_management card_management = new card_management();
+                transaction.replace(R.id.frameLayout, card_management).commit();
+            }
+        });
+
         return v;
     }
 

@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Button;
 
 public class CallGeneralActivity extends AppCompatActivity {
 
     Button btn_fare;
+    private ImageView btn_back_general;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +28,12 @@ public class CallGeneralActivity extends AppCompatActivity {
             }
         });
 
+        btn_back_general = findViewById(R.id.btn_back_general);
+        btn_back_general.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.driver;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -64,3 +64,4 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.CustomView
         }
     }
 }
+

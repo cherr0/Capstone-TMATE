@@ -31,7 +31,7 @@
                                         </h1>
                                     </div>
                                 <div>
-                                    <span class="top-name" th:text="${session.member.m_name}">강병현</span>회원님의 등급은
+                                    <span class="top-name" th:text="${memberp?.m_name}">강병현</span>회원님의 등급은
                                         <th:block th:switch="${memberp?.m_level}">
                                             <span class="top-level" th:case="0">일반</span>
                                             <span class="top-level" th:case="1">우수</span>
@@ -81,7 +81,7 @@
                             </div>
                             <div class="col-sm-4 col-md-4 col-xs-4 user-bar-content" id="user-bar-point">
                                 <div class="text-right">현재 보유 포인트: <span class="u-point" th:text="${memberp?.m_point}">500</span><span class="u-point-p">P</span></div>
-                                <button class="btn btn-dark float-right mt-2"><a th:href="@{/tuser/pointd(m_id=${session.member.m_id})}">포인트 내역</a></button>
+                                <button class="btn btn-dark float-right mt-2"><a th:href="@{/tuser/pointd(m_id=${memberp?.m_id})}">포인트 내역</a></button>
                             </div>
                         </div>
                     </div>

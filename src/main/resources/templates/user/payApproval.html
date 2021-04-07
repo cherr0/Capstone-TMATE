@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Jquery JS-->
+    <script th:src="@{~/vendor/jquery-3.5.1.min.js}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div>결제가 정상적으로 완료되었습니다.</div>
+<div th:text="${token}"></div>
+<div>
+    <span>결제일시 : </span><span th:text="${result.re_time}"></span>
+</div>
+<div>
+    <span>구매자 코드 : </span><span  th:text="${result.m_id}"></span>
+</div>
+<div>
+    <span>결제금액 : </span><span id="amount" th:text="${result.re_amt}"></span>
+</div>
+<input id="tid" type="hidden" th:value="${result.tid}"/>
+<input id="partner_order_id" type="hidden" th:value="${result.d_id}"/>
+<input id="partner_user_id" type="hidden" th:value="${result.m_id}"/>
+<input id="pg_token" type="hidden" th:value="${token}"/>
+<button id="submit">전송</button>
+<script>
+    console.log('스크립트 실행됨');
+
+    $('#submit').on('click', function () {
+        console.log('클릭됨');
+
+        /*
+        let data = {
+            cid:'TC0ONETIME',
+            tid: $('#tid').val(),
+            partner_order_id: $('#partner_order_id').val(),
+            partner_user_id: $('#partner_user_id').val(),
+            pg_token: $('#pg_token').val()
+        }
+        */
+        const url = "/kakao/approveSub";
+
+        let form = new FormData();
+        form.append("tid", $('#tid').val());
+        form.append("cid", 'TC0ONETIME');
+        form.append("partner_order_id", $('#partner_order_id').val());
+        form.append("partner_user_id", $('#partner_user_id').val());
+        form.append("pg_token",$('#pg_token').val());
+
+        console.log(form);
+
+        axios.post(url, form)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(error.response);
+            })
+
+        /*
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: '/kakao/approveSub',
+            contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+            success: function (result) {
+                console.log('실행 성공');
+                console.log(result);
+
+                let resData = {
+                    tid: result.tid,
+                    aid: result.aid,
+                    re_amt: result.amount.total
+                }
+
+                $.ajax({
+                    data: JSON.stringify(resData),
+                    type: 'PUT',
+                    url: '/api/kakaoApprove',
+                    success : function (result) {
+                        console.log(result);
+                        window.history.back();
+                    },
+                    error : function (e) {
+                        console.log(e);
+                    }
+                });
+
+            },
+            error: function (e) {
+                console.log(e);
+            }
+
+
+
+
+        });
+         */
+    });
+</script>
+
+</body>
+</html>

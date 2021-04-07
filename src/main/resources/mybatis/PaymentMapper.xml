@@ -15,6 +15,27 @@
         values(to_char(systimestamp,'yyMMddhh24missff')||pa_sec.nextval,#{m_id},'pg','0',#{pay_company},#{credit_no},#{credit_pw},#{credit_cvc},#{credit_vali})
     </insert>
 
+    <insert id="kakaoReady">
+        insert into temp_receipt(tid, m_id, d_id, re_time)
+        values(#{tid},#{m_id},#{d_id},#{re_time})
+    </insert>
+
+    <select id="kakaoReadyRes" resultType="com.tmate.domain.KakaoDTO">
+        select *
+        from (
+             select *
+             from temp_receipt
+             order by re_time desc
+                 )
+        where m_id=#{m_id} and rownum=1
+    </select>
+
+    <update id="kakaoApprove">
+        update temp_receipt
+        set aid=#{aid} and re_amt = #{re_amt}
+        where tid = #{tid}
+    </update>
+
     <delete id="delete">
         delete from payment where customer_uid = #{customer_uid}
     </delete>

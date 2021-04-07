@@ -25,6 +25,11 @@ import com.tmate.user.FavoritesData;
 import com.tmate.user.MainViewActivity;
 import com.tmate.user.LoginActivity;
 import com.tmate.user.R;
+import com.tmate.user.data.Member;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class My_info_Fragment extends Fragment implements View.OnClickListener{
@@ -38,10 +43,16 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
     private TextView tv_notice;
     private TextView tv_bookmark;
 
+    private TextView textView18;
+    private TextView textView17;
+
+
     // 테스트용 로그아웃 버튼
-    private Button btn_logout;
+
     private Button service;
     private TextView tv_card;
+
+    DataService dataService = new DataService();
 
 
     @Nullable
@@ -50,6 +61,12 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.fragment_my_info_, container, false);
 
         constraintLayout3 = view.findViewById(R.id.constraintLayout3);
+
+
+        textView17 = (TextView) view.findViewById(R.id.textView17);
+        textView18 = (TextView) view.findViewById(R.id.textView18);
+
+        selectMemberInfo(getPreferenceString("m_id"));
 
         constraintLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,19 +80,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
             }
         });
 
-        btn_logout = view.findViewById(R.id.btn_logout);
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clearPerferences(getContext());
-                SharedPreferences preferences = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
-                String m_id = preferences.getString("m_id", null);
-                Log.d("과연 이값은: ", m_id);
-
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
         tv_point = view.findViewById(R.id.tv_point);
@@ -86,7 +90,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
         tv_notice = view.findViewById(R.id.tv_notice);
         tv_bookmark = view.findViewById(R.id.tv_bookmark);
         service = view.findViewById(R.id.service);
-        btn_logout = view.findViewById(R.id.btn_logout);
         tv_card = view.findViewById(R.id.tv_card);
 
 
@@ -99,7 +102,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
         tv_notice.setOnClickListener(this);
         tv_bookmark.setOnClickListener(this);
         service.setOnClickListener(this);
-        btn_logout.setOnClickListener(this);
         tv_card.setOnClickListener(this);
 
         return view;
@@ -165,17 +167,53 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 return;
             }
-            case R.id.btn_logout : {
-                clearPerferences(getActivity().getApplicationContext());
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
             case R.id.tv_card : {
                 card_management card_management = new card_management();
                 transaction.replace(R.id.frameLayout, card_management).commit();
             }
             default: return;
         }
+    }
+
+    public void selectMemberInfo(String m_id) {
+
+        dataService.select.selectProfile(m_id).enqueue(new Callback<Member>() {
+            @Override
+            public void onResponse(Call<Member> call, Response<Member> response) {
+                if (response.isSuccessful()) {
+                    if (response.code() == 200) {
+                        Member member = response.body();
+
+                        switch (member.getM_level()) {
+                            case "0":
+                                textView18.setText("일반");
+                                break;
+                            case "1":
+                                textView18.setText("우수");
+                                break;
+                            case "2":
+                                textView18.setText("최우수");
+                                break;
+                            case "3":
+                                textView18.setText("VIP");
+                                break;
+
+                        }
+                        textView17.setText(member.getM_name());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Member> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 }
 

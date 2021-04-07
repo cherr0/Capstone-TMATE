@@ -9,6 +9,9 @@ public interface MemberService {
     // 회원 리스트
     public List<MemberDTO> getListMembers(Criteria cri);
 
+    // 회원 로그인시 계정 연동한 계정 찾을 때
+//    public MemberDTO findSocialMember(String s_email);
+
     // 회원 눌렀을때 나오는 상세페이지 - 회원정보
     public MemberDTO getMember(String m_id);
 

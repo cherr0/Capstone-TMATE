@@ -153,10 +153,10 @@
 
                 $('.approBtn').on("click",function () {
                     let m_id = $('.m_id').val();
-                    let m_name = [[${session.member.m_name}]];
-                    let birth = [[${session.member.m_birth}]];
-                    let sum_address = [[${session.member.m_house}]];
-                    let id = [[${session.member.m_id}]];
+                    let m_name = [[${#authentication.principal.m_name}]];
+                    let birth = [[${#authentication.principal.m_birth}]];
+                    let sum_address = [[${#authentication.principal.m_house}]];
+                    let id = [[${#authentication.principal.m_id}]];
 
                     const data = {
                         m_id:m_id,
@@ -198,7 +198,7 @@
                 type:'DELETE',
                 success: function () {
                     alert("삭제 성공");
-                    window.location.href="/tuser/friend?m_id="+[[${session.member.m_id}]];
+                    window.location.href="/tuser/friend?m_id="+[[${#authentication.principal.m_id}]];
                 },
                 error: function (error) {
                     console.log(error);
@@ -207,8 +207,8 @@
         });
 
         $(".agree").on("click", function () {
-            let n_phone = [[${#strings.substring(session.member.m_id,2,13)}]];
-            let n_name = [[${session.member.m_name}]];
+            let n_phone = [[${#strings.substring(#authentication.principal.m_id,2,13)}]];
+            let n_name = [[${#authentication.principal.m_name}]];
             let m_id = $('.mids').val();
             let id = $('.ids').val();
 
@@ -225,7 +225,7 @@
                 contentType:'application/json; charset=utf-8',
                 success: function () {
                     alert("승인완료");
-                    window.location.href="/tuser/friend?m_id="+[[${session.member.m_id}]];
+                    window.location.href="/tuser/friend?m_id="+[[${#authentication.principal.m_id}]];
 
                 },
                 error: function (error) {
@@ -245,7 +245,7 @@
             let n_whether = $(this).siblings('select.n_whether').val();
             let n_name = $(this).siblings('span.notifiName').val();
             let n_phone = $(this).siblings('input.n_phone').val();
-            let m_id = [[${session.member.m_id}]];
+            let m_id = [[${#authentication.principal.m_id}]];
 
             let data = {
                 n_whether:n_whether,
@@ -261,7 +261,7 @@
                 contentType:'application/json; charset=utf-8',
                 success: function () {
                     alert("상태 변경");
-                    window.location.href="/tuser/friend?m_id="+[[${session.member.m_id}]];
+                    window.location.href="/tuser/friend?m_id="+[[${#authentication.principal.m_id}]];
                 },
                 error: function (error) {
                     console.log(error);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <!-- Required meta tags-->
     <meta charset="UTF-8">
@@ -53,7 +53,7 @@
 <div class="page-wrapper">
     <!-- HEADER MOBILE-->
     <aside class="user-menu-sidebar d-none d-lg-block" th:fragment="mobile">
-        <div class="logo">
+        <div class="logo" sec:authorize="!isAuthenticated()">
             <a href="/main">
                 <img th:src="@{~/images/icon/Tmate.png}"/>
             </a>
@@ -61,8 +61,8 @@
         <div class="menu-sidebar__content js-scrollbar1">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li th:unless="${session.member == null}">
-                        <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/tuser/main(m_id=${#authentication.principal.m_id})}" class="menu-btn menu-btn-main">
                             <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
                     </li>
                     <li>
@@ -116,21 +116,21 @@
     <!-- MENU SIDEBAR-->
     <aside class="user-menu-sidebar d-none d-lg-block" th:fragment="sidebar">
 
-        <div class="logo" th:if="${session.member == null}">
+        <div class="logo" sec:authorize="!isAuthenticated()">
             <a href="#">
                 <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE"/>
             </a>
         </div>
-        <div class="logo" th:unless="${session.member == null}">
-            <a th:href="@{/tuser/main(m_id=${session.member.m_id})}">
+        <div class="logo" sec:authorize="isAuthenticated()">
+            <a th:href="@{/tuser/main(m_id=${#authentication.principal.m_id})}">
                 <img th:src="@{~/images/icon/Tmate.png}" alt="T MATE"/>
             </a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1" id="myDIV">
             <nav class="navbar-sidebar">
                 <ul class="list-unstyled navbar__list">
-                    <li th:unless="${session.member == null}">
-                        <a th:href="@{/tuser/main(m_id=${session.member.m_id})}" class="menu-btn menu-btn-main">
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/tuser/main(m_id=${#authentication.principal.m_id})}" class="menu-btn menu-btn-main">
                             <i class="fas fa-home"></i><span class="menu-color">메인 화면</span></a>
                     </li>
                     <li>
@@ -146,39 +146,39 @@
                             </li>
                         </ul>
                     </li>
-                    <li th:unless="${session.member == null}">
+                    <li sec:authorize="isAuthenticated()">
                         <a class="js-arrow menu-btn menu-btn-profile" href="#">
                             <i class="fa fa-user-circle"></i><span class="menu-color">My T 프로필</span>
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/tuser/profiled(m_id=${session.member.m_id})}"><span class="menu-color js-sub">개인정보 및 수정</span></a>
+                                <a  th:href="@{/tuser/profiled(m_id=${#authentication.principal.m_id})}"><span class="menu-color js-sub">개인정보 및 수정</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/payment(m_id=${session.member.m_id})}"><span class="menu-color js-sub">카드 관리</span></a>
+                                <a th:href="@{/tuser/payment(m_id=${#authentication.principal.m_id})}"><span class="menu-color js-sub">카드 관리</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/friend(m_id=${session.member.m_id})}"><span class="menu-color js-sub">지인알림 관리</span></a>
+                                <a th:href="@{/tuser/friend(m_id=${#authentication.principal.m_id})}"><span class="menu-color js-sub">지인알림 관리</span></a>
                             </li>
                         </ul>
                     </li>
-                    <li th:unless="${session.member == null}">
+                    <li sec:authorize="isAuthenticated()">
                         <a th:href="@{/tuser/place}" class="menu-btn menu-btn-app">
                             <i class="fas fa-check"></i><span class="menu-color">핫플레이스</span></a>
                     </li>
-                    <li th:unless="${session.member == null}">
+                    <li sec:authorize="isAuthenticated()">
                         <a class="js-arrow menu-btn menu-btn-history" href="#">
                             <i class="fa fa-list-alt"></i><span class="menu-color">My T 이력</span>
                         </a>
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
-                                <a  th:href="@{/tuser/pointd(m_id=${session.member.m_id})}"><span class="menu-color js-sub">포인트 내역</span></a>
+                                <a  th:href="@{/tuser/pointd(m_id=${#authentication.principal.m_id})}"><span class="menu-color js-sub">포인트 내역</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/paymentd(m_id=${session.member.m_id})}"><span class="menu-color js-sub">결제 이력</span></a>
+                                <a th:href="@{/tuser/paymentd(m_id=${#authentication.principal.m_id})}"><span class="menu-color js-sub">결제 이력</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/historyd(m_id=${session.member.m_id})}"><span class="menu-color js-sub">이용 내역</span></a>
+                                <a th:href="@{/tuser/historyd(m_id=${#authentication.principal.m_id})}"><span class="menu-color js-sub">이용 내역</span></a>
                             </li>
                         </ul>
                     </li>
@@ -235,7 +235,7 @@
                                 </div>
                             </div>
 
-                            <div th:if="${session.member == null}" class="account-wrap">
+                            <div class="account-wrap" sec:authorize="!isAuthenticated()">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="image">
                                         <img th:src="@{~/images/icon/guest-profile2.png}"/>
@@ -265,46 +265,47 @@
                                 </div>
                             </div>
 
-                            <div th:unless="${session.member == null}" class="account-wrap">
+                            <div sec:authorize="isAuthenticated()" class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="image">
-                                        <img th:src="@{${session.member.m_profile}}"/>
+                                        <img th:src="@{${#authentication.principal.m_profile}}"/>
                                     </div>
                                     <div class="content">
-                                        <a class="js-acc-btn" href="#" th:text="${session.member.m_name}"></a>
+                                        <a class="js-acc-btn" href="#" th:text="${#authentication.principal.m_name}"></a>
                                     </div>
                                     <div class="account-dropdown js-dropdown">
                                         <div class="info clearfix">
                                             <div class="image">
                                                 <a href="#">
-                                                    <img th:src="@{${session.member.m_profile}}"/>
+                                                    <img th:src="@{${#authentication.principal.m_profile}}"/>
                                                 </a>
                                             </div>
                                             <div class="content">
                                                 <h5 class="name">
-                                                    <a href="#" th:text="${session.member.m_name}"></a>
+                                                    <a href="#" th:text="${#authentication.principal.m_name}"></a>
                                                 </h5>
-                                                <span class="email" th:text="${session.member.m_email}"></span>
-                                                <p id="m_id" th:text="${session.member.m_id}"></p>
+                                                <span class="email" th:text="${#authentication.principal.m_email}"></span>
+                                                <p id="m_id" th:text="${#authentication.principal.m_id}"></p>
                                             </div>
                                         </div>
                                         <div class="account-dropdown__body">
                                             <div class="account-dropdown__item">
-                                                <a href="#">
+                                                <a th:href="@{/tuser/profiled(m_id=${#authentication.principal.m_id})}">
                                                     <i class="zmdi zmdi-account"></i>Account</a>
                                             </div>
                                             <div class="account-dropdown__item">
-                                                <a href="#">
-                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                                <a th:href="@{/tuser/friend(m_id=${#authentication.principal.m_id})}">
+                                                    <i class="zmdi zmdi-settings"></i>MyFriend</a>
                                             </div>
                                             <div class="account-dropdown__item">
-                                                <a href="#">
+                                                <a th:href="@{/tuser/payment(m_id=${#authentication.principal.m_id})}">
                                                     <i class="zmdi zmdi-money-box"></i>Billing</a>
                                             </div>
-                                        </div>
-                                        <div class="account-dropdown__footer">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-power"></i>Logout</a>
+                                            <div class="account-dropdown__item">
+                                                <form action="/logout" method="post">
+                                                    <i class="zmdi zmdi-power"></i><input type="submit" value="Logout"/>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

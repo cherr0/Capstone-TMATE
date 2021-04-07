@@ -1,6 +1,7 @@
-package com.tmate.user;
+package com.tmate.driver;
 
 public class NoticeData {
+
     private String notice_title;
     private String notice_date;
 

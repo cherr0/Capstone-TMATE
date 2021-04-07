@@ -76,4 +76,49 @@
         from member
         where m_id  like 'm%'
     </select>
+
+    <!-- 소셜 로그인 작업 -->
+    <insert id="insertSocialEmail">
+        insert into social
+        values(#{s_email}, #{m_id})
+    </insert>
+
+    <!-- 멤버 권한 작업 -->
+    <insert id="insertMemberRole">
+        insert into member_role
+        values(#{m_role},#{m_id})
+    </insert>
+
+    <select id="findSocialMember" resultType="com.tmate.domain.MemberDTO">
+        select m.*,s.s_email
+        from member m inner join social s on m.m_id = s.m_id
+        where s.s_email = #{s_email}
+    </select>
+
+    <select id="findRoleList" resultType="com.tmate.domain.MemberRole">
+        select *
+        from member_role
+        where m_id = #{m_id}
+    </select>
+
+    <!-- 포인트 작업 -->
+    <insert id="insertPoint">
+        insert into(po_id, m_id, po_course, po_exact, po_result, po_time, bd_id)
+        values (p_sec.nextval,#{m_id},#{po_course},#{po_exact},#{po_result},systimestamp,null)
+    </insert>
+
+    <update id="updateM_point">
+        update member
+        set m_point += #{fare}
+        where m_id = #{m_id}
+    </update>
+
+    <select id="findPointListByM_id" resultType="com.tmate.domain.PointDTO">
+        select * from point where m_id = #{m_id}
+    </select>
+
+    <select id="findM_Point" resultType="_int">
+        select m_point from member where m_id = #{m_id}
+    </select>
+
 </mapper>

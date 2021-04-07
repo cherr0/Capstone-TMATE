@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <!-- Required meta tags-->
     <meta charset="UTF-8">
@@ -151,7 +151,7 @@
 
                         <div class="header-button">
 
-                            <div th:if="${session.member == null}" class="account-wrap">
+                            <div sec:authorize="!isAuthenticated()" class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="image">
                                         <img th:src="@{~/images/icon/guest-profile2.png}"/>
@@ -181,26 +181,26 @@
                                 </div>
                             </div>
 
-                            <div th:unless="${session.member == null}" class="account-wrap">
+                            <div sec:authorize="isAuthenticated()" class="account-wrap">
                                 <div class="account-item clearfix js-item-menu">
                                     <div class="image">
-                                        <img th:src="@{${session.member.m_profile}}"/>
+                                        <img th:src="@{${#authentication.principal.m_profile}}"/>
                                     </div>
                                     <div class="content">
-                                        <a class="js-acc-btn" href="#" th:text="${session.member.m_name}"></a>
+                                        <a class="js-acc-btn" href="#" th:text="${#authentication.principal.m_name}"></a>
                                     </div>
                                     <div class="account-dropdown js-dropdown">
                                         <div class="info clearfix">
                                             <div class="image">
                                                 <a href="#">
-                                                    <img th:src="@{${session.member.m_profile}}"/>
+                                                    <img th:src="@{${#authentication.principal.m_profile}}"/>
                                                 </a>
                                             </div>
                                             <div class="content">
                                                 <h5 class="name">
-                                                    <a href="#" th:text="${session.member.m_name}"></a>
+                                                    <a href="#" th:text="${#authentication.principal.m_name}"></a>
                                                 </h5>
-                                                <span class="email" th:text="${session.member.m_email}"></span>
+                                                <span class="email" th:text="${#authentication.principal.m_email}"></span>
                                             </div>
                                         </div>
                                         <div class="account-dropdown__body">
@@ -210,16 +210,17 @@
                                             </div>
                                             <div class="account-dropdown__item">
                                                 <a href="#">
-                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                                    <i class="zmdi zmdi-settings"></i>Approval</a>
                                             </div>
                                             <div class="account-dropdown__item">
                                                 <a href="#">
-                                                    <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                                    <i class="zmdi zmdi-money-box"></i>HotPlace</a>
                                             </div>
-                                        </div>
-                                        <div class="account-dropdown__footer">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-power"></i>Logout</a>
+                                            <div class="account-dropdown__item">
+                                                <form action="/logout" method="post" >
+                                                    <i class="zmdi zmdi-power"></i><input type="submit" value="Logout" class="input_logout"/>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

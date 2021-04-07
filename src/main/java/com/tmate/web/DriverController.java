@@ -4,6 +4,7 @@ import com.tmate.domain.*;
 import com.tmate.service.DriverService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ public class DriverController {
 
     private final DriverService driverService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("driver")
     public String driverList(Model model, Criteria cri) {
        log.info("기사리스트로 이동중");
@@ -27,9 +29,10 @@ public class DriverController {
         int total = driverService.countTotalDrivers();
         model.addAttribute("pageMaker", new PageDTO(cri, total));
         model.addAttribute("drivers",drivers);
-        return"/admin/driverList";
+        return"admin/driverList";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Transactional
     @GetMapping("driver/{d_id}")
     public String driverDetail(@PathVariable("d_id") String d_id,Model model) {
@@ -46,6 +49,6 @@ public class DriverController {
         model.addAttribute("dislike", like);
         model.addAttribute("history", history);
 
-        return "/admin/driverDetail";
+        return "admin/driverDetail";
     }
 }

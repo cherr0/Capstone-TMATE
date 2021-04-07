@@ -1,10 +1,13 @@
 package com.tmate.user.Fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,6 +23,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class favoritesFragment extends Fragment {
 
     private ArrayList<FavoritesData> arrayList;
@@ -28,12 +35,23 @@ public class favoritesFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private Button btn_add;
     private FavoritesAddFragment favoritesAddFragment;
+    private ImageView btn_back_favorites;
+
+    // 레트로핏 DB  연동 설정
+    Context context;
+    private static SharedPreferences pref;
+    DataService dataService = new DataService();
+    String m_id;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_favorites, container, false);
+
+        context = container.getContext();
+        pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
+        m_id = pref.getString("m_id", "");
 
        recyclerView = (RecyclerView) rootView.findViewById(R.id.favorites_rv);
        linearLayoutManager= new LinearLayoutManager(getActivity());
@@ -57,26 +75,71 @@ public class favoritesFragment extends Fragment {
             }
         });
 
+        btn_back_favorites = rootView.findViewById(R.id.btn_back_favorites);
+        btn_back_favorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                My_info_Fragment my_info_fragment = new My_info_Fragment();
+                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+            }
+        });
+
         return rootView;
     }
 
     private void getData() {
-        List<String> adress = Arrays.asList(
-                "대구 북구 영진전문대",
-                "대구 달서구 성서청구타운"
-        );
-        List<String> date = Arrays.asList(
-                "2021-03-21",
-                "2021-03-23"
-        );
 
-        for (int i = 0; i < adress.size(); i++) {
-            // 각 List의 값들을 data 객체에 set 해줍니다.
-            FavoritesData data = new FavoritesData();
-            data.setBm_name(adress.get(i));
-            data.setBm_date(date.get(i));
-            // 각 값이 들어간 data를 adapter에 추가합니다.
-            favoritesAdapter.addItem(data);
-        }
+
+        dataService.select.getBookmarkList(m_id).enqueue(new Callback<List<FavoritesData>>() {
+            @Override
+            public void onResponse(Call<List<FavoritesData>> call, Response<List<FavoritesData>> response) {
+                if (response.isSuccessful()) {
+                    if (response.code() == 200) {
+                        List<FavoritesData> list = response.body();
+                        if (list != null && list.size() != 0) {
+                            for (int i = 0; i < list.size(); i++) {
+                                FavoritesData data = new FavoritesData();
+                                data.setBm_date(list.get(i).getBm_date());
+                                data.setBm_id(list.get(i).getBm_id());
+                                data.setBm_name(list.get(i).getBm_name());
+                                data.setBm_lttd(list.get(i).getBm_lttd());
+                                data.setBm_lngtd(list.get(i).getBm_lngtd());
+                                favoritesAdapter.addItem(data);
+                            }
+                        }else {
+                            favoritesAdapter.addItem(null);
+                        }
+
+                        favoritesAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FavoritesData>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+//        List<String> adress = Arrays.asList(
+//                "대구 북구 영진전문대",
+//                "대구 달서구 성서청구타운"
+//        );
+//        List<String> date = Arrays.asList(
+//                "2021-03-21",
+//                "2021-03-23"
+//        );
+//
+//        for (int i = 0; i < adress.size(); i++) {
+//            // 각 List의 값들을 data 객체에 set 해줍니다.
+//            FavoritesData data = new FavoritesData();
+//            data.setBm_name(adress.get(i));
+//            data.setBm_date(date.get(i));
+//            // 각 값이 들어간 data를 adapter에 추가합니다.
+//            favoritesAdapter.addItem(data);
+//        }
     }
+
+
 }

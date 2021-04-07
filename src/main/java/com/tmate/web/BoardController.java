@@ -7,6 +7,7 @@ import com.tmate.domain.PageDTO;
 import com.tmate.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class BoardController {
     private final BoardService boardService;
 
     // 공지 목록
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/notice")
     public String noticeList(Model model, Criteria cri) {
 
@@ -39,7 +41,9 @@ public class BoardController {
     }
 
 
+
     // 공지 글 조회
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/notice/{bd_id}")
     public String notceDetail(@PathVariable String bd_id, Model model) {
         BoardDTO notice = boardService.get(bd_id);
@@ -53,19 +57,21 @@ public class BoardController {
 
 
     // 공지 글 작성 페이지
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/noticewrite")
     public String noticeWrite() {
-        return "/admin/noticeWrite";
+        return "admin/noticeWrite";
     }
 
 
     // 공지 수정 페이지
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/noticemodify/{bd_id}")
     public String noticeModify(Model model,@PathVariable String bd_id) {
         BoardDTO board = boardService.get(bd_id);
 
         model.addAttribute("board", board);
-        return "/admin/noticeModify";
+        return "admin/noticeModify";
     }
 
 
