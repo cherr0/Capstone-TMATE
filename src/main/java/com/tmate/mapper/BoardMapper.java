@@ -50,4 +50,18 @@ public interface BoardMapper {
 
     // 이벤트 글 삽입
     int insertEvent(BoardDTO boardDTO);
+
+
+    /*
+     *  App 에서 사용할 Mapper -> 진행중인 이벤트, 종료된 이벤트
+     * */
+    // 진행중인 이벤트
+    List<BoardDTO> findProgressEvent();
+
+    // 종료된 이벤트
+    List<BoardDTO> findFinishedEvent();
+
+    // 이벤트 읽어오기
+    BoardDTO findEventByBd_id(String bd_id);
+
 }

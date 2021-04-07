@@ -1,6 +1,7 @@
 package com.tmate.user.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.EventAdapter;
 import com.tmate.user.EventData;
 import com.tmate.user.R;
+import com.tmate.user.data.EventDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class event_close_item_stop extends Fragment {
     private ArrayList<EventData> arrayList;
@@ -25,6 +31,8 @@ public class event_close_item_stop extends Fragment {
     private EventAdapter eventAdapter;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
+
+    CommonService commonService = new CommonService();
 
     public static event_close_item_stop newInstance() {
         event_close_item_stop ecis = new event_close_item_stop();
@@ -52,33 +60,51 @@ public class event_close_item_stop extends Fragment {
     }
 
     private void getData() {
-        // 임의의 데이터입니다.
-        List<Integer> listImage = Arrays.asList(
-                R.drawable.summer_event,
-                R.drawable.fall_event
-        );
-        List<String> listTitle = Arrays.asList(
-                "여름 이벤트",
-                "가을 이벤트"
-        );
-        List<String> listSubTitle = Arrays.asList(
-                "여름방학 맞이 이벤트",
-                "식욕의 계절 이벤트");
-        List<String> listDate = Arrays.asList(
-                "20.07.06 ~ 20.08.06",
-                "20.09.09 ~ 20.10.29"
-        );
 
-        for (int i = 0; i < listTitle.size(); i++) {
-            // 각 List의 값들을 data 객체에 set 해줍니다.
-            EventData data = new EventData();
-            data.setIv_event(listImage.get(i));
-            data.setTv_title(listTitle.get(i));
-            data.setTv_subTitle(listSubTitle.get(i));
-            data.setTv_date(listDate.get(i));
-            eventAdapter.addItem(data);
-            // adapter의 값이 변경되었다는 것을 알려줍니다.
-            eventAdapter.notifyDataSetChanged();
-        }
+        commonService.eventAPI.getFinishEventList().enqueue(new Callback<List<EventDTO>>() {
+            @Override
+            public void onResponse(Call<List<EventDTO>> call, Response<List<EventDTO>> response) {
+                if (response.isSuccessful()) {
+                    if (response.code() == 200) {
+                        List<EventDTO> eventDTOList = response.body();
+                        Log.d("종료된 이벤트 잘넘오나용", eventDTOList.toString());
+                        for (int i = 0; i < eventDTOList.size(); i++) {
+                            EventData eventData = new EventData();
+                            eventData.setIv_event(R.drawable.tmateevent);
+                            switch (eventDTOList.get(i).getBd_id().substring(0,2)) {
+                                case "wi":
+                                    eventData.setTv_title("겨울 이벤트");
+                                    break;
+                                case "sp":
+                                    eventData.setTv_title("봄 이벤트");
+                                    break;
+                                case "sm":
+                                    eventData.setTv_title("여름 이벤트");
+                                    break;
+                                case "fa":
+                                    eventData.setTv_title("가을 이벤트");
+                                    break;
+                            }
+                            // 날짜 작업
+                            String st = eventDTOList.get(i).getBd_s_date().toString();
+                            String et = eventDTOList.get(i).getBd_e_date().toString();
+                            eventData.setTv_date(st.substring(2,4)+"."+st.substring(5,7)+"."+st.substring(8,10)+"~"+et.substring(2,4)+"."+et.substring(5,7)+"."+et.substring(8,10));
+                            eventData.setTv_subTitle(eventDTOList.get(i).getBd_title());
+                            // 이벤트 상세화면을 위한 이벤트
+                            eventData.setTv_bd_id(eventDTOList.get(i).getBd_id());
+                            eventAdapter.addItem(eventData);
+                        }
+                        eventAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<EventDTO>> call, Throwable t) {
+
+            }
+        });
+
+
     }
 }

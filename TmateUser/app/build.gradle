@@ -57,7 +57,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:18.0.2'
     implementation 'com.google.firebase:firebase-auth:20.0.3' // 파이어 베이스 인증
     implementation 'com.firebaseui:firebase-ui-auth:4.2.1' //파이어베이스 인증2
-    implementation 'com.github.bumptech.glide:glide:4.9.0' // 글라이드 이미지 로딩
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.google.firebase:firebase-database:19.7.0'// 글라이드 이미지 로딩
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0' // 글라이드 이미지 로딩2
 
     // 카카오 로그인 관련

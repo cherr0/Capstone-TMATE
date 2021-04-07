@@ -69,8 +69,11 @@ public class FriendFragment extends Fragment {
         adapter2 = new RequestFriendAdapter();
         recyclerView2.setAdapter(adapter2);
 
-        getData();
-        getData2();
+        // 내 친구 리스트 - 데이터서비스이용
+        getMyFriendList();
+        
+        // 나에게 승인 요청 리스트 - 데이터 서비스이용
+        getReqFreindList();
 
 
         btn_add = view.findViewById(R.id.btn_add);
@@ -96,7 +99,7 @@ public class FriendFragment extends Fragment {
     }
 
     // 나에게 요청한 지인 리스트
-    private void getData2() {
+    private void getReqFreindList() {
 
         dataService.select.myApprovalList(getPreferenceString("m_id")).enqueue(new Callback<List<Approval>>() {
             @Override
@@ -152,7 +155,7 @@ public class FriendFragment extends Fragment {
     }
 
     // 나의 지인
-    private void getData(){
+    private void getMyFriendList(){
 
         dataService.select.friendByUser(getPreferenceString("m_id")).enqueue(new Callback<List<Notification>>() {
             @Override
