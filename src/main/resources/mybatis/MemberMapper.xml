@@ -101,5 +101,24 @@
         where m_id = #{m_id}
     </select>
 
+    <!-- 포인트 작업 -->
+    <insert id="insertPoint">
+        insert into(po_id, m_id, po_course, po_exact, po_result, po_time, bd_id)
+        values (p_sec.nextval,#{m_id},#{po_course},#{po_exact},#{po_result},systimestamp,null)
+    </insert>
+
+    <update id="updateM_point">
+        update member
+        set m_point += #{fare}
+        where m_id = #{m_id}
+    </update>
+
+    <select id="findPointListByM_id" resultType="com.tmate.domain.PointDTO">
+        select * from point where m_id = #{m_id}
+    </select>
+
+    <select id="findM_Point" resultType="_int">
+        select m_point from member where m_id = #{m_id}
+    </select>
 
 </mapper>

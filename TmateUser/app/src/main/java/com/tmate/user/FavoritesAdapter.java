@@ -9,6 +9,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.CustomViewHolder> {
@@ -31,7 +33,10 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Cust
     @Override
     public void onBindViewHolder(@NonNull FavoritesAdapter.CustomViewHolder holder, int position) {
         holder.bm_name.setText(arrayList.get(position).getBm_name());
-        holder.bm_date.setText(arrayList.get(position).getBm_date());
+        holder.bm_date.setText(arrayList.get(position).getBm_date().substring(0,10));
+        holder.bm_id.setText(arrayList.get(position).getBm_id());
+        holder.bm_lttd.setText(arrayList.get(position).getBm_lttd()+"");
+        holder.bm_lngtd.setText(arrayList.get(position).getBm_lngtd()+"");
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,11 +78,18 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Cust
 
         protected TextView bm_name;
         protected TextView bm_date;
+        protected TextView bm_id;
+        protected TextView bm_lttd;
+        protected TextView bm_lngtd;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             this.bm_name = (TextView) itemView.findViewById(R.id.bm_name);
             this.bm_date = (TextView) itemView.findViewById(R.id.bm_date);
+            this.bm_id = (TextView) itemView.findViewById(R.id.bm_id);
+            this.bm_lttd = (TextView) itemView.findViewById(R.id.bm_lttd);
+            this.bm_lngtd = (TextView) itemView.findViewById(R.id.bm_lngtd);
+
         }
     }
 }
