@@ -1,9 +1,11 @@
 package com.tmate.user.Fragment;
 
+import com.tmate.user.FavoritesData;
 import com.tmate.user.data.Approval;
 import com.tmate.user.data.Member;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.PhoneDTO;
+import com.tmate.user.data.PointData;
 import com.tmate.user.data.Social;
 import com.tmate.user.data.UserHistroy;
 
@@ -85,8 +87,15 @@ interface SelectAPI {
     @GET("myapproval/{m_id}")
     Call<List<Approval>> myApprovalList(@Path("m_id") String m_id);
 
-}
+    // 포인트 -> 잔여 포인트와 포인트 리스트 가져오기
+    @GET("point/{m_id}")
+    Call<List<PointData>> getPointList(@Path("m_id") String m_id);
 
+    // 즐겨 찾기 -> 즐겨찾기 리스트 가져오기
+    @GET("bookmark/{m_id}")
+    Call<List<FavoritesData>> getBookmarkList(@Path("m_id") String m_id);
+
+}
 interface UpdateAPI{
 
 
