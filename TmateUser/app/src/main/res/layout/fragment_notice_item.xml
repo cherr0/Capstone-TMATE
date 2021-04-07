@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp"
     android:layout_width="match_parent"
-    android:layout_height="130dp">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/notice_title"
@@ -13,6 +13,8 @@
         android:text="반가워요, 대구광역시 오픈!\n가나다라마"
         android:textColor="@color/black"
         android:textSize="24sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,9 +22,24 @@
         android:id="@+id/notice_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:text="3.22"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/View"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notice_title" />
+
+    <View
+        android:id="@+id/View"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2C2C2C"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
