@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.CallGeneralActivity;
 import com.tmate.user.MainViewActivity;
 import com.tmate.user.MatchingFragment;
+import com.tmate.user.MatchingMapActivity;
 import com.tmate.user.R;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class CallFragment extends Fragment {
     private View view;
     private LinearLayout Ll_together;
     private LinearLayout Ll_solo;
+    private int togetherOption;
 
     @Nullable
     @Override
@@ -40,10 +42,10 @@ public class CallFragment extends Fragment {
         Ll_together.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                MatchingFragment matchingFragment = new MatchingFragment();
-                transaction.replace(R.id.frameLayout, matchingFragment);
-                transaction.commit();
+                togetherOption = 0;
+                Intent intent = new Intent(getContext(), MatchingMapActivity.class);
+                intent.putExtra("together",togetherOption);
+                startActivity(intent);
             }
         });
 
@@ -51,7 +53,9 @@ public class CallFragment extends Fragment {
         Ll_solo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), CallGeneralActivity.class);
+                togetherOption = 1;
+                Intent intent = new Intent(getContext(), MatchingMapActivity.class);
+                intent.putExtra("together",togetherOption);
                 startActivity(intent);
             }
         });
