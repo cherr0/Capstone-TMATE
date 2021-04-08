@@ -5,6 +5,7 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
+    viewBinding.enabled=true
 
     defaultConfig {
         applicationId "com.tmate.user"
@@ -43,6 +44,9 @@ dependencies {
     implementation 'androidx.viewpager:viewpager:1.0.0-alpha1'
     implementation 'net.colindodd:toggleimagebutton:1.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    //지도
+    implementation files('libs/com.skt.Tmap_1.67.jar')
+    
     // 레트로핏
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
