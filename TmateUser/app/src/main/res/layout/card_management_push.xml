@@ -162,6 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:inputType="numberPassword"
+                android:hint="MM"
                 android:nextFocusDown="@+id/use_date_num2"
                 android:maxLength="2" />
 
@@ -171,6 +172,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                android:hint="YY"
                 android:inputType="numberPassword"
                 android:maxLength="2" />
         </LinearLayout>
@@ -193,7 +195,28 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:inputType="numberPassword"
-                android:maxLength="2" />
+                android:maxLength="4" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="CVC"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/card_cvc"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:inputType="numberPassword"
+                android:maxLength="3" />
         </LinearLayout>
 
         <CheckBox
@@ -247,56 +270,64 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <TextView
-            android:id="@+id/textView12"
+        <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:gravity=""
-            android:text="유효성 확인\n카드 등록 시, 유효성 확인을 위해 100원이 결제 된 후 24시간 이내에 결제\n취소 처리 됩니다."
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="선결제 안내\n호출 시, 등록된 카드의 결제 가능 여부를 확인하기 위해 운행요금을\n먼저 결제합니다.\n하차 시, 결제 금액으로 은행요금이 자동결제 되며, 선결제 금액은\n자동 취소됩니다."
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/card"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView12"
-            app:layout_constraintVertical_bias="1.0" />
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity=""
+                android:text="유효성 확인\n카드 등록 시, 유효성 확인을 위해 100원이 결제 된 후 24시간 이내에 결제\n취소 처리 됩니다."
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-        <Button
-            android:id="@+id/cm_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/select_shape"
-            android:text="카드 정보 등록"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="선결제 안내\n호출 시, 등록된 카드의 결제 가능 여부를 확인하기 위해 운행요금을\n먼저 결제합니다.\n하차 시, 결제 금액으로 은행요금이 자동결제 되며, 선결제 금액은\n자동 취소됩니다."
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12"
+                app:layout_constraintVertical_bias="1.0" />
 
+            <Button
+                android:id="@+id/cm_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/select_shape"
+                android:text="카드 정보 등록"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

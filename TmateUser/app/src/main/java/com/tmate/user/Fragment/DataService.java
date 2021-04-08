@@ -2,6 +2,7 @@ package com.tmate.user.Fragment;
 
 import com.tmate.user.FavoritesData;
 import com.tmate.user.data.Approval;
+import com.tmate.user.data.CardData;
 import com.tmate.user.data.Member;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.PhoneDTO;
@@ -25,7 +26,9 @@ import retrofit2.http.Path;
 
 public class DataService {
 
-    private String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/member/"; // 기본 URL
+//    private String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/member/"; // 기본 URL
+
+    private String BASE_URL = "http://10.0.2.2:9090/member/";
 
     Retrofit retrofitClient = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -55,6 +58,9 @@ interface InsertAPI {
     // 소셜 로그인 연동
     @POST("social")
     Call<Boolean> socialAccount(@Body Social social);
+
+    @POST("regcard")
+    Call<Boolean> registerCard(@Body CardData cardData);
 }
 
 interface SelectAPI {
@@ -93,6 +99,10 @@ interface SelectAPI {
     // 즐겨 찾기 -> 즐겨찾기 리스트 가져오기
     @GET("bookmark/{m_id}")
     Call<List<FavoritesData>> getBookmarkList(@Path("m_id") String m_id);
+
+    // 카드 리스트
+    @GET("card/{m_id}")
+    Call<List<CardData>> getUserCard(@Path("m_id") String m_id);
 
 }
 interface UpdateAPI{

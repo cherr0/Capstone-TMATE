@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -36,6 +37,7 @@ public class favoritesFragment extends Fragment {
     private Button btn_add;
     private FavoritesAddFragment favoritesAddFragment;
     private ImageView btn_back_favorites;
+    private LinearLayout favorites_linear;
 
     // 레트로핏 DB  연동 설정
     Context context;
@@ -63,6 +65,7 @@ public class favoritesFragment extends Fragment {
         recyclerView.setAdapter(favoritesAdapter);
 
         getData();
+
 
 
         btn_add = rootView.findViewById(R.id.btn_add);

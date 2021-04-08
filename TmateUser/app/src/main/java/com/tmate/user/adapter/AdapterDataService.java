@@ -26,6 +26,8 @@ public class AdapterDataService {
     public AdapterUpdateAPI update = retrofitClient.create(AdapterUpdateAPI.class);
 
     public AdapterDeleteAPI delete = retrofitClient.create(AdapterDeleteAPI.class);
+
+    public CardCrudAPI crudAPI = retrofitClient.create(CardCrudAPI.class);
 }
 
 interface AdapterUpdateAPI{
@@ -41,5 +43,15 @@ interface AdapterDeleteAPI {
 
     @DELETE("removeAppro/{id}/{m_id}")
     Call<Boolean> removeApproval(@Path("id") String id, @Path("m_id") String m_id);
+}
+
+interface CardCrudAPI {
+
+    @DELETE("remove/{customer_uid}")
+    Call<Boolean> removeCard(@Path("customer_uid") String customer_uid);
+
+    @PUT("updaterep/{customer_uid}/{m_id}")
+    Call<Boolean> modifyRep(@Path("customer_uid") String customer_id, @Path("m_id") String m_id);
+
 }
 
