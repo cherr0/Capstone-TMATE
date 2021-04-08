@@ -896,12 +896,12 @@
 
 
       for (let i = 0; i < nlen; i++) {
-        chartData7[parseInt(result.use[i].standard.substr(4,1))-1]=result.use[i].count;
+        chartData7[parseInt(result.use[i].standard.substr(6,1))-1]=result.use[i].count;
         console.log(chartData5);
       }
 
       for (let j = 0; j < tlen; j++) {
-        chartData8[parseInt(result.get[j].standard.substr(4,1))-1]=result.get[j].count;
+        chartData8[parseInt(result.get[j].standard.substr(6,1))-1]=result.get[j].count;
         console.log(chartData6);
       }
 
@@ -980,16 +980,16 @@
       console.log(result);
       const nlen = result.card.length;
       const tlen = result.cash.length;
-      const standard = result.card[0].standard.substr(4,1);
+      const standard = result.card[0].standard.substr(6,1);
       console.log(standard);
 
       for (let i = 0; i < nlen; i++) {
-        chartData5[parseInt(result.card[i].standard.substr(4,1))-1]=result.card[i].count;
+        chartData5[parseInt(result.card[i].standard.substr(6,1))-1]=result.card[i].count;
         console.log(chartData5);
       }
 
       for (let j = 0; j < tlen; j++) {
-        chartData6[parseInt(result.cash[j].standard.substr(4,1))-1]=result.cash[j].count;
+        chartData6[parseInt(result.cash[j].standard.substr(6,1))-1]=result.cash[j].count;
         console.log(chartData6);
       }
 
