@@ -1,6 +1,7 @@
 package com.tmate.service;
 
 
+import com.tmate.domain.HistoryDTO;
 import com.tmate.domain.MonthlyUsersVO;
 import com.tmate.domain.PlaceDTO;
 import com.tmate.domain.UsersByAgeVO;
@@ -53,5 +54,12 @@ public class MainServiceImpl implements MainService {
     @Override
     public List<PlaceDTO> rankHotplaceByStart() {
         return staticsMapper.getHotPlaceList();
+    }
+
+    // 탑승지 순위
+
+    @Override
+    public List<HistoryDTO> rankStartByCnt() {
+        return staticsMapper.getStartRankList();
     }
 }

@@ -78,4 +78,14 @@
         group by to_date(substr(re_time,1,5),'yy/MM')
         order by to_date(substr(re_time,1,5),'yy/MM')
     </select>
+
+    <select id="getStartRankList" resultType="com.tmate.domain.HistoryDTO">
+        <![CDATA[
+            select *
+            from (select h_s_place ,count(h_s_place) as cnt, row_number() over (order by count(h_s_place) desc) as ranking
+            from history
+            group by h_s_place)
+            where ranking <= 5
+        ]]>
+    </select>
 </mapper>
