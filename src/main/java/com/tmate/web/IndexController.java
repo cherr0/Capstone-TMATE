@@ -38,6 +38,8 @@ public class IndexController {
         List<MonthlyUsersVO> monthlyUsers = mainService.countMonthlyUsers(); // 월간 이용자 수
         List<UsersByAgeVO> usersByAge = mainService.countUsersByAge();  // 연령별 이용자 수
         List<PlaceDTO> placeByStart = mainService.rankHotplaceByStart();    // 핫플레이스 이용 순위
+        // 탑승지 순위
+        List<HistoryDTO> rankStart = mainService.rankStartByCnt();
 
 
         System.out.println("members = " + members);
@@ -51,6 +53,7 @@ public class IndexController {
         model.addAttribute("drivers", drivers);
         model.addAttribute("weeklyUsers", weeklyUsers);
         model.addAttribute("placeByStart", placeByStart);
+        model.addAttribute("rankStart", rankStart);
         return "admin/main";
     }
 

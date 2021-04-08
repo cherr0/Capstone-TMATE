@@ -33,6 +33,9 @@ public interface AppMemberService {
      * */
     public List<BookmarkDTO> getBookmarkListByM_id(String m_id);
 
+    // 즐겨 찾기 삭제
+    public Boolean removeBookmark(int bm_id, String m_id);
+
 
     // 회원 정보 수정 - 프로필
 

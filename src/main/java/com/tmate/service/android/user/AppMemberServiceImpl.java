@@ -143,4 +143,9 @@ public class AppMemberServiceImpl implements AppMemberService {
 
         return placeMapper.findBookmarkList(m_id);
     }
+
+    @Override
+    public Boolean removeBookmark(int bm_id, String m_id) {
+        return placeMapper.deleteBookmark(bm_id, m_id) == 1;
+    }
 }

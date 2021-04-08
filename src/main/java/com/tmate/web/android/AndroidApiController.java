@@ -181,4 +181,43 @@ public class AndroidApiController {
         return new ResponseEntity<>(appMemberService.getBookmarkListByM_id(m_id), HttpStatus.OK);
     }
 
+
+    /*
+     *  사용자 APP 카드 관리 컨트롤러
+     * */
+    // 카드 리스트 얻기
+    @GetMapping("/card/{m_id}")
+    public ResponseEntity<List<PaymentDTO>> getUserCard(@PathVariable("m_id") String m_id) {
+        log.info("카드 정보 얻고싶어요 APP : " + m_id);
+
+        return new ResponseEntity<>(userService.getPaymentList(m_id), HttpStatus.OK);
+    }
+
+
+    // 카드 등록
+    @PostMapping("/regcard")
+    public ResponseEntity<Boolean> registerCardApp(@RequestBody PaymentDTO paymentDTO) {
+        log.info("등록할려는 카드 정보 : " + paymentDTO);
+        return new ResponseEntity<>(userService.registerPayment(paymentDTO), HttpStatus.OK);
+    }
+
+    // 카드 삭제
+    @DeleteMapping("/remove/{customer_uid}")
+    public ResponseEntity<Boolean> removeCard(@PathVariable("customer_uid") String customer_uid) {
+        log.info("삭제할려는 카드 빌링키 : " + customer_uid);
+
+        return new ResponseEntity<>(userService.removePayment(customer_uid), HttpStatus.OK);
+    }
+
+    // 카드 업데이트 대표 비대표
+    @PutMapping("/updaterep/{customer_uid}/{m_id}")
+    public ResponseEntity<Boolean> modifyRep(@PathVariable("customer_uid") String customer_uid, @PathVariable("m_id") String m_id) {
+
+        log.info("넘어오는 카드 빌링키 : " + customer_uid);
+        log.info("넘어오는 회원 번호 :" + m_id);
+
+
+        return new ResponseEntity<>(userService.modifyRep(customer_uid, m_id),HttpStatus.OK);
+    }
+
 }

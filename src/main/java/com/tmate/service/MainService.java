@@ -1,6 +1,7 @@
 package com.tmate.service;
 
 
+import com.tmate.domain.HistoryDTO;
 import com.tmate.domain.MonthlyUsersVO;
 import com.tmate.domain.PlaceDTO;
 import com.tmate.domain.UsersByAgeVO;
@@ -26,5 +27,8 @@ public interface MainService {
 
     // 장소별 핫플레이스 이용 순위
     public List<PlaceDTO> rankHotplaceByStart();
+
+    // 탑승지 순위
+    public List<HistoryDTO> rankStartByCnt();
 
 }
