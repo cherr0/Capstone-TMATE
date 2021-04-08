@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PaymentSuccessActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sc_constraintLayout"
+        android:layout_marginTop="100dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/sc_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="결제의 성공 하였습니다."
+            android:textColor="#000000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/sc_constraintLayout" />
+
+
+        <TextView
+            android:id="@+id/sc_fare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6,000원"
+            android:textColor="#5E74FF"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:textSize="40sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sc_title" />
+
+        <TextView
+            android:id="@+id/sc_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:text="이용 상품"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sc_fare" />
+
+        <TextView
+            android:id="@+id/sc_taxi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:text="일반 택시"
+            android:textColor="#000000"
+            android:textSize="25sp"
+            app:layout_constraintStart_toEndOf="@+id/sc_product"
+            app:layout_constraintTop_toBottomOf="@+id/sc_fare" />
+
+
+        <TextView
+            android:id="@+id/sc_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:textColor="#000000"
+            android:text="출발지"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sc_product" />
+
+        <TextView
+            android:id="@+id/sc_start_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="30dp"
+            android:text="영진전문대 후문"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/sc_start"
+            app:layout_constraintTop_toBottomOf="@+id/sc_taxi" />
+
+        <TextView
+            android:id="@+id/sc_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="도착지"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sc_start" />
+
+        <TextView
+            android:id="@+id/sc_end_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp"
+            android:text="대구 삼덕소방서"
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/sc_end"
+            app:layout_constraintTop_toBottomOf="@+id/sc_start_name" />
+
+
+        <Button
+            android:id="@+id/sc_btn"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="#83BBF3"
+            android:text="확인"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sc_end_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

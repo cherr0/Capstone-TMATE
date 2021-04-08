@@ -1,10 +1,7 @@
 package com.tmate.mapper;
 
 
-import com.tmate.domain.ChartDTO;
-import com.tmate.domain.MonthlyUsersVO;
-import com.tmate.domain.PlaceDTO;
-import com.tmate.domain.UsersByAgeVO;
+import com.tmate.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -41,4 +38,7 @@ public interface StaticsMapper {
 
     // 월간 결제 이력 - 현금
     List<ChartDTO> getCountUseCash(String m_id);
+
+    // 탑승지 순위 리스트
+    List<HistoryDTO> getStartRankList();
 }

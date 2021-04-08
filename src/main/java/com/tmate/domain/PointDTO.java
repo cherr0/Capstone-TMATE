@@ -32,4 +32,7 @@ public class PointDTO {
     // 이벤트 코드
     private String e_id;
 
+    // 잔여 요금 - DB에는 없음
+    private int po_point;
+
 }

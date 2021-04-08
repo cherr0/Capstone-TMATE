@@ -1,8 +1,6 @@
 package com.tmate.service.android.user;
 
-import com.tmate.domain.JoinHistoryVO;
-import com.tmate.domain.MemberDTO;
-import com.tmate.domain.SocialDTO;
+import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
 
 import java.util.List;
@@ -21,6 +19,22 @@ public interface AppMemberService {
 
     // 소셜 로그인 연동 -> 이때 멤버 권한 까지 같이 할것이다.
     public Boolean registerSocialEmail(SocialDTO socialDTO);
+
+    // 포인트 내역 가져오기
+    public List<PointDTO> getPointListByM_id(String m_id);
+
+    // 포인트 삽입
+
+    // 포인트 삽입 시 멤버 테이블 총 포인트 업데이트
+
+
+    /*
+     *  즐겨 찾기
+     * */
+    public List<BookmarkDTO> getBookmarkListByM_id(String m_id);
+
+    // 즐겨 찾기 삭제
+    public Boolean removeBookmark(int bm_id, String m_id);
 
 
     // 회원 정보 수정 - 프로필

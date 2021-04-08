@@ -28,6 +28,9 @@ public class HistoryDTO {
     private Timestamp h_s_time;
     private Timestamp h_e_time;
 
+    // 탑승 순위
+    private int cnt;
+
 
     // 총 요금
     private int h_allfare;

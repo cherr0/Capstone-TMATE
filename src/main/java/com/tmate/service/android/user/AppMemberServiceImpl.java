@@ -1,11 +1,9 @@
 package com.tmate.service.android.user;
 
-import com.tmate.domain.JoinHistoryVO;
-import com.tmate.domain.MemberDTO;
-import com.tmate.domain.MemberRole;
-import com.tmate.domain.SocialDTO;
+import com.tmate.domain.*;
 import com.tmate.mapper.JoinMapper;
 import com.tmate.mapper.Membermapper;
+import com.tmate.mapper.PlaceMapper;
 import com.tmate.mapper.UserMainMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,6 +29,9 @@ public class AppMemberServiceImpl implements AppMemberService {
 
     // joinMapper 의존
     private final JoinMapper joinMapper;
+
+    // plceMapper 의존
+    private final PlaceMapper placeMapper;
 
     //  회원가입 등록
     @Override
@@ -114,5 +115,37 @@ public class AppMemberServiceImpl implements AppMemberService {
         MemberRole memberRole = new MemberRole("USER",m_id);
 
         return membermapper.insertMemberRole(memberRole) == 1;
+    }
+
+    @Transactional
+    @Override
+    public List<PointDTO> getPointListByM_id(String m_id) {
+        log.info("포인트 리스트 가져오기 서비스 처리중 ....");
+
+        int mPoint = membermapper.findM_Point(m_id);
+        List<PointDTO> pointList = membermapper.findPointListByM_id(m_id);
+        pointList.forEach(i -> {
+            i.setPo_point(mPoint);
+        });
+
+        return pointList;
+    }
+
+
+    /*
+    *  즐겨 찾기 DTO
+    * */
+
+    @Override
+    public List<BookmarkDTO> getBookmarkListByM_id(String m_id) {
+
+        log.info("즐겨찾기 찾는 중 서비스 로직");
+
+        return placeMapper.findBookmarkList(m_id);
+    }
+
+    @Override
+    public Boolean removeBookmark(int bm_id, String m_id) {
+        return placeMapper.deleteBookmark(bm_id, m_id) == 1;
     }
 }

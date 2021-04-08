@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/favorites_linear"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
@@ -48,16 +50,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bm_name" />
 
-        <Button
-            android:id="@+id/bm_delete"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
-            android:text="삭제"
-            app:layout_constraintBottom_toBottomOf="@+id/bm_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/bm_name"
-            app:layout_constraintVertical_bias="0.375" />
+
+        <TextView
+            android:id="@+id/bm_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bm_name" />
+
+        <TextView
+            android:id="@+id/bm_lttd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bm_lngtd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/bm_lttd"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

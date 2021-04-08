@@ -17,4 +17,12 @@
         values (#{pl_id},#{pl_address},#{pl_name},#{pl_lat},#{pl_lng})
     </insert>
 
+    <select id="findBookmarkList" resultType="com.tmate.domain.BookmarkDTO">
+        select * from bookmark where m_id = #{m_id}
+    </select>
+
+    <delete id="deleteBookmark">
+        delete from bookmark where bm_id = #{bm_id} and m_id = #{m_id}
+    </delete>
+
 </mapper>
