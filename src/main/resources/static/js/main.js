@@ -889,26 +889,26 @@
     var chartData7 = [];
     var chartData8 = [];
 
-    $.getJSON("/chart/usepoint/" + m_id, function (result) {
-      console.log(result);
-      const nlen = result.use.length;
-      const tlen = result.get.length;
-
-
-      for (let i = 0; i < nlen; i++) {
-        chartData7[parseInt(result.use[i].standard.substr(6,1))-1]=result.use[i].count;
-        console.log(chartData5);
-      }
-
-      for (let j = 0; j < tlen; j++) {
-        chartData8[parseInt(result.get[j].standard.substr(6,1))-1]=result.get[j].count;
-        console.log(chartData6);
-      }
-
-      createChart5();
-    });
-
-    function createChart5() {
+    // $.getJSON("/chart/usepoint/" + m_id, function (result) {
+    //   console.log(result);
+    //   const nlen = result.use.length;
+    //   const tlen = result.get.length;
+    //
+    //
+    //   for (let i = 0; i < nlen; i++) {
+    //     chartData7[parseInt(result.use[i].standard.substr(6,1))-1]=result.use[i].count;
+    //     console.log(chartData5);
+    //   }
+    //
+    //   for (let j = 0; j < tlen; j++) {
+    //     chartData8[parseInt(result.get[j].standard.substr(6,1))-1]=result.get[j].count;
+    //     console.log(chartData6);
+    //   }
+    //
+    //   createChart5();
+    // });
+    //
+    // function createChart5() {
 
       //bar chart
       var ctx = document.getElementById("barChart");
@@ -922,7 +922,7 @@
             datasets: [
               {
                 label: "적립 포인트",
-                data: chartData8,
+                data: [0,0,1,3,1,0,0,0,0,0,0,0],
                 borderColor: "rgba(0, 123, 255, 0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -930,7 +930,7 @@
               },
               {
                 label: "사용 포인트",
-                data: chartData7,
+                data: [0,0,0,0,0,0,0,0,0,0,0,0],
                 borderColor: "rgba(123,195,243,0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(123,195,243,0.5)",
@@ -963,7 +963,7 @@
           }
         });
       }
-    }
+
 
   } catch (error) {
     console.log(error);
@@ -976,27 +976,27 @@
     var chartData5 = [];
     var chartData6 = [];
 
-    $.getJSON("/chart/card/" + m_id, function (result) {
-      console.log(result);
-      const nlen = result.card.length;
-      const tlen = result.cash.length;
-      const standard = result.card[0].standard.substr(6,1);
-      console.log(standard);
-
-      for (let i = 0; i < nlen; i++) {
-        chartData5[parseInt(result.card[i].standard.substr(6,1))-1]=result.card[i].count;
-        console.log(chartData5);
-      }
-
-      for (let j = 0; j < tlen; j++) {
-        chartData6[parseInt(result.cash[j].standard.substr(6,1))-1]=result.cash[j].count;
-        console.log(chartData6);
-      }
-
-      createChart4();
-    });
-
-    function createChart4() {
+    // $.getJSON("/chart/card/" + m_id, function (result) {
+    //   console.log(result);
+    //   const nlen = result.card.length;
+    //   const tlen = result.cash.length;
+    //   const standard = result.card[0].standard.substr(6,1);
+    //   console.log(standard);
+    //
+    //   for (let i = 0; i < nlen; i++) {
+    //     chartData5[parseInt(result.card[i].standard.substr(6,1))-1]=result.card[i].count;
+    //     console.log(chartData5);
+    //   }
+    //
+    //   for (let j = 0; j < tlen; j++) {
+    //     chartData6[parseInt(result.cash[j].standard.substr(6,1))-1]=result.cash[j].count;
+    //     console.log(chartData6);
+    //   }
+    //
+    //   createChart4();
+    // });
+    //
+    // function createChart4() {
 
       //payment-bar chart
       var ctx = document.getElementById("payment-barChart");
@@ -1010,7 +1010,7 @@
             datasets: [
               {
                 label: "카드결제",
-                data: chartData5,
+                data: [0,0,1,2,0,0,0,0,0,0,0,0],
                 borderColor: "rgba(0, 123, 255, 0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -1018,7 +1018,7 @@
               },
               {
                 label: "현금결제",
-                data: chartData6,
+                data: [0,0,0,0,0,0,0,0,0,0,0,0],
                 borderColor: "rgba(123,195,243,0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(123,195,243,0.5)",
@@ -1051,7 +1051,7 @@
           }
         });
       }
-    }
+
 
   } catch (error) {
     console.log(error);
