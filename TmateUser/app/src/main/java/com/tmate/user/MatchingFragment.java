@@ -52,7 +52,7 @@ public class MatchingFragment extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 MatchingSeatFragment matchingEnrollmentFragment = new MatchingSeatFragment();
-                transaction.replace(R.id.frameLayout, matchingEnrollmentFragment);
+                transaction.replace(R.id.macing_frame, matchingEnrollmentFragment);
                 transaction.commit();
             }
         });
