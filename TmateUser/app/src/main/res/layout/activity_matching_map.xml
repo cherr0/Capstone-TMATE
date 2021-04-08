@@ -1,0 +1,386 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <LinearLayout
+            android:id="@+id/ll_mainlayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+            <com.sothree.slidinguppanel.SlidingUpPanelLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity"
+                android:gravity="bottom"
+                app:umanoDragView="@id/dragView"
+                app:umanoPanelHeight="70dp"
+                app:umanoOverlay="true"
+                app:umanoParallaxOffset="200dp"
+                app:umanoShadowHeight="10dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white" >
+
+
+                    <RelativeLayout
+                        android:id="@+id/mapview_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TextView" />
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/centerPointIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/plus"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/zoom_plus_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/zoom_in_btn_select"
+                            android:onClick="onClickZoomInBtn" />
+
+                        <ImageView
+                            android:id="@+id/zoom_minus_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/zoom_out_btn_select"
+                            android:onClick="onClickZoomOutBtn" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/zoomlevel_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/white"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="Lv.15"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp" />
+
+
+
+                    <LinearLayout
+                        android:id="@+id/geocoding_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:color/white"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:visibility="gone" >
+
+                        <TextView
+                            android:id="@+id/geocoding_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/geocoding_sub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/route_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:color/white"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:visibility="gone" >
+
+                        <TextView
+                            android:id="@+id/route_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/route_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/route_fare"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/autoComplete_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="5dp"
+                        android:visibility="gone" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:text="POI 자동완성 "
+                            android:textColor="@android:color/black"
+                            android:textSize="25sp" />
+
+                        <EditText
+                            android:id="@+id/edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text" />
+
+                        <ListView
+                            android:id="@+id/list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/white"
+                            android:cacheColorHint="#00000000"
+                            android:divider="#dcdcdc"
+                            android:dividerHeight="1dp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:orientation="horizontal" />
+
+                    <LinearLayout
+                        android:id="@+id/centerPointLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_margin="10dp"
+                        android:visibility="gone"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/black"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:id="@+id/centerLatitude"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:text="POI 자동완성 "
+                                android:textColor="@android:color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/centerLongitude"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/black"
+                                android:padding="5dp"
+                                android:text="POI 자동완성 "
+                                android:textColor="@android:color/white"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <!-- 올라오는 화면을 꽉 채우고 싶다면 match_parent, 내용물 만큼만 보이고 뒷 배경이 반투명처리로 보이고 싶다면 wrap_content-->
+                <LinearLayout
+                    android:id="@+id/dragView"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    android:background="@drawable/linear_shape">
+                    <TextView
+                        android:id="@+id/slideTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="장소를 설정해 주세요"
+                        android:textAlignment="center"
+                        android:textSize="30sp"
+                        android:gravity="center_horizontal" />
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/place_page"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:orientation="vertical">
+                        <EditText
+                            android:inputType="text"
+                            android:imeOptions="actionSearch"
+                            android:id="@+id/start_place"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/box_shape"
+                            android:textSize="15sp"
+                            android:padding="10dp"/>
+                        <ImageView
+                            android:id="@+id/location_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/zoomlevel_text"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="end"
+                            android:layout_marginRight="50dp"
+                            android:layout_marginTop="-40dp"
+                            android:background="@drawable/location_btn"
+                            android:onClick="onClickLocationBtn"></ImageView>
+                        <EditText
+                            android:inputType="text"
+                            android:imeOptions="actionSearch"
+                            android:id="@+id/finish_place"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/box_shape"
+                            android:textSize="15sp"
+                            android:padding="10dp"
+                            android:drawableLeft="@drawable/map_pin_red"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp">
+                            <Button
+                                android:id="@+id/change"
+                                android:layout_width="300dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/select_shape"
+                                android:text="확인"
+                                android:textSize="20sp"
+                                android:textColor="#FFFFFF"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/together_page"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="70dp"
+                            android:orientation="horizontal"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="동승인원"
+                                    android:textColor="@color/black"
+                                    android:textSize="28sp"/>
+                                <RadioGroup
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+                                    <RadioButton
+                                        android:id="@+id/ra_double"
+                                        android:padding="15dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="2인"
+                                        android:textColor="#000000"/>
+                                    <RadioButton
+                                        android:id="@+id/ra_triple"
+                                        android:padding="15dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="3인"
+                                        android:textColor="#000000"/>
+                                </RadioGroup>
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp">
+                            <Button
+                                android:id="@+id/call"
+                                android:layout_width="300dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/select_shape"
+                                android:text="매칭"
+                                android:textSize="20sp"
+                                android:textColor="#FFFFFF"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+        </LinearLayout>
+
+
+    </FrameLayout>
+</LinearLayout>
