@@ -40,11 +40,11 @@
     </select>
 
     <select id="getCountGetPoint" resultType="com.tmate.domain.ChartDTO">
-        select to_date(substr(po_time,1,5),'yy/MM') as standard, count(*) as count
+        select to_date(replace(substr(po_time,1,5),'/',''),'yyMM') as standard, count(*) as count
         from point
-        where m_id = #{m_id} and po_exact = '0'
-        group by to_date(substr(po_time,1,5),'yy/MM')
-        order by to_date(substr(po_time,1,5),'yy/MM')
+        where m_id =#{m_id} and po_exact = '0'
+        group by to_date(replace(substr(po_time,1,5),'/',''),'yyMM')
+        order by to_date(replace(substr(po_time,1,5),'/',''),'yyMM')
     </select>
 
     <select id="getCountNormal" resultType="com.tmate.domain.ChartDTO">
@@ -64,19 +64,19 @@
     </select>
 
     <select id="getCountUseCard" resultType="com.tmate.domain.ChartDTO">
-        select to_date(substr(re_time,1,5),'yy/MM') as standard, count(*) as count
+        select to_date(replace(substr(re_time,1,5),'/',''),'yyMM') as standard, count(*) as count
         from receipt
         where m_id = #{m_id} and use_cash = '0'
-        group by to_date(substr(re_time,1,5),'yy/MM')
-        order by to_date(substr(re_time,1,5),'yy/MM')
+        group by to_date(replace(substr(re_time,1,5),'/',''),'yyMM')
+        order by to_date(replace(substr(re_time,1,5),'/',''),'yyMM')
     </select>
 
     <select id="getCountUseCash" resultType="com.tmate.domain.ChartDTO">
-        select to_date(substr(re_time,1,5),'yy/MM') as standard, count(*) as count
+        select to_date(replace(substr(re_time,1,5),'/',''),'yyMM') as standard, count(*) as count
         from receipt
         where m_id = #{m_id} and use_cash = '1'
-        group by to_date(substr(re_time,1,5),'yy/MM')
-        order by to_date(substr(re_time,1,5),'yy/MM')
+        group by to_date(replace(substr(re_time,1,5),'/',''),'yyMM')
+        order by to_date(replace(substr(re_time,1,5),'/',''),'yyMM')
     </select>
 
     <select id="getStartRankList" resultType="com.tmate.domain.HistoryDTO">
