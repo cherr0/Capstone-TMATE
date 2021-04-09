@@ -26,7 +26,7 @@ public class AdapterComService {
                     .build();
 
     NoticeAPI notice = retrofitClient.create(NoticeAPI.class);
-    EventReadAPI eventReadAPI = retrofitClient.create(EventReadAPI.class);
+    EventAPI EventAPI = retrofitClient.create(EventAPI.class);
     DeleteAPI deleteAPI = retrofitClient.create(DeleteAPI.class);
 }
 
@@ -36,8 +36,7 @@ interface NoticeAPI {
     Call<Notice> getNoticeDetail(@Path("bd_id") String bd_id);
 }
 
-interface EventReadAPI {
-
+interface EventAPI {
     @GET("readevent/{bd_id}")
     Call<EventDTO> readEvent(@Path("bd_id") String bd_id);
 }
