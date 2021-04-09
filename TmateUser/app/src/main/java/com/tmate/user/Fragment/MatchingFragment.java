@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tmate.user.R;
+import com.tmate.user.adapter.MatchingAdapter;
+import com.tmate.user.data.MatchingData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
