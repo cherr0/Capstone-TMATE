@@ -1,51 +1,39 @@
-package com.tmate.driver;
-
+package com.tmate.driver.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.tmate.driver.R;
+import com.tmate.driver.data.HistoryData;
 import com.tmate.driver.databinding.HistoryCardviewBinding;
-
 import java.util.ArrayList;
 
-public class HistoryAdapter extends RecyclerView.Adapter<Holder> {
+
+
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder> {
     ArrayList<HistoryData> items = new ArrayList<>();
-
     private HistoryCardviewBinding binding;
-
     @NonNull
     @Override
-    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_cardview, parent, false);
-        return new Holder(view);
+    public HistoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_history, parent, false);
+        return new HistoryHolder(view);
     }
-
-
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
+    public void onBindViewHolder(@NonNull HistoryHolder holder, int position) {
         holder.onBind(items.get(position));
     }
-
     @Override
     public int getItemCount() {
         return items.size();
     }
-
-
-
-    void addItem(HistoryData data) {
+    public void addItem(HistoryData data) {
         items.add(data);
     }
-
-
-
 }
-
-class Holder extends RecyclerView.ViewHolder {
+class HistoryHolder extends RecyclerView.ViewHolder {
     TextView hdate;
     TextView htogether;
     TextView re_amt;
@@ -53,7 +41,6 @@ class Holder extends RecyclerView.ViewHolder {
     TextView hstart;
     TextView hfinish;
     TextView htime;
-
     void onBind(HistoryData data) {
         hdate.setText(data.getHdate());
         htogether.setText(data.getHtogether());
@@ -63,8 +50,7 @@ class Holder extends RecyclerView.ViewHolder {
         hfinish.setText(data.getHfinish());
         htime.setText(data.getHtime());
     }
-
-    public Holder(@NonNull View itemView) {
+    public HistoryHolder(@NonNull View itemView) {
         super(itemView);
         hdate = itemView.findViewById(R.id.hdate);
         htogether = itemView.findViewById(R.id.htogether);

@@ -1,6 +1,6 @@
 package com.tmate.driver.data;
 
-public class Blacklist_managementData {
+public class BlacklistManagementData {
     String black_name;
     String black_date;
     String black_content;

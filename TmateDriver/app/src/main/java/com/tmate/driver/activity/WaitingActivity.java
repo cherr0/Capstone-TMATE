@@ -1,4 +1,4 @@
-package com.tmate.driver;
+package com.tmate.driver.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+
+import com.tmate.driver.R;
 
 public class WaitingActivity extends AppCompatActivity {
     Button btn_drive_stop;

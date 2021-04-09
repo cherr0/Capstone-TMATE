@@ -1,8 +1,10 @@
-package com.tmate.driver;
+package com.tmate.driver.activity;
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import com.tmate.driver.R;
 
 public class CheckActivity extends AppCompatActivity {
 

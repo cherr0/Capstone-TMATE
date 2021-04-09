@@ -10,13 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.tmate.driver.ActivityLogin;
+import com.tmate.driver.activity.LoginActivity;
+import com.tmate.driver.OnBackPressedListener;
 import com.tmate.driver.databinding.FragmentCompletedBinding;
 
 
-public class CompletedFragment extends Fragment implements OnBackPressedListener{
+public class CompletedFragment extends Fragment implements OnBackPressedListener {
     private FragmentCompletedBinding b;
-    ActivityLogin activity;
+    LoginActivity activity;
     long backKeyPressedTime;
     Toast toast;
 
@@ -27,7 +28,7 @@ public class CompletedFragment extends Fragment implements OnBackPressedListener
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         b = FragmentCompletedBinding.inflate(inflater, container, false);
         View v = b.getRoot();
-        activity = (ActivityLogin) getActivity();
+        activity = (LoginActivity) getActivity();
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
 
         return  v;

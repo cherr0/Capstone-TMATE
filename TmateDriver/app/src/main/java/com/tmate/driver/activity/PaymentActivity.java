@@ -1,4 +1,4 @@
-package com.tmate.driver;
+package com.tmate.driver.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.tmate.driver.R;
 import com.tmate.driver.databinding.ActivityPaymentBinding;
 
 public class PaymentActivity extends AppCompatActivity {
@@ -23,7 +24,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         dialog = new Dialog(PaymentActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.payment_dialog);
+        dialog.setContentView(R.layout.dialog_payment);
 
         binding.btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
