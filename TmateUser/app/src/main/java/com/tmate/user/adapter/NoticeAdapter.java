@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeHolder> {
 
-    private final AdapterComService adapterComService = new AdapterComService();
+    private final AdapterComService dataService = new AdapterComService();
 
     private ArrayList<Notice> items;
 
@@ -57,7 +57,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeHolder> {
                 String bd_id = items.get(position).getBd_id();
                 Log.d("notice", "공지사항 클릭됨 bd_id : " + bd_id);
 
-                adapterComService.notice.getNoticeDetail(bd_id).enqueue(new Callback<Notice>() {
+                dataService.notice.getNoticeDetail(bd_id).enqueue(new Callback<Notice>() {
                     @Override
                     public void onResponse(Call<Notice> call, Response<Notice> response) {
                         Log.d("notice", "response 값 받아옴 : " + response.body() + "response code : " + response.code());

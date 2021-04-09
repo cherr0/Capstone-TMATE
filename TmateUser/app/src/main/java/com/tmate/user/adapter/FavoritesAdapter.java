@@ -29,7 +29,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Cust
     private ArrayList<FavoritesData> arrayList;
 
     // 레트로핏 어뎁터 서비스
-    AdapterComService adapterComService = new AdapterComService();
+    AdapterComService dataService = new AdapterComService();
 
     // m_id 값 불러오기
     Context context;
@@ -89,7 +89,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Cust
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        adapterComService.deleteAPI.removeBookmark(holder.bm_id.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
+                        dataService.deleteAPI.removeBookmark(holder.bm_id.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 if (response.isSuccessful()) {

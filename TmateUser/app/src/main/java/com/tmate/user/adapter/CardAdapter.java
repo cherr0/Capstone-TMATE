@@ -29,7 +29,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
     private String m_id;
 
     // 레트로핏 연동
-    AdapterDataService adapterDataService = new AdapterDataService();
+    AdapterDataService dataService = new AdapterDataService();
 
 
     ArrayList<CardData> items = new ArrayList<>();
@@ -61,7 +61,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                     builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            adapterDataService.crudAPI.modifyRep(holder.customer_uid.getText().toString(), m_id).enqueue(new Callback<Boolean>() {
+                            dataService.crudAPI.modifyRep(holder.customer_uid.getText().toString(), m_id).enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                     if (response.isSuccessful()) {
@@ -99,7 +99,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-                                adapterDataService.crudAPI.removeCard(holder.customer_uid.getText().toString()).enqueue(new Callback<Boolean>() {
+                                dataService.crudAPI.removeCard(holder.customer_uid.getText().toString()).enqueue(new Callback<Boolean>() {
                                     @Override
                                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                         if (response.isSuccessful()) {
