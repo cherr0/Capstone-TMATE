@@ -101,7 +101,7 @@ public class FriendFragment extends Fragment {
     // 나에게 요청한 지인 리스트
     private void getReqFreindList() {
 
-        dataService.select.myApprovalList(getPreferenceString("m_id")).enqueue(new Callback<List<Approval>>() {
+        dataService.friend.myApprovalList(getPreferenceString("m_id")).enqueue(new Callback<List<Approval>>() {
             @Override
             public void onResponse(Call<List<Approval>> call, Response<List<Approval>> response) {
                 if (response.isSuccessful()) {
@@ -157,7 +157,7 @@ public class FriendFragment extends Fragment {
     // 나의 지인
     private void getMyFriendList(){
 
-        dataService.select.friendByUser(getPreferenceString("m_id")).enqueue(new Callback<List<Notification>>() {
+        dataService.friend.friendByUser(getPreferenceString("m_id")).enqueue(new Callback<List<Notification>>() {
             @Override
             public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
                 if (response.isSuccessful()) {

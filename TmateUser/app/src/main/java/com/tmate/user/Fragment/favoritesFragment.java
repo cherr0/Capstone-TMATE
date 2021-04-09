@@ -93,7 +93,7 @@ public class favoritesFragment extends Fragment {
     private void getData() {
 
 
-        dataService.select.getBookmarkList(m_id).enqueue(new Callback<List<FavoritesData>>() {
+        dataService.profile.getBookmarkList(m_id).enqueue(new Callback<List<FavoritesData>>() {
             @Override
             public void onResponse(Call<List<FavoritesData>> call, Response<List<FavoritesData>> response) {
                 if (response.isSuccessful()) {

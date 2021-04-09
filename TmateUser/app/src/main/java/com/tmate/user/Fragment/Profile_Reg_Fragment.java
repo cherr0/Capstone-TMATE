@@ -62,7 +62,7 @@ public class Profile_Reg_Fragment extends Fragment {
 
                 Log.d(LOG_TAG, map.values().toString());
 
-                dataService.insert.insertOne(map).enqueue(new Callback<Boolean>() {
+                dataService.profile.insertOne(map).enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(@NonNull  Call<Boolean> call, @NonNull Response<Boolean> response) {
                         if (response.isSuccessful()) {

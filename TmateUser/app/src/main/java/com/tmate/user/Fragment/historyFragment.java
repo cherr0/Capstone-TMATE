@@ -70,7 +70,7 @@ public class historyFragment extends Fragment {
  
         String m_id = getPreferenceString("m_id");
 
-        dataService.select.selectHistory(m_id).enqueue(new Callback<List<UserHistroy>>() {
+        dataService.profile.selectHistory(m_id).enqueue(new Callback<List<UserHistroy>>() {
             @Override
             public void onResponse(Call<List<UserHistroy>> call, Response<List<UserHistroy>> response) {
                 if (response.isSuccessful()) {

@@ -172,7 +172,7 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
 
     public void selectMemberInfo(String m_id) {
 
-        dataService.select.selectProfile(m_id).enqueue(new Callback<Member>() {
+        dataService.profile.selectProfile(m_id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
                 if (response.isSuccessful()) {
