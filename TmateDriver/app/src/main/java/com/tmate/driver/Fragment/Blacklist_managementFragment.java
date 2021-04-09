@@ -1,4 +1,4 @@
-package com.tmate.driver;
+package com.tmate.driver.Fragment;
 
 import android.os.Bundle;
 
@@ -12,18 +12,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tmate.driver.adapter.Blacklist_managementAdapter;
-import com.tmate.driver.data.Blacklist_managementData;
-import com.tmate.driver.databinding.BlacklistManagementCardviewBinding;
+import com.tmate.driver.R;
+import com.tmate.driver.adapter.BlacklistManagementAdapter;
+import com.tmate.driver.data.BlacklistManagementData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Blacklist_managementFragment extends Fragment {
-    private Blacklist_managementAdapter adapter;
+    private BlacklistManagementAdapter adapter;
 
-    private ArrayList<Blacklist_managementData> arrayList;
+    private ArrayList<BlacklistManagementData> arrayList;
 
 
     @Nullable
@@ -39,7 +39,7 @@ public class Blacklist_managementFragment extends Fragment {
 
         arrayList = new ArrayList<>();
 
-        adapter = new Blacklist_managementAdapter();
+        adapter = new BlacklistManagementAdapter();
         recyclerView.setAdapter(adapter);
 
         getData();
@@ -69,7 +69,7 @@ public class Blacklist_managementFragment extends Fragment {
 
         for (int i = 0; i < black_name.size(); i++) {
             // 각 List의 값들을 data 객체에 set 해줍니다.
-            Blacklist_managementData blackManageData = new Blacklist_managementData();
+            BlacklistManagementData blackManageData = new BlacklistManagementData();
             blackManageData.setBlack_name(black_name.get(i));
             blackManageData.setBlack_date(black_date.get(i));
             blackManageData.setBlack_content(blakc_content.get(i));

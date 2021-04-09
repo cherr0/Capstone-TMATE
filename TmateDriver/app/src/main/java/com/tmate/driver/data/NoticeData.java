@@ -1,4 +1,4 @@
-package com.tmate.driver;
+package com.tmate.driver.data;
 
 public class NoticeData {
 

@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,26 +12,26 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
-import com.tmate.driver.data.Blacklist_managementData;
+import com.tmate.driver.data.BlacklistManagementData;
 import com.tmate.driver.databinding.BlacklistManagementCardviewBinding;
 
 import java.util.ArrayList;
 
-public class Blacklist_managementAdapter extends RecyclerView.Adapter<Holder>{
-    ArrayList<Blacklist_managementData> items = new ArrayList<>();
+public class BlacklistManagementAdapter extends RecyclerView.Adapter<BlackListHolder>{
+    ArrayList<BlacklistManagementData> items = new ArrayList<>();
     private BlacklistManagementCardviewBinding binding;
 
 
     @NonNull
     @Override
-    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.blacklist_management_cardview, parent, false);
-        return new Holder(view);
+    public BlackListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_black_list_management, parent, false);
+        return new BlackListHolder(view);
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
+    public void onBindViewHolder(@NonNull BlackListHolder holder, int position) {
         holder.onBind(items.get(position));
 
         holder.blackDelete.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +67,7 @@ public class Blacklist_managementAdapter extends RecyclerView.Adapter<Holder>{
 
 
 
-    public void addItem(Blacklist_managementData data) {
+    public void addItem(BlacklistManagementData data) {
         items.add(data);
     }
 
@@ -76,19 +75,19 @@ public class Blacklist_managementAdapter extends RecyclerView.Adapter<Holder>{
 
 }
 
-class Holder extends RecyclerView.ViewHolder {
+class BlackListHolder extends RecyclerView.ViewHolder {
     ImageView blackDelete;
     TextView black_name;
     TextView black_date;
     TextView black_content;
 
-    void onBind(Blacklist_managementData data) {
+    void onBind(BlacklistManagementData data) {
         black_name.setText(data.getBlack_name());
         black_date.setText(data.getBlack_date());
         black_content.setText(data.getBlack_content());
     }
 
-    public Holder(@NonNull View itemView) {
+    public BlackListHolder(@NonNull View itemView) {
         super(itemView);
         black_name = itemView.findViewById(R.id.black_name);
         black_date = itemView.findViewById(R.id.black_date);
