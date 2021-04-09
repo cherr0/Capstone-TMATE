@@ -1,4 +1,4 @@
-package com.tmate.user.Fragment;
+package com.tmate.user.adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.Activity.MatchingDetailActivity;
 import com.tmate.user.R;
+import com.tmate.user.data.MatchingData;
 
 import java.util.ArrayList;
 

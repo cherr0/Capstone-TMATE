@@ -1,4 +1,4 @@
-package com.tmate.user.Fragment;
+package com.tmate.user.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.R;
+import com.tmate.user.data.Data;
 
 import java.util.ArrayList;
 
