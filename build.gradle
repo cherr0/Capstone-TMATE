@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.tmate'
-version = '1.8.6-SNAPSHOT-' + new Date().format("yyyyMMddHHmmss")
+version = '1.8.7-SNAPSHOT-' + new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = '11'
 
 configurations {
