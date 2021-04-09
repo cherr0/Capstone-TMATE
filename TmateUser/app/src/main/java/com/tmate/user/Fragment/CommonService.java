@@ -13,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class CommonService {
+
     /* ------------------------
               서버 연결
        ------------------------ */
@@ -26,7 +27,7 @@ public class CommonService {
                 .build();
 
     public NoticeAPI notice = retrofitClient.create(NoticeAPI.class);
-    public EventAPI eventAPI = retrofitClient.create(EventAPI.class);
+    public EventAPI event = retrofitClient.create(EventAPI.class);
 }
 
 interface NoticeAPI {

@@ -64,7 +64,7 @@ public class event_cosle_item_pro extends Fragment {
     private void getData() {
         // 임의의 데이터입니다.
 
-        commonService.eventAPI.getEventList().enqueue(new Callback<List<EventDTO>>() {
+        commonService.event.getEventList().enqueue(new Callback<List<EventDTO>>() {
             @Override
             public void onResponse(Call<List<EventDTO>> call, Response<List<EventDTO>> response) {
                 if (response.isSuccessful()) {

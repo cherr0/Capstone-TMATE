@@ -60,7 +60,7 @@ public class event_close_item_stop extends Fragment {
 
     private void getData() {
 
-        commonService.eventAPI.getFinishEventList().enqueue(new Callback<List<EventDTO>>() {
+        commonService.event.getFinishEventList().enqueue(new Callback<List<EventDTO>>() {
             @Override
             public void onResponse(Call<List<EventDTO>> call, Response<List<EventDTO>> response) {
                 if (response.isSuccessful()) {
