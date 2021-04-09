@@ -36,34 +36,44 @@ public class DataService {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public InsertAPI insert = retrofitClient.create(InsertAPI.class);
+    public FriendAPI friend = retrofitClient.create(FriendAPI.class);
 
-    public SelectAPI select = retrofitClient.create(SelectAPI.class);
+    public ProfileAPI profile = retrofitClient.create(ProfileAPI.class);
 
-    public UpdateAPI update = retrofitClient.create(UpdateAPI.class);
+    public PointAPI point = retrofitClient.create(PointAPI.class);
 
-    public DeleteAPI delete = retrofitClient.create(DeleteAPI.class);
+    public CardAPI card = retrofitClient.create(CardAPI.class);
 
 }
 
-
-interface InsertAPI {
-    @POST("register")
-    Call<Boolean> insertOne(@Body Map<String, String> map);
-
+interface FriendAPI {
     // 내가 지인에게 승인을 요청할 시
     @POST("approval")
     Call<Boolean> approvalFriend(@Body Approval approval);
+
+    // 지인 알림 -> 나의 지인들
+    @GET("friend/{m_id}")
+    Call<List<Notification>> friendByUser(@Path("m_id") String m_id);
+
+    // 지인 알림 -> 검색 부분
+    @POST("search")
+    Call<List<Member>> searchMembers(@Body String phoneNo);
+
+    // 지인 알림 -> 나에게 요청한 리스트
+    @GET("myapproval/{m_id}")
+    Call<List<Approval>> myApprovalList(@Path("m_id") String m_id);
+
+}
+
+interface ProfileAPI {
+    // 회원가입
+    @POST("register")
+    Call<Boolean> insertOne(@Body Map<String, String> map);
 
     // 소셜 로그인 연동
     @POST("social")
     Call<Boolean> socialAccount(@Body Social social);
 
-    @POST("regcard")
-    Call<Boolean> registerCard(@Body CardData cardData);
-}
-
-interface SelectAPI {
     // 상세 프로필 정보
     @GET("select/{m_id}")
     Call<Member> selectProfile(@Path("m_id") String m_id);
@@ -80,37 +90,28 @@ interface SelectAPI {
     @POST("confirm")
     Call<Integer> confirm(@Body PhoneDTO phoneDTO);
 
-    // 지인 알림 -> 검색 부분
-    @POST("search")
-    Call<List<Member>> searchMembers(@Body String phoneNo);
+    // 즐겨 찾기 -> 즐겨찾기 리스트 가져오기
+    @GET("bookmark/{m_id}")
+    Call<List<FavoritesData>> getBookmarkList(@Path("m_id") String m_id);
 
-    // 지인 알림 -> 나의 지인들
-    @GET("friend/{m_id}")
-    Call<List<Notification>> friendByUser(@Path("m_id") String m_id);
+}
 
-    // 지인 알림 -> 나에게 요청한 리스트
-    @GET("myapproval/{m_id}")
-    Call<List<Approval>> myApprovalList(@Path("m_id") String m_id);
+interface PointAPI {
 
     // 포인트 -> 잔여 포인트와 포인트 리스트 가져오기
     @GET("point/{m_id}")
     Call<List<PointData>> getPointList(@Path("m_id") String m_id);
 
-    // 즐겨 찾기 -> 즐겨찾기 리스트 가져오기
-    @GET("bookmark/{m_id}")
-    Call<List<FavoritesData>> getBookmarkList(@Path("m_id") String m_id);
+}
+
+interface CardAPI {
+
+    // 카드 추가
+    @POST("regcard")
+    Call<Boolean> registerCard(@Body CardData cardData);
 
     // 카드 리스트
     @GET("card/{m_id}")
     Call<List<CardData>> getUserCard(@Path("m_id") String m_id);
-
-}
-interface UpdateAPI{
-
-
-}
-
-interface DeleteAPI {
-
 
 }
