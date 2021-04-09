@@ -34,8 +34,13 @@ public class UserChartApiController {
     public ResponseEntity<Map<String,List<ChartDTO>>> getMonthlyUsePoint(@PathVariable("m_id") String m_id) {
         log.info("사용 포인트");
         Map<String, List<ChartDTO>> map = new HashMap<>();
-        map.put("use", userService.monthlyUsePoint(m_id));
-        map.put("get", userService.monthlyGetPoint(m_id));
+        List<ChartDTO> use = userService.monthlyUsePoint(m_id);
+        List<ChartDTO> get = userService.monthlyGetPoint(m_id);
+
+        log.info("화면단에 넘어가는 사용포인트 : " + use);
+        log.info("화면단에 넘어가는 적립포인트 : " + get);
+        map.put("use", use);
+        map.put("get", get);
         return new ResponseEntity<>(map, HttpStatus.OK) ;
     }
 

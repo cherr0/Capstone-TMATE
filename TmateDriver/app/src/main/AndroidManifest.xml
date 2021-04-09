@@ -11,15 +11,14 @@
         android:allowBackup="true"
         android:icon="@drawable/tmate_draiver"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TmateDriver">
-        <activity android:name=".CheckActivity"></activity>
-        <activity android:name=".PaymentActivity" />
-        <activity android:name=".MatchingActivity" />
-        <activity android:name=".NoticeDetailActivity" />
-        <activity android:name=".WaitingActivity" />
-        <activity android:name=".MainViewActivity">
+        <activity android:name=".activity.CheckActivity"></activity>
+        <activity android:name=".activity.PaymentActivity" />
+        <activity android:name=".activity.MatchingActivity" />
+        <activity android:name=".activity.NoticeDetailActivity" />
+        <activity android:name=".activity.WaitingActivity" />
+        <activity android:name=".activity.MainViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
