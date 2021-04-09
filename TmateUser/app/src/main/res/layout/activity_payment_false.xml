@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PaymentFalseActivity">
+    tools:context=".Activity.PaymentFalseActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fl_constraintLayout"

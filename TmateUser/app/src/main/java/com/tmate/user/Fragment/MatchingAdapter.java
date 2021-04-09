@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmate.user.MatchingDetailActivity;
+import com.tmate.user.Activity.MatchingDetailActivity;
 import com.tmate.user.R;
 
 import java.util.ArrayList;

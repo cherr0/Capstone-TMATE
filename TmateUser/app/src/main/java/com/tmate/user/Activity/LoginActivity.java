@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.tmate.user.Fragment.SocialFragment;
+import com.tmate.user.R;
 
 
 public class LoginActivity extends AppCompatActivity {

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmate.user.NoticeDetailActivity;
+import com.tmate.user.Activity.NoticeDetailActivity;
 import com.tmate.user.R;
 import com.tmate.user.data.Notice;
 

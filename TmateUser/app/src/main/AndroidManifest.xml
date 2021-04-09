@@ -20,21 +20,21 @@
         android:label="@string/app_name"
         android:usesCleartextTraffic="true">
         <activity 
-            android:name=".PaymentFalseActivity"
+            android:name=".Activity.PaymentFalseActivity"
             android:theme="@style/Theme.Tmate"></activity>
         <activity
-            android:name=".PaymentSuccessActivity"
+            android:name=".Activity.PaymentSuccessActivity"
             android:theme="@style/Theme.Tmate"></activity>       
-        <activity android:name=".ChatActivity"
+        <activity android:name=".Activity.ChatActivity"
             android:theme="@style/Theme.Tmate"></activity>
         <activity
-            android:name=".CallGeneralActivity"
+            android:name=".Activity.CallGeneralActivity"
             android:theme="@style/Theme.Tmate" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activity.LoginActivity"
             android:theme="@style/Theme.Tmate" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activity.SplashActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
             android:theme="@style/Theme.Tmate">
@@ -45,16 +45,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainViewActivity"
+            android:name=".Activity.MainViewActivity"
             android:theme="@style/Theme.Tmate" />
         <activity
-            android:name=".EventDetailActivity"
+            android:name=".Activity.EventDetailActivity"
             android:theme="@style/Theme.Tmate" />
         <activity
-            android:name=".NoticeDetailActivity"
+            android:name=".Activity.NoticeDetailActivity"
             android:theme="@style/Theme.Tmate" />
         <activity
-            android:name=".MatchingDetailActivity"
+            android:name=".Activity.MatchingDetailActivity"
             android:theme="@style/Theme.Tmate" />
 
         <meta-data

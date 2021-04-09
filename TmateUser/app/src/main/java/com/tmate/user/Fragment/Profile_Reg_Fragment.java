@@ -12,7 +12,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.tmate.user.MainViewActivity;
+import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.R;
 
 import java.util.HashMap;

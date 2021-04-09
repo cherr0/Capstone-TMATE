@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.adapter;
 
 import android.content.Intent;
 import android.util.Log;
@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmate.user.Fragment.CommonService;
+import com.tmate.user.data.EventData;
+import com.tmate.user.Activity.EventDetailActivity;
+import com.tmate.user.R;
 import com.tmate.user.data.EventDTO;
 
 import java.util.ArrayList;

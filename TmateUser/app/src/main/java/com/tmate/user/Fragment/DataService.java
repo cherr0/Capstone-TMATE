@@ -1,6 +1,6 @@
 package com.tmate.user.Fragment;
 
-import com.tmate.user.FavoritesData;
+import com.tmate.user.data.FavoritesData;
 import com.tmate.user.data.Approval;
 import com.tmate.user.data.CardData;
 import com.tmate.user.data.Member;
@@ -18,10 +18,8 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public class DataService {

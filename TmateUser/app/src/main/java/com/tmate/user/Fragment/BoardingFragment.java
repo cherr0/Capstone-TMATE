@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.tmate.user.ChatActivity;
+import com.tmate.user.Activity.ChatActivity;
 import com.tmate.user.R;
 
 

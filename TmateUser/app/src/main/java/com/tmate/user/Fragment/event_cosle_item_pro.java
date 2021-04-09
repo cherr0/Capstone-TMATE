@@ -14,14 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmate.user.EventAdapter;
-import com.tmate.user.EventData;
+import com.tmate.user.adapter.EventAdapter;
+import com.tmate.user.data.EventData;
 
 import com.tmate.user.R;
 import com.tmate.user.data.EventDTO;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
