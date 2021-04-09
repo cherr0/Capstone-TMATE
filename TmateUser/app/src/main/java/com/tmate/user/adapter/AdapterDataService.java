@@ -14,6 +14,9 @@ import retrofit2.http.Path;
 
 public class AdapterDataService {
 
+    /* ------------------------
+             서버 연결
+      ------------------------ */
     private String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/member/";
 //    private String BASE_URL = "http://172.26.1.230:9090/member/";
 
