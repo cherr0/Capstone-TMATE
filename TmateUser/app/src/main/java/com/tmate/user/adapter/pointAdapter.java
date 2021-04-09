@@ -48,7 +48,7 @@ class pointHolder extends RecyclerView.ViewHolder {
 
     void onBind(PointData data) {
         poTime.setText(data.getPo_time().toString().substring(0,19));
-        poResult.setText(data.getPo_result());
+        poResult.setText(data.getPo_result() + "");
 //        mPoint.setText(data.get);
         poExact.setText(data.getPo_exact());
         poCourse.setText(data.getPo_course());
