@@ -1,4 +1,4 @@
-package com.tmate.user.Fragment;
+package com.tmate.user.data;
 
 public class MatchingData {
     private int iv_profile;
