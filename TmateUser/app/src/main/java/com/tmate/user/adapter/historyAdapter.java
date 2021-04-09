@@ -38,7 +38,7 @@ public class historyAdapter extends RecyclerView.Adapter<Holder> {
 
 
 
-    void addItem(Data data) {
+    public void addItem(Data data) {
         items.add(data);
     }
 
