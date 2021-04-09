@@ -32,7 +32,7 @@
                                         <tbody>
                                         <tr th:each="board : ${boardList}">
                                             <td class="text-center" th:text="${#strings.substring(board.bd_id,2)}"></td>
-                                            <td class="text-center"><a th:href="@{'/tuser/notice/'+${board.bd_id}}"><span th:text="${board.bd_title}"></span></a></td>
+                                            <td class="text-center bd_title"><a th:href="@{'/tuser/notice/'+${board.bd_id}}"><span th:text="${board.bd_title}"></span></a></td>
                                             <td class="text-center" th:text="${#strings.substring(board.bd_cre_date,0,10)}"></td>
                                             <td class="text-center" th:text="${board.bd_count}"></td>
                                         </tr>

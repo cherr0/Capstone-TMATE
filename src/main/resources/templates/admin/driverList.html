@@ -34,7 +34,7 @@
                                         <tbody>
                                         <tr th:each="driver : ${drivers}">
                                               <td class="text-center">기사</td>
-                                              <td class="text-center"><a th:href="@{'/driver/'+${driver.m_id}}">
+                                              <td class="text-center bd_title"><a th:href="@{'/driver/'+${driver.m_id}}">
                                                   <span th:text="${driver.m_name}"></span>
                                               </a></td>
                                               <td>

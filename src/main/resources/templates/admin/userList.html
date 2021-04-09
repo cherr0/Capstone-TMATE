@@ -40,7 +40,7 @@
                                         <p th:case="d">기사</p>
                                         <p th:case="a">관리자</p>
                                     </td>
-                                    <td><a th:href="@{'/user/'+${memberList.m_id}}"><span th:text="${memberList.m_name}"></span></a></td>
+                                    <td class="bd_title"><a th:href="@{'/user/'+${memberList.m_id}}"><span th:text="${memberList.m_name}"></span></a></td>
                                     <td class="text-center">
                                         <span th:text="${#strings.substring(memberList.m_id,2, 5)}"></span>-<span th:text="${#strings.substring(memberList.m_id,5, 9)}"></span>-<span th:text="${#strings.substring(memberList.m_id,9, 13)}"></span>
                                     </td>

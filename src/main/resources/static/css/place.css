@@ -22,13 +22,14 @@ body {
 }
 
 .marker {
-    border: 1px solid black;
-    background: green;
+    border: 1px solid #0a6c82;
+    background: #24b8fc;
     opacity: 0.8;
     width: 24px;
     height: 24px;
     border-radius: 50%;
 }
+
 
 .infowindow_wrap {
     background-color: white;
