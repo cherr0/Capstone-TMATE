@@ -56,7 +56,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.CustomViewHo
             public void onClick(View v) {
                 Log.d("클릭된 이벤트 코드", arrayList.get(position).getTv_bd_id());
                 Intent intent = new Intent(v.getContext(), EventDetailActivity.class);
-                dataService.EventAPI.readEvent(arrayList.get(position).getTv_bd_id()).enqueue(new Callback<EventDTO>() {
+                dataService.event.readEvent(arrayList.get(position).getTv_bd_id()).enqueue(new Callback<EventDTO>() {
                     @Override
                     public void onResponse(Call<EventDTO> call, Response<EventDTO> response) {
                         if (response.isSuccessful()) {

@@ -27,7 +27,7 @@ public class AdapterDataService {
 
     public AdapterDeleteAPI delete = retrofitClient.create(AdapterDeleteAPI.class);
 
-    public CardCrudAPI crudAPI = retrofitClient.create(CardCrudAPI.class);
+    public CardCrudAPI card = retrofitClient.create(CardCrudAPI.class);
 }
 
 interface AdapterUpdateAPI{

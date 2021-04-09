@@ -26,8 +26,8 @@ public class AdapterComService {
                     .build();
 
     NoticeAPI notice = retrofitClient.create(NoticeAPI.class);
-    EventAPI EventAPI = retrofitClient.create(EventAPI.class);
-    DeleteAPI deleteAPI = retrofitClient.create(DeleteAPI.class);
+    EventAPI event = retrofitClient.create(EventAPI.class);
+    DeleteAPI delete = retrofitClient.create(DeleteAPI.class);
 }
 
 interface NoticeAPI {

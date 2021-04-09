@@ -89,7 +89,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Cust
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dataService.deleteAPI.removeBookmark(holder.bm_id.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
+                        dataService.delete.removeBookmark(holder.bm_id.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 if (response.isSuccessful()) {

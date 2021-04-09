@@ -61,7 +61,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                     builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dataService.crudAPI.modifyRep(holder.customer_uid.getText().toString(), m_id).enqueue(new Callback<Boolean>() {
+                            dataService.card.modifyRep(holder.customer_uid.getText().toString(), m_id).enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                     if (response.isSuccessful()) {
@@ -99,7 +99,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-                                dataService.crudAPI.removeCard(holder.customer_uid.getText().toString()).enqueue(new Callback<Boolean>() {
+                                dataService.card.removeCard(holder.customer_uid.getText().toString()).enqueue(new Callback<Boolean>() {
                                     @Override
                                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                         if (response.isSuccessful()) {
