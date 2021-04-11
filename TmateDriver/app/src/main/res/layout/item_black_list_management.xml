@@ -4,9 +4,10 @@
     android:id="@+id/cardview"
     android:layout_width="match_parent"
     android:layout_height="208dp"
-    android:layout_marginStart="20dp"
+    android:layout_marginStart="10dp"
     android:layout_marginTop="20dp"
     android:layout_marginEnd="20dp"
+    android:layout_marginBottom="10dp"
     android:orientation="vertical"
     app:cardCornerRadius="30dp">
     <LinearLayout
