@@ -16,12 +16,13 @@
                     <div class="container ">
                         <div class="row user-top-box">
                             <div class="col-sm-2 col-md-2 col-xs-2">
-                                <th:block th:switch="${memberp?.m_level}">
-                                    <div th:case="0" class="user-level-image"><img src="/images/slver.png"/></div>
-                                    <div th:case="1" class="user-level-image"><img src="/images/gold.png"/></div>
-                                    <div th:case="2" class="user-level-image"><img src="/images/platinum.png"/></div>
-                                    <div th:case="3" class="user-level-image"><img src="/images/vip.png"/></div>
-                                </th:block>
+                                    <div th:if="${memberp?.m_n_use + memberp?.m_t_use < 5}" class="user-level-image"><img src="/images/slver.png"/></div>
+                                    <div th:if="${memberp?.m_n_use + memberp?.m_t_use >= 5 && memberp?.m_n_use + memberp?.m_t_use < 10}"
+                                         class="user-level-image"><img src="/images/gold.png"/></div>
+                                    <div th:if="${memberp?.m_n_use + memberp?.m_t_use >= 10 && memberp?.m_n_use + memberp?.m_t_use < 20}"
+                                         class="user-level-image"><img src="/images/platinum.png"/></div>
+                                    <div th:if="${memberp?.m_n_use + memberp?.m_t_use >= 20}"
+                                         class="user-level-image"><img src="/images/vip.png"/></div>
 
                             </div>
                             <div class="col-sm-6 col-md-6 col-xs-6 user-bar-content">
