@@ -50,11 +50,11 @@
                                         <span th:text="${#strings.substring(memberList.m_birth,5, 7)}"></span>.
                                         <span th:text="${#strings.substring(memberList.m_birth,8, 10)}"></span>
                                     </td>
-                                    <td class="text-center" th:switch="${memberList.m_level}">
-                                        <p th:case="0">일반</p>
-                                        <p th:case="1">우수</p>
-                                        <p th:case="2">최우수</p>
-                                        <p th:case="3">VIP</p>
+                                    <td class="text-center">
+                                        <p th:if="${memberList.m_n_use + memberList.m_t_use < 5}" >일반</p>
+                                        <p th:if="${memberList.m_n_use + memberList.m_t_use >= 5 && memberList.m_n_use + memberList.m_t_use < 10}">우수</p>
+                                        <p th:if="${memberList.m_n_use + memberList.m_t_use >= 10 && memberList.m_n_use + memberList.m_t_use < 20}">최우수</p>
+                                        <p th:if="${memberList.m_n_use + memberList.m_t_use >= 20}">VIP</p>
                                     </td>
                                     <td class="text-center" th:switch="${memberList.m_status}">
                                         <p th:case="0">정상</p>
