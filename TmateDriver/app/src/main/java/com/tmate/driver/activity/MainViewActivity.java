@@ -19,6 +19,7 @@ import com.tmate.driver.Fragment.CarFragment;
 import com.tmate.driver.Fragment.HistoryFragment;
 import com.tmate.driver.Fragment.MainViewFragment;
 import com.tmate.driver.Fragment.NoticeFragment;
+import com.tmate.driver.Fragment.ProfileFragment;
 import com.tmate.driver.Fragment.StatisticsFragment;
 import com.tmate.driver.R;
 import com.tmate.driver.databinding.ActivityDrawerBinding;
