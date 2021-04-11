@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.tmate.user.Fragment.event_close_item_stop;
-import com.tmate.user.Fragment.event_cosle_item_pro;
+import com.tmate.user.Fragment.event_close_item_pro;
 
 public class EventPagerAdapter extends FragmentPagerAdapter {
     public EventPagerAdapter(@NonNull FragmentManager fm) {
@@ -19,7 +19,7 @@ public class EventPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0 :
-                return event_cosle_item_pro.newInstance();
+                return event_close_item_pro.newInstance();
             case 1 :
                 return event_close_item_stop.newInstance();
             default: return null;
