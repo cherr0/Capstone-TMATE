@@ -1,4 +1,4 @@
-package com.tmate.driver;
+package com.tmate.driver.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -14,8 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.tmate.driver.Fragment.Blacklist_managementFragment;
 import com.tmate.driver.Fragment.CarFragment;
+import com.tmate.driver.Fragment.HistoryFragment;
+import com.tmate.driver.Fragment.MainViewFragment;
 import com.tmate.driver.Fragment.NoticeFragment;
+import com.tmate.driver.Fragment.StatisticsFragment;
+import com.tmate.driver.R;
 import com.tmate.driver.databinding.ActivityDrawerBinding;
 import com.tmate.driver.databinding.ActivityMainViewBinding;
 

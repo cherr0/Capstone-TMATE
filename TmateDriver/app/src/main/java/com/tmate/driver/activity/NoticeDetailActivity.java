@@ -1,10 +1,12 @@
-package com.tmate.driver;
+package com.tmate.driver.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.tmate.driver.R;
 
 public class NoticeDetailActivity extends AppCompatActivity {
 

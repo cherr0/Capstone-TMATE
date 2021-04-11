@@ -1,27 +1,25 @@
-package com.tmate.driver;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+package com.tmate.driver.activity;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.tmate.driver.Fragment.CompletedFragment;
-import com.tmate.driver.Fragment.OnBackPressedListener;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.tmate.driver.Fragment.SocialFragment;
-import com.tmate.driver.databinding.LoginActivityBinding;
+import com.tmate.driver.OnBackPressedListener;
+import com.tmate.driver.R;
+import com.tmate.driver.databinding.ActivityLoginBinding;
 
-public class ActivityLogin extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     // 마지막으로 뒤로 가기 버튼을 눌렀던 시간 저장
-    private LoginActivityBinding binding;
+    private ActivityLoginBinding binding;
     OnBackPressedListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        binding = LoginActivityBinding.inflate(getLayoutInflater());
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

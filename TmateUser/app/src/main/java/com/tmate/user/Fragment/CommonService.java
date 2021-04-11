@@ -34,6 +34,7 @@ interface NoticeAPI {
     // 공지사항 리스트 조회
     @GET("noticeList")
     Call<List<Notice>> getNoticeList();
+
 }
 
 interface EventAPI{
