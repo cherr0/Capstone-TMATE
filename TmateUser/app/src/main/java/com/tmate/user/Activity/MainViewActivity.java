@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +17,7 @@ import com.tmate.user.Fragment.BoardingFragment;
 import com.tmate.user.Fragment.CallFragment;
 import com.tmate.user.Fragment.EventCloseFragment;
 import com.tmate.user.Fragment.My_info_Fragment;
+import com.tmate.user.R;
 
 
 public class MainViewActivity extends AppCompatActivity {

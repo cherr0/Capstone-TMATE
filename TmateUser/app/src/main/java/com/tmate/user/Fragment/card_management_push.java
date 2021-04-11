@@ -114,7 +114,7 @@ public class card_management_push extends Fragment {
                         cardData.setM_id(m_id);
 
 
-                        dataService.insert.registerCard(cardData).enqueue(new Callback<Boolean>() {
+                        dataService.card.registerCard(cardData).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 if (response.isSuccessful()) {

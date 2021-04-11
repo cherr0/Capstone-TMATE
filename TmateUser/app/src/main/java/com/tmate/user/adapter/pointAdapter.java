@@ -16,16 +16,20 @@ import java.util.concurrent.TimeoutException;
 
 public class pointAdapter extends  RecyclerView.Adapter<pointHolder> {
     ArrayList<PointData> items = new ArrayList<>();
+
+
     @NonNull
     @Override
     public pointHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_point_item, parent, false);
         return new pointHolder(view);
     }
+
     @Override
     public void onBindViewHolder(@NonNull pointHolder holder, int position) {
         holder.onBind(items.get(position));
     }
+
     @Override
     public int getItemCount() {
         return items.size();
@@ -33,8 +37,10 @@ public class pointAdapter extends  RecyclerView.Adapter<pointHolder> {
     public void addItem(PointData data) {
         items.add(data);
     }
+
 }
 class pointHolder extends RecyclerView.ViewHolder {
+    
     TextView poTime;
     TextView poResult;
     TextView poExact;
@@ -42,7 +48,7 @@ class pointHolder extends RecyclerView.ViewHolder {
 
     void onBind(PointData data) {
         poTime.setText(data.getPo_time().toString().substring(0,19));
-        poResult.setText(data.getPo_result()+"");
+        poResult.setText(data.getPo_result() + "");
 //        mPoint.setText(data.get);
         poExact.setText(data.getPo_exact());
         poCourse.setText(data.getPo_course());

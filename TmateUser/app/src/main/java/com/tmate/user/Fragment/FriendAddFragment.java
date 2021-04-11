@@ -86,7 +86,7 @@ public class FriendAddFragment extends Fragment {
                 }
 
 
-                dataService.select.searchMembers(phoneNo).enqueue(new Callback<List<Member>>() {
+                dataService.friend.searchMembers(phoneNo).enqueue(new Callback<List<Member>>() {
                     @Override
                     public void onResponse(Call<List<Member>> call, Response<List<Member>> response) {
                         if (response.isSuccessful()) {
@@ -142,7 +142,7 @@ public class FriendAddFragment extends Fragment {
         btn_approval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataService.insert.approvalFriend(approval).enqueue(new Callback<Boolean>() {
+                dataService.friend.approvalFriend(approval).enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         if (response.isSuccessful()) {

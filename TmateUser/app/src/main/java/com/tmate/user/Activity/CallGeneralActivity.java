@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Button;
+
+import com.tmate.user.R;
 
 public class CallGeneralActivity extends AppCompatActivity {
 
@@ -23,7 +25,7 @@ public class CallGeneralActivity extends AppCompatActivity {
         btn_fare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CallGeneralActivity.this,PaymentSuccessActivity.class);
+                Intent intent = new Intent(CallGeneralActivity.this, PaymentSuccessActivity.class);
                 startActivity(intent);
             }
         });

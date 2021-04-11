@@ -1,11 +1,13 @@
 package com.tmate.user.adapter;
 
+import com.tmate.user.data.EventDTO;
 import com.tmate.user.data.Notice;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -24,6 +26,8 @@ public class AdapterComService {
                     .build();
 
     NoticeAPI notice = retrofitClient.create(NoticeAPI.class);
+    EventAPI event = retrofitClient.create(EventAPI.class);
+    DeleteAPI delete = retrofitClient.create(DeleteAPI.class);
 }
 
 interface NoticeAPI {
@@ -32,3 +36,12 @@ interface NoticeAPI {
     Call<Notice> getNoticeDetail(@Path("bd_id") String bd_id);
 }
 
+interface EventAPI {
+    @GET("readevent/{bd_id}")
+    Call<EventDTO> readEvent(@Path("bd_id") String bd_id);
+}
+
+interface DeleteAPI {
+    @DELETE("deletebookmark/{bm_id}/{m_id}")
+    Call<Boolean> removeBookmark(@Path("bm_id") String bm_id, @Path("m_id") String m_id);
+}

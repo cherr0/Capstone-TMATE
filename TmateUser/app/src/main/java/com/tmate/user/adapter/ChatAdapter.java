@@ -14,7 +14,7 @@ import com.tmate.user.R;
 import com.tmate.user.data.ChatData;
 
 import java.util.List;
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
     private List<ChatData> chatList;
     private String name;
     public ChatAdapter(List<ChatData> chatData, String name) {
@@ -23,16 +23,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     }
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item,parent,false);
-        MyViewHolder myViewHolder = new MyViewHolder(linearLayout);
-        return myViewHolder;
+    public ChatHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LinearLayout view = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_item,parent,false);
+        return new ChatHolder(view);
     }
     @Override
-    public void onBindViewHolder(@NonNull ChatAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ChatHolder holder, int position) {
         ChatData chat = chatList.get(position);
-        holder.nameText.setText(chat.getName());
-        holder.msgText.setText(chat.getMsg());
+        holder.onBind(chat);
+
         if (chat.getName().equals(this.name)){
             holder.nameText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
             holder.msgText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
@@ -65,5 +64,27 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             itemView.setEnabled(true);
             itemView.setClickable(true);
         }
+    }
+}
+
+class ChatHolder extends RecyclerView.ViewHolder {
+    public TextView nameText;
+    public TextView msgText;
+    public View rootView;
+    public LinearLayout msgLinear;
+
+    void onBind(ChatData chat) {
+        nameText.setText(chat.getName());
+        msgText.setText(chat.getMsg());
+    }
+
+    public ChatHolder(@NonNull View itemView) {
+        super(itemView);
+        msgLinear = itemView.findViewById(R.id.msgLinear);
+        nameText = itemView.findViewById(R.id.chat_name_text);
+        msgText = itemView.findViewById(R.id.msgText);
+        rootView = itemView;
+        itemView.setEnabled(true);
+        itemView.setClickable(true);
     }
 }

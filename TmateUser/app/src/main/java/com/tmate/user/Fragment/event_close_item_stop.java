@@ -12,13 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmate.user.EventAdapter;
-import com.tmate.user.EventData;
+import com.tmate.user.adapter.EventAdapter;
+import com.tmate.user.data.EventData;
 import com.tmate.user.R;
 import com.tmate.user.data.EventDTO;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -61,7 +60,7 @@ public class event_close_item_stop extends Fragment {
 
     private void getData() {
 
-        commonService.eventAPI.getFinishEventList().enqueue(new Callback<List<EventDTO>>() {
+        commonService.event.getFinishEventList().enqueue(new Callback<List<EventDTO>>() {
             @Override
             public void onResponse(Call<List<EventDTO>> call, Response<List<EventDTO>> response) {
                 if (response.isSuccessful()) {

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -18,10 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.R;
+import com.tmate.user.adapter.historyAdapter;
+import com.tmate.user.data.Data;
 import com.tmate.user.data.UserHistroy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -70,7 +70,7 @@ public class historyFragment extends Fragment {
  
         String m_id = getPreferenceString("m_id");
 
-        dataService.select.selectHistory(m_id).enqueue(new Callback<List<UserHistroy>>() {
+        dataService.profile.selectHistory(m_id).enqueue(new Callback<List<UserHistroy>>() {
             @Override
             public void onResponse(Call<List<UserHistroy>> call, Response<List<UserHistroy>> response) {
                 if (response.isSuccessful()) {

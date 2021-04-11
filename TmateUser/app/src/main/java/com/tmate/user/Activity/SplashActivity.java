@@ -1,17 +1,16 @@
-package com.tmate.user;
+package com.tmate.user.Activity;
 
 
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.pharid.splash.lib.activity.AnimatedSplash;
 import com.pharid.splash.lib.cnst.Flags;
 import com.pharid.splash.lib.model.ConfigSplash;
+import com.tmate.user.R;
 
 public class SplashActivity extends AnimatedSplash {
 

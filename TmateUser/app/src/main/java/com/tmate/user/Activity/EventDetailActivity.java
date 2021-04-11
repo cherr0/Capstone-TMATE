@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.Activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.tmate.user.R;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -12,7 +12,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.tmate.user.MainViewActivity;
+import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.R;
 
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class Profile_Reg_Fragment extends Fragment {
 
                 Log.d(LOG_TAG, map.values().toString());
 
-                dataService.insert.insertOne(map).enqueue(new Callback<Boolean>() {
+                dataService.profile.insertOne(map).enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(@NonNull  Call<Boolean> call, @NonNull Response<Boolean> response) {
                         if (response.isSuccessful()) {

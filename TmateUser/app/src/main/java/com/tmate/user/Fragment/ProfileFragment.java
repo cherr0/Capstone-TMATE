@@ -145,7 +145,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                         social.setS_email(result.getKakaoAccount().getEmail());
                         social.setM_id(m_id);
 
-                        dataService.insert.socialAccount(social).enqueue(new Callback<Boolean>() {
+                        dataService.profile.socialAccount(social).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 if (response.isSuccessful()) {
@@ -228,7 +228,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                             social.setS_email(account.getEmail());
                             social.setM_id(m_id);
 
-                            dataService.insert.socialAccount(social).enqueue(new Callback<Boolean>() {
+                            dataService.profile.socialAccount(social).enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                     if (response.isSuccessful()) {
@@ -277,7 +277,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
     public void findData() {
         String m_id = getPreferenceString("m_id");
 
-        dataService.select.selectProfile(m_id).enqueue(new Callback<Member>() {
+        dataService.profile.selectProfile(m_id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
                 if (response.isSuccessful()) {

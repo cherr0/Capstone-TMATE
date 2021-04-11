@@ -1,9 +1,12 @@
-package com.tmate.user;
+package com.tmate.user.Activity;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.tmate.user.Fragment.MatchingDetailFragment;
+import com.tmate.user.R;
 
 public class MatchingDetailActivity extends AppCompatActivity {
 

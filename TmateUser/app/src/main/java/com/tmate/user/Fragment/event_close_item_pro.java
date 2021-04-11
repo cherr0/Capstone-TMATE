@@ -14,21 +14,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmate.user.EventAdapter;
-import com.tmate.user.EventData;
+import com.tmate.user.adapter.EventAdapter;
+import com.tmate.user.data.EventData;
 
 import com.tmate.user.R;
 import com.tmate.user.data.EventDTO;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class event_cosle_item_pro extends Fragment {
+public class event_close_item_pro extends Fragment {
     private ArrayList<EventData> arrayList;
     private View view;
     private EventAdapter eventAdapter;
@@ -37,8 +36,8 @@ public class event_cosle_item_pro extends Fragment {
 
     CommonService commonService = new CommonService();
 
-    public static event_cosle_item_pro newInstance() {
-        event_cosle_item_pro  ecip = new event_cosle_item_pro();
+    public static event_close_item_pro newInstance() {
+        event_close_item_pro ecip = new event_close_item_pro();
         return ecip;
     }
 
@@ -65,7 +64,7 @@ public class event_cosle_item_pro extends Fragment {
     private void getData() {
         // 임의의 데이터입니다.
 
-        commonService.eventAPI.getEventList().enqueue(new Callback<List<EventDTO>>() {
+        commonService.event.getEventList().enqueue(new Callback<List<EventDTO>>() {
             @Override
             public void onResponse(Call<List<EventDTO>> call, Response<List<EventDTO>> response) {
                 if (response.isSuccessful()) {
