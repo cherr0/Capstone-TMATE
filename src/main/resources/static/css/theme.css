@@ -15136,3 +15136,10 @@ td {
 .input_logout{
     background-color: #FFFFFF;
 }
+.bd_title a:link{
+    color: #000000;
+}
+
+.bd_title a:visited{
+    color: #000000;
+}

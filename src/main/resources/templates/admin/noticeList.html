@@ -34,7 +34,7 @@
                                         <tr>
                                         <tr th:each="noticeList : ${noticeList}">
                                             <td th:text="${#strings.substring(noticeList.bd_id,2)}"></td>
-                                            <td><a th:href="@{'/notice/'+${noticeList.bd_id}}"><span th:text="${noticeList.bd_title}"></span></a></td>
+                                            <td class="bd_title"><a th:href="@{'/notice/'+${noticeList.bd_id}}"><span th:text="${noticeList.bd_title}"></span></a></td>
                                             <td th:text="${#strings.substring(noticeList.bd_cre_date,0,10)}"></td>
                                             <td th:text="${noticeList.bd_count}"></td>
                                             <td th:switch="${noticeList.bd_status}">

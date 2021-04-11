@@ -44,7 +44,7 @@
                                         <tbody>
                                         <tr th:each="eventList : ${eventList}">
                                             <td th:text="${#strings.substring(eventList.bd_id,3)}"></td>
-                                            <td><a th:href="@{'/event/'+${eventList.bd_id}}"><span th:text="${eventList.bd_title}"></span></a></td>
+                                            <td class="bd_title"><a th:href="@{'/event/'+${eventList.bd_id}}"><span th:text="${eventList.bd_title}"></span></a></td>
                                             <td><span th:text="${#dates.format(eventList.bd_s_date,'yyyy-MM-dd')}"></span> ~ <span th:text="${#dates.format(eventList.bd_e_date,'yyyy-MM-dd')}"></span></td>
                                             <td th:switch="${#strings.substring(eventList.bd_id,0,2)}">
                                                 <p th:case="sp">봄</p>
