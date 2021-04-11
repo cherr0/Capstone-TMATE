@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class event_cosle_item_pro extends Fragment {
+public class event_close_item_pro extends Fragment {
     private ArrayList<EventData> arrayList;
     private View view;
     private EventAdapter eventAdapter;
@@ -36,8 +36,8 @@ public class event_cosle_item_pro extends Fragment {
 
     CommonService commonService = new CommonService();
 
-    public static event_cosle_item_pro newInstance() {
-        event_cosle_item_pro  ecip = new event_cosle_item_pro();
+    public static event_close_item_pro newInstance() {
+        event_close_item_pro ecip = new event_close_item_pro();
         return ecip;
     }
 
