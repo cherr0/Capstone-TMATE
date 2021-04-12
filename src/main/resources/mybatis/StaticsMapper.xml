@@ -72,7 +72,7 @@
     </select>
 
     <select id="getCountUseCash" resultType="com.tmate.domain.ChartDTO">
-        select to_date(substr(re_time,1,5),'yyMM') as standard, count(*) as count
+        select to_date(substr(re_time,1,4),'yyMM') as standard, count(*) as count
         from receipt
         where m_id = #{m_id} and use_cash = '1'
         group by to_date(substr(re_time,1,4),'yyMM')

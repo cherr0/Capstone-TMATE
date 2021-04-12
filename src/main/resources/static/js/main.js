@@ -980,8 +980,7 @@
       console.log(result);
       const nlen = result.card.length;
       const tlen = result.cash.length;
-      const standard = result.card[0].standard.substr(6,1);
-      console.log(standard);
+
 
       for (let i = 0; i < nlen; i++) {
         chartData5[parseInt(result.card[i].standard.substr(6,1))-1]=result.card[i].count;
