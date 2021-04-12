@@ -922,7 +922,7 @@
             datasets: [
               {
                 label: "적립 포인트",
-                data: [0, 0, 1, 3, 1, 0, 0, 0, 0, 0, 0, 0],
+                data: chartData8,
                 borderColor: "rgba(0, 123, 255, 0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -930,7 +930,7 @@
               },
               {
                 label: "사용 포인트",
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                data: chartData7,
                 borderColor: "rgba(123,195,243,0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(123,195,243,0.5)",
@@ -1010,7 +1010,7 @@
             datasets: [
               {
                 label: "카드결제",
-                data: [0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+                data: chartData5,
                 borderColor: "rgba(0, 123, 255, 0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -1018,7 +1018,7 @@
               },
               {
                 label: "현금결제",
-                data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                data: chartData6,
                 borderColor: "rgba(123,195,243,0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(123,195,243,0.5)",
