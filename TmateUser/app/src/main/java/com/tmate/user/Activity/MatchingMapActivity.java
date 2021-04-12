@@ -57,6 +57,8 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         }
     }
 
+    Geocoder geocoder;
+
 
     private ActivityMatchingMapBinding b;
     private Context mContext;
@@ -87,7 +89,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
 
     //gps 및 경로 그리기 위한 변수들
     private boolean m_bTrackingMode = false; // geofencing type save
-    final Geocoder geocoder = new Geocoder(this);//지오코더
+
     PermissionManager mPermissionManager = null; //권한 요청(GPS)
     TMapGpsManager gps = null; //gps
 
@@ -118,11 +120,17 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         mPermissionManager.setResponse(requestCode, grantResults);
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext=getApplicationContext();
+        geocoder = new Geocoder(mContext);//지오코더
         b= ActivityMatchingMapBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
+
+
         //gps
         gps = new TMapGpsManager(MatchingMapActivity.this);
         mPermissionManager = new PermissionManager();
@@ -214,6 +222,8 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
 
         mContext = this;
     }
+
+
 
     private void initSildeMenu() {
         //api키 정상적인지 체크
