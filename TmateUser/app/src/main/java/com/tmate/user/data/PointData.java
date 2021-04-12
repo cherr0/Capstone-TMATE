@@ -16,7 +16,7 @@ public class PointData {
 
     private int po_result;
 
-    private Timestamp po_time;
+    private String po_time;
 
     private String bd_id;
 
@@ -55,11 +55,11 @@ public class PointData {
         this.po_result = po_result;
     }
 
-    public Timestamp getPo_time() {
+    public String getPo_time() {
         return po_time;
     }
 
-    public void setPo_time(Timestamp po_time) {
+    public void setPo_time(String po_time) {
         this.po_time = po_time;
     }
 

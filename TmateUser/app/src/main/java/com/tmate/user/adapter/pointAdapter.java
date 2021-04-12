@@ -45,13 +45,30 @@ class pointHolder extends RecyclerView.ViewHolder {
     TextView poResult;
     TextView poExact;
     TextView poCourse;
+    TextView tv_pointText;
 
     void onBind(PointData data) {
-        poTime.setText(data.getPo_time().toString().substring(0,19));
-        poResult.setText(data.getPo_result() + "");
+
+        if(data != null) {
+            poTime.setVisibility(View.VISIBLE);
+            poResult.setVisibility(View.VISIBLE);
+            poExact.setVisibility(View.VISIBLE);
+            poCourse.setVisibility(View.VISIBLE);
+            tv_pointText.setVisibility(View.VISIBLE);
+
+            String pointDate = data.getPo_time();
+            poTime.setText(pointDate.substring(0,2)+"/"+pointDate.substring(2,4)+"/"+pointDate.substring(4,6)+" "+pointDate.substring(6,8)+":"+pointDate.substring(8,10)+":"+pointDate.substring(10,12));
+            poResult.setText(data.getPo_result() + "");
 //        mPoint.setText(data.get);
-        poExact.setText(data.getPo_exact());
-        poCourse.setText(data.getPo_course());
+            poExact.setText(data.getPo_exact());
+            poCourse.setText(data.getPo_course());
+        } else{
+            poTime.setVisibility(View.GONE);
+            poResult.setVisibility(View.GONE);
+            poExact.setVisibility(View.GONE);
+            poCourse.setVisibility(View.GONE);
+            tv_pointText.setVisibility(View.GONE);
+        }
     }
 
     public pointHolder(@NonNull View itemView) {
@@ -61,5 +78,6 @@ class pointHolder extends RecyclerView.ViewHolder {
         poResult = itemView.findViewById(R.id.poResult);
         poExact = itemView.findViewById(R.id.poExact);
         poCourse = itemView.findViewById(R.id.poCourse);
+        tv_pointText = itemView.findViewById(R.id.tv_pointText);
     }
 }

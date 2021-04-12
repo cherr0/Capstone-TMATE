@@ -38,12 +38,12 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView15"
+        app:layout_constraintEnd_toStartOf="@+id/tv_pointText"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_marginRight="10dp"
-        android:id="@+id/textView15"
+        android:id="@+id/tv_pointText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="P"
