@@ -17,7 +17,7 @@ public class JoinPointVO {
 
     private String po_course;
 
-    private Timestamp po_time;
+    private String po_time;
 
     private int m_point;
 }
