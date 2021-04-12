@@ -27,11 +27,11 @@ public class CompletedFragment extends Fragment implements OnBackPressedListener
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         b = FragmentCompletedBinding.inflate(inflater, container, false);
-        View v = b.getRoot();
+        View view = b.getRoot();
         activity = (LoginActivity) getActivity();
         toast = Toast.makeText(getContext(),"한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT);
 
-        return  v;
+        return  view;
     }
 
 

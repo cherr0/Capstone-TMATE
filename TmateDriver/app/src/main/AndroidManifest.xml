@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TmateDriver">
         <activity android:name=".MatchingFinishedActivity"></activity>
+        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.HotPlaceActivity"></activity>
+        <activity android:name=".activity.TrafficInformationActivity" />
         <activity android:name=".activity.CheckActivity" />
         <activity android:name=".activity.PaymentActivity" />
         <activity android:name=".activity.MatchingActivity" />
@@ -28,5 +31,4 @@
         </activity>
         <activity android:name=".activity.MainViewActivity" />
     </application>
-
 </manifest>

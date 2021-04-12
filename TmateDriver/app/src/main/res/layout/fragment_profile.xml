@@ -31,15 +31,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/profile_img"
+        android:id="@+id/m_profile"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/default_profile"
         android:layout_marginTop="16dp"
+        android:src="@drawable/default_profile"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout3"
-        />
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout3" />
 
     <TextView
         android:id="@+id/profile_name"
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_img" />
+        app:layout_constraintTop_toBottomOf="@+id/m_profile" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -247,7 +247,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout9"
+            android:id="@+id/d_acnum_change"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
@@ -272,22 +272,15 @@
                 android:id="@+id/profile_acnum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="48dp"
+                android:layout_marginEnd="8dp"
+                android:drawableRight="@drawable/ic_arrow_right"
+                android:drawablePadding="16dp"
                 android:gravity="right"
                 android:text="우리 ***6109"
                 android:textColor="#B5B2B2"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_right"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_acnum"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,60 +1,45 @@
 package com.tmate.driver.Fragment;
-
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.provider.MediaStore;
-import android.provider.Settings;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.tmate.driver.R;
 import com.tmate.driver.databinding.FragmentCertificateEnrollmentBinding;
-
-import java.io.File;
+import com.tmate.driver.databinding.FragmentProfileBinding;
 
 import static android.app.Activity.RESULT_OK;
 
-public class CertificateEnrollmentFragment extends Fragment {
-    private FragmentCertificateEnrollmentBinding b;
+public class ProfileFragment extends Fragment {
+
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public final static int REQUEST_PERMISSIONS_REQUEST_CODE = 100;
+    private Button m_profile;
+    private FragmentProfileBinding b;
 
 
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        b = FragmentCertificateEnrollmentBinding.inflate(inflater, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        b = FragmentProfileBinding.inflate(inflater, container, false);
         View view = b.getRoot();
-        b.btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                AccountRegistrationFragment arf = new AccountRegistrationFragment();
-                transaction.replace(R.id.fm_main, arf);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-        b.licenseIma.setOnClickListener(new View.OnClickListener() {
+
+
+        b.mProfile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 new AlertDialog.Builder(getContext())
                         .setTitle("사진 가져올 방법을 선택하세요.")
@@ -116,7 +101,6 @@ public class CertificateEnrollmentFragment extends Fragment {
 
         });
         return view;
-
     }
 
     private boolean checkPermissions() {
@@ -142,7 +126,7 @@ public class CertificateEnrollmentFragment extends Fragment {
                 if (resultCode == RESULT_OK) {
                     Bundle extras = imageReturnedIntent.getExtras();
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    b.licenseIma.setImageBitmap(imageBitmap);
+                    b.mProfile.setImageBitmap(imageBitmap);
 
                 }
 
@@ -150,11 +134,9 @@ public class CertificateEnrollmentFragment extends Fragment {
             case 101:
                 if (resultCode == RESULT_OK) {
                     Uri selectedImage = imageReturnedIntent.getData();
-                    b.licenseIma.setImageURI(selectedImage);
+                    b.mProfile.setImageURI(selectedImage);
                 }
                 break;
         }
     }
 }
-
-

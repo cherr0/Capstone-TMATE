@@ -5,6 +5,8 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
+    viewBinding.enabled=true
+
 
     defaultConfig {
         applicationId "com.tmate.user"
@@ -48,6 +50,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    //티맵 라이브러리
+    implementation files('libs/com.skt.Tmap_1.67.jar')
 
     implementation 'com.github.pharidali:AnimatedSplash:1.0.0'
     implementation 'com.daimajia.androidanimations:library:2.4@aar'

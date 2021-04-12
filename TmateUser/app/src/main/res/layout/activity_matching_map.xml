@@ -19,15 +19,13 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MapActivity"
+                tools:context=".MatchingMapActivity"
                 android:gravity="bottom"
                 app:umanoDragView="@id/dragView"
                 app:umanoPanelHeight="70dp"
                 app:umanoOverlay="true"
                 app:umanoParallaxOffset="200dp"
                 app:umanoShadowHeight="10dp">
-
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -262,6 +260,7 @@
                         android:textSize="30sp"
                         android:gravity="center_horizontal" />
                     <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/place_page"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
@@ -302,15 +301,22 @@
                             android:textSize="15sp"
                             android:padding="10dp"
                             android:drawableLeft="@drawable/map_pin_red"/>
-                        <Button
-                            android:id="@+id/change"
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="바꾸자"
-                            />
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp">
+                            <Button
+                                android:id="@+id/go_together_select"
+                                android:layout_width="300dp"
+                                android:layout_height="70dp"
+                                android:background="@drawable/select_shape"
+                                android:text="확인"
+                                android:textSize="20sp"
+                                android:textColor="#FFFFFF"/>
+                        </LinearLayout>
 
                     </LinearLayout>
-
                     <LinearLayout
                         android:id="@+id/together_page"
                         android:layout_width="match_parent"
@@ -339,12 +345,14 @@
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal">
                                     <RadioButton
+                                        android:id="@+id/ra_double"
                                         android:padding="15dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="2인"
                                         android:textColor="#000000"/>
                                     <RadioButton
+                                        android:id="@+id/ra_triple"
                                         android:padding="15dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -363,7 +371,7 @@
                                 android:layout_width="300dp"
                                 android:layout_height="70dp"
                                 android:background="@drawable/select_shape"
-                                android:text="확인"
+                                android:text="매칭"
                                 android:textSize="20sp"
                                 android:textColor="#FFFFFF"/>
                         </LinearLayout>
@@ -373,30 +381,7 @@
             </com.sothree.slidinguppanel.SlidingUpPanelLayout>
         </LinearLayout>
         <!-- slide layout -->
-        <LinearLayout
-            android:id="@+id/ll_menuLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/black"
-            android:gravity="left"
-            android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@android:color/white"
-                android:clickable="false"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:text="API 소개"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
 
-            <ExpandableListView
-                android:id="@+id/elv_list"
-                android:layout_width="match_parent" android:cacheColorHint="#00000000"
-                android:layout_height="match_parent"
-                android:groupIndicator="@null" />
-        </LinearLayout>
     </FrameLayout>
 </LinearLayout>
