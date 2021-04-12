@@ -63,7 +63,7 @@
     <select id="getMainWeeklyPointList" resultType="com.tmate.domain.JoinPointVO">
         select p.po_exact as po_exact , p.po_result as po_result , p.po_course as po_course , p.po_time as po_time, m.m_point as m_point
         from point p inner join member m on p.m_id = m.m_id
-        where p.m_id = 'm1010676819600' and substr(po_time,1,6) between  substr(to_char(systimestamp,'yyMMddhh24missff'),1,6) - 7
+        where p.m_id = #{m_id} and substr(po_time,1,6) between  substr(to_char(systimestamp,'yyMMddhh24missff'),1,6) - 7
         and substr(to_char(systimestamp,'yyMMddhh24missff'),1,6)
     </select>
 
