@@ -26,7 +26,6 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.tmate.driver.BuildConfig;
 import com.tmate.driver.R;
 import com.tmate.driver.databinding.FragmentCertificateEnrollmentBinding;
 
