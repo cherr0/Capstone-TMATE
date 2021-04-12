@@ -12,7 +12,7 @@ public class MainWeeklyPointVO {
 
     private String po_result;
 
-    private Timestamp po_time;
+    private String po_time;
 
     private int m_point;
 }
