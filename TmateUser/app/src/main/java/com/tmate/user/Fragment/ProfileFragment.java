@@ -1,12 +1,17 @@
 package com.tmate.user.Fragment;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +23,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -35,8 +43,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
@@ -49,14 +55,12 @@ import com.tmate.user.data.Member;
 import com.tmate.user.data.Social;
 
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
@@ -70,6 +74,11 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
 
     TextView tv_name, tv_like, tv_dislike, tv_name2, tv_phone, tv_email, tv_gender, tv_birth, tv_grade,
     tv_point, tv_m_n_use, tv_m_t_use, tv_m_count;
+
+    // 프로필 변경
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    public final static int REQUEST_PERMISSIONS_REQUEST_CODE = 100;
+    ImageView  m_profile_img;
 
     // 구글 로그인 연동
     private SignInButton btn_google; // 구글 로그인 버튼
@@ -93,6 +102,68 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
 
         initWidget(view); // 위젯 초기화
         findData(); // 프로필 데이터 받아오기
+
+        //프로필 변경 관련
+        m_profile_img = view.findViewById(R.id.m_profile_img);
+        m_profile_img.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                new androidx.appcompat.app.AlertDialog.Builder(getContext())
+                        .setTitle("사진 가져올 방법을 선택하세요.")
+                        .setPositiveButton("카메라", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA);
+                                if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+                                    new androidx.appcompat.app.AlertDialog.Builder(getContext())
+                                            .setTitle("알림")
+                                            .setMessage("저장소 권한이 필요합니다.")
+                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    startPermissionRequestcamera();
+                                                }
+                                            })
+                                            .create()
+                                            .show();
+                                } else {
+                                    Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                    startActivityForResult(intentCamera, REQUEST_IMAGE_CAPTURE);
+                                }
+                            }
+                        })
+                        .setNeutralButton("갤러리", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                                if (permissionCheck == PackageManager.PERMISSION_DENIED) {
+                                    new AlertDialog.Builder(getContext())
+                                            .setTitle("알림")
+                                            .setMessage("저장소 권한이 필요합니다.")
+                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    startPermissionRequestphoto();
+                                                }
+                                            })
+                                            .create()
+                                            .show();
+                                } else {
+                                    //기기 기본 갤러리 접근
+                                    Intent intent = new Intent();
+                                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE); //구글 갤러리
+                                    intent.setType("image/*");
+                                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                                    startActivityForResult(intent, 101);
+
+                                }
+
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+
+        });
 
         // 구글 로그인 관련
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -191,8 +262,28 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
         Session.getCurrentSession().checkAndImplicitOpen();
 
 
+
+
         return view;
     }
+
+
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void startPermissionRequestcamera() {
+        ActivityCompat.requestPermissions(getActivity(),
+                new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSIONS_REQUEST_CODE);
+    }
+
+    private void startPermissionRequestphoto() {
+        ActivityCompat.requestPermissions(getActivity(),
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSIONS_REQUEST_CODE);
+    }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -206,7 +297,27 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                 resultLogin(account); // 로그인 결과 수행하려는 메서드
             }
         }
+
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    m_profile_img.setImageBitmap(imageBitmap);
+
+                }
+
+                break;
+            case 101:
+                if (resultCode == RESULT_OK) {
+                    Uri selectedImage = data.getData();
+                    m_profile_img.setImageURI(selectedImage);
+                }
+                break;
+        }
+
     }
+
 
     @Override
     public void onDestroy() {
