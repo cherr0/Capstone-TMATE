@@ -7,14 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.driver.R;
 import com.tmate.driver.data.HistoryData;
-import com.tmate.driver.databinding.HistoryCardviewBinding;
 import java.util.ArrayList;
 
 
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder> {
     ArrayList<HistoryData> items = new ArrayList<>();
-    private HistoryCardviewBinding binding;
     @NonNull
     @Override
     public HistoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
