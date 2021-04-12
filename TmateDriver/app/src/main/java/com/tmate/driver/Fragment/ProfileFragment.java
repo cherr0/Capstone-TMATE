@@ -1,5 +1,4 @@
 package com.tmate.driver.Fragment;
-
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;

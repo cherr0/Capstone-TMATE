@@ -48,18 +48,14 @@
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@+id/first_reg">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:background="@drawable/driver_no_image"
-            app:cardCornerRadius="20dp">
+
             <ImageView
                 android:scaleType="fitXY"
                 android:id="@+id/license_ima"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/driver_no_image"/>
-        </androidx.cardview.widget.CardView>
+                android:layout_width="320dp"
+                android:layout_height="227dp"
+                android:src="@drawable/d_license"/>
+
         <TextView
             android:layout_marginTop="30dp"
             android:layout_width="300dp"
