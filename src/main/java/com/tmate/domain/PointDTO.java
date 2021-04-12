@@ -26,6 +26,7 @@ public class PointDTO {
     // 포인트
     private String po_result;
 
+
     // 변동 시간
     private String po_time;
 
