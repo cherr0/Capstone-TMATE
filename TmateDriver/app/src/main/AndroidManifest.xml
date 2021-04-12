@@ -13,6 +13,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.TmateDriver">
+        <activity android:name=".activity.HotPlaceActivity"></activity>
+        <activity android:name=".activity.TrafficInformationActivity" />
         <activity android:name=".activity.CheckActivity" />
         <activity android:name=".activity.PaymentActivity" />
         <activity android:name=".activity.MatchingActivity" />
