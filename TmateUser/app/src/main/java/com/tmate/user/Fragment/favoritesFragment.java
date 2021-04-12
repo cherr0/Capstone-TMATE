@@ -16,12 +16,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmate.user.FavoritesAdapter;
-import com.tmate.user.FavoritesData;
+import com.tmate.user.adapter.FavoritesAdapter;
+import com.tmate.user.data.FavoritesData;
 import com.tmate.user.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -94,7 +93,7 @@ public class favoritesFragment extends Fragment {
     private void getData() {
 
 
-        dataService.select.getBookmarkList(m_id).enqueue(new Callback<List<FavoritesData>>() {
+        dataService.profile.getBookmarkList(m_id).enqueue(new Callback<List<FavoritesData>>() {
             @Override
             public void onResponse(Call<List<FavoritesData>> call, Response<List<FavoritesData>> response) {
                 if (response.isSuccessful()) {

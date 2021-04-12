@@ -145,7 +145,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                         social.setS_email(result.getKakaoAccount().getEmail());
                         social.setM_id(m_id);
 
-                        dataService.insert.socialAccount(social).enqueue(new Callback<Boolean>() {
+                        dataService.profile.socialAccount(social).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 if (response.isSuccessful()) {
@@ -228,7 +228,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                             social.setS_email(account.getEmail());
                             social.setM_id(m_id);
 
-                            dataService.insert.socialAccount(social).enqueue(new Callback<Boolean>() {
+                            dataService.profile.socialAccount(social).enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                     if (response.isSuccessful()) {
@@ -277,7 +277,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
     public void findData() {
         String m_id = getPreferenceString("m_id");
 
-        dataService.select.selectProfile(m_id).enqueue(new Callback<Member>() {
+        dataService.profile.selectProfile(m_id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
                 if (response.isSuccessful()) {
@@ -290,22 +290,38 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                         tv_like.setText(member.getLike()+"");
                         tv_dislike.setText(member.getDislike()+"");
 
-                        switch (member.getM_level()) {
-                            case "0":
-                                iv_level.setImageResource(R.drawable.slver);
-                                break;
-
-                            case "1":
-                                iv_level.setImageResource(R.drawable.gold);
-                                break;
-
-                            case "2":
-                                iv_level.setImageResource(R.drawable.platinum);
-                                break;
-
-                            case "3":
-                                iv_level.setImageResource(R.drawable.vip);
-                                break;
+//                        switch (member.getM_level()) {
+//                            case "0":
+//                                iv_level.setImageResource(R.drawable.slver);
+//                                break;
+//
+//                            case "1":
+//                                iv_level.setImageResource(R.drawable.gold);
+//                                break;
+//
+//                            case "2":
+//                                iv_level.setImageResource(R.drawable.platinum);
+//                                break;
+//
+//                            case "3":
+//                                iv_level.setImageResource(R.drawable.vip);
+//                                break;
+//                        }
+                        // 멤버 등급별 이미지 리소스
+                        int normalCnt = member.getM_n_use();
+                        int togetherCnt = member.getM_t_use();
+                        int sumCnt = normalCnt + togetherCnt;
+                        if (sumCnt < 5) {
+                            iv_level.setImageResource(R.drawable.slver);
+                        }
+                        if (sumCnt >= 5 && sumCnt < 10) {
+                            iv_level.setImageResource(R.drawable.gold);
+                        }
+                        if (sumCnt >= 10 && sumCnt < 20) {
+                            iv_level.setImageResource(R.drawable.platinum);
+                        }
+                        if (sumCnt >= 20) {
+                            iv_level.setImageResource(R.drawable.vip);
                         }
 
                         tv_name.setText(member.getM_name());

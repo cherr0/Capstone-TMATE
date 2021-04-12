@@ -26,11 +26,11 @@
                                     <p th:case="d">기사</p>
                                     <p th:case="a">관리자</p>
                                 </span>
-                                <span class="badge bg-info" th:switch="${member.m_level}">
-                                    <p th:case="0">일반</p>
-                                    <p th:case="1">우수</p>
-                                    <p th:case="2">최우수</p>
-                                    <p th:case="3">VIP</p>
+                                <span class="badge bg-info">
+                                    <p th:if="${member.m_n_use + member.m_t_use < 5}">일반</p>
+                                    <p th:if="${member.m_n_use + member.m_t_use >= 5 && member.m_n_use + member.m_t_use < 10}">우수</p>
+                                    <p th:if="${member.m_n_use + member.m_t_use >= 10 && member.m_n_use + member.m_t_use < 20}">최우수</p>
+                                    <p th:if="${member.m_n_use + member.m_t_use >= 20}">VIP</p>
                                 </span>
                                 <span class="badge bg-info" th:switch="${#strings.substring(member.m_id, 1, 2)}">
                                     <p th:case="1">남자</p>

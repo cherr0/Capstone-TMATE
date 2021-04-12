@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
+import com.tmate.user.data.FavoritesData;
+import com.tmate.user.R;
 
 import java.util.ArrayList;
 
@@ -24,51 +24,44 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.CustomViewHolder> {
+public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesHolder> {
 
-    private ArrayList<FavoritesData> arrayList;
+    private ArrayList<FavoritesData> items;
 
     // 레트로핏 어뎁터 서비스
-    AdapterComService adapterComService = new AdapterComService();
+    AdapterComService dataService = new AdapterComService();
 
     // m_id 값 불러오기
     Context context;
     private static SharedPreferences pref;
     String m_id;
 
-    public FavoritesAdapter(ArrayList<FavoritesData> arrayList) {
-        this.arrayList = arrayList;
+    public FavoritesAdapter(ArrayList<FavoritesData> items) {
+        this.items = items;
     }
 
     @NonNull
     @Override
-    public FavoritesAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavoritesHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorites_item_list,parent,false);
         context = parent.getContext();
         pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
-        CustomViewHolder holder = new CustomViewHolder(view);
+        FavoritesHolder holder = new FavoritesHolder(view);
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoritesAdapter.CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavoritesHolder holder, int position) {
 
         try {
-            if(arrayList != null && arrayList.size() != 0) {
-                holder.bm_name.setText(arrayList.get(position).getBm_name());
-                holder.bm_date.setText(arrayList.get(position).getBm_date().substring(0, 10));
-                holder.bm_id.setText(arrayList.get(position).getBm_id());
-                holder.bm_lttd.setText(arrayList.get(position).getBm_lttd() + "");
-                holder.bm_lngtd.setText(arrayList.get(position).getBm_lngtd() + "");
-                holder.favorites_linear.setVisibility(View.VISIBLE);
+            if(items != null && items.size() != 0) {
+                holder.onBind(items.get(position));
             }
         } catch (NullPointerException e) {
             Log.e("아무것도 안옴", e.toString());
         }
-
-
 
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +82,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Cust
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        adapterComService.deleteAPI.removeBookmark(holder.bm_id.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
+                        dataService.delete.removeBookmark(holder.bm_id.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 if (response.isSuccessful()) {
@@ -120,12 +113,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Cust
 
     @Override
     public int getItemCount() {
-        return (null != arrayList ? arrayList.size() : 0);
+        return (null != items ? items.size() : 0);
     }
 
     public void remove(int position) {
         try {
-            arrayList.remove(position);
+            items.remove(position);
             notifyItemRemoved(position);
         } catch (IndexOutOfBoundsException ex) {
             ex.printStackTrace();
@@ -133,29 +126,37 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Cust
     }
 
     public void addItem(FavoritesData data) {
-        arrayList.add(data);
+        items.add(data);
     }
 
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
+}
+class FavoritesHolder extends RecyclerView.ViewHolder {
 
-        protected LinearLayout favorites_linear;
-        protected TextView bm_name;
-        protected TextView bm_date;
-        protected TextView bm_id;
-        protected TextView bm_lttd;
-        protected TextView bm_lngtd;
+    LinearLayout favorites_linear;
+    TextView bm_name;
+    TextView bm_date;
+    TextView bm_id;
+    TextView bm_lttd;
+    TextView bm_lngtd;
 
+    public FavoritesHolder(View itemView) {
+        super(itemView);
+        this.favorites_linear = (LinearLayout) itemView.findViewById(R.id.favorites_linear);
+        this.bm_name = (TextView) itemView.findViewById(R.id.bm_name);
+        this.bm_date = (TextView) itemView.findViewById(R.id.bm_date);
+        this.bm_id = (TextView) itemView.findViewById(R.id.bm_id);
+        this.bm_lttd = (TextView) itemView.findViewById(R.id.bm_lttd);
+        this.bm_lngtd = (TextView) itemView.findViewById(R.id.bm_lngtd);
 
-        public CustomViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.favorites_linear = (LinearLayout) itemView.findViewById(R.id.favorites_linear);
-            this.bm_name = (TextView) itemView.findViewById(R.id.bm_name);
-            this.bm_date = (TextView) itemView.findViewById(R.id.bm_date);
-            this.bm_id = (TextView) itemView.findViewById(R.id.bm_id);
-            this.bm_lttd = (TextView) itemView.findViewById(R.id.bm_lttd);
-            this.bm_lngtd = (TextView) itemView.findViewById(R.id.bm_lngtd);
-
-
-        }
     }
+
+    void onBind(FavoritesData data) {
+        bm_name.setText(data.getBm_name());
+        bm_date.setText(data.getBm_date().substring(0, 10));
+        bm_id.setText(data.getBm_id());
+        bm_lttd.setText(data.getBm_lttd() + "");
+        bm_lngtd.setText(data.getBm_lngtd() + "");
+        favorites_linear.setVisibility(View.VISIBLE);
+    }
+
 }

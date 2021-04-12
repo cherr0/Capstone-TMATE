@@ -109,11 +109,11 @@
                                             <th scope="row">
                                                 등급
                                             </th>
-                                            <td th:switch="${member.m_level}">
-                                                <p th:case="0">일반</p>
-                                                <p th:case="1">우수</p>
-                                                <p th:case="2">최우수</p>
-                                                <p th:case="3">VIP</p>
+                                            <td>
+                                                <p th:if="${member.m_n_use + member.m_t_use < 5}" >일반</p>
+                                                <p th:if="${member.m_n_use + member.m_t_use >= 5 && member.m_n_use + member.m_t_use < 10}">우수</p>
+                                                <p th:if="${member.m_n_use + member.m_t_use >= 10 && member.m_n_use + member.m_t_use < 20}">최우수</p>
+                                                <p th:if="${member.m_n_use + member.m_t_use >= 20}">VIP</p>
                                             </td>
                                             <td>
                                                 <p></p>

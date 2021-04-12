@@ -86,7 +86,7 @@ public class SNFragment extends Fragment {
 
 
                     phoneDTO.setConfirm(et_confirmNum.getText().toString());
-                    dataService.select.confirm(phoneDTO).enqueue(new Callback<Integer>() {
+                    dataService.profile.confirm(phoneDTO).enqueue(new Callback<Integer>() {
                         @Override
                         public void onResponse(Call<Integer> call, Response<Integer> response) {
                             if (response.isSuccessful()) {
@@ -150,7 +150,7 @@ public class SNFragment extends Fragment {
 
 
     public void Authorization() {
-        dataService.select.sendSMS(phoneDTO).enqueue(new Callback<Boolean>() {
+        dataService.profile.sendSMS(phoneDTO).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful()) {

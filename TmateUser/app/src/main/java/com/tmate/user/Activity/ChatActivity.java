@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.Activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.tmate.user.R;
 import com.tmate.user.adapter.ChatAdapter;
 import com.tmate.user.data.ChatData;
 

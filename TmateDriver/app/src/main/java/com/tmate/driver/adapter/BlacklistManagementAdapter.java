@@ -13,13 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
 import com.tmate.driver.data.BlacklistManagementData;
-import com.tmate.driver.databinding.BlacklistManagementCardviewBinding;
 
 import java.util.ArrayList;
 
 public class BlacklistManagementAdapter extends RecyclerView.Adapter<BlackListHolder>{
     ArrayList<BlacklistManagementData> items = new ArrayList<>();
-    private BlacklistManagementCardviewBinding binding;
 
 
     @NonNull

@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.data;
 
 public class FavoritesData {
 

@@ -3,17 +3,14 @@ package com.tmate.user.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,9 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.tmate.user.FavoritesData;
-import com.tmate.user.MainViewActivity;
-import com.tmate.user.LoginActivity;
+import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.R;
 import com.tmate.user.data.Member;
 
@@ -47,7 +42,7 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
     private TextView textView17;
 
 
-    // 테스트용 로그아웃 버튼
+
 
     private Button service;
     private TextView tv_card;
@@ -177,27 +172,42 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
 
     public void selectMemberInfo(String m_id) {
 
-        dataService.select.selectProfile(m_id).enqueue(new Callback<Member>() {
+        dataService.profile.selectProfile(m_id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
                 if (response.isSuccessful()) {
                     if (response.code() == 200) {
                         Member member = response.body();
 
-                        switch (member.getM_level()) {
-                            case "0":
-                                textView18.setText("일반");
-                                break;
-                            case "1":
-                                textView18.setText("우수");
-                                break;
-                            case "2":
-                                textView18.setText("최우수");
-                                break;
-                            case "3":
-                                textView18.setText("VIP");
-                                break;
-
+//                        switch (member.getM_level()) {
+//                            case "0":
+//                                textView18.setText("일반");
+//                                break;
+//                            case "1":
+//                                textView18.setText("우수");
+//                                break;
+//                            case "2":
+//                                textView18.setText("최우수");
+//                                break;
+//                            case "3":
+//                                textView18.setText("VIP");
+//                                break;
+//
+//                        }
+                        int normalCnt = member.getM_n_use();
+                        int togetherCnt = member.getM_t_use();
+                        int sumCnt = normalCnt + togetherCnt;
+                        if (sumCnt < 5) {
+                            textView18.setText("일반");
+                        }
+                        if (sumCnt >= 5 && sumCnt < 10) {
+                            textView18.setText("우수");
+                        }
+                        if (sumCnt >= 10 && sumCnt < 20) {
+                            textView18.setText("최우수");
+                        }
+                        if (sumCnt >= 20) {
+                            textView18.setText("VIP");
                         }
                         textView17.setText(member.getM_name());
                     }

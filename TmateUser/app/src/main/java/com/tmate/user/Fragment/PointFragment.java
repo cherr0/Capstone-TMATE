@@ -97,7 +97,7 @@ public class PointFragment extends Fragment {
     private void getData() {
 
         Log.d("넘어가는 회원코드", m_id);
-       dataService.select.getPointList(m_id).enqueue(new Callback<List<PointData>>() {
+       dataService.point.getPointList(m_id).enqueue(new Callback<List<PointData>>() {
            @Override
            public void onResponse(Call<List<PointData>> call, Response<List<PointData>> response) {
                if (response.isSuccessful()) {

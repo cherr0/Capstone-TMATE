@@ -26,8 +26,9 @@ public class PointDTO {
     // 포인트
     private String po_result;
 
+
     // 변동 시간
-    private Timestamp po_time;
+    private String po_time;
 
     // 이벤트 코드
     private String e_id;

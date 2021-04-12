@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,8 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.tmate.user.Fragment.MatchingAdapter;
-import com.tmate.user.Fragment.MatchingData;
+import com.tmate.user.R;
+import com.tmate.user.adapter.MatchingAdapter;
+import com.tmate.user.data.MatchingData;
 
 import java.util.ArrayList;
 import java.util.Arrays;

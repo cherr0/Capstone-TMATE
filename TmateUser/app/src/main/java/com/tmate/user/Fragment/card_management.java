@@ -77,7 +77,7 @@ public class card_management  extends Fragment {
     private void getData() {
 
 
-        dataService.select.getUserCard(m_id).enqueue(new Callback<List<CardData>>() {
+        dataService.card.getUserCard(m_id).enqueue(new Callback<List<CardData>>() {
             @Override
             public void onResponse(Call<List<CardData>> call, Response<List<CardData>> response) {
                 if (response.isSuccessful()) {

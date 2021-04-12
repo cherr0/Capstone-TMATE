@@ -1,4 +1,4 @@
-package com.tmate.user.Fragment;
+package com.tmate.user.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,24 +9,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.R;
+import com.tmate.user.data.Data;
 
 import java.util.ArrayList;
 
-public class historyAdapter extends RecyclerView.Adapter<Holder> {
+public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
     ArrayList<Data> items = new ArrayList<>();
 
 
 
     @NonNull
     @Override
-    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HistoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view, parent, false);
-        return new Holder(view);
+        return new HistoryHolder(view);
     }
 
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
+    public void onBindViewHolder(@NonNull HistoryHolder holder, int position) {
         holder.onBind(items.get(position));
     }
 
@@ -37,7 +38,7 @@ public class historyAdapter extends RecyclerView.Adapter<Holder> {
 
 
 
-    void addItem(Data data) {
+    public void addItem(Data data) {
         items.add(data);
     }
 
@@ -45,7 +46,7 @@ public class historyAdapter extends RecyclerView.Adapter<Holder> {
 
 }
 
-class Holder extends RecyclerView.ViewHolder {
+class HistoryHolder extends RecyclerView.ViewHolder {
     TextView together;
     TextView start;
     TextView finish;
@@ -53,6 +54,17 @@ class Holder extends RecyclerView.ViewHolder {
     TextView time;
     TextView drivername;
     TextView carinfo;
+
+    public HistoryHolder(@NonNull View itemView) {
+        super(itemView);
+        start = itemView.findViewById(R.id.hstart);
+        together = itemView.findViewById(R.id.htogether);
+        date = itemView.findViewById(R.id.hdate);
+        finish = itemView.findViewById(R.id.hfinish);
+        time = itemView.findViewById(R.id.htime);
+        drivername = itemView.findViewById(R.id.hdrivername);
+        carinfo = itemView.findViewById(R.id.hcarinfo);
+    }
 
     void onBind(Data data) {
         start.setText(data.getStart());
@@ -62,16 +74,5 @@ class Holder extends RecyclerView.ViewHolder {
         time.setText(data.getTime());
         drivername.setText(data.getDrivername());
         carinfo.setText(data.getCarinfo());
-    }
-
-    public Holder(@NonNull View itemView) {
-        super(itemView);
-        start = itemView.findViewById(R.id.hstart);
-        together = itemView.findViewById(R.id.htogether);
-        date = itemView.findViewById(R.id.hdate);
-        finish = itemView.findViewById(R.id.hfinish);
-        time = itemView.findViewById(R.id.htime);
-        drivername = itemView.findViewById(R.id.hdrivername);
-        carinfo = itemView.findViewById(R.id.hcarinfo);
     }
 }
