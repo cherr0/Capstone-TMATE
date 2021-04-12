@@ -26,7 +26,7 @@ public class ReceiptDTO {
     // 거래 고유 번호
     private String imp_uid;
     // 결제 시간
-    private Timestamp re_rime;
+    private String re_rime;
     // 화폐 단위
     private String re_crn;
     // 금액

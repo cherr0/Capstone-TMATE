@@ -12,7 +12,7 @@ public class JoinReceiptVO {
     // 화페 단위
     private String re_crn;
     // 결제 시간
-    private Timestamp re_time;
+    private String re_time;
     // 결제 금액
     private String re_amt;
     // 현금 사용 유므

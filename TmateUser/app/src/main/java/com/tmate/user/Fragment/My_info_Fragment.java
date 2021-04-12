@@ -42,7 +42,7 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
     private TextView textView17;
 
 
-    // 테스트용 로그아웃 버튼
+
 
     private Button service;
     private TextView tv_card;
@@ -179,20 +179,35 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
                     if (response.code() == 200) {
                         Member member = response.body();
 
-                        switch (member.getM_level()) {
-                            case "0":
-                                textView18.setText("일반");
-                                break;
-                            case "1":
-                                textView18.setText("우수");
-                                break;
-                            case "2":
-                                textView18.setText("최우수");
-                                break;
-                            case "3":
-                                textView18.setText("VIP");
-                                break;
-
+//                        switch (member.getM_level()) {
+//                            case "0":
+//                                textView18.setText("일반");
+//                                break;
+//                            case "1":
+//                                textView18.setText("우수");
+//                                break;
+//                            case "2":
+//                                textView18.setText("최우수");
+//                                break;
+//                            case "3":
+//                                textView18.setText("VIP");
+//                                break;
+//
+//                        }
+                        int normalCnt = member.getM_n_use();
+                        int togetherCnt = member.getM_t_use();
+                        int sumCnt = normalCnt + togetherCnt;
+                        if (sumCnt < 5) {
+                            textView18.setText("일반");
+                        }
+                        if (sumCnt >= 5 && sumCnt < 10) {
+                            textView18.setText("우수");
+                        }
+                        if (sumCnt >= 10 && sumCnt < 20) {
+                            textView18.setText("최우수");
+                        }
+                        if (sumCnt >= 20) {
+                            textView18.setText("VIP");
                         }
                         textView17.setText(member.getM_name());
                     }
