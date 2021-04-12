@@ -1,10 +1,10 @@
 package com.tmate.driver.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.tmate.driver.databinding.ActivityMatchingBinding;
 
@@ -27,6 +27,7 @@ public class MatchingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MatchingActivity.this, PaymentActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
