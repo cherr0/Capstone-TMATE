@@ -1,10 +1,7 @@
 package com.tmate.service.android.user;
 
 import com.tmate.domain.*;
-import com.tmate.mapper.JoinMapper;
-import com.tmate.mapper.Membermapper;
-import com.tmate.mapper.PlaceMapper;
-import com.tmate.mapper.UserMainMapper;
+import com.tmate.mapper.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -32,6 +29,9 @@ public class AppMemberServiceImpl implements AppMemberService {
 
     // plceMapper 의존
     private final PlaceMapper placeMapper;
+
+    // HistoryMapper 의존
+    private final HistoryMapper historyMapper;
 
     //  회원가입 등록
     @Override
@@ -147,5 +147,25 @@ public class AppMemberServiceImpl implements AppMemberService {
     @Override
     public Boolean removeBookmark(int bm_id, String m_id) {
         return placeMapper.deleteBookmark(bm_id, m_id) == 1;
+    }
+
+
+   /*
+   * 동승 호출 시
+   * */
+
+    // 1. 거리 검색 순으로 나열 해주는 서비스
+    @Override
+    public List<HistoryDTO> getTogetherMatchingList(String slttd, String slngtd, String flttd, String flngtd) {
+        log.info("자 출발지 500m 반경 목적지는 가까운 순으로 날립니다잉~");
+
+        return historyMapper.findTogetherList(Double.valueOf(slttd),Double.valueOf(slngtd),Double.valueOf(flttd),Double.valueOf(flngtd));
+    }
+
+    // 2. 매칭 리스트 상세 내역
+    @Override
+    public HistoryDTO getTogetherMatchingDetail(String merchant_uid) {
+        log.info("요청정보 상세 내역으로 한번 봅니다잉 ");
+        return historyMapper.findMatchingDetail(merchant_uid);
     }
 }

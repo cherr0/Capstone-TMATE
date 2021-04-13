@@ -42,8 +42,17 @@ public class HistoryDTO {
     // 회원코드
     private String m_id;
 
+    // 조인 해서 가져온다.
+    private String m_name;
+
     // 기사 코드
     private String d_id;
 
+
+    // 출발지와 떨어진 거리
+    private double distance1;
+
+    // 도착지와 떨어진 거리
+    private double distance2;
 
 }
