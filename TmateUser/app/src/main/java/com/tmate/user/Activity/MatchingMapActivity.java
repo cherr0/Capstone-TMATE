@@ -50,7 +50,6 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     //바뀐 위치에 대한 좌표값 설정
     @Override
     public void onLocationChange(Location location) {
-
         if (m_bTrackingMode) {
             mMapView.setLocationPoint(location.getLongitude(), location.getLatitude());
             mMapView.setIconVisibility(m_bTrackingMode);
@@ -376,12 +375,15 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         String mail1 = mail.substring(idx+1);
         idx = mail1.indexOf("]");
         String mail2 = mail1.substring(0,idx);
+        String result = mail2.substring(mail2.indexOf("국")+1);
+        idx = result.indexOf("\"");
+        result = result.substring(0,idx);
 
         if (list != null) { //주소를 못 찾을 경우
             if (list.size()==0) {
                 Toast.makeText(getApplicationContext(), "주소를 찾지 못했습니다", Toast.LENGTH_LONG).show();
             } else { //주소를 찾을 경우
-                b.startPlace.setText(mail2); //출발지 설정 텍스트박스에 주소
+                b.startPlace.setText(result); //출발지 설정 텍스트박스에 주소
             }
         }
     }
@@ -526,11 +528,12 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                //자동차 경로 보여주는 메세지를 받았을때
+                //지도의 줌 레벨을 변경했을때
                 case MESSAGE_STATE_ZOOM:
                     b.zoomlevelText.setText("Lv." + mMapView.getZoomLevel());
                     m_nCurrentZoomLevel = mMapView.getZoomLevel() - 3;
                     break;
+                //자동차 경로 보여주는 메세지를 받았을때
                 case MESSAGE_STATE_ROUTE:
                     b.routeLayout.setVisibility(View.GONE);
                     b.geocodingLayout.setVisibility(View.GONE);
