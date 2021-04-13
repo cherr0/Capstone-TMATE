@@ -2,18 +2,15 @@ package com.tmate.user.Fragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,13 +29,11 @@ import com.skt.Tmap.TMapMarkerItem;
 import com.skt.Tmap.TMapPOIItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
-import com.tmate.user.Fragment.MatchingDetailFragment;
-import com.tmate.user.Fragment.favoritesFragment;
 import com.tmate.user.R;
 import com.tmate.user.common.Common;
 import com.tmate.user.common.LogManager;
 import com.tmate.user.common.PermissionManager;
-import com.tmate.user.databinding.FragmentBookMarkAddBinding;
+import com.tmate.user.databinding.FragmentFavoritesAddBinding;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,7 +42,7 @@ import java.util.List;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
-public class BookMarkAddFragment extends Fragment {
+public class FavoriteAddFragment extends Fragment {
 
     //바뀐 위치에 대한 좌표값 설정(자신의 위치)
     //프래그먼트로 변경시 잘 작동되지 않음
@@ -61,18 +56,17 @@ public class BookMarkAddFragment extends Fragment {
 
     Geocoder geocoder;
 
-    private FragmentBookMarkAddBinding b;
+    private FragmentFavoritesAddBinding b;
     private Context mContext;
 
     //맵을 띄우기 위한 변수 들
     private TMapView mMapView = null; //맵 뷰
     private static final String mApiKey = "l7xx4fac78a5b9bf445db00bb99ae2708cee"; // 발급받은 SKT AppKey
 
-    double d1; //출발지 위도
-    double d2; //출발지 경도
+    double d1; // 위도
+    double d2; // 경도
 
     //gps 및 경로 그리기 위한 변수들
-    private boolean m_bTrackingMode = false; // geofencing type save
     PermissionManager mPermissionManager = null; //권한 요청(GPS)
     TMapGpsManager gps = null; //gps
 
@@ -107,7 +101,7 @@ public class BookMarkAddFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mContext=getContext();
         geocoder = new Geocoder(mContext);//지오코더
-        b= FragmentBookMarkAddBinding.inflate(getLayoutInflater());
+        b= FragmentFavoritesAddBinding.inflate(getLayoutInflater());
         View view = b.getRoot();
         //gps
         gps = new TMapGpsManager(getContext());
@@ -160,6 +154,15 @@ public class BookMarkAddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mMapView.MapZoomOut();
+            }
+        });
+        //뒤로가기 버튼
+        b.btnBackFavoritesadd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                favoritesFragment favoritesFragment = new favoritesFragment();
+                transaction.replace(R.id.frameLayout, favoritesFragment).commit();
             }
         });
 
@@ -418,9 +421,9 @@ public class BookMarkAddFragment extends Fragment {
                 mMapView.addMarkerItem(strID, markerItem);
                 mArrayMarkerID.add(strID);
                 mMapView.setCenterPoint(mPoiItem.getPOIPoint().getLongitude(), mPoiItem.getPOIPoint().getLatitude());
-                d1 = mPoiItem.getPOIPoint().getLatitude(); //출발지 위도
-                d2 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
-                b.searchBookmark.setText(mPoiItem.getPOIName()); //출발지 이름을 출발지 검색창에 세팅
+                d1 = mPoiItem.getPOIPoint().getLatitude(); // 위도
+                d2 = mPoiItem.getPOIPoint().getLongitude(); // 경도
+                b.searchBookmark.setText(mPoiItem.getPOIName()); //장소명을 출발지 검색창에 세팅
 
                 hideKeyBoard(); //검색 완료 후 키보드 숨기기
             }
