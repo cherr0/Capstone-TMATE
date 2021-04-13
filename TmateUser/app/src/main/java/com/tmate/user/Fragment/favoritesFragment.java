@@ -65,15 +65,13 @@ public class favoritesFragment extends Fragment {
 
         getData();
 
-
-
         btn_add = rootView.findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                FavoritesAddFragment favoritesAddFragment = new FavoritesAddFragment();
-                transaction.replace(R.id.frameLayout, favoritesAddFragment).commit();
+                BookMarkAddFragment ba = new BookMarkAddFragment();
+                transaction.replace(R.id.frameLayout, ba).commit();
             }
         });
 
