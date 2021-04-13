@@ -1,15 +1,15 @@
-package com.tmate.domain;
+package com.tmate.user.data;
+
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class HistoryDTO {
+@NoArgsConstructor
+public class History {
 
     // 동승 여부, 탑승일
     private String merchant_uid;
@@ -42,12 +42,11 @@ public class HistoryDTO {
     // 회원코드
     private String m_id;
 
-    // 조인 해서 가져온다.
+    // 회원 이름
     private String m_name;
 
     // 기사 코드
     private String d_id;
-
 
     // 출발지와 떨어진 거리
     private double distance1;
