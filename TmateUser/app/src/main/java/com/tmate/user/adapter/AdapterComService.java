@@ -18,6 +18,7 @@ public class AdapterComService {
       ------------------------ */
     private String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/common/"; // 기본 URL
 //    private String BASE_URL = "http://10.0.2.2:9090/common/";
+
     Retrofit retrofitClient =
             new Retrofit.Builder()
                     .baseUrl(BASE_URL)

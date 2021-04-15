@@ -34,7 +34,7 @@ public class favoritesFragment extends Fragment {
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private Button btn_add;
-    private FavoritesAddFragment favoritesAddFragment;
+    private FavoriteAddFragment favoriteAddFragment;
     private ImageView btn_back_favorites;
     private LinearLayout favorites_linear;
 
@@ -70,8 +70,8 @@ public class favoritesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                BookMarkAddFragment ba = new BookMarkAddFragment();
-                transaction.replace(R.id.frameLayout, ba).commit();
+                FavoriteAddFragment fa = new FavoriteAddFragment();
+                transaction.replace(R.id.frameLayout, fa).commit();
             }
         });
 

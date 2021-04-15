@@ -1,6 +1,7 @@
 package com.tmate.user.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,20 +17,34 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tmate.user.R;
 import com.tmate.user.adapter.MatchingAdapter;
+import com.tmate.user.data.History;
 import com.tmate.user.data.MatchingData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class MatchingFragment extends Fragment {
-    private ArrayList<MatchingData> arrayList;
+    private ArrayList<History> arrayList;
     private View view;
     private MatchingAdapter matchingAdapter;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
     private Button btn_add;
+
+    // 레트로핏 이용
+    MatchDataService dataService = new MatchDataService();
+
+    // 거리 순으로 나오게 할것이기 때문에 기준으로 인하여 필요한 값들이다.
+    String slttd = "";
+    String slngtd = "";
+    String flttd = "";
+    String flngtd = "";
 
     @Nullable
     @Override
@@ -37,6 +52,23 @@ public class MatchingFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_matching, container, false);
 
         recyclerView = view.findViewById(R.id.rv_matching);
+
+
+        if (getArguments() != null) {
+
+            slttd = getArguments().getString("slttd");
+            slngtd = getArguments().getString("slngtd");
+            flttd = getArguments().getString("flttd");
+            flngtd = getArguments().getString("flngtd");
+
+            Log.d("넘어오는 출발지 위도 : ", slttd);
+            Log.d("넘어오는 출발지 경도 : ", slngtd);
+            Log.d("넘어오는 도착지 위도 : ", flttd);
+            Log.d("넘어오는 도착지 경도 : ", flngtd);
+
+
+        }
+
 
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -47,14 +79,14 @@ public class MatchingFragment extends Fragment {
 
         matchingAdapter = new MatchingAdapter(arrayList);
         recyclerView.setAdapter(matchingAdapter);
-        getData();
+        getMatchingList();
 
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 arrayList.clear();
-                getData();
+                getMatchingList();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -73,40 +105,52 @@ public class MatchingFragment extends Fragment {
         return view;
     }
 
-    private void getData() {
-            // 임의의 데이터입니다.
-            List<String> listName = Arrays.asList(
-                    "박한수",
-                    "강병현",
-                    "김진수"
-            );
-            List<String> listPersonnel = Arrays.asList(
-                    "(1/2)",
-                    "(1/2)",
-                    "(1/2)"
-            );
-            List<String> listStartPlace = Arrays.asList(
-                    "대구광역시 북구 영진전문대학교",
-                    "대구광역시 북구 대구공항",
-                    "대구광역시 동구 동대구역"
-            );
-            List<String> listEndPlace = Arrays.asList(
-                    "대구광역시 북구 영진전문대학교",
-                    "대구광역시 달서구 성서청구타운",
-                    "대구광역시 북구 영진전문대학교"
-            );
+    private void getMatchingList() {
 
-            for (int i = 0; i < listName.size(); i++) {
-                // 각 List의 값들을 data 객체에 set 해줍니다.
-                MatchingData matchingData = new MatchingData();
-                matchingData.setTv_matching_name(listName.get(i));
-                matchingData.setTv_personnel(listPersonnel.get(i));
-                matchingData.setTv_start_place(listStartPlace.get(i));
-                matchingData.setTv_end_place(listEndPlace.get(i));
-                // 각 값이 들어간 data를 adapter에 추가합니다.
-                matchingAdapter.addItem(matchingData);
+        dataService.matchingApi.getMatchingList(slttd, slngtd, flttd, flngtd).enqueue(new Callback<List<History>>() {
+            @Override
+            public void onResponse(Call<List<History>> call, Response<List<History>> response) {
+                if (response.isSuccessful()) {
+                    if (response.code() == 200) {
+                        List<History> list = response.body();
+                        Log.d("넘어오는 기준리스트", list.toString());
+                        for (int i = 0; i < list.size(); i++) {
+                            History history = new History();
+                            // 매칭방 코드
+                            history.setMerchant_uid(list.get(i).getMerchant_uid());
+
+                            // 매칭 만든사람 방 이름 & 회원 코드
+                            history.setM_id(list.get(i).getM_id());
+                            history.setM_name(list.get(i).getM_name());
+
+                            // 출발지 위도 경도 설정
+                            history.setH_s_lttd(list.get(i).getH_s_lttd());
+                            history.setH_s_lngtd(list.get(i).getH_s_lngtd());
+
+                            // 도착지 위도 경도 설정
+                            history.setH_f_lttd(list.get(i).getH_f_lttd());
+                            history.setH_f_lngtd(list.get(i).getH_f_lngtd());
+
+                            // 출발지 거리, 도착지 거리
+                            history.setDistance1(list.get(i).getDistance1());
+                            history.setDistance2(list.get(i).getDistance2());
+
+                            // 장소명 설정
+                            history.setH_s_place(list.get(i).getH_s_place());
+                            history.setH_f_place(list.get(i).getH_f_place());
+
+                            matchingAdapter.addItem(history);
+                        }
+                        matchingAdapter.notifyDataSetChanged();
+                    }
+                }
             }
-            // adapter의 값이 변경되었다는 것을 알려줍니다.
-        matchingAdapter.notifyDataSetChanged();
+
+            @Override
+            public void onFailure(Call<List<History>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
         }
 }

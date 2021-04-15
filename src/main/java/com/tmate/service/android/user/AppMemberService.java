@@ -48,6 +48,12 @@ public interface AppMemberService {
     // 일반 호출 시
 
     // 동승 호출 시
+    // 거리순으로 리스트 보여주기
+    public List<HistoryDTO> getTogetherMatchingList(String slttd, String slngtd, String flttd, String flngtd);
+
+    // 매칭 상세 정보
+    public HistoryDTO getTogetherMatchingDetail(String merchant_uid);
+
     
     // 매칭 신청 시 - 승인시 동승내역에 저장 -> update
     

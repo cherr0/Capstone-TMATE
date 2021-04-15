@@ -164,8 +164,14 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
                     hideKeyBoard();//키보드 숨기기
                     tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
+                    Log.d("출발지 위도", String.valueOf(tMapPointStart.getLatitude()));
+                    Log.d("출발지 경도", String.valueOf(tMapPointStart.getLongitude()));
                     tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
+
                     b.call.setText("매칭");
+
+                    Log.d("도착지 위도", String.valueOf(tMapPointEnd.getLatitude()));
+                    Log.d("도착지 경도", String.valueOf(tMapPointEnd.getLongitude()));
                     drawCarPath();//자동차 경로 그리는 메서드 호출
                 } else { //동승이 아닐 경우
                     b.slideTitle.setText("소요 거리 및 시간");
@@ -193,6 +199,15 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     startActivity(intent);
                     finish();
                 }
+
+                hideKeyBoard();
+                Intent intent = new Intent(getApplicationContext(), MatchingActivity.class);
+                intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
+                intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
+                intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
+                intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
+                startActivity(intent);
+                finish();
             }
         });
         b.startPlace.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -296,7 +311,9 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     NodeList list = doc.getElementsByTagName("Document");
                     Element item2 = (Element) list.item(0);
                     totalDistance = getContentFromNode(item2, "tmap:totalDistance"); //총 거리설정
+                    Log.d("총 거리 : ", totalDistance);
                     totalTime = getContentFromNode(item2, "tmap:totalTime"); //총 시간 설정
+                    Log.d("총 시간 : ", totalTime);
 
                     NodeList list2 = doc.getElementsByTagName("LineString");
 
@@ -499,10 +516,13 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     d1 = mPoiItem.getPOIPoint().getLatitude(); //출발지 위도
                     d2 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
                     b.startPlace.setText(mPoiItem.getPOIName()); //출발지 이름을 출발지 검색창에 세팅
+                    Log.d("출발지 명 : ", b.startPlace.getText().toString());
+
                 } else { //도착지를 검색 할 경우
                     d3 = mPoiItem.getPOIPoint().getLatitude(); //도착지 위도
                     d4 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
                     b.finishPlace.setText(mPoiItem.getPOIName()); //도착지 이름을 도착지 검색창에 세팅
+                    Log.d("도착지 명 : ", b.finishPlace.getText().toString());
                 }
                 hideKeyBoard(); //검색 완료 후 키보드 숨기기
             }

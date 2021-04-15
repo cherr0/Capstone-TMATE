@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.HistoryMapper">
+
+
+    <select id="findTogetherList" resultType="com.tmate.domain.HistoryDTO">
+        <![CDATA[
+            select history.*, member.m_name ,GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) as distance1 ,GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd) as distance2
+            from history left outer join member on history.m_id = member.m_id
+            where GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) <= 0.8 and history.h_status = '0'
+            order by  GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd)
+        ]]>
+    </select>
+
+    <select id="findMatchingDetail" resultType="com.tmate.domain.HistoryDTO">
+        select *
+        from history
+        where merchant_uid=#{merchant_uid}
+    </select>
+
+
+
+</mapper>
