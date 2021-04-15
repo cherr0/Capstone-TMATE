@@ -15,6 +15,8 @@ public class ReviewDTO {
     // 사유
     private String r_reason;
 
+    // 평점코드 (함수 사용)
+    private String reaction;
 
     // 연관관계
     // 이용 코드
