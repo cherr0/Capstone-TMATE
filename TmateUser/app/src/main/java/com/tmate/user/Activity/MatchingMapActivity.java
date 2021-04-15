@@ -160,43 +160,46 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
             @Override
             public void onClick(View v) {
                 if (together == 0) { //동승 일 경우
-                    b.slideTitle.setText("동승할 인원을 설정해주세요");
+                    b.slideTitle.setText("소요 거리 및 시간");
                     b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
-                    b.togetherPage.setVisibility(View.VISIBLE); //동승설정 레이아웃 보기
                     hideKeyBoard();//키보드 숨기기
-
                     tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
                     Log.d("출발지 위도", String.valueOf(tMapPointStart.getLatitude()));
                     Log.d("출발지 경도", String.valueOf(tMapPointStart.getLongitude()));
                     tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
+
+                    b.call.setText("매칭");
+
                     Log.d("도착지 위도", String.valueOf(tMapPointEnd.getLatitude()));
                     Log.d("도착지 경도", String.valueOf(tMapPointEnd.getLongitude()));
                     drawCarPath();//자동차 경로 그리는 메서드 호출
                 } else { //동승이 아닐 경우
-                    tMapPointStart = new TMapPoint(d1, d2);//출발지 좌표 설정
-                    tMapPointEnd = new TMapPoint(d3, d4);//도착지 좌표 설정
-                    drawCarPath(); //자동차 경로 그리기
+                    b.slideTitle.setText("소요 거리 및 시간");
+                    b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
+                    hideKeyBoard();//키보드 숨기기
+                    tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
+                    tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
+                    b.call.setText("결제");
+                    drawCarPath();//자동차 경로 그리는 메서드 호출
                 }
             }
         });
-        //동승 2명을 선택 했을 시(일반 호출 시 보이지 않을 부분이다)
-        b.raDouble.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                togetherOption=2; //2명 탄다는 것을 알려준다
-            }
-        });
-        //동승 3명을 선택 했을 시(일반 호출 시 보이지 않을 부분이다)
-        b.raTriple.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                togetherOption=3; //3명 탄다는 것을 알려준다
-            }
-        });
-        //동승 호출 호출 버튼(일반 호출 시 보이지 않을 부분이다)
+        //동승 호출 호출 버튼(일반 호출 시 결제화면으로)
         b.call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (together == 0) { //동승 일 경우
+                    hideKeyBoard();
+                    Intent intent = new Intent(getApplicationContext(), MatchingActivity.class); //매칭 화면으로
+                    startActivity(intent);
+                    finish();
+                } else { //동승이 아닐 경우
+                    hideKeyBoard();
+                    Intent intent = new Intent(getApplicationContext(), CallGeneralActivity.class); //결제 화면으로
+                    startActivity(intent);
+                    finish();
+                }
+
                 hideKeyBoard();
                 Intent intent = new Intent(getApplicationContext(), MatchingActivity.class);
                 intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
@@ -338,13 +341,10 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     if (zoom > 12) {
                         zoom = 12;
                     }
-                    //동승일 경우에만 자동차 경로 그림
-                    if(together != 1) {
-                        System.out.println("자동차경로 그리기 시작 진2짜");
-                        mMapView.addTMapPath(polyline);
-                        mMapView.setZoomLevel(zoom);
-                        mMapView.setCenterPoint(info.getTMapPoint().getLongitude(), info.getTMapPoint().getLatitude());
-                    }
+                    System.out.println("자동차경로 그리기 시작 진2짜");
+                    mMapView.addTMapPath(polyline);
+                    mMapView.setZoomLevel(zoom);
+                    mMapView.setCenterPoint(info.getTMapPoint().getLongitude(), info.getTMapPoint().getLatitude());
                     setTextLevel(MESSAGE_STATE_ROUTE);
                 }
 
@@ -569,12 +569,12 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     moneyplan = 0;
                     moneyplan = ((hour*60 + minute)*1000);
 
-                    // 동승이 아닐 경우는 위의 값을 구한 뒤 바로 결제창으로 넘어간다
-                    if(together != 0 ) {
-                        Intent it = new Intent(getApplicationContext(), CallGeneralActivity.class);
-                        startActivity(it);
-                        finish();
-                    }
+                    b.predictionDistance.setText(km.toString());
+                    b.predictionPrice.setText(Integer.toString(moneyplan));
+                    b.predictionTime.setText(time);
+                    b.drivinginfo.setVisibility(View.VISIBLE); //예상 금액,거리, 시간 보기
+
+
                     break;
                 //위치 알림창 올려달라는 메세지
                 case MESSAGE_STATE_POI:

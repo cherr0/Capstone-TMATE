@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainViewActivity.class);
             intent.putExtra("m_id", getPreferenceString("m_id"));
             startActivity(intent);
+            finish();
         }
 
         // sharedPreference 값 없을때 로그인 부터 시작한다.
