@@ -160,7 +160,7 @@
     <update id="emailModify">
         update member
         set m_email = #{m_email}
-        where m_id = #{d_id}
+        where m_id = #{m_id}
     </update>
 
     <!--  기사 차량 정보  -->
@@ -175,11 +175,6 @@
         insert into car
         values (#{car_no}, #{car_model}, #{car_kind}, #{car_color}, #{m_id})
     </insert>
-
-    <!--  블랙리스트 확인  -->
-    <select id="getBlacklist" resultType="com.tmate.domain.BanDTO">
-        select * from ban where d_id = #{d_id}
-    </select>
 
     <!--  블랙리스트 추가  -->
     <insert id="insertBlacklist">
