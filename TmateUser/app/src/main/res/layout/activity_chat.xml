@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical"
+        android:background="#B8DBFD"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -22,7 +23,10 @@
             android:id="@+id/chatText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:hint="메시지를 입력해주세요"
+            android:padding="10dp"
+            android:backgroundTint = "#979696"/>
         <Button
             android:id="@+id/sendBtn"
             android:layout_width="60dp"
