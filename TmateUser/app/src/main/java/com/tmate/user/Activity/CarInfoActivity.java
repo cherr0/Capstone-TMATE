@@ -37,6 +37,7 @@ import com.tmate.user.Fragment.MatchingFragment;
 import com.tmate.user.R;
 import com.tmate.user.common.Common;
 import com.tmate.user.common.PermissionManager;
+import com.tmate.user.databinding.ActivityCarInfoBinding;
 import com.tmate.user.databinding.ActivityMatchingMapBinding;
 
 import org.w3c.dom.Document;
@@ -49,7 +50,7 @@ import java.util.List;
 
 import static com.skt.Tmap.util.HttpConnect.getContentFromNode;
 
-public class MatchingMapActivity extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
+public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
 
     //바뀐 위치에 대한 좌표값 설정
     @Override
@@ -63,20 +64,16 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     Geocoder geocoder;
 
 
-    private ActivityMatchingMapBinding b;
+    private ActivityCarInfoBinding b;
     private Context mContext;
 
     //맵을 띄우기 위한 변수 들
     private TMapView mMapView = null; //맵 뷰
     private static final String mApiKey = "l7xx4fac78a5b9bf445db00bb99ae2708cee"; // 발급받은 SKT AppKey
 
-    private int together = 0; //동승 설정
-    private int togetherOption;//동승 몇명인지
-
     //DB에 들어갈 거리와 시간에 대한 변수들
     private String totalDistance = null;//총 거리
     private String totalTime = null; // 총 시간
-    private String totalFare = null; // 총 예상 금액
 
     //출발지 도착지에 대한 변수들
     TMapPoint tMapPointStart;//출발지 위,경도를 담은 좌표
@@ -131,12 +128,12 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         super.onCreate(savedInstanceState);
         mContext=getApplicationContext();
         geocoder = new Geocoder(mContext);//지오코더
-        b= ActivityMatchingMapBinding.inflate(getLayoutInflater());
+        b= ActivityCarInfoBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
 
         //gps
-        gps = new TMapGpsManager(MatchingMapActivity.this);
+        gps = new TMapGpsManager(CarInfoActivity.this);
         mPermissionManager = new PermissionManager();
         //맵 화면에 띄우기
         mMapView = new TMapView(this);
@@ -158,86 +155,25 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         initSildeMenu();
 
 
+        //값 가져오기
+        //Intent intent = getIntent();
 
-        //동승유무값 가져오기 체크
-        Intent intent = getIntent();
-        together = intent.getExtras().getInt("together"); /*String형*/
+        //임의의 값
+        d1 = 35.894479;
+        d2 = 128.623895;
+        d3 = 35.8777867;
+        d4 = 128.6285734;
+        tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
+        tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
 
-        //출발지, 도착지 설정완료 버튼
-        b.goTogetherSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (together == 0) { //동승 일 경우
-                    b.slideTitle.setText("소요 거리 및 시간");
-                    b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
-                    hideKeyBoard();//키보드 숨기기
-                    tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
-                    Log.d("출발지 위도", String.valueOf(tMapPointStart.getLatitude()));
-                    Log.d("출발지 경도", String.valueOf(tMapPointStart.getLongitude()));
-                    tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
-
-                    b.call.setText("매칭");
-
-                    Log.d("도착지 위도", String.valueOf(tMapPointEnd.getLatitude()));
-                    Log.d("도착지 경도", String.valueOf(tMapPointEnd.getLongitude()));
-                    drawCarPath();//자동차 경로 그리는 메서드 호출
-                } else { //동승이 아닐 경우
-                    b.slideTitle.setText("소요 거리 및 시간");
-                    b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
-                    hideKeyBoard();//키보드 숨기기
-                    tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
-                    tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
-                    b.call.setText("결제");
-                    drawCarPath();//자동차 경로 그리는 메서드 호출
-                }
-            }
+        //임의로 다음 화면으로 넘어가는 것을 보기 위해 설정
+        b.goDriverMessage.setOnClickListener(v -> {
+            drawCarPath();
+            mMapView.setIconVisibility(false);//자신의 위치를 표시해주던 마커 제거
+            b.driverinfo.setVisibility(View.GONE);
+            b.drivinginfo.setVisibility(View.VISIBLE);
+            b.locationBtn.setVisibility(View.GONE);
         });
-        //동승 호출 호출 버튼(일반 호출 시 결제화면으로)
-        b.call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (together == 0) { //동승 일 경우
-                    hideKeyBoard();
-                    Intent intent = new Intent(getApplicationContext(), MatchingActivity.class); //매칭 화면으로
-                    startActivity(intent);
-                    finish();
-                } else { //동승이 아닐 경우
-                    hideKeyBoard();
-                    Intent intent = new Intent(getApplicationContext(), CallGeneralActivity.class); //결제 화면으로
-                    startActivity(intent);
-                    finish();
-                }
-
-                hideKeyBoard();
-                Intent intent = new Intent(getApplicationContext(), MatchingActivity.class);
-                intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
-                intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
-                intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
-                intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
-                startActivity(intent);
-                finish();
-            }
-        });
-        b.startPlace.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-            {
-                start_flag=1; //출발지를 검색하는 중임을 알려준다
-                findAllPoi(b.startPlace.getText().toString());
-                return true;
-            }
-        });
-        b.finishPlace.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-            {
-                start_flag=3;
-                findAllPoi(b.finishPlace.getText().toString());
-                TMapPoint tpoint = mMapView.getCenterPoint();
-                return true;
-            }
-        });
-
         mContext = this;
     }
 
@@ -268,15 +204,6 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         });
 
     }
-    //맵 + 버튼 클릭 시
-    public void onClickZoomInBtn(View v) {
-        mMapView.MapZoomIn();
-    }
-    //맵 - 버튼 틀릭 시
-    public void onClickZoomOutBtn(View v) {
-        mMapView.MapZoomOut();
-    }
-
     //zoom레벨을 설정한다
     public void setZoomLevel() {
         final String[] arrString = getResources().getStringArray(R.array.a_zoomlevel);
@@ -290,12 +217,6 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     }
                 }).show();
     }
-    //getZoomLevel 현재 줌의 레벨을 가지고 온다.
-    public void getZoomLevel() {
-        int nCurrentZoomLevel = mMapView.getZoomLevel();
-        Common.showAlertDialog(this, "", "현재 Zoom Level : " + Integer.toString(nCurrentZoomLevel));
-    }
-
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
 
@@ -330,6 +251,11 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                 mLocationListener);
     }
 
+    //getZoomLevel 현재 줌의 레벨을 가지고 온다.
+    public void getZoomLevel() {
+        int nCurrentZoomLevel = mMapView.getZoomLevel();
+        Common.showAlertDialog(this, "", "현재 Zoom Level : " + Integer.toString(nCurrentZoomLevel));
+    }
     //자동차 경로 그리기
     public void drawCarPath() {
         findPathDataAllType(TMapData.TMapPathType.CAR_PATH);//자동차경로 그리기 호출
@@ -355,8 +281,6 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     Element item2 = (Element) list.item(0);
                     totalDistance = getContentFromNode(item2, "tmap:totalDistance"); //총 거리설정
                     Log.d("총 거리 : ", totalDistance);
-                    totalFare = getExpectTaxiFare(totalDistance);
-                    Log.d("총 예쌍 요금 : ", totalFare);
                     totalTime = getContentFromNode(item2, "tmap:totalTime"); //총 시간 설정
                     Log.d("총 시간 : ", totalTime);
 
@@ -397,11 +321,6 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
 
         });
     }
-    //키보드 숨기기
-    public void hideKeyBoard() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(b.editText.getWindowToken(), 0);
-    }
 
     //현재 위치 버튼을 눌렀을때 현재 위치로 이동하고 포인트를 찍어주는 메소드
     public void onClickLocationBtn(View v) {
@@ -413,34 +332,6 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         TMapPoint tpoint = mMapView.getCenterPoint();
         d1 = tpoint.getLatitude(); //출발지 위도
         d2 = tpoint.getLongitude(); //출발지 경도
-
-        List<Address> list = null;
-        try {
-            list = geocoder.getFromLocation(
-                    d1, // 위도
-                    d2, // 경도
-                    1); // 얻어올 값의 개수
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("test", "입출력 오류 - 서버에서 주소변환시 에러발생");
-        };
-        //주소만 추출
-        String mail = list.get(0).toString();
-        int idx = mail.indexOf(":");
-        String mail1 = mail.substring(idx+1);
-        idx = mail1.indexOf("]");
-        String mail2 = mail1.substring(0,idx);
-        String result = mail2.substring(mail2.indexOf("국")+1);
-        idx = result.indexOf("\"");
-        result = result.substring(0,idx);
-
-        if (list != null) { //주소를 못 찾을 경우
-            if (list.size()==0) {
-                Toast.makeText(getApplicationContext(), "주소를 찾지 못했습니다", Toast.LENGTH_LONG).show();
-            } else { //주소를 찾을 경우
-                b.startPlace.setText(result); //출발지 설정 텍스트박스에 주소
-            }
-        }
     }
 
 
@@ -462,7 +353,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                 }
                 @Override
                 public void denied() {
-                    Toast.makeText(MatchingMapActivity.this, "위치정보 수신에 동의하지 않으시면 현재위치로 이동할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CarInfoActivity.this, "위치정보 수신에 동의하지 않으시면 현재위치로 이동할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             });
             b.locationBtn.setBackgroundResource(R.drawable.location_btn_sel);
@@ -512,87 +403,6 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         b.locationBtn.setBackgroundResource(R.drawable.location_btn);
     }
 
-    //findAllPoi 통합검색 POI를 요청한다.
-    public void findAllPoi(String strData) {
-        removeMarker();
-        TMapData tmapdata = new TMapData();
-
-        tmapdata.findAllPOI(strData, new TMapData.FindAllPOIListenerCallback() {
-            @Override
-            public void onFindAllPOI(ArrayList<TMapPOIItem> poiItem) {
-                ArrayList<String> numberList = new ArrayList<String>();
-                for (int i = 0; i < poiItem.size(); i++) {
-                    TMapPOIItem item = poiItem.get(i);
-                    numberList.add(item.getPOIName().toString());
-                }
-                if (numberList.size() > 0) {
-                    mArrPoiItem = poiItem;
-                    items = numberList.toArray(new CharSequence[numberList.size()]);
-                    setTextLevel(MESSAGE_STATE_POI);
-                } else {
-                    setTextLevel(MESSAGE_ERROR);
-                }
-            }
-        });
-    }
-    private void showPOIListAlert() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("POI 통합 검색");
-
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                mPoiItem = mArrPoiItem.get(item);
-
-                TMapMarkerItem markerItem = new TMapMarkerItem();
-
-                String strID = String.format("marker%d", mMarkerID++);
-                markerItem.setID(strID);
-                markerItem.setIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.poi_dot));
-                markerItem.setTMapPoint(mPoiItem.getPOIPoint());
-                markerItem.setCanShowCallout(false);
-                markerItem.setPosition(0.5f, 1.0f);
-
-                //마커 넣기
-                mMapView.addMarkerItem(strID, markerItem);
-                mArrayMarkerID.add(strID);
-                mMapView.setCenterPoint(mPoiItem.getPOIPoint().getLongitude(), mPoiItem.getPOIPoint().getLatitude());
-                //출발지를 검색 할 경우
-                if(start_flag==1) {
-                    d1 = mPoiItem.getPOIPoint().getLatitude(); //출발지 위도
-                    d2 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
-                    b.startPlace.setText(mPoiItem.getPOIName()); //출발지 이름을 출발지 검색창에 세팅
-                    Log.d("출발지 명 : ", b.startPlace.getText().toString());
-
-                } else { //도착지를 검색 할 경우
-                    d3 = mPoiItem.getPOIPoint().getLatitude(); //도착지 위도
-                    d4 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
-                    b.finishPlace.setText(mPoiItem.getPOIName()); //도착지 이름을 도착지 검색창에 세팅
-                    Log.d("도착지 명 : ", b.finishPlace.getText().toString());
-                }
-                hideKeyBoard(); //검색 완료 후 키보드 숨기기
-            }
-        });
-        builder.show();
-    }
-
-    // 택시 요금 계산 로직
-    private String getExpectTaxiFare(String totalDistance) {
-        int pay = 3300; // 기본 요금
-
-        // 입력된 거리에서 2000을 빼준다.
-        int i = Integer.valueOf(totalDistance) - 2000;
-        if (i < 0) {
-            return pay+"";
-        }else{
-            /*
-            * 대구시 보니깐 144m에 150원씩 추가한다.
-            * */
-            pay = pay + (i / 144) * 150;
-            return pay+"";
-        }
-    }
-
-
     //요청에 따른 핸들러
     private void setTextLevel(final int what) {
         new Thread() {
@@ -607,7 +417,6 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
             switch (msg.what) {
                 //지도의 줌 레벨을 변경했을때
                 case MESSAGE_STATE_ZOOM:
-                    b.zoomlevelText.setText("Lv." + mMapView.getZoomLevel());
                     m_nCurrentZoomLevel = mMapView.getZoomLevel() - 3;
                     break;
                 //자동차 경로 보여주는 메세지를 받았을때
@@ -630,25 +439,11 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     km = null;
                     km = Double.parseDouble(totalDistance) / 1000; //거리(km기준)
 
-                    moneyplan = 0;
-                    moneyplan = ((hour*60 + minute)*1000);
-
-                    b.predictionDistance.setText(km.toString());
-                    b.predictionPrice.setText(Integer.toString(moneyplan));
-                    b.predictionTime.setText(time);
-                    b.drivinginfo.setVisibility(View.VISIBLE); //예상 금액,거리, 시간 보기
+                    //b.predictionDistance.setText(km.toString());
+                    //b.predictionTime.setText(time);
+                    //b.drivinginfo.setVisibility(View.VISIBLE); //예상 금액,거리, 시간 보기
 
 
-                    break;
-                //위치 알림창 올려달라는 메세지
-                case MESSAGE_STATE_POI:
-                    if (b.autoCompleteLayout.getVisibility() == View.VISIBLE) {
-                        b.autoCompleteLayout.setVisibility(View.GONE);
-                        arDessert.clear();
-                        b.editText.setText("");
-                        hideKeyBoard();
-                    }
-                    showPOIListAlert();
                     break;
                 case MESSAGE_ERROR:
                     Toast.makeText(getApplicationContext(), "정보가 없습니다.", Toast.LENGTH_SHORT).show();
