@@ -1,6 +1,8 @@
 package com.tmate.mapper;
 
 import com.tmate.domain.*;
+import com.tmate.domain.driver.DriverHistoryVO;
+import com.tmate.domain.driver.DriverProfileVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -38,4 +40,41 @@ public interface DriverMapper {
 
     // 총 평점 이력 개수
     public int getCountReview(String d_id);
+
+    /* ----------------
+        기사앱 관련 매핑
+       ---------------- */
+
+    // 회원가입 - 멤버 테이블 삽입
+    public int registerDriver(MemberDTO memberDTO);
+
+    // 회원가입 - 기사 테이블 삽입
+    public int addDriverLicense(DriverDTO driverDTO);
+
+    // 기사 운행이력
+    public List<DriverHistoryVO> getDriverHistoryList(String d_id);
+
+    // 운행이력의 리뷰 보기
+    public List<ReviewDTO> getDriverReviewList(String merchant_uid);
+
+    // 기사 프로필 정보
+    public DriverProfileVO getDriverDetail(String d_id);
+
+    // 기사 이메일 변경
+    public int emailModify(MemberDTO memberDTO);
+
+    // 기사 차량 정보
+    public List<CarDTO> getCarList(String d_id);
+
+    // 기사 차량 추가
+    public int insertCar(CarDTO carDTO);
+
+    // 블랙리스트 추가
+    public int insertBlacklist(BanDTO banDTO);
+
+    // 블랙리스트 제거
+    public int deleteBlacklist(BanDTO banDTO);
+
+    // 기사 상태 바꾸기
+    public int setDriverStatus(DriverDTO driverDTO);
 }
