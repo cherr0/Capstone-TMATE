@@ -199,23 +199,23 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                 if (together == 0) { //동승 일 경우
                     hideKeyBoard();
                     Intent intent = new Intent(getApplicationContext(), MatchingActivity.class); //매칭 화면으로
+                    intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
+                    intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
+                    intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
+                    intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
                     startActivity(intent);
                     finish();
                 } else { //동승이 아닐 경우
                     hideKeyBoard();
                     Intent intent = new Intent(getApplicationContext(), CallGeneralActivity.class); //결제 화면으로
+                    intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
+                    intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
+                    intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
+                    intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
                     startActivity(intent);
                     finish();
                 }
 
-                hideKeyBoard();
-                Intent intent = new Intent(getApplicationContext(), MatchingActivity.class);
-                intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
-                intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
-                intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
-                intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
-                startActivity(intent);
-                finish();
             }
         });
         b.startPlace.setOnEditorActionListener(new TextView.OnEditorActionListener() {
