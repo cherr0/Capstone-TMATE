@@ -73,7 +73,6 @@ public class Profile_Reg_Fragment extends Fragment {
                             startActivity(intent);
                         }
                     }
-
                     @Override
                     public void onFailure(@NonNull Call<Boolean> call, Throwable t) {
                         t.printStackTrace();
