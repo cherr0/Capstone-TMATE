@@ -5,10 +5,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapGpsManager;
@@ -143,6 +147,9 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         mMapView.setBufferStep(3);
         mMapView.setSKTMapApiKey(mApiKey);
         m_nCurrentZoomLevel = -1;
+        mMapView.setIconVisibility(true);//현재위치로 표시될 아이콘을 표시할지 여부를 설정
+        setGps(); //시작하자마자 자신의 위치가 보이게 한다
+
         //마커 설정
         mArrayMarkerID = new ArrayList<String>();
         mMarkerID = 0;
@@ -287,6 +294,41 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         int nCurrentZoomLevel = mMapView.getZoomLevel();
         Common.showAlertDialog(this, "", "현재 Zoom Level : " + Integer.toString(nCurrentZoomLevel));
     }
+
+    private final LocationListener mLocationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+
+            if (location != null) { //자신의 위치정보를 가져온다
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+                mMapView.setLocationPoint(longitude, latitude);
+                mMapView.setCenterPoint(longitude, latitude);
+
+            }
+
+        }
+
+        public void onProviderDisabled(String provider) {
+        }
+
+        public void onProviderEnabled(String provider) {
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+        }
+    };
+    //자신의 위치로 보여주게한다
+    public void setGps() {
+        final LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치제공자(실내에선 NETWORK_PROVIDER 권장)
+                1000, // 통지사이의 최소 시간간격 (miliSecond)
+                1, // 통지사이의 최소 변경거리 (m)
+                mLocationListener);
+    }
+
     //자동차 경로 그리기
     public void drawCarPath() {
         findPathDataAllType(TMapData.TMapPathType.CAR_PATH);//자동차경로 그리기 호출
