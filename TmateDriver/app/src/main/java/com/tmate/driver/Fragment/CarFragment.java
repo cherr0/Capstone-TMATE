@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.tmate.driver.R;
 import com.tmate.driver.adapter.CarAdapter;
 import com.tmate.driver.data.CarData;
 import com.tmate.driver.databinding.FragmentCarBinding;
@@ -41,17 +39,6 @@ public class CarFragment  extends Fragment {
 
 
         getData();
-        b.goCaradd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                CarAddFragment cf = new CarAddFragment();
-                transaction.replace(R.id.frame, cf);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
         return v;
     }
 

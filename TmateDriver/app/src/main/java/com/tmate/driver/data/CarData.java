@@ -7,6 +7,7 @@ public class CarData {
     private String car_kind;
     private String car_color;
 
+
     public String getCar_no() {
         return car_no;
     }
@@ -46,4 +47,6 @@ public class CarData {
     public void setCar_color(String car_color) {
         this.car_color = car_color;
     }
+
+
 }

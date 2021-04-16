@@ -1,14 +1,12 @@
 package com.tmate.driver.adapter;
 
-import android.content.DialogInterface;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
@@ -18,7 +16,9 @@ import java.util.ArrayList;
 
 public class CarAdapter extends RecyclerView.Adapter<CarHolder> {
     ArrayList<CarData> items = new ArrayList<>();
+    private SparseBooleanArray selectedItems = new SparseBooleanArray(0);
     private ArrayList<CarData> arrayList;
+    private int prePosition = -1;
 
 
 
@@ -33,46 +33,33 @@ public class CarAdapter extends RecyclerView.Adapter<CarHolder> {
     @Override
     public void onBindViewHolder(@NonNull CarHolder holder, int position) {
         holder.onBind(items.get(position));
-        holder.delete.setOnClickListener(new View.OnClickListener() {
+
+        // 이전 포지션과 현재 포지션 값이 같을 때
+        if(prePosition == position) {
+            holder.itemView.setBackgroundResource(R.drawable.item_car_clicked);
+            prePosition = position;
+        }else {
+            holder.itemView.setBackgroundResource(R.drawable.item_car_unclicked);
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(holder.delete.getContext());
-                builder.setTitle("삭제");
-                builder.setMessage("해당 항목을 삭제하시겠습니까?");
-                builder.setPositiveButton("예",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                items.remove(position);
-                                notifyItemRemoved(position);
-                                notifyItemRangeChanged(position, items.size());
+            public void onClick(View v) {
+                prePosition = position;
+                v.setBackgroundResource(R.drawable.item_car_clicked);
 
-                            }
-                        });
-                builder.setNegativeButton("아니오",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                builder.show();
-
+                notifyDataSetChanged();
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return items.size();
     }
 
-
-
     public void addItem(CarData data) {
         items.add(data);
     }
-
-
-
 }
 
 class CarHolder extends RecyclerView.ViewHolder {
@@ -81,7 +68,7 @@ class CarHolder extends RecyclerView.ViewHolder {
     TextView carColor;
     TextView carKind;
     TextView carModel;
-    ImageView delete;
+
 
     void onBind(CarData data) {
         carNo.setText(data.getCar_no());
@@ -90,6 +77,7 @@ class CarHolder extends RecyclerView.ViewHolder {
         carKind.setText(data.getCar_kind());
         carModel.setText(data.getCar_model());
     }
+
     public CarHolder(@NonNull View itemView) {
         super(itemView);
         carNo = itemView.findViewById(R.id.car_no);
@@ -97,6 +85,6 @@ class CarHolder extends RecyclerView.ViewHolder {
         carColor = itemView.findViewById(R.id.car_color);
         carKind = itemView.findViewById(R.id.car_kind);
         carModel = itemView.findViewById(R.id.car_model);
-        delete = itemView.findViewById(R.id.delete);
+
     }
 }
