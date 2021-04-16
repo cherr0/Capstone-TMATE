@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tmate.user.Fragment.BoardingFragment;
 import com.tmate.user.Fragment.CallFragment;
+import com.tmate.user.Fragment.CarInfoFragment;
 import com.tmate.user.Fragment.EventCloseFragment;
 import com.tmate.user.Fragment.My_info_Fragment;
 import com.tmate.user.R;
@@ -25,6 +26,7 @@ public class MainViewActivity extends AppCompatActivity {
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private final CallFragment callFragment = new CallFragment();
     private final BoardingFragment boardingFragment = new BoardingFragment();
+    private final CarInfoFragment carInfoFragment = new CarInfoFragment();
     private final EventCloseFragment eventFragment = new EventCloseFragment();
     private final My_info_Fragment my_info_fragment = new My_info_Fragment();
     private BottomNavigationView bottomNavigationView;
@@ -62,7 +64,7 @@ public class MainViewActivity extends AppCompatActivity {
                         return true;
                     }
                     case R.id.bo_info : {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, boardingFragment).commitAllowingStateLoss();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, carInfoFragment).commitAllowingStateLoss();
                         navbarFlag = R.id.bo_info;
                         return true;
                     }
