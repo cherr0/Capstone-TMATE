@@ -14,27 +14,35 @@
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+            android:id="@+id/member"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="#F3F3F3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/tv_personnel"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:text="모집인원(1/2)"
-                android:textColor="#818181"
-                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:layout_marginRight="8dp"
+                android:id="@+id/tv_personnel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="모집인원(1/2)"
+                android:textColor="#818181"
+                android:textSize="20sp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_call"/>
+            </LinearLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_profile"
@@ -46,19 +54,28 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_name"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:text="박한수"
-                android:textColor="#000000"
-                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_m_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="박한수"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/m_birth"
+                    android:text="20대"/>
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -224,7 +241,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:text="운행요금"
+                android:text="예상 운행 정보"
                 android:textColor="#BEC2CE"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
@@ -234,7 +251,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="기본요금"
+                android:text="예상 요금"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -245,7 +262,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="할인액"
+                android:text="예상 소요시간"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/textView6"
@@ -255,16 +272,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="총 지불 금액"
+                android:text="이동거리"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/textView7"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
+                android:id="@+id/h_ep_fare"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:layout_marginTop="59dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
@@ -275,26 +292,37 @@
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/h_ep_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="1600원"
+                android:text="8분"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-            <TextView
+                app:layout_constraintEnd_toEndOf="@+id/h_ep_fare"
+                app:layout_constraintTop_toBottomOf="@+id/h_ep_fare" />
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="1600원"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/h_ep_time"
+                app:layout_constraintTop_toBottomOf="@+id/h_ep_time" >
+                <TextView
+                    android:id="@+id/h_ep_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="10"
+                    android:textColor="#000000"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:text="km"/>
+            </LinearLayout>
             <Button
                 android:id="@+id/btn_match"
                 android:layout_width="match_parent"

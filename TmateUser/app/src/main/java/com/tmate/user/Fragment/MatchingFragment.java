@@ -19,6 +19,7 @@ import com.tmate.user.R;
 import com.tmate.user.adapter.MatchingAdapter;
 import com.tmate.user.data.History;
 import com.tmate.user.data.MatchingData;
+import com.tmate.user.databinding.FragmentMatchingBinding;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,6 +51,7 @@ public class MatchingFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_matching, container, false);
+
 
         recyclerView = view.findViewById(R.id.rv_matching);
 
@@ -96,8 +98,12 @@ public class MatchingFragment extends Fragment {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("togetherAdd",0);
+
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 MatchingSeatFragment matchingEnrollmentFragment = new MatchingSeatFragment();
+                matchingEnrollmentFragment.setArguments(bundle);
                 transaction.replace(R.id.fm_matching_activity, matchingEnrollmentFragment);
                 transaction.commit();
             }
