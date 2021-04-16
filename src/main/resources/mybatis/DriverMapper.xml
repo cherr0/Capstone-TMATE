@@ -69,4 +69,129 @@
         from ban b inner join member m on b.m_id = m.m_id
         where d_id = #{d_id}
     </select>
+
+
+    <!--  기사용 앱 관련 전용 쿼리문  -->
+
+    <!--  기사 회원가입 멤버 테이블 삽입  -->
+    <insert id="registerDriver">
+        insert into member(m_id, m_name, m_profile, m_imei, m_birth, m_house)
+        values (#{m_id}, #{m_name}, #{m_profile}, #{m_imei}, #{m_birth}, #{m_house})
+    </insert>
+
+    <!--  기사 회원가입 기사 테이블 삽입  -->
+    <insert id="addDriverLicense">
+        insert into driver(d_id, d_license_no, bank_company, d_acnum, d_regdate)
+        values (#{m_id}, #{d_license_no}, #{bank_company}, #{d_acnum}, sysdate)
+    </insert>
+
+    <!--  운행이력  -->
+    <select id="getDriverHistoryList" resultType="com.tmate.domain.driver.DriverHistoryVO">
+        with
+            review_cnt AS (
+                select substr(r_code,1,14) AS d_id,
+                       count(CASE WHEN substr(r_code,15,1) = 'L' THEN 1 END) AS like_cnt,
+                       count(CASE WHEN substr(r_code,15,1) = 'H' THEN 1 END) AS hate_cnt
+                from review r
+                group by substr(r_code,1,14)
+            )
+        select h.*, substr(h.merchant_uid,28) to_enabled, r.hate_cnt, r.like_cnt
+        from history h full outer join review_cnt r
+                                       on h.d_id = r.d_id
+        where h.d_id = #{d_id}
+        order by h.h_s_time desc
+    </select>
+
+    <!--  운행이력 리뷰 보기 클릭  -->
+    <select id="getDriverReviewList">
+        select r.*, substr(r_code,15,1) as reaction
+        from review r
+        where merchant_uid = #{merchant_uid}
+    </select>
+
+    <!--  기사 운행 이력 가져오기  -->
+    <select id="getDriverHistoryList" resultType="com.tmate.domain.driver.DriverHistoryVO">
+        with
+            review_cnt AS (
+                select substr(r_code,1,14) AS d_id,
+                       count(CASE WHEN substr(r_code,15,1) = 'L' THEN 1 END) AS like_cnt,
+                       count(CASE WHEN substr(r_code,15,1) = 'H' THEN 1 END) AS hate_cnt
+                from review r
+                group by substr(r_code,1,14)
+            )
+        select h.*, substr(h.merchant_uid,28) to_enabled, r.hate_cnt, r.like_cnt
+        from history h full outer join review_cnt r on h.d_id = r.d_id
+        where h.d_id = #{d_id}
+    </select>
+
+    <!--  운행 이력 별 리뷰 가져오기  -->
+    <select id="getDriverReviewList" resultType="com.tmate.domain.ReviewDTO">
+        select *
+        from review
+        where merchant_uid = #{merchant_uid}
+    </select>
+
+    <!--  기사 회원 정보  -->
+    <select id="getDriverDetail" resultType="com.tmate.domain.driver.DriverProfileVO">
+        with
+            matching_count as(
+                select d_id,
+                       count(CASE WHEN substr(MERCHANT_UID, 28) = 0 THEN 1 END) AS to_cnt,
+                       count(CASE WHEN substr(MERCHANT_UID, 28) = 1 THEN 1 END) AS no_cnt
+                from HISTORY
+                group by d_id),
+            fare as (
+                select d_id, sum(h_allfare) as all_fare,
+                       sum(CASE WHEN h_e_time between TRUNC(SYSDATE, 'MM') and LAST_DAY(SYSDATE) THEN h_allfare END) AS month_fare
+                from HISTORY
+                group by d_id
+            )
+        select d.d_id, m.m_name, substr(m_id,3,11) phone, m.m_email, d.d_acnum, d.d_j_date, c.to_cnt, c.no_cnt, f.all_fare, f.month_fare
+        from member m inner join driver d
+                                 on m.m_id = d.D_ID
+                      full outer join matching_count c
+                                      on c.D_ID = d.D_ID
+                      full outer join fare f
+                                      on f.d_id = d.d_id
+        where d.d_id = #{d_id};
+    </select>
+
+    <!--  이메일 변경  -->
+    <update id="emailModify">
+        update member
+        set m_email = #{m_email}
+        where m_id = #{m_id}
+    </update>
+
+    <!--  기사 차량 정보  -->
+    <select id="getCarList" resultType="com.tmate.domain.CarDTO">
+        select *
+        from car
+        where m_id = #{d_id}
+    </select>
+
+    <!--  기사 차량 추가  -->
+    <insert id="insertCar">
+        insert into car
+        values (#{car_no}, #{car_model}, #{car_kind}, #{car_color}, #{m_id})
+    </insert>
+
+    <!--  블랙리스트 추가  -->
+    <insert id="insertBlacklist">
+        insert into ban(d_id, ban_reason, m_id)
+        values (#{d_id}, #{ban_reaseon}, #{m_id})
+    </insert>
+
+    <!--  블랙리스트 제거  -->
+    <delete id="deleteBlacklist">
+        delete from ban where d_id = #{d_id} and m_id = #{m_id}
+    </delete>
+
+    <!--  기사 상태 변경  -->
+    <update id="setDriverStatus">
+        update driver
+        set d_status = #{d_status}
+        where d_id = #{d_id}
+    </update>
+
 </mapper>
