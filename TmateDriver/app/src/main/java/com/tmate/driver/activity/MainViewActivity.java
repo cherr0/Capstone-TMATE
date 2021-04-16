@@ -29,7 +29,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     private ActivityMainViewBinding binding;
     private ActivityDrawerBinding drawerBinding;
     private View drawerView ;
-    private TextView profile, history, review, black_list, notice, statistics;
+    private TextView profile, history, review, black_list, notice, statistics, tv_home;
     private Button service;
 
 
@@ -52,6 +52,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         notice = findViewById(R.id.notice);
         statistics = findViewById(R.id.statistics);
         service = findViewById(R.id.service);
+        tv_home = findViewById(R.id.tv_home);
 
         profile.setOnClickListener(this);
         history.setOnClickListener(this);
@@ -60,9 +61,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         notice.setOnClickListener(this);
         statistics.setOnClickListener(this);
         service.setOnClickListener(this);
-
-
-
+        tv_home.setOnClickListener(this);
 
         binding.ivOpen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +151,12 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
             case R.id.service : {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_tdxjxoK/chat"));
                 startActivity(intent);
+                return;
+            }
+            case R.id.tv_home : {
+                MainViewFragment mainViewFragment = new MainViewFragment();
+                transaction.replace(R.id.frame, mainViewFragment).commit();
+                binding.drawerLayout.closeDrawers();
                 return;
             }
             default: return;
