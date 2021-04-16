@@ -11,15 +11,22 @@ public class JoinHistoryVO {
     private String merchant_uid;
 
 
-    // 출발지
+    // 출발지, 출발지 위도, 출발지 경도
     private String h_s_place;
+    private double h_s_lttd;
+    private double h_s_lngtd;
+
+
 
     // 총요금
     private String h_allfare;
 
 
-    // 도착지
+    // 도착지, 도착지 위도 , 경도
     private String h_f_place;
+    private double h_f_lttd;
+    private double h_f_lngtd;
+
 
 
     // 운행 시간

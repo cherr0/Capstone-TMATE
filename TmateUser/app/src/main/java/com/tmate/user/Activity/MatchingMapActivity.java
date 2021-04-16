@@ -72,6 +72,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     //DB에 들어갈 거리와 시간에 대한 변수들
     private String totalDistance = null;//총 거리
     private String totalTime = null; // 총 시간
+    private String totalFare = null; // 총 예상 금액
 
     //출발지 도착지에 대한 변수들
     TMapPoint tMapPointStart;//출발지 위,경도를 담은 좌표
@@ -312,6 +313,8 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     Element item2 = (Element) list.item(0);
                     totalDistance = getContentFromNode(item2, "tmap:totalDistance"); //총 거리설정
                     Log.d("총 거리 : ", totalDistance);
+                    totalFare = getExpectTaxiFare(totalDistance);
+                    Log.d("총 예쌍 요금 : ", totalFare);
                     totalTime = getContentFromNode(item2, "tmap:totalTime"); //총 시간 설정
                     Log.d("총 시간 : ", totalTime);
 
@@ -529,6 +532,25 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         });
         builder.show();
     }
+
+    // 택시 요금 계산 로직
+    private String getExpectTaxiFare(String totalDistance) {
+        int pay = 3300; // 기본 요금
+
+        // 입력된 거리에서 2000을 빼준다.
+        int i = Integer.valueOf(totalDistance) - 2000;
+        if (i < 0) {
+            return pay+"";
+        }else{
+            /*
+            * 대구시 보니깐 144m에 150원씩 추가한다.
+            * */
+            pay = pay + (i / 144) * 150;
+            return pay+"";
+        }
+    }
+
+
     //요청에 따른 핸들러
     private void setTextLevel(final int what) {
         new Thread() {

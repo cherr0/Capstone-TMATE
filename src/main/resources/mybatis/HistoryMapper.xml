@@ -3,15 +3,17 @@
 <mapper namespace="com.tmate.mapper.HistoryMapper">
 
 
+    <!-- 동승 출발지 도착지 설정후 검색하는 것 -->
     <select id="findTogetherList" resultType="com.tmate.domain.HistoryDTO">
         <![CDATA[
             select history.*, member.m_name ,GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) as distance1 ,GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd) as distance2
             from history left outer join member on history.m_id = member.m_id
-            where GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) <= 0.8 and history.h_status = '0'
+            where substr(history.merchant_uid,28,1) = 0 and history.h_status = '0' and GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) <= 0.8
             order by  GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd)
         ]]>
     </select>
 
+    <!-- 눌렀을 때 상세정보창 -->
     <select id="findMatchingDetail" resultType="com.tmate.domain.HistoryDTO">
         select *
         from history
@@ -19,5 +21,115 @@
     </select>
 
 
+    <!-- 이용서비스 상태 변경  -->
+    <update id="updateH_status">
+        update history
+        set h_status = #{h_status}
+        where merchant_uid = #{merchant_uid}
+    </update>
+
+    <!-- 매칭방 생성시 인서트 문 총 2개 필요함 이용내역 하나 넣고 그 다음 동승 넣고 -->
+    <insert id="insertMatching">
+
+        <selectKey resultType="string" keyProperty="merchant_uid" order="BEFORE">
+            select 'merchant_'||to_char(systimestamp,'yyMMddhh24missff')||'0'
+            from dual
+        </selectKey>
+
+        insert into history(merchant_uid, m_id, h_s_place,h_s_lttd,h_s_lngtd,h_f_place,h_f_lttd, h_f_lngtd, h_status  )
+        values(#{merchant_uid},#{m_id},#{h_s_place},#{h_s_lttd},#{h_s_lngtd},#{h_f_place},#{h_f_lttd},#{h_f_lngtd},'0')
+    </insert>
+
+    <insert id="insertTogether">
+        insert into together(merchant_uid, m_id, to_max, to_seat)
+        values (#{merchant_uid},#{m_id},#{to_max},#{to_seat})
+    </insert>
+
+    <!-- 방을 나가게 되거나 방장이 내보내게 되면 동승 내역 삭제해야 된다. -->
+    <delete id="deleteHistoryPersonal">
+        delete from history
+        where merchant_uid = #{merchant_uid} and m_id = #{m_id}
+    </delete>
+
+    <delete id="deleteTogetherPersonal">
+        delete from together
+        where merchant_uid = #{merchant_uid} and m_id = #{m_id}
+    </delete>
+
+    <!-- 방을 삭제하게 되면 이용내역 지워진다. -->
+    <delete id="deleteMatchingH">
+        delete from history
+        where merchant_uid = #{merchant_uid}
+    </delete>
+
+    <delete id="deleteMatchingT">
+        delete from together
+        where merchant_uid = #{merchant_uid}
+    </delete>
+
+    <!-- 수용 인원으로 인하여 현재 인원 수를 나타낸다. -->
+    <select id="selectPassengerCnt" resultType="_int">
+        select count(*)
+        from history
+        where merchant_uid = #{merchant_uid}
+    </select>
+
+    <!-- 좌석 변경 -->
+    <update id="updateChangeSeatNo">
+        update together
+        set to_seat = #{to_seat}
+        where merchant_uid = #{merchant_uid} and m_id = #{m_id}
+    </update>
+
+    <!-- 기사와 매칭이 되었을 때 기사코드 매칭에 업데이트 한다. -->
+    <update id="updateMatchingDriver">
+        update history
+        set d_id = #{d_id}
+        where merchant_uid = #{merchant_uid}
+    </update>
+
+    <!-- 탑승 중일시 운행 출발 시간 -->
+    <update id="updateH_s_time">
+        update history
+        set h_s_time = systimestamp
+        where merchant_uid = #{merchant_uid}
+    </update>
+
+    <!-- 탑승 완료일시 운행 종료 시간 -->
+    <update id="updateH_e_time">
+        update history
+        set h_e_time = systimestamp
+        where merchant_uid = #{merchant_uid}
+    </update>
+
+    <!-- 이용 중일떄 다른 화면으로 갔을 시 이용 서비스 창에 카드뷰로 있는데 -> 매칭 상태 뱃지(배차 성공, 매칭 중, 출발지, 도착지, 차량정보 ) -->
+    <select id="selectHistoryCard" resultType="com.tmate.domain.JoinHistoryVO">
+        select h.merchant_uid, h.h_s_place, h.h_s_lttd, h.h_s_lngtd, h.h_f_place, h.h_f_lttd, h.h_f_lngtd, h.h_status, h.d_id, c.car_no, c.car_model
+        from history h left outer join car c on h.d_id = c.m_id
+        where h.merchant_uid = #{merchant_uid}
+    </select>
+
+    <!-- 신청한 유저의 리스트 가져오기 -->
+    <select id="selectApplyerList" resultType="com.tmate.domain.user.ApprovalDTO">
+        select * from approval where merchant_uid = #{merchant_uid}
+    </select>
+
+    <!-- 다른 유저가 신청을 했을 경우 -->
+    <insert id="insertTogetherMatchingApplyer">
+        insert into(seq, id, name, birth, appro_flag, m_id, to_seat)
+        values (ap_sec.nextval,#{id}, #{name}, #{birth},'0',#{m_id},#{to_seat})
+    </insert>
+
+    <!-- 거절이나 취소를 누를시 approval 지워진다. -->
+    <delete id="deleteTogetherMatchingAPplyer">
+        delete from approval
+        where id = #{id} and m_id = #{m_id} and appro_flag = '0'
+    </delete>
+
+    <!-- 인원이 다 찼을 시 남은 신청자들은 자동으로 삭제된다. -->
+    <delete id="deleteRemainderApplyer">
+        delete from approval
+        where merchant_uid = #{merchant_uid}
+    </delete>
 
 </mapper>
