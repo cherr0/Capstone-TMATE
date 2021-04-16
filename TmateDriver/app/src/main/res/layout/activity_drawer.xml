@@ -55,23 +55,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/car"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/ic_driver"
-        android:drawablePadding="16dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="16dp"
-        android:text="차량 관리"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/history"
-        app:layout_constraintStart_toStartOf="@+id/history"
-        app:layout_constraintTop_toBottomOf="@+id/history" />
-
-    <TextView
         android:id="@+id/notice"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -147,9 +130,9 @@
         android:paddingRight="16dp"
         android:text="평점 확인"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/car"
-        app:layout_constraintStart_toStartOf="@+id/car"
-        app:layout_constraintTop_toBottomOf="@+id/car" />
+        app:layout_constraintEnd_toEndOf="@+id/history"
+        app:layout_constraintStart_toStartOf="@+id/history"
+        app:layout_constraintTop_toBottomOf="@+id/history" />
 
     <Button
         android:id="@+id/service"

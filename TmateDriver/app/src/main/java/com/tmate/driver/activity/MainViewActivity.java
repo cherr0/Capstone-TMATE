@@ -15,7 +15,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.tmate.driver.Fragment.Blacklist_managementFragment;
-import com.tmate.driver.Fragment.CarFragment;
 import com.tmate.driver.Fragment.HistoryFragment;
 import com.tmate.driver.Fragment.MainViewFragment;
 import com.tmate.driver.Fragment.NoticeFragment;
@@ -30,7 +29,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     private ActivityMainViewBinding binding;
     private ActivityDrawerBinding drawerBinding;
     private View drawerView ;
-    private TextView profile, history, car, review, black_list, notice, statistics;
+    private TextView profile, history, review, black_list, notice, statistics;
     private Button service;
 
 
@@ -48,7 +47,6 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
 
         profile = findViewById(R.id.profile);
         history = findViewById(R.id.history);
-        car = findViewById(R.id.car);
         review = findViewById(R.id.review);
         black_list = findViewById(R.id.black_list);
         notice = findViewById(R.id.notice);
@@ -57,7 +55,6 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
 
         profile.setOnClickListener(this);
         history.setOnClickListener(this);
-        car.setOnClickListener(this);
         review.setOnClickListener(this);
         black_list.setOnClickListener(this);
         notice.setOnClickListener(this);
@@ -131,12 +128,6 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
             case R.id.history : {
                 HistoryFragment historyFragment = new HistoryFragment();
                 transaction.replace(R.id.frame, historyFragment).commit();
-                binding.drawerLayout.closeDrawers();
-                return;
-            }
-            case R.id.car : {
-                CarFragment carFragment = new CarFragment();
-                transaction.replace(R.id.frame, carFragment).commit();
                 binding.drawerLayout.closeDrawers();
                 return;
             }
