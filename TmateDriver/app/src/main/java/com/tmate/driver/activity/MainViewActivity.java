@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,8 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     private View drawerView ;
     private TextView profile, history, review, black_list, notice, statistics, tv_home;
     private Button service;
+    private long backBtnTime = 0;
+    public static int navbarFlag  = 0;
 
 
     @Override
@@ -122,30 +125,35 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
                 ProfileFragment profileFragment = new ProfileFragment();
                 transaction.replace(R.id.frame, profileFragment).commit();
                 binding.drawerLayout.closeDrawers();
+                navbarFlag = R.id.profile;
                 return;
             }
             case R.id.history : {
                 HistoryFragment historyFragment = new HistoryFragment();
                 transaction.replace(R.id.frame, historyFragment).commit();
                 binding.drawerLayout.closeDrawers();
+                navbarFlag = R.id.history;
                 return;
             }
             case R.id.notice : {
                 NoticeFragment noticeFragment = new NoticeFragment();
                 transaction.replace(R.id.frame, noticeFragment).commit();
                 binding.drawerLayout.closeDrawers();
+                navbarFlag = R.id.notice;
                 return;
             }
             case R.id.black_list : {
                 Blacklist_managementFragment blacklistManagementFragment = new Blacklist_managementFragment();
                 transaction.replace(R.id.frame, blacklistManagementFragment).commit();
                 binding.drawerLayout.closeDrawers();
+                navbarFlag = R.id.black_list;
                 return;
             }
             case R.id.statistics : {
                 StatisticsFragment statisticsFragment = new StatisticsFragment();
                 transaction.replace(R.id.frame, statisticsFragment).commit();
                 binding.drawerLayout.closeDrawers();
+                navbarFlag = R.id.statistics;
                 return;
             }
             case R.id.service : {
@@ -162,5 +170,30 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
             default: return;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        switch (navbarFlag) {
+
+            case R.id.profile: case R.id.history: case R.id.review: case R.id.black_list: case R.id.notice: case R.id.statistics:
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                MainViewFragment mainViewFragment = new MainViewFragment();
+                transaction.replace(R.id.frame, mainViewFragment).commit();
+                binding.drawerLayout.closeDrawers();
+                break;
+            case R.id.tv_home:
+                long curTime = System.currentTimeMillis();
+                long gapTime = curTime - backBtnTime;
+
+                if (0 <= gapTime && 2000 >= gapTime) {
+                    super.onBackPressed();
+                } else {
+                    backBtnTime = curTime;
+                    Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+                }
+            default:
+        }
     }
 }
