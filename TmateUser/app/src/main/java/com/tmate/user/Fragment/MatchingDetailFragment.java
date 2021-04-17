@@ -1,14 +1,7 @@
 package com.tmate.user.Fragment;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +9,12 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.tmate.user.R;
-import com.tmate.user.databinding.ActivityMatchingMapBinding;
 import com.tmate.user.databinding.FragmentMatchingDetailBinding;
 
 
@@ -48,12 +45,25 @@ public class MatchingDetailFragment extends Fragment {
 
             }
         });
-        b.member.setOnClickListener(new View.OnClickListener() {
+        b.clLeader.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialog();
             }
         });
+        b.clMemberFirst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
+        b.clMemberSecond.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
+
         return view;
     }
     public void showDialog(){
