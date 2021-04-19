@@ -1,19 +1,17 @@
 package com.tmate.driver.adapter;
 
 import android.animation.ValueAnimator;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
@@ -56,28 +54,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
                 prePosition = position;
             }
         });
-
-        holder.black_list_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String[] items = new String[]{"너무 시끄러워요", "시간을 안지켜요", "술을 마신거 같아요", "목적지변경을 강요해요", "불친절해요."};
-                AlertDialog.Builder dialog = new AlertDialog.Builder(holder.black_list_submit.getContext());
-                dialog.setTitle("선택");
-                dialog.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(holder.black_list_submit.getContext(), "words : " + items[which], Toast.LENGTH_SHORT).show();
-                    }
-                }).setPositiveButton("보내기", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                dialog.create();
-                dialog.show();
-            }
-        });
+        FragmentTransaction transaction;
     }
     @Override
     public int getItemCount() {
@@ -96,7 +73,7 @@ class HistoryHolder extends RecyclerView.ViewHolder{
     TextView hstart;
     TextView hfinish;
     TextView htime;
-    Button black_list_submit;
+    LinearLayout black_list_submit;
     TextView r_reason1, r_reason2, r_reason3, reasonView, r_code_L, r_code_H;
     ConstraintLayout const_reason;
     CardView cardview ;
