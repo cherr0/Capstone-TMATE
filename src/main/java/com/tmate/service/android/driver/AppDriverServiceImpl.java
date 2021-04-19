@@ -31,13 +31,13 @@ public class AppDriverServiceImpl implements AppDriverService{
     @Override   // 기사 운행이력
     public List<DriverHistoryVO> historyList(String d_id) {
         log.info("AppDriverService 기사 운행이력 d_id : " + d_id);
-        return driverMapper.getDriverHistoryList(d_id);
+        return driverMapper.getAppDriverHistoryList(d_id);
     }
 
     @Override   // 운행이력 클릭 시 나오는 리뷰
     public List<ReviewDTO> getDriverReviewList(String merchant_uid) {
         log.info("AppDriverService 기사 이력 리뷰 매칭 코드 : " + merchant_uid);
-        return driverMapper.getDriverReviewList(merchant_uid);
+        return driverMapper.getAppDriverReviewList(merchant_uid);
     }
 
     @Override   // 기사 프로필

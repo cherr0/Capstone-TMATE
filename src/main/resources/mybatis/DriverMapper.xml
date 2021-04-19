@@ -86,7 +86,7 @@
     </insert>
 
     <!--  운행이력  -->
-    <select id="getDriverHistoryList" resultType="com.tmate.domain.driver.DriverHistoryVO">
+    <select id="getAppDriverHistoryList" resultType="com.tmate.domain.driver.DriverHistoryVO">
         with
             review_cnt AS (
                 select substr(r_code,1,14) AS d_id,
@@ -103,33 +103,15 @@
     </select>
 
     <!--  운행이력 리뷰 보기 클릭  -->
-    <select id="getDriverReviewList">
+    <select id="getAppDriverReviewList">
         select r.*, substr(r_code,15,1) as reaction
         from review r
         where merchant_uid = #{merchant_uid}
     </select>
 
-    <!--  기사 운행 이력 가져오기  -->
-    <select id="getDriverHistoryList" resultType="com.tmate.domain.driver.DriverHistoryVO">
-        with
-            review_cnt AS (
-                select substr(r_code,1,14) AS d_id,
-                       count(CASE WHEN substr(r_code,15,1) = 'L' THEN 1 END) AS like_cnt,
-                       count(CASE WHEN substr(r_code,15,1) = 'H' THEN 1 END) AS hate_cnt
-                from review r
-                group by substr(r_code,1,14)
-            )
-        select h.*, substr(h.merchant_uid,28) to_enabled, r.hate_cnt, r.like_cnt
-        from history h full outer join review_cnt r on h.d_id = r.d_id
-        where h.d_id = #{d_id}
-    </select>
 
-    <!--  운행 이력 별 리뷰 가져오기  -->
-    <select id="getDriverReviewList" resultType="com.tmate.domain.ReviewDTO">
-        select *
-        from review
-        where merchant_uid = #{merchant_uid}
-    </select>
+
+
 
     <!--  기사 회원 정보  -->
     <select id="getDriverDetail" resultType="com.tmate.domain.driver.DriverProfileVO">

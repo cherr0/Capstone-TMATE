@@ -52,10 +52,10 @@ public interface DriverMapper {
     public int addDriverLicense(DriverDTO driverDTO);
 
     // 기사 운행이력
-    public List<DriverHistoryVO> getDriverHistoryList(String d_id);
+    public List<DriverHistoryVO> getAppDriverHistoryList(String d_id);
 
     // 운행이력의 리뷰 보기
-    public List<ReviewDTO> getDriverReviewList(String merchant_uid);
+    public List<ReviewDTO> getAppDriverReviewList(String merchant_uid);
 
     // 기사 프로필 정보
     public DriverProfileVO getDriverDetail(String d_id);
