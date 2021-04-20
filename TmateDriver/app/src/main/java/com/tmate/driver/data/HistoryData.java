@@ -8,6 +8,52 @@ public class HistoryData {
     String hstart;
     String hfinish;
     String htime;
+    String r_reason1;
+    String r_reason2;
+    String r_reason3;
+    String r_code_L;
+
+    public String getR_code_L() {
+        return r_code_L;
+    }
+
+    public void setR_code_L(String r_code_L) {
+        this.r_code_L = r_code_L;
+    }
+
+    public String getR_code_H() {
+        return r_code_H;
+    }
+
+    public void setR_code_H(String r_code_H) {
+        this.r_code_H = r_code_H;
+    }
+
+    String r_code_H;
+
+    public String getR_reason1() {
+        return r_reason1;
+    }
+
+    public void setR_reason1(String r_reason1) {
+        this.r_reason1 = r_reason1;
+    }
+
+    public String getR_reason2() {
+        return r_reason2;
+    }
+
+    public void setR_reason2(String r_reason2) {
+        this.r_reason2 = r_reason2;
+    }
+
+    public String getR_reason3() {
+        return r_reason3;
+    }
+
+    public void setR_reason3(String r_reason3) {
+        this.r_reason3 = r_reason3;
+    }
 
     public String getHdate() {
         return hdate;

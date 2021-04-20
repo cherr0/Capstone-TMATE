@@ -91,6 +91,37 @@ public class HistoryFragment extends Fragment {
                 "00:46 - 00:58",
                 "07:13 - 07:52"
         );
+        List<String> r_reason1 = Arrays.asList(
+                "택시기사가 난폭운전해요",
+                "택시가 청결하지 못해요",
+                "네비게이션대로 가지 않아요",
+                "계속 말걸어요"
+        );
+        List<String> r_reason2 = Arrays.asList(
+                "",
+                "",
+                "네비게이션대로 가지 않아요",
+                ""
+        );
+        List<String> r_reason3 = Arrays.asList(
+                "",
+                "",
+                "네비게이션대로 가지 않아요",
+                ""
+        );
+        List<String> r_code_L = Arrays.asList(
+                "0",
+                "0",
+                "0",
+                "0"
+        );
+        List<String> r_code_H = Arrays.asList(
+                "1",
+                "1",
+                "3",
+                "1"
+        );
+
 
         for (int i = 0; i < hDate.size(); i++) {
             // 각 List의 값들을 data 객체에 set 해줍니다.
@@ -102,6 +133,11 @@ public class HistoryFragment extends Fragment {
             historyData.setHstart(hstart.get(i));
             historyData.setHfinish(hfinish.get(i));
             historyData.setHtime(htime.get(i));
+            historyData.setR_reason1(r_reason1.get(i));
+            historyData.setR_reason2(r_reason2.get(i));
+            historyData.setR_reason3(r_reason3.get(i));
+            historyData.setR_code_L(r_code_L.get(i));
+            historyData.setR_code_H(r_code_H.get(i));
 
             // 각 값이 들어간 data를 adapter에 추가합니다.
             adapter.addItem(historyData);
