@@ -13,9 +13,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.TmateDriver">
-        <activity android:name=".MatchingFinishedActivity"></activity>
-        <activity android:name=".activity.LoginActivity"></activity>
-        <activity android:name=".activity.HotPlaceActivity"></activity>
+        <activity android:name=".activity.BlackListSelectActivity"></activity>
+        <activity android:name=".MatchingFinishedActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.HotPlaceActivity" />
         <activity android:name=".activity.TrafficInformationActivity" />
         <activity android:name=".activity.CheckActivity" />
         <activity android:name=".activity.PaymentActivity" />
@@ -31,4 +32,5 @@
         </activity>
         <activity android:name=".activity.MainViewActivity" />
     </application>
+
 </manifest>

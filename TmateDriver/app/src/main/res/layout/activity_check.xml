@@ -279,7 +279,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
             <Button
-                android:id="@+id/btn_match"
+                android:id="@+id/btn_black_list_submit"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:text="블랙리스트 등록"
