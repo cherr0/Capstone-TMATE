@@ -443,7 +443,6 @@ public class FavoriteAddFragment extends Fragment {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MESSAGE_STATE_ZOOM:
-                    b.zoomlevelText.setText("Lv." + mMapView.getZoomLevel());
                     m_nCurrentZoomLevel = mMapView.getZoomLevel() - 3;
                     break;
                 //위치 알림창 올려달라는 메세지
