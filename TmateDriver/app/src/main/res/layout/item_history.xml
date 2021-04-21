@@ -87,7 +87,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+         <LinearLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -206,6 +206,7 @@
                 android:layout_marginTop="8dp"
                 android:text="사유보기"
                 android:textColor="@color/black"
+                android:background="#F4F4F4"
                 android:paddingLeft="130dp"
                 android:drawableLeft="@drawable/ic_arrowheaddown"
                 android:gravity="center_vertical"

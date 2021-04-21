@@ -1,6 +1,7 @@
 package com.tmate.driver.adapter;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
+import com.tmate.driver.activity.BlackListSelectActivity;
 import com.tmate.driver.data.HistoryData;
 
 import java.util.ArrayList;
@@ -54,7 +55,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
                 prePosition = position;
             }
         });
-        FragmentTransaction transaction;
+        holder.black_list_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), BlackListSelectActivity.class);
+                intent.putExtra("blackList", 0);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
     @Override
     public int getItemCount() {
