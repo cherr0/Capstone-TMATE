@@ -34,12 +34,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
 
         if (chat.getName().equals(this.name)){
             holder.nameText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+            holder.msgTime.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
             holder.msgText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
             holder.msgLinear.setGravity(Gravity.RIGHT);
+            holder.msgLinear_second.setGravity(Gravity.RIGHT);
         } else {
             holder.nameText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
             holder.msgText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+            holder.msgTime.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
             holder.msgLinear.setGravity(Gravity.LEFT);
+            holder.msgLinear_second.setGravity(Gravity.LEFT);
         }
     }
     @Override
@@ -55,11 +59,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
         public TextView msgText;
         public View rootView;
         public LinearLayout msgLinear;
+        public TextView msgTime;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             msgLinear = itemView.findViewById(R.id.msgLinear);
             nameText = itemView.findViewById(R.id.chat_name_text);
             msgText = itemView.findViewById(R.id.msgText);
+            msgTime = itemView.findViewById(R.id.msgTime);
             rootView = itemView;
             itemView.setEnabled(true);
             itemView.setClickable(true);
@@ -72,10 +79,13 @@ class ChatHolder extends RecyclerView.ViewHolder {
     public TextView msgText;
     public View rootView;
     public LinearLayout msgLinear;
+    public TextView msgTime;
+    public LinearLayout msgLinear_second;
 
     void onBind(ChatData chat) {
         nameText.setText(chat.getName());
         msgText.setText(chat.getMsg());
+        msgTime.setText(chat.getTime());
     }
 
     public ChatHolder(@NonNull View itemView) {
@@ -83,6 +93,8 @@ class ChatHolder extends RecyclerView.ViewHolder {
         msgLinear = itemView.findViewById(R.id.msgLinear);
         nameText = itemView.findViewById(R.id.chat_name_text);
         msgText = itemView.findViewById(R.id.msgText);
+        msgTime = itemView.findViewById(R.id.msgTime);
+        msgLinear_second = itemView.findViewById(R.id.msgLinear_second);
         rootView = itemView;
         itemView.setEnabled(true);
         itemView.setClickable(true);
