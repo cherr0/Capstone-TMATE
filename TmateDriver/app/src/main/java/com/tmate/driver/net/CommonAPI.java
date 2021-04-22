@@ -1,4 +1,4 @@
-package com.tmate.driver;
+package com.tmate.driver.net;
 
 import com.tmate.driver.data.Event;
 import com.tmate.driver.data.Notice;

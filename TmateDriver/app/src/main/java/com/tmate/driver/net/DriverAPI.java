@@ -1,4 +1,4 @@
-package com.tmate.driver;
+package com.tmate.driver.net;
 
 import com.tmate.driver.data.Ban;
 import com.tmate.driver.data.Car;

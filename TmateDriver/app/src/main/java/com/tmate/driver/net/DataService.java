@@ -1,4 +1,4 @@
-package com.tmate.driver;
+package com.tmate.driver.net;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
