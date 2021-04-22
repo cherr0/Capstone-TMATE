@@ -20,7 +20,9 @@ import com.tmate.user.R;
 import com.tmate.user.adapter.ChatAdapter;
 import com.tmate.user.data.ChatData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -28,14 +30,18 @@ public class ChatActivity extends AppCompatActivity {
     private ChatAdapter chatAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<ChatData> chatList;
-    private String nickname = "강병현";
+    private String nickname = "박한수";
     private EditText chatText;
     private Button sendButton;
     private DatabaseReference myRef;
+    long now = System.currentTimeMillis();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
         setContentView(R.layout.activity_chat);
         chatText = findViewById(R.id.chatText);
         sendButton = findViewById(R.id.sendBtn);
@@ -47,6 +53,7 @@ public class ChatActivity extends AppCompatActivity {
                     ChatData chat = new ChatData();
                     chat.setName(nickname);
                     chat.setMsg(msg);
+                    chat.setTime(sdf.format(date));
                     chatText.setText("");
                     myRef.push().setValue(chat);
                 }
