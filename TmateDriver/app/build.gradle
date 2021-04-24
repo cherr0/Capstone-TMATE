@@ -57,4 +57,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
     testCompileOnly 'org.projectlombok:lombok:1.18.16'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+    //티맵api
+    implementation files('libs\\com.skt.Tmap_1.67.jar')
 }
