@@ -33,7 +33,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     private TextView profile, history, review, black_list, notice, statistics, tv_home;
     private Button service;
     private long backBtnTime = 0;
-    public static int navbarFlag  = 0;
+    public static int navbarFlag  = R.id.tv_home;
 
 
     @Override
@@ -162,6 +162,8 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
                 return;
             }
             case R.id.tv_home : {
+                System.out.println("호옴2" + navbarFlag);
+
                 MainViewFragment mainViewFragment = new MainViewFragment();
                 transaction.replace(R.id.frame, mainViewFragment).commit();
                 binding.drawerLayout.closeDrawers();
@@ -174,14 +176,13 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
 
     @Override
     public void onBackPressed() {
-
         switch (navbarFlag) {
-
             case R.id.profile: case R.id.history: case R.id.review: case R.id.black_list: case R.id.notice: case R.id.statistics:
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 MainViewFragment mainViewFragment = new MainViewFragment();
                 transaction.replace(R.id.frame, mainViewFragment).commit();
                 binding.drawerLayout.closeDrawers();
+                navbarFlag = R.id.tv_home;
                 break;
             case R.id.tv_home:
                 long curTime = System.currentTimeMillis();
