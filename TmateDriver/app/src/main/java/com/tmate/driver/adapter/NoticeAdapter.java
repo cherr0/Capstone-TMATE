@@ -10,14 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
 import com.tmate.driver.activity.NoticeDetailActivity;
+import com.tmate.driver.data.Notice;
 import com.tmate.driver.data.NoticeData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Locale;
 
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeHolder> {
-    ArrayList<NoticeData> items = new ArrayList<>();
+    ArrayList<Notice> items = new ArrayList<>();
     @NonNull
     @Override
     public NoticeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,20 +42,29 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeHolder> {
         return items.size();
     }
 
-    public void addItem(NoticeData noticeData) {
-        items.add(noticeData);
+    public void addItem(Notice notice) {
+        items.add(notice);
     }
 }
 class NoticeHolder extends RecyclerView.ViewHolder {
+
     TextView notice_title;
     TextView notice_date;
+    TextView notice_id;
 
-    void onBind(NoticeData noticeData) {
-        notice_title.setText(noticeData.getNotice_title());
-        notice_date.setText(noticeData.getNotice_date());
+    // 타임스탬프 String 변환용
+    SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.KOREA);
+
+    void onBind(Notice data) {
+        notice_id.setText(data.getBd_id());
+        notice_title.setText(data.getBd_title());
+        notice_date.setText(sdf.format(data.getBd_cre_date()));
     }
+
     public NoticeHolder(@NonNull View itemView) {
         super(itemView);
+
+        notice_id = itemView.findViewById(R.id.notice_id);
         notice_title = itemView.findViewById(R.id.notice_title);
         notice_date = itemView.findViewById(R.id.notice_date);
     }
