@@ -13,11 +13,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tmate.driver.R;
 
+import net.colindodd.toggleimagebutton.ToggleImageButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BlackListSelectActivity extends AppCompatActivity {
     private Button btn_seat;
+    private ToggleImageButton seat_one, seat_two, seat_three;
     private int blackList = 1;
 
     @Override
@@ -33,6 +36,35 @@ public class BlackListSelectActivity extends AppCompatActivity {
 
 
         final List<String> list = new ArrayList<String>();
+
+        seat_one = findViewById(R.id.seat_one);
+        seat_two = findViewById(R.id.seat_two);
+        seat_three = findViewById(R.id.seat_three);
+
+        seat_one.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seat_one.setChecked(true);
+                seat_two.setChecked(false);
+                seat_three.setChecked(false);
+            }
+        });
+        seat_two.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seat_one.setChecked(false);
+                seat_two.setChecked(true);
+                seat_three.setChecked(false);
+            }
+        });
+        seat_three.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                seat_one.setChecked(false);
+                seat_two.setChecked(false);
+                seat_three.setChecked(true);
+            }
+        });
 
         btn_seat = findViewById(R.id.btn_seat);
         btn_seat.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +98,7 @@ public class BlackListSelectActivity extends AppCompatActivity {
                                 } else {
                                     Intent intent1 = new Intent(BlackListSelectActivity.this, WaitingActivity.class);
                                     startActivity(intent1);
+                                    finish();
                                 }
                             }
                         });

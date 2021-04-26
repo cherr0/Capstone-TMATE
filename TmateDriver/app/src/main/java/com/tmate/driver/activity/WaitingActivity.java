@@ -38,7 +38,9 @@ public class WaitingActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                showDialog();
+                if (!WaitingActivity.this.isFinishing()) {
+                    showDialog();
+                }
             }
         }, 4000);
     }
@@ -59,6 +61,7 @@ public class WaitingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(WaitingActivity.this, PaymentActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
