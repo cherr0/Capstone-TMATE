@@ -3,6 +3,7 @@ package com.tmate.user.data;
 public class ChatData {
     String name;
     String msg;
+    String time;
 
     public String getName() {
         return name;
@@ -18,5 +19,13 @@ public class ChatData {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

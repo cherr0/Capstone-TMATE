@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/msgLinear"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
         android:id="@+id/chat_name_text"
@@ -9,10 +10,26 @@
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:textStyle="bold"/>
-    <TextView
-        android:id="@+id/msgText"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/msgLinear_second"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/editbox_background"
-        android:textSize="24sp" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/msgText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/editbox_background"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/msgTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="14:04"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
 </LinearLayout>
