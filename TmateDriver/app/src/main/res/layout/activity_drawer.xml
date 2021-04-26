@@ -54,7 +54,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <TextView
         android:id="@+id/tv_home"
         android:layout_width="0dp"
@@ -69,22 +68,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <TextView
-        android:id="@+id/notice"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/ic_notice"
-        android:drawablePadding="16dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="16dp"
-        android:text="공지사항"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/black_list"
-        app:layout_constraintStart_toStartOf="@+id/black_list"
-        app:layout_constraintTop_toBottomOf="@+id/black_list" />
 
     <TextView
         android:id="@+id/history"
@@ -103,6 +86,39 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_home" />
 
     <TextView
+        android:id="@+id/black_list"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_black_list"
+        android:drawablePadding="16dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="16dp"
+        android:text="블랙리스트 관리"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/history"
+        app:layout_constraintStart_toStartOf="@+id/history"
+        app:layout_constraintTop_toBottomOf="@+id/history" />
+
+    <TextView
+        android:id="@+id/notice"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_notice"
+        android:drawablePadding="16dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="16dp"
+        android:text="공지사항"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/black_list"
+        app:layout_constraintStart_toStartOf="@+id/black_list"
+        app:layout_constraintTop_toBottomOf="@+id/black_list" />
+
+
+    <TextView
         android:id="@+id/statistics"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -118,38 +134,6 @@
         app:layout_constraintStart_toStartOf="@+id/notice"
         app:layout_constraintTop_toBottomOf="@+id/notice" />
 
-    <TextView
-        android:id="@+id/black_list"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/ic_black_list"
-        android:drawablePadding="16dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="16dp"
-        android:text="블랙리스트 관리"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/review"
-        app:layout_constraintStart_toStartOf="@+id/review"
-        app:layout_constraintTop_toBottomOf="@+id/review" />
-
-    <TextView
-        android:id="@+id/review"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/ic_evaluation"
-        android:drawablePadding="16dp"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingRight="16dp"
-        android:text="평점 확인"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/history"
-        app:layout_constraintStart_toStartOf="@+id/history"
-        app:layout_constraintTop_toBottomOf="@+id/history" />
-
     <Button
         android:id="@+id/service"
         android:layout_width="0dp"
@@ -161,6 +145,5 @@
         app:layout_constraintEnd_toEndOf="@+id/statistics"
         app:layout_constraintStart_toStartOf="@+id/statistics"
         app:layout_constraintTop_toBottomOf="@+id/statistics" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
