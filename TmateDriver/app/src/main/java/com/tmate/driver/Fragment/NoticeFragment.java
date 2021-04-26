@@ -1,6 +1,7 @@
 package com.tmate.driver.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,14 +57,19 @@ public class NoticeFragment extends Fragment {
         request.enqueue(new Callback<List<Notice>>() {
             @Override
             public void onResponse(Call<List<Notice>> call, Response<List<Notice>> response) {
-                noticelist = response.body();
+                if(response.isSuccessful()) {
+                    if(response.code() == 200) {
+                        noticelist = response.body();
+                        Log.i("NoticeFragment", "noticelist : " + noticelist);
 
-                for(Notice notice : noticelist) {
-                    noticeAdapter.addItem(notice);
+                        for(Notice notice : noticelist) {
+                            noticeAdapter.addItem(notice);
+                        }
+
+                        // adapter의 값이 변경되었다는 것을 알려줍니다.
+                        noticeAdapter.notifyDataSetChanged();
+                    }
                 }
-
-                // adapter의 값이 변경되었다는 것을 알려줍니다.
-                noticeAdapter.notifyDataSetChanged();
             }
 
             @Override
