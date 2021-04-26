@@ -30,7 +30,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     private ActivityMainViewBinding binding;
     private ActivityDrawerBinding drawerBinding;
     private View drawerView ;
-    private TextView profile, history, review, black_list, notice, statistics, tv_home;
+    private TextView profile, history, black_list, notice, statistics, tv_home;
     private Button service;
     private long backBtnTime = 0;
     public static int navbarFlag  = R.id.tv_home;
@@ -50,7 +50,6 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
 
         profile = findViewById(R.id.profile);
         history = findViewById(R.id.history);
-        review = findViewById(R.id.review);
         black_list = findViewById(R.id.black_list);
         notice = findViewById(R.id.notice);
         statistics = findViewById(R.id.statistics);
@@ -59,7 +58,6 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
 
         profile.setOnClickListener(this);
         history.setOnClickListener(this);
-        review.setOnClickListener(this);
         black_list.setOnClickListener(this);
         notice.setOnClickListener(this);
         statistics.setOnClickListener(this);
@@ -88,10 +86,6 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
                 return true;
             }
         });
-
-
-
-
     }
 
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() { //사이드바 이벤트
@@ -171,13 +165,12 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
             }
             default: return;
         }
-
     }
 
     @Override
     public void onBackPressed() {
         switch (navbarFlag) {
-            case R.id.profile: case R.id.history: case R.id.review: case R.id.black_list: case R.id.notice: case R.id.statistics:
+            case R.id.profile: case R.id.history: case R.id.black_list: case R.id.notice: case R.id.statistics:
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 MainViewFragment mainViewFragment = new MainViewFragment();
                 transaction.replace(R.id.frame, mainViewFragment).commit();
