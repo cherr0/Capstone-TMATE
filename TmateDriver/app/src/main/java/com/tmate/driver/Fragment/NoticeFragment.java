@@ -1,6 +1,7 @@
 package com.tmate.driver.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
 import com.tmate.driver.adapter.NoticeAdapter;
+import com.tmate.driver.data.Notice;
 import com.tmate.driver.data.NoticeData;
+import com.tmate.driver.net.DataService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class NoticeFragment extends Fragment {
 
+    private NoticeAdapter noticeAdapter = new NoticeAdapter();
 
-    private ArrayList<NoticeData> arrayList;
-
-    private NoticeAdapter noticeAdapter;
+    private List<Notice> noticelist;
+    private Call<List<Notice>> request;
 
     @Nullable
     @Override
@@ -37,9 +44,6 @@ public class NoticeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        arrayList = new ArrayList<>();
-
-        noticeAdapter = new NoticeAdapter();
         recyclerView.setAdapter(noticeAdapter);
 
 
@@ -48,32 +52,38 @@ public class NoticeFragment extends Fragment {
     }
 
     private void getData() {
-        // 임의의 데이터입니다.
-        List<String> listTitle = Arrays.asList(
-                "2021년 주의사항 안전수칙 ",
-                "T 메이트 서비스 이용약관 개정 안내 ",
-                "2021년에도 함께해요. T 메이트 택시 안전 이동 수칙",
-                "T 메이트, 2021년 신규 오픈 대구에서 시작합니다."
-        );
-        List<String> listDate = Arrays.asList(
-                "21.03.22",
-                "21.03.14",
-                "21.02.28",
-                "21.01.16"
-        );
+        request = DataService.getInstance().common.getNoticeList();
 
-        for (int i = 0; i < listTitle.size(); i++) {
-            // 각 List의 값들을 data 객체에 set 해줍니다.
-            NoticeData noticeData = new NoticeData();
-            noticeData.setNotice_title(listTitle.get(i));
-            noticeData.setNotice_date(listDate.get(i));
+        request.enqueue(new Callback<List<Notice>>() {
+            @Override
+            public void onResponse(Call<List<Notice>> call, Response<List<Notice>> response) {
+                if(response.isSuccessful()) {
+                    if(response.code() == 200) {
+                        noticelist = response.body();
+                        Log.i("NoticeFragment", "noticelist : " + noticelist);
+
+                        for(Notice notice : noticelist) {
+                            noticeAdapter.addItem(notice);
+                        }
+
+                        // adapter의 값이 변경되었다는 것을 알려줍니다.
+                        noticeAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Notice>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
 
-            // 각 값이 들어간 data를 adapter에 추가합니다.
-            noticeAdapter.addItem(noticeData);
-        }
+    }
 
-        // adapter의 값이 변경되었다는 것을 알려줍니다.
-        noticeAdapter.notifyDataSetChanged();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        request.cancel();
     }
 }
