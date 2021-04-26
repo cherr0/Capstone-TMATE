@@ -156,8 +156,6 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
                 return;
             }
             case R.id.tv_home : {
-                System.out.println("호옴2" + navbarFlag);
-
                 MainViewFragment mainViewFragment = new MainViewFragment();
                 transaction.replace(R.id.frame, mainViewFragment).commit();
                 binding.drawerLayout.closeDrawers();
