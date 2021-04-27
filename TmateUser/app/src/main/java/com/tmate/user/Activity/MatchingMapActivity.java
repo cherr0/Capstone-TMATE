@@ -81,10 +81,10 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     //출발지 도착지에 대한 변수들
     TMapPoint tMapPointStart;//출발지 위,경도를 담은 좌표
     TMapPoint tMapPointEnd;//도착지 위,경도를 담은 좌표
-    double d1; //출발지 위도
-    double d2; //출발지 경도
-    double d3; //도착지 위도
-    double d4; //도착지 경도
+    double d1 = 0; //출발지 위도
+    double d2 = 0; //출발지 경도
+    double d3 = 0; //도착지 위도
+    double d4 = 0; //도착지 경도
     int start_flag =0;//출발지를 검색하는 중인지 도착지를 검색하는 중인지 알 수 있는 플래그이다
     private String h_s_place = null;
     private String h_f_place = null;
@@ -169,6 +169,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         b.goTogetherSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (together == 2) { //동승 일 경우
                     b.slideTitle.setText("소요 거리 및 시간");
                     b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
@@ -207,6 +208,48 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
                     b.call.setText("결제");
                     drawCarPath();//자동차 경로 그리는 메서드 호출
+                }
+                //출발지 텍스트박스가 비어있는 경우
+                if(b.startPlace.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(),"출발지를 작성해주세요",Toast.LENGTH_SHORT).show();
+                //도착지 텍스트박스가 비어있는 경우
+                } else if(b.finishPlace.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(),"도착지를 작성해주세요",Toast.LENGTH_SHORT).show();
+                }else {
+                    if(d1 != 0 && d2 != 0 && d3 != 0 && d4 != 0) {
+                        if (together == 0) { //동승 일 경우
+                            b.slideTitle.setText("소요 거리 및 시간");
+                            b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
+                            hideKeyBoard();//키보드 숨기기
+                            tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
+                            Log.d("출발지 위도", String.valueOf(tMapPointStart.getLatitude()));
+                            Log.d("출발지 경도", String.valueOf(tMapPointStart.getLongitude()));
+                            tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
+
+                            b.call.setText("매칭");
+
+                            Log.d("도착지 위도", String.valueOf(tMapPointEnd.getLatitude()));
+                            Log.d("도착지 경도", String.valueOf(tMapPointEnd.getLongitude()));
+                            drawCarPath();//자동차 경로 그리는 메서드 호출
+                        } else { //동승이 아닐 경우
+                            b.slideTitle.setText("소요 거리 및 시간");
+                            b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
+                            hideKeyBoard();//키보드 숨기기
+                            tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
+                            tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
+                            b.call.setText("결제");
+                            drawCarPath();//자동차 경로 그리는 메서드 호출
+                        }
+                    } else {
+                        //출발지 텍스트는 입력했지만 검색을 하지 않아 좌표값이 없는 경우
+                        if (d1 == 0 && d2 == 0) {
+                            Toast.makeText(getApplicationContext(), "출발지를 검색하여 정확한 장소를 선택해주세요", Toast.LENGTH_SHORT).show();
+                         //도착지 텍스트는 입력했지만 검색을 하지 않아 좌표값이 없는 경우
+                        } else {
+                            Toast.makeText(getApplicationContext(), "도착지를 검색하여 정확한 장소를 선택해주세요", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
                 }
             }
         });
@@ -659,7 +702,6 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
             switch (msg.what) {
                 //지도의 줌 레벨을 변경했을때
                 case MESSAGE_STATE_ZOOM:
-                    b.zoomlevelText.setText("Lv." + mMapView.getZoomLevel());
                     m_nCurrentZoomLevel = mMapView.getZoomLevel() - 3;
                     break;
                 //자동차 경로 보여주는 메세지를 받았을때

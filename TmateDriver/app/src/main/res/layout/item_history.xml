@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview"
     android:layout_width="match_parent"
-    android:layout_height="265dp"
+    android:layout_height="wrap_content"
     android:layout_marginStart="20dp"
     android:layout_marginTop="10dp"
     android:layout_marginEnd="20dp"
@@ -46,6 +46,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_up" />
+
+                <TextView
+                    android:id="@+id/r_code_L"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="5dp"
+                    android:text="횟수" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="5dp"
+                    android:src="@drawable/ic_down"/>
+
+                <TextView
+                    android:id="@+id/r_code_H"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="횟수"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="5dp"/>
+
                 <TextView
                     android:id="@+id/re_amt"
                     android:layout_width="wrap_content"
@@ -57,7 +87,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+         <LinearLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,11 +155,31 @@
                 android:text="운행 시간\n"/>
             <TextView
                 android:id="@+id/htime"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="@color/black"
                 android:text="11:32 - 11:48"/>
+
+            <LinearLayout
+                android:id="@+id/black_list_submit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/black_list2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="블랙리스트 등록"
+                android:textColor="@color/black"
+                android:gravity="center"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -137,17 +187,88 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/black_list_submit"
+<!--            <Button-->
+<!--                android:id="@+id/black_list_submit"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:layout_marginEnd="16dp"-->
+<!--                android:backgroundTint="#00BCD4"-->
+<!--                android:text="블랙리스트 등록하기"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/const_reason" />-->
+
+            <TextView
+                android:id="@+id/reasonView"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="#00BCD4"
-                android:text="블랙리스트 등록하기"
+                android:layout_height="35dp"
+                android:layout_marginTop="8dp"
+                android:text="사유보기"
+                android:textColor="@color/black"
+                android:background="#F4F4F4"
+                android:paddingLeft="130dp"
+                android:drawableLeft="@drawable/ic_arrowheaddown"
+                android:gravity="center_vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/const_reason"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reasonView">
+
+                <TextView
+                    android:id="@+id/r_reason2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:drawableLeft="@drawable/ic_circle"
+                    android:drawablePadding="8dp"
+                    android:text="택시기사가 그냥 마음에 안들어요"
+                    android:textColor="#000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/r_reason1" />
+
+                <TextView
+                    android:id="@+id/r_reason1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:drawableLeft="@drawable/ic_circle"
+                    android:drawablePadding="8dp"
+                    android:text="택시기사가 그냥 마음에 안들어요"
+                    android:textColor="#000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/r_reason3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:drawableLeft="@drawable/ic_circle"
+                    android:drawablePadding="8dp"
+                    android:text="택시기사가 그냥 마음에 안들어요"
+                    android:textColor="#000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/r_reason2" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

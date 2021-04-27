@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.tmate.user.Activity.ChatActivity;
 import com.tmate.user.Activity.MatchingMapActivity;
 import com.tmate.user.R;
 
@@ -27,6 +28,7 @@ public class CallFragment extends Fragment {
     private CardView Ll_solo;
     private int together;
     private Dialog dialog;
+    private Button btn_chat;
 
     @Nullable
     @Override
@@ -56,6 +58,16 @@ public class CallFragment extends Fragment {
 
             }
         });
+
+        btn_chat = view.findViewById(R.id.btn_chat);
+        btn_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
         return view;
     }
 

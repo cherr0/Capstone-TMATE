@@ -149,4 +149,15 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="12dp"
+        android:text="채팅방"
+        android:backgroundTint="@color/main"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

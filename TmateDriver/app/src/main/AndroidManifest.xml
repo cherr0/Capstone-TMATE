@@ -2,24 +2,37 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tmate.driver">
 
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/tmate_driver"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.TmateDriver">
-        <activity android:name=".MatchingFinishedActivity"></activity>
-        <activity android:name=".activity.LoginActivity"></activity>
-        <activity android:name=".activity.HotPlaceActivity"></activity>
+        <service
+            android:name=".services.driving_overlay"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".activity.BlackListSelectActivity" />
+        <activity android:name=".MatchingFinishedActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.HotPlaceActivity" />
         <activity android:name=".activity.TrafficInformationActivity" />
         <activity android:name=".activity.CheckActivity" />
         <activity android:name=".activity.PaymentActivity" />
-        <activity android:name=".activity.MatchingActivity" />
         <activity android:name=".activity.NoticeDetailActivity" />
         <activity android:name=".activity.WaitingActivity" />
         <activity android:name=".SplashActivity">
@@ -31,4 +44,5 @@
         </activity>
         <activity android:name=".activity.MainViewActivity" />
     </application>
+
 </manifest>
