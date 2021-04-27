@@ -31,7 +31,10 @@
             android:id="@+id/sendBtn"
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:background="@android:drawable/ic_menu_send"
-            android:backgroundTint="@android:color/holo_red_light" />
+            android:text="전송"
+            android:textColor="#ffffff"
+            android:backgroundTint="#5583B1"
+            android:textStyle="bold"
+            android:clickable="false"/>
     </LinearLayout>
 </LinearLayout>
