@@ -32,7 +32,7 @@ public class event_close_item_stop extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
 
-    CommonService commonService = new CommonService();
+
     DataService dataService = DataService.getInstance();
 
     public static event_close_item_stop newInstance() {
