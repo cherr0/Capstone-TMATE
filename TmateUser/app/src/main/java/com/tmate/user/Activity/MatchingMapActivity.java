@@ -86,6 +86,8 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     double d3; //도착지 위도
     double d4; //도착지 경도
     int start_flag =0;//출발지를 검색하는 중인지 도착지를 검색하는 중인지 알 수 있는 플래그이다
+    private String h_s_place = null;
+    private String h_f_place = null;
     private int moneyplan = 0;// 도착지에 도착하는 시간에따른 예상 가격
     private String time = null;//예상 도착 시간
     private Double km;//출발지에서 도착지까지의 거리
@@ -167,7 +169,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         b.goTogetherSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (together == 0) { //동승 일 경우
+                if (together == 2) { //동승 일 경우
                     b.slideTitle.setText("소요 거리 및 시간");
                     b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
                     hideKeyBoard();//키보드 숨기기
@@ -181,7 +183,23 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     Log.d("도착지 위도", String.valueOf(tMapPointEnd.getLatitude()));
                     Log.d("도착지 경도", String.valueOf(tMapPointEnd.getLongitude()));
                     drawCarPath();//자동차 경로 그리는 메서드 호출
-                } else { //동승이 아닐 경우
+                }
+                if(together == 3){
+                    b.slideTitle.setText("소요 거리 및 시간");
+                    b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
+                    hideKeyBoard();//키보드 숨기기
+                    tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
+                    Log.d("출발지 위도", String.valueOf(tMapPointStart.getLatitude()));
+                    Log.d("출발지 경도", String.valueOf(tMapPointStart.getLongitude()));
+                    tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
+
+                    b.call.setText("매칭");
+
+                    Log.d("도착지 위도", String.valueOf(tMapPointEnd.getLatitude()));
+                    Log.d("도착지 경도", String.valueOf(tMapPointEnd.getLongitude()));
+                    drawCarPath();//자동차 경로 그리는 메서드 호출
+                }
+                if(together==1) { //동승이 아닐 경우
                     b.slideTitle.setText("소요 거리 및 시간");
                     b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
                     hideKeyBoard();//키보드 숨기기
@@ -196,22 +214,53 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         b.call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (together == 0) { //동승 일 경우
+                // 2인일 경우
+                if (together == 2) { //동승 일 경우
                     hideKeyBoard();
                     Intent intent = new Intent(getApplicationContext(), MatchingActivity.class); //매칭 화면으로
                     intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
                     intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
                     intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
                     intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
+                    intent.putExtra("to_max", together);
+                    intent.putExtra("h_s_place", h_s_place);
+                    intent.putExtra("h_f_place", h_f_place);
+                    intent.putExtra("h_ep_fare",totalFare);
+                    intent.putExtra("h_ep_time",totalTime);
+                    intent.putExtra("h_ep_distance",totalDistance);
                     startActivity(intent);
                     finish();
-                } else { //동승이 아닐 경우
+                }
+                // 3인일 경
+                if(together == 3){
+                    hideKeyBoard();
+                    Intent intent = new Intent(getApplicationContext(), MatchingActivity.class); //매칭 화면으로
+                    intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
+                    intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
+                    intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
+                    intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
+                    intent.putExtra("to_max", together);
+                    intent.putExtra("h_s_place", h_s_place);
+                    intent.putExtra("h_f_place", h_f_place);
+                    intent.putExtra("h_ep_fare",totalFare);
+                    intent.putExtra("h_ep_time",totalTime);
+                    intent.putExtra("h_ep_distance",totalDistance);
+                    startActivity(intent);
+                    finish();
+                }
+
+                if(together == 1) { //동승이 아닐 경우
                     hideKeyBoard();
                     Intent intent = new Intent(getApplicationContext(), CallGeneralActivity.class); //결제 화면으로
                     intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
                     intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
                     intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
                     intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
+                    intent.putExtra("h_s_place", h_s_place);
+                    intent.putExtra("h_f_place", h_f_place);
+                    intent.putExtra("h_ep_fare",totalFare);
+                    intent.putExtra("h_ep_time",totalTime);
+                    intent.putExtra("h_ep_distance",totalDistance);
                     startActivity(intent);
                     finish();
                 }
@@ -561,13 +610,16 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     d1 = mPoiItem.getPOIPoint().getLatitude(); //출발지 위도
                     d2 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
                     b.startPlace.setText(mPoiItem.getPOIName()); //출발지 이름을 출발지 검색창에 세팅
-                    Log.d("출발지 명 : ", b.startPlace.getText().toString());
+                    h_s_place = b.startPlace.getText().toString();
+                    Log.d("출발지 명 : ", h_s_place);
+
 
                 } else { //도착지를 검색 할 경우
                     d3 = mPoiItem.getPOIPoint().getLatitude(); //도착지 위도
                     d4 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
                     b.finishPlace.setText(mPoiItem.getPOIName()); //도착지 이름을 도착지 검색창에 세팅
-                    Log.d("도착지 명 : ", b.finishPlace.getText().toString());
+                    h_f_place = b.finishPlace.getText().toString();
+                    Log.d("도착지 명 : ", h_f_place);
                 }
                 hideKeyBoard(); //검색 완료 후 키보드 숨기기
             }

@@ -66,7 +66,7 @@ public class CallFragment extends Fragment {
         btn_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                together =0;
+                together =2;
                 Intent intent = new Intent(getContext(), MatchingMapActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
@@ -76,7 +76,7 @@ public class CallFragment extends Fragment {
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                together =0;
+                together =3;
                 Intent intent = new Intent(getContext(), MatchingMapActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);

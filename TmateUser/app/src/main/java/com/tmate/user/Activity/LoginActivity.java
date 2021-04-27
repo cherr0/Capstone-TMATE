@@ -22,6 +22,8 @@ public class LoginActivity extends AppCompatActivity {
 
         Log.d("로그아웃버튼시 값 체크 ", getPreferenceString("m_id"));
 
+//        setPreference("m_id","m1010918400420");
+
          // sharedpreference 값 있을떄 바로 메인뷰로 간다.
         if (!(getPreferenceString("m_id").equals(""))) {
             Intent intent = new Intent(this, MainViewActivity.class);
@@ -43,6 +45,14 @@ public class LoginActivity extends AppCompatActivity {
             transaction.replace(R.id.fm_main, socialFragment).commit();
         }
     }
+
+//    // 데이터 저장 함수
+//    public void setPreference(String key, String value){
+//        SharedPreferences pref = getSharedPreferences("loginUser", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = pref.edit();
+//        editor.putString(key, value);
+//        editor.apply();
+//    }
 
     public String getPreferenceString(String key) {
         SharedPreferences pref = getSharedPreferences("loginUser", MODE_PRIVATE);

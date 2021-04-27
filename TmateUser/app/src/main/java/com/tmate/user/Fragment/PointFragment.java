@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.R;
 import com.tmate.user.adapter.pointAdapter;
 import com.tmate.user.data.PointData;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,14 +31,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PointFragment extends Fragment {
-    ArrayList<String> list;
+
     private pointAdapter adapter;
     TextView totalPo;
-    List<String> listTime;
-    List<String> listExpact;
-    List<Integer> listporesult;
-    List<String> listCourse;
-    List<Integer> mPoint;
+
     private ImageView btn_back_point;
     private int po_point;
 
@@ -47,8 +44,8 @@ public class PointFragment extends Fragment {
     String m_id = "";
 
     // 레트로핏 2 -> 포인트 가져오는 HTTP 통신
-    DataService dataService = new DataService();
-
+//    DataService dataService = new DataService();
+    DataService dataService = DataService.getInstance();
 
     @Nullable
     @Override
@@ -97,7 +94,8 @@ public class PointFragment extends Fragment {
     private void getData() {
 
         Log.d("넘어가는 회원코드", m_id);
-       dataService.point.getPointList(m_id).enqueue(new Callback<List<PointData>>() {
+
+       dataService.memberAPI.getPointList(m_id).enqueue(new Callback<List<PointData>>() {
            @Override
            public void onResponse(Call<List<PointData>> call, Response<List<PointData>> response) {
                if (response.isSuccessful()) {
@@ -136,10 +134,9 @@ public class PointFragment extends Fragment {
 
            @Override
            public void onFailure(Call<List<PointData>> call, Throwable t) {
-               t.printStackTrace();
+                t.printStackTrace();
            }
        });
-
 
     }
 }

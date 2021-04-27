@@ -15,6 +15,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.R;
 import com.tmate.user.data.CardData;
+import com.tmate.user.net.DataService;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -29,8 +31,8 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
     private String m_id;
 
     // 레트로핏 연동
-    AdapterDataService dataService = new AdapterDataService();
-
+//    AdapterDataService dataService = new AdapterDataService();
+    DataService dataService = DataService.getInstance();
 
     ArrayList<CardData> items = new ArrayList<>();
     public int r = 0;
@@ -61,7 +63,8 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                     builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            dataService.card.modifyRep(holder.customer_uid.getText().toString(), m_id).enqueue(new Callback<Boolean>() {
+
+                            dataService.memberAPI.modifyRep(holder.customer_uid.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                     if (response.isSuccessful()) {
@@ -73,7 +76,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
 
                                 @Override
                                 public void onFailure(Call<Boolean> call, Throwable t) {
-
+                                    t.printStackTrace();
                                 }
                             });
                         }
@@ -99,7 +102,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-                                dataService.card.removeCard(holder.customer_uid.getText().toString()).enqueue(new Callback<Boolean>() {
+                                dataService.memberAPI.removeCard(holder.customer_uid.getText().toString()).enqueue(new Callback<Boolean>() {
                                     @Override
                                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                         if (response.isSuccessful()) {
@@ -113,7 +116,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
 
                                     @Override
                                     public void onFailure(Call<Boolean> call, Throwable t) {
-                                            t.printStackTrace();
+                                        t.printStackTrace();
                                     }
                                 });
 
