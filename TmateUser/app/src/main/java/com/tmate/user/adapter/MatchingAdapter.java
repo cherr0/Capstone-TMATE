@@ -14,6 +14,7 @@ import com.tmate.user.Activity.MatchingDetailActivity;
 import com.tmate.user.R;
 import com.tmate.user.data.History;
 import com.tmate.user.data.MatchingData;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
 
     private ArrayList<History> items = new ArrayList<>();
+
+    DataService dataService = DataService.getInstance();
 
     public MatchingAdapter(ArrayList<History> items) {
         this.items = items;
@@ -49,6 +52,7 @@ public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(v.getContext(), MatchingDetailActivity.class);
                 v.getContext().startActivity(intent);
             }
@@ -133,7 +137,7 @@ class MatchingHolder extends RecyclerView.ViewHolder {
         }
 
         // 회원 이거는 머고
-        tv_personnel.setText(null);
+        tv_personnel.setText("모집인원("+data.getTo_people()+"/"+data.getTo_max()+")");
 
         // 출발지 , 위도, 경도
         tv_start_place.setText(data.getH_s_place());

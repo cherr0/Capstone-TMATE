@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.R;
 import com.tmate.user.adapter.CardAdapter;
 import com.tmate.user.data.CardData;
+import com.tmate.user.net.DataService;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +37,8 @@ public class card_management  extends Fragment {
     Context context;
     private String m_id;
 
-    DataService dataService = new DataService();
+
+    DataService dataService = DataService.getInstance();
 
     private ImageView btn_back_cardManagement;
     private CardAdapter adapter;
@@ -74,10 +77,9 @@ public class card_management  extends Fragment {
         });
         return v;
     }
+
     private void getData() {
-
-
-        dataService.card.getUserCard(m_id).enqueue(new Callback<List<CardData>>() {
+        dataService.memberAPI.getUserCard(m_id).enqueue(new Callback<List<CardData>>() {
             @Override
             public void onResponse(Call<List<CardData>> call, Response<List<CardData>> response) {
                 if (response.isSuccessful()) {
@@ -101,7 +103,7 @@ public class card_management  extends Fragment {
 
             @Override
             public void onFailure(Call<List<CardData>> call, Throwable t) {
-                    t.printStackTrace();
+                t.printStackTrace();
             }
         });
     }

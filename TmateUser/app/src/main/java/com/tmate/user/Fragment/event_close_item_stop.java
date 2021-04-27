@@ -16,6 +16,7 @@ import com.tmate.user.adapter.EventAdapter;
 import com.tmate.user.data.EventData;
 import com.tmate.user.R;
 import com.tmate.user.data.EventDTO;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class event_close_item_stop extends Fragment {
     private RecyclerView recyclerView;
 
     CommonService commonService = new CommonService();
+    DataService dataService = DataService.getInstance();
 
     public static event_close_item_stop newInstance() {
         event_close_item_stop ecis = new event_close_item_stop();
@@ -60,7 +62,7 @@ public class event_close_item_stop extends Fragment {
 
     private void getData() {
 
-        commonService.event.getFinishEventList().enqueue(new Callback<List<EventDTO>>() {
+        dataService.commonAPI.getFinishEventList().enqueue(new Callback<List<EventDTO>>() {
             @Override
             public void onResponse(Call<List<EventDTO>> call, Response<List<EventDTO>> response) {
                 if (response.isSuccessful()) {
@@ -100,10 +102,8 @@ public class event_close_item_stop extends Fragment {
 
             @Override
             public void onFailure(Call<List<EventDTO>> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
-
-
     }
 }

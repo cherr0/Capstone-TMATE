@@ -48,10 +48,17 @@ public class History {
     // 기사 코드
     private String d_id;
 
+    // 현재 인원
+    private int to_people;
+
+    // 최대 인원
+    private int to_max;
+
     // 출발지와 떨어진 거리
     private double distance1;
 
     // 도착지와 떨어진 거리
     private double distance2;
+
 
 }

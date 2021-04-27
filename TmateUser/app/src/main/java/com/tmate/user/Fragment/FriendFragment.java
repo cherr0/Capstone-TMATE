@@ -25,6 +25,7 @@ import com.tmate.user.data.Approval;
 import com.tmate.user.data.FriendData;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.RequestFriendData;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +43,8 @@ public class FriendFragment extends Fragment {
     private Button btn_add;
 
     // 레트로핏
-    DataService dataService = new DataService();
+    DataService dataService = DataService.getInstance();
+
 
     // 백버튼
     ImageView btn_back_friend;
@@ -101,7 +103,7 @@ public class FriendFragment extends Fragment {
     // 나에게 요청한 지인 리스트
     private void getReqFreindList() {
 
-        dataService.friend.myApprovalList(getPreferenceString("m_id")).enqueue(new Callback<List<Approval>>() {
+        dataService.memberAPI.myApprovalList(getPreferenceString("m_id")).enqueue(new Callback<List<Approval>>() {
             @Override
             public void onResponse(Call<List<Approval>> call, Response<List<Approval>> response) {
                 if (response.isSuccessful()) {
@@ -121,26 +123,6 @@ public class FriendFragment extends Fragment {
 
                         adapter2.notifyDataSetChanged();
 
-//                        List<String> listName2 = Arrays.asList(
-//                                "이황",
-//                                "박한수"
-//                        );
-//                        List<String> listPhone2 = Arrays.asList(
-//                                "010-6248-0673",
-//                                "010-5408-9299"
-//                        );
-
-//                        for (int i = 0; i < listName2.size(); i++) {
-//                            // 각 List의 값들을 data 객체에 set 해줍니다.
-//                            RequestFriendData data = new RequestFriendData();
-//                            data.setTv_name2(listName2.get(i));
-//                            data.setTv_phone(listPhone2.get(i));
-//                            // 각 값이 들어간 data를 adapter에 추가합니다.
-//                            adapter2.addItem(data);
-//
-//                        }
-
-
                     }
                 }
             }
@@ -151,13 +133,12 @@ public class FriendFragment extends Fragment {
             }
         });
 
-
     }
 
     // 나의 지인
     private void getMyFriendList(){
 
-        dataService.friend.friendByUser(getPreferenceString("m_id")).enqueue(new Callback<List<Notification>>() {
+        dataService.memberAPI.friendByUser(getPreferenceString("m_id")).enqueue(new Callback<List<Notification>>() {
             @Override
             public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
                 if (response.isSuccessful()) {
@@ -185,28 +166,9 @@ public class FriendFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Notification>> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
-
-//        List<String> listName = Arrays.asList(
-//                "이황",
-//                "박한수"
-//        );
-//        List<String> listPhone = Arrays.asList(
-//                "010-6248-0673",
-//                "010-5408-9872"
-//        );
-//
-//        for (int i = 0; i < listName.size(); i++) {
-//            // 각 List의 값들을 data 객체에 set 해줍니다.
-//            FriendData data = new FriendData();
-//            data.setTv_name(listName.get(i));
-//            data.setTv_phone(listPhone.get(i));
-//            // 각 값이 들어간 data를 adapter에 추가합니다.
-//            adpater.addItem(data);
-//
-//        }
     }
 
     // getPreferenceString

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.adapter.NoticeAdapter;
 import com.tmate.user.R;
 import com.tmate.user.data.Notice;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ import retrofit2.Response;
 
 public class NoticeFragment extends Fragment {
 
-    private CommonService commonService = new CommonService();
+    DataService dataService = DataService.getInstance();
 
     private ArrayList<Notice> arrayList;
     private NoticeAdapter noticeAdapter;
@@ -69,10 +70,9 @@ public class NoticeFragment extends Fragment {
 
     private void getData() {
 
-        commonService.notice.getNoticeList().enqueue(new Callback<List<Notice>>() {
+        dataService.commonAPI.getNoticeList().enqueue(new Callback<List<Notice>>() {
             @Override
             public void onResponse(Call<List<Notice>> call, Response<List<Notice>> response) {
-
                 if(response.isSuccessful()){
                     if(response.code() == 200) {
                         List<Notice> noticeList = response.body();    // 값 받아오기
@@ -93,35 +93,5 @@ public class NoticeFragment extends Fragment {
             }
         });
 
-
-        /*
-        // 이전 예제 코드
-        List<String> listTitle = Arrays.asList(
-                "2021년 주의사항 안전수칙 ",
-                "T 메이트 서비스 이용약관 개정 안내 ",
-                "2021년에도 함께해요. T 메이트 택시 안전 이동 수칙",
-                "T 메이트, 2021년 신규 오픈 대구에서 시작합니다."
-        );
-        List<String> listDate = Arrays.asList(
-                "21.03.22",
-                "21.03.14",
-                "21.02.28",
-                "21.01.16"
-        );
-
-        for (int i = 0; i < listTitle.size(); i++) {
-            // 각 List의 값들을 data 객체에 set 해줍니다.
-            NoticeData noticeData = new NoticeData();
-            noticeData.setNotice_title(listTitle.get(i));
-            noticeData.setNotice_date(listDate.get(i));
-
-
-            // 각 값이 들어간 data를 adapter에 추가합니다.
-            noticeAdapter.addItem(noticeData);
-        }
-
-        // adapter의 값이 변경되었다는 것을 알려줍니다.
-        noticeAdapter.notifyDataSetChanged();
-        */
     }
 }

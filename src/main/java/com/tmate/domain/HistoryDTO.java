@@ -48,6 +48,12 @@ public class HistoryDTO {
     // 기사 코드
     private String d_id;
 
+    // DB 컬럼에는 없다. 현재 인원수
+    private int to_people;
+
+    // 최대 인원
+    private int to_max;
+
 
     // 출발지와 떨어진 거리
     private double distance1;
