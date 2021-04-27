@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.Activity.MatchingDetailActivity;
 import com.tmate.user.R;
 import com.tmate.user.data.History;
-import com.tmate.user.data.MatchingData;
 import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
@@ -54,6 +53,9 @@ public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), MatchingDetailActivity.class);
+                intent.putExtra("merchant_uid",items.get(position).getMerchant_uid());
+                intent.putExtra("m_id", items.get(position).getM_id());
+
                 v.getContext().startActivity(intent);
             }
         });
@@ -105,7 +107,7 @@ class MatchingHolder extends RecyclerView.ViewHolder {
         * */
         this.tv_merchant_uid = (TextView) itemView.findViewById(R.id.tv_merchant_uid);
         this.tv_m_id = (TextView) itemView.findViewById(R.id.tv_m_id);
-        this.tv_h_s_lttd = (TextView) itemView.findViewById(R.id.tv_h_s_lttd);
+        this.tv_h_s_lttd = (TextView) itemView.findViewById(R.id.mf_h_s_lttd);
         this.tv_h_s_lngtd = (TextView) itemView.findViewById(R.id.tv_h_s_lngtd);
         this.tv_h_f_lttd = (TextView) itemView.findViewById(R.id.tv_h_f_lttd);
         this.tv_h_f_lngtd = (TextView) itemView.findViewById(R.id.tv_h_f_lngtd);

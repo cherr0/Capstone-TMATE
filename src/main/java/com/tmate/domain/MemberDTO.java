@@ -58,8 +58,10 @@ public class MemberDTO {
     // 집 주소
     private String m_house;
 
+    // 좋아요 횟수
     private int like;
 
+    // 싫어요 횟수
     private int dislike;
 
     // 소셜 여부
