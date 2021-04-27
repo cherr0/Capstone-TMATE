@@ -6,6 +6,7 @@ import com.tmate.user.data.Notice;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -30,5 +31,8 @@ public interface CommonAPI {
     // 글 상세보기
     @GET("common/readevent/{bd_id}")
     Call<EventDTO> readEvent(@Path("bd_id") String bd_id);
+
+    @DELETE("common/deletebookmark/{bm_id}/{m_id}")
+    Call<Boolean> removeBookmark(@Path("bm_id") String bm_id, @Path("m_id") String m_id);
 
 }
