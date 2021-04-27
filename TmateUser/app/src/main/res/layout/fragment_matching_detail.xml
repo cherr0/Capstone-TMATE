@@ -50,28 +50,49 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
+                android:id="@+id/linearLayout5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
-                app:layout_constraintTop_toTopOf="parent"
-                android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_m_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="박한수"
-                android:textColor="#000000"
-                android:textSize="20sp"/>
+                app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
+                    android:id="@+id/tv_m_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="박한수"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <TextView
                     android:id="@+id/m_birth"
-                    android:text="20대"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20대" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/mf_merchant_uid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout5"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout5" />
+
+            <TextView
+                android:id="@+id/mf_mid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout5"
+                app:layout_constraintTop_toBottomOf="@+id/mf_merchant_uid" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -409,6 +430,42 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/mf_h_s_lttd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/tv_start_place"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mf_h_f_lttd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/tv_end_place"
+                app:layout_constraintTop_toTopOf="@+id/tv_end_place" />
+
+            <TextView
+                android:id="@+id/mf_h_s_lngtd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/mf_h_s_lttd"
+                app:layout_constraintTop_toBottomOf="@+id/mf_h_s_lttd" />
+
+            <TextView
+                android:id="@+id/mf_h_f_lngtd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/mf_h_f_lttd"
+                app:layout_constraintTop_toTopOf="@+id/mf_h_f_lttd" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
