@@ -33,7 +33,25 @@ public class MatchingDetailFragment extends Fragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_together_info);
 
+        b.btnMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                MatchingMemberFragment matchingMemberFragment = new MatchingMemberFragment();
+                transaction.replace(R.id.fm_matching, matchingMemberFragment);
+                transaction.commit();
+            }
+        });
 
+        b.btnMemberRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                TogetherRequestFragment togetherRequestFragment = new TogetherRequestFragment();
+                transaction.replace(R.id.fm_matching, togetherRequestFragment);
+                transaction.commit();
+            }
+        });
 
         b.btnMatch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,24 +61,6 @@ public class MatchingDetailFragment extends Fragment {
                 transaction.replace(R.id.fm_matching, matchingSeatFragment);
                 transaction.commit();
 
-            }
-        });
-        b.clLeader.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
-        b.clMemberFirst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
-        b.clMemberSecond.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
             }
         });
 

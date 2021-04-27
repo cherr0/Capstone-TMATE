@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardview"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
+    android:layout_height="270dp"
     android:layout_marginStart="20dp"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_request_info"
+            android:id="@+id/cl_member_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,16 +25,15 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
-                android:id="@+id/request_m_id"
+                android:id="@+id/member_m_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/request_m_profile"
+                android:id="@+id/member_m_profile"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="16dp"
@@ -44,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/request_m_name"
+                android:id="@+id/member_m_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
@@ -52,43 +51,43 @@
                 android:textColor="@color/black"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/request_m_profile"
-                app:layout_constraintStart_toEndOf="@+id/request_m_profile" />
+                app:layout_constraintBottom_toBottomOf="@+id/member_m_profile"
+                app:layout_constraintStart_toEndOf="@+id/member_m_profile" />
 
             <TextView
-                android:id="@+id/request_m_birth"
+                android:id="@+id/member_m_birth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="20대"
-                app:layout_constraintBottom_toBottomOf="@+id/request_m_name"
-                app:layout_constraintStart_toEndOf="@+id/request_m_name" />
+                app:layout_constraintBottom_toBottomOf="@+id/member_m_name"
+                app:layout_constraintStart_toEndOf="@+id/member_m_name" />
 
-            <TextView
-                android:id="@+id/request_distance"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:text="80M"
-                app:layout_constraintBottom_toBottomOf="@+id/request_m_birth"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:background="@drawable/ic_call"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintTop_toTopOf="@id/member_m_name"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="#818181"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_request_info" />
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="#818181"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_member_info" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout24"
@@ -99,7 +98,7 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <TextView
-                android:id="@+id/request_tv"
+                android:id="@+id/member_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="이용횟수"
@@ -111,38 +110,38 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/request_tv2"
+                android:id="@+id/member_tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="좋아요"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/request_tv"
-                app:layout_constraintStart_toStartOf="@+id/request_tv"/>
+                app:layout_constraintTop_toBottomOf="@+id/member_tv"
+                app:layout_constraintStart_toStartOf="@+id/member_tv"/>
 
             <TextView
-                android:id="@+id/request_tv3"
+                android:id="@+id/member_tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="싫어요"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/request_tv2"
-                app:layout_constraintStart_toStartOf="@+id/request_tv2"/>
+                app:layout_constraintTop_toBottomOf="@+id/member_tv2"
+                app:layout_constraintStart_toStartOf="@+id/member_tv2"/>
 
             <TextView
-                android:id="@+id/request_m_t_use"
+                android:id="@+id/member_m_t_use"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="33"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@id/request_tv4"
-                app:layout_constraintEnd_toStartOf="@+id/request_tv4"/>
+                app:layout_constraintBottom_toBottomOf="@id/member_tv4"
+                app:layout_constraintEnd_toStartOf="@+id/member_tv4"/>
 
             <TextView
-                android:id="@+id/request_tv4"
+                android:id="@+id/member_tv4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회"
@@ -154,72 +153,72 @@
 
 
             <TextView
-                android:id="@+id/request_r_code_like"
+                android:id="@+id/member_r_code_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="28"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@id/request_tv5"
-                app:layout_constraintEnd_toStartOf="@+id/request_tv5"/>
+                app:layout_constraintBottom_toBottomOf="@id/member_tv5"
+                app:layout_constraintEnd_toStartOf="@+id/member_tv5"/>
 
             <TextView
-                android:id="@+id/request_tv5"
+                android:id="@+id/member_tv5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회"
                 android:textSize="16sp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/request_tv4"
-                app:layout_constraintTop_toBottomOf="@id/request_tv4"/>
+                app:layout_constraintEnd_toEndOf="@+id/member_tv4"
+                app:layout_constraintTop_toBottomOf="@id/member_tv4"/>
 
             <TextView
-                android:id="@+id/request_r_code_dislike"
+                android:id="@+id/member_r_code_dislike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="18"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@id/request_tv6"
-                app:layout_constraintEnd_toStartOf="@+id/request_tv6"/>
+                app:layout_constraintBottom_toBottomOf="@id/member_tv6"
+                app:layout_constraintEnd_toStartOf="@+id/member_tv6"/>
 
             <TextView
-                android:id="@+id/request_tv6"
+                android:id="@+id/member_tv6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회"
                 android:textSize="16sp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/request_tv5"
-                app:layout_constraintTop_toBottomOf="@id/request_tv5"/>
+                app:layout_constraintEnd_toEndOf="@+id/member_tv5"
+                app:layout_constraintTop_toBottomOf="@id/member_tv5"/>
 
             <TextView
-                android:id="@+id/request_tv7"
+                android:id="@+id/member_tv7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="노쇼횟수"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/request_tv3"
-                app:layout_constraintStart_toStartOf="@+id/request_tv3"/>
+                app:layout_constraintTop_toBottomOf="@+id/member_tv3"
+                app:layout_constraintStart_toStartOf="@+id/member_tv3"/>
 
             <TextView
-                android:id="@+id/request_m_count"
+                android:id="@+id/member_m_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@id/request_tv8"
-                app:layout_constraintEnd_toStartOf="@+id/request_tv8"/>
+                app:layout_constraintBottom_toBottomOf="@id/member_tv8"
+                app:layout_constraintEnd_toStartOf="@+id/member_tv8"/>
 
             <TextView
-                android:id="@+id/request_tv8"
+                android:id="@+id/member_tv8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="회"
                 android:textSize="16sp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/request_tv6"
-                app:layout_constraintTop_toBottomOf="@id/request_tv6"/>
+                app:layout_constraintEnd_toEndOf="@+id/member_tv6"
+                app:layout_constraintTop_toBottomOf="@id/member_tv6"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -237,40 +236,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout24" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/view4"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <Button
-                android:id="@+id/request_btn_agree"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="수락"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/request_btn_reject"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-            <Button
-                android:id="@+id/request_btn_reject"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="거절"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/primary_dark"
-                app:layout_constraintStart_toEndOf="@+id/request_btn_agree"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/request_btn_agree"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

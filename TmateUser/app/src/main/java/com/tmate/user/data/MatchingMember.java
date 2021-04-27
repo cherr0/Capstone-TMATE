@@ -1,10 +1,9 @@
 package com.tmate.user.data;
 
-public class TogetherRequest {
+public class MatchingMember {
     String m_id;
     String m_name;
     String m_birth;
-    String distance;
     String m_t_use;
     String like;
     String dislike;
@@ -34,14 +33,6 @@ public class TogetherRequest {
         this.m_birth = m_birth;
     }
 
-    public String getDistance() {
-        return distance;
-    }
-
-    public void setDistance(String distance) {
-        this.distance = distance;
-    }
-
     public String getM_t_use() {
         return m_t_use;
     }
@@ -65,7 +56,6 @@ public class TogetherRequest {
     public void setDislike(String dislike) {
         this.dislike = dislike;
     }
-
 
     public String getM_count() {
         return m_count;
