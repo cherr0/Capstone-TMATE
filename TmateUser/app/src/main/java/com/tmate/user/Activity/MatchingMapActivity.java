@@ -268,9 +268,9 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     intent.putExtra("to_max", together);
                     intent.putExtra("h_s_place", h_s_place);
                     intent.putExtra("h_f_place", h_f_place);
-                    intent.putExtra("h_ep_fare",totalFare);
-                    intent.putExtra("h_ep_time",totalTime);
-                    intent.putExtra("h_ep_distance",totalDistance);
+                    intent.putExtra("h_ep_fare",moneyplan);
+                    intent.putExtra("h_ep_time",time);
+                    intent.putExtra("h_ep_distance",km);
                     startActivity(intent);
                     finish();
                 }
@@ -285,9 +285,9 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     intent.putExtra("to_max", together);
                     intent.putExtra("h_s_place", h_s_place);
                     intent.putExtra("h_f_place", h_f_place);
-                    intent.putExtra("h_ep_fare",totalFare);
-                    intent.putExtra("h_ep_time",totalTime);
-                    intent.putExtra("h_ep_distance",totalDistance);
+                    intent.putExtra("h_ep_fare",moneyplan);
+                    intent.putExtra("h_ep_time",time);
+                    intent.putExtra("h_ep_distance",km);
                     startActivity(intent);
                     finish();
                 }
@@ -295,15 +295,15 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                 if(together == 1) { //동승이 아닐 경우
                     hideKeyBoard();
                     Intent intent = new Intent(getApplicationContext(), CallGeneralActivity.class); //결제 화면으로
-                    intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
-                    intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
-                    intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
-                    intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
-                    intent.putExtra("h_s_place", h_s_place);
-                    intent.putExtra("h_f_place", h_f_place);
-                    intent.putExtra("h_ep_fare",totalFare);
-                    intent.putExtra("h_ep_time",totalTime);
-                    intent.putExtra("h_ep_distance",totalDistance);
+                    intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude())); // 출발지 위도
+                    intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude())); // 출발지 경도
+                    intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude())); // 도착지 위도
+                    intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude())); // 도착지 경도
+                    intent.putExtra("h_s_place", h_s_place); // 출발지
+                    intent.putExtra("h_f_place", h_f_place); // 도착지
+                    intent.putExtra("h_ep_fare",moneyplan); // 예상 요금
+                    intent.putExtra("h_ep_time",time); // 예상 시간
+                    intent.putExtra("h_ep_distance",km); // 예상 거리
                     startActivity(intent);
                     finish();
                 }
@@ -714,7 +714,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     int hour = (totalSec - day * 60 * 60 * 24) / (60 * 60);
                     int minute = (totalSec - day * 60 * 60 * 24 - hour * 3600) / 60;
 
-                    String time = null;
+
                     if (hour > 0) {
                         time = hour + "시간 " + minute + "분";
                     } else {
