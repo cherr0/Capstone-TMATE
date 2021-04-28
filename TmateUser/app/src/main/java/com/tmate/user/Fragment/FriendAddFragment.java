@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.tmate.user.R;
 import com.tmate.user.data.Approval;
 import com.tmate.user.data.Member;
+import com.tmate.user.net.DataService;
 
 import org.w3c.dom.Text;
 
@@ -48,7 +49,8 @@ public class FriendAddFragment extends Fragment {
 
     Approval approval;
 
-    DataService dataService = new DataService();
+    //    DataService dataService = new DataService();
+    DataService dataService = DataService.getInstance();
 
     @Nullable
     @Override
@@ -85,8 +87,7 @@ public class FriendAddFragment extends Fragment {
                     return;
                 }
 
-
-                dataService.friend.searchMembers(phoneNo).enqueue(new Callback<List<Member>>() {
+                dataService.memberAPI.searchMembers(phoneNo).enqueue(new Callback<List<Member>>() {
                     @Override
                     public void onResponse(Call<List<Member>> call, Response<List<Member>> response) {
                         if (response.isSuccessful()) {
@@ -120,7 +121,6 @@ public class FriendAddFragment extends Fragment {
 
                                 else {
                                     Toast.makeText(getActivity(), "검색 결과가 없습니다.", Toast.LENGTH_LONG).show();
-
                                 }
 
                             }
@@ -129,10 +129,9 @@ public class FriendAddFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<List<Member>> call, Throwable t) {
-                            t.printStackTrace();
+                        t.printStackTrace();
                     }
                 });
-
 
 
 
@@ -142,7 +141,8 @@ public class FriendAddFragment extends Fragment {
         btn_approval.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataService.friend.approvalFriend(approval).enqueue(new Callback<Boolean>() {
+
+                dataService.memberAPI.approvalFriend(approval).enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         if (response.isSuccessful()) {

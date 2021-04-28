@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.R;
 import com.tmate.user.data.Member;
+import com.tmate.user.net.DataService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,7 +48,8 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
     private Button service;
     private TextView tv_card;
 
-    DataService dataService = new DataService();
+    //    DataService dataService = new DataService();
+    DataService dataService = DataService.getInstance();
 
 
     @Nullable
@@ -172,7 +174,7 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
 
     public void selectMemberInfo(String m_id) {
 
-        dataService.profile.selectProfile(m_id).enqueue(new Callback<Member>() {
+        dataService.memberAPI.selectProfile(m_id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
                 if (response.isSuccessful()) {

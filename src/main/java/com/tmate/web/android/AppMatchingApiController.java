@@ -1,6 +1,9 @@
 package com.tmate.web.android;
 
 import com.tmate.domain.HistoryDTO;
+import com.tmate.domain.TogetherDTO;
+import com.tmate.service.android.user.AppMemberMatchService;
+import com.tmate.service.android.user.AppMemberMatchServiceImpl;
 import com.tmate.service.android.user.AppMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,7 +21,9 @@ import java.util.List;
 public class AppMatchingApiController {
 
 
-    private final AppMemberService appMemberService;
+    // private final AppMemberService appMemberService;
+
+    private final AppMemberMatchService appMemberMatchService;
 
 
     // 로그 찍기 용 TAG
@@ -34,7 +39,7 @@ public class AppMatchingApiController {
         log.info("도착지 위도 : " + flttd);
         log.info("도착지 경도 : " + flngtd);
 
-        List<HistoryDTO> matchingList = appMemberService.getTogetherMatchingList(slttd, slngtd, flttd, flngtd);
+        List<HistoryDTO> matchingList = appMemberMatchService.getTogetherMatchingList(slttd, slngtd, flttd, flngtd);
         log.info(TAG + "App으로 넘어가는 거리 기준 매칭 리스트 :" + matchingList);
 
         return new ResponseEntity<>(matchingList, HttpStatus.OK);
@@ -47,7 +52,7 @@ public class AppMatchingApiController {
 
         log.info(TAG + "APP에서 넘어오는 이용방 정보 :  " + merchant_uid);
 
-        HistoryDTO detail = appMemberService.getTogetherMatchingDetail(merchant_uid);
+        HistoryDTO detail = appMemberMatchService.getTogetherMatchingDetail(merchant_uid);
 
         return new ResponseEntity<>(detail, HttpStatus.OK);
     }
@@ -59,7 +64,17 @@ public class AppMatchingApiController {
 
         log.info(TAG + ": 삭제하기 위해 넘어오는 이용 번호 : " + merchant_uid);
 
-        return new ResponseEntity<>(appMemberService.removeTogetherMatch(merchant_uid), HttpStatus.OK);
+        return new ResponseEntity<>(appMemberMatchService.removeTogetherMatch(merchant_uid), HttpStatus.OK);
+    }
+
+    /*
+     * 매칭방을 만들었을때 나중에 매칭방 동승 신청이랑 추가로 다르게 생성되어진다.
+     * */
+    @PostMapping("/regiter/matching")
+    public ResponseEntity<Boolean> registerMatchingRegister(@RequestBody HistoryDTO historyDTO, @RequestBody TogetherDTO togetherDTO) {
+        log.info(TAG + ": 동승 매칭 방을 생성하기 위해 넘어오는 HistoryDTO & TogetherDTO" + historyDTO + togetherDTO);
+
+        return new ResponseEntity<>(appMemberMatchService.registerTogether(historyDTO, togetherDTO),HttpStatus.OK);
     }
 
 

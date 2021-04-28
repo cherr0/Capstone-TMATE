@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.tmate.user.R;
 import com.tmate.user.data.CardData;
+import com.tmate.user.net.DataService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,7 +40,7 @@ public class card_management_push extends Fragment {
     EditText cardnum1, cardnum2, cardnum3, cardnum4 , use_date_num1, use_date_num2, card_password, card_cvc;
 
     // 레트로핏 카드 추가
-    DataService dataService = new DataService();
+    DataService dataService = DataService.getInstance();
 
     // SharedPreferences
     Context context;
@@ -113,8 +114,7 @@ public class card_management_push extends Fragment {
                         cardData.setCredit_vali(use_date_num1.getText().toString() + "/" + use_date_num2.getText().toString());
                         cardData.setM_id(m_id);
 
-
-                        dataService.card.registerCard(cardData).enqueue(new Callback<Boolean>() {
+                        dataService.memberAPI.registerCard(cardData).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 if (response.isSuccessful()) {
@@ -132,7 +132,7 @@ public class card_management_push extends Fragment {
 
                             @Override
                             public void onFailure(Call<Boolean> call, Throwable t) {
-                                    t.printStackTrace();
+                                t.printStackTrace();
                             }
                         });
 

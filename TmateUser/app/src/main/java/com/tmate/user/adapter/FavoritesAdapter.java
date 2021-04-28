@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.data.FavoritesData;
 import com.tmate.user.R;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesHolder> {
     private ArrayList<FavoritesData> items;
 
     // 레트로핏 어뎁터 서비스
-    AdapterComService dataService = new AdapterComService();
+//    AdapterComService dataService = new AdapterComService();
+    DataService dataService = DataService.getInstance();
 
     // m_id 값 불러오기
     Context context;
@@ -82,7 +84,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesHolder> {
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dataService.delete.removeBookmark(holder.bm_id.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
+                        dataService.commonAPI.removeBookmark(holder.bm_id.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 if (response.isSuccessful()) {

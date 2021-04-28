@@ -94,27 +94,31 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
 }
 
 class TogetherRequestHolder extends RecyclerView.ViewHolder {
+    TextView m_id;
     TextView m_name;
     TextView m_birth;
     TextView distance;
     TextView m_t_use;
     TextView like;
     TextView dislike;
+    TextView m_count;
     Button btn_agree;
     Button btn_reject;
 
     public void onBind(TogetherRequest data) {
+        m_id.setText(data.getM_id());
         m_name.setText(data.getM_name());
         m_birth.setText(data.getM_birth());
         distance.setText(data.getDistance());
         m_t_use.setText(data.getM_t_use());
         like.setText(data.getLike());
         dislike.setText(data.getDislike());
+        m_count.setText(data.getM_count());
     }
 
     public TogetherRequestHolder(@NonNull View itemView) {
         super(itemView);
-
+        m_id = itemView.findViewById(R.id.request_m_id);
         m_name =itemView.findViewById(R.id.request_m_name);
         m_birth =itemView.findViewById(R.id.request_m_birth);
         distance =itemView.findViewById(R.id.request_distance);
@@ -123,5 +127,6 @@ class TogetherRequestHolder extends RecyclerView.ViewHolder {
         dislike =itemView.findViewById(R.id.request_r_code_dislike);
         btn_agree = itemView.findViewById(R.id.request_btn_agree);
         btn_reject = itemView.findViewById(R.id.request_btn_reject);
+        m_count = itemView.findViewById(R.id.request_m_count);
     }
 }

@@ -26,6 +26,7 @@ public interface HistoryMapper {
     int updateH_status(HistoryDTO historyDTO);
 
     // 매칭방 생성시 인서트 문 총 2개 필요함 이용내역 하나 넣고 그 다음 동승 넣고, 동승자가 들올때도 같다.
+
     // 2. 승인 버튼을 누를시
     // 1. 매칭 -> xml 작성
     int insertMatching(HistoryDTO historyDTO);
