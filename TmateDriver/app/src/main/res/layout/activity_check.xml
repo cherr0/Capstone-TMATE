@@ -23,6 +23,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="운행완료"
@@ -32,6 +33,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_black_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/black_list2"
+                app:layout_constraintBottom_toBottomOf="@+id/textView20"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView20" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -279,10 +290,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
             <Button
-                android:id="@+id/btn_black_list_submit"
+                android:id="@+id/driving_finish"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:text="블랙리스트 등록"
+                android:text="운행 종료"
                 android:textSize="20sp"
                 android:textColor="@color/white"
                 app:backgroundTint="#4267B2"

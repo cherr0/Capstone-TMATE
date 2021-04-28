@@ -1,7 +1,7 @@
 package com.tmate.driver.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+
+import androidx.appcompat.app.AppCompatActivity;
 import com.skt.Tmap.TMapTapi;
 import com.tmate.driver.R;
 import com.tmate.driver.databinding.ActivityPaymentBinding;
@@ -48,6 +50,9 @@ public class PaymentActivity extends AppCompatActivity {
         binding.btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (! PaymentActivity.this.isFinishing()) {
+                    showDialog();
+                }
                 payshowDialog();
             }
         });
@@ -71,7 +76,8 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PaymentActivity.this, CheckActivity.class);
                 startActivity(intent);
-                dialog2.dismiss();
+                finish();
+          dialog2.dismiss();
             }
         });
 

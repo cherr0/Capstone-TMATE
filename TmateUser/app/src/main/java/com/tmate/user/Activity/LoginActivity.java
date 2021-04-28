@@ -22,9 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Log.d("로그아웃버튼시 값 체크 ", getPreferenceString("m_id"));
 
-//        setPreference("m_id","m1010918400420");
-
-         // sharedpreference 값 있을떄 바로 메인뷰로 간다.
+        // sharedpreference 값 있을떄 바로 메인뷰로 간다.
         if (!(getPreferenceString("m_id").equals(""))) {
             Intent intent = new Intent(this, MainViewActivity.class);
             intent.putExtra("m_id", getPreferenceString("m_id"));

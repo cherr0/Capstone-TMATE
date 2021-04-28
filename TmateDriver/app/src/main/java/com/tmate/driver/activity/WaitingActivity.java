@@ -50,7 +50,9 @@ public class WaitingActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                showDialog();
+                if (!WaitingActivity.this.isFinishing()) {
+                    showDialog();
+                }
             }
         }, 4000);
     }
@@ -69,6 +71,9 @@ public class WaitingActivity extends AppCompatActivity {
         matching_btn_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(WaitingActivity.this, PaymentActivity.class);
+                startActivity(intent);
+                finish();
                 checkPermission();
                 TMapTapi tmaptapi = new TMapTapi(getApplication());
                 boolean isTmapApp = tmaptapi.isTmapApplicationInstalled(); //앱 설치했는지 판단

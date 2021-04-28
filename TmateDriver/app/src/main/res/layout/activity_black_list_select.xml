@@ -33,35 +33,35 @@
         app:layout_constraintTop_toBottomOf="@+id/textView10">
 
         <net.colindodd.toggleimagebutton.ToggleImageButton
-            android:id="@+id/toggleImageButton"
+            android:id="@+id/seat_one"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:layout_constraintBottom_toTopOf="@+id/toggleImageButton3"
-            app:layout_constraintEnd_toEndOf="@+id/toggleImageButton3"
-            app:layout_constraintStart_toStartOf="@+id/toggleImageButton3"
+            app:layout_constraintBottom_toTopOf="@+id/seat_three"
+            app:layout_constraintEnd_toEndOf="@+id/seat_three"
+            app:layout_constraintStart_toStartOf="@+id/seat_three"
             app:layout_constraintTop_toTopOf="parent"
             app:tib_drawable_off="@drawable/ic_sit_off1"
             app:tib_drawable_on="@drawable/ic_sit_on1" />
 
         <net.colindodd.toggleimagebutton.ToggleImageButton
-            android:id="@+id/toggleImageButton2"
+            android:id="@+id/seat_two"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            app:layout_constraintBottom_toBottomOf="@+id/toggleImageButton3"
-            app:layout_constraintEnd_toStartOf="@+id/toggleImageButton3"
+            app:layout_constraintBottom_toBottomOf="@+id/seat_three"
+            app:layout_constraintEnd_toStartOf="@+id/seat_three"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toggleImageButton3"
+            app:layout_constraintTop_toTopOf="@+id/seat_three"
             app:tib_drawable_off="@drawable/ic_sit_off2"
             app:tib_drawable_on="@drawable/ic_sit_on2" />
 
         <net.colindodd.toggleimagebutton.ToggleImageButton
-            android:id="@+id/toggleImageButton3"
+            android:id="@+id/seat_three"
             android:layout_width="120dp"
             android:layout_height="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/toggleImageButton2"
-            app:layout_constraintTop_toBottomOf="@+id/toggleImageButton"
+            app:layout_constraintStart_toEndOf="@+id/seat_two"
+            app:layout_constraintTop_toBottomOf="@+id/seat_one"
             app:tib_drawable_off="@drawable/ic_sit_off3"
             app:tib_drawable_on="@drawable/ic_sit_on3" />
 
