@@ -31,16 +31,6 @@ public class AccountRegistrationFragment extends Fragment {
                 showAlertDialogItems();
             }
         });
-        b.callAdmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                b.dAcnumLinear.setVisibility(View.GONE);
-                b.bankList.setVisibility(View.GONE);
-                b.bcAcnum.setText(b.dAcnum.getText().toString());
-                b.bankCheck.setVisibility(View.VISIBLE);
-                b.confirmMessage.setVisibility(View.VISIBLE);
-            }
-        });
         b.cardChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,14 +47,11 @@ public class AccountRegistrationFragment extends Fragment {
                 transaction.commit();
             }
         });
-
-
-
         return v;
     }
 
     private void showAlertDialogItems() {
-        String [] cards = new String[] {"국민은행","농협","신한은행","우리은행"};
+        String [] cards = new String[] {"국민은행","농협","신한은행","우리은행","카카오뱅크"};
         AlertDialog.Builder ad = new AlertDialog.Builder(getContext());
 
         ad.setTitle("은행사");
@@ -73,10 +60,8 @@ public class AccountRegistrationFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         b.bank.setVisibility(View.GONE);
-                        b.dAcnumClick.setVisibility(View.GONE);
-                        b.dAcnumLinear.setVisibility(View.VISIBLE);
-                        b.bankNameSelect.setText(cards[which]);
-                        b.bankCompany.setText(cards[which]);
+                        b.bankCheck.setVisibility(View.VISIBLE);
+                        b.cardCompany.setText(cards[which]);
                     }
                 });
         ad.setNeutralButton("닫기",null).show();
