@@ -82,6 +82,7 @@ public class CallFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MatchingMapActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
+                dialog.dismiss();
             }
         });
         Button btn_yes = dialog.findViewById(R.id.btn_triple);
@@ -92,6 +93,7 @@ public class CallFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MatchingMapActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
+                dialog.dismiss();
             }
         });
     }
