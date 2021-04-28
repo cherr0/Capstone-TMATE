@@ -1,5 +1,7 @@
 package com.tmate.web.android;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmate.domain.HistoryDTO;
 import com.tmate.domain.TogetherDTO;
 import com.tmate.service.android.user.AppMemberMatchService;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -47,12 +50,19 @@ public class AppMatchingApiController {
 
 
     // 매칭 상세 내역 -> 수정 필요
-    @PostMapping("/read")
-    public ResponseEntity<HistoryDTO> getMatchingDetail(@RequestBody String merchant_uid) {
+    @GetMapping("/read/{merchant_uid}")
+    public ResponseEntity<HistoryDTO> getMatchingDetail(@PathVariable String merchant_uid) {
+
 
         log.info(TAG + "APP에서 넘어오는 이용방 정보 :  " + merchant_uid);
 
+        String real_id = merchant_uid.replace("\"","");
+
+        log.info("바뀐 문자열 : " + real_id);
+
         HistoryDTO detail = appMemberMatchService.getTogetherMatchingDetail(merchant_uid);
+
+        log.info("넘어가는 이용정보 : " + detail);
 
         return new ResponseEntity<>(detail, HttpStatus.OK);
     }
@@ -69,9 +79,24 @@ public class AppMatchingApiController {
 
     /*
      * 매칭방을 만들었을때 나중에 매칭방 동승 신청이랑 추가로 다르게 생성되어진다.
-     * */
-    @PostMapping("/regiter/matching")
-    public ResponseEntity<Boolean> registerMatchingRegister(@RequestBody HistoryDTO historyDTO, @RequestBody TogetherDTO togetherDTO) {
+//     * */
+//    @PostMapping("/register/matching")
+//    public ResponseEntity<Boolean> registerMatchingRegister(@RequestBody HistoryDTO historyDTO, @RequestBody TogetherDTO togetherDTO) {
+//        log.info(TAG + ": 동승 매칭 방을 생성하기 위해 넘어오는 HistoryDTO & TogetherDTO" + historyDTO + togetherDTO);
+//
+//        return new ResponseEntity<>(appMemberMatchService.registerTogether(historyDTO, togetherDTO),HttpStatus.OK);
+//    }
+
+
+    @PostMapping("/register/matching")
+    public ResponseEntity<Boolean> registerMatchingRegister(@RequestBody HashMap<String,Object> hashMap) {
+
+        ObjectMapper mapper = new ObjectMapper();
+        HistoryDTO historyDTO = mapper.convertValue(hashMap.get("history"), new TypeReference<HistoryDTO>() {});
+        TogetherDTO togetherDTO = mapper.convertValue(hashMap.get("together"), new TypeReference<TogetherDTO>() {});
+//        HistoryDTO historyDTO = (HistoryDTO) hashMap.get("history");
+//        TogetherDTO togetherDTO = (TogetherDTO) hashMap.get("together");
+
         log.info(TAG + ": 동승 매칭 방을 생성하기 위해 넘어오는 HistoryDTO & TogetherDTO" + historyDTO + togetherDTO);
 
         return new ResponseEntity<>(appMemberMatchService.registerTogether(historyDTO, togetherDTO),HttpStatus.OK);

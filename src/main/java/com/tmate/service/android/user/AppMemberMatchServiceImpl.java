@@ -52,7 +52,12 @@ public class AppMemberMatchServiceImpl implements AppMemberMatchService{
     public Boolean registerTogether(HistoryDTO historyDTO, TogetherDTO togetherDTO) {
         log.info("AppMemberService 동승 리스트 생성 서비스중 ...");
 
+        log.info("hisotryDTO 어떻게 들어오누", historyDTO);
+        log.info("togetherDTO 어떻게 들어오누", togetherDTO);
+
         historyMapper.insertMatching(historyDTO);
+
+
 
         log.info("AppMemberService 매칭 리스트 삽입 성공! ");
 

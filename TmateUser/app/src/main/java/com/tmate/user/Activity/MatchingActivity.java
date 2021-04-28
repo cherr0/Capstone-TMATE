@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.tmate.user.Fragment.MatchingFragment;
 import com.tmate.user.Fragment.PointFragment;
@@ -32,7 +33,9 @@ public class MatchingActivity extends AppCompatActivity {
             bundle.putInt("to_max", intent.getIntExtra("to_max",0));
             bundle.putString("h_s_place", intent.getStringExtra("h_s_place"));
             bundle.putString("h_f_place", intent.getStringExtra("h_f_place"));
-            bundle.putString("h_ep_fare", intent.getStringExtra("h_ep_fare"));
+            bundle.putString("h_ep_fare", String.valueOf(intent.getIntExtra("h_ep_fare",0)));
+            bundle.putString("h_ep_time",intent.getStringExtra("h_ep_time"));
+            bundle.putString("h_ep_distance",String.valueOf(intent.getDoubleExtra("h_ep_distance",0)));
 
         }
 
@@ -43,14 +46,3 @@ public class MatchingActivity extends AppCompatActivity {
 
     }
 }
-//
-//intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
-//        intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
-//        intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
-//        intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
-//        intent.putExtra("to_max", together);
-//        intent.putExtra("h_s_place", h_s_place);
-//        intent.putExtra("h_f_place", h_f_place);
-//        intent.putExtra("h_ep_fare",totalFare);
-//        intent.putExtra("h_ep_time",totalTime);
-//        intent.putExtra("h_ep_distance",totalDistance);

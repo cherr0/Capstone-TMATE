@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class MatchingDetailFragment extends Fragment {
                 if (response.isSuccessful()) {
                     if (response.code() == 200) {
                         History history = response.body();
+                        Log.d("잘받아오나요?", history.toString());
 
                         b.tvMName.setText(history.getM_name());
 
@@ -80,7 +82,7 @@ public class MatchingDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<History> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
 

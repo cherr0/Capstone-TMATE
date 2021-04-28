@@ -31,6 +31,8 @@ public class History {
     // 탑승 순위
     private int cnt;
 
+    // 방 만든 사람
+    private String h_made_flag;
 
     // 총 요금
     private int h_allfare;
@@ -42,23 +44,29 @@ public class History {
     // 회원코드
     private String m_id;
 
-    // 회원 이름
+    // 조인 해서 가져온다.
     private String m_name;
 
     // 기사 코드
     private String d_id;
 
-    // 현재 인원
+    // DB 컬럼에는 없다. 현재 인원수
     private int to_people;
 
     // 최대 인원
     private int to_max;
+
+    private String h_ep_fare;
+
+    private String h_ep_time;
+
+    private String h_ep_distance;
+
 
     // 출발지와 떨어진 거리
     private double distance1;
 
     // 도착지와 떨어진 거리
     private double distance2;
-
 
 }
