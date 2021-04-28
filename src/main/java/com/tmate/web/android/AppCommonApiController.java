@@ -1,6 +1,8 @@
 package com.tmate.web.android;
 
 import com.tmate.domain.BoardDTO;
+import com.tmate.domain.PhoneDTO;
+import com.tmate.service.SMSService;
 import com.tmate.service.android.common.AppNoticeService;
 import com.tmate.service.android.common.CommonService;
 import com.tmate.service.android.user.AppMemberService;
@@ -25,6 +27,9 @@ public class AppCommonApiController {
     private final CommonService commonService;
 
     private final AppMemberService appMemberService;
+
+    // 휴대폰 인증 서비스
+    private final SMSService smsService;
   
     /* -----------------------
          App 공지사항 컨트롤러
@@ -79,9 +84,30 @@ public class AppCommonApiController {
         return new ResponseEntity<>(appMemberService.removeBookmark(bm_ids, m_id),HttpStatus.OK);
     }
 
-    /*
-    *
-    *
-    *
-    * */
+    /* -----------------------
+          휴대폰 인증 컨트롤러
+       ----------------------- */
+    
+    // 휴대폰 인증번호
+    @PostMapping("/sendsms")
+    public ResponseEntity<Boolean> sendSMS(@RequestBody PhoneDTO phoneDTO) {
+        log.info("인증번호 전송 sendSMS() Phone Num : " + phoneDTO.toString());
+
+        return new ResponseEntity<>(smsService.certifiedPhoneNumber(phoneDTO), HttpStatus.OK);
+    }
+
+    // 휴대폰 인증 확인
+    @PostMapping("/confirm")
+    public ResponseEntity<Integer> confirm(@RequestBody PhoneDTO phoneDTO) {
+        if (smsService.confirmNumber.equals(phoneDTO.getConfirm())) {
+            log.info("실제 인증번호 : " + smsService.confirmNumber);
+            log.info("적은 인증번호 : " + phoneDTO.getConfirm());
+            return new ResponseEntity<>(SMSService.CONFIRM, HttpStatus.OK);
+        } else {
+            log.info("실제 인증번호 : " + smsService.confirmNumber);
+            log.info("적은 인증번호 : " + phoneDTO.getConfirm());
+
+            return new ResponseEntity<>(SMSService.REJECT, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
