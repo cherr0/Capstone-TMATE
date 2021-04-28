@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
@@ -91,6 +92,10 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     private int moneyplan = 0;// 도착지에 도착하는 시간에따른 예상 가격
     private String time = null;//예상 도착 시간
     private Double km;//출발지에서 도착지까지의 거리
+
+    //임시 데이터
+    Double exlat[];
+    Double exlon[];
 
 
     //gps 및 경로 그리기 위한 변수들
@@ -607,25 +612,63 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     //findAllPoi 통합검색 POI를 요청한다.
     public void findAllPoi(String strData) {
         removeMarker();
-        TMapData tmapdata = new TMapData();
+        if(together ==2 || together ==1) {
+            TMapData tmapdata = new TMapData();
+            tmapdata.findAllPOI(strData, new TMapData.FindAllPOIListenerCallback() {
+                @Override
+                public void onFindAllPOI(ArrayList<TMapPOIItem> poiItem) {
+                    ArrayList<String> numberList = new ArrayList<String>();
+                    for (int i = 0; i < poiItem.size(); i++) {
+                        TMapPOIItem item = poiItem.get(i);
+                        numberList.add(item.getPOIName().toString());
+                    }
+                    if (numberList.size() > 0) {
+                        mArrPoiItem = poiItem;
+                        items = numberList.toArray(new CharSequence[numberList.size()]);
+                        setTextLevel(MESSAGE_STATE_POI);
+                    } else {
+                        setTextLevel(MESSAGE_ERROR);
+                    }
+                }
+            });
+        } else if(together ==3) {  //3인일 경우
+            //임시로 넣은 데이터(장소명)
+            ArrayList<String> exPlace = new ArrayList<String>();
+            exPlace.add("우리은행 365코너 성서비즈니스점");
+            exPlace.add("대구시청 광장");
+            exPlace.add("반월당역 대구1호선");
+            exPlace.add("영진전문대학교 복현캠퍼스 영진생활관");
+            exPlace.add("대구선아양공원");
+            //임시로 넣은 데이터 (좌표들)
+            exlat = new Double[exPlace.size()];
+            exlon = new Double[exPlace.size()];
 
-        tmapdata.findAllPOI(strData, new TMapData.FindAllPOIListenerCallback() {
-            @Override
-            public void onFindAllPOI(ArrayList<TMapPOIItem> poiItem) {
-                ArrayList<String> numberList = new ArrayList<String>();
-                for (int i = 0; i < poiItem.size(); i++) {
-                    TMapPOIItem item = poiItem.get(i);
-                    numberList.add(item.getPOIName().toString());
-                }
-                if (numberList.size() > 0) {
-                    mArrPoiItem = poiItem;
-                    items = numberList.toArray(new CharSequence[numberList.size()]);
-                    setTextLevel(MESSAGE_STATE_POI);
-                } else {
-                    setTextLevel(MESSAGE_ERROR);
-                }
+            exlat[0] = 35.8365475415358;
+            exlon[0] = 128.506921486581;
+
+            exlat[1] = 35.871159972672;
+            exlon[1] = 128.60183648521;
+
+            exlat[2] = 35.8645000309428;
+            exlon[2] = 128.593337428631;
+
+            exlat[3] = 35.89497077744405;
+            exlon[3] = 128.6216888885796;
+
+            exlat[4] = 35.88300194106;
+            exlon[4] = 128.63439987867;
+
+            if (exPlace.size() > 0) {
+                //장소명을 전역변수에 넣음
+                items = exPlace.toArray(new CharSequence[exPlace.size()]);
+                setTextLevel(MESSAGE_STATE_POI);
+            } else {
+                setTextLevel(MESSAGE_ERROR);
             }
-        });
+
+
+        }
+
     }
     private void showPOIListAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -633,37 +676,68 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
 
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                mPoiItem = mArrPoiItem.get(item);
+                if(together ==1 || together ==2 ){
+                    mPoiItem = mArrPoiItem.get(item);
+                    TMapMarkerItem markerItem = new TMapMarkerItem();
 
-                TMapMarkerItem markerItem = new TMapMarkerItem();
+                    String strID = String.format("marker%d", mMarkerID++);
+                    markerItem.setID(strID);
+                    markerItem.setIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.poi_dot));
+                    markerItem.setTMapPoint(mPoiItem.getPOIPoint());
+                    markerItem.setCanShowCallout(false);
+                    markerItem.setPosition(0.5f, 1.0f);
 
-                String strID = String.format("marker%d", mMarkerID++);
-                markerItem.setID(strID);
-                markerItem.setIcon(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.poi_dot));
-                markerItem.setTMapPoint(mPoiItem.getPOIPoint());
-                markerItem.setCanShowCallout(false);
-                markerItem.setPosition(0.5f, 1.0f);
-
-                //마커 넣기
-                mMapView.addMarkerItem(strID, markerItem);
-                mArrayMarkerID.add(strID);
-                mMapView.setCenterPoint(mPoiItem.getPOIPoint().getLongitude(), mPoiItem.getPOIPoint().getLatitude());
-                //출발지를 검색 할 경우
-                if(start_flag==1) {
-                    d1 = mPoiItem.getPOIPoint().getLatitude(); //출발지 위도
-                    d2 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
-                    b.startPlace.setText(mPoiItem.getPOIName()); //출발지 이름을 출발지 검색창에 세팅
-                    h_s_place = b.startPlace.getText().toString();
-                    Log.d("출발지 명 : ", h_s_place);
+                    //마커 넣기
+                    mMapView.addMarkerItem(strID, markerItem);
+                    mArrayMarkerID.add(strID);
+                    mMapView.setCenterPoint(mPoiItem.getPOIPoint().getLongitude(), mPoiItem.getPOIPoint().getLatitude());
+                    //출발지를 검색 할 경우
+                    if(start_flag==1) {
+                        d1 = mPoiItem.getPOIPoint().getLatitude(); //출발지 위도
+                        d2 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
+                        b.startPlace.setText(mPoiItem.getPOIName()); //출발지 이름을 출발지 검색창에 세팅
+                        h_s_place = b.startPlace.getText().toString();
+                        Log.d("출발지 명 : ", h_s_place);
 
 
-                } else { //도착지를 검색 할 경우
-                    d3 = mPoiItem.getPOIPoint().getLatitude(); //도착지 위도
-                    d4 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
-                    b.finishPlace.setText(mPoiItem.getPOIName()); //도착지 이름을 도착지 검색창에 세팅
-                    h_f_place = b.finishPlace.getText().toString();
-                    Log.d("도착지 명 : ", h_f_place);
+                    } else { //도착지를 검색 할 경우
+                        d3 = mPoiItem.getPOIPoint().getLatitude(); //도착지 위도
+                        d4 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
+                        b.finishPlace.setText(mPoiItem.getPOIName()); //도착지 이름을 도착지 검색창에 세팅
+                        h_f_place = b.finishPlace.getText().toString();
+                        Log.d("도착지 명 : ", h_f_place);
+                    }
+                } else if (together ==3) {
+                    //3인일 경우
+                    TMapMarkerItem markerItem1 = new TMapMarkerItem();
+                    TMapPoint tMapPoint1 = new TMapPoint(exlat[item], exlon[item]); //좌표설정
+
+                    // 마커 아이콘
+                    Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.poi_dot);
+
+                    markerItem1.setIcon(bitmap); // 마커 아이콘 지정
+                    markerItem1.setPosition(0.5f, 1.0f); // 마커의 중심점을 중앙, 하단으로 설정
+                    markerItem1.setTMapPoint( tMapPoint1 ); // 마커의 좌표 지정
+                    markerItem1.setName("SKT타워"); // 마커의 타이틀 지정
+                    mMapView.addMarkerItem("markerItem1", markerItem1); // 지도에 마커 추가
+
+                    mMapView.setCenterPoint( exlon[item], exlat[item] );//중간으로 이동
+                    //출발지를 검색 할 경우
+                    if(start_flag==1) {
+                        d1 = exlat[item]; //출발지 위도
+                        d2 = exlon[item]; //도착지 경도
+                        b.startPlace.setText(items[item]); //출발지 이름을 출발지 검색창에 세팅
+                        h_s_place = b.startPlace.getText().toString();
+                        //Log.d("출발지 명 : ", h_s_place);
+                    } else { //도착지를 검색 할 경우
+                        d3 = exlat[item]; //도착지 위도
+                        d4 = exlon[item]; //도착지 경도
+                        b.finishPlace.setText(items[item]); //도착지 이름을 도착지 검색창에 세팅
+                        h_f_place = b.finishPlace.getText().toString();
+                        //Log.d("도착지 명 : ", h_f_place);
+                    }
                 }
+
                 hideKeyBoard(); //검색 완료 후 키보드 숨기기
             }
         });
