@@ -1,16 +1,13 @@
 package com.tmate.driver;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.pharid.splash.lib.activity.AnimatedSplash;
 import com.pharid.splash.lib.cnst.Flags;
 import com.pharid.splash.lib.model.ConfigSplash;
-import com.tmate.driver.activity.MainViewActivity;
+import com.tmate.driver.activity.LoginActivity;
 
 public class SplashActivity extends AnimatedSplash {
 
@@ -42,7 +39,7 @@ public class SplashActivity extends AnimatedSplash {
 
     @Override
     public void animationsFinished() {
-        Intent intent = new Intent(getApplication(), MainViewActivity.class);
+        Intent intent = new Intent(getApplication(), LoginActivity.class);
         startActivity(intent);
         SplashActivity.this.finish();
     }
