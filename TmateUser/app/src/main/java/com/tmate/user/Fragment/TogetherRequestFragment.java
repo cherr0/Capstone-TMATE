@@ -83,6 +83,12 @@ public class TogetherRequestFragment extends Fragment {
                 "6",
                 "2"
         );
+        List<String> m_count = Arrays.asList(
+                "3",
+                "1",
+                "0",
+                "1"
+        );
 
 
         for (int i = 0; i < m_name.size(); i++) {
@@ -94,6 +100,7 @@ public class TogetherRequestFragment extends Fragment {
             togetherRequest.setM_t_use(m_t_use.get(i));
             togetherRequest.setLike(like.get(i));
             togetherRequest.setDislike(dislike.get(i));
+            togetherRequest.setM_count(dislike.get(i));
 
             // 각 값이 들어간 data를 adapter에 추가합니다.
             adapter.addItem(togetherRequest);

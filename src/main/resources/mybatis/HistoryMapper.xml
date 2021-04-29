@@ -6,18 +6,24 @@
     <!-- 동승 출발지 도착지 설정후 검색하는 것 -->
     <select id="findTogetherList" resultType="com.tmate.domain.HistoryDTO">
         <![CDATA[
-            select history.*, member.m_name ,GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) as distance1 ,GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd) as distance2
+            select history.*,member.m_id, member.m_name ,together.to_people, together.to_max,
+                   GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) as distance1 ,
+                   GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd) as distance2
             from history left outer join member on history.m_id = member.m_id
-            where substr(history.merchant_uid,28,1) = 0 and history.h_status = '0' and GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) <= 0.8
+                 left outer join together on history.merchant_uid = together.merchant_uid
+            where substr(history.merchant_uid,28,1) = 0 and h_made_flag = '0'  and history.h_status = '0'
+              and GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) <= 0.8
             order by  GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd)
         ]]>
     </select>
 
     <!-- 눌렀을 때 상세정보창 -->
     <select id="findMatchingDetail" resultType="com.tmate.domain.HistoryDTO">
-        select *
+        select history.*, member.m_id, member.m_name, together.to_people, together.to_max
         from history
-        where merchant_uid=#{merchant_uid}
+            left outer join member on history.m_id = member.m_id
+            left outer join together on history.merchant_uid = together.merchant_uid
+        where history.merchant_uid=#{merchant_uid} and history.h_made_flag = '0'
     </select>
 
 
@@ -36,13 +42,13 @@
             from dual
         </selectKey>
 
-        insert into history(merchant_uid, m_id, h_s_place,h_s_lttd,h_s_lngtd,h_f_place,h_f_lttd, h_f_lngtd, h_status  )
-        values(#{merchant_uid},#{m_id},#{h_s_place},#{h_s_lttd},#{h_s_lngtd},#{h_f_place},#{h_f_lttd},#{h_f_lngtd},'0')
+        insert into history(merchant_uid, m_id, h_s_place,h_s_lttd,h_s_lngtd,h_f_place,h_f_lttd, h_f_lngtd, h_status , h_made_flag, h_ep_fare, h_ep_time, h_ep_distance )
+        values(#{merchant_uid},#{m_id},#{h_s_place},#{h_s_lttd},#{h_s_lngtd},#{h_f_place},#{h_f_lttd},#{h_f_lngtd},'0',#{h_made_flag}, #{h_ep_fare}, #{h_ep_time}, #{h_ep_distance})
     </insert>
 
     <insert id="insertTogether">
-        insert into together(merchant_uid, m_id, to_max, to_seat)
-        values (#{merchant_uid},#{m_id},#{to_max},#{to_seat})
+        insert into together(merchant_uid, m_id, to_max, to_people ,to_seat)
+        values (#{merchant_uid},#{m_id},#{to_max},1,#{to_seat})
     </insert>
 
     <!-- 방을 나가게 되거나 방장이 내보내게 되면 동승 내역 삭제해야 된다. -->

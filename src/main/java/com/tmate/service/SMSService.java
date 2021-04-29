@@ -26,7 +26,7 @@ public class SMSService {
     public static final int CONFIRM = 1;    // 인증 확인
     public static final int REJECT = 0;     // 인증 실패
 
-    public boolean certifiedPhoneNumber(PhoneDTO phone) {
+    public String certifiedPhoneNumber(PhoneDTO phone) {
 
         Message coolsms = new Message(api_key, api_searet);
 
@@ -45,13 +45,12 @@ public class SMSService {
 
         try {
             JSONObject obj = (JSONObject) coolsms.send(params);
-            return true;
+            return phone.getConfirm();
         }catch (CoolsmsException e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCode());
-            return false;
+            return null;
         }
-
 
     }
 

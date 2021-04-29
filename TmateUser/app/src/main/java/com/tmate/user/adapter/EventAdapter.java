@@ -15,6 +15,7 @@ import com.tmate.user.data.EventData;
 import com.tmate.user.Activity.EventDetailActivity;
 import com.tmate.user.R;
 import com.tmate.user.data.EventDTO;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
 
     private ArrayList<EventData> arrayList;
 
-    AdapterComService dataService = new AdapterComService();
+    DataService dataService = DataService.getInstance();
 
     public EventAdapter(ArrayList<EventData> arrayList) {
         this.arrayList = arrayList;
@@ -55,7 +56,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
             public void onClick(View v) {
                 Log.d("클릭된 이벤트 코드", arrayList.get(position).getTv_bd_id());
                 Intent intent = new Intent(v.getContext(), EventDetailActivity.class);
-                dataService.event.readEvent(arrayList.get(position).getTv_bd_id()).enqueue(new Callback<EventDTO>() {
+
+
+                dataService.commonAPI.readEvent(arrayList.get(position).getTv_bd_id()).enqueue(new Callback<EventDTO>() {
                     @Override
                     public void onResponse(Call<EventDTO> call, Response<EventDTO> response) {
                         if (response.isSuccessful()) {
@@ -77,7 +80,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventHolder> {
                         t.printStackTrace();
                     }
                 });
-
 
 
             }

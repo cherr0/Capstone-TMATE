@@ -20,7 +20,6 @@ import android.widget.Button;
 import androidx.core.app.NotificationCompat;
 
 import com.tmate.driver.R;
-import com.tmate.driver.activity.MatchingActivity;
 import com.tmate.driver.activity.PaymentActivity;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -28,6 +27,15 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 public class driving_overlay extends Service {
     private View mView = null;
     private WindowManager mWm = null;
+    private int root;
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int strId) {
+        strId = intent.getIntExtra("경로",0);
+        root = strId;
+        return root;
+
+    }
 
     @Override
     public IBinder onBind(Intent intent) { return null; }
@@ -35,7 +43,6 @@ public class driving_overlay extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
         // Android O 이상일 경우 Foreground 서비스를 실행
         // Notification channel 설정.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -70,25 +77,32 @@ public class driving_overlay extends Service {
 
         params.gravity = Gravity.RIGHT;
         // 위치 지정
-
         mView = inflate.inflate(R.layout.overlay_button, null);
         // view_in_service.xml layout 불러오기
         // mView.setOnTouchListener(onTouchListener);
         // Android O 이상의 버전에서는 터치리스너가 동작하지 않는다. ( TYPE_APPLICATION_OVERLAY 터치 미지원)
 
-
-        final Button btn_img =  (Button) mView.findViewById(R.id.btn_img);
-        btn_img.setOnClickListener(new View.OnClickListener() {
+        Button btn_img =  (Button) mView.findViewById(R.id.btn_before_take);
+        btn_img.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 Log.d("test","onClick ");
-                Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
-                startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+                if(root == 3) {
+                    Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+                    intent.putExtra("서비스결과",1);
+                    startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+                } else if (root == 2){
+                    Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+                    intent.putExtra("서비스결과",0);
+                    startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+                }
                 ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
                 am.killBackgroundProcesses (getPackageName());
                 stopSelf();
+                return true;
             }
         });
+
         mWm.addView(mView, params); // 윈도우에 layout 을 추가 한다.
     }
 

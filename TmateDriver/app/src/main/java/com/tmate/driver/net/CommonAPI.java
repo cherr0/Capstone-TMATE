@@ -2,12 +2,15 @@ package com.tmate.driver.net;
 
 import com.tmate.driver.data.Event;
 import com.tmate.driver.data.Notice;
+import com.tmate.driver.data.Phone;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface CommonAPI {
@@ -34,4 +37,8 @@ public interface CommonAPI {
     // 북마크 삭제
     @DELETE("/common/deletebookmark/{bm_id}/{m_id}")
     Call<Boolean> removeBookmark(@Path("bm_id") String bm_id, @Path("m_id") String m_id);
+
+    // 휴대폰 인증
+    @POST("/common/sendsms")
+    Call<String> sendSMS(@Body Phone phoneDTO);
 }

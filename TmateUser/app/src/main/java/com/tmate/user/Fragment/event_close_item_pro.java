@@ -19,6 +19,7 @@ import com.tmate.user.data.EventData;
 
 import com.tmate.user.R;
 import com.tmate.user.data.EventDTO;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,8 @@ public class event_close_item_pro extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
 
-    CommonService commonService = new CommonService();
+
+    DataService dataService = DataService.getInstance();
 
     public static event_close_item_pro newInstance() {
         event_close_item_pro ecip = new event_close_item_pro();
@@ -62,9 +64,8 @@ public class event_close_item_pro extends Fragment {
     }
 
     private void getData() {
-        // 임의의 데이터입니다.
 
-        commonService.event.getEventList().enqueue(new Callback<List<EventDTO>>() {
+        dataService.commonAPI.getEventList().enqueue(new Callback<List<EventDTO>>() {
             @Override
             public void onResponse(Call<List<EventDTO>> call, Response<List<EventDTO>> response) {
                 if (response.isSuccessful()) {
@@ -110,7 +111,7 @@ public class event_close_item_pro extends Fragment {
 
             @Override
             public void onFailure(Call<List<EventDTO>> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
 

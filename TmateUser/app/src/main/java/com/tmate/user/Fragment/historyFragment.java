@@ -20,6 +20,7 @@ import com.tmate.user.R;
 import com.tmate.user.adapter.historyAdapter;
 import com.tmate.user.data.Data;
 import com.tmate.user.data.UserHistroy;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,9 @@ import retrofit2.Response;
 public class historyFragment extends Fragment {
     ArrayList<String> list;
 
-    DataService dataService = new DataService();
+//    DataService dataService = new DataService();
+    DataService dataService = DataService.getInstance();
+
     private historyAdapter adapter;
     private ImageView btn_back_history;
 
@@ -70,7 +73,8 @@ public class historyFragment extends Fragment {
  
         String m_id = getPreferenceString("m_id");
 
-        dataService.profile.selectHistory(m_id).enqueue(new Callback<List<UserHistroy>>() {
+
+        dataService.memberAPI.selectHistory(m_id).enqueue(new Callback<List<UserHistroy>>() {
             @Override
             public void onResponse(Call<List<UserHistroy>> call, Response<List<UserHistroy>> response) {
                 if (response.isSuccessful()) {
