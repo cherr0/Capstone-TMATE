@@ -1,6 +1,7 @@
 package com.tmate.driver.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,13 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
         b = FragmentJoinpageBinding.inflate(inflater, container, false);
         View view = b.getRoot();
 
+        if (getArguments() != null) {
+            bundle = getArguments();
+            Log.d("JoinPageFragment.Bundle", "번들 값 받아옴");
+        }else {
+            Log.d("JoinPageFragment.Bundle","번들 값을 받아오지 못했습니다.");
+        }
+
         m_name = view.findViewById(R.id.m_name);
         et_birth = view.findViewById(R.id.et_birth);
         et_phone = view.findViewById(R.id.et_phone);
@@ -70,11 +78,22 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
     //유효성 검사 통과하면 호출
     @Override
     public void onValidationSucceeded() {
+
+        bundle.putString("m_birth",et_birth.getText().toString()); // 생년월일
+        bundle.putString("m_name",m_name.getText().toString()); // 이름
+        if (b.male.isChecked()) {
+            bundle.putString("m_id","m1"+et_phone.getText().toString()+"0");
+        }else if(b.female.isChecked()){
+            bundle.putString("m_id","m2"+et_phone.getText().toString()+"0");
+        }
+
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         CertificationFragment cf = new CertificationFragment();
+        cf.setArguments(bundle);
         transaction.replace(R.id.fm_main, cf);
         transaction.addToBackStack(null).commit();
     }
+
     //유효성 검사 오류가 있을때 호출
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
