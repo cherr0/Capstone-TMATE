@@ -30,7 +30,7 @@ public class indexApiController {
     public boolean sendSMS(@RequestBody PhoneDTO phone) {
         System.out.println("인증번호 전송 sendSMS() phone Num : " + phone.toString());
 
-        return smsService.certifiedPhoneNumber(phone);
+        return smsService.certifiedPhoneNumber(phone) instanceof String;
     }
 
     @PostMapping("/confirm")
