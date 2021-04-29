@@ -9,6 +9,7 @@ import com.tmate.driver.data.JoinBan;
 import com.tmate.driver.data.Member;
 import com.tmate.driver.data.Review;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -22,7 +23,7 @@ import retrofit2.http.Path;
 public interface DriverAPI {
     // 회원가입
     @POST("/driver/register")
-    Call<Boolean> registerDriver(@Body Member memberDTO, @Body Driver driverDTO);
+    Call<Boolean> registerDriver(@Body HashMap<String, Object> hashMap);
 
     // 기사 프로필 확인
     @GET("/driver/profile/{d_id}")
