@@ -1,5 +1,6 @@
 package com.tmate.driver.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,13 +38,27 @@ public class SocialFragment extends Fragment {
         b.btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                JoinPageFragment blankFragment= new JoinPageFragment();
-                blankFragment.setArguments(bundle);
-                transaction.replace(R.id.fm_main, blankFragment).commit();
+                // 회원가입을 기존에 진행한 경우
+                if(!getPreferenceString("d_id").equals("")) {
+                    bundle.putString("d_id",getPreferenceString("d_id"));
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    CompletedFragment cf = new CompletedFragment();
+                    cf.setArguments(bundle);
+                    transaction.replace(R.id.fm_main, cf).commit();
+                }else { // 회원가입 첫 시작인 경우
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    JoinPageFragment blankFragment = new JoinPageFragment();
+                    blankFragment.setArguments(bundle);
+                    transaction.replace(R.id.fm_main, blankFragment).commit();
+                }
             }
         });
 
         return view;
+    }
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getActivity().getSharedPreferences("loginDriver", getActivity().MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 }
