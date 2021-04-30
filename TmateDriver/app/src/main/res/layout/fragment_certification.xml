@@ -77,7 +77,7 @@
 
     <EditText
         android:id="@+id/et_confirmNum"
-
+        android:inputType="number"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
