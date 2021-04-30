@@ -35,6 +35,10 @@ public class SocialFragment extends Fragment {
             Log.d("SocialFragment.Bundle","번들 값을 받아오지 못했습니다.");
         }
 
+        if(!getPreferenceString("d_id").equals("")) {
+            Log.d("SharedPreference","d_id 값 있음 ");
+        }
+
         b.btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
