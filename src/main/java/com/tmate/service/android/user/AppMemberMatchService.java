@@ -48,4 +48,10 @@ public interface AppMemberMatchService {
 
     // 매칭시 상태 바꾸기 - 매칭 대기중, 매칭 완료 ,탑승 대기중, 탑승 중, 탑승완료
     Boolean modifyH_status(HistoryDTO historyDTO);
+
+    // 이용중 서비스인 보여주기
+    JoinHistoryVO getUsingService(String m_id);
+
+    // 데이터 가져오기 -> 동승 좌석 미리 선택되있는 좌석을 다른 동승 요청자한테 보여주기 위함이다.
+    List<TogetherDTO> getCurrnetSeatNums(String merchant_uid);
 }

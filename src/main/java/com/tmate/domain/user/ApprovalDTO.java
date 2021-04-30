@@ -24,6 +24,9 @@ public class ApprovalDTO {
     // 동승 신청을 한 방의 코드 -> merchant_uid
     private String merchant_uid;
 
+    // 동승 좌석
+    private int to_seat;
+
     // 신청을 한 사람의 이름
     private String name;
 
