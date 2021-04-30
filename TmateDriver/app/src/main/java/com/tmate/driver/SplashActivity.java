@@ -7,7 +7,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.pharid.splash.lib.activity.AnimatedSplash;
 import com.pharid.splash.lib.cnst.Flags;
 import com.pharid.splash.lib.model.ConfigSplash;
-import com.tmate.driver.activity.LoginActivity;
+import com.tmate.driver.activity.MainViewActivity;
 
 public class SplashActivity extends AnimatedSplash {
 
@@ -39,7 +39,7 @@ public class SplashActivity extends AnimatedSplash {
 
     @Override
     public void animationsFinished() {
-        Intent intent = new Intent(getApplication(), LoginActivity.class);
+        Intent intent = new Intent(getApplication(), MainViewActivity.class);
         startActivity(intent);
         SplashActivity.this.finish();
     }
