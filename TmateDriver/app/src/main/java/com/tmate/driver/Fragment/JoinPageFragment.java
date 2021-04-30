@@ -82,14 +82,15 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
         bundle.putString("m_birth",et_birth.getText().toString()); // 생년월일
         bundle.putString("m_name",m_name.getText().toString()); // 이름
         if (b.male.isChecked()) {
-            bundle.putString("m_id","m1"+et_phone.getText().toString()+"0");
+            bundle.putString("m_id","d1"+et_phone.getText().toString()+"0");
         }else if(b.female.isChecked()){
-            bundle.putString("m_id","m2"+et_phone.getText().toString()+"0");
+            bundle.putString("m_id","d2"+et_phone.getText().toString()+"0");
         }
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         CertificationFragment cf = new CertificationFragment();
         cf.setArguments(bundle);
+
         transaction.replace(R.id.fm_main, cf);
         transaction.addToBackStack(null).commit();
     }
