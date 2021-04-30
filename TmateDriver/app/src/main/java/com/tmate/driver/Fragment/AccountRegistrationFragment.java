@@ -45,7 +45,7 @@ public class AccountRegistrationFragment extends Fragment implements Validator.V
     Bundle bundle;
     Validator validator;
     // 객체 담을 Map
-    HashMap<String, Object> map = new HashMap<>();
+    Map<String, String> map = new HashMap<>();
 
     Call<Boolean> request;
 
@@ -118,35 +118,24 @@ public class AccountRegistrationFragment extends Fragment implements Validator.V
         bundle.putString("bank_company", card_company.getText().toString());
         bundle.putString("d_acnum", d_acnum.getText().toString());
 
-        try {
-            // 타임스탬프 변환
-            DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
-            Date date = dateFormat.parse(bundle.getString("m_birth"));
-            Timestamp timestamp = new Timestamp(date.getTime());
-
-            // 사용자 객체 추가
-            Member member = new Member();
-            member.setM_id(bundle.getString("m_id"));
-            member.setM_name(bundle.getString("m_name"));
-            member.setM_birth(timestamp);
-            map.put("memberDTO", member);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        // 사용자 객체 추가
+        map.put("m_id", bundle.getString("m_id"));
+        map.put("m_name", bundle.getString("m_name"));
+        map.put("m_imei", bundle.getString("m_imei"));
+        map.put("m_birth", bundle.getString("m_birth"));
 
         // 기사 객체 추가
-        Driver driver = new Driver();
-        driver.setD_id(bundle.getString("m_id"));
-        driver.setD_license_no(bundle.getString("d_license_no"));
-        driver.setBank_company(bundle.getString("bank_company"));
-        driver.setD_acnum(bundle.getString("d_acnum"));
-        map.put("DriverDTO", driver);
+        map.put("d_id", bundle.getString("m_id"));
+        map.put("d_license_no", bundle.getString("d_license_no"));
+        map.put("bank_company", bundle.getString("bank_company"));
+        map.put("d_acnum", bundle.getString("d_acnum"));
 
         request = DataService.getInstance().driver.registerDriver(map);
         request.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if(response.code() == 200) {
+                    Log.i("AccountRegFragment","가입 신청 완료");
                     setPreference("d_id",bundle.getString("m_id"));
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                     CompletedFragment cf = new CompletedFragment();
@@ -181,8 +170,8 @@ public class AccountRegistrationFragment extends Fragment implements Validator.V
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDestroy() {
+        super.onDestroy();
         request.cancel();
     }
 
