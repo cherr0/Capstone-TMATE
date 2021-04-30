@@ -91,6 +91,7 @@ public class CertificationFragment extends Fragment implements Validator.Validat
 
     @Override
     public void onValidationSucceeded() {
+        countDownTimer.cancel();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         CertificateEnrollmentFragment cef = new CertificateEnrollmentFragment();
         cef.setArguments(bundle);
