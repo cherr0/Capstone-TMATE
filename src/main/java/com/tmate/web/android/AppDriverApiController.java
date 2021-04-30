@@ -36,6 +36,12 @@ public class AppDriverApiController {
         return new ResponseEntity<>(appDriverService.saveDriverProfile(map),HttpStatus.OK);
     }
 
+    // 기사 승인 확인 - GET
+    @GetMapping("/register/approve/{d_id}")
+    public ResponseEntity<Boolean> approveSearch(@PathVariable("d_id") String d_id) {
+        Boolean approve = appDriverService.searchApprove(d_id);
+        log.info("AppDriverController 기사 승인 상태 : " + approve);
+        return new ResponseEntity<>(approve, HttpStatus.OK);
     }
 
     // 운행 기록 리스트 - GET
