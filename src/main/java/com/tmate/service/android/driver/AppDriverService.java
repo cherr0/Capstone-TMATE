@@ -5,11 +5,12 @@ import com.tmate.domain.driver.DriverHistoryVO;
 import com.tmate.domain.driver.DriverProfileVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AppDriverService {
 
     // 기사용 어플 회원 가입 - 멤버, 드라이버 트랜잭션
-    Boolean saveDriverProfile(MemberDTO memberDTO, DriverDTO driverDTO);
+    Boolean saveDriverProfile(Map<String, String> map);
 
     // 운행 기록 확인
     List<DriverHistoryVO> historyList(String d_id);

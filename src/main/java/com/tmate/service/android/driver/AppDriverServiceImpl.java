@@ -9,7 +9,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Log4j2
@@ -20,11 +26,32 @@ public class AppDriverServiceImpl implements AppDriverService{
 
     @Transactional
     @Override   // 기사용 어플 회원가입 - 회원, 기사 테이블
-    public Boolean saveDriverProfile(MemberDTO memberDTO, DriverDTO driverDTO) {
+    public Boolean saveDriverProfile(Map<String, String> map) {
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setM_id(map.get("m_id"));
+        memberDTO.setM_name(map.get("m_name"));
+        memberDTO.setM_imei(map.get("m_imei"));
+
+        // 회원 생년월일 포맷 변환
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+            Date date = dateFormat.parse(map.get("m_birth"));
+            Timestamp timestamp = new Timestamp(date.getTime());
+            memberDTO.setM_birth(timestamp);
+        } catch (ParseException e) {
+            System.out.println(e);
+        }
+
         log.info("AppDriverService 기사 회원가입 멤버 데이터 : " + memberDTO);
         driverMapper.registerDriver(memberDTO);
 
-        log.info("AppDriverSErvice 기사 회원가입 기사 데이터 : " + driverDTO);
+        DriverDTO driverDTO = new DriverDTO();
+        driverDTO.setD_id(memberDTO.getM_id());
+        driverDTO.setD_license_no(map.get("d_license_no"));
+        driverDTO.setBank_company(map.get("bank_company"));
+        driverDTO.setD_acnum(map.get("d_acnum"));
+
+        log.info("AppDriverService 기사 회원가입 기사 데이터 : " + driverDTO);
         return driverMapper.addDriverLicense(driverDTO) == 1;
     }
 
