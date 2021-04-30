@@ -6,6 +6,7 @@ import com.tmate.domain.driver.DriverProfileVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Mapper
@@ -77,4 +78,7 @@ public interface DriverMapper {
 
     // 기사 상태 바꾸기
     public int setDriverStatus(DriverDTO driverDTO);
+
+    // 기사 승인 상태 확인
+    public DriverDTO findDriverDateById(String d_id);
 }

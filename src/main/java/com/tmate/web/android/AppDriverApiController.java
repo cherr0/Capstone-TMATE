@@ -1,5 +1,8 @@
 package com.tmate.web.android;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmate.domain.*;
 import com.tmate.domain.driver.DriverHistoryVO;
 import com.tmate.domain.driver.DriverProfileVO;
@@ -11,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,10 +31,17 @@ public class AppDriverApiController {
 
     // 기사 회원가입 - POST
     @PostMapping("/register")
-    public ResponseEntity<Boolean> registerDriver(@RequestBody MemberDTO memberDTO, @RequestBody DriverDTO driverDTO) {
-        log.info("AppDriverController 넘어오는 기사 정보 memberDTO: " + memberDTO);
-        log.info("넘어오는 기사 추가 정보 driverDTO : " + driverDTO);
-        return new ResponseEntity<>(appDriverService.saveDriverProfile(memberDTO, driverDTO),HttpStatus.OK);
+    public ResponseEntity<Boolean> registerDriver(@RequestBody Map<String, String> map) {
+        log.info("AppDriverController 넘어오는 기사 정보 map: " + map);
+        return new ResponseEntity<>(appDriverService.saveDriverProfile(map),HttpStatus.OK);
+    }
+
+    // 기사 승인 확인 - GET
+    @GetMapping("/register/approve/{d_id}")
+    public ResponseEntity<Boolean> approveSearch(@PathVariable("d_id") String d_id) {
+        Boolean approve = appDriverService.searchApprove(d_id);
+        log.info("AppDriverController 기사 승인 상태 : " + approve);
+        return new ResponseEntity<>(approve, HttpStatus.OK);
     }
 
     // 운행 기록 리스트 - GET
