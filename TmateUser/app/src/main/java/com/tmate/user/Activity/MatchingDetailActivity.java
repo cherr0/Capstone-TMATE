@@ -2,6 +2,7 @@ package com.tmate.user.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -29,6 +30,7 @@ public class MatchingDetailActivity extends AppCompatActivity {
             bundle = new Bundle();
             bundle.putString("merchant_uid",intent.getStringExtra("merchant_uid"));
             bundle.putString("m_id", intent.getStringExtra("m_id"));
+            Log.d("이용정보에서 넘어갈때 잘뜨나요? ", intent.getStringExtra("m_id"));
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

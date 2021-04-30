@@ -420,6 +420,7 @@
                     android:textSize="18sp"
                     android:text="km"/>
             </LinearLayout>
+
             <Button
                 android:id="@+id/btn_match"
                 android:layout_width="match_parent"
@@ -429,6 +430,7 @@
                 app:backgroundTint="#4267B2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView

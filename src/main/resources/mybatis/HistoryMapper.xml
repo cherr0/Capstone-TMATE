@@ -6,12 +6,13 @@
     <!-- 동승 출발지 도착지 설정후 검색하는 것 -->
     <select id="findTogetherList" resultType="com.tmate.domain.HistoryDTO">
         <![CDATA[
-            select history.*,member.m_id, member.m_name ,together.to_people, together.to_max,
+            select history.*, member.m_id, member.m_name ,together.to_people, together.to_max,
                    GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) as distance1 ,
                    GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd) as distance2
-            from history left outer join member on history.m_id = member.m_id
+            from history
+                 left outer join member on history.m_id = member.m_id
                  left outer join together on history.merchant_uid = together.merchant_uid
-            where substr(history.merchant_uid,28,1) = 0 and h_made_flag = '0'  and history.h_status = '0'
+            where substr(history.merchant_uid,28,1) = 0 and history.h_made_flag = '0'  and history.h_status = '0'
               and GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) <= 0.8
             order by  GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd)
         ]]>
@@ -112,7 +113,7 @@
     <select id="selectHistoryCard" resultType="com.tmate.domain.JoinHistoryVO">
         select h.merchant_uid, h.h_s_place, h.h_s_lttd, h.h_s_lngtd, h.h_f_place, h.h_f_lttd, h.h_f_lngtd, h.h_status, h.d_id, c.car_no, c.car_model
         from history h left outer join car c on h.d_id = c.m_id
-        where h.merchant_uid = #{merchant_uid}
+        where  h.m_id = #{m_id} and h.h_status in ('0','1','2','3','4')
     </select>
 
     <!-- 신청한 유저의 리스트 가져오기 -->
@@ -137,5 +138,10 @@
         delete from approval
         where merchant_uid = #{merchant_uid}
     </delete>
+
+    <!-- 현재 매칭방 좌석 -->
+    <select id="selectCurrentSeatNums" resultType="com.tmate.domain.TogetherDTO">
+        SELECT to_seat from TOGETHER where merchant_uid = #{merchant_uid}
+    </select>
 
 </mapper>
