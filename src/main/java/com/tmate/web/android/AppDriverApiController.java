@@ -1,5 +1,6 @@
 package com.tmate.web.android;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmate.domain.*;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,15 +31,11 @@ public class AppDriverApiController {
 
     // 기사 회원가입 - POST
     @PostMapping("/register")
-    public ResponseEntity<Boolean> registerDriver(@RequestBody HashMap<String, Object> map) {
+    public ResponseEntity<Boolean> registerDriver(@RequestBody Map<String, String> map) {
+        log.info("AppDriverController 넘어오는 기사 정보 map: " + map);
+        return new ResponseEntity<>(appDriverService.saveDriverProfile(map),HttpStatus.OK);
+    }
 
-        ObjectMapper mapper = new ObjectMapper();
-        MemberDTO memberDTO = mapper.convertValue(map.get("memberDTO"), new TypeReference<MemberDTO>() {});
-        DriverDTO driverDTO = mapper.convertValue(map.get("driverDTO"), new TypeReference<DriverDTO>() {});
-
-        log.info("AppDriverController 넘어오는 기사 정보 memberDTO: " + memberDTO);
-        log.info("넘어오는 기사 추가 정보 driverDTO : " + driverDTO);
-        return new ResponseEntity<>(appDriverService.saveDriverProfile(memberDTO, driverDTO),HttpStatus.OK);
     }
 
     // 운행 기록 리스트 - GET
