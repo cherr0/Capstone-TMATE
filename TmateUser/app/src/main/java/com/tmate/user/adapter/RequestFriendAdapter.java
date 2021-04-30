@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.R;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.RequestFriendData;
+import com.tmate.user.net.DataService;
 
 
 import java.util.ArrayList;
@@ -31,7 +32,8 @@ import static android.app.PendingIntent.getActivity;
 public class RequestFriendAdapter extends  RecyclerView.Adapter<requestFriendHolder> {
     private Context context;
     ArrayList<RequestFriendData> items = new ArrayList<>();
-    AdapterDataService dataService = new AdapterDataService();
+    //    AdapterDataService dataService = new AdapterDataService();
+    DataService dataService = DataService.getInstance();
     Notification notification = new Notification();
     String m_id;
     private static SharedPreferences pref ;
@@ -64,7 +66,8 @@ public class RequestFriendAdapter extends  RecyclerView.Adapter<requestFriendHol
                                      notification.setM_id(m_id);
                                      notification.setN_name(items.get(position).getTv_name2());
                                      notification.setN_phone(items.get(position).getTv_phone2());
-                                     dataService.update.agreeAppro(items.get(position).getTv_id(),notification).enqueue(new Callback<Boolean>() {
+
+                                     dataService.memberAPI.agreeAppro(items.get(position).getTv_id(),notification).enqueue(new Callback<Boolean>() {
                                          @Override
                                          public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                              if (response.isSuccessful()) {
@@ -78,7 +81,7 @@ public class RequestFriendAdapter extends  RecyclerView.Adapter<requestFriendHol
 
                                          @Override
                                          public void onFailure(Call<Boolean> call, Throwable t) {
-                                                t.printStackTrace();
+                                            t.printStackTrace();
                                          }
                                      });
                             }
@@ -102,7 +105,8 @@ public class RequestFriendAdapter extends  RecyclerView.Adapter<requestFriendHol
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dataService.delete.removeApproval(items.get(position).getTv_id(), pref.getString("m_id", "")).enqueue(new Callback<Boolean>() {
+
+                        dataService.memberAPI.removeApproval(items.get(position).getTv_id(),pref.getString("m_id","")).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 if (response.isSuccessful()) {
@@ -116,11 +120,12 @@ public class RequestFriendAdapter extends  RecyclerView.Adapter<requestFriendHol
 
                             @Override
                             public void onFailure(Call<Boolean> call, Throwable t) {
-
+                                t.printStackTrace();
                             }
                         });
                     }
                 });
+
                 builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

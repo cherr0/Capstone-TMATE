@@ -58,7 +58,7 @@ public class AndroidApiController {
 
     // 휴대폰 인증번호
     @PostMapping("/sendsms")
-    public ResponseEntity<Boolean> sendSMS(@RequestBody PhoneDTO phoneDTO) {
+    public ResponseEntity<String> sendSMS(@RequestBody PhoneDTO phoneDTO) {
         log.info("인증번호 전송 sendSMS() Phone Num : " + phoneDTO.toString());
 
         return new ResponseEntity<>(smsService.certifiedPhoneNumber(phoneDTO), HttpStatus.OK);

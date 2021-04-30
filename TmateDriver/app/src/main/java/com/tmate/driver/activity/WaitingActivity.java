@@ -62,48 +62,6 @@ public class WaitingActivity extends AppCompatActivity {
         });
         getData();
     }
-
-//    public void showDialog(){
-//        dialog.show();
-//
-//    }
-//    public void checkPermission() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
-//            if (!Settings.canDrawOverlays(this)) {              // 다른앱 위에 그리기 체크
-//                Uri uri = Uri.fromParts("package", getPackageName(), null);
-//                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, uri);
-//                startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
-//            } else {
-//                startMain();
-//            }
-//        } else {
-//            startMain();
-//        }
-//    }
-//
-//    @TargetApi(Build.VERSION_CODES.M)
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE) {
-//            if (!Settings.canDrawOverlays(this)) {
-//                finish();
-//            } else {
-//                startMain();
-//            }
-//        }
-//    }
-//    void startMain() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            Intent intent = new Intent(this, driving_overlay.class);
-//            intent.putExtra("경로",3);
-//            startForegroundService(intent);
-//        } else {
-//            startService(new Intent(this, driving_overlay.class));
-//        }
-//        finish();
-//    }
-
     private void getData() {
         List<String> merchant_uid = Arrays.asList(
                 "동승",
@@ -130,7 +88,6 @@ public class WaitingActivity extends AppCompatActivity {
                 "영진전문대학교",
                 "영진전문대학교"
         );
-
         for (int i = 0; i < merchant_uid.size(); i++) {
             // 각 List의 값들을 data 객체에 set 해줍니다.
             Waiting data = new Waiting();

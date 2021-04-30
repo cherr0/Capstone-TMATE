@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.tmate.user.R;
 import com.tmate.user.data.PhoneDTO;
+import com.tmate.user.net.DataService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +39,7 @@ public class SNFragment extends Fragment {
     EditText et_confirmNum;
     Bundle bundle;
     PhoneDTO phoneDTO = new PhoneDTO();
-    DataService dataService = new DataService();
+    DataService dataService = DataService.getInstance();
 
 
     @Nullable
@@ -86,7 +87,7 @@ public class SNFragment extends Fragment {
 
 
                     phoneDTO.setConfirm(et_confirmNum.getText().toString());
-                    dataService.profile.confirm(phoneDTO).enqueue(new Callback<Integer>() {
+                    dataService.memberAPI.confirm(phoneDTO).enqueue(new Callback<Integer>() {
                         @Override
                         public void onResponse(Call<Integer> call, Response<Integer> response) {
                             if (response.isSuccessful()) {
@@ -150,7 +151,7 @@ public class SNFragment extends Fragment {
 
 
     public void Authorization() {
-        dataService.profile.sendSMS(phoneDTO).enqueue(new Callback<Boolean>() {
+        dataService.memberAPI.sendSMS(phoneDTO).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful()) {

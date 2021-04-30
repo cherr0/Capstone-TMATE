@@ -45,8 +45,23 @@ public class HistoryDTO {
     // 조인 해서 가져온다.
     private String m_name;
 
+    // 방 만든 사람 기준
+    private String h_made_flag;
+
     // 기사 코드
     private String d_id;
+
+    // DB 컬럼에는 없다. 현재 인원수
+    private int to_people;
+
+    // 최대 인원
+    private int to_max;
+
+   private String h_ep_fare;
+
+   private String h_ep_time;
+
+   private String h_ep_distance;
 
 
     // 출발지와 떨어진 거리

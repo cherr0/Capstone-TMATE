@@ -53,6 +53,7 @@ import com.kakao.util.exception.KakaoException;
 import com.tmate.user.R;
 import com.tmate.user.data.Member;
 import com.tmate.user.data.Social;
+import com.tmate.user.net.DataService;
 
 import java.security.MessageDigest;
 
@@ -68,7 +69,8 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
     private ImageView btn_back_profile;
 
     // 레트로핏2 서비스
-    DataService dataService = new DataService();
+//    DataService dataService = new DataService();
+    DataService dataService = DataService.getInstance();
 
     ImageView iv_level;
 
@@ -215,8 +217,9 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                         social = new Social();
                         social.setS_email(result.getKakaoAccount().getEmail());
                         social.setM_id(m_id);
+                        
 
-                        dataService.profile.socialAccount(social).enqueue(new Callback<Boolean>() {
+                        dataService.memberAPI.socialAccount(social).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 if (response.isSuccessful()) {
@@ -229,9 +232,11 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
 
                             @Override
                             public void onFailure(Call<Boolean> call, Throwable t) {
-
+                                t.printStackTrace();
                             }
                         });
+
+
 
                     }
                 });
@@ -339,7 +344,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                             social.setS_email(account.getEmail());
                             social.setM_id(m_id);
 
-                            dataService.profile.socialAccount(social).enqueue(new Callback<Boolean>() {
+                            dataService.memberAPI.socialAccount(social).enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                     if (response.isSuccessful()) {
@@ -351,7 +356,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
 
                                 @Override
                                 public void onFailure(Call<Boolean> call, Throwable t) {
-
+                                    t.printStackTrace();
                                 }
                             });
 
@@ -388,7 +393,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
     public void findData() {
         String m_id = getPreferenceString("m_id");
 
-        dataService.profile.selectProfile(m_id).enqueue(new Callback<Member>() {
+        dataService.memberAPI.selectProfile(m_id).enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
                 if (response.isSuccessful()) {
@@ -401,23 +406,6 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                         tv_like.setText(member.getLike()+"");
                         tv_dislike.setText(member.getDislike()+"");
 
-//                        switch (member.getM_level()) {
-//                            case "0":
-//                                iv_level.setImageResource(R.drawable.slver);
-//                                break;
-//
-//                            case "1":
-//                                iv_level.setImageResource(R.drawable.gold);
-//                                break;
-//
-//                            case "2":
-//                                iv_level.setImageResource(R.drawable.platinum);
-//                                break;
-//
-//                            case "3":
-//                                iv_level.setImageResource(R.drawable.vip);
-//                                break;
-//                        }
                         // 멤버 등급별 이미지 리소스
                         int normalCnt = member.getM_n_use();
                         int togetherCnt = member.getM_t_use();

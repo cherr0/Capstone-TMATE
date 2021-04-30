@@ -26,23 +26,34 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".activity.BlackListSelectActivity" />
-        <activity android:name=".MatchingFinishedActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.HotPlaceActivity" />
-        <activity android:name=".activity.TrafficInformationActivity" />
-        <activity android:name=".activity.CheckActivity" />
-        <activity android:name=".activity.PaymentActivity" />
-        <activity android:name=".activity.NoticeDetailActivity" />
-        <activity android:name=".activity.WaitingActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".activity.BlackListSelectActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".MatchingFinishedActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".activity.LoginActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.HotPlaceActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.TrafficInformationActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.CheckActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.PaymentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.NoticeDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".activity.WaitingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainViewActivity" />
+        <activity android:name=".activity.MainViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
     </application>
 
 </manifest>

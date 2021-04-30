@@ -1,6 +1,10 @@
 package com.tmate.user.Activity;
 
+import android.graphics.Color;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,46 +23,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.tmate.user.R;
 import com.tmate.user.adapter.ChatAdapter;
 import com.tmate.user.data.ChatData;
+import com.tmate.user.databinding.ActivityChatBinding;
+import com.tmate.user.databinding.ActivityMatchingMapBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-public class ChatActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+public class ChatActivity extends AppCompatActivity implements TextWatcher {
     private RecyclerView.Adapter adapter;
     private ChatAdapter chatAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<ChatData> chatList;
     private String nickname = "박한수";
-    private EditText chatText;
-    private Button sendButton;
     private DatabaseReference myRef;
     long now = System.currentTimeMillis();
+    private ActivityChatBinding b;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Date date = new Date(now);
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-        setContentView(R.layout.activity_chat);
-        chatText = findViewById(R.id.chatText);
-        sendButton = findViewById(R.id.sendBtn);
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String msg = chatText.getText().toString();
-                if (msg != null) {
-                    ChatData chat = new ChatData();
-                    chat.setName(nickname);
-                    chat.setMsg(msg);
-                    chat.setTime(sdf.format(date));
-                    chatText.setText("");
-                    myRef.push().setValue(chat);
-                }
-            }
-        });
+        b= ActivityChatBinding.inflate(getLayoutInflater());
+        setContentView(b.getRoot());
+
+        b.chatText.addTextChangedListener(this);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("message");
         myRef.addChildEventListener(new ChildEventListener() {
@@ -84,41 +73,84 @@ public class ChatActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
+        b.recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        b.recyclerView.setLayoutManager(layoutManager);
         chatList = new ArrayList<>();
         adapter = new ChatAdapter(chatList, nickname);
-        recyclerView.setAdapter(adapter);
+        b.recyclerView.setAdapter(adapter);
         // 새로운 글이 추가되면 제일 하단으로 포지션 이동
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
                 int friendlyMessageCount = adapter.getItemCount();
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                LinearLayoutManager layoutManager = (LinearLayoutManager) b.recyclerView.getLayoutManager();
                 int lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition();
                 if (lastVisiblePosition == -1 ||
                         (positionStart >= (friendlyMessageCount - 1) &&
                                 lastVisiblePosition == (positionStart - 1))) {
-                    recyclerView.scrollToPosition(positionStart);
+                    b.recyclerView.scrollToPosition(positionStart);
                 }
             }
         });
         // 키보드 올라올 때 RecyclerView의 위치를 마지막 포지션으로 이동
-        recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+        b.recyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 if (bottom < oldBottom) {
                     v.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            recyclerView.smoothScrollToPosition(adapter.getItemCount());
+                            b.recyclerView.smoothScrollToPosition(adapter.getItemCount());
                         }
                     }, 100);
                 }
             }
         });
+    }
+    int beforLength;
+    @Override
+    public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+        beforLength = s.length();
+        b.sendBtn.setBackgroundColor(Color.BLUE);
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+
+    //edit 삭제 수정
+    @Override
+    public void afterTextChanged(Editable s) {
+        int currentLength=s.length();
+        if(beforLength==0 && currentLength >0){
+            b.sendBtn.setClickable(true);
+            b.sendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String msg = b.chatText.getText().toString();
+                    if (msg != null) {
+                        ChatData chat = new ChatData();
+                        chat.setName(nickname);
+                        chat.setMsg(msg);
+                        Date date = new Date(now);
+                        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+                        chat.setTime(sdf.format(date));
+                        b.chatText.setText("");
+                        myRef.push().setValue(chat);
+                        b.sendBtn.setBackgroundColor(Color.GRAY);
+                    }
+                }
+            });
+        }
+        else if(beforLength>0 && currentLength==0){
+            b.sendBtn.setClickable(false);
+            b.sendBtn.setOnClickListener(null);
+
+
+        }
     }
 }

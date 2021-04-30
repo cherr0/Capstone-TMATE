@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.adapter.FavoritesAdapter;
 import com.tmate.user.data.FavoritesData;
 import com.tmate.user.R;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class favoritesFragment extends Fragment {
     // 레트로핏 DB  연동 설정
     Context context;
     private static SharedPreferences pref;
-    DataService dataService = new DataService();
+    DataService dataService = DataService.getInstance();
     String m_id;
 
 
@@ -91,7 +92,7 @@ public class favoritesFragment extends Fragment {
     private void getData() {
 
 
-        dataService.profile.getBookmarkList(m_id).enqueue(new Callback<List<FavoritesData>>() {
+        dataService.memberAPI.getBookmarkList(m_id).enqueue(new Callback<List<FavoritesData>>() {
             @Override
             public void onResponse(Call<List<FavoritesData>> call, Response<List<FavoritesData>> response) {
                 if (response.isSuccessful()) {
@@ -122,23 +123,7 @@ public class favoritesFragment extends Fragment {
             }
         });
 
-//        List<String> adress = Arrays.asList(
-//                "대구 북구 영진전문대",
-//                "대구 달서구 성서청구타운"
-//        );
-//        List<String> date = Arrays.asList(
-//                "2021-03-21",
-//                "2021-03-23"
-//        );
-//
-//        for (int i = 0; i < adress.size(); i++) {
-//            // 각 List의 값들을 data 객체에 set 해줍니다.
-//            FavoritesData data = new FavoritesData();
-//            data.setBm_name(adress.get(i));
-//            data.setBm_date(date.get(i));
-//            // 각 값이 들어간 data를 adapter에 추가합니다.
-//            favoritesAdapter.addItem(data);
-//        }
+
     }
 
 

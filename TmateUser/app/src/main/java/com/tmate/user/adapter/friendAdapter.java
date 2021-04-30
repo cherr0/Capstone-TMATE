@@ -14,10 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmate.user.Fragment.DataService;
 import com.tmate.user.R;
 import com.tmate.user.data.FriendData;
 import com.tmate.user.data.Notification;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,8 @@ import retrofit2.Response;
 public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
 
     // 레트로핏
-    AdapterDataService dataService = new AdapterDataService();
+//    AdapterDataService dataService = new AdapterDataService();
+    DataService dataService = DataService.getInstance();
 
     // SharedPrefreprences
     private Context context;
@@ -67,7 +68,7 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                             notification.setN_whether("1");
-                            dataService.update.modifyStat(notification).enqueue(new Callback<Boolean>() {
+                            dataService.memberAPI.modifyStat(notification).enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                     if (response.isSuccessful()) {
@@ -79,7 +80,7 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
 
                                 @Override
                                 public void onFailure(Call<Boolean> call, Throwable t) {
-                                        t.printStackTrace();
+                                    t.printStackTrace();
                                 }
                             });
                     }
@@ -105,7 +106,8 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         notification.setN_whether("0");
-                        dataService.update.modifyStat(notification).enqueue(new Callback<Boolean>() {
+
+                        dataService.memberAPI.modifyStat(notification).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                 notifyItemRangeChanged(position, items.size());
