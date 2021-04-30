@@ -12,6 +12,9 @@ public interface AppDriverService {
     // 기사용 어플 회원 가입 - 멤버, 드라이버 트랜잭션
     Boolean saveDriverProfile(Map<String, String> map);
 
+    // 기사 승인 확인
+    Boolean searchApprove(String d_id);
+
     // 운행 기록 확인
     List<DriverHistoryVO> historyList(String d_id);
 

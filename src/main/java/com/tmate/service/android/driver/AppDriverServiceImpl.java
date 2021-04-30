@@ -55,6 +55,14 @@ public class AppDriverServiceImpl implements AppDriverService{
         return driverMapper.addDriverLicense(driverDTO) == 1;
     }
 
+    @Override // 기사 승인 상태 확인
+    public Boolean searchApprove(String d_id) {
+        Timestamp result = driverMapper.findDriverDateById(d_id).getD_j_date();
+        log.info("AppDriverService 기사 승인 인증 d_id : " + d_id);
+        log.info("AppDriverService 기사 승인 인증 시간 : " + result);
+        return result != null;
+    }
+    
     @Override   // 기사 운행이력
     public List<DriverHistoryVO> historyList(String d_id) {
         log.info("AppDriverService 기사 운행이력 d_id : " + d_id);
