@@ -47,7 +47,7 @@ public class CertificateEnrollmentFragment extends Fragment implements Validator
 
     Bundle bundle;
 
-    @Length(min = 12, max = 12, message = "'-' 까지 명시하여 정확히 입력바랍니다.")
+    @Length(min = 11, max = 11, message = "'-' 까지 명시하여 정확히 입력바랍니다.")
     @NotEmpty(message = "자격증 번호를 입력 바랍니다.")
     EditText license_no;
 
