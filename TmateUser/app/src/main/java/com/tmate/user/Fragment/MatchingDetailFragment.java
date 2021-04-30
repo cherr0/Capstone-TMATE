@@ -36,9 +36,13 @@ public class MatchingDetailFragment extends Fragment {
     private Bundle bundle;
 
     private String m_id;
+    private String list_m_id;
     private String merchant_uid;
 
+    private int to_seat;
+
     DataService dataService = DataService.getInstance();
+
 
     @Nullable
     @Override
@@ -67,7 +71,7 @@ public class MatchingDetailFragment extends Fragment {
 
                         b.mfMerchantUid.setText(history.getMerchant_uid());
                         b.mfMid.setText(history.getM_id());
-
+                        list_m_id = history.getM_id();
                         b.tvStartPlace.setText(history.getH_s_place());
                         b.mfHSLttd.setText(String.valueOf(history.getH_s_lttd()));
                         b.mfHSLngtd.setText(String.valueOf(history.getH_s_lngtd()));
@@ -86,13 +90,15 @@ public class MatchingDetailFragment extends Fragment {
             }
         });
 
-        if(getPreferenceString("m_id") == bundle.getString("m_id")) {
+        if(getPreferenceString("m_id").equals(bundle.getString("m_id")) ) {
             b.clBtnMember.setVisibility(View.VISIBLE);
             b.clBtnTogetherRequest.setVisibility(View.VISIBLE);
+            b.btnMatch.setText("삭제하기");
 
         } else {
             b.clBtnMember.setVisibility(View.INVISIBLE);
             b.clBtnTogetherRequest.setVisibility(View.INVISIBLE);
+            b.btnMatch.setText("동승하기");
         }
 
 
@@ -121,10 +127,41 @@ public class MatchingDetailFragment extends Fragment {
         b.btnMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                MatchingSeatFragment matchingSeatFragment = new MatchingSeatFragment();
-                transaction.replace(R.id.fm_matching, matchingSeatFragment);
-                transaction.commit();
+
+                if (b.btnMatch.getText().toString().equals("동승하기")) {
+
+                    // 동승 신청 시 좌석 선택으로 넘어간다.
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("merchant_uid", merchant_uid);
+                    bundle1.putString("list_m_id",list_m_id);
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    MatchingSeatFragment matchingSeatFragment = new MatchingSeatFragment();
+                    matchingSeatFragment.setArguments(bundle1);
+                    transaction.replace(R.id.fm_matching, matchingSeatFragment);
+                    transaction.commit();
+                }
+
+                if (b.btnMatch.getText().toString().equals("삭제하기")) {
+                    dataService.matchAPI.removeMatchingByMaster(merchant_uid).enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            if (response.code() == 200) {
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                                CallFragment callFragment = new CallFragment();
+                                transaction.replace(R.id.fm_matching, callFragment);
+                                transaction.commit();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+                }
+
+
 
             }
         });

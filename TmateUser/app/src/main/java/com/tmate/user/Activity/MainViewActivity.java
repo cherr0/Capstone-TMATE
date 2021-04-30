@@ -46,6 +46,7 @@ public class MainViewActivity extends AppCompatActivity {
         setPreference("m_id", intent.getStringExtra("m_id"));
         setPreference("m_name", intent.getStringExtra("m_name"));
 
+
         Log.d("Get Preference : ", getPreferenceString("m_id"));
         Log.d("Get Preference : ", getPreferenceString("m_name"));
 
