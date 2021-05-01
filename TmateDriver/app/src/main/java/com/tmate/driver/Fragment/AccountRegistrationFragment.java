@@ -137,6 +137,7 @@ public class AccountRegistrationFragment extends Fragment implements Validator.V
                 if(response.code() == 200) {
                     Log.i("AccountRegFragment","가입 신청 완료");
                     setPreference("d_id",bundle.getString("m_id"));
+                    setPreference("m_name",bundle.getString("m_name"));
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                     CompletedFragment cf = new CompletedFragment();
                     cf.setArguments(bundle);
