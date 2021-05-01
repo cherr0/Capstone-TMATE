@@ -10,14 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
-import com.tmate.driver.data.CarData;
+import com.tmate.driver.data.Car;
 
 import java.util.ArrayList;
 
 public class CarAdapter extends RecyclerView.Adapter<CarHolder> {
-    ArrayList<CarData> items = new ArrayList<>();
+    ArrayList<Car> items = new ArrayList<>();
     private SparseBooleanArray selectedItems = new SparseBooleanArray(0);
-    private ArrayList<CarData> arrayList;
     private int prePosition = -1;
 
 
@@ -57,7 +56,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarHolder> {
         return items.size();
     }
 
-    public void addItem(CarData data) {
+    public void addItem(Car data) {
         items.add(data);
     }
 }
@@ -70,7 +69,7 @@ class CarHolder extends RecyclerView.ViewHolder {
     TextView carModel;
 
 
-    void onBind(CarData data) {
+    void onBind(Car data) {
         carNo.setText(data.getCar_no());
         carVin.setText(data.getCar_vin());
         carColor.setText(data.getCar_color());
