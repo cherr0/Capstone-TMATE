@@ -16,10 +16,18 @@ public class CallGeneralActivity extends AppCompatActivity {
     private ImageView btn_back_general;
     Button btn_fare1;
 
+    // 일반 호출 설정시 넘어온다.
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call_general);
+
+        if(getIntent() != null){
+            intent = getIntent();
+
+        }
 
         btn_fare = findViewById(R.id.btn_fare);
         btn_fare1 = findViewById(R.id.btn_fare2);
