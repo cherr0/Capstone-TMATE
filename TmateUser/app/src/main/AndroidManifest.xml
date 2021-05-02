@@ -78,6 +78,10 @@
             android:name=".Activity.MatchingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/Theme.Tmate" />
+        <activity
+            android:name=".Activity.CallWaitingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/Theme.Tmate" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

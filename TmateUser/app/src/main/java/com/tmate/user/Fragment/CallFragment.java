@@ -55,7 +55,7 @@ public class CallFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MatchingMapActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
-
+                
             }
         });
 
