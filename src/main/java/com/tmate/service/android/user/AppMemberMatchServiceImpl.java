@@ -28,6 +28,22 @@ public class AppMemberMatchServiceImpl implements AppMemberMatchService{
     private final HistoryMapper historyMapper;
 
     /*
+    * 일반 호출 시
+    * */
+
+    @Override
+    public String registerNormalMatch(HistoryDTO historyDTO) {
+        log.info("AppMemberMatchService 일반호출 생성 중");
+
+        String merchant_uid = "";
+
+        if(historyMapper.insertNormalMatch(historyDTO) == 1){
+            merchant_uid = historyDTO.getMerchant_uid();
+        }
+
+        return merchant_uid;
+    }
+    /*
      * 동승 호출 시
      * */
 
