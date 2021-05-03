@@ -23,6 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -34,7 +35,7 @@ import com.skt.Tmap.TMapPOIItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
-import com.tmate.user.Fragment.MatchingFragment;
+
 import com.tmate.user.R;
 import com.tmate.user.common.Common;
 import com.tmate.user.common.PermissionManager;
@@ -306,9 +307,9 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude())); // 도착지 경도
                     intent.putExtra("h_s_place", h_s_place); // 출발지
                     intent.putExtra("h_f_place", h_f_place); // 도착지
-                    intent.putExtra("h_ep_fare",moneyplan); // 예상 요금
+                    intent.putExtra("h_ep_fare",String.valueOf(moneyplan)); // 예상 요금
                     intent.putExtra("h_ep_time",time); // 예상 시간
-                    intent.putExtra("h_ep_distance",km); // 예상 거리
+                    intent.putExtra("h_ep_distance",String.valueOf(km)); // 예상 거리
                     startActivity(intent);
                     finish();
                 }

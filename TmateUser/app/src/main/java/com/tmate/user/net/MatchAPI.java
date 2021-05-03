@@ -24,7 +24,7 @@ public interface MatchAPI {
     Call<History> getMatchingDetail(@Path("merchant_uid") String merchant_uid);
 
     @POST("match/register/matching")
-    Call<Boolean> registerMatchingRegister(@Body HashMap<String,Object> hashMap);
+    Call<Boolean> registerMatchingRegister(@Body HashMap<String, Object> hashMap);
 
     @GET("match/select/using/history/{m_id}")
     Call<JoinHistoryVO> getUsingHistory(@Path("m_id") String m_id);
@@ -40,4 +40,7 @@ public interface MatchAPI {
 
     @POST("match/register/apply")
     Call<Boolean> registerApply(@Body Approval approval);
+
+    @POST("match/register/normal")
+    Call<String> registerNormalMatching(@Body History history);
 }

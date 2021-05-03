@@ -99,7 +99,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_start_place"
+                android:id="@+id/cg_start_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -139,7 +139,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_end_place"
+                android:id="@+id/cg_end_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -177,7 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/tv_start_place"
+                app:layout_constraintStart_toEndOf="@+id/cg_start_place"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -185,8 +185,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/tv_end_place"
-                app:layout_constraintTop_toTopOf="@+id/tv_end_place" />
+                app:layout_constraintStart_toStartOf="@+id/cg_end_place"
+                app:layout_constraintTop_toTopOf="@+id/cg_end_place" />
 
             <TextView
                 android:id="@+id/tv_h_s_lngtd"
@@ -201,8 +201,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/tv_end_place"
-                app:layout_constraintTop_toTopOf="@+id/tv_end_place" />
+                app:layout_constraintStart_toEndOf="@+id/cg_end_place"
+                app:layout_constraintTop_toTopOf="@+id/cg_end_place" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
