@@ -102,10 +102,11 @@ public class AppDriverApiController {
     }
 
     // 블랙리스트 제거 - DELETE
-    @DeleteMapping("/ban/delete")
-    public ResponseEntity<Boolean> removeBlacklist(@RequestBody BanDTO banDTO) {
-        log.info("AppDriverController 기사 블랙리스트 제거 BanDTO : " + banDTO);
-        return new ResponseEntity<>(appDriverService.blacklistRemove(banDTO),HttpStatus.OK);
+    @DeleteMapping("/ban/delete/{d_id}/{m_id}")
+    public ResponseEntity<Boolean> removeBlacklist(@PathVariable("d_id") String d_id,
+                                                   @PathVariable("m_id") String m_id) {
+        log.info("AppDriverController 기사 블랙리스트 제거 d_id & m_id : " + d_id + " & " + m_id);
+        return new ResponseEntity<>(appDriverService.blacklistRemove(d_id,m_id),HttpStatus.OK);
     }
 
     // 기사 상태 바꾸기 - PUT

@@ -106,9 +106,9 @@ public class AppDriverServiceImpl implements AppDriverService{
     }
 
     @Override   // 블랙리스트 제거
-    public Boolean blacklistRemove(BanDTO banDTO) {
-        log.info("AppDriverService 블랙리스트 제거 : " + banDTO);
-        return driverMapper.deleteBlacklist(banDTO) == 1;
+    public Boolean blacklistRemove(String d_id, String m_id) {
+        log.info("AppDriverService 블랙리스트 제거(기사,회원) : " + d_id + " & " + m_id);
+        return driverMapper.deleteBlacklist(d_id,m_id) == 1;
     }
 
     @Override   // 기사 상태 변경

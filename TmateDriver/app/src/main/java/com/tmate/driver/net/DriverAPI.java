@@ -69,6 +69,6 @@ public interface DriverAPI {
     Call<Boolean> addBlacklist(@Body Ban banDTO);
 
     // 블랙리스트 제거 - DELETE
-    @DELETE("/driver/ban/delete")
-    Call<Boolean> removeBlacklist(@Body Ban banDTO);
+    @DELETE("/driver/ban/delete/{d_id}/{m_id}")
+    Call<Boolean> removeBlacklist(@Path("d_id")String d_id, @Path("m_id") String m_id);
 }
