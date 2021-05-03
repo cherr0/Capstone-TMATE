@@ -31,6 +31,7 @@ public class Blacklist_managementFragment extends Fragment {
 
     private List<JoinBan> blacklist;
     private Call<List<JoinBan>> request;
+    private String d_id;
 
 
     @Nullable
@@ -40,6 +41,7 @@ public class Blacklist_managementFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_blacklist_management,container,false);
 
         RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.black_list_rv);
+        d_id = getPreferenceString("d_id");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -53,7 +55,7 @@ public class Blacklist_managementFragment extends Fragment {
     }
 
     private void getData() {
-        request = DataService.getInstance().driver.getBlacklist(getPreferenceString("d_id"));
+        request = DataService.getInstance().driver.getBlacklist(d_id);
         request.enqueue(new Callback<List<JoinBan>>() {
             @Override
             public void onResponse(Call<List<JoinBan>> call, Response<List<JoinBan>> response) {
@@ -61,6 +63,7 @@ public class Blacklist_managementFragment extends Fragment {
                     blacklist = response.body();
                     Log.i("BlacklistFragment","blacklist: " + blacklist);
                     for(JoinBan ban : blacklist) {
+                        ban.setD_id(d_id);
                         adapter.addItem(ban);
                     }
                     // adapter의 값이 변경되었다는 것을 알려줍니다.
