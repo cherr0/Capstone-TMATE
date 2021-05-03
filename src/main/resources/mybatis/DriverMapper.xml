@@ -65,7 +65,7 @@
     </select>
 
     <select id="getBanListByd_id" resultType="com.tmate.domain.JoinBanVO">
-        select b.m_id , m.m_name, b.ban_reason
+        select b.m_id , m.m_name, b.ban_reason, b.ban_reg_date
         from ban b inner join member m on b.m_id = m.m_id
         where d_id = #{d_id}
     </select>
