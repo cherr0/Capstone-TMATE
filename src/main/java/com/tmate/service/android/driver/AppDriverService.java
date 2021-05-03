@@ -39,7 +39,7 @@ public interface AppDriverService {
     Boolean blacklistRegister(BanDTO banDTO);
 
     // 블랙리스트 삭제
-    Boolean blacklistRemove(BanDTO banDTO);
+    Boolean blacklistRemove(String d_id, String m_id);
 
     // 택시 기사 상태 바꾸기 - 대기 중, 운행 중, 휴식 중
     Boolean driverModStatus(DriverDTO driverDTO);
