@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class JoinBan {
 
+    private String d_id;
+    
     private String m_id;
 
     private String m_name;

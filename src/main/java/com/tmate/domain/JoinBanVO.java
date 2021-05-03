@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 @Data
 public class JoinBanVO {
 
+    private String d_id;
+
     private String m_id;
 
     private String m_name;
