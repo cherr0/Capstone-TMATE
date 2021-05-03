@@ -21,6 +21,18 @@ public interface HistoryMapper {
     // 상세 방 정보 가져오기 -> xml 작성
     HistoryDTO findMatchingDetail(@Param("merchant_uid") String merchant_uid);
 
+    // 일반 호출 삽입
+    int insertNormalMatch(HistoryDTO historyDTO);
+
+    /*
+     * 일반 호출 취소 시 삭제가 된다.
+     * */
+    int deleteNormalMatch(String merchant_uid);
+
+    /*
+     *   호출 매칭시 상태 바꿔주면서 기사 값도 넣어준다.
+     */
+    int updateMatchStatus(@Param("merchant_uid") String merchant_uid, @Param("d_id") String d_id);
 
     //     <!-- 이용서비스 상태 변경  -->
     int updateH_status(HistoryDTO historyDTO);

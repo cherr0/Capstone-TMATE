@@ -34,6 +34,41 @@ public class AppMatchingApiController {
     // 로그 찍기 용 TAG
     private final String TAG = "AppMatchingApiController";
 
+
+    /*
+     * 일반 호출 생성
+     * */
+    @PostMapping("/register/normal")
+    public ResponseEntity<String> registerNormalMatching(@RequestBody HistoryDTO historyDTO) {
+        log.info(TAG + "App에서 넘어오는 History 정보 " + historyDTO);
+
+        String merchant_uid = appMemberMatchService.registerNormalMatch(historyDTO);
+
+        log.info("넘어가는 이용코드 : " + merchant_uid);
+
+        return new ResponseEntity<>(merchant_uid, HttpStatus.OK);
+    }
+
+    /*
+     * 일반 호출 취소 시 삭제가 된다.
+     * */
+    @DeleteMapping("/remove/normal/{merchant_uid}")
+    public ResponseEntity<Boolean> removeNormalMatching(@PathVariable("merchant_uid") String merchant_uid) {
+
+        return null;
+    }
+
+    /*
+     *   호출 매칭시 상태 바꿔주면서 기사 값도 넣어준다.
+     */
+    @PutMapping("/modify/match/status/{merchant_uid}/{d_id}")
+    public ResponseEntity<Boolean> modifyMatchStatus(@PathVariable("merchant_uid") String merchant_uid,
+                                                     @PathVariable("d_id") String d_id) {
+
+        return null;
+    }
+
+
     // 검색 내용
     @GetMapping("/getlist/{slttd}/{slngtd}/{flttd}/{flngtd}")
     public ResponseEntity<List<HistoryDTO>> getMatchingList(@PathVariable("slttd") String slttd, @PathVariable("slngtd") String slngtd,

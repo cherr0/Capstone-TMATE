@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface AppMemberMatchService {
-    // 일반 호출 시 -> 다음 주 예정
+    // 일반 호출 시
+
+    // 1. 일반 호출 생성
+    String registerNormalMatch(HistoryDTO historyDTO);
 
 
 

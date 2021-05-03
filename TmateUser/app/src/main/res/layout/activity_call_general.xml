@@ -114,7 +114,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_start_place"
+            android:id="@+id/cg_start_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -127,7 +127,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_start" />
 
         <TextView
-            android:id="@+id/tv_end_place"
+            android:id="@+id/cg_end_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -159,7 +159,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_start_place" />
+            app:layout_constraintTop_toBottomOf="@+id/cg_start_place" />
 
         <View
             android:id="@+id/view"
@@ -171,7 +171,7 @@
             android:background="#54A3CD"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_end_place" />
+            app:layout_constraintTop_toBottomOf="@+id/cg_end_place" />
 
         <View
             android:id="@+id/view4"
@@ -334,7 +334,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/tv_start_place"
+            app:layout_constraintStart_toEndOf="@+id/cg_start_place"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -343,7 +343,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/tv_start_place"
+            app:layout_constraintStart_toEndOf="@+id/cg_start_place"
             app:layout_constraintTop_toBottomOf="@+id/cg_h_s_lttd" />
 
         <TextView
@@ -352,8 +352,8 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/tv_end_place"
-            app:layout_constraintTop_toTopOf="@+id/tv_end_place" />
+            app:layout_constraintStart_toEndOf="@+id/cg_end_place"
+            app:layout_constraintTop_toTopOf="@+id/cg_end_place" />
 
         <TextView
             android:id="@+id/cg_h_f_lttd"
@@ -361,8 +361,8 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:visibility="gone"
-            app:layout_constraintStart_toEndOf="@+id/tv_end_place"
-            app:layout_constraintTop_toTopOf="@+id/tv_end_place" />
+            app:layout_constraintStart_toEndOf="@+id/cg_end_place"
+            app:layout_constraintTop_toTopOf="@+id/cg_end_place" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

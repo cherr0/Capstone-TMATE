@@ -72,11 +72,11 @@ public class MatchingDetailFragment extends Fragment {
                         b.mfMerchantUid.setText(history.getMerchant_uid());
                         b.mfMid.setText(history.getM_id());
                         list_m_id = history.getM_id();
-                        b.tvStartPlace.setText(history.getH_s_place());
+                        b.cgStartPlace.setText(history.getH_s_place());
                         b.mfHSLttd.setText(String.valueOf(history.getH_s_lttd()));
                         b.mfHSLngtd.setText(String.valueOf(history.getH_s_lngtd()));
 
-                        b.tvEndPlace.setText(history.getH_f_place());
+                        b.cgEndPlace.setText(history.getH_f_place());
                         b.mfHFLttd.setText(String.valueOf(history.getH_f_lttd()));
                         b.mfHFLngtd.setText(String.valueOf(history.getH_f_lngtd()));
 
