@@ -1,12 +1,15 @@
 package com.tmate.driver.Fragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,10 +25,14 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tmate.driver.R;
 import com.tmate.driver.databinding.FragmentJoinpageBinding;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class JoinPageFragment extends Fragment implements Validator.ValidationListener{
     private FragmentJoinpageBinding b;
+    private TextView et_birth;
 
     Bundle bundle;
 
@@ -39,12 +46,23 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
 
     @NotEmpty(message = "생년월일를 입력해 주세요")
     @Length(min = 6, max = 6, message = "올바르게 입력해 주세요")
-    EditText et_birth;
 
     @Checked
     RadioGroup gender;
 
     public Validator validator;
+
+    Calendar calendar = Calendar.getInstance();
+
+    DatePickerDialog.OnDateSetListener myDatePicker = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month);
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        }
+    };
 
     @Nullable
     @Override
@@ -65,6 +83,13 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
         gender = view.findViewById(R.id.gender);
         validator = new Validator(this);//필수
         validator.setValidationListener(this);//필수
+
+        et_birth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(),myDatePicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         b.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,5 +132,11 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
                 Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
             }
         }
+    }
+    private void updateLabel() {
+        String myFormat = "yyyy/MM/dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.KOREA);
+
+        et_birth.setText(sdf.format(calendar.getTime()));
     }
 }
