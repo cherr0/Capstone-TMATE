@@ -1,9 +1,12 @@
 package com.tmate.driver.Fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,16 +16,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
 import com.tmate.driver.adapter.BlacklistManagementAdapter;
-import com.tmate.driver.data.BlacklistManagementData;
+import com.tmate.driver.data.JoinBan;
+import com.tmate.driver.net.DataService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Blacklist_managementFragment extends Fragment {
     private BlacklistManagementAdapter adapter;
 
-    private ArrayList<BlacklistManagementData> arrayList;
+    private List<JoinBan> blacklist;
+    private Call<List<JoinBan>> request;
 
 
     @Nullable
@@ -36,8 +44,6 @@ public class Blacklist_managementFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        arrayList = new ArrayList<>();
-
         adapter = new BlacklistManagementAdapter();
         recyclerView.setAdapter(adapter);
 
@@ -47,37 +53,40 @@ public class Blacklist_managementFragment extends Fragment {
     }
 
     private void getData() {
-        List<String> black_name = Arrays.asList(
-                "김진수",
-                "장원준",
-                "박한수",
-                "허시현"
-        );
-        List<String> black_date = Arrays.asList(
-                "21/03/26",
-                "21/03/24",
-                "21/03/21",
-                "21/03/18"
-        );
-        List<String> blakc_content = Arrays.asList(
-                "너무 시끄러워요",
-                "운전 방해를 합니다",
-                "오랜시간 나타나지 않습니다.",
-                "인격모독을 합니다."
-        );
+        request = DataService.getInstance().driver.getBlacklist(getPreferenceString("d_id"));
+        request.enqueue(new Callback<List<JoinBan>>() {
+            @Override
+            public void onResponse(Call<List<JoinBan>> call, Response<List<JoinBan>> response) {
+                if(response.code() == 200) {
+                    blacklist = response.body();
+                    Log.i("BlacklistFragment","blacklist: " + blacklist);
+                    for(JoinBan ban : blacklist) {
+                        adapter.addItem(ban);
+                    }
+                    // adapter의 값이 변경되었다는 것을 알려줍니다.
+                    adapter.notifyDataSetChanged();
+                }
+            }
 
-        for (int i = 0; i < black_name.size(); i++) {
-            // 각 List의 값들을 data 객체에 set 해줍니다.
-            BlacklistManagementData blackManageData = new BlacklistManagementData();
-            blackManageData.setBlack_name(black_name.get(i));
-            blackManageData.setBlack_date(black_date.get(i));
-            blackManageData.setBlack_content(blakc_content.get(i));
+            @Override
+            public void onFailure(Call<List<JoinBan>> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(getContext(), "데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-            // 각 값이 들어간 data를 adapter에 추가합니다.
-            adapter.addItem(blackManageData);
-        }
 
-        // adapter의 값이 변경되었다는 것을 알려줍니다.
-        adapter.notifyDataSetChanged();
+
+    }
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getActivity().getSharedPreferences("loginDriver", getActivity().MODE_PRIVATE);
+        return pref.getString(key, "");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        request.cancel();
     }
 }
