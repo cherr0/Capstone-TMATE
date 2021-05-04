@@ -73,4 +73,15 @@ public interface Membermapper {
 
     // 총 요금 가져오기
     int findM_Point(String m_id);
+
+    /*
+    * 운행 옵션 기능
+    * */
+
+    // 1. 운행 옵션 가져오기
+    Dv_optionDTO selectDv_optionByM_id(String m_id);
+
+    // 2. 운행 옵션 상태 변경
+    int updateDv_optionStatus(Dv_optionDTO dv_optionDTO);
+
 }

@@ -121,4 +121,18 @@
         select m_point from member where m_id = #{m_id}
     </select>
 
+    <select id="selectDv_optionByM_id" resultType="com.tmate.domain.Dv_optionDTO">
+        select * from driving_option where m_id = #{m_id}
+    </select>
+
+    <update id="updateDv_optionStatus">
+        update driving_option
+        set do_hurry = #{do_hurry, jdbcType=CHAR},
+            do_navi = #{do_navi, jdbcType=CHAR},
+            do_quiet = #{do_quiet, jdbcType=CHAR},
+            do_animal = #{do_animal, jdbcType=CHAR},
+            do_load = #{do_load, jdbcType=CHAR},
+            do_child = #{do_child, jdbcType=CHAR}
+        where m_id = #{m_id}
+    </update>
 </mapper>

@@ -2,6 +2,7 @@ package com.tmate.user.net;
 
 import com.tmate.user.data.Approval;
 import com.tmate.user.data.CardData;
+import com.tmate.user.data.Dv_option;
 import com.tmate.user.data.FavoritesData;
 import com.tmate.user.data.Member;
 import com.tmate.user.data.Notification;
@@ -114,6 +115,18 @@ public interface MemberAPI {
     // 카드 대표
     @PUT("member/updaterep/{customer_uid}/{m_id}")
     Call<Boolean> modifyRep(@Path("customer_uid") String customer_id, @Path("m_id") String m_id);
+
+    /*
+    * 운행 옵션
+    * */
+
+    // 운행 옵션 목록 가져오기
+    @GET("member/get/dvoption/{m_id}")
+    Call<Dv_option> getDvOptionByM_id(@Path("m_id") String m_id);
+
+    // 운행 옵션 업데이트
+    @PUT("member/modify/dvoption")
+    Call<Boolean> modifyDvOption(@Body Dv_option dv_option);
 
 
 }
