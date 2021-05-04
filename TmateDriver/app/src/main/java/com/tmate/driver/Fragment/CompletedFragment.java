@@ -1,5 +1,6 @@
 package com.tmate.driver.Fragment;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.tmate.driver.activity.LoginActivity;
 import com.tmate.driver.OnBackPressedListener;
+import com.tmate.driver.activity.MainViewActivity;
 import com.tmate.driver.databinding.FragmentCompletedBinding;
 import com.tmate.driver.net.DataService;
 
@@ -59,6 +61,9 @@ public class CompletedFragment extends Fragment implements OnBackPressedListener
                     if(response.body()) {
                         setPreference("d_approve", response.body().toString());
                         Log.d("CompletedFragment","승인 완료");
+                        Toast.makeText(getContext(), "승인 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity().getApplication(), MainViewActivity.class);
+                        startActivity(intent);
                     }else {
                         Log.d("CompletedFragment","승인 미완료");
                         Toast.makeText(getContext(), "아직 승인이 미완료 되었습니다.", Toast.LENGTH_SHORT).show();

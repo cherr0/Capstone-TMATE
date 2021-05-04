@@ -32,7 +32,6 @@ import java.util.Locale;
 
 public class JoinPageFragment extends Fragment implements Validator.ValidationListener{
     private FragmentJoinpageBinding b;
-    private TextView et_birth;
 
     Bundle bundle;
 
@@ -41,11 +40,12 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
     EditText m_name;
 
     @NotEmpty(message = "휴대폰번호를 입력해 주세요")
-    @Length(min = 11, max = 11, message = "올바르게 입력해 주세요")
+    @Length(min = 11, max = 11, message = "휴대폰번호를 올바르게 입력해 주세요")
     EditText et_phone;
 
     @NotEmpty(message = "생년월일를 입력해 주세요")
-    @Length(min = 6, max = 6, message = "올바르게 입력해 주세요")
+    @Length(min = 10, max = 10, message = "생년월일을 입력해 주세요")
+    private TextView et_birth;
 
     @Checked
     RadioGroup gender;
@@ -87,7 +87,12 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
         et_birth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getActivity(),myDatePicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), myDatePicker,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.show();
+
             }
         });
 
