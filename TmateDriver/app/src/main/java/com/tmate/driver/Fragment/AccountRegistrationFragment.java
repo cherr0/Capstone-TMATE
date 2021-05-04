@@ -130,6 +130,7 @@ public class AccountRegistrationFragment extends Fragment implements Validator.V
         map.put("bank_company", bundle.getString("bank_company"));
         map.put("d_acnum", bundle.getString("d_acnum"));
 
+        Log.d("Final Check", "map 객체 내용" + map);
         request = DataService.getInstance().driver.registerDriver(map);
         request.enqueue(new Callback<Boolean>() {
             @Override
