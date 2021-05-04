@@ -34,7 +34,7 @@ public class AppDriverServiceImpl implements AppDriverService{
 
         // 회원 생년월일 포맷 변환
         try {
-            DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
             Date date = dateFormat.parse(map.get("m_birth"));
             Timestamp timestamp = new Timestamp(date.getTime());
             memberDTO.setM_birth(timestamp);
