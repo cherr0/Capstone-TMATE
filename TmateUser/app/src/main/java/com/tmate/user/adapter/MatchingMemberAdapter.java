@@ -49,6 +49,7 @@ class MatchingMemberHolder extends RecyclerView.ViewHolder {
     TextView dislike;
     TextView m_count;
 
+
     public void onBind(MatchingMember data) {
         m_id.setText(data.getM_id());
         m_name.setText(data.getM_name());
@@ -57,6 +58,7 @@ class MatchingMemberHolder extends RecyclerView.ViewHolder {
         like.setText(data.getLike());
         dislike.setText(data.getDislike());
         m_count.setText(data.getM_count());
+
     }
 
     public MatchingMemberHolder(@NonNull View itemView) {
@@ -68,5 +70,6 @@ class MatchingMemberHolder extends RecyclerView.ViewHolder {
         like =itemView.findViewById(R.id.member_r_code_like);
         dislike =itemView.findViewById(R.id.member_r_code_dislike);
         m_count = itemView.findViewById(R.id.member_m_count);
+
     }
 }

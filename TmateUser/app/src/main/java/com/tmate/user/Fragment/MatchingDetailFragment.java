@@ -39,7 +39,10 @@ public class MatchingDetailFragment extends Fragment {
     private String list_m_id;
     private String merchant_uid;
 
+
     private int to_seat;
+
+    Bundle toBundle = new Bundle();
 
     DataService dataService = DataService.getInstance();
 
@@ -68,7 +71,6 @@ public class MatchingDetailFragment extends Fragment {
                         Log.d("잘받아오나요?", history.toString());
 
                         b.tvMName.setText(history.getM_name());
-
                         b.mfMerchantUid.setText(history.getMerchant_uid());
                         b.mfMid.setText(history.getM_id());
                         list_m_id = history.getM_id();
@@ -79,6 +81,10 @@ public class MatchingDetailFragment extends Fragment {
                         b.cgEndPlace.setText(history.getH_f_place());
                         b.mfHFLttd.setText(String.valueOf(history.getH_f_lttd()));
                         b.mfHFLngtd.setText(String.valueOf(history.getH_f_lngtd()));
+
+                        b.hEpFare.setText(history.getH_ep_fare()+"원");
+                        b.hEpDistance.setText(history.getH_ep_distance());
+                        b.hEpTime.setText(history.getH_ep_time());
 
                     }
                 }
@@ -102,23 +108,27 @@ public class MatchingDetailFragment extends Fragment {
         }
 
 
-
+        // 동승자 정보 보기 -> Bundle로 merchant_uid 넘김
         b.btnMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                toBundle.putString("merchant_uid",merchant_uid);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 MatchingMemberFragment matchingMemberFragment = new MatchingMemberFragment();
+                matchingMemberFragment.setArguments(toBundle);
                 transaction.replace(R.id.fm_matching, matchingMemberFragment);
                 transaction.commit();
             }
         });
 
+        // 동승 신청 정보 보기 -> Bundle로 merchant_uid 넘김
         b.btnMemberRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                toBundle.putString("merchant_uid",merchant_uid);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 TogetherRequestFragment togetherRequestFragment = new TogetherRequestFragment();
+                togetherRequestFragment.setArguments(toBundle);
                 transaction.replace(R.id.fm_matching, togetherRequestFragment);
                 transaction.commit();
             }
@@ -129,7 +139,6 @@ public class MatchingDetailFragment extends Fragment {
             public void onClick(View v) {
 
                 if (b.btnMatch.getText().toString().equals("동승하기")) {
-
                     // 동승 신청 시 좌석 선택으로 넘어간다.
                     Bundle bundle1 = new Bundle();
                     bundle1.putString("merchant_uid", merchant_uid);

@@ -49,7 +49,7 @@ public class MatchingSeatFragment extends Fragment {
     History history;
     Together together;
 
-    private String to_seat;
+    private int to_seat;
 
     /*
     * 기존 방에서 넘어올때 필요한 것들
@@ -175,8 +175,9 @@ public class MatchingSeatFragment extends Fragment {
 
                     approval.setId(getActivity().getSharedPreferences("loginUser",Context.MODE_PRIVATE).getString("m_id",""));
                     approval.setName(getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE).getString("m_name", ""));
-                    approval.setTo_seat(Integer.valueOf(to_seat));
+                    approval.setTo_seat(to_seat);
                     approval.setM_id(list_m_id);
+                    approval.setMerchant_uid(merchant_uid);
 
                     b.btnSeat.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -186,6 +187,7 @@ public class MatchingSeatFragment extends Fragment {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                     // 여기서는 화면 이동 할 예정
+                                    Toast.makeText(getActivity(), "신청하였습니다.", Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
@@ -276,7 +278,7 @@ public class MatchingSeatFragment extends Fragment {
                     b.seatOne.setChecked(true);
                     b.seatTwo.setChecked(false);
                     b.seatThree.setChecked(false);
-                    to_seat = "1";
+                    to_seat = 1;
                 }
             });
 
@@ -290,7 +292,7 @@ public class MatchingSeatFragment extends Fragment {
                     b.seatTwo.setChecked(true);
                     b.seatOne.setChecked(false);
                     b.seatThree.setChecked(false);
-                    to_seat = "2";
+                    to_seat = 2;
                 }
             });
         }
@@ -303,7 +305,7 @@ public class MatchingSeatFragment extends Fragment {
                     b.seatThree.setChecked(true);
                     b.seatTwo.setChecked(false);
                     b.seatOne.setChecked(false);
-                    to_seat = "3";
+                    to_seat = 3;
                 }
             });
         }

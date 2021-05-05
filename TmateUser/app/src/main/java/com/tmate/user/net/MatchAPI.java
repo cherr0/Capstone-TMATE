@@ -4,6 +4,7 @@ import com.tmate.user.data.Approval;
 import com.tmate.user.data.History;
 import com.tmate.user.data.JoinHistoryVO;
 import com.tmate.user.data.Together;
+import com.tmate.user.data.TogetherRequest;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,4 +44,7 @@ public interface MatchAPI {
 
     @POST("match/register/normal")
     Call<String> registerNormalMatching(@Body History history);
+
+    @GET("match/get/approval/{merchant_uid}")
+    Call<List<TogetherRequest>> getTogetherRequest(@Path("merchant_uid") String merchant_uid);
 }

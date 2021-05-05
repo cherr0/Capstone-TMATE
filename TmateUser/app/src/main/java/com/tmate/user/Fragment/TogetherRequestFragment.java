@@ -1,6 +1,7 @@
 package com.tmate.user.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +15,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.R;
 import com.tmate.user.adapter.TogetherRequestAdapter;
 import com.tmate.user.data.TogetherRequest;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class TogetherRequestFragment extends Fragment {
     private TogetherRequestAdapter adapter;
 
     private ArrayList<TogetherRequest> arrayList;
+
+    Call<List<TogetherRequest>> request;
+
+    private String merchant_uid;
 
 
     @Nullable
@@ -41,72 +51,48 @@ public class TogetherRequestFragment extends Fragment {
         adapter = new TogetherRequestAdapter();
         recyclerView.setAdapter(adapter);
 
+        if (getArguments() != null) {
+            merchant_uid = getArguments().getString("merchant_uid");
+        }
+
         getData();
         return v;
 
     }
 
     private void getData() {
-        List<String> m_name = Arrays.asList(
-                "김진수",
-                "장원준",
-                "강병현",
-                "허시현"
-        );
-        List<String> m_birth = Arrays.asList(
-                "30대",
-                "20대",
-                "20대",
-                "20대"
-        );
-        List<String> distance = Arrays.asList(
-                "300M",
-                "140M",
-                "200M",
-                "420M"
-        );
-        List<String> m_t_use = Arrays.asList(
-                "14",
-                "32",
-                "33",
-                "27"
-        );
-        List<String> like = Arrays.asList(
-                "2",
-                "22",
-                "28",
-                "24"
-        );
-        List<String> dislike = Arrays.asList(
-                "22",
-                "9",
-                "6",
-                "2"
-        );
-        List<String> m_count = Arrays.asList(
-                "3",
-                "1",
-                "0",
-                "1"
-        );
 
+        request = DataService.getInstance().matchAPI.getTogetherRequest(merchant_uid);
 
-        for (int i = 0; i < m_name.size(); i++) {
-            // 각 List의 값들을 data 객체에 set 해줍니다.
-            TogetherRequest togetherRequest = new TogetherRequest();
-            togetherRequest.setM_name(m_name.get(i));
-            togetherRequest.setM_birth(m_birth.get(i));
-            togetherRequest.setDistance(distance.get(i));
-            togetherRequest.setM_t_use(m_t_use.get(i));
-            togetherRequest.setLike(like.get(i));
-            togetherRequest.setDislike(dislike.get(i));
-            togetherRequest.setM_count(dislike.get(i));
+        request.enqueue(new Callback<List<TogetherRequest>>() {
+            @Override
+            public void onResponse(Call<List<TogetherRequest>> call, Response<List<TogetherRequest>> response) {
+                if (response.code() == 200) {
+                    List<TogetherRequest> list = response.body();
+                    Log.i("넘어오는 리스트", list.toString());
+                    for (int i = 0; i < list.size(); i++) {
 
-            // 각 값이 들어간 data를 adapter에 추가합니다.
-            adapter.addItem(togetherRequest);
-        }
+                        TogetherRequest togetherRequest = new TogetherRequest();
+                        togetherRequest.setDislike("0");
+                        togetherRequest.setLike("0");
+                        togetherRequest.setMerchant_uid(list.get(i).getMerchant_uid());
+                        togetherRequest.setM_n_use(list.get(i).getM_n_use());
+                        togetherRequest.setM_t_use(list.get(i).getM_t_use());
+                        togetherRequest.setM_id(list.get(i).getM_id());
+                        togetherRequest.setM_name(list.get(i).getM_name());
+                        togetherRequest.setM_birth(list.get(i).getM_birth());
 
-        // adapter의 값이 변경되었다는 것을 알려줍니다.
-        adapter.notifyDataSetChanged();
+                        adapter.addItem(togetherRequest);
+                    }
+
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TogetherRequest>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }
