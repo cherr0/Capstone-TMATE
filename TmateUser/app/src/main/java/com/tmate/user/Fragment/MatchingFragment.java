@@ -78,16 +78,16 @@ public class MatchingFragment extends Fragment {
             h_ep_time = getArguments().getString("h_ep_time");
             h_ep_distance = getArguments().getString("h_ep_distance");
 
-            Log.d("넘어오는 출발지 위도 : ", slttd);
-            Log.d("넘어오는 출발지 경도 : ", slngtd);
-            Log.d("넘어오는 도착지 위도 : ", flttd);
-            Log.d("넘어오는 도착지 경도 : ", flngtd);
-            Log.i("MatchingFragment 동승인원", String.valueOf(to_max));
-            Log.d("MF 출발지 장 : ", h_s_place);
-            Log.d("MF 도착지 장소 : ", h_f_place);
-            Log.d("예상 시간 : ", h_ep_time);
-            Log.d("예상 요금 : ", h_ep_fare);
-            Log.d("예상 거리 : ", h_ep_distance);
+//            Log.d("넘어오는 출발지 위도 : ", slttd);
+//            Log.d("넘어오는 출발지 경도 : ", slngtd);
+//            Log.d("넘어오는 도착지 위도 : ", flttd);
+//            Log.d("넘어오는 도착지 경도 : ", flngtd);
+//            Log.i("MatchingFragment 동승인원", String.valueOf(to_max));
+//            Log.d("MF 출발지 장 : ", h_s_place);
+//            Log.d("MF 도착지 장소 : ", h_f_place);
+//            Log.d("예상 시간 : ", h_ep_time);
+//            Log.d("예상 요금 : ", h_ep_fare);
+//            Log.d("예상 거리 : ", h_ep_distance);
 
 
         }
