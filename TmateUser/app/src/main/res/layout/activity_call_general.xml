@@ -65,7 +65,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/cg_m_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -87,9 +87,9 @@
             android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textView19"
+            app:layout_constraintBottom_toBottomOf="@+id/cg_m_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView19" />
+            app:layout_constraintTop_toTopOf="@+id/cg_m_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -114,7 +114,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_start_place"
+            android:id="@+id/cg_start_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -127,7 +127,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_start" />
 
         <TextView
-            android:id="@+id/tv_end_place"
+            android:id="@+id/cg_end_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -159,7 +159,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_start_place" />
+            app:layout_constraintTop_toBottomOf="@+id/cg_start_place" />
 
         <View
             android:id="@+id/view"
@@ -171,7 +171,7 @@
             android:background="#54A3CD"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_end_place" />
+            app:layout_constraintTop_toBottomOf="@+id/cg_end_place" />
 
         <View
             android:id="@+id/view4"
@@ -327,6 +327,42 @@
             app:layout_constraintBottom_toBottomOf="@+id/btn_fare"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout34"
             app:layout_constraintTop_toTopOf="@+id/btn_fare" />
+
+        <TextView
+            android:id="@+id/cg_h_s_lttd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/cg_start_place"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cg_h_s_lngtd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/cg_start_place"
+            app:layout_constraintTop_toBottomOf="@+id/cg_h_s_lttd" />
+
+        <TextView
+            android:id="@+id/cg_h_f_lngtd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/cg_end_place"
+            app:layout_constraintTop_toTopOf="@+id/cg_end_place" />
+
+        <TextView
+            android:id="@+id/cg_h_f_lttd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/cg_end_place"
+            app:layout_constraintTop_toTopOf="@+id/cg_end_place" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

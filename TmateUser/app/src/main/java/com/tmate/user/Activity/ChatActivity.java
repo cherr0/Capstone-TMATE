@@ -2,6 +2,7 @@ package com.tmate.user.Activity;
 
 import android.graphics.Color;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,9 +29,13 @@ import com.tmate.user.databinding.ActivityChatBinding;
 import com.tmate.user.databinding.ActivityMatchingMapBinding;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 public class ChatActivity extends AppCompatActivity implements TextWatcher {
     private RecyclerView.Adapter adapter;
     private ChatAdapter chatAdapter;
@@ -129,6 +135,7 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
         if(beforLength==0 && currentLength >0){
             b.sendBtn.setClickable(true);
             b.sendBtn.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View v) {
                     String msg = b.chatText.getText().toString();
@@ -136,9 +143,8 @@ public class ChatActivity extends AppCompatActivity implements TextWatcher {
                         ChatData chat = new ChatData();
                         chat.setName(nickname);
                         chat.setMsg(msg);
-                        Date date = new Date(now);
                         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-                        chat.setTime(sdf.format(date));
+                        chat.setTime(sdf.format(new Date()));
                         b.chatText.setText("");
                         myRef.push().setValue(chat);
                         b.sendBtn.setBackgroundColor(Color.GRAY);

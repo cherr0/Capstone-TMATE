@@ -8,14 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.tmate.user.Activity.ChatActivity;
 import com.tmate.user.Activity.MatchingMapActivity;
+import com.tmate.user.MatchingApplicationListFragment;
 import com.tmate.user.R;
 
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ public class CallFragment extends Fragment {
     private int together;
     private Dialog dialog;
     private Button btn_chat;
+    private TextView requset_list;
 
     @Nullable
     @Override
@@ -55,7 +59,7 @@ public class CallFragment extends Fragment {
                 Intent intent = new Intent(getContext(), MatchingMapActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
-
+                
             }
         });
 
@@ -65,6 +69,16 @@ public class CallFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ChatActivity.class);
                 v.getContext().startActivity(intent);
+            }
+        });
+
+        requset_list = view.findViewById(R.id.requset_list);
+        requset_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                MatchingApplicationListFragment matchingApplicationListFragment = new MatchingApplicationListFragment();
+                transaction.replace(R.id.frameLayout, matchingApplicationListFragment).commit();
             }
         });
 

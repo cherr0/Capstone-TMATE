@@ -3,7 +3,9 @@ package com.tmate.web.android;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmate.domain.HistoryDTO;
+import com.tmate.domain.JoinHistoryVO;
 import com.tmate.domain.TogetherDTO;
+import com.tmate.domain.user.ApprovalDTO;
 import com.tmate.service.android.user.AppMemberMatchService;
 import com.tmate.service.android.user.AppMemberMatchServiceImpl;
 import com.tmate.service.android.user.AppMemberService;
@@ -31,6 +33,41 @@ public class AppMatchingApiController {
 
     // 로그 찍기 용 TAG
     private final String TAG = "AppMatchingApiController";
+
+
+    /*
+     * 일반 호출 생성
+     * */
+    @PostMapping("/register/normal")
+    public ResponseEntity<String> registerNormalMatching(@RequestBody HistoryDTO historyDTO) {
+        log.info(TAG + "App에서 넘어오는 History 정보 " + historyDTO);
+
+        String merchant_uid = appMemberMatchService.registerNormalMatch(historyDTO);
+
+        log.info("넘어가는 이용코드 : " + merchant_uid);
+
+        return new ResponseEntity<>(merchant_uid, HttpStatus.OK);
+    }
+
+    /*
+     * 일반 호출 취소 시 삭제가 된다.
+     * */
+    @DeleteMapping("/remove/normal/{merchant_uid}")
+    public ResponseEntity<Boolean> removeNormalMatching(@PathVariable("merchant_uid") String merchant_uid) {
+
+        return null;
+    }
+
+    /*
+     *   호출 매칭시 상태 바꿔주면서 기사 값도 넣어준다.
+     */
+    @PutMapping("/modify/match/status/{merchant_uid}/{d_id}")
+    public ResponseEntity<Boolean> modifyMatchStatus(@PathVariable("merchant_uid") String merchant_uid,
+                                                     @PathVariable("d_id") String d_id) {
+
+        return null;
+    }
+
 
     // 검색 내용
     @GetMapping("/getlist/{slttd}/{slngtd}/{flttd}/{flngtd}")
@@ -77,15 +114,6 @@ public class AppMatchingApiController {
         return new ResponseEntity<>(appMemberMatchService.removeTogetherMatch(merchant_uid), HttpStatus.OK);
     }
 
-    /*
-     * 매칭방을 만들었을때 나중에 매칭방 동승 신청이랑 추가로 다르게 생성되어진다.
-//     * */
-//    @PostMapping("/register/matching")
-//    public ResponseEntity<Boolean> registerMatchingRegister(@RequestBody HistoryDTO historyDTO, @RequestBody TogetherDTO togetherDTO) {
-//        log.info(TAG + ": 동승 매칭 방을 생성하기 위해 넘어오는 HistoryDTO & TogetherDTO" + historyDTO + togetherDTO);
-//
-//        return new ResponseEntity<>(appMemberMatchService.registerTogether(historyDTO, togetherDTO),HttpStatus.OK);
-//    }
 
 
     @PostMapping("/register/matching")
@@ -94,13 +122,54 @@ public class AppMatchingApiController {
         ObjectMapper mapper = new ObjectMapper();
         HistoryDTO historyDTO = mapper.convertValue(hashMap.get("history"), new TypeReference<HistoryDTO>() {});
         TogetherDTO togetherDTO = mapper.convertValue(hashMap.get("together"), new TypeReference<TogetherDTO>() {});
-//        HistoryDTO historyDTO = (HistoryDTO) hashMap.get("history");
-//        TogetherDTO togetherDTO = (TogetherDTO) hashMap.get("together");
 
         log.info(TAG + ": 동승 매칭 방을 생성하기 위해 넘어오는 HistoryDTO & TogetherDTO" + historyDTO + togetherDTO);
 
         return new ResponseEntity<>(appMemberMatchService.registerTogether(historyDTO, togetherDTO),HttpStatus.OK);
     }
 
+    @GetMapping("/select/using/history/{m_id}")
+    public ResponseEntity<JoinHistoryVO> getUsingHistory(@PathVariable("m_id") String m_id) {
 
+        log.info(TAG + ": 이용중인 서비스 보여주기 " + m_id);
+
+        JoinHistoryVO usingService = appMemberMatchService.getUsingService(m_id);
+
+        return new ResponseEntity<>(usingService, HttpStatus.OK);
+    }
+
+    // 동승 매칭 신청시 이미 선택된 좌석을 보여주기 위함
+    @GetMapping("/display/seatNum/{merchant_uid}")
+    public ResponseEntity<List<TogetherDTO>> getCurrentSeatNums(@PathVariable("merchant_uid") String merchant_uid) {
+
+        log.info(TAG + ": 이미 선택된 좌석 보여주기 : " + merchant_uid);
+
+        List<TogetherDTO> seatNums = appMemberMatchService.getCurrnetSeatNums(merchant_uid);
+
+        return new ResponseEntity<>(seatNums, HttpStatus.OK);
+    }
+
+    // 동승 신청 현황 보기
+    @GetMapping("/display/apply/list/{merchant_uid}")
+    public ResponseEntity<List<ApprovalDTO>> displayApplyList(
+            @PathVariable("merchant_uid") String merchant_uid) {
+
+        log.info(TAG + ": 동승 리스트 신청 현황 보기 : " + merchant_uid);
+
+        List<ApprovalDTO> applyerList = appMemberMatchService.getApplyerList(merchant_uid);
+
+        return new ResponseEntity<>(applyerList, HttpStatus.OK);
+    }
+
+
+    // 동승 신청 하기
+    @PostMapping("/register/apply")
+    public ResponseEntity<Boolean> registerApply(@RequestBody ApprovalDTO approvalDTO) {
+
+        log.info(TAG + " : 동승 신청하기 : " + approvalDTO);
+
+        return new ResponseEntity<>(appMemberMatchService.applyTogetherMatching(approvalDTO), HttpStatus.OK);
+    }
+
+    // 나의 신청 현황 보기
 }

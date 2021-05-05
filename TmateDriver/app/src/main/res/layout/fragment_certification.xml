@@ -66,9 +66,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <TextView
+        android:id="@+id/tv_certNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="인증번호"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"/>
+
     <EditText
         android:id="@+id/et_confirmNum"
-
+        android:inputType="number"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
@@ -89,5 +98,13 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/time_counter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/et_confirmNum"
+        app:layout_constraintTop_toBottomOf="@+id/et_confirmNum" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

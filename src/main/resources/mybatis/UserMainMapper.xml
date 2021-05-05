@@ -70,7 +70,7 @@
     <select id="getMainWeeklyHistoryList" resultType="com.tmate.domain.JoinHistoryVO">
         select merchant_uid, h_allfare, m_name, h_s_place, h_f_place, car_no, car_model
         from history h inner join member m on h.d_id = m.m_id
-                       inner join car c on m.m_id = c.d_id
+                       inner join car c on m.m_id = c.m_id
         where h.m_id = #{m_id} and to_date(substr(merchant_uid,10,6),'yyMMdd') between  sysdate - 7 and sysdate
     </select>
 </mapper>

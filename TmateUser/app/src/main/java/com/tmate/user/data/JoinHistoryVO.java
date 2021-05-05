@@ -1,10 +1,14 @@
-package com.tmate.domain;
-
-import lombok.Data;
+package com.tmate.user.data;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class JoinHistoryVO {
 
     // 이용코드 - 동승여부, 탑승일
@@ -27,6 +31,7 @@ public class JoinHistoryVO {
     private double h_f_lttd;
     private double h_f_lngtd;
 
+
     // 매칭 상태
     private String h_status;
 
@@ -42,5 +47,4 @@ public class JoinHistoryVO {
 
     // 기사명
     private String m_name;
-
 }

@@ -1,6 +1,5 @@
 package com.tmate.driver.activity;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.TargetApi;
 import android.app.Dialog;
@@ -12,15 +11,11 @@ import android.provider.Settings;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-
-
-import androidx.appcompat.app.AppCompatActivity;
 import com.skt.Tmap.TMapTapi;
 import com.tmate.driver.R;
 import com.tmate.driver.databinding.ActivityPaymentBinding;
 import com.tmate.driver.services.driving_overlay;
 
-import java.util.Objects;
 
 public class PaymentActivity extends AppCompatActivity {
     private ActivityPaymentBinding binding;
@@ -28,16 +23,13 @@ public class PaymentActivity extends AppCompatActivity {
     private Dialog dialog2;
     private int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 100;
     private int result =0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPaymentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         Intent intent = getIntent();
         result = intent.getExtras().getInt("서비스결과");
-
         if(result == 1) {
             dialog = new Dialog(PaymentActivity.this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -50,19 +42,12 @@ public class PaymentActivity extends AppCompatActivity {
         binding.btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (! PaymentActivity.this.isFinishing()) {
-                    showDialog();
-                }
                 payshowDialog();
             }
         });
-
-
     }
-
     public void payshowDialog(){
         dialog2.show();
-
         Button btn_no = dialog2.findViewById(R.id.btn_no);
         btn_no.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,11 +61,9 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PaymentActivity.this, CheckActivity.class);
                 startActivity(intent);
-                finish();
-          dialog2.dismiss();
+                dialog2.dismiss();
             }
         });
-
     }
     public void mapShowdialog() {
         dialog.show();
@@ -109,7 +92,6 @@ public class PaymentActivity extends AppCompatActivity {
             startMain();
         }
     }
-
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

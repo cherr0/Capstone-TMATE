@@ -65,7 +65,7 @@
     </select>
 
     <select id="getBanListByd_id" resultType="com.tmate.domain.JoinBanVO">
-        select b.m_id , m.m_name, b.ban_reason
+        select b.m_id , m.m_name, b.ban_reason, b.ban_reg_date
         from ban b inner join member m on b.m_id = m.m_id
         where d_id = #{d_id}
     </select>
@@ -75,14 +75,14 @@
 
     <!--  기사 회원가입 멤버 테이블 삽입  -->
     <insert id="registerDriver">
-        insert into member(m_id, m_name, m_profile, m_imei, m_birth, m_house)
-        values (#{m_id}, #{m_name}, #{m_profile}, #{m_imei}, #{m_birth}, #{m_house})
+        insert into member(m_id, m_name, m_imei, m_birth)
+        values (#{m_id}, #{m_name}, #{m_imei}, #{m_birth})
     </insert>
 
     <!--  기사 회원가입 기사 테이블 삽입  -->
     <insert id="addDriverLicense">
         insert into driver(d_id, d_license_no, bank_company, d_acnum, d_regdate)
-        values (#{m_id}, #{d_license_no}, #{bank_company}, #{d_acnum}, sysdate)
+        values (#{d_id}, #{d_license_no}, #{bank_company}, #{d_acnum}, sysdate)
     </insert>
 
     <!--  운행이력  -->
@@ -175,5 +175,12 @@
         set d_status = #{d_status}
         where d_id = #{d_id}
     </update>
+
+    <!--  기사 승인 상태 확인  -->
+    <select id="findDriverDateById" resultType="com.tmate.domain.DriverDTO">
+        select *
+        from driver
+        where d_id = #{d_id}
+    </select>
 
 </mapper>
