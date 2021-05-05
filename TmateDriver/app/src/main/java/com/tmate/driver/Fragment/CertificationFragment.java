@@ -93,9 +93,9 @@ public class CertificationFragment extends Fragment implements Validator.Validat
     public void onValidationSucceeded() {
         countDownTimer.cancel();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        CertificateEnrollmentFragment cef = new CertificateEnrollmentFragment();
-        cef.setArguments(bundle);
-        transaction.replace(R.id.fm_main, cef);
+        CorporationFragment corporationFragment = new CorporationFragment();
+        corporationFragment.setArguments(bundle);
+        transaction.replace(R.id.fm_main, corporationFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
