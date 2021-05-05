@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,8 @@ public class CarInfoFragment extends Fragment {
 
                         if (joinHistoryVO != null) {
 
+                            b.fcTitle.setText("이용중");
+
 
                             merchant_uid = joinHistoryVO.getMerchant_uid();
 
@@ -102,10 +105,20 @@ public class CarInfoFragment extends Fragment {
                                 b.carNo.setText("택시 호출 후 생성");
                             }
                         } else {
-                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                            BoardingFragment mf = new BoardingFragment();
-                            transaction.replace(R.id.fm_matching_activity, mf);
-                            transaction.commit();
+                            Log.d("안넘어 가는건가?", "왜 실행을 안할까?");
+                            b.fcTitle.setText("이용 중이 아닙니다.");
+                            b.htogether.setText(null);
+                            b.statusBadge.setText(null);
+                            b.hSPlace.setText(null);
+                            b.hFPlace.setText(null);
+                            b.carModel.setText(null);
+                            b.carNo.setText(null);
+
+//                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                            BoardingFragment mf = new BoardingFragment();
+//                            transaction.replace(R.id.fm_matching_activity, mf);
+//                            transaction.commit();
+
                         }
                     }
                 }
