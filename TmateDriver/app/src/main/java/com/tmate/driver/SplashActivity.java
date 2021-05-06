@@ -37,6 +37,8 @@ public class SplashActivity extends AnimatedSplash {
         configSplash.setAnimLogoSplashDuration(2000); //int ms
         configSplash.setAnimLogoSplashTechnique(Techniques.FadeIn); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
 
+        setPreference("d_id", "d1010408867960");
+        setPreference("m_name", "장원준");
 
 //        Customize Title
 
@@ -62,5 +64,13 @@ public class SplashActivity extends AnimatedSplash {
     public String getPreferenceString(String key) {
         SharedPreferences pref = getSharedPreferences("loginDriver", MODE_PRIVATE);
         return pref.getString(key, "");
+    }
+
+    // 데이터 저장 함수
+    public void setPreference(String key, String value){
+        SharedPreferences pref = getSharedPreferences("loginDriver", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, value);
+        editor.apply();
     }
 }
