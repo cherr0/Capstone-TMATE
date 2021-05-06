@@ -3,6 +3,7 @@ package com.tmate.user.Fragment;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -59,6 +61,8 @@ public class Profile_Reg_Fragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public final static int REQUEST_PERMISSIONS_REQUEST_CODE = 100;
 
+    private Call<Boolean> request;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -93,39 +97,42 @@ public class Profile_Reg_Fragment extends Fragment {
 
 
         btn_submit = rootview.findViewById(R.id.btn_submit);
-        btn_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_submit.setOnClickListener(v -> {
 
-                if (tv_house != null) {
-                    map.put("m_house", tv_house.getText().toString());
-                }
-
-                if (et_email != null) {
-                    map.put("m_email", et_email.getText().toString());
-                }
-
-                Log.d(LOG_TAG, map.values().toString());
-
-                dataService.memberAPI.insertOne(map).enqueue(new Callback<Boolean>() {
-                    @Override
-                    public void onResponse(@NonNull  Call<Boolean> call, @NonNull Response<Boolean> response) {
-                        if (response.isSuccessful()) {
-                            Log.d("response", response.body().toString());
-                            Intent intent = new Intent(getActivity(), MainViewActivity.class);
-                            intent.putExtra("m_id", map.get("m_id"));
-                            intent.putExtra("m_name", map.get("m_name"));
-                            startActivity(intent);
-                        }
-                    }
-                    @Override
-                    public void onFailure(@NonNull Call<Boolean> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
-
-
+            if (tv_house != null) {
+                map.put("m_house", tv_house.getText().toString());
             }
+
+            if (et_email != null) {
+                map.put("m_email", et_email.getText().toString());
+            }
+
+            Log.d(LOG_TAG, map.values().toString());
+
+            request = dataService.memberAPI.insertOne(map);
+            request.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
+                    if (response.code() == 200) {
+                        Log.d("response", response.body() + "");
+                        Intent intent = new Intent(getActivity(), MainViewActivity.class);
+                        setPreference("m_id", map.get("m_id"));
+                        setPreference("m_name", map.get("m_name"));
+                        Toast.makeText(getContext(), "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+                    }else {
+                        Log.d("Final Check", response.toString());
+                        Log.d("Final Check", response.message());
+                    }
+                }
+                @Override
+                public void onFailure(@NonNull Call<Boolean> call, Throwable t) {
+                    t.printStackTrace();
+                    Log.d("Final Check", "회원가입 데이터 전송 실패");
+                }
+            });
+
+
         });
         circleImageView = rootview.findViewById(R.id.circleImageView);
         circleImageView.setOnClickListener(new View.OnClickListener() {
@@ -251,4 +258,23 @@ public class Profile_Reg_Fragment extends Fragment {
         }
     }
 
+    // 데이터 저장 함수
+    public void setPreference(String key, String value){
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    // 데이터 불러오기 함수
+    public String getPreferenceString(String key){
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
+        return pref.getString(key, "");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        request.cancel();
+    }
 }
