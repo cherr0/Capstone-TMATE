@@ -103,6 +103,22 @@ public class AppMemberServiceImpl implements AppMemberService {
         return joinMapper.findHistoryToApp(m_id);
     }
 
+    // 유저 이용내역 삭제
+    @Transactional
+    @Override
+    public Boolean removeMemberHistory(String merchant_uid, String m_id) {
+
+        if (merchant_uid.substring(27).equals("0")) {
+            // 동승 일때
+            historyMapper.deleteTogetherM(merchant_uid, m_id);
+
+            return historyMapper.deleteHistoryM(merchant_uid, m_id) == 1;
+        }
+        else {
+            // 일반 일때
+            return historyMapper.deleteHistoryM(merchant_uid, m_id) == 1;
+        }
+    }
 
     // 소셜 계정 연동 시
     @Transactional

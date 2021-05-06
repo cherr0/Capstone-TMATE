@@ -3,6 +3,17 @@
 <mapper namespace="com.tmate.mapper.HistoryMapper">
 
 
+    <!-- 이용내역 삭제 시 -->
+    <delete id="deleteHistoryM">
+        delete from history
+        where merchant_uid = #{merchant_uid} and m_id = #{m_id}
+    </delete>
+
+    <delete id="deleteTogetherM">
+        delete from together
+        where merchant_uid = #{merchant_uid} and m_id = #{m_id}
+    </delete>
+
     <!-- 동승 출발지 도착지 설정후 검색하는 것 -->
     <select id="findTogetherList" resultType="com.tmate.domain.HistoryDTO">
         <![CDATA[

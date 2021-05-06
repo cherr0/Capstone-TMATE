@@ -55,6 +55,13 @@ public class AndroidApiController {
         return new ResponseEntity<>(appMemberService.getMemberHistoryList(m_id), HttpStatus.OK);
     }
 
+    @DeleteMapping("/remove/history/{merchant_uid}/{m_id}")
+    public ResponseEntity<Boolean> removeHistoryByM_id(@PathVariable("merchant_uid") String merchant_uid, @PathVariable("m_id") String m_id) {
+        log.info("이용 내역을 지우기 위한 이용코드 : 회원코드 : " + merchant_uid + " : " + m_id);
+
+        return new ResponseEntity<>(appMemberService.removeMemberHistory(merchant_uid,m_id),HttpStatus.OK);
+    }
+
 
     // 휴대폰 인증번호
     @PostMapping("/sendsms")
