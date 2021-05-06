@@ -1,28 +1,45 @@
 package com.tmate.user.adapter;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.R;
+import com.tmate.user.data.Approval;
 import com.tmate.user.data.TogetherRequest;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequestHolder> {
     ArrayList<TogetherRequest> items = new ArrayList<>();
-    
+    Context context;
+    SharedPreferences pref;
+    String m_id;
+
     @NonNull
     @Override
     public TogetherRequestHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.together_request_item, parent, false);
+        context = parent.getContext();
+        pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
+        m_id = pref.getString("m_id", "");
+
         return new TogetherRequestHolder(view);
     }
 
@@ -40,9 +57,24 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
                 builder.setPositiveButton("예",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                items.remove(position);
-                                notifyItemRemoved(position);
-                                notifyItemChanged(position, items.size());
+                                String id = holder.m_id.getText().toString();
+                                String merchant_uid = holder.tr_merchant_uid.getText().toString();
+                                DataService.getInstance().matchAPI.removeApproval(id, merchant_uid).enqueue(new Callback<Boolean>() {
+                                    @Override
+                                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                        if (response.code() == 200) {
+                                            items.remove(position);
+                                            notifyItemRemoved(position);
+                                            notifyItemChanged(position, items.size());
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Boolean> call, Throwable t) {
+                                        t.printStackTrace();
+                                    }
+                                });
+
                             }
                         });
                 builder.setNegativeButton("아니요",
@@ -65,9 +97,29 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
                 builder.setPositiveButton("예",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                items.remove(position);
-                                notifyItemRemoved(position);
-                                notifyItemChanged(position, items.size());
+                                Approval approval = new Approval();
+                                approval.setMerchant_uid(holder.tr_merchant_uid.getText().toString());
+                                approval.setId(holder.m_id.getText().toString());
+                                Log.d("뭐가 찍힐까", holder.m_id.getText().toString());
+                                approval.setM_id(m_id);
+                                Log.d("뭐가 찍힐까 : m_id", m_id);
+                                approval.setTo_seat(2);
+
+                                DataService.getInstance().matchAPI.registerTogether(approval).enqueue(new Callback<Boolean>() {
+                                    @Override
+                                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                        Toast.makeText(context, "추가 완료", Toast.LENGTH_SHORT).show();
+                                        items.remove(position);
+                                        notifyItemRemoved(position);
+                                        notifyItemChanged(position, items.size());
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Boolean> call, Throwable t) {
+                                        t.printStackTrace();
+                                    }
+                                });
+
                             }
                         });
                 builder.setNegativeButton("아니요",
@@ -107,14 +159,14 @@ class TogetherRequestHolder extends RecyclerView.ViewHolder {
     TextView tr_merchant_uid;
 
     public void onBind(TogetherRequest data) {
-        m_id.setText(data.getM_id());
+        m_id.setText(data.getId());
         m_name.setText(data.getM_name());
-        m_birth.setText(data.getM_birth().toString());
-        distance.setText(data.getDistance());
-        m_t_use.setText(data.getM_t_use());
-        like.setText(data.getLike());
-        dislike.setText(data.getDislike());
-        m_count.setText(data.getM_count());
+        m_birth.setText("20대");
+        distance.setText(null);
+        m_t_use.setText(data.getM_t_use() + data.getM_n_use()+"");
+        like.setText("0");
+        dislike.setText("0");
+        m_count.setText(data.getM_count() + "");
         tr_merchant_uid.setText(data.getMerchant_uid());
     }
 

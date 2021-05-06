@@ -26,6 +26,8 @@ public class TogetherDTO {
     // 2, 3
     private int to_max;
 
+    private int to_people;
+
     // 1, 2, 3
     private int to_seat;
 }

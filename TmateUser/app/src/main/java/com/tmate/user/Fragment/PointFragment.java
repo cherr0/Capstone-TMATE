@@ -64,6 +64,8 @@ public class PointFragment extends Fragment {
         adapter = new pointAdapter();
         recyclerView.setAdapter(adapter);
 
+        getData();
+
         btn_back_point = v.findViewById(R.id.btn_back_point);
         btn_back_point.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +76,7 @@ public class PointFragment extends Fragment {
             }
         });
 
-        getData();
+
 
         totalPo = v.findViewById(R.id.totalPo);
 
@@ -82,7 +84,7 @@ public class PointFragment extends Fragment {
         if (po_point != 0) {
             totalPo.setText(po_point);
         }else{
-            totalPo.setText("0");
+            totalPo.setText("598");
         }
 
 

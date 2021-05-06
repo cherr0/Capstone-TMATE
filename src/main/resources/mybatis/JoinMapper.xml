@@ -80,7 +80,7 @@
                    , m.m_name as m_name ,c.car_no as car_no , c.car_model as car_model
               from history h inner join member m on h.d_id = m.m_id
                              inner join car c on m.m_id = c.m_id
-              where h.m_id = #{m_id} and h.h_status='4')
+              where h.m_id = #{m_id} and h.h_status='5')
         ]]>
     </select>
 

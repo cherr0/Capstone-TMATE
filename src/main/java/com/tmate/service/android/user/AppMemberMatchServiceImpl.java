@@ -58,9 +58,9 @@ public class AppMemberMatchServiceImpl implements AppMemberMatchService{
 
     // 2. 매칭 리스트 상세 내역
     @Override
-    public HistoryDTO getTogetherMatchingDetail(String merchant_uid) {
+    public HistoryDTO getTogetherMatchingDetail(String merchant_uid, String m_id) {
         log.info("요청정보 상세 내역으로 한번 봅니다잉 ");
-        return historyMapper.findMatchingDetail(merchant_uid);
+        return historyMapper.findMatchingDetail(merchant_uid,m_id);
     }
 
 
@@ -119,10 +119,10 @@ public class AppMemberMatchServiceImpl implements AppMemberMatchService{
 
     // 신청 취소하거나 거절 당할시
     @Override
-    public Boolean rejectNcancelTogetherMatching(ApprovalDTO approvalDTO) {
+    public Boolean rejectNcancelTogetherMatching(String id, String merchant_uid) {
         log.info("AppMemberSerivce 거절이나 취소 서비스");
 
-        return historyMapper.deleteTogetherMatchingAPplyer(approvalDTO) == 1;
+        return historyMapper.deleteTogetherMatchingAPplyer(id, merchant_uid) == 1;
     }
 
     // 인원이 다 찼을 시 남은 신청자들은 자동으로 삭제된다.
@@ -212,4 +212,33 @@ public class AppMemberMatchServiceImpl implements AppMemberMatchService{
 
         return seatNums;
     }
+
+    @Transactional
+    @Override
+    public Boolean insertPassengerTOList(String merchant_uid, String m_id, String id, int to_seat) {
+
+        // 인원수 증가
+        historyMapper.currentCntPlus(merchant_uid, m_id);
+
+        // 이용 내역 가져오기 -> 변경
+        HistoryDTO historyDTO = historyMapper.selectHistory(merchant_uid, m_id);
+        historyDTO.setM_id(id);
+        historyDTO.setH_made_flag("1");
+
+        // 동승 테이블 변경
+        TogetherDTO togetherDTO = historyMapper.selectTogether(merchant_uid, m_id);
+        togetherDTO.setM_id(id);
+        togetherDTO.setTo_seat(to_seat);
+
+
+        // 생성 이용 내역 부터
+        historyMapper.insertAgreeHistory(historyDTO);
+        historyMapper.insertAgreeTogether(togetherDTO);
+
+
+
+        return historyMapper.deleteTogetherMatchingAPplyer(id, merchant_uid) == 1;
+    }
+
+
 }
