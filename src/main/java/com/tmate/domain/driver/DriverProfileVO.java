@@ -14,14 +14,17 @@ public class DriverProfileVO {
         기사 프로필 정보 가져오기
      */
 
+    // 회원 코드
+    private String m_id;
+
     // 회원 이름
     private String m_name;
 
-    // 휴대폰 번호
-    private String phone;
-
     // 이메일
     private String m_email;
+
+    // 생년월일
+    private Timestamp m_birth;
 
     // 은행사
     private String bank_company;
@@ -43,4 +46,11 @@ public class DriverProfileVO {
 
     // 기사 이 달 수입 (함수 사용)
     private int month_fare;
+
+    // 휴대폰번호 (함수 사용)
+    private String phone;
+
+    // 성별 (함수 사용)
+    private String gender;
+
 }
