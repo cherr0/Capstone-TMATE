@@ -216,6 +216,8 @@ public class Profile_Reg_Fragment extends Fragment {
 
                 }
             });
+        }
+    }
           
     private void startPermissionRequestcamera() {
         ActivityCompat.requestPermissions(getActivity(),
