@@ -39,10 +39,6 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
     @NotEmpty(message = "이름을 입력해주세요")
     EditText m_name;
 
-    @NotEmpty(message = "휴대폰번호를 입력해 주세요")
-    @Length(min = 11, max = 11, message = "휴대폰번호를 올바르게 입력해 주세요")
-    EditText et_phone;
-
     @NotEmpty(message = "생년월일를 입력해 주세요")
     @Length(min = 10, max = 10, message = "생년월일을 입력해 주세요")
     private TextView et_birth;
@@ -79,7 +75,6 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
 
         m_name = view.findViewById(R.id.m_name);
         et_birth = view.findViewById(R.id.et_birth);
-        et_phone = view.findViewById(R.id.et_phone);
         gender = view.findViewById(R.id.gender);
         validator = new Validator(this);//필수
         validator.setValidationListener(this);//필수
@@ -112,16 +107,16 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
         bundle.putString("m_birth",et_birth.getText().toString()); // 생년월일
         bundle.putString("m_name",m_name.getText().toString()); // 이름
         if (b.male.isChecked()) {
-            bundle.putString("m_id","d1"+et_phone.getText().toString()+"0");
+            bundle.putString("m_id","d1"+bundle.getString("phone")+"0");
         }else if(b.female.isChecked()){
-            bundle.putString("m_id","d2"+et_phone.getText().toString()+"0");
+            bundle.putString("m_id","d2"+bundle.getString("phone")+"0");
         }
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        CertificationFragment cf = new CertificationFragment();
-        cf.setArguments(bundle);
+        CorporationFragment corporationFragment = new CorporationFragment();
+        corporationFragment.setArguments(bundle);
 
-        transaction.replace(R.id.fm_main, cf);
+        transaction.replace(R.id.fm_main, corporationFragment);
         transaction.addToBackStack(null).commit();
     }
 

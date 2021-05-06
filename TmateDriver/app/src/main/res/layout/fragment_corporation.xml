@@ -18,18 +18,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <com.kofigyan.stateprogressbar.StateProgressBar
+        android:id="@+id/first_reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:spb_animateToCurrentProgressState="true"
+        app:spb_checkStateCompleted="true"
+        app:spb_currentStateDescriptionColor="#DB0082"
+        app:spb_currentStateNumber="three"
+        app:spb_maxStateNumber="five"
+        app:spb_stateBackgroundColor="#BDBDBD"
+        app:spb_stateDescriptionColor="#808080"
+        app:spb_stateForegroundColor="#eeeeee"
+        app:spb_stateNumberBackgroundColor="#808080"
+        app:spb_stateNumberForegroundColor="#2196F3" />
+
     <Spinner
         android:id="@+id/spinner_corp"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/spinner"
         android:entries="@array/corp"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/btn_corp_submit"
         app:layout_constraintEnd_toStartOf="@+id/btn_corp_submit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11">
+        app:layout_constraintTop_toBottomOf="@+id/first_reg">
 
     </Spinner>
 
@@ -47,9 +67,10 @@
         android:id="@+id/tv_corp_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:text="회사명"
         android:textSize="18sp"
+
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/spinner_corp"
         app:layout_constraintTop_toBottomOf="@+id/spinner_corp" />
@@ -59,13 +80,117 @@
         android:id="@+id/et_corp_name"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/edittext_box"
         android:hint="회사명을 입력해주세요."
+        android:paddingStart="10dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/spinner_corp"
         app:layout_constraintStart_toStartOf="@+id/tv_corp_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_corp_name" />
+
+    <TextView
+        android:id="@+id/tv_corp_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="차량모델"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/spinner_corp"
+        app:layout_constraintTop_toBottomOf="@+id/et_corp_name" />
+
+
+    <EditText
+        android:id="@+id/et_corp_model"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_box"
+        android:hint="차량모델을 입력해주세요."
+        android:paddingStart="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_corp"
+        app:layout_constraintStart_toStartOf="@+id/tv_corp_model"
+        app:layout_constraintTop_toBottomOf="@+id/tv_corp_model" />
+
+    <TextView
+        android:id="@+id/tv_corp_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="차량 번호"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/et_corp_model"
+        app:layout_constraintTop_toBottomOf="@+id/et_corp_model" />
+
+    <EditText
+        android:id="@+id/et_corp_num"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_box"
+        android:hint="차량번호를 입력해주세요."
+        android:paddingStart="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/et_corp_model"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_corp_num"
+        app:layout_constraintTop_toBottomOf="@+id/tv_corp_num" />
+
+    <TextView
+        android:id="@+id/tv_corp_kind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="분류"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/et_corp_num"
+        app:layout_constraintTop_toBottomOf="@+id/et_corp_num" />
+
+
+    <EditText
+        android:id="@+id/et_corp_kind"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_box"
+        android:hint="분류를 입력해주세요."
+        android:paddingStart="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/et_corp_num"
+        app:layout_constraintStart_toStartOf="@+id/tv_corp_kind"
+        app:layout_constraintTop_toBottomOf="@+id/tv_corp_kind" />
+
+    <TextView
+        android:id="@+id/tv_corp_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="색상"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/et_corp_kind"
+        app:layout_constraintTop_toBottomOf="@+id/et_corp_kind" />
+
+    <EditText
+        android:id="@+id/et_corp_color"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edittext_box"
+        android:hint="색상을 입력해주세요."
+        android:paddingStart="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/et_corp_kind"
+        app:layout_constraintStart_toStartOf="@+id/tv_corp_color"
+        app:layout_constraintTop_toBottomOf="@+id/tv_corp_color" />
+
+
+
+
 
     <TextView
         android:id="@+id/tv_car_model"

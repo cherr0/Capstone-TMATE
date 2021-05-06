@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,9 +50,9 @@ public class SocialFragment extends Fragment {
                     transaction.replace(R.id.fm_main, cf).commit();
                 }else { // 회원가입 첫 시작인 경우
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    JoinPageFragment blankFragment = new JoinPageFragment();
-                    blankFragment.setArguments(bundle);
-                    transaction.replace(R.id.fm_main, blankFragment).commit();
+                    PhoneNumberFragment phoneNumberFragment = new PhoneNumberFragment();
+                    phoneNumberFragment.setArguments(bundle);
+                    transaction.replace(R.id.fm_main, phoneNumberFragment).commit();
                 }
             }
         });
