@@ -52,10 +52,9 @@ public interface MemberAPI {
     @PUT("member/updatestat")
     Call<Boolean> modifyStat(@Body Notification notification);
 
-    // 요청 거
+    // 요청 거부
     @DELETE("member/removeAppro/{id}/{m_id}")
     Call<Boolean> removeApproval(@Path("id") String id, @Path("m_id") String m_id);
-
 
     /*
     * 회원 가입 부터 프로필 상세 부분

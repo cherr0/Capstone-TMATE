@@ -40,17 +40,10 @@ public class MainViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
 
-        Intent intent = getIntent();
+        Log.d("MainViewActivity", "m_id : " + getPreferenceString("m_id"));
+        Log.d("MainViewActivity", "m_name : " + getPreferenceString("m_name"));
 
-
-        setPreference("m_id", intent.getStringExtra("m_id"));
-        setPreference("m_name", intent.getStringExtra("m_name"));
-
-
-        Log.d("Get Preference : ", getPreferenceString("m_id"));
-        Log.d("Get Preference : ", getPreferenceString("m_name"));
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
+        fragmentManager.beginTransaction().replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView_main_menu);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -60,22 +53,22 @@ public class MainViewActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.call : {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
+                        transaction.replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
                         navbarFlag = R.id.call;
                         return true;
                     }
                     case R.id.bo_info : {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, carInfoFragment).commitAllowingStateLoss();
+                        transaction.replace(R.id.frameLayout, carInfoFragment).commitAllowingStateLoss();
                         navbarFlag = R.id.bo_info;
                         return true;
                     }
                     case R.id.event : {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, eventFragment).commitAllowingStateLoss();
+                        transaction.replace(R.id.frameLayout, eventFragment).commitAllowingStateLoss();
                         navbarFlag = R.id.event;
                         return true;
                     }
                     case R.id.more : {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, my_info_fragment).commitAllowingStateLoss();
+                        transaction.replace(R.id.frameLayout, my_info_fragment).commitAllowingStateLoss();
                         navbarFlag = R.id.more;
                         return true;
                     }
