@@ -2,12 +2,15 @@ package com.tmate.user.net;
 
 import com.tmate.user.data.EventDTO;
 import com.tmate.user.data.Notice;
+import com.tmate.user.data.PhoneDTO;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface CommonAPI {
@@ -32,7 +35,12 @@ public interface CommonAPI {
     @GET("common/readevent/{bd_id}")
     Call<EventDTO> readEvent(@Path("bd_id") String bd_id);
 
+    // 즐겨찾기 삭제
     @DELETE("common/deletebookmark/{bm_id}/{m_id}")
     Call<Boolean> removeBookmark(@Path("bm_id") String bm_id, @Path("m_id") String m_id);
+
+    // 휴대폰 인증
+    @POST("/common/sendsms")
+    Call<String> sendSMS(@Body PhoneDTO phoneDTO);
 
 }
