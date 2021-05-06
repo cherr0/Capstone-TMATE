@@ -83,6 +83,7 @@ public class historyFragment extends Fragment {
                         Log.d("넘어오는 이용내역 리스트", histroyList.toString());
                         for (int i = 0; i < histroyList.size(); i++) {
                             Data data = new Data();
+                            data.setMerchant_uid(histroyList.get(i).getMerchant_uid());
                             data.setCarinfo(histroyList.get(i).getCar_no()+" | "+histroyList.get(i).getCar_model());
                             data.setDrivername(histroyList.get(i).getM_name());
                             data.setStart(histroyList.get(i).getH_s_place());

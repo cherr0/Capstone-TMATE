@@ -77,6 +77,10 @@ public interface MemberAPI {
     @GET("member/historys/{m_id}")
     Call<List<UserHistroy>> selectHistory(@Path("m_id") String m_id);
 
+    // 유저 이용 내역 삭제
+    @DELETE("member/remove/history/{merchant_uid}/{m_id}")
+    Call<Boolean> removeHistoryByM_id(@Path("merchant_uid") String merchant_uid, @Path("m_id") String m_id);
+
     // 즐겨 찾기 -> 즐겨찾기 리스트 가져오기
     @GET("member/bookmark/{m_id}")
     Call<List<FavoritesData>> getBookmarkList(@Path("m_id") String m_id);
