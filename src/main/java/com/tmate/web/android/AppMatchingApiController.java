@@ -6,6 +6,7 @@ import com.tmate.domain.HistoryDTO;
 import com.tmate.domain.JoinHistoryVO;
 import com.tmate.domain.TogetherDTO;
 import com.tmate.domain.user.ApprovalDTO;
+import com.tmate.domain.user.TogetherRequest;
 import com.tmate.service.android.user.AppMemberMatchService;
 import com.tmate.service.android.user.AppMemberMatchServiceImpl;
 import com.tmate.service.android.user.AppMemberService;
@@ -149,17 +150,17 @@ public class AppMatchingApiController {
         return new ResponseEntity<>(seatNums, HttpStatus.OK);
     }
 
-    // 동승 신청 현황 보기
-    @GetMapping("/display/apply/list/{merchant_uid}")
-    public ResponseEntity<List<ApprovalDTO>> displayApplyList(
-            @PathVariable("merchant_uid") String merchant_uid) {
-
-        log.info(TAG + ": 동승 리스트 신청 현황 보기 : " + merchant_uid);
-
-        List<ApprovalDTO> applyerList = appMemberMatchService.getApplyerList(merchant_uid);
-
-        return new ResponseEntity<>(applyerList, HttpStatus.OK);
-    }
+//    // 동승 신청 현황 보기
+//    @GetMapping("/display/apply/list/{merchant_uid}")
+//    public ResponseEntity<List<ApprovalDTO>> displayApplyList(
+//            @PathVariable("merchant_uid") String merchant_uid) {
+//
+//        log.info(TAG + ": 동승 리스트 신청 현황 보기 : " + merchant_uid);
+//
+//        List<ApprovalDTO> applyerList = appMemberMatchService.getApplyerList(merchant_uid);
+//
+//        return new ResponseEntity<>(applyerList, HttpStatus.OK);
+//    }
 
 
     // 동승 신청 하기
@@ -171,5 +172,11 @@ public class AppMatchingApiController {
         return new ResponseEntity<>(appMemberMatchService.applyTogetherMatching(approvalDTO), HttpStatus.OK);
     }
 
-    // 나의 신청 현황 보기
+    // 나의 동승방 신청 현황 보기
+    @GetMapping("/get/approval/{merchant_uid}")
+    public ResponseEntity<List<TogetherRequest>> getTogetherRequest(@PathVariable("merchant_uid") String merchant_uid) {
+        log.info("나의 동승방 리스트를 보기위해서 넘어오는 이용번호 : " + merchant_uid);
+
+        return new ResponseEntity<>(appMemberMatchService.getApplyerList(merchant_uid),HttpStatus.OK);
+    }
 }

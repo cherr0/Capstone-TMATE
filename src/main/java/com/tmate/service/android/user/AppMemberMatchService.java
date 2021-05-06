@@ -2,6 +2,7 @@ package com.tmate.service.android.user;
 
 import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
+import com.tmate.domain.user.TogetherRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public interface AppMemberMatchService {
     int getRidingCnt(String merchant_uid);
 
     // 신청 내역 보기
-    List<ApprovalDTO> getApplyerList(String merchant_uid);
+    List<TogetherRequest> getApplyerList(String merchant_uid);
 
     // 동승자 다이얼로그 정보 -> m_id 이용, UserMainMapper와 Membermapper 이용
     MemberDTO getCheckPassengerApplyInfo(String m_id);

@@ -5,6 +5,7 @@ import com.tmate.domain.JoinHistoryVO;
 import com.tmate.domain.MemberDTO;
 import com.tmate.domain.TogetherDTO;
 import com.tmate.domain.user.ApprovalDTO;
+import com.tmate.domain.user.TogetherRequest;
 import com.tmate.mapper.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -100,10 +101,10 @@ public class AppMemberMatchServiceImpl implements AppMemberMatchService{
      * */
     // 방 리스트 장이 신청 내역을 본다.
     @Override
-    public List<ApprovalDTO> getApplyerList(String merchant_uid) {
+    public List<TogetherRequest> getApplyerList(String merchant_uid) {
         log.info("AppMemberSerivce 방장이 신청내역을 봅니다.");
 
-        List<ApprovalDTO> applyerList = historyMapper.selectApplyerList(merchant_uid);
+        List<TogetherRequest> applyerList = historyMapper.selectApplyerList(merchant_uid);
 
         return applyerList;
     }

@@ -77,14 +77,6 @@ public interface MemberAPI {
     @GET("member/historys/{m_id}")
     Call<List<UserHistroy>> selectHistory(@Path("m_id") String m_id);
 
-    // 휴대폰 인증
-    @POST("member/sendsms")
-    Call<Boolean> sendSMS(@Body PhoneDTO phoneDTO);
-
-    // 휴대폰 인증 정보 확인
-    @POST("member/confirm")
-    Call<Integer> confirm(@Body PhoneDTO phoneDTO);
-
     // 즐겨 찾기 -> 즐겨찾기 리스트 가져오기
     @GET("member/bookmark/{m_id}")
     Call<List<FavoritesData>> getBookmarkList(@Path("m_id") String m_id);

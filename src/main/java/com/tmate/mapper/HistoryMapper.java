@@ -5,6 +5,7 @@ import com.tmate.domain.JoinHistoryVO;
 import com.tmate.domain.MemberDTO;
 import com.tmate.domain.TogetherDTO;
 import com.tmate.domain.user.ApprovalDTO;
+import com.tmate.domain.user.TogetherRequest;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -52,7 +53,7 @@ public interface HistoryMapper {
      * */
 
     // 신청한 유저의 리스트 가져오기
-    List<ApprovalDTO> selectApplyerList(String merchant_uid);
+    List<TogetherRequest> selectApplyerList(String merchant_uid);
 
     // 다른 유저가 신청을 했을 경우 --> approval --> xml
     int insertTogetherMatchingApplyer(ApprovalDTO approvalDTO);
@@ -72,6 +73,8 @@ public interface HistoryMapper {
     int deleteHistoryPersonal(@Param("merchant_uid") String merchant_uid,@Param("m_id") String m_id);
 
     int deleteTogetherPersonal(@Param("merchant_uid") String merchant_uid,@Param("m_id") String m_id);
+
+
 
 
 

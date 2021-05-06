@@ -18,12 +18,12 @@ public class DataService {
     * */
 
     // EC2 서버 URL
-    // private static final String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/common/"; // 기본 URL
+     private static final String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/common/"; // 기본 URL
 
     // 안드로이드 폰 연결
 //    private static final String BASE_URL = "http://172.26.2.39:9090/";
 
-    private static final String BASE_URL = "http://172.26.3.112:9090/";
+//    private static final String BASE_URL = "http://172.30.1.2:9090/";
 
     private static DataService instance;
 
@@ -40,6 +40,7 @@ public class DataService {
         Retrofit retrofitClient = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(new OkHttpClient.Builder().build())
+                .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
