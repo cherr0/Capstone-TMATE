@@ -63,7 +63,10 @@ public class AppDriverApiController {
     @GetMapping("/profile/{d_id}")
     public ResponseEntity<DriverProfileVO> searchDriverProfile(@PathVariable("d_id") String d_id) {
         log.info("AppDriverController 기사 프로필 확인 d_id : " + d_id);
-        return new ResponseEntity<>(appDriverService.getDriverProfile(d_id), HttpStatus.OK);
+        DriverProfileVO driverProfile = appDriverService.getDriverProfile(d_id);
+
+        log.info("AppDriverController 기사 프로필 : " + driverProfile);
+        return new ResponseEntity<>(driverProfile, HttpStatus.OK);
     }
 
     // 기사 이메일 수정 - PUT
