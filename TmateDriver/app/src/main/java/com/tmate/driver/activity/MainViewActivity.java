@@ -1,8 +1,10 @@
 package com.tmate.driver.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -63,6 +65,10 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         statistics.setOnClickListener(this);
         service.setOnClickListener(this);
         tv_home.setOnClickListener(this);
+
+        // 사이드 바 프로필 작성
+        Log.i("MainViewActivity","m_name 값 : " + getPreferenceString("m_name"));
+        profile.setText(getPreferenceString("m_name"));
 
         binding.ivOpen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,5 +193,10 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
                 }
             default:
         }
+    }
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getSharedPreferences("loginDriver", MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 }

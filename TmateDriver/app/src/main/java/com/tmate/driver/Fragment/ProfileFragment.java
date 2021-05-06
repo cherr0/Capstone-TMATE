@@ -2,6 +2,7 @@ package com.tmate.driver.Fragment;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,31 +14,72 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.tmate.driver.R;
+import com.tmate.driver.data.DriverProfile;
 import com.tmate.driver.databinding.FragmentCertificateEnrollmentBinding;
 import com.tmate.driver.databinding.FragmentProfileBinding;
+import com.tmate.driver.net.DataService;
 
 import static android.app.Activity.RESULT_OK;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public final static int REQUEST_PERMISSIONS_REQUEST_CODE = 100;
-    private Button m_profile;
     private FragmentProfileBinding b;
 
-
+    Call<DriverProfile> request;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = FragmentProfileBinding.inflate(inflater, container, false);
         View view = b.getRoot();
+        Log.d("ProfileFragment","기사 프로필 실행됨 d_id : " + getPreferenceString("d_id"));
+        request = DataService.getInstance().driver.searchDriverProfile(getPreferenceString("d_id"));
+        request.enqueue(new Callback<DriverProfile>() {
+            @Override
+            public void onResponse(Call<DriverProfile> call, Response<DriverProfile> response) {
+                if(response.code() == 200) {
+                    DriverProfile result = response.body();
+                    Log.d("ProfileFragment", "기사 프로필 내용 : " + result);
 
+                    b.profileName.setText(result.getM_name());
+                    b.mName.setText(result.getM_name());
+                    b.profilePhone.setText(result.getPhone());
+                    b.profileEmail.setText("adsl1664@gmail.com");
+                    b.profileGender.setText(result.getGender());
+
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREAN);
+                    b.profileBirth.setText(df.format(result.getM_birth()));
+
+                    String acnum = result.getD_acnum();
+                    acnum = "  ****" + acnum.substring(acnum.length()-4);
+                    String bank = result.getBank_company();
+                    b.profileAcnum.setText(bank.concat(acnum));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DriverProfile> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(getContext(), "프로필 데이터를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         b.mProfile.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -138,5 +180,10 @@ public class ProfileFragment extends Fragment {
                 }
                 break;
         }
+    }
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getActivity().getSharedPreferences("loginDriver", getActivity().MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 }
