@@ -18,7 +18,7 @@ public class DataService {
     * */
 
     // EC2 서버 URL
-     private static final String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/common/"; // 기본 URL
+     private static final String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/"; // 기본 URL
 
     // 안드로이드 폰 연결
 //    private static final String BASE_URL = "http://172.26.3.112:9090/";
