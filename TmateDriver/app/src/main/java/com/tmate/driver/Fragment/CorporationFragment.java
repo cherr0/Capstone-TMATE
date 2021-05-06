@@ -30,7 +30,7 @@ public class CorporationFragment extends Fragment implements Validator.Validatio
     EditText et_corp_name;
 
     @NotEmpty(message = "차량모델을 입력해주세요")
-    EditText et_car_model;
+    EditText et_car_model;  // 차량모델
 
     @NotEmpty(message = "차량번호를 입력해주세요")
     EditText et_car_num;
@@ -57,6 +57,13 @@ public class CorporationFragment extends Fragment implements Validator.Validatio
 
         validator = new Validator(this);
         validator.setValidationListener(this);
+
+        if (getArguments() != null) {
+            bundle = getArguments();
+            Log.d("번들 넘어오는 값",bundle.toString());
+        }else {
+            Log.d("CorpFragment.Bundle","번들 값을 받아오지 못했습니다.");
+        }
 
         b.btnCorpSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,8 +125,9 @@ public class CorporationFragment extends Fragment implements Validator.Validatio
     @Override
     public void onValidationSucceeded() {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        CertificateEnrollmentFragment certificateEnrollmentFragment= new CertificateEnrollmentFragment();
-        transaction.replace(R.id.fm_main, certificateEnrollmentFragment);
+        CertificateEnrollmentFragment cef = new CertificateEnrollmentFragment();
+        cef.setArguments(bundle);
+        transaction.replace(R.id.fm_main, cef);
         transaction.addToBackStack(null);
         transaction.commit();
     }

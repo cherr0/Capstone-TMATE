@@ -66,8 +66,6 @@ public class CertificationFragment extends Fragment implements Validator.Validat
         if (getArguments() != null) {
             bundle = getArguments();
             Log.d("번들 넘어오는 값",bundle.toString());
-            Log.d("폰번호",getArguments().getString("m_id").substring(2,13));
-            phone.setPhoneNumber(getArguments().getString("m_id").substring(2,13));
         }else {
             Log.d("JoinPageFragment.Bundle","번들 값을 받아오지 못했습니다.");
         }

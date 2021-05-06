@@ -1,6 +1,7 @@
 package com.tmate.driver.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,13 @@ public class PhoneNumberFragment extends Fragment implements Validator.Validatio
         validator = new Validator(this);//필수
         validator.setValidationListener(this);//필수
 
+        if (getArguments() != null) {
+            bundle = getArguments();
+            Log.d("PhNumFragment.Bundle", "번들 값 받아옴 bundle : " + bundle);
+        }else {
+            Log.d("PhNumFragment.Bundle","번들 값을 받아오지 못했습니다.");
+        }
+
         b.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,8 +61,9 @@ public class PhoneNumberFragment extends Fragment implements Validator.Validatio
 
     @Override
     public void onValidationSucceeded() {
-
-        bundle.putString("phone", et_phone.getText().toString());
+        String phoneNum = et_phone.getText().toString();
+        Log.d("PhNumFragment", "phone Number : " + phoneNum);
+        bundle.putString("phone", phoneNum);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         CertificationFragment cf = new CertificationFragment();
         cf.setArguments(bundle);
