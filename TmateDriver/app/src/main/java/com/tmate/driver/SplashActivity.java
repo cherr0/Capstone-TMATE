@@ -39,6 +39,7 @@ public class SplashActivity extends AnimatedSplash {
 
         setPreference("d_id", "d1010408867960");
         setPreference("m_name", "장원준");
+        setPreference("d_approve","asdf");
 
 //        Customize Title
 
