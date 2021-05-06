@@ -24,7 +24,7 @@
         from history
             left outer join member on history.m_id = member.m_id
             left outer join together on history.merchant_uid = together.merchant_uid
-        where history.merchant_uid=#{merchant_uid} and history.h_made_flag = '0'
+        where history.merchant_uid=#{merchant_uid} and history.m_id = #{m_id}
     </select>
 
 
@@ -59,6 +59,28 @@
         values (#{merchant_uid},#{m_id},#{to_max},1,#{to_seat})
     </insert>
 
+    <!-- 동승 신청 수락 시 생성 -->
+    <insert id="insertAgreeHistory">
+        insert into history(merchant_uid, m_id, h_s_place,h_s_lttd,h_s_lngtd,h_f_place,h_f_lttd, h_f_lngtd, h_status , h_made_flag, h_ep_fare, h_ep_time, h_ep_distance )
+        values(#{merchant_uid},#{m_id},#{h_s_place},#{h_s_lttd},#{h_s_lngtd},#{h_f_place},#{h_f_lttd},#{h_f_lngtd},'0',#{h_made_flag}, #{h_ep_fare}, #{h_ep_time}, #{h_ep_distance})
+    </insert>
+
+    <insert id="insertAgreeTogether">
+        insert into together(merchant_uid, m_id, to_max, to_people ,to_seat)
+        values (#{merchant_uid},#{m_id},#{to_max},#{to_people},#{to_seat})
+    </insert>
+
+    <update id="currentCntPlus">
+        update together
+        set to_people = to_people + 1
+        where merchant_uid = #{merchant_uid} and m_id = #{m_id}
+    </update>
+
+    <select id="selectCurrentCnt" resultType="_int">
+        select to_people
+        from together
+        where merchant_uid = #{merchant_uid} and m_id = #{m_id}
+    </select>
     <!-- 일반 호출 삽입 xml -->
     <insert id="insertNormalMatch">
 
@@ -138,12 +160,12 @@
     <select id="selectHistoryCard" resultType="com.tmate.domain.JoinHistoryVO">
         select h.merchant_uid, h.h_s_place, h.h_s_lttd, h.h_s_lngtd, h.h_f_place, h.h_f_lttd, h.h_f_lngtd, h.h_status, h.d_id, c.car_no, c.car_model
         from history h left outer join car c on h.d_id = c.m_id
-        where  h.m_id = #{m_id} and h.h_status in ('0','1','2','3','4')
+        where  h.m_id = #{m_id} and h.h_status not in ('5')
     </select>
 
     <!-- 신청한 유저의 리스트 가져오기 -->
     <select id="selectApplyerList" resultType="com.tmate.domain.user.TogetherRequest">
-        select a.merchant_uid, a.m_id, m.m_name,m.m_n_use, m.m_t_use, m.m_count
+        select a.merchant_uid, a.id, m.m_name,m.m_n_use, m.m_t_use, m.m_count
         from approval a left outer join  member m on a.id = m.m_id
         where a.merchant_uid = #{merchant_uid}
     </select>
@@ -157,7 +179,7 @@
     <!-- 거절이나 취소를 누를시 approval 지워진다. -->
     <delete id="deleteTogetherMatchingAPplyer">
         delete from approval
-        where id = #{id} and m_id = #{m_id} and appro_flag = '0'
+        where id = #{id}  and merchant_uid = #{merchant_uid}
     </delete>
 
     <!-- 인원이 다 찼을 시 남은 신청자들은 자동으로 삭제된다. -->
@@ -169,6 +191,16 @@
     <!-- 현재 매칭방 좌석 -->
     <select id="selectCurrentSeatNums" resultType="com.tmate.domain.TogetherDTO">
         SELECT to_seat from TOGETHER where merchant_uid = #{merchant_uid}
+    </select>
+
+    <select id="selectHistory" resultType="com.tmate.domain.HistoryDTO">
+        select * from history
+        where merchant_uid = #{merchant_uid} and m_id = #{m_id}
+    </select>
+
+    <select id="selectTogether" resultType="com.tmate.domain.TogetherDTO">
+        select * from together
+        where merchant_uid = #{merchant_uid} and m_id = #{m_id}
     </select>
 
 </mapper>

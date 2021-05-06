@@ -88,8 +88,8 @@ public class AppMatchingApiController {
 
 
     // 매칭 상세 내역 -> 수정 필요
-    @GetMapping("/read/{merchant_uid}")
-    public ResponseEntity<HistoryDTO> getMatchingDetail(@PathVariable String merchant_uid) {
+    @GetMapping("/read/{merchant_uid}/{m_id}")
+    public ResponseEntity<HistoryDTO> getMatchingDetail(@PathVariable("merchant_uid") String merchant_uid, @PathVariable("m_id") String m_id) {
 
 
         log.info(TAG + "APP에서 넘어오는 이용방 정보 :  " + merchant_uid);
@@ -98,7 +98,7 @@ public class AppMatchingApiController {
 
         log.info("바뀐 문자열 : " + real_id);
 
-        HistoryDTO detail = appMemberMatchService.getTogetherMatchingDetail(merchant_uid);
+        HistoryDTO detail = appMemberMatchService.getTogetherMatchingDetail(merchant_uid,m_id);
 
         log.info("넘어가는 이용정보 : " + detail);
 
@@ -150,17 +150,6 @@ public class AppMatchingApiController {
         return new ResponseEntity<>(seatNums, HttpStatus.OK);
     }
 
-//    // 동승 신청 현황 보기
-//    @GetMapping("/display/apply/list/{merchant_uid}")
-//    public ResponseEntity<List<ApprovalDTO>> displayApplyList(
-//            @PathVariable("merchant_uid") String merchant_uid) {
-//
-//        log.info(TAG + ": 동승 리스트 신청 현황 보기 : " + merchant_uid);
-//
-//        List<ApprovalDTO> applyerList = appMemberMatchService.getApplyerList(merchant_uid);
-//
-//        return new ResponseEntity<>(applyerList, HttpStatus.OK);
-//    }
 
 
     // 동승 신청 하기
@@ -179,4 +168,24 @@ public class AppMatchingApiController {
 
         return new ResponseEntity<>(appMemberMatchService.getApplyerList(merchant_uid),HttpStatus.OK);
     }
+
+    // 동승 거절하기
+    @DeleteMapping("/remove/approval/{id}/{merchant_uid}")
+    public ResponseEntity<Boolean> removeApproval(@PathVariable("id") String id, @PathVariable("merchant_uid") String merchant_uid) {
+
+        log.info("매칭 거절 당한 정보 : " + id + merchant_uid);
+        return new ResponseEntity<>(appMemberMatchService.rejectNcancelTogetherMatching(id, merchant_uid), HttpStatus.OK);
+    }
+
+    // 동승 신청 하기
+    @PostMapping("/register/together")
+    public ResponseEntity<Boolean> registerTogether(@RequestBody ApprovalDTO approvalDTO) {
+        String merchant_uid = approvalDTO.getMerchant_uid();
+        String m_id = approvalDTO.getM_id();
+        String id = approvalDTO.getId();
+        int to_seat = approvalDTO.getTo_seat();
+
+        return new ResponseEntity<>(appMemberMatchService.insertPassengerTOList(merchant_uid,m_id,id,to_seat),HttpStatus.OK);
+    }
+
 }
