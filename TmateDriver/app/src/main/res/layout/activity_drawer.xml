@@ -43,7 +43,7 @@
             android:id="@+id/profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="박한수"
+            android:text="게스트"
             android:textColor="@color/white"
             android:textSize="24sp"
             android:gravity="center"
