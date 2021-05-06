@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.tmate.driver.R;
 import com.tmate.driver.data.Phone;
@@ -93,9 +92,9 @@ public class CertificationFragment extends Fragment implements Validator.Validat
     public void onValidationSucceeded() {
         countDownTimer.cancel();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        CorporationFragment corporationFragment = new CorporationFragment();
-        corporationFragment.setArguments(bundle);
-        transaction.replace(R.id.fm_main, corporationFragment);
+        JoinPageFragment joinPageFragment = new JoinPageFragment();
+        joinPageFragment.setArguments(bundle);
+        transaction.replace(R.id.fm_main, joinPageFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
