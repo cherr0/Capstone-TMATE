@@ -27,7 +27,8 @@ public class JoinHistoryVO {
     private double h_f_lttd;
     private double h_f_lngtd;
 
-
+    // 매칭 상태
+    private String h_status;
 
     // 운행 시간
     private Timestamp h_s_time;

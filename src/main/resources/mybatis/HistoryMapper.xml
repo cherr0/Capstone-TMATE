@@ -6,12 +6,13 @@
     <!-- 동승 출발지 도착지 설정후 검색하는 것 -->
     <select id="findTogetherList" resultType="com.tmate.domain.HistoryDTO">
         <![CDATA[
-            select history.*,member.m_id, member.m_name ,together.to_people, together.to_max,
+            select history.*, member.m_id, member.m_name ,together.to_people, together.to_max,
                    GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) as distance1 ,
                    GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd) as distance2
-            from history left outer join member on history.m_id = member.m_id
+            from history
+                 left outer join member on history.m_id = member.m_id
                  left outer join together on history.merchant_uid = together.merchant_uid
-            where substr(history.merchant_uid,28,1) = 0 and h_made_flag = '0'  and history.h_status = '0'
+            where substr(history.merchant_uid,28,1) = 0 and history.h_made_flag = '0'  and history.h_status = '0'
               and GOOGLE_DISTANCE(#{slttd},#{slngtd},history.h_s_lttd, history.h_s_lngtd) <= 0.8
             order by  GOOGLE_DISTANCE(#{flttd},#{flngtd},history.h_f_lttd, history.h_f_lngtd)
         ]]>
@@ -34,6 +35,13 @@
         where merchant_uid = #{merchant_uid}
     </update>
 
+    <!-- 기사와 매칭 완료일 시 -->
+    <update id="updateMatchStatus">
+        update history
+        set h_status = '3', d_id = #{d_id}
+        where merchant_uid = #{merchant_uid}
+    </update>
+
     <!-- 매칭방 생성시 인서트 문 총 2개 필요함 이용내역 하나 넣고 그 다음 동승 넣고 -->
     <insert id="insertMatching">
 
@@ -50,6 +58,24 @@
         insert into together(merchant_uid, m_id, to_max, to_people ,to_seat)
         values (#{merchant_uid},#{m_id},#{to_max},1,#{to_seat})
     </insert>
+
+    <!-- 일반 호출 삽입 xml -->
+    <insert id="insertNormalMatch">
+
+        <selectKey resultType="string" keyProperty="merchant_uid" order="BEFORE">
+            select 'merchant_'||to_char(systimestamp,'yyMMddhh24missff')||'1'
+            from dual
+        </selectKey>
+
+        insert into history(merchant_uid, m_id, h_s_place,h_s_lttd,h_s_lngtd,h_f_place,h_f_lttd, h_f_lngtd, h_status , h_made_flag, h_ep_fare, h_ep_time, h_ep_distance )
+        values(#{merchant_uid},#{m_id},#{h_s_place},#{h_s_lttd},#{h_s_lngtd},#{h_f_place},#{h_f_lttd},#{h_f_lngtd},'2',#{h_made_flag}, #{h_ep_fare}, #{h_ep_time}, #{h_ep_distance})
+    </insert>
+
+    <!-- 일반 호출 삭제 -->
+    <delete id="deleteNormalMatch">
+        delete from history
+        where merchant_uid = #{merchant_uid}
+    </delete>
 
     <!-- 방을 나가게 되거나 방장이 내보내게 되면 동승 내역 삭제해야 된다. -->
     <delete id="deleteHistoryPersonal">
@@ -112,18 +138,20 @@
     <select id="selectHistoryCard" resultType="com.tmate.domain.JoinHistoryVO">
         select h.merchant_uid, h.h_s_place, h.h_s_lttd, h.h_s_lngtd, h.h_f_place, h.h_f_lttd, h.h_f_lngtd, h.h_status, h.d_id, c.car_no, c.car_model
         from history h left outer join car c on h.d_id = c.m_id
-        where h.merchant_uid = #{merchant_uid}
+        where  h.m_id = #{m_id} and h.h_status in ('0','1','2','3','4')
     </select>
 
     <!-- 신청한 유저의 리스트 가져오기 -->
-    <select id="selectApplyerList" resultType="com.tmate.domain.user.ApprovalDTO">
-        select * from approval where merchant_uid = #{merchant_uid}
+    <select id="selectApplyerList" resultType="com.tmate.domain.user.TogetherRequest">
+        select a.merchant_uid, a.m_id, m.m_name,m.m_n_use, m.m_t_use, m.m_count
+        from approval a left outer join  member m on a.id = m.m_id
+        where a.merchant_uid = #{merchant_uid}
     </select>
 
     <!-- 다른 유저가 신청을 했을 경우 -->
     <insert id="insertTogetherMatchingApplyer">
-        insert into(seq, id, name, birth, appro_flag, m_id, to_seat)
-        values (ap_sec.nextval,#{id}, #{name}, #{birth},'0',#{m_id},#{to_seat})
+        insert into approval(seq, id, name, appro_flag, m_id, to_seat,merchant_uid)
+        values (ap_sec.nextval,#{id}, #{name}, '0',#{m_id},#{to_seat},#{merchant_uid})
     </insert>
 
     <!-- 거절이나 취소를 누를시 approval 지워진다. -->
@@ -137,5 +165,10 @@
         delete from approval
         where merchant_uid = #{merchant_uid}
     </delete>
+
+    <!-- 현재 매칭방 좌석 -->
+    <select id="selectCurrentSeatNums" resultType="com.tmate.domain.TogetherDTO">
+        SELECT to_seat from TOGETHER where merchant_uid = #{merchant_uid}
+    </select>
 
 </mapper>

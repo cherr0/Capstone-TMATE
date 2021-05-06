@@ -151,5 +151,17 @@ public class AppMemberServiceImpl implements AppMemberService {
     }
 
 
+    /*
+    * 운행 옵션
+    * */
 
+    @Override
+    public Dv_optionDTO getDv_optionByM_id(String m_id) {
+        return membermapper.selectDv_optionByM_id(m_id);
+    }
+
+    @Override
+    public Boolean modifyDv_optionByM_id(Dv_optionDTO dv_optionDTO) {
+        return membermapper.updateDv_optionStatus(dv_optionDTO) == 1;
+    }
 }

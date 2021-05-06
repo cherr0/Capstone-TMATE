@@ -94,9 +94,9 @@ class MatchingHolder extends RecyclerView.ViewHolder {
         this.tv_matching_name = (TextView) itemView.findViewById(R.id.tv_matching_name);
         this.tv_personnel = (TextView) itemView.findViewById(R.id.tv_personnel);
         this.tv_start = (TextView) itemView.findViewById(R.id.tv_start);
-        this.tv_start_place = (TextView) itemView.findViewById(R.id.tv_start_place);
+        this.tv_start_place = (TextView) itemView.findViewById(R.id.cg_start_place);
         this.tv_end = (TextView) itemView.findViewById(R.id.tv_end);
-        this.tv_end_place = (TextView) itemView.findViewById(R.id.tv_end_place);
+        this.tv_end_place = (TextView) itemView.findViewById(R.id.cg_end_place);
         this.distance1 = (TextView) itemView.findViewById(R.id.distance1);
         this.distance2 = (TextView) itemView.findViewById(R.id.distance2);
 

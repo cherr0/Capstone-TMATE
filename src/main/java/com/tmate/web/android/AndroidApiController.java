@@ -58,7 +58,7 @@ public class AndroidApiController {
 
     // 휴대폰 인증번호
     @PostMapping("/sendsms")
-    public ResponseEntity<Boolean> sendSMS(@RequestBody PhoneDTO phoneDTO) {
+    public ResponseEntity<String> sendSMS(@RequestBody PhoneDTO phoneDTO) {
         log.info("인증번호 전송 sendSMS() Phone Num : " + phoneDTO.toString());
 
         return new ResponseEntity<>(smsService.certifiedPhoneNumber(phoneDTO), HttpStatus.OK);
@@ -218,6 +218,23 @@ public class AndroidApiController {
 
 
         return new ResponseEntity<>(userService.modifyRep(customer_uid, m_id),HttpStatus.OK);
+    }
+
+    /*
+     * 운행 옵션 부분
+     * */
+    @GetMapping("/get/dvoption/{m_id}")
+    public ResponseEntity<Dv_optionDTO> getDvOptionByM_id(@PathVariable("m_id") String m_id) {
+        log.info("운행 옵션 가져오기 : " + m_id);
+
+        return new ResponseEntity<>(appMemberService.getDv_optionByM_id(m_id), HttpStatus.OK);
+    }
+
+    // 운행 옵션 업데이트
+    @PutMapping("/modify/dvoption")
+    public ResponseEntity<Boolean> modifyDvOption(@RequestBody Dv_optionDTO dv_optionDTO) {
+        log.info("운행 옵션 상태바꾸기 : " + dv_optionDTO);
+        return new ResponseEntity<>(appMemberService.modifyDv_optionByM_id(dv_optionDTO), HttpStatus.OK);
     }
 
 

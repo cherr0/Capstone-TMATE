@@ -104,16 +104,18 @@ class TogetherRequestHolder extends RecyclerView.ViewHolder {
     TextView m_count;
     Button btn_agree;
     Button btn_reject;
+    TextView tr_merchant_uid;
 
     public void onBind(TogetherRequest data) {
         m_id.setText(data.getM_id());
         m_name.setText(data.getM_name());
-        m_birth.setText(data.getM_birth());
+        m_birth.setText(data.getM_birth().toString());
         distance.setText(data.getDistance());
         m_t_use.setText(data.getM_t_use());
         like.setText(data.getLike());
         dislike.setText(data.getDislike());
         m_count.setText(data.getM_count());
+        tr_merchant_uid.setText(data.getMerchant_uid());
     }
 
     public TogetherRequestHolder(@NonNull View itemView) {
@@ -128,5 +130,6 @@ class TogetherRequestHolder extends RecyclerView.ViewHolder {
         btn_agree = itemView.findViewById(R.id.request_btn_agree);
         btn_reject = itemView.findViewById(R.id.request_btn_reject);
         m_count = itemView.findViewById(R.id.request_m_count);
+        tr_merchant_uid = itemView.findViewById(R.id.tr_merchant_uid);
     }
 }

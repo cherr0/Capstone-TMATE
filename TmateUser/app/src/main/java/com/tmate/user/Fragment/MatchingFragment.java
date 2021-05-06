@@ -63,17 +63,6 @@ public class MatchingFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.rv_matching);
 
-        //
-//intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude()));
-//        intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude()));
-//        intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude()));
-//        intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude()));
-//        intent.putExtra("to_max", together);
-//        intent.putExtra("h_s_place", h_s_place);
-//        intent.putExtra("h_f_place", h_f_place);
-//        intent.putExtra("h_ep_fare",totalFare);
-//        intent.putExtra("h_ep_time",totalTime);
-//        intent.putExra("h_ep_distance",totalDistance);
 
 
         if (getArguments() != null) {

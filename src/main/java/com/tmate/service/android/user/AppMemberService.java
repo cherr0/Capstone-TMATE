@@ -36,6 +36,15 @@ public interface AppMemberService {
     // 즐겨 찾기 삭제
     Boolean removeBookmark(int bm_id, String m_id);
 
+    /*
+     * 운행 옵션 부분
+     * */
+    // 1. 운행 옵션 가져오기
+    Dv_optionDTO getDv_optionByM_id(String m_id);
+
+    // 2. 운행 옵션 상태 값들 계속 변경 하는 서비스
+    Boolean modifyDv_optionByM_id(Dv_optionDTO dv_optionDTO);
+
 
     // 회원 정보 수정 - 프로필
 

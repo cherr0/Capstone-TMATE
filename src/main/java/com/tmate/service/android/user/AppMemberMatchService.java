@@ -2,13 +2,17 @@ package com.tmate.service.android.user;
 
 import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
+import com.tmate.domain.user.TogetherRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 public interface AppMemberMatchService {
-    // 일반 호출 시 -> 다음 주 예정
+    // 일반 호출 시
+
+    // 1. 일반 호출 생성
+    String registerNormalMatch(HistoryDTO historyDTO);
 
 
 
@@ -26,7 +30,7 @@ public interface AppMemberMatchService {
     int getRidingCnt(String merchant_uid);
 
     // 신청 내역 보기
-    List<ApprovalDTO> getApplyerList(String merchant_uid);
+    List<TogetherRequest> getApplyerList(String merchant_uid);
 
     // 동승자 다이얼로그 정보 -> m_id 이용, UserMainMapper와 Membermapper 이용
     MemberDTO getCheckPassengerApplyInfo(String m_id);
@@ -48,4 +52,10 @@ public interface AppMemberMatchService {
 
     // 매칭시 상태 바꾸기 - 매칭 대기중, 매칭 완료 ,탑승 대기중, 탑승 중, 탑승완료
     Boolean modifyH_status(HistoryDTO historyDTO);
+
+    // 이용중 서비스인 보여주기
+    JoinHistoryVO getUsingService(String m_id);
+
+    // 데이터 가져오기 -> 동승 좌석 미리 선택되있는 좌석을 다른 동승 요청자한테 보여주기 위함이다.
+    List<TogetherDTO> getCurrnetSeatNums(String merchant_uid);
 }

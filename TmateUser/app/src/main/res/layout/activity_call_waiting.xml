@@ -78,4 +78,49 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView16"
         app:layout_constraintStart_toEndOf="@+id/textView16" />
 
+    <TextView
+        android:id="@+id/cw_h_s_lttd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/wait_h_s_place"
+        app:layout_constraintTop_toTopOf="@+id/wait_h_s_place" />
+
+    <TextView
+        android:id="@+id/cw_h_s_lngtd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/cw_h_s_lttd"
+        app:layout_constraintTop_toTopOf="@+id/cw_h_s_lttd" />
+
+    <TextView
+        android:id="@+id/cw_h_f_lttd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/wait_h_f_place"
+        app:layout_constraintTop_toTopOf="@+id/wait_h_f_place" />
+
+    <TextView
+        android:id="@+id/cw_h_f_lngtd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/cw_h_f_lttd"
+        app:layout_constraintTop_toTopOf="@+id/cw_h_f_lttd" />
+
+    <TextView
+        android:id="@+id/cw_merchant_uid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

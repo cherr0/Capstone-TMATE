@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4">
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="법인구분"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinner_corp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:entries="@array/corp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_corp_submit"
+        app:layout_constraintEnd_toStartOf="@+id/btn_corp_submit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+    </Spinner>
+
+    <Button
+        android:id="@+id/btn_corp_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="확인"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spinner_corp" />
+
+
+    <TextView
+        android:id="@+id/tv_corp_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="회사명"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/spinner_corp"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_corp" />
+
+
+    <EditText
+        android:id="@+id/et_corp_name"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_box"
+        android:hint="회사명을 입력해주세요."
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_corp"
+        app:layout_constraintStart_toStartOf="@+id/tv_corp_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_corp_name" />
+
+    <TextView
+        android:id="@+id/tv_car_model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="차량모델"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/spinner_corp"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_corp" />
+
+
+    <EditText
+        android:id="@+id/et_car_model"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_box"
+        android:hint="차량모델을 입력해주세요."
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/spinner_corp"
+        app:layout_constraintStart_toStartOf="@+id/tv_car_model"
+        app:layout_constraintTop_toBottomOf="@+id/tv_car_model" />
+
+    <TextView
+        android:id="@+id/tv_car_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="차량 번호"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/et_car_model"
+        app:layout_constraintTop_toBottomOf="@+id/et_car_model" />
+
+    <EditText
+        android:id="@+id/et_car_num"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_box"
+        android:hint="차량번호를 입력해주세요."
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/et_car_model"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_car_num"
+        app:layout_constraintTop_toBottomOf="@+id/tv_car_num" />
+
+    <TextView
+        android:id="@+id/tv_car_kind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="분류"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/et_car_num"
+        app:layout_constraintTop_toBottomOf="@+id/et_car_num" />
+
+
+    <EditText
+        android:id="@+id/et_car_kind"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_box"
+        android:hint="분류를 입력해주세요."
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/et_car_num"
+        app:layout_constraintStart_toStartOf="@+id/tv_car_kind"
+        app:layout_constraintTop_toBottomOf="@+id/tv_car_kind" />
+
+    <TextView
+        android:id="@+id/tv_car_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="색상"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/et_car_kind"
+        app:layout_constraintTop_toBottomOf="@+id/et_car_kind" />
+
+    <EditText
+        android:id="@+id/et_car_color"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_box"
+        android:hint="색상을 입력해주세요."
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/et_car_kind"
+        app:layout_constraintStart_toStartOf="@+id/tv_car_color"
+        app:layout_constraintTop_toBottomOf="@+id/tv_car_color" />
+
+    <Button
+        android:id="@+id/btn_profile"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:backgroundTint="#4254BC"
+        android:text="다음"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
