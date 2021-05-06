@@ -40,7 +40,7 @@ public interface CommonAPI {
     Call<Boolean> removeBookmark(@Path("bm_id") String bm_id, @Path("m_id") String m_id);
 
     // 휴대폰 인증
-    @POST("/common/sendsms")
+    @POST("common/sendsms")
     Call<String> sendSMS(@Body PhoneDTO phoneDTO);
 
 }
