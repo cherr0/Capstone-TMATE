@@ -66,6 +66,7 @@ public class CertificationFragment extends Fragment implements Validator.Validat
         if (getArguments() != null) {
             bundle = getArguments();
             Log.d("번들 넘어오는 값",bundle.toString());
+            phone.setPhoneNumber(bundle.getString("phone"));
         }else {
             Log.d("JoinPageFragment.Bundle","번들 값을 받아오지 못했습니다.");
         }
@@ -74,14 +75,14 @@ public class CertificationFragment extends Fragment implements Validator.Validat
 
         countDownTimer(view);
 
-        b.btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validator.validate(); //버튼 클릭 시 이벤트 발생 //필수
-            }
+        time_counter.setOnClickListener(v -> {
+            Authorization();
+            countDownTimer(view);
         });
 
-
+        b.btnProfile.setOnClickListener(v -> {
+            validator.validate(); //버튼 클릭 시 이벤트 발생 //필수
+        });
 
         return view;
     }
