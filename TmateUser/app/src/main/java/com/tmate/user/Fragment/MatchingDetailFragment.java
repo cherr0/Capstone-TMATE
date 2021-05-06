@@ -58,11 +58,16 @@ public class MatchingDetailFragment extends Fragment {
 
         if (getArguments() != null) {
             bundle = getArguments();
+
             merchant_uid = bundle.getString("merchant_uid");
             m_id = bundle.getString("m_id");
+
+            Log.d("merchant_uid" , merchant_uid);
         }
 
-        dataService.matchAPI.getMatchingDetail(merchant_uid).enqueue(new Callback<History>() {
+
+
+        dataService.matchAPI.getMatchingDetail(merchant_uid,m_id).enqueue(new Callback<History>() {
             @Override
             public void onResponse(Call<History> call, Response<History> response) {
                 if (response.isSuccessful()) {

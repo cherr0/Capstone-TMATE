@@ -212,7 +212,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     hideKeyBoard();//키보드 숨기기
                     tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
                     tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
-                    b.call.setText("결제");
+                    b.call.setText("매칭");
                     drawCarPath();//자동차 경로 그리는 메서드 호출
                 }
                 //출발지 텍스트박스가 비어있는 경우
