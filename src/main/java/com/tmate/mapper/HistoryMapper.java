@@ -14,6 +14,11 @@ import java.util.List;
 @Mapper
 public interface HistoryMapper {
 
+    // 이용 내역 삭제 부분 merchant_uid 0 동승 , 1 일반
+    int deleteHistoryM(@Param("merchant_uid") String merchant_uid, @Param("m_id") String m_id);
+
+    int deleteTogetherM(@Param("merchant_uid") String merchant_uid, @Param("m_id") String m_id);
+
     // 거리 순으로 한다. -> xml 작성
     List<HistoryDTO> findTogetherList(@Param("slttd") double lttd, @Param("slngtd") double lngtd,
                                       @Param("flttd") double flttd, @Param("flngtd") double flngtd);
