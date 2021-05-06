@@ -21,7 +21,7 @@ public interface AppMemberMatchService {
     List<HistoryDTO> getTogetherMatchingList(String slttd, String slngtd, String flttd, String flngtd);
 
     // 매칭 상세 정보
-    HistoryDTO getTogetherMatchingDetail(String merchant_uid);
+    HistoryDTO getTogetherMatchingDetail(String merchant_uid, String m_id);
 
     // 매칭 방 추가시 -> 동승 까지 들어간다.
     Boolean registerTogether(HistoryDTO historyDTO, TogetherDTO togetherDTO);
@@ -45,7 +45,7 @@ public interface AppMemberMatchService {
     Boolean applyTogetherMatching(ApprovalDTO approvalDTO);
 
     // 매칭 거절 시 -> 불린값 던저주면서 false 던져줘서 매칭 실패 했다고 함
-    Boolean rejectNcancelTogetherMatching(ApprovalDTO approvalDTO);
+    Boolean rejectNcancelTogetherMatching(String id, String merchant_uid);
 
     // 인원이 다 찼을 시 남은 신청자들은 자동으로 삭제된다.
     Boolean removeRemainderApplyers(String merchant_uid);
@@ -58,4 +58,7 @@ public interface AppMemberMatchService {
 
     // 데이터 가져오기 -> 동승 좌석 미리 선택되있는 좌석을 다른 동승 요청자한테 보여주기 위함이다.
     List<TogetherDTO> getCurrnetSeatNums(String merchant_uid);
+
+    // 동승 신청 수락 시
+    Boolean insertPassengerTOList(String merchant_uid, String m_id, String id, int to_seat);
 }

@@ -21,8 +21,8 @@ public interface MatchAPI {
     @GET("match/getlist/{slttd}/{slngtd}/{flttd}/{flngtd}")
     Call<List<History>> getMatchingList(@Path("slttd") String slttd, @Path("slngtd") String slngtd, @Path("flttd") String flttd, @Path("flngtd") String flngtd);
 
-    @GET("match/read/{merchant_uid}")
-    Call<History> getMatchingDetail(@Path("merchant_uid") String merchant_uid);
+    @GET("match/read/{merchant_uid}/{m_id}")
+    Call<History> getMatchingDetail(@Path("merchant_uid") String merchant_uid, @Path("m_id") String m_id);
 
     @POST("match/register/matching")
     Call<Boolean> registerMatchingRegister(@Body HashMap<String, Object> hashMap);
@@ -47,4 +47,10 @@ public interface MatchAPI {
 
     @GET("match/get/approval/{merchant_uid}")
     Call<List<TogetherRequest>> getTogetherRequest(@Path("merchant_uid") String merchant_uid);
+
+    @DELETE("match/remove/approval/{id}/{merchant_uid}")
+    Call<Boolean> removeApproval(@Path("id") String id , @Path("merchant_uid") String merchant_uid);
+
+    @POST("match/register/together")
+    Call<Boolean> registerTogether(@Body Approval approval);
 }

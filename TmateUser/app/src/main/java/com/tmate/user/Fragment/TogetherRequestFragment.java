@@ -78,7 +78,7 @@ public class TogetherRequestFragment extends Fragment {
                         togetherRequest.setMerchant_uid(list.get(i).getMerchant_uid());
                         togetherRequest.setM_n_use(list.get(i).getM_n_use());
                         togetherRequest.setM_t_use(list.get(i).getM_t_use());
-                        togetherRequest.setM_id(list.get(i).getM_id());
+                        togetherRequest.setId(list.get(i).getId());
                         togetherRequest.setM_name(list.get(i).getM_name());
                         togetherRequest.setM_birth(list.get(i).getM_birth());
 

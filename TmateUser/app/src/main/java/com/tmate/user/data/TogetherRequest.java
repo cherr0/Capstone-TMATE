@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class TogetherRequest {
 
     String merchant_uid;
-    String m_id;
+    String id;
     String m_name;
     Timestamp m_birth;
     String distance;

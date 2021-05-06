@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class TogetherRequest {
     String merchant_uid;
-    String m_id;
+    String id;
     String m_name;
     String m_birth;
     String distance;

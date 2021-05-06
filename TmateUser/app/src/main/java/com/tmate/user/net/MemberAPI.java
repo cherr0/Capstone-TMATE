@@ -86,7 +86,7 @@ public interface MemberAPI {
     * 포인트 관련 서비스
     * */
 
-    @GET("point/{m_id}")
+    @GET("member/point/{m_id}")
     Call<List<PointData>> getPointList(@Path("m_id") String m_id);
 
     /*

@@ -20,7 +20,7 @@ public interface HistoryMapper {
 
 
     // 상세 방 정보 가져오기 -> xml 작성
-    HistoryDTO findMatchingDetail(@Param("merchant_uid") String merchant_uid);
+    HistoryDTO findMatchingDetail(@Param("merchant_uid") String merchant_uid, @Param("m_id") String m_id);
 
     // 일반 호출 삽입
     int insertNormalMatch(HistoryDTO historyDTO);
@@ -59,7 +59,7 @@ public interface HistoryMapper {
     int insertTogetherMatchingApplyer(ApprovalDTO approvalDTO);
 
     // 거절을 누를시 approval 지워진다.
-    int deleteTogetherMatchingAPplyer(ApprovalDTO approvalDTO);
+    int deleteTogetherMatchingAPplyer(@Param("id") String id, @Param("merchant_uid") String merchant_uid);
 
     // 인원이 다 찼을 시 남은 신청자들은 자동으로 삭제된다. --> approval
     int deleteRemainderApplyer(String merchant_uid);
@@ -105,5 +105,25 @@ public interface HistoryMapper {
     JoinHistoryVO selectHistoryCard(String m_id);
 
     // 택시를 탔을 시 -> 택시 정보 현재 택시의 실시간 위치 -> 예상 시간-> 차량 정보, 신고하기 기능도 있고 , 택시기사를 바로 평가할 수 있다.
+
+    // 승인 신청 수락시
+    // 이용 내역
+    HistoryDTO selectHistory(@Param("merchant_uid") String merchant_uid, @Param("m_id") String m_id);
+
+    // 동승
+    TogetherDTO selectTogether(@Param("merchant_uid") String merchant_uid, @Param("m_id") String m_id);
+
+    // 동승 신청 수락시 생성 --- 이용
+    int insertAgreeHistory(HistoryDTO historyDTO);
+
+    // 동승 신청 수락시 생성 --- 동승
+    int insertAgreeTogether(TogetherDTO togetherDTO);
+
+    // 현재 인원 수 증가
+    int currentCntPlus(String merchant_uid, String m_id);
+
+    // 현재 인원 수 가져오기
+    int selectCurrentCnt(String merchant_uid, String m_id);
+
 
 }
