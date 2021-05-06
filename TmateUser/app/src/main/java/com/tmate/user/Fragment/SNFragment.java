@@ -50,9 +50,9 @@ public class SNFragment extends Fragment implements Validator.ValidationListener
 
     Bundle bundle;
     PhoneDTO phoneDTO = new PhoneDTO();
-    DataService dataService = DataService.getInstance();
     Validator validator;
 
+    private Call<String> request;
 
     @Nullable
     @Override
@@ -138,7 +138,9 @@ public class SNFragment extends Fragment implements Validator.ValidationListener
     }
 
     public void Authorization() {
-        DataService.getInstance().commonAPI.sendSMS(phoneDTO).enqueue(new Callback<String>() {
+        request = DataService.getInstance().commonAPI.sendSMS(phoneDTO);
+
+        request.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
@@ -158,5 +160,9 @@ public class SNFragment extends Fragment implements Validator.ValidationListener
         });
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        request.cancel();
+    }
 }
