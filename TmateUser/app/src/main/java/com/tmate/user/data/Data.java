@@ -1,5 +1,11 @@
 package com.tmate.user.data;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@lombok.Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Data {
     String together;
     String start;
@@ -8,60 +14,7 @@ public class Data {
     String time;
     String drivername;
     String carinfo;
+    String merchant_uid;
 
-    public String getTogether() {
-        return together;
-    }
 
-    public void setTogether(String together) {
-        this.together = together;
-    }
-
-    public String getStart() {
-        return start;
-    }
-
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public String getFinish() {
-        return finish;
-    }
-
-    public void setFinish(String finish) {
-        this.finish = finish;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getDrivername() {
-        return drivername;
-    }
-
-    public void setDrivername(String drivername) {
-        this.drivername = drivername;
-    }
-
-    public String getCarinfo() {
-        return carinfo;
-    }
-
-    public void setCarinfo(String carinfo) {
-        this.carinfo = carinfo;
-    }
 }
