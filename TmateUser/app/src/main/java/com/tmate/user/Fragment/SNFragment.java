@@ -78,6 +78,7 @@ public class SNFragment extends Fragment implements Validator.ValidationListener
         countDownTimer(view);
 
         time_counter.setOnClickListener(v -> {
+            countDownTimer.cancel();
             Authorization();
             countDownTimer(view);
         });
