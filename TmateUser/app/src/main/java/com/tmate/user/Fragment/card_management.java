@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.tmate.user.R;
 import com.tmate.user.adapter.CardAdapter;
 import com.tmate.user.data.CardData;
@@ -29,10 +31,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class card_management  extends Fragment {
+    SwipeRefreshLayout refCard;
     Button button;
     LinearLayout nocard;
     ArrayList<String> list;
-
+    RecyclerView recyclerView;
     private static SharedPreferences pref;
     Context context;
     private String m_id;
@@ -47,11 +50,12 @@ public class card_management  extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.card_management,container,false);
 
+
         context = container.getContext();
         pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.cardlist_recy);
+        recyclerView = (RecyclerView) v.findViewById(R.id.cardlist_recy);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new CardAdapter();
@@ -73,6 +77,18 @@ public class card_management  extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 My_info_Fragment my_info_fragment = new My_info_Fragment();
                 transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+            }
+        });
+        refCard = v.findViewById(R.id.ref_card);
+        refCard.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ArrayList<CardData> cardList = new ArrayList<>();
+                cardList.clear();
+                adapter.clear();
+                removeScrollPullUpListener(); //스와이프와(위에서 아래로 댕기는 새로고침) 리사이클러뷰 포지션 리스너를 같이 쓰면 에러가나므로 리사이클러뷰 리스너는 잠시 끊어주고 새로고침후 다시연결해준다.
+                getData(); // 디비에서 값을 다시불러온다.
+
             }
         });
         return v;
@@ -97,6 +113,8 @@ public class card_management  extends Fragment {
                         }
 
                         adapter.notifyDataSetChanged();
+                        //카드 새로고침 후 로딩중 아이콘 지우기
+                        refCard.setRefreshing(false);
                     }
                 }
             }
@@ -104,6 +122,13 @@ public class card_management  extends Fragment {
             @Override
             public void onFailure(Call<List<CardData>> call, Throwable t) {
                 t.printStackTrace();
+            }
+        });
+    }
+    private void removeScrollPullUpListener(){
+        recyclerView.removeOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             }
         });
     }
