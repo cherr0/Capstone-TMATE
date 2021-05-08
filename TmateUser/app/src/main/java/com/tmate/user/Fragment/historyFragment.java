@@ -15,9 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tmate.user.R;
 import com.tmate.user.adapter.historyAdapter;
+import com.tmate.user.data.CardData;
 import com.tmate.user.data.Data;
 import com.tmate.user.data.UserHistroy;
 import com.tmate.user.net.DataService;
@@ -37,6 +39,8 @@ public class historyFragment extends Fragment {
 
     private historyAdapter adapter;
     private ImageView btn_back_history;
+    private SwipeRefreshLayout refHis;
+    private RecyclerView recyclerView;
 
     @Nullable
     @Override
@@ -44,7 +48,7 @@ public class historyFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.history,container,false);
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.hcard);
+        recyclerView = (RecyclerView) v.findViewById(R.id.hcard);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -61,6 +65,19 @@ public class historyFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                 My_info_Fragment my_info_fragment = new My_info_Fragment();
                 fragmentTransaction.replace(R.id.frameLayout, my_info_fragment).commit();
+            }
+        });
+
+        refHis = v.findViewById(R.id.ref_history);
+        refHis.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ArrayList<UserHistroy> userHis = new ArrayList<>();
+                userHis.clear();
+                adapter.clear();
+                hisremoveScrollPullUpListener(); //스와이프와(위에서 아래로 댕기는 새로고침) 리사이클러뷰 포지션 리스너를 같이 쓰면 에러가나므로 리사이클러뷰 리스너는 잠시 끊어주고 새로고침후 다시연결해준다.
+                getData(); // 디비에서 값을 다시불러온다.
+
             }
         });
 
@@ -104,6 +121,9 @@ public class historyFragment extends Fragment {
                         }
 
                         adapter.notifyDataSetChanged();
+                        //카드 새로고침 후 로딩중 아이콘 지우기
+                        refHis.setRefreshing(false);
+
                     }
                 }
             }
@@ -123,6 +143,12 @@ public class historyFragment extends Fragment {
         SharedPreferences pref = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         return pref.getString(key, "");
     }
-
+    private void hisremoveScrollPullUpListener(){
+        recyclerView.removeOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
+        });
+    }
 
 }
