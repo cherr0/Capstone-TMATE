@@ -5,7 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +21,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.tmate.user.R;
 import com.tmate.user.adapter.MatchingAdapter;
 import com.tmate.user.data.History;
-import com.tmate.user.data.MatchingData;
-import com.tmate.user.databinding.FragmentMatchingBinding;
 import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,6 +38,7 @@ public class MatchingFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
     private Button btn_add;
+    TextView tooltip;
 
     // 레트로핏 이용
 //    MatchDataService dataService = new MatchDataService();
@@ -63,7 +64,9 @@ public class MatchingFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.rv_matching);
 
-
+        tooltip = view.findViewById(R.id.tooltip);
+        Animation myanim = AnimationUtils.loadAnimation(getContext(), R.anim.translate);
+        tooltip.startAnimation(myanim);
 
         if (getArguments() != null) {
 

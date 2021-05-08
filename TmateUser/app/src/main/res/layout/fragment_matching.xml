@@ -70,6 +70,21 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <TextView
+        android:id="@+id/tooltip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_bubble"
+        android:text="원하는 리스트가 없다면\n여기를 클릭해주세요."
+        app:layout_constraintBottom_toTopOf="@+id/btn_add"
+        app:layout_constraintEnd_toEndOf="@+id/btn_add"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"/>
+
     <Button
         android:id="@+id/btn_add"
         android:layout_width="wrap_content"
