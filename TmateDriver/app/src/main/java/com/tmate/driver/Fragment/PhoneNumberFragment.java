@@ -1,8 +1,11 @@
 package com.tmate.driver.Fragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -23,7 +26,7 @@ import com.tmate.driver.databinding.FragmentPhoneNumberBinding;
 import java.util.List;
 
 
-public class PhoneNumberFragment extends Fragment implements Validator.ValidationListener{
+public class PhoneNumberFragment extends Fragment implements Validator.ValidationListener {
     private FragmentPhoneNumberBinding b;
     public Validator validator;
     Bundle bundle;
@@ -45,16 +48,41 @@ public class PhoneNumberFragment extends Fragment implements Validator.Validatio
         if (getArguments() != null) {
             bundle = getArguments();
             Log.d("PhNumFragment.Bundle", "번들 값 받아옴 bundle : " + bundle);
-        }else {
-            Log.d("PhNumFragment.Bundle","번들 값을 받아오지 못했습니다.");
+        } else {
+            Log.d("PhNumFragment.Bundle", "번들 값을 받아오지 못했습니다.");
         }
 
-        b.btnNext.setOnClickListener(new View.OnClickListener() {
+        b.btnPhoneNumSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validator.validate(); //버튼 클릭시 이벤트 발생 //필수
             }
         });
+
+
+        // X버튼 visibility 메소드
+        b.etPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            // editText 안 내용이 변경될 때마다 호출
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    b.btnClear.setVisibility(View.VISIBLE);
+                } else {
+                    b.btnClear.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        clearText();
 
         return view;
     }
@@ -74,14 +102,24 @@ public class PhoneNumberFragment extends Fragment implements Validator.Validatio
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
-        for(ValidationError error : errors){
+        for (ValidationError error : errors) {
             View view = error.getView();
             String message = error.getCollatedErrorMessage(getActivity());
-            if(view instanceof EditText){
-                ((EditText)view).setError(message);
-            }else{
-                Toast.makeText(getActivity(),message, Toast.LENGTH_SHORT).show();
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    //버튼 클릭 시 텍스트 내용을 없애는 메소드
+    public void clearText() {
+        b.btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                b.etPhone.setText("");
+            }
+        });
     }
 }

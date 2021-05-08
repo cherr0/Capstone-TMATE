@@ -33,6 +33,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:hint="이메일 또는 전화번호"
+            android:textCursorDrawable="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_start_Tmate" />
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:hint="비밀번호"
             android:inputType="textPassword"
+            android:textCursorDrawable="@null"
             app:layout_constraintEnd_toEndOf="@+id/et_userId"
             app:layout_constraintStart_toStartOf="@+id/et_userId"
             app:layout_constraintTop_toBottomOf="@+id/et_userId" />
@@ -52,9 +54,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="로그인"
             android:backgroundTint="#EFEFEF"
+            android:text="로그인"
+            android:textColor="@color/black"
+            android:enabled="false"
             app:layout_constraintEnd_toEndOf="@+id/et_password"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/et_password"
             app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
@@ -64,6 +69,7 @@
             android:layout_height="wrap_content"
             android:text="@string/register"
             android:backgroundTint="#EFEFEF"
+            android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="@+id/btn_login"
             app:layout_constraintStart_toStartOf="@+id/btn_login"
             app:layout_constraintTop_toBottomOf="@+id/btn_login" />

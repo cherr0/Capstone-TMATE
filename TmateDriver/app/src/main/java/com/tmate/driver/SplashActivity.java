@@ -11,6 +11,7 @@ import com.pharid.splash.lib.activity.AnimatedSplash;
 import com.pharid.splash.lib.cnst.Flags;
 import com.pharid.splash.lib.model.ConfigSplash;
 import com.tmate.driver.activity.LoginActivity;
+import com.tmate.driver.activity.MainViewActivity;
 
 public class SplashActivity extends AnimatedSplash {
 
@@ -42,19 +43,19 @@ public class SplashActivity extends AnimatedSplash {
 
     @Override
     public void animationsFinished() {
-//        // sharedperference 값 있을 때 메인뷰로 이동
-//        if(!(getPreferenceString("d_id").equals("")) && !getPreferenceString("d_approve").equals("")) {
-//            Intent intent = new Intent(getApplication(), MainViewActivity.class);
-//            intent.putExtra("d_id", getPreferenceString("d_id"));
-//            startActivity(intent);
-//            finish();
-//        } else {
+        // sharedperference 값 있을 때 메인뷰로 이동
+        if(!(getPreferenceString("d_id").equals("")) && !getPreferenceString("d_approve").equals("")) {
+            Intent intent = new Intent(getApplication(), MainViewActivity.class);
+            intent.putExtra("d_id", getPreferenceString("d_id"));
+            startActivity(intent);
+            finish();
+        } else {
             Log.d("SplashActivity","LoginActivity 실행 중");
             Intent intent = new Intent(getApplication(), LoginActivity.class);
             intent.putExtra("m_imei",imei);
             startActivity(intent);
             finish();
-//        }
+        }
     }
 
     public String getPreferenceString(String key) {
