@@ -13,9 +13,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tmate.user.adapter.NoticeAdapter;
 import com.tmate.user.R;
+import com.tmate.user.data.CardData;
 import com.tmate.user.data.Notice;
 import com.tmate.user.net.DataService;
 
@@ -33,6 +35,8 @@ public class NoticeFragment extends Fragment {
 
     private ArrayList<Notice> arrayList;
     private NoticeAdapter noticeAdapter;
+    private SwipeRefreshLayout refNotice;
+    private RecyclerView recyclerView;
 
     private ImageView btn_back_notice;
 
@@ -42,7 +46,7 @@ public class NoticeFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_notice,container,false);
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.notice_recy);
+        recyclerView = (RecyclerView) v.findViewById(R.id.notice_recy);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -61,6 +65,18 @@ public class NoticeFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 My_info_Fragment my_info_fragment = new My_info_Fragment();
                 transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+            }
+        });
+        refNotice = v.findViewById(R.id.ref_notice);
+        refNotice.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                arrayList = new ArrayList<>();
+                arrayList.clear();
+                noticeAdapter.clear();
+                removeScrollPullUpListener(); //스와이프와(위에서 아래로 댕기는 새로고침) 리사이클러뷰 포지션 리스너를 같이 쓰면 에러가나므로 리사이클러뷰 리스너는 잠시 끊어주고 새로고침후 다시연결해준다.
+                getData(); // 디비에서 값을 다시불러온다.
+
             }
         });
 
@@ -83,6 +99,9 @@ public class NoticeFragment extends Fragment {
                         }
 
                         noticeAdapter.notifyDataSetChanged();   // 어댑터에 값 변경 알림
+                        //카드 새로고침 후 로딩중 아이콘 지우기
+                        refNotice.setRefreshing(false);
+
                     }
                 }
             }
@@ -93,5 +112,12 @@ public class NoticeFragment extends Fragment {
             }
         });
 
+    }
+    private void removeScrollPullUpListener(){
+        recyclerView.removeOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
+        });
     }
 }
