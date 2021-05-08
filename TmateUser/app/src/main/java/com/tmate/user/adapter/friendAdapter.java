@@ -140,6 +140,10 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
     public void addItem(FriendData data) {
         items.add(data);
     }
+    public void clear() {
+        items.clear();
+    }
+
 }
 class friendHolder extends RecyclerView.ViewHolder {
     ImageView iv_alert;

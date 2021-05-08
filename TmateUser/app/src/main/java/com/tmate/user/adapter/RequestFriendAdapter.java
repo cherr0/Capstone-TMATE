@@ -143,6 +143,9 @@ public class RequestFriendAdapter extends  RecyclerView.Adapter<requestFriendHol
     public void addItem(RequestFriendData data) {
         items.add(data);
     }
+    public void clear() {
+        items.clear();
+    }
 
 
 
