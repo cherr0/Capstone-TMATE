@@ -82,6 +82,15 @@ public class PhoneNumberFragment extends Fragment implements Validator.Validatio
             }
         });
 
+        b.tvFirstScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                SocialFragment socialFragment = new SocialFragment();
+                transaction.replace(R.id.fm_main, socialFragment).commit();
+            }
+        });
+
         clearText();
 
         return view;

@@ -33,6 +33,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:hint="이메일 또는 전화번호"
+            android:inputType="textWebEmailAddress"
             android:textCursorDrawable="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,6 +82,7 @@
             android:layout_marginTop="16dp"
             android:text="Tmate계정 또는 비밀번호 찾기"
             android:textColor="@color/black"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_reg" />
