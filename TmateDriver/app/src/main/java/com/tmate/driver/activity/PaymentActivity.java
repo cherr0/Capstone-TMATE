@@ -114,4 +114,15 @@ public class PaymentActivity extends AppCompatActivity {
         }
         finish();
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        if(dialog2 != null && dialog2.isShowing()) {
+            dialog2.dismiss();
+        }
+    }
+
 }
