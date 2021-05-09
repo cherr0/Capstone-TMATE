@@ -27,6 +27,8 @@ import com.tmate.driver.R;
 import com.tmate.driver.databinding.ActivityDrawerBinding;
 import com.tmate.driver.databinding.ActivityMainViewBinding;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainViewActivity extends AppCompatActivity  implements View.OnClickListener{
 
     private ActivityMainViewBinding binding;
@@ -34,6 +36,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     private View drawerView ;
     private TextView profile, history, black_list, notice, statistics, tv_home;
     private Button service;
+    private CircleImageView profile_img;
     private long backBtnTime = 0;
     public static int navbarFlag  = R.id.tv_home;
 
@@ -50,7 +53,8 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         MainViewFragment mainViewFragment = new MainViewFragment();
         transaction.replace(R.id.frame, mainViewFragment).commit();
 
-        profile = findViewById(R.id.profile);
+        profile = findViewById(R.id.side_profile_name);
+        profile_img = findViewById(R.id.circleImageView);
         history = findViewById(R.id.history);
         black_list = findViewById(R.id.black_list);
         notice = findViewById(R.id.notice);
@@ -58,7 +62,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         service = findViewById(R.id.service);
         tv_home = findViewById(R.id.tv_home);
 
-        profile.setOnClickListener(this);
+        profile_img.setOnClickListener(this);
         history.setOnClickListener(this);
         black_list.setOnClickListener(this);
         notice.setOnClickListener(this);
@@ -121,11 +125,11 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     public void onClick(View v) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (v.getId()){
-            case R.id.profile : {
+            case R.id.circleImageView : {
                 ProfileFragment profileFragment = new ProfileFragment();
                 transaction.replace(R.id.frame, profileFragment).commit();
                 binding.drawerLayout.closeDrawers();
-                navbarFlag = R.id.profile;
+                navbarFlag = R.id.circleImageView;
                 return;
             }
             case R.id.history : {
@@ -174,7 +178,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     @Override
     public void onBackPressed() {
         switch (navbarFlag) {
-            case R.id.profile: case R.id.history: case R.id.black_list: case R.id.notice: case R.id.statistics:
+            case R.id.circleImageView: case R.id.history: case R.id.black_list: case R.id.notice: case R.id.statistics:
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 MainViewFragment mainViewFragment = new MainViewFragment();
                 transaction.replace(R.id.frame, mainViewFragment).commit();
