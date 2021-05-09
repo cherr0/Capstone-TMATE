@@ -16,9 +16,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tmate.user.R;
 import com.tmate.user.adapter.pointAdapter;
+import com.tmate.user.data.CardData;
 import com.tmate.user.data.PointData;
 import com.tmate.user.net.DataService;
 
@@ -34,6 +36,7 @@ public class PointFragment extends Fragment {
 
     private pointAdapter adapter;
     TextView totalPo;
+    private SwipeRefreshLayout refPoint;
 
     private ImageView btn_back_point;
     private int po_point;
@@ -42,6 +45,7 @@ public class PointFragment extends Fragment {
     Context context;
     private static SharedPreferences pref;
     String m_id = "";
+    private RecyclerView recyclerView;
 
     // 레트로핏 2 -> 포인트 가져오는 HTTP 통신
 //    DataService dataService = new DataService();
@@ -56,7 +60,7 @@ public class PointFragment extends Fragment {
         pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
 
-        RecyclerView recyclerView = (RecyclerView) v.findViewById(R.id.pointRecy);
+        recyclerView = (RecyclerView) v.findViewById(R.id.pointRecy);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -86,6 +90,17 @@ public class PointFragment extends Fragment {
         }else{
             totalPo.setText("598");
         }
+        refPoint = v.findViewById(R.id.ref_point);
+        refPoint.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                List<CardData> pointList = new ArrayList<>();
+                pointList.clear();
+                adapter.clear();
+                removeScrollPullUpListener(); //스와이프와(위에서 아래로 댕기는 새로고침) 리사이클러뷰 포지션 리스너를 같이 쓰면 에러가나므로 리사이클러뷰 리스너는 잠시 끊어주고 새로고침후 다시연결해준다.
+                getData(); // 디비에서 값을 다시불러온다.
+            }
+        });
 
 
 
@@ -127,9 +142,17 @@ public class PointFragment extends Fragment {
                        }
                        else {
                            adapter.addItem(null);
+                           po_point = 0;
                        }
 
                        adapter.notifyDataSetChanged();
+                       //카드 새로고침 후 로딩중 아이콘 지우기
+                       refPoint.setRefreshing(false);
+                       if (po_point != 0) {
+                           totalPo.setText(String.valueOf(po_point));
+                       }else{
+                           totalPo.setText("598");
+                       }
                    }
                }
            }
@@ -140,5 +163,12 @@ public class PointFragment extends Fragment {
            }
        });
 
+    }
+    private void removeScrollPullUpListener(){
+        recyclerView.removeOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
+        });
     }
 }

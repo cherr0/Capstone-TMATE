@@ -48,6 +48,9 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeHolder> {
     }
 
     public void addItem(Notice notice) {items.add(notice);}
+    public void clear() {
+        items.clear();
+    }
 
     @Override
     public void onBindViewHolder(@NonNull NoticeHolder holder, int position) {

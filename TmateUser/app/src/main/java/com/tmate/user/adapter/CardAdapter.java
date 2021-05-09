@@ -139,6 +139,9 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
     public void addItem(CardData data) {
         items.add(data);
     }
+    public void clear() {
+        items.clear();
+    }
 }
 class CardHolder extends RecyclerView.ViewHolder {
     ImageView bank_mark;

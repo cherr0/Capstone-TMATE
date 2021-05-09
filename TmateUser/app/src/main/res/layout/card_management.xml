@@ -42,12 +42,15 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cardlist_recy"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/ref_card"
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
-
+        android:layout_height="300dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cardlist_recy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

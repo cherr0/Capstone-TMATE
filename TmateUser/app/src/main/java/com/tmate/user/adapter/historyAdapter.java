@@ -98,6 +98,10 @@ public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
     public void addItem(Data data) {
         items.add(data);
     }
+    public void clear() {
+        items.clear();
+    }
+
 
 
 

@@ -37,6 +37,10 @@ public class pointAdapter extends  RecyclerView.Adapter<pointHolder> {
     public void addItem(PointData data) {
         items.add(data);
     }
+    public void clear() {
+        items.clear();
+    }
+
 
 }
 class pointHolder extends RecyclerView.ViewHolder {
