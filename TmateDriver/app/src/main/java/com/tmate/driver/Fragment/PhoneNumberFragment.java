@@ -1,5 +1,7 @@
 package com.tmate.driver.Fragment;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -71,8 +73,14 @@ public class PhoneNumberFragment extends Fragment implements Validator.Validatio
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
                     b.btnClear.setVisibility(View.VISIBLE);
+                    b.btnPhoneNumSubmit.setEnabled(true);
+                    b.btnPhoneNumSubmit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4254BC")));
+                    b.btnPhoneNumSubmit.setTextColor(Color.parseColor("#FFFFFF"));
                 } else {
                     b.btnClear.setVisibility(View.INVISIBLE);
+                    b.btnPhoneNumSubmit.setEnabled(true);
+                    b.btnPhoneNumSubmit.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EFEFEF")));
+                    b.btnPhoneNumSubmit.setTextColor(Color.parseColor("#000000"));
                 }
             }
 
