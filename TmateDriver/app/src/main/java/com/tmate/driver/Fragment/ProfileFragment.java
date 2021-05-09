@@ -62,10 +62,15 @@ public class ProfileFragment extends Fragment {
                     b.mName.setText(result.getM_name());
                     b.profilePhone.setText(result.getPhone());
                     b.profileEmail.setText("adsl1664@gmail.com");
-                    b.profileGender.setText(result.getGender());
+                    b.profileAllFare.setText(result.getAll_fare());
+                    b.profileAllFare.setText(result.getAll_fare());
+                    b.profileMonthFare.setText(result.getMonth_fare());
+                    b.profileNoCnt.setText(result.getNo_cnt());
+                    b.profileToCnt.setText(result.getTo_cnt());
 
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREAN);
-                    b.profileBirth.setText(df.format(result.getM_birth()));
+
+//                    SimpleDateFormat df = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREAN);
+//                    b.profileBirth.setText(df.format(result.getM_birth()));
 
                     String acnum = result.getD_acnum();
                     acnum = "  ****" + acnum.substring(acnum.length()-4);
