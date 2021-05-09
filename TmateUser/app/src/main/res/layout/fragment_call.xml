@@ -32,25 +32,57 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/requset_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="현재 신청중인 매칭"
-        app:layout_constraintEnd_toEndOf="parent"
+<!--    <TextView-->
+<!--        android:id="@+id/requset_list"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="현재 신청중인 매칭"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/constraintLayout31"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginEnd="8dp"/>-->
+
+    <ViewFlipper
+        android:id="@+id/call_banner_ViewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout31"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout31"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:id="@+id/ViewFlipper_img_first"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/banner"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:id="@+id/ViewFlipper_img_second"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/banner"
+            android:scaleType="fitXY"/>
+        <ImageView
+            android:id="@+id/ViewFlipper_img_third"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/banner"
+            android:scaleType="fitXY"/>
+
+    </ViewFlipper>
 
 
     <LinearLayout
+        android:id="@+id/call_Linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/call_banner_ViewFlipper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="16dp"
+        >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/together_call"
@@ -160,15 +192,63 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_chat"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/call_banner_img"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@+id/call_Linear"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/banner"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/call_banner_img"
+        android:src="@drawable/ic_baseline_campaign_24"
+        android:layout_marginTop="8dp"/>
+
+    <ViewFlipper
+        android:id="@+id/call_notice_ViewFlipper"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/call_banner_img"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="12dp"
-        android:text="채팅방"
-        android:backgroundTint="@color/main"/>
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="공지사항1"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="공지사항2"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="공지사항3"
+            android:textSize="24sp" />
+
+    </ViewFlipper>
+
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_chat"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:layout_marginBottom="12dp"-->
+<!--        android:layout_marginEnd="12dp"-->
+<!--        android:text="채팅방"-->
+<!--        android:backgroundTint="@color/main"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
