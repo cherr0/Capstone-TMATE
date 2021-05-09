@@ -8,115 +8,65 @@
     android:background="#FFFFFF">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_phone_num_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="기본 정보 입력"
+        android:text="전화번호를 입력해 주세요"
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="휴대폰 번호"
-        android:textColor="#000000"
-        android:textSize="38sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_reg" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="휴대폰번호를 입력해주세요"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <com.kofigyan.stateprogressbar.StateProgressBar
-        android:id="@+id/first_reg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:spb_animateToCurrentProgressState="true"
-        app:spb_checkStateCompleted="true"
-        app:spb_currentStateDescriptionColor="#DB0082"
-        app:spb_currentStateNumber="one"
-        app:spb_maxStateNumber="five"
-        app:spb_stateBackgroundColor="#BDBDBD"
-        app:spb_stateDescriptionColor="#808080"
-        app:spb_stateForegroundColor="#eeeeee"
-        app:spb_stateNumberBackgroundColor="#808080"
-        app:spb_stateNumberForegroundColor="#2196F3" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <EditText
+        android:id="@+id/et_phone"
         android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginEnd="44dp"
-        android:background="@drawable/radius"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="phone"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone_num_title" />
 
-        <TextView
-            android:id="@+id/m_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="휴대폰번호"
-            android:textColor="#000000"
-            android:textSize="22sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.016"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/et_phone"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginEnd="16dp"
-            android:padding="10dp"
-            android:ems="10"
-            android:inputType="phone"
-            android:textColor="#000000"
-            android:background="@drawable/phone_edit_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/m_phone"
-            app:layout_constraintTop_toBottomOf="@+id/m_phone" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
     <Button
-        android:id="@+id/btn_next"
-        android:text="다음"
-        android:textSize="24sp"
-        android:textColor="@color/white"
+        android:id="@+id/btn_clear"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/ic_cancel"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/et_phone"
+        app:layout_constraintEnd_toEndOf="@+id/et_phone"
+        app:layout_constraintTop_toTopOf="@+id/et_phone" />
+
+    <Button
+        android:id="@+id/btn_phone_num_submit"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#4254BC"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:text="확인"
+        android:enabled="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/et_phone"
+        app:layout_constraintStart_toStartOf="@+id/et_phone"
+        app:layout_constraintTop_toBottomOf="@+id/et_phone" />
+
+    <TextView
+        android:id="@+id/tv_first_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="처음으로 돌아가기"
+        android:textColor="#373737"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_phone_num_submit" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

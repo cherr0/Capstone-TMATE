@@ -44,7 +44,7 @@ public class CertificationFragment extends Fragment implements Validator.Validat
     @Password
     TextView tv_certNum;
 
-    @ConfirmPassword
+    @ConfirmPassword(message = "인증번호를 다시 확인해주세요")
     EditText et_confirmNum;
 
     Bundle bundle;
