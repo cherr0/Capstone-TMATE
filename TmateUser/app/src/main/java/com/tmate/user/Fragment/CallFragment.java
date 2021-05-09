@@ -8,17 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.tmate.user.Activity.ChatActivity;
 import com.tmate.user.Activity.MatchingMapActivity;
-import com.tmate.user.MatchingApplicationListFragment;
 import com.tmate.user.R;
 
 import java.util.ArrayList;
@@ -33,6 +32,9 @@ public class CallFragment extends Fragment {
     private Dialog dialog;
     private Button btn_chat;
     private TextView requset_list;
+    ViewFlipper call_banner_ViewFlipper, call_notice_ViewFlipper;
+    ImageView viewFlipper_img_first, viewFlipper_img_second, viewFlipper_img_third;
+    TextView call_notice_first, call_notice_second, call_notice_third;
 
     @Nullable
     @Override
@@ -42,6 +44,14 @@ public class CallFragment extends Fragment {
         dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_together);
+
+        call_banner_ViewFlipper = view.findViewById(R.id.call_banner_ViewFlipper);
+        call_banner_ViewFlipper.startFlipping();
+        call_banner_ViewFlipper.setFlipInterval(5000);
+
+        call_notice_ViewFlipper = view.findViewById(R.id.call_notice_ViewFlipper);
+        call_notice_ViewFlipper.startFlipping();
+        call_notice_ViewFlipper.setFlipInterval(5000);
 
         Ll_together = view.findViewById(R.id.together_call);
         Ll_together.setOnClickListener(new View.OnClickListener() {
@@ -63,24 +73,24 @@ public class CallFragment extends Fragment {
             }
         });
 
-        btn_chat = view.findViewById(R.id.btn_chat);
-        btn_chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ChatActivity.class);
-                v.getContext().startActivity(intent);
-            }
-        });
+//        btn_chat = view.findViewById(R.id.btn_chat);
+//        btn_chat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(), ChatActivity.class);
+//                v.getContext().startActivity(intent);
+//            }
+//        });
 
-        requset_list = view.findViewById(R.id.requset_list);
-        requset_list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                MatchingApplicationListFragment matchingApplicationListFragment = new MatchingApplicationListFragment();
-                transaction.replace(R.id.frameLayout, matchingApplicationListFragment).commit();
-            }
-        });
+//        requset_list = view.findViewById(R.id.requset_list);
+//        requset_list.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//                MatchingApplicationListFragment matchingApplicationListFragment = new MatchingApplicationListFragment();
+//                transaction.replace(R.id.frameLayout, matchingApplicationListFragment).commit();
+//            }
+//        });
 
         return view;
     }
