@@ -34,6 +34,7 @@ public class CallFragment extends Fragment {
     private TextView requset_list;
     ViewFlipper call_banner_ViewFlipper, call_notice_ViewFlipper;
     ImageView viewFlipper_img_first, viewFlipper_img_second, viewFlipper_img_third;
+    TextView call_notice_first, call_notice_second, call_notice_third;
 
     @Nullable
     @Override

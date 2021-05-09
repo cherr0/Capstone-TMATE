@@ -96,14 +96,12 @@
                     android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/call_banner_ViewFlipper"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginTop="16dp"
-                    >
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/together_call"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="150dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginTop="16dp"
@@ -157,7 +155,7 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/normal_call"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
+                        android:layout_height="150dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="40dp"
                         android:layout_marginEnd="16dp"
@@ -236,18 +234,21 @@
                     android:layout_marginTop="12dp">
 
                     <TextView
+                        android:id="@+id/call_notice_first"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="공지사항1"
                         android:textSize="24sp" />
 
                     <TextView
+                        android:id="@+id/call_notice_second"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="공지사항2"
                         android:textSize="24sp" />
 
                     <TextView
+                        android:id="@+id/call_notice_third"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="공지사항3"
