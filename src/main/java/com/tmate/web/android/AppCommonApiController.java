@@ -1,6 +1,7 @@
 package com.tmate.web.android;
 
 import com.tmate.domain.BoardDTO;
+import com.tmate.domain.LoginVO;
 import com.tmate.domain.PhoneDTO;
 import com.tmate.service.SMSService;
 import com.tmate.service.android.common.AppNoticeService;
@@ -109,5 +110,14 @@ public class AppCommonApiController {
 
             return new ResponseEntity<>(SMSService.REJECT, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    /* -----------------------
+            로그인 컨트롤러
+       ----------------------- */
+    @GetMapping("/login")
+    public ResponseEntity<LoginVO> loginCheck(@RequestBody LoginVO loginVO) {
+        log.info("어플 로그인 진행 : " + loginVO.toString());
+        return new ResponseEntity<>(commonService.userLogin(loginVO), HttpStatus.OK);
     }
 }

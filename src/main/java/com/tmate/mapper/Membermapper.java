@@ -57,6 +57,9 @@ public interface Membermapper {
     // 권한 조회
     List<MemberRole> findRoleList(String m_id);
 
+    // 유저 로그인 체크
+    LoginVO loginCheck(LoginVO loginVO);
+
     /*
     * APP 포인트 내역
     * 포인트 내역
@@ -83,5 +86,7 @@ public interface Membermapper {
 
     // 2. 운행 옵션 상태 변경
     int updateDv_optionStatus(Dv_optionDTO dv_optionDTO);
+
+
 
 }

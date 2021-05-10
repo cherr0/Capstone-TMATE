@@ -2,8 +2,10 @@ package com.tmate.service.android.common;
 
 import com.tmate.domain.BoardDTO;
 import com.tmate.domain.BoardImageDTO;
+import com.tmate.domain.LoginVO;
 import com.tmate.mapper.BoardImageMapper;
 import com.tmate.mapper.BoardMapper;
+import com.tmate.mapper.Membermapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ public class CommonServiceImpl implements CommonService {
     // BoardImageMapper 의존 주입
     private final BoardImageMapper boardImageMapper;
 
+    // MemberMapper 의존 주입
+    private final Membermapper membermapper;
+
 
     /*
     * 이벤트 서비스 로직 부분
@@ -29,24 +34,19 @@ public class CommonServiceImpl implements CommonService {
     * 2. 이벤트 상세 페이지
     * */
 
-    // 진행중인 이벤트
-
-    @Override
+    @Override // 진행중인 이벤트
     public List<BoardDTO> getProgressEventList() {
         log.info("앱으로 진행중인 이벤트 서비스 처리중");
         return boardMapper.findProgressEvent();
     }
 
-
-    // 종료된 이벤트
-
-    @Override
+    @Override // 종료된 이벤트
     public List<BoardDTO> getFinishedEventList() {
         log.info("앱으로 종료된 이벤트 서비스 처리중");
         return boardMapper.findFinishedEvent();
     }
 
-    @Override
+    @Override // 이벤트 상세보기
     public BoardDTO readEvent(String bd_id) {
         BoardDTO event = boardMapper.findEventByBd_id(bd_id);
         List<BoardImageDTO> image = boardImageMapper.findByBd_id(bd_id);
@@ -55,5 +55,11 @@ public class CommonServiceImpl implements CommonService {
         }
 
         return event;
+    }
+
+    @Override // 유저 로그인
+    public LoginVO userLogin(LoginVO loginVO) {
+        log.info("유저 로그인 서비스 처리 중");
+        return membermapper.loginCheck(loginVO);
     }
 }
