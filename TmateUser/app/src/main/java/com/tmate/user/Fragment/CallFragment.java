@@ -2,11 +2,16 @@ package com.tmate.user.Fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Outline;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,8 +21,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.tmate.user.Activity.MatchingMapActivity;
+import com.tmate.user.MatchingApplicationListFragment;
 import com.tmate.user.R;
 
 import java.util.ArrayList;
@@ -27,19 +34,37 @@ public class CallFragment extends Fragment {
     ArrayList<String> list;
     private View view;
     private CardView Ll_together;
-    private CardView Ll_solo;
+    private CardView Ll_solo, requset_list;
     private int together;
     private Dialog dialog;
     private Button btn_chat;
-    private TextView requset_list;
     ViewFlipper call_banner_ViewFlipper, call_notice_ViewFlipper;
-    ImageView viewFlipper_img_first, viewFlipper_img_second, viewFlipper_img_third;
+    ImageView viewFlipper_img_first, viewFlipper_img_second, viewFlipper_img_third, call_banner_img,
+    call_logo;
     TextView call_notice_first, call_notice_second, call_notice_third;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_call, container, false);
+
+
+        //배너 radius
+        call_banner_img = view.findViewById(R.id.call_banner_img);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            call_banner_img.setOutlineProvider(new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+                    outline.setRoundRect(0,0,view.getWidth(), view.getHeight(), 40);
+                }
+            });
+            call_banner_img.setClipToOutline(true);
+        }
+
+        //로고 애니메이션
+        call_logo = view.findViewById(R.id.call_logo);
+        Animation myanim = AnimationUtils.loadAnimation(getContext(), R.anim.call_translate);
+        call_logo.startAnimation(myanim);
 
         dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -82,15 +107,15 @@ public class CallFragment extends Fragment {
 //            }
 //        });
 
-//        requset_list = view.findViewById(R.id.requset_list);
-//        requset_list.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                MatchingApplicationListFragment matchingApplicationListFragment = new MatchingApplicationListFragment();
-//                transaction.replace(R.id.frameLayout, matchingApplicationListFragment).commit();
-//            }
-//        });
+        requset_list = view.findViewById(R.id.requset_list);
+        requset_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                MatchingApplicationListFragment matchingApplicationListFragment = new MatchingApplicationListFragment();
+                transaction.replace(R.id.frameLayout, matchingApplicationListFragment).commit();
+            }
+        });
 
         return view;
     }
