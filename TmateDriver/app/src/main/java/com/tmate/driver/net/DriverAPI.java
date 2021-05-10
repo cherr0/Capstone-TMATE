@@ -8,6 +8,7 @@ import com.tmate.driver.data.DriverProfile;
 import com.tmate.driver.data.JoinBan;
 import com.tmate.driver.data.Member;
 import com.tmate.driver.data.Review;
+import com.tmate.driver.data.SidebarProfile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +30,10 @@ public interface DriverAPI {
     // 기사 승인 상태 확인
     @GET("/driver/register/approve/{d_id}")
     Call<Boolean> approveSearch(@Path("d_id") String d_id);
+
+    // 기사 사이드바 프로필 확인
+    @GET("/driver/profile/side/{d_id}")
+    Call<SidebarProfile> searchSidebarProfile(@Path("d_id") String d_id);
 
     // 기사 프로필 확인
     @GET("/driver/profile/{d_id}")
