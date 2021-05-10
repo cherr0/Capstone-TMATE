@@ -3,6 +3,7 @@ package com.tmate.mapper;
 import com.tmate.domain.*;
 import com.tmate.domain.driver.DriverHistoryVO;
 import com.tmate.domain.driver.DriverProfileVO;
+import com.tmate.domain.driver.SidebarProfileVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -81,4 +82,7 @@ public interface DriverMapper {
 
     // 기사 승인 상태 확인
     public DriverDTO findDriverDateById(String d_id);
+
+    // 기사 사이드바 프로필
+    public SidebarProfileVO findSidebarProfileById(String d_id);
 }

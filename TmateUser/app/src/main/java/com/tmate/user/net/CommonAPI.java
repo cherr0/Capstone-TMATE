@@ -1,6 +1,7 @@
 package com.tmate.user.net;
 
 import com.tmate.user.data.EventDTO;
+import com.tmate.user.data.LoginVO;
 import com.tmate.user.data.Notice;
 import com.tmate.user.data.PhoneDTO;
 
@@ -43,4 +44,7 @@ public interface CommonAPI {
     @POST("common/sendsms")
     Call<String> sendSMS(@Body PhoneDTO phoneDTO);
 
+    // 로그인 체크
+    @GET("common/login")
+    Call<LoginVO> loginCheck(@Body LoginVO loginVO);
 }

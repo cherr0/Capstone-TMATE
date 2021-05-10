@@ -1,6 +1,7 @@
 package com.tmate.service.android.common;
 
 import com.tmate.domain.BoardDTO;
+import com.tmate.domain.LoginVO;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,6 @@ public interface CommonService {
     // 챗봇
 
     // 로그인
-
+    public LoginVO userLogin(LoginVO loginVO);
 
 }

@@ -135,4 +135,15 @@
             do_child = #{do_child, jdbcType=CHAR}
         where m_id = #{m_id}
     </update>
+
+    <!--  로그인 확인  -->
+    <select id="loginCheck" resultType="com.tmate.domain.LoginVO">
+        select *
+        from (
+                 select member.*, substr(m_id,1,1) as auth, substr(m_id,3,11) as phone
+                 from member
+             )
+        where auth = #{auth} AND (phone = #{id} OR M_EMAIL = #{id})
+                             AND password = #{password}
+    </select>
 </mapper>
