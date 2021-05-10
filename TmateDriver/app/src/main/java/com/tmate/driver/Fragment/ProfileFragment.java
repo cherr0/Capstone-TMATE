@@ -7,35 +7,27 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
-
-import com.tmate.driver.R;
 import com.tmate.driver.data.DriverProfile;
-import com.tmate.driver.databinding.FragmentCertificateEnrollmentBinding;
 import com.tmate.driver.databinding.FragmentProfileBinding;
 import com.tmate.driver.net.DataService;
-
-import static android.app.Activity.RESULT_OK;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
 
@@ -62,11 +54,10 @@ public class ProfileFragment extends Fragment {
                     b.mName.setText(result.getM_name());
                     b.profilePhone.setText(result.getPhone());
                     b.profileEmail.setText("adsl1664@gmail.com");
-                    b.profileAllFare.setText(result.getAll_fare());
-                    b.profileAllFare.setText(result.getAll_fare());
-                    b.profileMonthFare.setText(result.getMonth_fare());
-                    b.profileNoCnt.setText(result.getNo_cnt());
-                    b.profileToCnt.setText(result.getTo_cnt());
+                    b.profileAllFare.setText(String.valueOf(result.getAll_fare()));
+                    b.profileMonthFare.setText(String.valueOf(result.getMonth_fare()));
+                    b.profileNoCnt.setText(String.valueOf(result.getNo_cnt()));
+                    b.profileToCnt.setText(String.valueOf(result.getTo_cnt()));
 
 
 //                    SimpleDateFormat df = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREAN);
@@ -142,8 +133,6 @@ public class ProfileFragment extends Fragment {
                         })
                         .create()
                         .show();
-
-
             }
 
         });
