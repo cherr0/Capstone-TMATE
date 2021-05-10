@@ -3,6 +3,7 @@ package com.tmate.service.android.driver;
 import com.tmate.domain.*;
 import com.tmate.domain.driver.DriverHistoryVO;
 import com.tmate.domain.driver.DriverProfileVO;
+import com.tmate.domain.driver.SidebarProfileVO;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,10 @@ public interface AppDriverService {
     // 리뷰 보기 클릭
     List<ReviewDTO> getDriverReviewList(String merchant_uid);
 
-    // 기사 프로필 정보
+    // 기사 사이드바 프로필
+    SidebarProfileVO getSidebarProfileById(String d_id);
+
+   // 기사 프로필 정보
     DriverProfileVO getDriverProfile(String d_id);
 
     // 기사 이메일 변경

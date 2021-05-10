@@ -188,4 +188,13 @@
         where d_id = #{d_id}
     </select>
 
+    <!--  기사 사이드바 내용 가져오기  -->
+    <select id="getSidebarProfile" resultType="com.tmate.domain.driver.SidebarProfileVO">
+        select m.M_STATUS, m.M_PROFILE, m.m_name, c.*, co.corp_code
+        from member m
+                 join car c on m.M_ID = c.M_ID
+                 join CORP co on c.CAR_NO = co.CAR_NO
+        where co.D_ID = #{d_id}
+    </select>
+
 </mapper>
