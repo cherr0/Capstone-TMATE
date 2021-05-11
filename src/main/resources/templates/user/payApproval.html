@@ -8,96 +8,75 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-<div>결제가 정상적으로 완료되었습니다.</div>
-<div th:text="${token}"></div>
-<div>
-    <span>결제일시 : </span><span th:text="${result.re_time}"></span>
-</div>
-<div>
-    <span>구매자 코드 : </span><span  th:text="${result.m_id}"></span>
-</div>
-<div>
-    <span>결제금액 : </span><span id="amount" th:text="${result.re_amt}"></span>
-</div>
+<div id="success">null</div>
+<div id="content"></div>
+
+
+
+
+
+
 <input id="tid" type="hidden" th:value="${result.tid}"/>
 <input id="partner_order_id" type="hidden" th:value="${result.d_id}"/>
 <input id="partner_user_id" type="hidden" th:value="${result.m_id}"/>
 <input id="pg_token" type="hidden" th:value="${token}"/>
-<button id="submit">전송</button>
+<input id="amount" type="hidden" th:value="${result.re_amt}"/>
+<input id="approved_at" type="hidden" th:value="${result.re_time}"/>
 <script>
     console.log('스크립트 실행됨');
 
-    $('#submit').on('click', function () {
-        console.log('클릭됨');
+    const url = "/kakao/approveSub";
 
-        /*
-        let data = {
-            cid:'TC0ONETIME',
-            tid: $('#tid').val(),
-            partner_order_id: $('#partner_order_id').val(),
-            partner_user_id: $('#partner_user_id').val(),
-            pg_token: $('#pg_token').val()
-        }
-        */
-        const url = "/kakao/approveSub";
+    let form = new FormData();
+    form.append("tid", $('#tid').val());
+    form.append("cid", 'TCSUBSCRIP');
+    form.append("partner_order_id", "Tmate");
+    form.append("partner_user_id", $('#partner_user_id').val());
+    form.append("pg_token",$('#pg_token').val());
 
-        let form = new FormData();
-        form.append("tid", $('#tid').val());
-        form.append("cid", 'TC0ONETIME');
-        form.append("partner_order_id", $('#partner_order_id').val());
-        form.append("partner_user_id", $('#partner_user_id').val());
-        form.append("pg_token",$('#pg_token').val());
+    console.log('form data 넘어가는 중');
+    for(let pair of form.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+    }
 
-        console.log(form);
+    axios.post(url, form)
+        .then((res) => {
+            console.log("승인 완료");
 
-        axios.post(url, form)
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.log(error.response);
-            })
+            let cardInfo = res.data["card_info"];
+            console.log(res.data);
+            console.log(cardInfo);
 
-        /*
-        $.ajax({
-            data: data,
-            type: 'POST',
-            url: '/kakao/approveSub',
-            contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
-            success: function (result) {
-                console.log('실행 성공');
-                console.log(result);
+            cardInfo["m_id"] = res.data["partner_user_id"];
+            cardInfo.sid = res.data.sid;
+            cardInfo["pay_pg"] = "kakaopay";
+            cardInfo["pay_company"] = cardInfo["kakaopay_purchase_corp"];
 
-                let resData = {
-                    tid: result.tid,
-                    aid: result.aid,
-                    re_amt: result.amount.total
-                }
-
-                $.ajax({
-                    data: JSON.stringify(resData),
-                    type: 'PUT',
-                    url: '/api/kakaoApprove',
-                    success : function (result) {
-                        console.log(result);
-                        window.history.back();
-                    },
-                    error : function (e) {
-                        console.log(e);
-                    }
-                });
-
-            },
-            error: function (e) {
-                console.log(e);
-            }
+            console.log(cardInfo);
 
 
+            $.ajax({
+                data: JSON.stringify(cardInfo),
+                type: 'POST',
+                dataType: 'JSON',
+                contentType: 'application/json',
+                url: '/api/kakaoPayment'
+            }).done(() => {
+             console.log("카드 DB 등록 완료");
+             $('#success').text("DB 등록 완료");
+             $('#content').text(cardInfo);
+
+            }).fail((err) => {
+                console.log(err);
+            });
 
 
+        })
+        .catch((err) => {
+            console.log("승인 오류");
+            console.log(err);
+            console.log(err.response);
         });
-         */
-    });
 </script>
 
 </body>
