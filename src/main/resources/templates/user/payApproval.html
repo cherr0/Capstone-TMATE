@@ -6,11 +6,23 @@
     <!-- Jquery JS-->
     <script th:src="@{~/vendor/jquery-3.5.1.min.js}"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&display=swap" rel="stylesheet">
+    <link th:href="@{/css/pay.css}" rel="stylesheet">
 </head>
 <body>
-<div id="success">null</div>
-<div id="content"></div>
-
+<div id="success" class="payApproval_title">
+    카드등록이 <span class="pay_approval">완료</span>되었습니다.
+</div>
+<div id="content" class="content">
+        <div>
+            <span>구분 : </span><span>신용</span>
+        </div>
+        <div>
+            <span>카드사 : </span><span>신한</span>
+        </div>
+</div>
+    <button id="submit" class="payApproval_btn">확인</button>
 
 
 
