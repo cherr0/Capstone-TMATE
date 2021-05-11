@@ -30,5 +30,13 @@ public class PaymentController {
         return "user/payApproval";
     }
 
+    @GetMapping("/payFalse")
+    public String payFalse() {
+        return "user/payFalse";
+    }
 
+    @GetMapping("/payCancel")
+    public String payCancle() {
+        return "user/payCancel";
+    }
 }

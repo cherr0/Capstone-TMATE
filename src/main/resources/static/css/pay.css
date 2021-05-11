@@ -1,0 +1,80 @@
+.payFalse_title {
+    width: 100%;
+    font-size: 50px;
+    font-weight: bolder;
+    font-family: 'Jua', sans-serif;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.pay_false {
+    color: RED;
+    font-size: 55px;
+}
+
+.payFalse_btn {
+    position: absolute;
+    left: 20%;
+    bottom: 10%;
+    width: 60%;
+    height: 2em;
+    color: #FFFFFF;
+    font-size: 40px;
+    border: #FFFFFF;
+    background-color: #FFABAB;
+    font-family: 'Jua', sans-serif;
+}
+
+.payCancel_title {
+    width: 100%;
+    font-size: 50px;
+    font-weight: bolder;
+    font-family: 'Jua', sans-serif;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.pay_cancel {
+    color: #ffa7d0;
+    font-size: 55px;
+}
+
+.payCancel_btn {
+    position: absolute;
+    left: 20%;
+    bottom: 10%;
+    width: 60%;
+    height: 2em;
+    color: #fff;
+    font-size: 40px;
+    border: #FFFFFF;
+    background-color: #ff8bc1;
+    font-family: 'Jua', sans-serif;
+}
+
+.payApproval_title {
+    width: 100%;
+    font-size: 50px;
+    font-weight: bolder;
+    font-family: 'Jua', sans-serif;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.pay_approval {
+    color: #3F72F4;
+    font-size: 55px;
+}
+
+.payApproval_btn {
+    position: absolute;
+    left: 20%;
+    bottom: 10%;
+    width: 60%;
+    height: 2em;
+    color: #fff;
+    font-size: 40px;
+    border: #FFFFFF;
+    background-color: #3F72F4;
+    font-family: 'Jua', sans-serif;
+}
