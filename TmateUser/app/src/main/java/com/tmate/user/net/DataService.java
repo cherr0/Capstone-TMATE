@@ -31,6 +31,7 @@ public class DataService {
     public MemberAPI memberAPI;
     public CommonAPI commonAPI;
     public MatchAPI matchAPI;
+    public PaymentAPI paymentAPI;
 
     private DataService() {
 
@@ -48,7 +49,7 @@ public class DataService {
         memberAPI = retrofitClient.create(MemberAPI.class);
         commonAPI = retrofitClient.create(CommonAPI.class);
         matchAPI = retrofitClient.create(MatchAPI.class);
-
+        paymentAPI = retrofitClient.create(PaymentAPI.class);
 
     }
 

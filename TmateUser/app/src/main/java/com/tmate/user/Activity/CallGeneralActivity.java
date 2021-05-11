@@ -86,10 +86,12 @@ public class CallGeneralActivity extends AppCompatActivity {
         if(getIntent() != null){
 
             intent = getIntent();
+            Log.d("CallGeneralActivity", "인텐트 넘어오는 값 : " + intent);
+
             history = new History();
 
             // 값 설정 해준다.
-            Log.d("이름 찍어보자", getSharedPreferences("loginUser", MODE_PRIVATE).getString("m_name", ""));
+            Log.d("CallGeneralActivity", "이름 : " + getSharedPreferences("loginUser", MODE_PRIVATE).getString("m_name", ""));
             cg_m_name.setText(m_name);
 
             h_s_place = intent.getStringExtra("h_s_place");
@@ -99,9 +101,7 @@ public class CallGeneralActivity extends AppCompatActivity {
             flttd = intent.getStringExtra("flttd");
             flngtd = intent.getStringExtra("flngtd");
 
-            Log.d("잘찍히나보자", slttd + ":" + slngtd + ":" + flngtd + ":" + flttd);
-
-
+            Log.d("CallGeneralActivity", slttd + ":" + slngtd + ":" + flngtd + ":" + flttd);
 
             cg_start_place.setText(h_s_place);
             cg_h_s_lttd.setText(slttd);
@@ -140,6 +140,7 @@ public class CallGeneralActivity extends AppCompatActivity {
                 /*
                 * 카드 정보 같이 넘겨주어야 한다.
                 * */
+
                 startActivity(intent3);
             }
         });

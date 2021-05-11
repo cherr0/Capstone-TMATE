@@ -52,22 +52,22 @@ public class MainViewActivity extends AppCompatActivity {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
 
                 switch (menuItem.getItemId()) {
-                    case R.id.call : {
+                    case R.id.call : {  // 메인 호출 화면
                         transaction.replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
                         navbarFlag = R.id.call;
                         return true;
                     }
-                    case R.id.bo_info : {
+                    case R.id.bo_info : {   // 탑승 정보 화면
                         transaction.replace(R.id.frameLayout, carInfoFragment).commitAllowingStateLoss();
                         navbarFlag = R.id.bo_info;
                         return true;
                     }
-                    case R.id.event : {
+                    case R.id.event : {     // 이벤트 화면
                         transaction.replace(R.id.frameLayout, eventFragment).commitAllowingStateLoss();
                         navbarFlag = R.id.event;
                         return true;
                     }
-                    case R.id.more : {
+                    case R.id.more : {      // 더보기 (기타 서비스 목록 화면)
                         transaction.replace(R.id.frameLayout, my_info_fragment).commitAllowingStateLoss();
                         navbarFlag = R.id.more;
                         return true;

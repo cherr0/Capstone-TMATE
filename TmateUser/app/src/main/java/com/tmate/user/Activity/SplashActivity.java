@@ -4,6 +4,7 @@ package com.tmate.user.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.provider.Settings;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -22,6 +23,9 @@ public class SplashActivity extends AnimatedSplash {
     public void initSplash(ConfigSplash configSplash) {
 
         /* you don't have to override every property */
+
+//        setPreference("m_id","m1010675016640");
+//        setPreference("m_name","박중원");
 
 
         imei = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -51,5 +55,13 @@ public class SplashActivity extends AnimatedSplash {
         intent.putExtra("m_imei", imei);
         startActivity(intent);
         SplashActivity.this.finish();
+    }
+
+    // 데이터 저장 함수
+    public void setPreference(String key, String value){
+        SharedPreferences pref = getSharedPreferences("loginUser", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, value);
+        editor.apply();
     }
 }

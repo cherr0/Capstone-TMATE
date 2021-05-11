@@ -51,4 +51,13 @@ PAY_COM_REG           CHAR(10)
 
     // 사업자 등록 번호
     private String pay_com_reg;
+
+    // 정기 결제 고유 코드
+    private String sid;
+
+    // 카드 회사명
+    private String kakaopay_purchase_corp;
+
+    // 카드 타입
+    private String card_type;
 }

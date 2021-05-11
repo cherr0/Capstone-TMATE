@@ -2,6 +2,8 @@ package com.tmate.RestApi;
 
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
@@ -18,7 +20,7 @@ import java.util.Set;
 public class RestApi {
 
     @PostMapping("/kakao/approveSub")
-    public String approveSub(@RequestParam HashMap<String, String> map) {
+    public ResponseEntity<String> approveSub(@RequestParam HashMap<String, String> map) {
         log.info("data :: {}", map);
 
         String result = "";
@@ -64,10 +66,10 @@ public class RestApi {
                     String valueName = map.get(keyName);
                     buffer.append(keyName).append("=").append(valueName + "&");
 
-                    System.out.println(valueName);
+                    log.debug("key name : " + keyName + ", value : " + valueName);
                 }
             }
-            System.out.println(buffer.toString());
+            log.info("버퍼 값 확인 : " + buffer.toString());
 
             // 서버 전송
             OutputStreamWriter outStream = new OutputStreamWriter(con.getOutputStream(), "UTF-8");
@@ -90,9 +92,9 @@ public class RestApi {
                     sb.append(line).append("\n");
                 }
                 br.close();
-                System.out.println("" + sb.toString());
+                log.info("결제 승인 값 : " + sb.toString());
                 result = sb.toString();
-                return result;
+                return new ResponseEntity<>(result, HttpStatus.OK);
 
             }else {
                 // 정상 처리가 아닌 경우 에러 확인
@@ -101,10 +103,10 @@ public class RestApi {
             }
 
         }catch(Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         }
 
-        return result;
+        return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
     }
 
 }

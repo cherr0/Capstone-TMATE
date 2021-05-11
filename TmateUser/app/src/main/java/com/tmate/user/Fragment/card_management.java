@@ -1,5 +1,6 @@
 package com.tmate.user.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.tmate.user.R;
 import com.tmate.user.adapter.CardAdapter;
 import com.tmate.user.data.CardData;
 import com.tmate.user.net.DataService;
+import com.tmate.user.net.KakaopayWebviewActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,9 +67,8 @@ public class card_management  extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                card_management_push cpf = new card_management_push();
-                transaction.replace(R.id.frameLayout, cpf).commit();
+                Intent intent = new Intent(getActivity(), KakaopayWebviewActivity.class);
+                startActivity(intent);
             }
         });
         btn_back_cardManagement = v.findViewById(R.id.btn_back_cardManagement);

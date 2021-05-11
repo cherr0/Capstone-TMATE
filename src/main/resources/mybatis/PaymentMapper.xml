@@ -17,7 +17,7 @@
 
     <insert id="kakaoReady">
         insert into temp_receipt(tid, m_id, d_id, re_time)
-        values(#{tid},#{m_id},#{d_id},#{re_time})
+        values(#{tid},#{m_id},#{d_id, jdbcType=VARCHAR},#{re_time})
     </insert>
 
     <select id="kakaoReadyRes" resultType="com.tmate.domain.KakaoDTO">
@@ -57,5 +57,10 @@
         set pay_rep = '1'
         where customer_uid = #{customer_uid}
     </update>
+
+    <insert id="paymentInsert">
+        insert into TEMP_PAYMENT(sid, m_id, pay_pg, pay_company, card_type)
+        values (#{sid},#{m_id},#{pay_pg},#{pay_company},#{card_type})
+    </insert>
 
 </mapper>
