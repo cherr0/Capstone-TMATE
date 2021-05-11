@@ -78,3 +78,13 @@
     background-color: #3F72F4;
     font-family: 'Jua', sans-serif;
 }
+
+.content {
+    position: absolute;
+    left: 10%;
+    top: 20%;
+    font-size: 35px;
+    font-weight: bolder;
+    line-height: 2em;
+    font-family: 'Do Hyeon', sans-serif;
+}
