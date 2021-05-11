@@ -1,6 +1,7 @@
 package com.tmate.web;
 
 import com.tmate.domain.KakaoDTO;
+import com.tmate.domain.PaymentDTO;
 import com.tmate.service.android.user.AppPaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -31,5 +32,14 @@ public class PaymentApiController {
         log.info("거래 승인 완료 정보 : " + kakaoDTO);
 
         return new ResponseEntity<>(appPaymentService.kakaoApprove(kakaoDTO), HttpStatus.OK);
+    }
+
+    // 카드 결제 등록
+    @PostMapping("/kakaoPayment")
+    public ResponseEntity<Boolean> cardInsert(@RequestBody PaymentDTO paymentDTO) {
+        Boolean cardInsert = appPaymentService.kakaoCardInsert(paymentDTO);
+        log.info("카드 등록 성공 유무 : " + cardInsert);
+
+        return new ResponseEntity<>(cardInsert, HttpStatus.OK);
     }
 }

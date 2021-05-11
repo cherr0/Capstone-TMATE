@@ -39,4 +39,7 @@ public interface PaymentMapper {
 
     // 카카오페이 결제 승인 res 값 인서트
     int kakaoApprove(KakaoDTO kakaoDTO);
+
+    // 카카오페이 카드 등록
+    int paymentInsert(PaymentDTO paymentDTO);
 }
