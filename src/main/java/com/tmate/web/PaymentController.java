@@ -22,7 +22,7 @@ public class PaymentController {
     public String approve (String partner_user_id,String pg_token, Model model) {
 
         log.info("pg_token : "+pg_token);
-        log.info("partner_user_id" + partner_user_id);
+        log.info("partner_user_id : " + partner_user_id);
 
         KakaoDTO result = appPaymentService.kakaoReadyRes(partner_user_id);
         model.addAttribute("result", result);
