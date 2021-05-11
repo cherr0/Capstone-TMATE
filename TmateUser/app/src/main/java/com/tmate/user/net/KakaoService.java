@@ -9,16 +9,30 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class KakaoService {
-    private static final String BASE_URL = "https://kapi.kakao.com";
+    // Kakao URL
+    private static final String BASE_URL = "https://kapi.kakao.com/";
+    private final KakaoAPI api;
 
-    GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Date.class, new GsonDateFormatAdapter());
+    private static KakaoService instance;
 
-    Retrofit retrofitClient =
-            new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .client(new OkHttpClient.Builder().build())
-                    .addConverterFactory(GsonConverterFactory.create(builder.create()))
-                    .build();
+    private KakaoService() {
+        GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Date.class, new GsonDateFormatAdapter());
 
-    KakaoAPI kakao = retrofitClient.create(KakaoAPI.class);
+        Retrofit retrofitClient =
+                new Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .client(new OkHttpClient.Builder().build())
+                        .addConverterFactory(GsonConverterFactory.create(builder.create()))
+                        .build();
+        api = retrofitClient.create(KakaoAPI.class);
+    }
+
+    public static KakaoService getInstance() {
+        if(instance == null) instance = new KakaoService();
+        return instance;
+    }
+
+    public KakaoAPI getApi() {
+        return api;
+    }
 }
