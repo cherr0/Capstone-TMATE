@@ -51,10 +51,19 @@ public class SplashActivity extends AnimatedSplash {
 
     @Override
     public void animationsFinished() {
-        Intent intent = new Intent(getApplication(), LoginActivity.class);
-        intent.putExtra("m_imei", imei);
-        startActivity(intent);
-        SplashActivity.this.finish();
+        // sharedpreference 값 있을떄 바로 메인뷰로 간다.
+        if (!(getPreferenceString("m_id").equals(""))) {
+            Intent intent = new Intent(this, MainViewActivity.class);
+            intent.putExtra("m_id", getPreferenceString("m_id"));
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(getApplication(), LoginActivity.class);
+            intent.putExtra("m_imei", imei);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
     // 데이터 저장 함수
@@ -63,5 +72,10 @@ public class SplashActivity extends AnimatedSplash {
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(key, value);
         editor.apply();
+    }
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getSharedPreferences("loginUser", MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 }
