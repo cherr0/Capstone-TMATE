@@ -1,13 +1,16 @@
 package com.tmate.user.net;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -45,11 +48,14 @@ public class KakaopayWebviewActivity extends AppCompatActivity {
         b = ActivityKakaopayWebviewBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
+        WebViewInterface mWebViewInterface = new WebViewInterface(KakaopayWebviewActivity.this, b.kakaopayWebView);
+
         map = requestBinding(); // Request 값 추가
 
         /* ------------------------------
                   Web View Settings
           ------------------------------ */
+        b.kakaopayWebView.addJavascriptInterface(mWebViewInterface, "android");
         b.kakaopayWebView.getSettings().setAllowFileAccessFromFileURLs(true);
         b.kakaopayWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
         WebSettings settings = b.kakaopayWebView.getSettings();
@@ -92,7 +98,7 @@ public class KakaopayWebviewActivity extends AppCompatActivity {
         readyRequest.enqueue(new Callback<PaymentRes>() {
             @Override
             public void onResponse(Call<PaymentRes> call, Response<PaymentRes> response) {
-                if(response.code() == 200) {
+                if(response.code() == 200 && response.body() != null) {
                     Log.i("pay", response.body().toString());
                     PaymentRes result = response.body();
                     Map<String, String> data = new HashMap<>();
@@ -154,9 +160,13 @@ public class KakaopayWebviewActivity extends AppCompatActivity {
         map.put("total_amount","0"); // 상품 총액
         map.put("tax_free_amount","0");  // 상품 비과세 금액
 
-        map.put("approval_url", "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/kakao/payment?partner_user_id=" + getPreferenceString("m_id"));     // 결제 성공 시 url
-        map.put("cancel_url","http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080");       // 결제 취소 시 url
-        map.put("fail_url","http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080");         // 결제 실패 시 url
+        map.put("approval_url", "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/kakao/success?partner_user_id=" + getPreferenceString("m_id"));     // 결제 성공 시 url
+        map.put("cancel_url","http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/kakao/fail");       // 결제 취소 시 url
+        map.put("fail_url","http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/kakao/cancel");         // 결제 실패 시 url
+
+        //map.put("approval_url", "http://192.168.1.8:8080/kakao/success?partner_user_id=" + getPreferenceString("m_id"));     // 결제 성공 시 url
+        //map.put("cancel_url","http://192.168.1.8:8080/kakao/cancel");       // 결제 취소 시 url
+        //map.put("fail_url","http://192.168.1.8:8080/kakao/fail");         // 결제 실패 시 url
         return map;
     }
 
@@ -177,6 +187,11 @@ public class KakaopayWebviewActivity extends AppCompatActivity {
         super.onDestroy();
         if(readyRequest != null) readyRequest.cancel();
         if(insertRequest != null) insertRequest.cancel();
+    }
+
+    @Override   // 가로 세로 전환 시 처음으로 돌아가지 않도록 처리
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
 }

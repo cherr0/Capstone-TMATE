@@ -18,7 +18,7 @@ public class PaymentController {
 
     private final AppPaymentService appPaymentService;
 
-    @GetMapping("/payment")
+    @GetMapping("/success")
     public String approve (String partner_user_id,String pg_token, Model model) {
 
         log.info("pg_token : "+pg_token);
@@ -30,13 +30,13 @@ public class PaymentController {
         return "user/payApproval";
     }
 
-    @GetMapping("/payFalse")
+    @GetMapping("/fail")
     public String payFalse() {
         return "user/payFalse";
     }
 
-    @GetMapping("/payCancel")
-    public String payCancle() {
+    @GetMapping("/cancel")
+    public String payCancel() {
         return "user/payCancel";
     }
 }
