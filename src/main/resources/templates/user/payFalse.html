@@ -23,5 +23,21 @@
 
 <button id="submit" class="payFalse_btn">돌아가기</button>
 
+<script>
+    $('.payFalse_btn').click(() => {
+        console.log('클릭됨');
+        returnActivity();
+    });
+
+    function returnActivity() {
+        if(window.android) {
+            console.info("android");
+            window.android.finishedActivity();
+        }else {
+            console.info("web");
+            document.form.submit();
+        }
+    }
+</script>
 </body>
 </html>

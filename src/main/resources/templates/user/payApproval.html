@@ -90,6 +90,22 @@
             console.log(err.response);
         });
 </script>
+<script>
+    $('.payApproval_btn').click(() => {
+        console.log('클릭됨');
+        returnActivity();
+    });
+
+    function returnActivity() {
+        if(window.android) {
+            console.info("android");
+            window.android.finishedActivity();
+        }else {
+            console.info("web");
+            document.form.submit();
+        }
+    }
+</script>
 
 </body>
 </html>
