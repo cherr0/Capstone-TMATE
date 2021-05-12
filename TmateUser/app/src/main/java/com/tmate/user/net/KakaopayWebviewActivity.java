@@ -10,6 +10,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -47,11 +48,14 @@ public class KakaopayWebviewActivity extends AppCompatActivity {
         b = ActivityKakaopayWebviewBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
+        WebViewInterface mWebViewInterface = new WebViewInterface(KakaopayWebviewActivity.this, b.kakaopayWebView);
+
         map = requestBinding(); // Request 값 추가
 
         /* ------------------------------
                   Web View Settings
           ------------------------------ */
+        b.kakaopayWebView.addJavascriptInterface(mWebViewInterface, "android");
         b.kakaopayWebView.getSettings().setAllowFileAccessFromFileURLs(true);
         b.kakaopayWebView.getSettings().setAllowUniversalAccessFromFileURLs(true);
         WebSettings settings = b.kakaopayWebView.getSettings();
