@@ -1,10 +1,12 @@
 package com.tmate.user.net;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -177,6 +179,11 @@ public class KakaopayWebviewActivity extends AppCompatActivity {
         super.onDestroy();
         if(readyRequest != null) readyRequest.cancel();
         if(insertRequest != null) insertRequest.cancel();
+    }
+
+    @Override   // 가로 세로 전환 시 처음으로 돌아가지 않도록 처리
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
 }
