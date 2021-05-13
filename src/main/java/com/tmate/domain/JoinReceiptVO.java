@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 public class JoinReceiptVO {
 
     // 거래 고유 번호
-    private String imp_uid;
+    private String tid;
     // 화페 단위
     private String re_crn;
     // 결제 시간
