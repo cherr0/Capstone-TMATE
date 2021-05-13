@@ -160,13 +160,10 @@ public class KakaopayWebviewActivity extends AppCompatActivity {
         map.put("total_amount","0"); // 상품 총액
         map.put("tax_free_amount","0");  // 상품 비과세 금액
 
-        map.put("approval_url", "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/kakao/success?partner_user_id=" + getPreferenceString("m_id"));     // 결제 성공 시 url
-        map.put("cancel_url","http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/kakao/fail");       // 결제 취소 시 url
-        map.put("fail_url","http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080/kakao/cancel");         // 결제 실패 시 url
+        map.put("approval_url", DataService.BASE_URL + "kakao/success?partner_user_id=" + getPreferenceString("m_id"));     // 결제 성공 시 url
+        map.put("cancel_url", DataService.BASE_URL + "kakao/fail");       // 결제 취소 시 url
+        map.put("fail_url", DataService.BASE_URL + "kakao/cancel");         // 결제 실패 시 url
 
-        //map.put("approval_url", "http://192.168.1.8:8080/kakao/success?partner_user_id=" + getPreferenceString("m_id"));     // 결제 성공 시 url
-        //map.put("cancel_url","http://192.168.1.8:8080/kakao/cancel");       // 결제 취소 시 url
-        //map.put("fail_url","http://192.168.1.8:8080/kakao/fail");         // 결제 실패 시 url
         return map;
     }
 
