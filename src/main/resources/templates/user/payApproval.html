@@ -16,10 +16,10 @@
 </div>
 <div id="content" class="content">
         <div>
-            <span>구분 : </span><span>신용</span>
+            <span>구분 : </span><span id="card_type">신용</span>
         </div>
         <div>
-            <span>카드사 : </span><span>신한</span>
+            <span>카드사 : </span><span id="pay_company">신한</span>
         </div>
 </div>
     <button id="submit" class="payApproval_btn">확인</button>
@@ -75,8 +75,8 @@
                 url: '/api/kakaoPayment'
             }).done(() => {
              console.log("카드 DB 등록 완료");
-             $('#success').text("DB 등록 완료");
-             $('#content').text(cardInfo);
+             $('#card_type').text(cardInfo["card_type"]);
+             $('#pay_company').text(cardInfo["pay_company"]);
 
             }).fail((err) => {
                 console.log(err);
