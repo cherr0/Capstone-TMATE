@@ -127,6 +127,7 @@
                                 android:src="@drawable/together"/>
 
                             <TextView
+                                android:fontFamily="@font/nexon_medium"
                                 android:id="@+id/together_call_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -179,6 +180,7 @@
                                 android:src="@drawable/nomal"/>
 
                             <TextView
+                                android:fontFamily="@font/nexon_medium"
                                 android:id="@+id/normal_call_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -231,6 +233,7 @@
                                 android:src="@drawable/requset_list"/>
 
                             <TextView
+                                android:fontFamily="@font/nexon_medium"
                                 android:id="@+id/requset_list_tv"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -290,6 +293,7 @@
                     android:layout_marginTop="12dp">
 
                     <TextView
+                        android:fontFamily="@font/nexon_medium"
                         android:id="@+id/call_notice_first"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -297,6 +301,7 @@
                         android:textSize="24sp" />
 
                     <TextView
+                        android:fontFamily="@font/nexon_medium"
                         android:id="@+id/call_notice_second"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -304,6 +309,7 @@
                         android:textSize="24sp" />
 
                     <TextView
+                        android:fontFamily="@font/nexon_medium"
                         android:id="@+id/call_notice_third"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
