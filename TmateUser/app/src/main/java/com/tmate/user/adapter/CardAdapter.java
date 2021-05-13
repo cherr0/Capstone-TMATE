@@ -64,7 +64,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
-                            dataService.memberAPI.modifyRep(holder.customer_uid.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
+                            dataService.memberAPI.modifyRep(holder.sid.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                     if (response.isSuccessful()) {
@@ -102,7 +102,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
-                                dataService.memberAPI.removeCard(holder.customer_uid.getText().toString()).enqueue(new Callback<Boolean>() {
+                                dataService.memberAPI.removeCard(holder.sid.getText().toString()).enqueue(new Callback<Boolean>() {
                                     @Override
                                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                         if (response.isSuccessful()) {
@@ -148,7 +148,7 @@ class CardHolder extends RecyclerView.ViewHolder {
     TextView bank_name;
     TextView card_no;
     TextView card_rno;
-    TextView customer_uid;
+    TextView sid;
     Button cardDelete;
     TextView card_rep;
 
@@ -170,7 +170,7 @@ class CardHolder extends RecyclerView.ViewHolder {
         bank_name.setText(data.getPay_company());
         card_no.setText("**** **** **** ");
         card_rno.setText(data.getCredit_no());
-        customer_uid.setText(data.getCustomer_uid());
+        sid.setText(data.getSid());
         switch (data.getPay_rep()) {
             case "0":
                 card_rep.setText("미지정");
@@ -188,7 +188,7 @@ class CardHolder extends RecyclerView.ViewHolder {
         cardDelete = (Button) itemView.findViewById(R.id.deleteCard);
         card_no = (TextView) itemView.findViewById(R.id.card_no);
         card_rno = (TextView) itemView.findViewById(R.id.card_rno);
-        customer_uid = (TextView) itemView.findViewById(R.id.customer_uid);
+        sid = (TextView) itemView.findViewById(R.id.sid);
         card_rep = (TextView) itemView.findViewById(R.id.card_rep);
     }
 }

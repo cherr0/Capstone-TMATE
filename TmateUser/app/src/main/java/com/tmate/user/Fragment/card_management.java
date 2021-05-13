@@ -103,16 +103,9 @@ public class card_management  extends Fragment {
                     if (response.code() == 200) {
                         List<CardData> list = response.body();
                         Log.d("넘어오는 카드 정보 : " ,list.toString());
-                        for (int i = 0; i < list.size(); i++) {
-                            CardData data = new CardData();
-                            data.setPay_company(list.get(i).getPay_company());
-                            data.setCredit_no(list.get(i).getCredit_no());
-                            data.setCustomer_uid(list.get(i).getCustomer_uid());
-                            data.setPay_rep(list.get(i).getPay_rep());
-
+                        for (CardData data : list) {
                             adapter.addItem(data);
                         }
-
                         adapter.notifyDataSetChanged();
                         //카드 새로고침 후 로딩중 아이콘 지우기
                         refCard.setRefreshing(false);
