@@ -341,39 +341,30 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_alert" />
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
+
+                        <TextView
+                            android:layout_marginRight="3dp"
+                            android:id="@+id/textView20"
+                            android:layout_width="wrap_content"
                             android:layout_height="60dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="10dp"
-                            android:background="@color/white"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="16dp"
+                            android:gravity="center_vertical"
+                            android:text="ver"
+                            android:textSize="13sp"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_version"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_friend" />
+
+                        <TextView
+                            android:layout_marginRight="20dp"
+                            android:id="@+id/tv_version"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:gravity="center_vertical"
+                            android:text="1.1.1"
+                            android:textSize="13sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_friend">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="60dp"
-                                android:layout_marginLeft="45dp"
-                                android:gravity="center_vertical"
-                                android:text="버전 정보"
-                                android:textColor="@color/black"
-                                android:textSize="20sp"
-                                app:layout_constraintStart_toStartOf="parent" />
-
-                            <TextView
-                                android:id="@+id/tv_version"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:text="1.1.1"
-                                android:textSize="20sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            app:layout_constraintTop_toBottomOf="@+id/tv_friend" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
