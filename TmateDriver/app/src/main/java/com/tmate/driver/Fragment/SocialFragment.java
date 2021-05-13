@@ -1,8 +1,6 @@
 package com.tmate.driver.Fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -18,7 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -28,11 +25,17 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tmate.driver.R;
-import com.tmate.driver.activity.MainViewActivity;
+import com.tmate.driver.data.LoginVO;
 import com.tmate.driver.data.Phone;
 import com.tmate.driver.databinding.FragmentSocialBinding;
+import com.tmate.driver.net.DataService;
 
+import java.io.IOException;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class SocialFragment extends Fragment implements Validator.ValidationListener{
@@ -41,6 +44,11 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
     private Phone phone;
     public Validator validator;
     private Context context;
+    private Call<LoginVO> loginRequest;
+    private SharedPreferences preferences;
+    private Fragment completed;
+    private LoginVO loginVO;
+    private View view;
 
     @Length(min = 11, message = "이메일 또는 전화번호를 바르게 입력해주세요")
     @NotEmpty(message = "이메일 또는 전화번호를 입력해주세요")
@@ -50,15 +58,14 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
     @NotEmpty(message = "비밀번호를 입력해주세요")
     EditText et_password;
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         b = FragmentSocialBinding.inflate(inflater, container, false);
-        View view = b.getRoot();
+        view = b.getRoot();
         context = container.getContext();
 
+        loginVO = new LoginVO();
 
         et_userId = view.findViewById(R.id.et_userId);
         et_password = view.findViewById(R.id.et_password);
@@ -86,7 +93,7 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
                     CompletedFragment cf = new CompletedFragment();
                     cf.setArguments(bundle);
                     transaction.replace(R.id.fm_main, cf).commit();
-                }else { // 회원가입 첫 시작인 경우
+                } else { // 회원가입 첫 시작인 경우
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                     PhoneNumberFragment phoneNumberFragment = new PhoneNumberFragment();
                     phoneNumberFragment.setArguments(bundle);
@@ -107,22 +114,20 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
 
             @Override
             public void afterTextChanged(Editable editable) {
-                validator.validate(); // 텍스트 변경시 이벤트 발생생
+                validator.validate(); // 텍스트 변경시 이벤트 발생
            }
         });
 
-        b.btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(view, "가입하지 않은 계정이거나, 잘못된 비밀번호입니다.", Snackbar.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), MainViewActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-
-            }
+        b.btnLogin.setOnClickListener(v -> {
+            Authorization();
         });
+//                Snackbar.make(view, "가입하지 않은 계정이거나, 잘못된 비밀번호입니다.", Snackbar.LENGTH_SHORT).show();
+//                Intent intent = new Intent(getActivity(), MainViewActivity.class);
+//                startActivity(intent);
+//                getActivity().finish();
 
         return view;
+
     }
 
     public String getPreferenceString(String key) {
@@ -159,5 +164,53 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
                 Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void Authorization() {
+        String id = b.etUserId.getText().toString();
+        String password = b.etPassword.getText().toString();
+        String auth = "b";
+        Log.d("SocialFragment", "로그인 값 : " + id + ", " + password + ", " + auth);
+        loginRequest = DataService.getInstance().common.loginCheck(id,password,auth);
+        loginRequest.enqueue(new Callback<LoginVO>() {
+            @Override
+            public void onResponse(Call<LoginVO> call, Response<LoginVO> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    LoginVO result = response.body();
+                    Log.d("SocialFragment", "들어있는 값 :" + result.toString());
+
+                    if (result.getM_id() != null) {
+                        Log.d("SocialFragment", "로그인이 완료되었습니다");
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("d_id", response.body().getM_id());
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        CompletedFragment completedFragment = new CompletedFragment();
+                        transaction.replace(R.id.fm_main, completedFragment).commit();
+
+                    } else {
+                        Snackbar.make(view, "가입하지않은 계정이거나 잘못된 비밀번호입니다.", Snackbar.LENGTH_SHORT).show();
+                    }
+                } else {
+                    try {
+                        Log.d("SocialFragment", "에러 : " + response);
+                        assert response.errorBody() != null;
+                        Log.d("SocialFragment", "데이터 삽입 실패 : " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginVO> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        loginRequest.cancel();
     }
 }

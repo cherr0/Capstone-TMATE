@@ -31,6 +31,6 @@ public interface CommonService {
     // 챗봇
 
     // 로그인
-    public LoginVO userLogin(LoginVO loginVO);
+    public LoginVO userLogin(String id, String password, String auth);
 
 }
