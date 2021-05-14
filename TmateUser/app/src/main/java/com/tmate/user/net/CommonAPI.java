@@ -12,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface CommonAPI {
@@ -47,4 +48,8 @@ public interface CommonAPI {
     // 로그인 체크
     @GET("common/login")
     Call<LoginVO> loginCheck(@Body LoginVO loginVO);
+
+    // IMEI 값 변경
+    @PUT("common/imei/{m_id}/{m_imei}")
+    Call<Boolean> updateIMEI(@Path("m_id")String m_id, @Path("m_imei")String m_imei);
 }

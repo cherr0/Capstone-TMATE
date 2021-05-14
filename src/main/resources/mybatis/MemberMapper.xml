@@ -147,6 +147,12 @@
                              AND password = #{password}
     </select>
 
+    <update id="putIMEIByM_id">
+        update MEMBER
+        set m_imei = #{m_imei}
+        where M_ID = #{m_id}
+    </update>
+
     <!--  회원 미사용 포인트 조회  -->
     <select id="unusedPointByM_id" resultType="_int">
         select point-use_point as get_point
