@@ -26,6 +26,9 @@ public interface AppMemberService {
     // 포인트 내역 가져오기
     List<PointDTO> getPointListByM_id(String m_id);
 
+    // 미사용 포인트 조회
+    Integer getunusedPoint(String m_id);
+
     // 포인트 삽입
 
     // 포인트 삽입 시 멤버 테이블 총 포인트 업데이트

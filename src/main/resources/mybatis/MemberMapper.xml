@@ -146,4 +146,16 @@
         where auth = #{auth} AND (phone = #{id} OR M_EMAIL = #{id})
                              AND password = #{password}
     </select>
+
+    <!--  회원 미사용 포인트 조회  -->
+    <select id="unusedPointByM_id" resultType="_int">
+        select point-use_point as get_point
+        from (
+                 select m_id, sum(CASE WHEN po_exact = 0 THEN po_result END) as point, sum(CASE WHEN po_exact = 1 THEN po_result END) as use_point
+                 from POINT
+                 where m_id = #{m_id}
+                 group by m_id
+             )
+    </select>
+
 </mapper>
