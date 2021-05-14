@@ -188,6 +188,12 @@ public class AndroidApiController {
         return new ResponseEntity<>(appMemberService.getBookmarkListByM_id(m_id), HttpStatus.OK);
     }
 
+    @GetMapping("/unusedPoint/{m_id}")
+    public ResponseEntity<Integer> getUnusedPoint(@PathVariable("m_id") String m_id) {
+        log.info("미사용 포인트 데이터 조회 회원 : " + m_id);
+        return new ResponseEntity<>(appMemberService.getunusedPoint(m_id), HttpStatus.OK);
+    }
+
 
     /*
      *  사용자 APP 카드 관리 컨트롤러
