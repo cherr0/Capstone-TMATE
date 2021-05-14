@@ -20,13 +20,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.skt.Tmap.TMapTapi;
 import com.skt.Tmap.TMapView;
 import com.tmate.driver.R;
-import com.tmate.driver.data.Waiting;
+import com.tmate.driver.data.CallHistory;
 import com.tmate.driver.services.driving_overlay;
 
 import java.util.ArrayList;
 
 public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
-    ArrayList<Waiting> items = new ArrayList<>();
+    ArrayList<CallHistory> items = new ArrayList<>();
     private int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 100;
     Context context;
     private TMapView tMapView = null;
@@ -111,7 +111,7 @@ public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
 
 
 
-    public void addItem(Waiting data) {
+    public void addItem(CallHistory data) {
         items.add(data);
     }
 
@@ -120,7 +120,8 @@ public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
 }
 
 class WaitingHolder extends RecyclerView.ViewHolder {
-    TextView merchant_uid;
+    TextView h_flag;
+    TextView cw_merchant_uid;
     TextView tv_distance;
     TextView personnel;
     TextView matching_s_place;
@@ -128,23 +129,34 @@ class WaitingHolder extends RecyclerView.ViewHolder {
     Button matching_btn_refusal;
     Button matching_btn_accept;
 
-    void onBind(Waiting data) {
-        merchant_uid.setText(data.getMerchant_uid());
-        tv_distance.setText(data.getTv_distance());
-        personnel.setText(data.getPersonnel());
-        matching_s_place.setText(data.getMatching_s_place());
-        matching_e_place.setText(data.getMatching_e_place());
+    void onBind(CallHistory data) {
+
+        switch (data.getMerchant_uid().substring(29)){
+            case "0":
+                h_flag.setText("동승");
+                break;
+            case "1":
+                h_flag.setText("일반");
+                break;
+        }
+
+        tv_distance.setText(String.valueOf(data.getDistance1()));
+        personnel.setText(String.valueOf(data.getTo_people()));
+        matching_s_place.setText(data.getH_s_place());
+        matching_e_place.setText(data.getH_f_place());
+        cw_merchant_uid.setText(data.getMerchant_uid());
     }
 
     public WaitingHolder(@NonNull View itemView) {
         super(itemView);
-        merchant_uid = itemView.findViewById(R.id.merchant_uid);
+        h_flag = itemView.findViewById(R.id.cw_h_flag);
         tv_distance = itemView.findViewById(R.id.tv_distance);
         personnel = itemView.findViewById(R.id.personnel);
         matching_s_place = itemView.findViewById(R.id.matching_s_place);
         matching_e_place = itemView.findViewById(R.id.matching_e_place);
         matching_btn_accept = itemView.findViewById(R.id.matching_btn_accept);
         matching_btn_refusal = itemView.findViewById(R.id.matching_btn_refusal);
+        cw_merchant_uid = itemView.findViewById(R.id.cw_merchant_uid);
 
     }
 }

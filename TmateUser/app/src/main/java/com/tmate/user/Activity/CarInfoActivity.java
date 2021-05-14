@@ -63,6 +63,9 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
 
     Geocoder geocoder;
 
+    // 기사 정보 초기화
+
+
 
     private ActivityCarInfoBinding b;
     private Context mContext;
@@ -130,6 +133,7 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         geocoder = new Geocoder(mContext);//지오코더
         b= ActivityCarInfoBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
+
 
 
         //gps
