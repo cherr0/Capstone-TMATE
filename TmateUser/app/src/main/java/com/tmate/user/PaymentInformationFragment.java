@@ -2,6 +2,7 @@ package com.tmate.user;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +18,15 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.tmate.user.adapter.PaymentAdapter;
-import com.tmate.user.data.PointData;
-import com.tmate.user.data.UserHistroy;
+import com.tmate.user.net.DataService;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PaymentInformationFragment extends Fragment {
 
@@ -36,11 +38,10 @@ public class PaymentInformationFragment extends Fragment {
     private TextView pay_po_result, pay_to_people, pay_total_h_ep_Fare, payment_informetion_h_s_place,
             payment_informetion_h_f_place, payment_informetion_m_point, point_rest, pay_h_allFare;
 
+    private Integer point;
 
+    Call<Integer> request;
 
-    Call<List<PointData>> request;
-
-    Call<List<UserHistroy>> userHistory;
 
     @Nullable
     @Override
@@ -50,6 +51,8 @@ public class PaymentInformationFragment extends Fragment {
 
         this.initializeData();
         initWidget(v);
+        Log.d("payment", "사용자 아이디 : " + getPreferenceString("m_id"));
+        this.findData();
 
         //이미지 슬라이드관련
         ViewPager viewPager = v.findViewById(R.id.payment_pager);
@@ -72,7 +75,7 @@ public class PaymentInformationFragment extends Fragment {
 //        point_btn_all.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                point_et.setText();
+//
 //            }
 //        });
 
@@ -107,32 +110,36 @@ public class PaymentInformationFragment extends Fragment {
         payment_informetion_h_s_place = v.findViewById(R.id.payment_informetion_h_s_place);
         payment_informetion_h_f_place = v.findViewById(R.id.payment_informetion_h_f_place);
         payment_informetion_m_point = v.findViewById(R.id.payment_informetion_m_point);
-        point_rest = v.findViewById(R.id.point_rest);
         pay_h_allFare = v.findViewById(R.id.pay_h_allFare);
     }
 
 
     public void findData() {
-//        request = DataService.getInstance().memberAPI.getPointList(getPreferenceString("m_id"));
-//        request.enqueue(new Callback<List<PointData>>() {
-//            @Override
-//            public void onResponse(Call<List<PointData>> call, Response<List<PointData>> response) {
-//                if (response.code() == 200 && response.body() != null) {
-//
-//                    List<PointData> pointData = response.body();
-//
-//                    pay_po_result.setText(pointData.);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<PointData>> call, Throwable t) {
-//
-//            }
-//        });
+        request = DataService.getInstance().memberAPI.getUnusedPoint(getPreferenceString("m_id"));
+        request.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    point = response.body();
+                    Log.d("PaymentFragment", "사용자 사용가능 포인트  " + point);
 
+                } else {
+                    try {
+                        Log.d("SocialFragment", "에러 : " + response);
+                        assert response.errorBody() != null;
+                        Log.d("SocialFragment", "데이터 삽입 실패 : " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+            }
+        });
     }
-
     //카드 이미지 리스트
     private void initializeData() {
         imageList = new ArrayList();
@@ -150,6 +157,6 @@ public class PaymentInformationFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        request.cancel();
+        request.cancel();
     }
 }
