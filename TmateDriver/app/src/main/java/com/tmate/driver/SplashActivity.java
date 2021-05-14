@@ -24,8 +24,8 @@ public class SplashActivity extends AnimatedSplash {
         /* you don't have to override every property */
         imei = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
-        setPreference("d_id","d1010918400420");
-        setPreference("d_approve","true");
+//        setPreference("d_id","d1010918400420");
+//        setPreference("d_approve","true");
 
         //Customize Circular Reveal
         configSplash.setBackgroundColor(R.color.white); //any color you want form colors.xml
