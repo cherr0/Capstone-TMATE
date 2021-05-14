@@ -14,6 +14,8 @@ public interface AppMemberMatchService {
     // 1. 일반 호출 생성
     String registerNormalMatch(HistoryDTO historyDTO);
 
+    // 2. 일반 호출 CallWaiting에서 기사코드 찾는 서비스
+    String getD_idDuringCall(String merchant_uid);
 
 
     // 동승 호출 시

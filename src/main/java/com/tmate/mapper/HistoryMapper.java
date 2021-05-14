@@ -130,5 +130,21 @@ public interface HistoryMapper {
     // 현재 인원 수 가져오기
     int selectCurrentCnt(String merchant_uid, String m_id);
 
+    // 일반 호출 기사 찾는 부분 --> xml 작성
+    String selectD_id(String merchant_uid);
+
+
+    /*
+     *  기사 APP 관련 - 호출
+     * */
+    // 기사 운행 시작 - 대기중
+    int update_statusW(String d_id);
+
+    // 기사 운행  - 휴식중
+    int update_statusR(String d_id);
+
+    // 기사 자기 위치에서 2KM 이내의 호출을 가져온다.
+    List<HistoryDTO> selectCallInfo(double m_lttd, double m_lngtd);
+
 
 }

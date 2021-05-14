@@ -188,4 +188,17 @@ public class AppMatchingApiController {
         return new ResponseEntity<>(appMemberMatchService.insertPassengerTOList(merchant_uid,m_id,id,to_seat),HttpStatus.OK);
     }
 
+    /*
+    * 일반 호출
+    * */
+    @GetMapping("/get/d_id/{merchant_uid}")
+    public ResponseEntity<String> getDriverByMer_uid(@PathVariable("merchant_uid") String merchant_uid) {
+        log.info("계속하여 사용자는 기사를 찾는다. : " + merchant_uid);
+
+        String d_idDuringCall = appMemberMatchService.getD_idDuringCall(merchant_uid);
+
+        return new ResponseEntity<>(d_idDuringCall, HttpStatus.OK);
+    }
+
+
 }

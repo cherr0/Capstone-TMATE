@@ -214,4 +214,37 @@
         where merchant_uid = #{merchant_uid} and m_id = #{m_id}
     </select>
 
+    <!-- 일반 호출 기사 코드 찾는 부분 -->
+    <select id="selectD_id" resultType="string">
+        select d_id
+        from history
+        where merchant_uid = #{merchant_uid}
+    </select>
+
+    <!-- 기사앱 부분 -->
+    <!-- 기사 운행 시작 - 대기중  -->
+    <update id="update_statusW">
+        update driver
+        set d_status = '1'
+        where d_id = #{d_id}
+    </update>
+
+    <!-- 기사 운행  - 휴식중 -->
+    <update id="update_statusR">
+        update driver
+        set d_status = '0'
+        where d_id = #{d_id}
+    </update>
+
+    <!-- 기사 2km 이내의 호출정보 가져온다. -->
+    <select id="selectCallInfo" resultType="com.tmate.domain.HistoryDTO">
+        <![CDATA[
+            select h.merchant_uid, h.h_s_place, h.h_s_lttd, h.h_s_lngtd,
+            h.h_f_place, h.h_f_lttd, h.h_f_lngtd, t.to_max,
+            GOOGLE_DISTANCE(#{m_lttd},#{m_lngtd},h.h_s_lttd,h.h_s_lngtd) as distance
+            from history h left outer join together t
+            on h.merchant_uid = t.merchant_uid
+            where  h.h_status = '2' and GOOGLE_DISTANCE(#{m_lttd},#{m_lngtd},h.h_s_lttd,h.h_s_lngtd) <= 2
+        ]]>
+    </select>
 </mapper>
