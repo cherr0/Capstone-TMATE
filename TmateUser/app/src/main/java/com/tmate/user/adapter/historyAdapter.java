@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,7 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.skt.Tmap.TMapTapi;
+import com.tmate.user.Activity.ReviewActivity;
 import com.tmate.user.R;
 import com.tmate.user.data.Data;
 import com.tmate.user.net.DataService;
@@ -30,8 +29,6 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
     ArrayList<Data> items = new ArrayList<>();
@@ -82,11 +79,21 @@ public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
                         Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("tel:012-3456-7890"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         v.getContext().startActivity(intent);
+                        dialog.dismiss();
+                    }
+                });
+                TextView hReview = dialog.findViewById(R.id.h_review);
+                hReview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), ReviewActivity.class);
+                        v.getContext().startActivity(intent);
+                        dialog.dismiss();
                     }
                 });
 
-                TextView h_delete = dialog.findViewById(R.id.h_delete);
-                h_delete.setOnClickListener(new View.OnClickListener() {
+                TextView hDelete = dialog.findViewById(R.id.h_delete);
+                hDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         final AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());

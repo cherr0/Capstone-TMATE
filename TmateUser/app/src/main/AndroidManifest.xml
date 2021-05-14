@@ -20,6 +20,10 @@
         android:icon="@drawable/tmate"
         android:label="@string/app_name"
         android:usesCleartextTraffic="true" >
+
+        <activity android:name=".Activity.ReviewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/Theme.Tmate" />
         <activity
             android:name=".net.KakaopayWebviewActivity"
             android:exported="true"
