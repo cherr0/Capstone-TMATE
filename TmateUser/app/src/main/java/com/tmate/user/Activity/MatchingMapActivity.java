@@ -23,9 +23,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapGpsManager;
@@ -35,7 +35,7 @@ import com.skt.Tmap.TMapPOIItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
-
+import com.tmate.user.PaymentInformationFragment;
 import com.tmate.user.R;
 import com.tmate.user.common.Common;
 import com.tmate.user.common.PermissionManager;
@@ -300,18 +300,22 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
 
                 if(together == 1) { //동승이 아닐 경우
                     hideKeyBoard();
-                    Intent intent = new Intent(getApplicationContext(), CallGeneralActivity.class); //결제 화면으로
-                    intent.putExtra("slttd", String.valueOf(tMapPointStart.getLatitude())); // 출발지 위도
-                    intent.putExtra("slngtd", String.valueOf(tMapPointStart.getLongitude())); // 출발지 경도
-                    intent.putExtra("flttd", String.valueOf(tMapPointEnd.getLatitude())); // 도착지 위도
-                    intent.putExtra("flngtd", String.valueOf(tMapPointEnd.getLongitude())); // 도착지 경도
-                    intent.putExtra("h_s_place", h_s_place); // 출발지
-                    intent.putExtra("h_f_place", h_f_place); // 도착지
-                    intent.putExtra("h_ep_fare",String.valueOf(moneyplan)); // 예상 요금
-                    intent.putExtra("h_ep_time",time); // 예상 시간
-                    intent.putExtra("h_ep_distance",String.valueOf(km)); // 예상 거리
-                    startActivity(intent);
-                    finish();
+
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("slttd", String.valueOf(tMapPointStart.getLatitude())); //출발지 위도
+                    bundle1.putString("slngtd", String.valueOf(tMapPointStart.getLongitude())); // 출발지 경도
+                    bundle1.putString("flttd", String.valueOf(tMapPointEnd.getLatitude())); // 도착지 위도
+                    bundle1.putString("flngtd", String.valueOf(tMapPointEnd.getLongitude())); //도착지 경도
+                    bundle1.putString("h_s_place", h_s_place); // 출발지
+                    bundle1.putString("h_f_place", h_f_place); // 도착지
+                    bundle1.putString("h_ep_fare", String.valueOf(moneyplan)); // 예상금액
+                    bundle1.putString("together", String.valueOf(together)); // 탑승인원
+
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    PaymentInformationFragment paymentInformationFragment = new PaymentInformationFragment();
+                    paymentInformationFragment.setArguments(bundle1);
+                    transaction.replace(R.id.fm_matching_map, paymentInformationFragment);
+                    transaction.commit();
                 }
 
             }

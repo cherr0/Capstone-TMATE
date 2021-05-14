@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".PaymentInformationFragment"
+    android:background="#F4F4F4F4">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/payment_informetion_title_cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/btn_back_general"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView42"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="결제 정보 확인"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/View"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#CDCDCD"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/payment_informetion_sv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/payment_informetion_title_cl"
+            app:layout_constraintBottom_toTopOf="@+id/payment_informetion_finish">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payment_informetion_embarkation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/embarkation_informetion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="탑승정보"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="12dp"/>
+
+                    <TextView
+                        android:id="@+id/payment_informetion_departure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="출발지"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toBottomOf="@+id/embarkation_informetion"
+                        app:layout_constraintStart_toStartOf="@+id/embarkation_informetion"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:id="@+id/payment_informetion_h_s_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="영진전문대"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@+id/payment_informetion_departure"
+                        app:layout_constraintStart_toStartOf="@+id/payment_informetion_departure"
+                        android:layout_marginTop="4dp"/>
+
+                    <TextView
+                        android:id="@+id/payment_informetion_destination"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="도착지"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toBottomOf="@+id/payment_informetion_h_s_place"
+                        app:layout_constraintStart_toStartOf="@+id/payment_informetion_h_s_place"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:id="@+id/payment_informetion_h_f_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="경북대학교 북문"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@+id/payment_informetion_destination"
+                        app:layout_constraintStart_toStartOf="@+id/payment_informetion_destination"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="20dp"/>
+
+                    <View
+                        android:id="@+id/payment_informetion_embarkation_bottom_View"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#CDCDCD"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintVertical_bias="0.0"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payment_informetion_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_informetion_embarkation"
+                    app:layout_constraintStart_toStartOf="@+id/payment_informetion_embarkation"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/request_informetion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="요청사항"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="12dp"/>
+
+                    <EditText
+                        android:id="@+id/request_informetion_ev"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="예) 도착전 미리 전화주세요."
+                        app:layout_constraintTop_toBottomOf="@+id/request_informetion"
+                        app:layout_constraintStart_toStartOf="@+id/request_informetion"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="8dp"/>
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="다음에도 사용"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toBottomOf="@+id/request_informetion_ev"
+                        app:layout_constraintStart_toStartOf="@+id/request_informetion_ev"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="4dp"/>
+
+                    <View
+                        android:id="@+id/request_informetion_bottom_View"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#CDCDCD"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintVertical_bias="0.0"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payment_informetion_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_informetion_request"
+                    app:layout_constraintStart_toStartOf="@+id/payment_informetion_request"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/payment_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="결제수단"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="12dp"/>
+
+                    <RadioGroup
+                        android:id="@+id/payment_radiogroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/payment_payment"
+                        app:layout_constraintStart_toStartOf="@+id/payment_payment">
+
+                        <RadioButton
+                            android:id="@+id/payment_simple"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="간편결제"
+                            android:textSize="20sp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"/>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/payment_simple_cl"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp">
+
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/payment_pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <me.relex.circleindicator.CircleIndicator
+                            android:id="@+id/indicator"
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            app:ci_drawable="@drawable/image_slider_black"
+                            app:ci_height="7dp"
+                            app:ci_margin="4dp"
+                            app:ci_width="7dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginBottom="16dp"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/payment_View"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#CDCDCD"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintVertical_bias="0.0"/>
+
+                        <RadioButton
+                            android:id="@+id/payment_meet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="만나서 결제"
+                            android:textSize="20sp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"/>
+
+                    </RadioGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payment_informetion_point"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_informetion_payment"
+                    app:layout_constraintStart_toStartOf="@+id/payment_informetion_payment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/point_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="포인트"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="12dp"/>
+
+                    <TextView
+                        android:id="@+id/point_possession"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="현재 보유 포인트"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toBottomOf="@+id/point_point"
+                        app:layout_constraintStart_toStartOf="@+id/point_point"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:id="@+id/payment_informetion_m_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1002원"
+                        android:textSize="24sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="@+id/point_possession"
+                        app:layout_constraintTop_toBottomOf="@+id/point_possession"
+                        android:layout_marginTop="8dp"/>
+
+                    <Button
+                        android:id="@+id/point_btn_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="모두사용"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/point_possession"
+                        android:background="@drawable/btn_radius"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="8dp"/>
+
+                    <EditText
+                        android:id="@+id/point_et"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:hint="사용할 포인트를 입력해주세요"
+                        app:layout_constraintTop_toBottomOf="@+id/payment_informetion_m_point"
+                        app:layout_constraintStart_toStartOf="@id/payment_informetion_m_point"
+                        app:layout_constraintEnd_toStartOf="@+id/point_btn_use"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <Button
+                        android:id="@+id/point_btn_use"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="적용"
+                        android:background="@drawable/btn_radius"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/point_btn_all"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/point_rest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="사용 후 잔여 포인트"
+                        app:layout_constraintStart_toStartOf="@+id/point_point"
+                        app:layout_constraintTop_toBottomOf="@id/point_et"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TextView
+                        android:id="@+id/payment_informetion_rest_m_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1002원"
+                        app:layout_constraintStart_toEndOf="@+id/point_rest"
+                        app:layout_constraintTop_toTopOf="@+id/point_rest"
+                        android:layout_marginStart="12dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payment_informetion_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_informetion_point"
+                    app:layout_constraintStart_toStartOf="@+id/payment_informetion_point"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/pay_pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="결제금액"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="12dp"/>
+
+                    <TextView
+                        android:id="@+id/pay_taxi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="택시 요금"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintTop_toBottomOf="@+id/pay_pay"
+                        app:layout_constraintStart_toStartOf="@+id/pay_pay"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:id="@+id/pay_h_allFare"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="36000원"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/pay_taxi"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/pay_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="포인트"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintTop_toBottomOf="@+id/pay_taxi"
+                        app:layout_constraintStart_toStartOf="@+id/pay_taxi"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:id="@+id/pay_po_result"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="- 1000원"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/pay_point"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/pay_member"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="탑승 인원"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintTop_toBottomOf="@+id/pay_point"
+                        app:layout_constraintStart_toStartOf="@+id/pay_point"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/pay_to_people"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1명"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/pay_member"
+                        android:layout_marginEnd="8dp"/>
+
+                    <View
+                        android:id="@+id/pay_View"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="@color/black"
+                        app:layout_constraintTop_toBottomOf="@+id/pay_member"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"/>
+
+                    <TextView
+                        android:id="@+id/pay_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="총 결제금액"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@+id/pay_View"
+                        app:layout_constraintStart_toStartOf="@+id/pay_taxi"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:id="@+id/pay_total_h_ep_Fare"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="35000원"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/pay_total"
+                        android:layout_marginEnd="8dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="위 내용을 확인하였으며 결제에 동의합니다."
+                    android:textSize="16sp"
+
+                    app:layout_constraintTop_toBottomOf="@+id/payment_informetion_pay"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/payment_informetion_finish"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="결제하기"
+            android:textSize="32sp"
+            android:textColor="@color/white"
+            android:background="@color/main"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
