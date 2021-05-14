@@ -201,7 +201,7 @@
             app:layout_constraintTop_toBottomOf="@+id/fare1" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/cw_match_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -222,8 +222,8 @@
             android:text="반려동물 있어요"
             android:textColor="#000000"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintStart_toStartOf="@+id/cw_match_message"
+            app:layout_constraintTop_toBottomOf="@+id/cw_match_message" />
 
         <TextView
             android:id="@+id/textView3"
