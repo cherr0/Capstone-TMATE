@@ -180,4 +180,12 @@ public class AppMemberServiceImpl implements AppMemberService {
     public Boolean modifyDv_optionByM_id(Dv_optionDTO dv_optionDTO) {
         return membermapper.updateDv_optionStatus(dv_optionDTO) == 1;
     }
+
+    // 미사용 포인트 조회
+    @Override
+    public Integer getunusedPoint(String m_id) {
+        int point = membermapper.unusedPointByM_id(m_id);
+        log.info("사용자 미사용 포인트 : " + point);
+        return point;
+    }
 }

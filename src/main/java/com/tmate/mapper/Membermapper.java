@@ -77,6 +77,9 @@ public interface Membermapper {
     // 총 요금 가져오기
     int findM_Point(String m_id);
 
+    // 미사용 포인트 조회
+    int unusedPointByM_id(String m_id);
+
     /*
     * 운행 옵션 기능
     * */
