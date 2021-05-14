@@ -134,16 +134,11 @@ public class AppMemberServiceImpl implements AppMemberService {
         return membermapper.insertMemberRole(memberRole) == 1;
     }
 
-    @Transactional
     @Override
     public List<PointDTO> getPointListByM_id(String m_id) {
         log.info("포인트 리스트 가져오기 서비스 처리중 ....");
 
-        int mPoint = membermapper.findM_Point(m_id);
         List<PointDTO> pointList = membermapper.findPointListByM_id(m_id);
-        pointList.forEach(i -> {
-            i.setPo_point(mPoint);
-        });
 
         return pointList;
     }
