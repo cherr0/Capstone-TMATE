@@ -30,7 +30,6 @@ import com.tmate.driver.data.Phone;
 import com.tmate.driver.databinding.FragmentSocialBinding;
 import com.tmate.driver.net.DataService;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,7 +37,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class SocialFragment extends Fragment implements Validator.ValidationListener{
+public class SocialFragment extends Fragment implements Validator.ValidationListener {
     private FragmentSocialBinding b;
     private Bundle bundle;
     private Phone phone;
@@ -75,20 +74,20 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
 
         if (getArguments() != null) {
             bundle = getArguments();
-        }else {
-            Log.d("SocialFragment.Bundle","번들 값을 받아오지 못했습니다.");
+        } else {
+            Log.d("SocialFragment.Bundle", "번들 값을 받아오지 못했습니다.");
         }
 
-        if(!getPreferenceString("d_id").equals("")) {
-            Log.d("SharedPreference","d_id 값 있음 ");
+        if (!getPreferenceString("d_id").equals("")) {
+            Log.d("SharedPreference", "d_id 값 있음 ");
         }
 
         b.btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 회원가입을 기존에 진행한 경우
-                if(!getPreferenceString("d_id").equals("")) {
-                    bundle.putString("d_id",getPreferenceString("d_id"));
+                if (!getPreferenceString("d_id").equals("")) {
+                    bundle.putString("d_id", getPreferenceString("d_id"));
                     FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                     CompletedFragment cf = new CompletedFragment();
                     cf.setArguments(bundle);
@@ -115,19 +114,13 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
             @Override
             public void afterTextChanged(Editable editable) {
                 validator.validate(); // 텍스트 변경시 이벤트 발생
-           }
+            }
         });
 
         b.btnLogin.setOnClickListener(v -> {
             Authorization();
         });
-//                Snackbar.make(view, "가입하지 않은 계정이거나, 잘못된 비밀번호입니다.", Snackbar.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getActivity(), MainViewActivity.class);
-//                startActivity(intent);
-//                getActivity().finish();
-
         return view;
-
     }
 
     public String getPreferenceString(String key) {
@@ -136,10 +129,11 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
     }
 
     // 데이터 저장 함수
-    public void setPreference(String key, String value){
+    public void setPreference(String key, String value) {
         SharedPreferences pref = getActivity().getSharedPreferences("loginDriver", getActivity().MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(key, value);
+        editor.putString("d_id", loginVO.getM_id());
         editor.apply();
     }
 
@@ -152,16 +146,16 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
-        for(ValidationError error : errors){
+        for (ValidationError error : errors) {
             View view = error.getView();
             b.btnLogin.setEnabled(false);
             b.btnLogin.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#EFEFEF")));
             b.btnLogin.setTextColor(Color.parseColor("#000000"));
             String message = error.getCollatedErrorMessage(getActivity());
-            if(view instanceof EditText){
-                ((EditText)view).setError(message);
-            }else{
-                Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -169,35 +163,30 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
     private void Authorization() {
         String id = b.etUserId.getText().toString();
         String password = b.etPassword.getText().toString();
-        String auth = "b";
+        String auth = "d";
         Log.d("SocialFragment", "로그인 값 : " + id + ", " + password + ", " + auth);
-        loginRequest = DataService.getInstance().common.loginCheck(id,password,auth);
+        loginRequest = DataService.getInstance().common.loginCheck(id, password, auth);
         loginRequest.enqueue(new Callback<LoginVO>() {
             @Override
             public void onResponse(Call<LoginVO> call, Response<LoginVO> response) {
+                Log.d("SocialFragment", "바디 : " + response.body());
+                Log.d("SocialFragment", "코드 : " + response.code());
                 if (response.code() == 200 && response.body() != null) {
                     LoginVO result = response.body();
                     Log.d("SocialFragment", "들어있는 값 :" + result.toString());
 
                     if (result.getM_id() != null) {
+                        setPreference("d_id", bundle.getString("m_id"));
                         Log.d("SocialFragment", "로그인이 완료되었습니다");
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("d_id", response.body().getM_id());
                         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                         CompletedFragment completedFragment = new CompletedFragment();
+                        completedFragment.setArguments(bundle);
                         transaction.replace(R.id.fm_main, completedFragment).commit();
-
                     } else {
                         Snackbar.make(view, "가입하지않은 계정이거나 잘못된 비밀번호입니다.", Snackbar.LENGTH_SHORT).show();
                     }
                 } else {
-                    try {
-                        Log.d("SocialFragment", "에러 : " + response);
-                        assert response.errorBody() != null;
-                        Log.d("SocialFragment", "데이터 삽입 실패 : " + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    Snackbar.make(view, "가입하지않은 계정이거나 잘못된 비밀번호입니다.", Snackbar.LENGTH_SHORT).show();
                 }
             }
 
@@ -211,6 +200,6 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
     @Override
     public void onDestroy() {
         super.onDestroy();
-        loginRequest.cancel();
+        if (loginRequest != null)loginRequest.cancel();
     }
 }
