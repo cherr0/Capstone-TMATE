@@ -6,53 +6,66 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.tmate.user.adapter.PaymentAdapter;
+import com.tmate.user.data.SubscriptionRes;
+import com.tmate.user.databinding.FragmentPaymentInformationBinding;
 import com.tmate.user.net.DataService;
+import com.tmate.user.net.KakaoService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import me.relex.circleindicator.CircleIndicator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaymentInformationFragment extends Fragment {
+public class PaymentInformationFragment extends Fragment implements View.OnClickListener {
+
+    private FragmentPaymentInformationBinding b;
 
     private ArrayList<Integer> imageList;
-    private RadioGroup payment_radiogroup;
-    private ConstraintLayout payment_simple_cl;
-    private Button point_btn_all, point_btn_use;
-    private EditText point_et;
-    private TextView pay_po_result, pay_to_people, pay_total_h_ep_Fare, payment_informetion_h_s_place,
-            payment_informetion_h_f_place, payment_informetion_m_point, point_rest, pay_h_allFare;
-
     private Integer point;
 
-    Call<Integer> request;
+    final String auth = "KakaoAK e24eec29f82748733f7a2be2de93c236";
+    Call<Integer> pointRequest;
+    Call<SubscriptionRes> subscriptionRequest;
+
+
+    Bundle bundle;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        b = FragmentPaymentInformationBinding.inflate(getLayoutInflater());
+        View v = b.getRoot();
 
-        View v = inflater.inflate(R.layout.fragment_payment_information, container, false);
+        b.paymentInformationFinish.setOnClickListener(this);
 
         this.initializeData();
-        initWidget(v);
-        Log.d("payment", "사용자 아이디 : " + getPreferenceString("m_id"));
+        Log.d("PayInfoFragment", "사용자 아이디 : " + getPreferenceString("m_id"));
         this.findData();
+
+        if (getArguments() != null) {
+            bundle = getArguments();
+            Log.d("PayInfoFragment", "가져온 번들 값 : " + bundle);
+            b.paymentInformationHSPlace.setText(bundle.getString("h_s_place")); // 출발지
+            b.paymentInformationHFPlace.setText(bundle.getString("h_f_place")); // 도착지
+            b.payHAllFare.setText(bundle.getString("h_ep_fare")+"원"); // 예상금액
+            b.payToPeople.setText(bundle.getString("together")+"명"); // 동승인원
+        }else {
+            Log.d("PayInfoFragment","번들 값을 받아오지 못했습니다.");
+        }
 
         //이미지 슬라이드관련
         ViewPager viewPager = v.findViewById(R.id.payment_pager);
@@ -63,60 +76,19 @@ public class PaymentInformationFragment extends Fragment {
         viewPager.setCurrentItem(2);
         viewPager.setAdapter(new PaymentAdapter(getContext(), imageList));
 
-
-        //번들로 받아온 값
-        payment_informetion_h_s_place.setText(getArguments().getString("h_s_place")); // 출발지
-        payment_informetion_h_f_place.setText(getArguments().getString("h_f_place")); // 도착지
-        pay_h_allFare.setText(getArguments().getString("h_ep_fare")+"원"); // 예상금액
-        pay_to_people.setText(getArguments().getString("together")+"명"); // 동승인원
-
-
-        //모두적용 버튼을 눌렀을때
-//        point_btn_all.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-
-
         //간편결제를 눌렀을때 카드 선택뷰 보이기
-        payment_simple_cl.setVisibility(View.GONE);
-        payment_radiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.payment_simple) {
-                    payment_simple_cl.setVisibility(View.VISIBLE);
-                } else {
-                    payment_simple_cl.setVisibility(View.GONE);
-                }
-            }
-        });
+        selectedCard();
+
+
 
         return v;
     }
 
-    //위젯 선언
-    public void initWidget(View v) {
-        pay_po_result = v.findViewById(R.id.pay_po_result);
-        point_et = v.findViewById(R.id.point_et);
-        payment_simple_cl = v.findViewById(R.id.payment_simple_cl);
-        payment_radiogroup = v.findViewById(R.id.payment_radiogroup);
-        point_btn_all = v.findViewById(R.id.point_btn_use);
-        point_btn_use = v.findViewById(R.id.point_btn_use);
-        pay_po_result = v.findViewById(R.id.pay_po_result);
-        pay_to_people = v.findViewById(R.id.pay_to_people);
-        pay_total_h_ep_Fare = v.findViewById(R.id.pay_total_h_ep_Fare);
-        payment_informetion_h_s_place = v.findViewById(R.id.payment_informetion_h_s_place);
-        payment_informetion_h_f_place = v.findViewById(R.id.payment_informetion_h_f_place);
-        payment_informetion_m_point = v.findViewById(R.id.payment_informetion_m_point);
-        pay_h_allFare = v.findViewById(R.id.pay_h_allFare);
-    }
 
 
     public void findData() {
-        request = DataService.getInstance().memberAPI.getUnusedPoint(getPreferenceString("m_id"));
-        request.enqueue(new Callback<Integer>() {
+        pointRequest = DataService.getInstance().memberAPI.getUnusedPoint(getPreferenceString("m_id"));
+        pointRequest.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.code() == 200 && response.body() != null) {
@@ -136,7 +108,7 @@ public class PaymentInformationFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Integer> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
     }
@@ -155,8 +127,80 @@ public class PaymentInformationFragment extends Fragment {
     }
 
     @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.payment_information_finish:   // 결제완료 버튼
+                Log.d("payInfoFragemnt", "결제 완료 눌림");
+                kakaoSubscription("9000");
+                return;
+
+            case R.id.point_btn_all :               //모두적용 버튼
+
+                return;
+            case R.id.payment_information_point :   // 포인트 적용 버튼
+
+                return;
+        }
+    }
+
+    //간편결제를 눌렀을 때 카드 선택뷰 보이기
+    private void selectedCard() {
+        b.paymentSimpleCl.setVisibility(View.GONE);
+        b.paymentRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.payment_simple) {
+                    b.paymentSimpleCl.setVisibility(View.VISIBLE);
+                } else {
+                    b.paymentSimpleCl.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+
+    private void kakaoSubscription(String amount) {
+        Map<String,String> map = new HashMap<>();
+        map.put("cid","TCSUBSCRIP");
+        map.put("sid","S2895826273194274441");
+        map.put("partner_order_id","d1010894658790");
+        map.put("partner_user_id",getPreferenceString("m_id"));
+        map.put("item_name","택시 운임");
+        map.put("quantity","1");
+        map.put("total_amount",amount);
+        map.put("vat_amount","0");
+        map.put("tax_free_amount","0");
+
+        Log.d("payInfoFragemnt","map 전달 내용 : " + map);
+
+        subscriptionRequest = KakaoService.getInstance().getApi().kakaoSubscription(auth,map);
+        subscriptionRequest.enqueue(new Callback<SubscriptionRes>() {
+            @Override
+            public void onResponse(Call<SubscriptionRes> call, Response<SubscriptionRes> response) {
+                if(response.code() == 200 && response.body() != null) {
+                    SubscriptionRes result = response.body();
+                    Log.d("payInfoFragemnt", "받아오는 값 :" + result);
+
+                }else {
+                    try {
+                        Log.d("payInfoFragemnt", "에러 : " + response);
+                        assert response.errorBody() != null;
+                        Log.d("payInfoFragemnt", "데이터 삽입 실패 : " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SubscriptionRes> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
-        request.cancel();
+        pointRequest.cancel();
     }
 }
