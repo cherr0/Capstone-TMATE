@@ -43,6 +43,7 @@ public class MatchingFragment extends Fragment {
     // 레트로핏 이용
 //    MatchDataService dataService = new MatchDataService();
     DataService dataService = DataService.getInstance();
+    Call<List<History>> matchingRequest;
 
     // 거리 순으로 나오게 할것이기 때문에 기준으로 인하여 필요한 값들이다.
     String slttd;
@@ -86,7 +87,7 @@ public class MatchingFragment extends Fragment {
             Log.d("넘어오는 도착지 위도 : ", flttd);
             Log.d("넘어오는 도착지 경도 : ", flngtd);
             Log.i("MatchingFragment 동승인원", String.valueOf(to_max));
-            Log.d("MF 출발지 장 : ", h_s_place);
+            Log.d("MF 출발지 장소 : ", h_s_place);
             Log.d("MF 도착지 장소 : ", h_f_place);
             Log.d("예상 시간 : ", h_ep_time);
             Log.d("예상 요금 : ", h_ep_fare);
@@ -139,7 +140,8 @@ public class MatchingFragment extends Fragment {
 
     private void getMatchingList() {
 
-        dataService.matchAPI.getMatchingList(slttd, slngtd, flttd, flngtd).enqueue(new Callback<List<History>>() {
+        matchingRequest = DataService.getInstance().matchAPI.getMatchingList(slttd, slngtd, flttd, flngtd);
+        matchingRequest.enqueue(new Callback<List<History>>() {
             @Override
             public void onResponse(Call<List<History>> call, Response<List<History>> response) {
                 if (response.isSuccessful()) {
@@ -194,4 +196,10 @@ public class MatchingFragment extends Fragment {
 
 
         }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        matchingRequest.cancel();
+    }
 }
