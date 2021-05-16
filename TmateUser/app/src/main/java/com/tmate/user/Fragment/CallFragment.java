@@ -85,7 +85,7 @@ public class CallFragment extends Fragment {
                 showDialog(); //동승 설정 알림창
             }
         });
-
+        // 일반 호출
         Ll_solo = view.findViewById(R.id.normal_call);
         Ll_solo.setOnClickListener(new View.OnClickListener() {
             @Override
