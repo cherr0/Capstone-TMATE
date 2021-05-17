@@ -97,9 +97,9 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
 
                 } else {
                     try {
-                        Log.d("SocialFragment", "에러 : " + response);
+                        Log.d("PayInfoFragment", "에러 : " + response);
                         assert response.errorBody() != null;
-                        Log.d("SocialFragment", "데이터 삽입 실패 : " + response.errorBody().string());
+                        Log.d("PayInfoFragment", "데이터 삽입 실패 : " + response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
