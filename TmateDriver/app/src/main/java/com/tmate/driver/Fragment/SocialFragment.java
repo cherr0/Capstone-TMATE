@@ -133,7 +133,6 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
         SharedPreferences pref = getActivity().getSharedPreferences("loginDriver", getActivity().MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(key, value);
-        editor.putString("d_id", loginVO.getM_id());
         editor.apply();
     }
 
@@ -176,11 +175,11 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
                     Log.d("SocialFragment", "들어있는 값 :" + result.toString());
 
                     if (result.getM_id() != null) {
-                        setPreference("d_id", bundle.getString("m_id"));
                         Log.d("SocialFragment", "로그인이 완료되었습니다");
+                        setPreference("d_id", result.getM_id());
+                        Log.d("SocialFragment", "d_id 값 : " + result.getM_id());
                         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                         CompletedFragment completedFragment = new CompletedFragment();
-                        completedFragment.setArguments(bundle);
                         transaction.replace(R.id.fm_main, completedFragment).commit();
                     } else {
                         Snackbar.make(view, "가입하지않은 계정이거나 잘못된 비밀번호입니다.", Snackbar.LENGTH_SHORT).show();

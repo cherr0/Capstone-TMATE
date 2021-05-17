@@ -24,21 +24,28 @@ import com.tmate.driver.Fragment.NoticeFragment;
 import com.tmate.driver.Fragment.ProfileFragment;
 import com.tmate.driver.Fragment.StatisticsFragment;
 import com.tmate.driver.R;
+import com.tmate.driver.data.SidebarProfile;
 import com.tmate.driver.databinding.ActivityDrawerBinding;
 import com.tmate.driver.databinding.ActivityMainViewBinding;
+import com.tmate.driver.net.DataService;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainViewActivity extends AppCompatActivity  implements View.OnClickListener{
 
     private ActivityMainViewBinding binding;
     private ActivityDrawerBinding drawerBinding;
     private View drawerView ;
-    private TextView profile, history, black_list, notice, statistics, tv_home;
+    private TextView profile, history, black_list, notice, statistics, tv_home, state, car_name, car_num;
     private Button service;
     private CircleImageView profile_img;
     private long backBtnTime = 0;
     public static int navbarFlag  = R.id.tv_home;
+    private Call<SidebarProfile> sidebarRequest;
+    private Intent intent;
 
 
     @Override
@@ -55,12 +62,15 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
 
         profile = findViewById(R.id.side_profile_name);
         profile_img = findViewById(R.id.circleImageView);
+        state = findViewById(R.id.side_profile_state);
         history = findViewById(R.id.history);
         black_list = findViewById(R.id.black_list);
         notice = findViewById(R.id.notice);
         statistics = findViewById(R.id.statistics);
         service = findViewById(R.id.service);
         tv_home = findViewById(R.id.tv_home);
+        car_name = findViewById(R.id.side_profile_car_name);
+        car_num = findViewById(R.id.side_profile_car_num);
 
         profile_img.setOnClickListener(this);
         history.setOnClickListener(this);
@@ -69,10 +79,42 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         statistics.setOnClickListener(this);
         service.setOnClickListener(this);
         tv_home.setOnClickListener(this);
-
+        intent = getIntent();
+        String d_id = intent.getStringExtra("d_id");
         // 사이드 바 프로필 작성
-        Log.i("MainViewActivity","m_name 값 : " + getPreferenceString("m_name"));
-        profile.setText(getPreferenceString("m_name"));
+        sidebarRequest = DataService.getInstance().driver.searchSidebarProfile(d_id);
+        Log.d("MainViewActivity", "d_id 값 : " + d_id);
+        sidebarRequest.enqueue(new Callback<SidebarProfile>() {
+            @Override
+            public void onResponse(Call<SidebarProfile> call, Response<SidebarProfile> response) {
+                Log.d("MainViewActivity", "바디 : " + response.body());
+                Log.d("MainViewActivity", "코드 : " + response.code());
+                if (response.code() == 200 && response.body() != null) {
+                    SidebarProfile sidebarProfile = response.body();
+                    if (response.body().getM_name() != null) {
+                        if (sidebarProfile.getM_status() == 1) {
+                            state.setText("대기");
+                        } else if (sidebarProfile.getM_status() == 2) {
+                            state.setText("운행중");
+                        } else {
+                            state.setText("휴식");
+                        }
+                        profile.setText(sidebarProfile.getM_name());
+                        car_name.setText(sidebarProfile.getCar_model());
+                        car_num.setText(sidebarProfile.getCar_no());
+                    }
+                } else {
+                    Log.d("MainViewActivity", "연결 실패");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SidebarProfile> call, Throwable t) {
+
+            }
+        });
+
+
 
         binding.ivOpen.setOnClickListener(new View.OnClickListener() {
             @Override

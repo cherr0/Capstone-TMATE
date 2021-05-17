@@ -189,7 +189,7 @@
     </select>
 
     <!--  기사 사이드바 내용 가져오기  -->
-    <select id="getSidebarProfile" resultType="com.tmate.domain.driver.SidebarProfileVO">
+    <select id="findSidebarProfileById" resultType="com.tmate.domain.driver.SidebarProfileVO">
         select m.M_STATUS, m.M_PROFILE, m.m_name, c.*, co.corp_code
         from member m
                  join car c on m.M_ID = c.M_ID
