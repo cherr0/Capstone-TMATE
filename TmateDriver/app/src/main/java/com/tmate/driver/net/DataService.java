@@ -10,7 +10,7 @@ public class DataService {
              서버 연결
       ------------------------ */
     private static final String BASE_URL = "http://ec2-52-79-142-104.ap-northeast-2.compute.amazonaws.com:8080"; // 기본 URL
-//    private static final String BASE_URL = "http://192.168.1.14:9090"; // 로컬 URL
+//    private static final String BASE_URL = "http://192.168.1.8:9090"; // 로컬 URL
 
     private static DataService instance;
     public DriverAPI driver;
