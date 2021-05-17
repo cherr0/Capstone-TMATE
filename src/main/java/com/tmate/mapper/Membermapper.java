@@ -58,7 +58,7 @@ public interface Membermapper {
     List<MemberRole> findRoleList(String m_id);
 
     // 유저 로그인 체크
-    LoginVO loginCheck(LoginVO loginVO);
+    LoginVO loginCheck(String id, String password, String auth);
 
     // IMEI 값 업데이트
     int putIMEIByM_id(String m_id, String m_imei);

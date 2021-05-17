@@ -44,6 +44,6 @@ public interface CommonAPI {
     Call<String> sendSMS(@Body Phone phoneDTO);
 
     // 로그인 체크
-    @GET("common/login")
-    Call<LoginVO> loginCheck(@Body LoginVO loginVO);
+    @GET("common/login/{id}/{password}/{auth}")
+    Call<LoginVO> loginCheck(@Path("id") String id, @Path("password") String password, @Path("auth") String auth);
 }

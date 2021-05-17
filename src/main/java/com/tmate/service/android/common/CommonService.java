@@ -31,7 +31,7 @@ public interface CommonService {
     // 챗봇
 
     // 로그인
-    public LoginVO userLogin(LoginVO loginVO);
+    public LoginVO userLogin(String id, String password, String auth);
 
     // IMEI 값 업데이트
     public Boolean updateImei(String m_id, String m_imei);
