@@ -51,38 +51,50 @@
             app:layout_constraintStart_toEndOf="@+id/circleImageView"
             app:layout_constraintTop_toTopOf="@+id/circleImageView" />
 
-        <TextView
+        <Spinner
             android:id="@+id/side_profile_state"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:drawableLeft="@drawable/ic_green"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:text="현재상태"
-            android:textColor="@color/white"
+            android:background="@drawable/spinner_side"
+            android:popupBackground="#4163BA"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/side_profile_car_num"
             app:layout_constraintStart_toStartOf="@+id/side_profile_name"
             app:layout_constraintTop_toBottomOf="@+id/side_profile_name" />
 
+<!--        <TextView-->
+<!--            android:id="@+id/side_profile_state"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:drawableLeft="@drawable/ic_green"-->
+<!--            android:drawablePadding="8dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="현재상태"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/side_profile_name"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/side_profile_name" />-->
+
         <TextView
             android:id="@+id/side_profile_car_num"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:gravity="center"
             android:text="차량 번호"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/side_profile_state"
             app:layout_constraintEnd_toEndOf="@+id/side_profile_car_name"
-            app:layout_constraintStart_toStartOf="@+id/side_profile_car_name"
+            app:layout_constraintStart_toEndOf="@+id/side_profile_state"
             app:layout_constraintTop_toTopOf="@+id/side_profile_state" />
 
         <TextView
             android:id="@+id/side_profile_car_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="24dp"
             android:gravity="center"
             android:text="선택 차량"
             android:textColor="@color/white"
