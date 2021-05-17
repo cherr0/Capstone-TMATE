@@ -2,6 +2,7 @@ package com.tmate.user.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.tmate.user.R;
 import com.tmate.user.data.CardData;
 import com.tmate.user.net.DataService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -31,8 +33,8 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
     private String m_id;
 
     // 레트로핏 연동
-//    AdapterDataService dataService = new AdapterDataService();
-    DataService dataService = DataService.getInstance();
+    public Call<Boolean> selectCardRequest;
+    public Call<Boolean> deleteCardRequest;
 
     ArrayList<CardData> items = new ArrayList<>();
     public int r = 0;
@@ -49,7 +51,9 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
     }
     @Override
     public void onBindViewHolder(@NonNull CardHolder holder, int position) {
-        holder.onBind(items.get(position));
+        int posit = holder.getAdapterPosition();
+        holder.onBind(items.get(posit));
+
 
         holder.card_rep.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,24 +65,9 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                     builder.setTitle("메인카드 지정");
                     builder.setMessage("대표카드로 지정하시겠습니까?");
                     builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                        @Override
+                        @Override // 대표카드 지정
                         public void onClick(DialogInterface dialog, int which) {
-
-                            dataService.memberAPI.modifyRep(holder.sid.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
-                                @Override
-                                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                                    if (response.isSuccessful()) {
-                                        if (response.code() == 200) {
-                                            Toast.makeText(context.getApplicationContext(), "메인카드 지정하셨습니다.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onFailure(Call<Boolean> call, Throwable t) {
-                                    t.printStackTrace();
-                                }
-                            });
+                            selectCard(holder.sid.getText().toString());
                         }
                     });
                     builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -101,25 +90,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                 builder.setPositiveButton("예",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
-                                dataService.memberAPI.removeCard(holder.sid.getText().toString()).enqueue(new Callback<Boolean>() {
-                                    @Override
-                                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                                        if (response.isSuccessful()) {
-                                            if (response.code() == 200) {
-                                                items.remove(position);
-                                                notifyItemRemoved(position);
-                                                notifyItemRangeChanged(position, items.size());
-                                            }
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<Boolean> call, Throwable t) {
-                                        t.printStackTrace();
-                                    }
-                                });
-
+                                deleteCard(holder.sid.getText().toString(), posit);
                             }
                         });
                 builder.setNegativeButton("아니오",
@@ -132,6 +103,52 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
             }
         });
     }
+    // 대표카드 지정
+    private void selectCard(String sid) {
+        selectCardRequest = DataService.getInstance().memberAPI.modifyRep(sid,m_id);
+        selectCardRequest.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    Toast.makeText(context.getApplicationContext(), "메인카드 지정하셨습니다.", Toast.LENGTH_SHORT).show();
+                }else {
+                    try{
+                        Log.d("cardAdapter", "에러 : " + response);
+                        assert response.errorBody() != null;
+                        Log.d("cardAdapter", "데이터 삽입 실패 : " + response.errorBody().string());
+                    } catch(IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void deleteCard(String sid, int position) {
+        deleteCardRequest = DataService.getInstance().memberAPI.removeCard(sid);
+        deleteCardRequest.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.isSuccessful()) {
+                    if (response.code() == 200) {
+                        items.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, items.size());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
     @Override
     public int getItemCount() {
         return items.size();
@@ -191,4 +208,6 @@ class CardHolder extends RecyclerView.ViewHolder {
         sid = (TextView) itemView.findViewById(R.id.sid);
         card_rep = (TextView) itemView.findViewById(R.id.card_rep);
     }
+
+
 }
