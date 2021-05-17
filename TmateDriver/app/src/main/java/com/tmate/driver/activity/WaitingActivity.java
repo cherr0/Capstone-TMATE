@@ -202,6 +202,8 @@ public class WaitingActivity extends AppCompatActivity {
                                 data.setH_s_lngtd(list.get(i).getH_s_lngtd());
                                 data.setH_f_lttd(list.get(i).getH_f_lttd());
                                 data.setH_f_lngtd(list.get(i).getH_f_lngtd());
+                                data.setH_s_lttd(list.get(i).getH_s_lttd());
+                                data.setH_s_lngtd(list.get(i).getH_s_lngtd());
 
                                 adapter.addItem(data);
                             }
