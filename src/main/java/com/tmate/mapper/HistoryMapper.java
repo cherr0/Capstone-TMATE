@@ -8,6 +8,7 @@ import com.tmate.domain.user.ApprovalDTO;
 import com.tmate.domain.user.TogetherRequest;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -36,12 +37,18 @@ public interface HistoryMapper {
     int deleteNormalMatch(String merchant_uid);
 
     /*
-     *   호출 매칭시 상태 바꿔주면서 기사 값도 넣어준다.
+     *   호출 매칭시 상태 바꿔주면서 기사 값도 넣어준다. -> xml
      */
     int updateMatchStatus(@Param("merchant_uid") String merchant_uid, @Param("d_id") String d_id);
 
-    //     <!-- 이용서비스 상태 변경  -->
+    //     <!-- 이용서비스 상태 변경  -->  xml
     int updateH_status(HistoryDTO historyDTO);
+
+    // 기사의 위치 -> xml
+    int updateDriverLocation(@Param("m_lttd") double m_lttd, @Param("m_lngtd") double m_lngtd, @Param("d_id") String d_id);
+
+    // 기사 상태 변경 -> xml
+    int updateDriverStatus(String d_id);
 
     // 매칭방 생성시 인서트 문 총 2개 필요함 이용내역 하나 넣고 그 다음 동승 넣고, 동승자가 들올때도 같다.
 

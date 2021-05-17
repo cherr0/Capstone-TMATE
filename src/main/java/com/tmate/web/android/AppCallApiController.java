@@ -34,4 +34,18 @@ public class AppCallApiController {
 
         return new ResponseEntity<>(appDriverMatchService.getCallList(m_lttd, m_lngtd), HttpStatus.OK);
     }
+
+    // 기사가 한 이용정보 수락 시
+    @PutMapping("/modify/history/{merchant_uid}/{d_id}/{m_lttd}/{m_lngtd}")
+    public ResponseEntity<Boolean> modifyHistoryByDriver(
+            @PathVariable("merchant_uid") String merchant_uid,
+            @PathVariable("d_id") String d_id,
+            @PathVariable("m_lttd") double m_lttd,
+            @PathVariable("m_lngtd") double m_lngtd
+    ){
+        log.info("기사가 콜 수락시 넘어오는 정보 -> " + "\n"+"이용코드 : " + merchant_uid + "\n"
+        + "\n" + "기사코드 : " + d_id + "\n" + "기사 위치 : " + m_lttd + "& 기사 경도 : " + m_lngtd);
+
+        return new ResponseEntity<>(appDriverMatchService.driverCallAgree(merchant_uid, d_id, m_lttd, m_lngtd), HttpStatus.OK);
+    }
 }

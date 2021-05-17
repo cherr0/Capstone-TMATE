@@ -146,4 +146,5 @@
         where auth = #{auth} AND (phone = #{id} OR M_EMAIL = #{id})
                              AND password = #{password}
     </select>
+
 </mapper>

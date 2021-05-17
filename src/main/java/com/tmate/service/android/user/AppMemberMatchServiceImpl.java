@@ -54,6 +54,14 @@ public class AppMemberMatchServiceImpl implements AppMemberMatchService{
         return historyMapper.selectD_id(merchant_uid);
     }
 
+    // 일반 호출시 뒤로가기 누르면 호출 정보가 삭제가 되어진다.
+
+    @Override
+    public Boolean removeNowCall(String merchant_uid) {
+        return historyMapper.deleteNormalMatch(merchant_uid) == 1;
+    }
+
+
     /*
      * 동승 호출 시
      * */
