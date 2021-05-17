@@ -16,10 +16,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.R;
 import com.tmate.user.data.CardData;
+import com.tmate.user.data.InactiveRes;
 import com.tmate.user.net.DataService;
+import com.tmate.user.net.KakaoService;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,10 +35,12 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
     Context context;
     private static SharedPreferences pref;
     private String m_id;
+    final String auth = "KakaoAK e24eec29f82748733f7a2be2de93c236";
 
     // 레트로핏 연동
     public Call<Boolean> selectCardRequest;
     public Call<Boolean> deleteCardRequest;
+    public Call<InactiveRes> kakaoInactiveRequest;
 
     ArrayList<CardData> items = new ArrayList<>();
     public int r = 0;
@@ -90,7 +96,7 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
                 builder.setPositiveButton("예",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                deleteCard(holder.sid.getText().toString(), posit);
+                                inactiveCard(holder.sid.getText().toString(), posit);
                             }
                         });
                 builder.setNegativeButton("아니오",
@@ -128,16 +134,57 @@ public class CardAdapter extends  RecyclerView.Adapter<CardHolder>{
         });
     }
 
+    private void inactiveCard(String sid, int position) {
+        Map<String, String> map = new HashMap<>();
+        map.put("cid","TCSUBSCRIP");
+        map.put("sid",sid);
+
+        kakaoInactiveRequest = KakaoService.getInstance().getApi().kakaoInactive(auth,map);
+        kakaoInactiveRequest.enqueue(new Callback<InactiveRes>() {
+            @Override
+            public void onResponse(Call<InactiveRes> call, Response<InactiveRes> response) {
+                if(response.code() == 200 && response.body() != null) {
+                    InactiveRes result = response.body();
+                    Log.d("CardAdapter", "카카오페이 정기 결제 비활성화 완료 : " + result);
+                    deleteCard(sid, position);
+                }else {
+                    try {
+                        Log.d("CardAdapter", "에러 : " + response);
+                        if(response.errorBody() != null)
+                            Log.d("CardAdapter", "데이터 삽입 실패 : " +
+                                    response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<InactiveRes> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
     private void deleteCard(String sid, int position) {
         deleteCardRequest = DataService.getInstance().memberAPI.removeCard(sid);
         deleteCardRequest.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.isSuccessful()) {
-                    if (response.code() == 200) {
+                    if (response.code() == 200 && response.body() != null) {
+                        Log.d("CardAdapter","카드 삭제 완료");
                         items.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, items.size());
+                    }else {
+                        try{
+                            if(response.errorBody() != null)
+                                Log.d("CardAdapter","데이터 삭제 실패 : " +
+                                        response.errorBody().string());
+                        }catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
