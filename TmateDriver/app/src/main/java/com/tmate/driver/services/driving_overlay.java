@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -101,8 +102,19 @@ public class driving_overlay extends Service {
                 stopSelf();
                 return true;
             }
-        });
 
+        });
+        Button call =  (Button) mView.findViewById(R.id.overlay_call);
+        call.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d("test","onClick ");
+                Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:012-3456-7890"));
+                startActivity(mIntent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+                return true;
+            }
+
+        });
         mWm.addView(mView, params); // 윈도우에 layout 을 추가 한다.
     }
 

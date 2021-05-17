@@ -18,11 +18,11 @@ public class PaymentController {
 
     private final AppPaymentService appPaymentService;
 
-    @GetMapping("/payment")
+    @GetMapping("/success")
     public String approve (String partner_user_id,String pg_token, Model model) {
 
         log.info("pg_token : "+pg_token);
-        log.info("partner_user_id" + partner_user_id);
+        log.info("partner_user_id : " + partner_user_id);
 
         KakaoDTO result = appPaymentService.kakaoReadyRes(partner_user_id);
         model.addAttribute("result", result);
@@ -30,5 +30,13 @@ public class PaymentController {
         return "user/payApproval";
     }
 
+    @GetMapping("/fail")
+    public String payFalse() {
+        return "user/payFalse";
+    }
 
+    @GetMapping("/cancel")
+    public String payCancel() {
+        return "user/payCancel";
+    }
 }

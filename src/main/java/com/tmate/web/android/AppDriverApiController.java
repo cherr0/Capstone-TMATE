@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmate.domain.*;
 import com.tmate.domain.driver.DriverHistoryVO;
 import com.tmate.domain.driver.DriverProfileVO;
+import com.tmate.domain.driver.SidebarProfileVO;
 import com.tmate.service.DriverService;
 import com.tmate.service.android.driver.AppDriverService;
 import lombok.RequiredArgsConstructor;
@@ -57,6 +58,15 @@ public class AppDriverApiController {
     public ResponseEntity<List<ReviewDTO>> driverReviewList(@PathVariable("merchant_uid") String merchant_uid) {
         log.info("AppDriverController 기사 기록 리뷰 리스트 merchant_uid : " + merchant_uid);
         return new ResponseEntity<>(appDriverService.getDriverReviewList(merchant_uid), HttpStatus.OK);
+    }
+
+    // 기사 사이드바 프로필 가져오기 - GET
+    @GetMapping("/profile/side/{d_id}")
+    public ResponseEntity<SidebarProfileVO> driverSidebarProfile(@PathVariable("d_id") String d_id) {
+        SidebarProfileVO profile = appDriverService.getSidebarProfileById(d_id);
+
+        log.info("AppDriverController 기사 사이드바 프로필 : " + profile);
+        return new ResponseEntity<>(profile, HttpStatus.OK);
     }
 
     // 기사 프로필 확인 - GET

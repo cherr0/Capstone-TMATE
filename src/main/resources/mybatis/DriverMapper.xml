@@ -75,8 +75,8 @@
 
     <!--  기사 회원가입 멤버 테이블 삽입  -->
     <insert id="registerDriver">
-        insert into member(m_id, m_name, m_imei, m_birth)
-        values (#{m_id}, #{m_name}, #{m_imei}, #{m_birth})
+        insert into member(m_id, m_name, m_imei, m_birth, password, m_email)
+        values (#{m_id}, #{m_name}, #{m_imei}, #{m_birth}, #{password}, ${m_email})
     </insert>
 
     <!--  기사 회원가입 기사 테이블 삽입  -->
@@ -186,6 +186,15 @@
         select *
         from driver
         where d_id = #{d_id}
+    </select>
+
+    <!--  기사 사이드바 내용 가져오기  -->
+    <select id="getSidebarProfile" resultType="com.tmate.domain.driver.SidebarProfileVO">
+        select m.M_STATUS, m.M_PROFILE, m.m_name, c.*, co.corp_code
+        from member m
+                 join car c on m.M_ID = c.M_ID
+                 join CORP co on c.CAR_NO = co.CAR_NO
+        where co.D_ID = #{d_id}
     </select>
 
 </mapper>

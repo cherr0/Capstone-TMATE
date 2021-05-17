@@ -4,6 +4,7 @@ package com.tmate.user.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.provider.Settings;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -22,6 +23,9 @@ public class SplashActivity extends AnimatedSplash {
     public void initSplash(ConfigSplash configSplash) {
 
         /* you don't have to override every property */
+
+//        setPreference("m_id","m1010675016640");
+//        setPreference("m_name","박중원");
 
 
         imei = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -47,9 +51,36 @@ public class SplashActivity extends AnimatedSplash {
 
     @Override
     public void animationsFinished() {
-        Intent intent = new Intent(getApplication(), LoginActivity.class);
-        intent.putExtra("m_imei", imei);
-        startActivity(intent);
-        SplashActivity.this.finish();
+
+        setPreference("m_id","m1010918400420");
+        setPreference("m_name","하창현");
+        setPreference("m_birth","970606");
+
+        // sharedpreference 값 있을떄 바로 메인뷰로 간다.
+        if (!(getPreferenceString("m_id").equals(""))) {
+            Intent intent = new Intent(this, MainViewActivity.class);
+            intent.putExtra("m_id", getPreferenceString("m_id"));
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(getApplication(), LoginActivity.class);
+            intent.putExtra("m_imei", imei);
+            startActivity(intent);
+            finish();
+        }
+
+    }
+
+    // 데이터 저장 함수
+    public void setPreference(String key, String value){
+        SharedPreferences pref = getSharedPreferences("loginUser", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getSharedPreferences("loginUser", MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 }

@@ -3,6 +3,7 @@ package com.tmate.service.android.driver;
 import com.tmate.domain.*;
 import com.tmate.domain.driver.DriverHistoryVO;
 import com.tmate.domain.driver.DriverProfileVO;
+import com.tmate.domain.driver.SidebarProfileVO;
 import com.tmate.mapper.DriverMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -73,6 +74,12 @@ public class AppDriverServiceImpl implements AppDriverService{
     public List<ReviewDTO> getDriverReviewList(String merchant_uid) {
         log.info("AppDriverService 기사 이력 리뷰 매칭 코드 : " + merchant_uid);
         return driverMapper.getAppDriverReviewList(merchant_uid);
+    }
+
+    @Override
+    public SidebarProfileVO getSidebarProfileById(String d_id) {
+        log.info("AppDriverService 기사 사이드바 프로필 가져오기 : " + d_id);
+        return driverMapper.findSidebarProfileById(d_id);
     }
 
     @Override   // 기사 프로필

@@ -78,4 +78,30 @@
     <string name="no_info">일반적인 택시호출 서비스입니다.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="member_like_review">
+        <item>"친절했습니다"</item>
+        <item>"약속을 잘 지켜주셨습니다"</item>
+    </string-array>
+    <string-array name="member_bad_review">
+        <item>"불친절했습니다"</item>
+        <item>"너무 시끄러웠습니다"</item>
+        <item>"시간을 안 지켰습니다"</item>
+        <item>"시간을 안 지켰습니다"</item>
+        <item>"목적지 변경을 강요했습니다"</item>
+        <item>"난동을 부렸습니다"</item>
+    </string-array>
+    <string-array name="driver_good_review">
+        <item>"친절했습니다"</item>
+        <item>"시간을 잘 지켜 주셨습니다"</item>
+        <item>"목적지까지 안전운행 해주셨습니다"</item>
+        <item>"말을 잘 들어주셨습니다"</item>
+    </string-array>
+    <string-array name="driver_bad_review">
+        <item>"불친절했습니다"</item>
+        <item>"음주를 하신것 같았습니다"</item>
+        <item>"너무 시끄러웠습니다"</item>
+        <item>"시간을 안 지켰습니다"</item>
+        <item>"목적지 변경을 강요했습니다"</item>
+        <item>"난동을 부렸습니다"</item>
+    </string-array>
 </resources>

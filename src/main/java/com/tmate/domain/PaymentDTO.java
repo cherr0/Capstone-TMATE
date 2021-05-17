@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class PaymentDTO {
 
     /*
-    * CUSTOMER_UID NOT NULL VARCHAR2(21)
+    *
+SID          NOT NULL VARCHAR2(21)
 M_ID         NOT NULL VARCHAR2(14)
 PAY_PG                VARCHAR2(15)
 PAY_REP      NOT NULL CHAR(1)
@@ -22,8 +23,8 @@ CREDIT_VALI           VARCHAR2(32)
 PAY_COM_REG           CHAR(10)
     * */
 
-    // 빌링키
-    private String customer_uid;
+    // 결제 고유 번호
+    private String sid;
 
     // 회원 번호
     private String m_id;
@@ -51,4 +52,13 @@ PAY_COM_REG           CHAR(10)
 
     // 사업자 등록 번호
     private String pay_com_reg;
+
+    // 카드 회사명
+    private String kakaopay_purchase_corp;
+
+    // 카드 타입
+    private String card_type;
+
+    // 카드 별칭
+    private String pay_alias;
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tv_certification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -28,11 +28,11 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/tv_certification"
         app:spb_animateToCurrentProgressState="true"
         app:spb_checkStateCompleted="true"
         app:spb_currentStateDescriptionColor="#DB0082"
-        app:spb_currentStateNumber="two"
+        app:spb_currentStateNumber="one"
         app:spb_maxStateNumber="five"
         app:spb_stateBackgroundColor="#BDBDBD"
         app:spb_stateDescriptionColor="#808080"
@@ -41,7 +41,7 @@
         app:spb_stateNumberForegroundColor="#2196F3" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_certification_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -54,17 +54,16 @@
         app:layout_constraintTop_toBottomOf="@+id/first_reg" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv_certification_plz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="인증번호를 입력해주세요"
         android:textColor="#000000"
         android:textSize="20sp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.213"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_certification_check" />
 
     <TextView
         android:id="@+id/tv_certNum"
@@ -85,9 +84,8 @@
         android:layout_marginEnd="43dp"
         android:ems="10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_certification_plz" />
 
     <Button
         android:id="@+id/btn_profile"

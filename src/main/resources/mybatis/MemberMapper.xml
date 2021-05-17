@@ -107,18 +107,8 @@
         values (p_sec.nextval,#{m_id},#{po_course},#{po_exact},#{po_result},systimestamp,null)
     </insert>
 
-    <update id="updateM_point">
-        update member
-        set m_point += #{fare}
-        where m_id = #{m_id}
-    </update>
-
     <select id="findPointListByM_id" resultType="com.tmate.domain.PointDTO">
         select * from point where m_id = #{m_id}
-    </select>
-
-    <select id="findM_Point" resultType="_int">
-        select m_point from member where m_id = #{m_id}
     </select>
 
     <select id="selectDv_optionByM_id" resultType="com.tmate.domain.Dv_optionDTO">
@@ -135,4 +125,32 @@
             do_child = #{do_child, jdbcType=CHAR}
         where m_id = #{m_id}
     </update>
+
+    <!--  로그인 확인  -->
+    <select id="loginCheck" resultType="com.tmate.domain.LoginVO">
+        select *
+        from (
+                 select member.*, substr(m_id,1,1) as auth, substr(m_id,3,11) as phone
+                 from member
+             )
+        where auth = #{auth} AND (phone = #{id} OR M_EMAIL = #{id})
+                             AND password = #{password}
+    </select>
+
+    <update id="putIMEIByM_id">
+        update MEMBER
+        set m_imei = #{m_imei}
+        where M_ID = #{m_id}
+    </update>
+
+    <!--  회원 미사용 포인트 조회  -->
+    <select id="unusedPointByM_id" resultType="_int">
+        select point-use_point as get_point
+        from (
+                 select m_id, sum(CASE WHEN po_exact = 0 THEN po_result END) as point, sum(CASE WHEN po_exact = 1 THEN po_result END) as use_point
+                 from POINT
+                 where m_id = #{m_id}
+                 group by m_id
+             )
+    </select>
 </mapper>

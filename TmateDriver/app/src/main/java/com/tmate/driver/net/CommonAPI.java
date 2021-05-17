@@ -1,6 +1,7 @@
 package com.tmate.driver.net;
 
 import com.tmate.driver.data.Event;
+import com.tmate.driver.data.LoginVO;
 import com.tmate.driver.data.Notice;
 import com.tmate.driver.data.Phone;
 
@@ -41,4 +42,8 @@ public interface CommonAPI {
     // 휴대폰 인증
     @POST("/common/sendsms")
     Call<String> sendSMS(@Body Phone phoneDTO);
+
+    // 로그인 체크
+    @GET("common/login")
+    Call<LoginVO> loginCheck(@Body LoginVO loginVO);
 }

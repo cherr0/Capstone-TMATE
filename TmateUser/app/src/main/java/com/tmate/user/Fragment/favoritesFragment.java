@@ -9,14 +9,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tmate.user.adapter.FavoritesAdapter;
+import com.tmate.user.data.CardData;
 import com.tmate.user.data.FavoritesData;
 import com.tmate.user.R;
 import com.tmate.user.net.DataService;
@@ -32,12 +35,13 @@ public class favoritesFragment extends Fragment {
 
     private ArrayList<FavoritesData> arrayList;
     private FavoritesAdapter favoritesAdapter;
-    private RecyclerView recyclerView;
+    private RecyclerView favRecy;
     private LinearLayoutManager linearLayoutManager;
-    private Button btn_add;
+    private TextView btn_add;
     private FavoriteAddFragment favoriteAddFragment;
     private ImageView btn_back_favorites;
     private LinearLayout favorites_linear;
+    private SwipeRefreshLayout refFav;
 
     // 레트로핏 DB  연동 설정
     Context context;
@@ -55,14 +59,14 @@ public class favoritesFragment extends Fragment {
         pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
 
-       recyclerView = (RecyclerView) rootView.findViewById(R.id.favorites_rv);
-       linearLayoutManager= new LinearLayoutManager(getActivity());
-       recyclerView.setLayoutManager(linearLayoutManager);
+        favRecy = (RecyclerView) rootView.findViewById(R.id.favorites_rv);
+        linearLayoutManager= new LinearLayoutManager(getContext());
+        favRecy.setLayoutManager(linearLayoutManager);
 
        arrayList = new ArrayList<>();
 
         favoritesAdapter = new FavoritesAdapter(arrayList);
-        recyclerView.setAdapter(favoritesAdapter);
+        favRecy.setAdapter(favoritesAdapter);
 
         getData();
 
@@ -83,6 +87,17 @@ public class favoritesFragment extends Fragment {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 My_info_Fragment my_info_fragment = new My_info_Fragment();
                 transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+            }
+        });
+        refFav = rootView.findViewById(R.id.ref_fav);
+        refFav.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                arrayList = new ArrayList<>();
+                arrayList.clear();
+                favoritesAdapter.clear();
+                favremoveScrollPullUpListener(); //스와이프와(위에서 아래로 댕기는 새로고침) 리사이클러뷰 포지션 리스너를 같이 쓰면 에러가나므로 리사이클러뷰 리스너는 잠시 끊어주고 새로고침후 다시연결해준다.
+                getData(); // 디비에서 값을 다시불러온다.
             }
         });
 
@@ -113,6 +128,9 @@ public class favoritesFragment extends Fragment {
                         }
 
                         favoritesAdapter.notifyDataSetChanged();
+                        //카드 새로고침 후 로딩중 아이콘 지우기
+                        refFav.setRefreshing(false);
+
                     }
                 }
             }
@@ -124,6 +142,13 @@ public class favoritesFragment extends Fragment {
         });
 
 
+    }
+    private void favremoveScrollPullUpListener(){
+        favRecy.removeOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
+        });
     }
 
 

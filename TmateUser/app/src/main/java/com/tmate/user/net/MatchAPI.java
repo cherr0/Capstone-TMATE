@@ -53,4 +53,13 @@ public interface MatchAPI {
 
     @POST("match/register/together")
     Call<Boolean> registerTogether(@Body Approval approval);
+
+
+    // 기사를 찾는다. CallWaitingActivity에서
+    @GET("match/get/d_id/{merchant_uid}")
+    Call<String> getd_idDuringCall(@Path("merchant_uid") String merchant_uid);
+
+    // 호출 취소를 누른다. -> CallWaitingActivity에서 뒤로가기 누를 때
+    @DELETE("match/remove/normal/call/{merchant_uid}")
+    Call<Boolean> removeNormalCall(@Path("merchant_uid") String merchant_uid);
 }

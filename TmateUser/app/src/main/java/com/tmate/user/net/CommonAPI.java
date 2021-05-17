@@ -1,6 +1,7 @@
 package com.tmate.user.net;
 
 import com.tmate.user.data.EventDTO;
+import com.tmate.user.data.LoginVO;
 import com.tmate.user.data.Notice;
 import com.tmate.user.data.PhoneDTO;
 
@@ -11,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface CommonAPI {
@@ -40,7 +42,14 @@ public interface CommonAPI {
     Call<Boolean> removeBookmark(@Path("bm_id") String bm_id, @Path("m_id") String m_id);
 
     // 휴대폰 인증
-    @POST("/common/sendsms")
+    @POST("common/sendsms")
     Call<String> sendSMS(@Body PhoneDTO phoneDTO);
 
+    // 로그인 체크
+    @GET("common/login")
+    Call<LoginVO> loginCheck(@Body LoginVO loginVO);
+
+    // IMEI 값 변경
+    @PUT("common/imei/{m_id}/{m_imei}")
+    Call<Boolean> updateIMEI(@Path("m_id")String m_id, @Path("m_imei")String m_imei);
 }

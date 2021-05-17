@@ -5,7 +5,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +21,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.tmate.user.R;
 import com.tmate.user.adapter.MatchingAdapter;
 import com.tmate.user.data.History;
-import com.tmate.user.data.MatchingData;
-import com.tmate.user.databinding.FragmentMatchingBinding;
 import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,10 +38,12 @@ public class MatchingFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
     private Button btn_add;
+    TextView tooltip;
 
     // 레트로핏 이용
 //    MatchDataService dataService = new MatchDataService();
     DataService dataService = DataService.getInstance();
+    Call<List<History>> matchingRequest;
 
     // 거리 순으로 나오게 할것이기 때문에 기준으로 인하여 필요한 값들이다.
     String slttd;
@@ -63,7 +65,9 @@ public class MatchingFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.rv_matching);
 
-
+        tooltip = view.findViewById(R.id.tooltip);
+        Animation myanim = AnimationUtils.loadAnimation(getContext(), R.anim.translate);
+        tooltip.startAnimation(myanim);
 
         if (getArguments() != null) {
 
@@ -78,16 +82,16 @@ public class MatchingFragment extends Fragment {
             h_ep_time = getArguments().getString("h_ep_time");
             h_ep_distance = getArguments().getString("h_ep_distance");
 
-//            Log.d("넘어오는 출발지 위도 : ", slttd);
-//            Log.d("넘어오는 출발지 경도 : ", slngtd);
-//            Log.d("넘어오는 도착지 위도 : ", flttd);
-//            Log.d("넘어오는 도착지 경도 : ", flngtd);
-//            Log.i("MatchingFragment 동승인원", String.valueOf(to_max));
-//            Log.d("MF 출발지 장 : ", h_s_place);
-//            Log.d("MF 도착지 장소 : ", h_f_place);
-//            Log.d("예상 시간 : ", h_ep_time);
-//            Log.d("예상 요금 : ", h_ep_fare);
-//            Log.d("예상 거리 : ", h_ep_distance);
+            Log.d("넘어오는 출발지 위도 : ", slttd);
+            Log.d("넘어오는 출발지 경도 : ", slngtd);
+            Log.d("넘어오는 도착지 위도 : ", flttd);
+            Log.d("넘어오는 도착지 경도 : ", flngtd);
+            Log.i("MatchingFragment 동승인원", String.valueOf(to_max));
+            Log.d("MF 출발지 장소 : ", h_s_place);
+            Log.d("MF 도착지 장소 : ", h_f_place);
+            Log.d("예상 시간 : ", h_ep_time);
+            Log.d("예상 요금 : ", h_ep_fare);
+            Log.d("예상 거리 : ", h_ep_distance);
 
 
         }
@@ -136,7 +140,8 @@ public class MatchingFragment extends Fragment {
 
     private void getMatchingList() {
 
-        dataService.matchAPI.getMatchingList(slttd, slngtd, flttd, flngtd).enqueue(new Callback<List<History>>() {
+        matchingRequest = DataService.getInstance().matchAPI.getMatchingList(slttd, slngtd, flttd, flngtd);
+        matchingRequest.enqueue(new Callback<List<History>>() {
             @Override
             public void onResponse(Call<List<History>> call, Response<List<History>> response) {
                 if (response.isSuccessful()) {
@@ -191,4 +196,10 @@ public class MatchingFragment extends Fragment {
 
 
         }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        matchingRequest.cancel();
+    }
 }

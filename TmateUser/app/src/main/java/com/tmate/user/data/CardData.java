@@ -1,111 +1,59 @@
 package com.tmate.user.data;
+
+import lombok.Data;
+
+@Data
 public class CardData {
-//    private int cardmark;
-//    private String bankName;
-//    private String carddelete;
-//    private String cardNo;
-//    public String getCardNo() {
-//        return cardNo;
-//    }
-//    public void setCardNo(String cardNo) {
-//        this.cardNo = cardNo;
-//    }
-//    public int getCardmark() {
-//        return cardmark;
-//    }
-//    public void setCardmark(int cardmark) {
-//        this.cardmark = cardmark;
-//    }
-//    public String getBankName() {
-//        return bankName;
-//    }
-//    public void setBankName(String bankName) {
-//        this.bankName = bankName;
-//    }
-//    public String getCarddelete() {
-//        return carddelete;
-//    }
-//    public void setCarddelete(String carddelete) {
-//        this.carddelete = carddelete;
-//    }
+    /*
+    *
+SID          NOT NULL VARCHAR2(21)
+M_ID         NOT NULL VARCHAR2(14)
+PAY_PG                VARCHAR2(15)
+PAY_REP      NOT NULL CHAR(1)
+PAY_COMPANY           VARCHAR2(15)
+CREDIT_NO             VARCHAR2(32)
+CREDIT_PW             VARCHAR2(32)
+CREDIT_CVC            VARCHAR2(32)
+CREDIT_VALI           VARCHAR2(32)
+PAY_COM_REG           CHAR(10)
+    * */
 
-    private String customer_uid;
+    // 결제 고유 번호
+    private String sid;
 
+    // 회원 번호
     private String m_id;
 
-    private String pay_company;
+    // pg사
+    private String pay_pg;
 
-    private String credit_no;
-
-    private String credit_pw;
-
-    private String credit_cvc;
-
-    private String credit_vali;
-
+    // 대표카드 여부
     private String pay_rep;
 
-    public String getPay_rep() {
-        return pay_rep;
-    }
+    // 회사
+    private String pay_company;
 
-    public void setPay_rep(String pay_rep) {
-        this.pay_rep = pay_rep;
-    }
+    // 신용 카드
+    private String credit_no;
 
-    public String getCustomer_uid() {
-        return customer_uid;
-    }
+    // 비밀번호
+    private String credit_pw;
 
-    public void setCustomer_uid(String customer_uid) {
-        this.customer_uid = customer_uid;
-    }
+    // cvc
+    private String credit_cvc;
 
-    public String getM_id() {
-        return m_id;
-    }
+    // 유효 일자
+    private String credit_vali;
 
-    public void setM_id(String m_id) {
-        this.m_id = m_id;
-    }
+    // 사업자 등록 번호
+    private String pay_com_reg;
 
-    public String getPay_company() {
-        return pay_company;
-    }
+    // 카드 회사명
+    private String kakaopay_purchase_corp;
 
-    public void setPay_company(String pay_company) {
-        this.pay_company = pay_company;
-    }
+    // 카드 타입
+    private String card_type;
 
-    public String getCredit_no() {
-        return credit_no;
-    }
-
-    public void setCredit_no(String credit_no) {
-        this.credit_no = credit_no;
-    }
-
-    public String getCredit_pw() {
-        return credit_pw;
-    }
-
-    public void setCredit_pw(String credit_pw) {
-        this.credit_pw = credit_pw;
-    }
-
-    public String getCredit_cvc() {
-        return credit_cvc;
-    }
-
-    public void setCredit_cvc(String credit_cvc) {
-        this.credit_cvc = credit_cvc;
-    }
-
-    public String getCredit_vali() {
-        return credit_vali;
-    }
-
-    public void setCredit_vali(String credit_vali) {
-        this.credit_vali = credit_vali;
-    }
+    // 카드 별칭
+    private String pay_alias;
 }

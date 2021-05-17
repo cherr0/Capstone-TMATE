@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.tmate.driver.R;
 import com.tmate.driver.data.Phone;
@@ -45,7 +44,7 @@ public class CertificationFragment extends Fragment implements Validator.Validat
     @Password
     TextView tv_certNum;
 
-    @ConfirmPassword
+    @ConfirmPassword(message = "인증번호를 다시 확인해주세요")
     EditText et_confirmNum;
 
     Bundle bundle;
@@ -67,8 +66,7 @@ public class CertificationFragment extends Fragment implements Validator.Validat
         if (getArguments() != null) {
             bundle = getArguments();
             Log.d("번들 넘어오는 값",bundle.toString());
-            Log.d("폰번호",getArguments().getString("m_id").substring(2,13));
-            phone.setPhoneNumber(getArguments().getString("m_id").substring(2,13));
+            phone.setPhoneNumber(bundle.getString("phone"));
         }else {
             Log.d("JoinPageFragment.Bundle","번들 값을 받아오지 못했습니다.");
         }
@@ -77,14 +75,14 @@ public class CertificationFragment extends Fragment implements Validator.Validat
 
         countDownTimer(view);
 
-        b.btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validator.validate(); //버튼 클릭 시 이벤트 발생 //필수
-            }
+        time_counter.setOnClickListener(v -> {
+            Authorization();
+            countDownTimer(view);
         });
 
-
+        b.btnProfile.setOnClickListener(v -> {
+            validator.validate(); //버튼 클릭 시 이벤트 발생 //필수
+        });
 
         return view;
     }
@@ -93,9 +91,9 @@ public class CertificationFragment extends Fragment implements Validator.Validat
     public void onValidationSucceeded() {
         countDownTimer.cancel();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        CorporationFragment corporationFragment = new CorporationFragment();
-        corporationFragment.setArguments(bundle);
-        transaction.replace(R.id.fm_main, corporationFragment);
+        JoinPageFragment joinPageFragment = new JoinPageFragment();
+        joinPageFragment.setArguments(bundle);
+        transaction.replace(R.id.fm_main, joinPageFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

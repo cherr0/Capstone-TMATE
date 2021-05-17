@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.tmate.user.R;
 import com.tmate.user.adapter.RequestFriendAdapter;
 import com.tmate.user.adapter.friendAdapter;
 import com.tmate.user.data.Approval;
+import com.tmate.user.data.CardData;
 import com.tmate.user.data.FriendData;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.RequestFriendData;
@@ -38,9 +40,13 @@ import retrofit2.Response;
 public class FriendFragment extends Fragment {
     ArrayList<String> list;
     private View view;
-    private friendAdapter adpater;
-    private RequestFriendAdapter adapter2;
+    private friendAdapter adFriend;
+    private RequestFriendAdapter adRequest;
     private Button btn_add;
+    private SwipeRefreshLayout refRequest;
+    private SwipeRefreshLayout refFriend;
+    private RecyclerView rvFriend;
+    private RecyclerView rvRequest;
 
     // 레트로핏
     DataService dataService = DataService.getInstance();
@@ -56,20 +62,20 @@ public class FriendFragment extends Fragment {
 
         btn_back_friend = view.findViewById(R.id.btn_back_friend);
 
-        RecyclerView recyclerView = view.findViewById(R.id.rv_friend);
-        RecyclerView recyclerView2 = view.findViewById(R.id.rv_request);
+        rvFriend = view.findViewById(R.id.rv_friend);
+        rvRequest = view.findViewById(R.id.rv_request);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        rvFriend.setLayoutManager(linearLayoutManager);
 
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
-        recyclerView2.setLayoutManager(linearLayoutManager2);
+        rvRequest.setLayoutManager(linearLayoutManager2);
 
-        adpater = new friendAdapter();
-        recyclerView.setAdapter(adpater);
+        adFriend = new friendAdapter();
+        rvFriend.setAdapter(adFriend);
 
-        adapter2 = new RequestFriendAdapter();
-        recyclerView2.setAdapter(adapter2);
+        adRequest = new RequestFriendAdapter();
+        rvRequest.setAdapter(adRequest);
 
         // 내 친구 리스트 - 데이터서비스이용
         getMyFriendList();
@@ -96,6 +102,31 @@ public class FriendFragment extends Fragment {
                 transaction.replace(R.id.frameLayout, my_info_fragment).commit();
             }
         });
+        refRequest = view.findViewById(R.id.ref_request);
+        refRequest.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ArrayList<Approval> reqFreind = new ArrayList<>();
+                reqFreind.clear();
+                adRequest.clear();
+                requestremoveScrollPullUpListener(); //스와이프와(위에서 아래로 댕기는 새로고침) 리사이클러뷰 포지션 리스너를 같이 쓰면 에러가나므로 리사이클러뷰 리스너는 잠시 끊어주고 새로고침후 다시연결해준다.
+                getReqFreindList(); // 디비에서 값을 다시불러온다.
+
+            }
+        });
+        refFriend = view.findViewById(R.id.ref_friend);
+        refFriend.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ArrayList<Notification> friend = new ArrayList<>();
+                friend.clear();
+                adFriend.clear();
+                freindremoveScrollPullUpListener(); //스와이프와(위에서 아래로 댕기는 새로고침) 리사이클러뷰 포지션 리스너를 같이 쓰면 에러가나므로 리사이클러뷰 리스너는 잠시 끊어주고 새로고침후 다시연결해준다.
+                getMyFriendList(); // 디비에서 값을 다시불러온다.
+
+
+            }
+        });
 
         return view;
     }
@@ -116,12 +147,14 @@ public class FriendFragment extends Fragment {
                             data.setTv_id(approvalList.get(i).getId());
                             data.setTv_name2(approvalList.get(i).getName());
                             data.setTv_phone2(approvalList.get(i).getId().substring(2, 13));
-                            adapter2.addItem(data);
+                            adRequest.addItem(data);
 
 
                         }
 
-                        adapter2.notifyDataSetChanged();
+                        adRequest.notifyDataSetChanged();
+                        //카드 새로고침 후 로딩중 아이콘 지우기
+                        refRequest.setRefreshing(false);
 
                     }
                 }
@@ -156,10 +189,13 @@ public class FriendFragment extends Fragment {
                                     friendData.setTv_flag("활성화");
                                     break;
                             }
-                            adpater.addItem(friendData);
+                            adFriend.addItem(friendData);
                         }
 
-                        adpater.notifyDataSetChanged();
+                        adFriend.notifyDataSetChanged();
+                        //카드 새로고침 후 로딩중 아이콘 지우기
+                        refFriend.setRefreshing(false);
+
                     }
                 }
             }
@@ -175,5 +211,19 @@ public class FriendFragment extends Fragment {
     public String getPreferenceString(String key) {
         SharedPreferences pref = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         return pref.getString(key, "");
+    }
+    private void requestremoveScrollPullUpListener(){
+        rvRequest.removeOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
+        });
+    }
+    private void freindremoveScrollPullUpListener(){
+        rvFriend.removeOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
+        });
     }
 }

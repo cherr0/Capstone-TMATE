@@ -42,7 +42,6 @@
                                     </thead>
                                     <tbody class="point text-center table-hover">
                                     <tr th:each="r : ${receipt}">
-<!--                                        <td class="text-center" th:text="${r.imp_uid}"></td>-->
                                         <td class="text-center" th:switch="${r.use_cash}">
                                             <p th:case="0">카드 결제</p>
                                             <P th:case="1">현금 결제</P>

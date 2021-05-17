@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(holder.iv_alert.getContext());
                 builder.setTitle("알림 활성화");
-                builder.setMessage("지인을 승인하시겠습니까?");
+                builder.setMessage("해당 지인 알림 활성화 하시겠습니까?");
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -96,11 +97,11 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
             }
         });
 
-        holder.iv_delete.setOnClickListener(new View.OnClickListener() {
+        holder.iv_disalert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(holder.iv_delete.getContext());
-                builder.setTitle("알림비활성화");
+                builder.setTitle("알림 비활성화");
                 builder.setMessage("해당 지인 알림 비활성화 하시겠습니까?");
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
@@ -131,6 +132,29 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
             }
 
         });
+        holder.iv_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(holder.iv_delete.getContext());
+                builder.setTitle("지인 삭제");
+                builder.setMessage("해당 지인 알림 삭제 하시겠습니까?");
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //지인삭제
+                    }
+                });
+
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+
+        });
 
     }
     @Override
@@ -140,10 +164,15 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
     public void addItem(FriendData data) {
         items.add(data);
     }
+    public void clear() {
+        items.clear();
+    }
+
 }
 class friendHolder extends RecyclerView.ViewHolder {
     ImageView iv_alert;
     ImageView iv_delete;
+    ImageView iv_disalert;
     TextView tv_name;
     TextView tv_phone;
     TextView tv_flag;
@@ -159,5 +188,6 @@ class friendHolder extends RecyclerView.ViewHolder {
         tv_name = itemView.findViewById(R.id.tv_name);
         tv_phone = itemView.findViewById(R.id.tv_phone);
         tv_flag = itemView.findViewById(R.id.tv_flag);
+        iv_disalert = itemView.findViewById(R.id.iv_disalert);
     }
 }

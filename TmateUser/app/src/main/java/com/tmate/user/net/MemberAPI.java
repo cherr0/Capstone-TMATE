@@ -52,10 +52,9 @@ public interface MemberAPI {
     @PUT("member/updatestat")
     Call<Boolean> modifyStat(@Body Notification notification);
 
-    // 요청 거
+    // 요청 거부
     @DELETE("member/removeAppro/{id}/{m_id}")
     Call<Boolean> removeApproval(@Path("id") String id, @Path("m_id") String m_id);
-
 
     /*
     * 회원 가입 부터 프로필 상세 부분
@@ -92,6 +91,9 @@ public interface MemberAPI {
 
     @GET("member/point/{m_id}")
     Call<List<PointData>> getPointList(@Path("m_id") String m_id);
+
+    @GET("member/unusedPoint/{m_id}")
+    Call<Integer> getUnusedPoint(@Path("m_id") String m_id);
 
     /*
     *  카드 관련 서비스

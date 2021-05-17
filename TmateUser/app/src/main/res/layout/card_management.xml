@@ -27,6 +27,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:fontFamily="@font/nexon_medium"
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,12 +43,15 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cardlist_recy"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/ref_card"
         android:layout_width="match_parent"
-        android:layout_height="300dp"/>
-
+        android:layout_height="300dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cardlist_recy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

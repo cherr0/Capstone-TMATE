@@ -52,7 +52,7 @@ public class CompletedFragment extends Fragment implements OnBackPressedListener
             Log.d("AccRegFragment.Bundle","번들 값을 받아오지 못했습니다.");
         }
 
-        request = DataService.getInstance().driver.approveSearch(bundle.getString("d_id"));
+        request = DataService.getInstance().driver.approveSearch(getPreferenceString("d_id"));
         request.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

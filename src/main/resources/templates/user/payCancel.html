@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Jquery JS-->
+    <script th:src="@{~/vendor/jquery-3.5.1.min.js}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link th:href="@{/css/pay.css}" rel="stylesheet">
+</head>
+<body>
+<div class="payCancel_title">카드 등록을 <span class="pay_cancel">취소</span>하셨습니다.</div>
+
+<div>
+    <span></span>
+</div>
+
+<div>
+    <span></span>
+</div>
+    <button id="submit" class="payCancel_btn">돌아가기</button>
+
+<script>
+    $('.payCancel_btn').click(() => {
+        console.log('클릭됨');
+       returnActivity();
+    });
+
+
+
+    function returnActivity() {
+        if(window.android) {
+            console.info("android");
+            window.android.finishedActivity();
+        }else {
+            console.info("web");
+            document.form.submit();
+        }
+    }
+</script>
+</body>
+</html>

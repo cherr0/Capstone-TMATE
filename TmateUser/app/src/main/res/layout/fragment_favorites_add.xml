@@ -15,331 +15,289 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-            <com.sothree.slidinguppanel.SlidingUpPanelLayout
-
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".MatchingMapActivity"
-                android:gravity="bottom"
-                app:umanoDragView="@id/dragView"
-                app:umanoPanelHeight="70dp"
-                app:umanoOverlay="true"
-                app:umanoParallaxOffset="200dp"
-                app:umanoShadowHeight="10dp">
+                android:background="@android:color/white" >
+
+
                 <RelativeLayout
+                    android:id="@+id/mapview_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                </RelativeLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/map_pin_red" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/centerPointIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/plus"
+                    android:visibility="gone" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/white" >
-
-
-                    <RelativeLayout
-                        android:id="@+id/mapview_layout"
+                    android:orientation="vertical" >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/top_bar"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" >
+                        android:layout_height="80dp"
+                        android:background="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    </RelativeLayout>
-                    <LinearLayout
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
                         <ImageView
-                            android:id="@+id/imageView"
+                            android:id="@+id/btn_back_favoritesadd"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/map_pin_red" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/centerPointIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/plus"
-                        android:visibility="gone" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical" >
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/top_bar"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
+                            android:layout_marginStart="16dp"
+                            android:src="@drawable/ic_back"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:id="@+id/btn_back_favoritesadd"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:src="@drawable/ic_back"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/textView42"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="24dp"
-                                android:layout_marginBottom="24dp"
-                                android:text="즐겨찾기 등록"
-                                android:textColor="@color/black"
-                                android:textSize="28sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <ImageView
-                                android:layout_marginTop="10dp"
-                                android:layout_marginLeft="10dp"
-                                android:id="@+id/zoom_plus_btn"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/zoom_in_btn_select"
-                                android:onClick="onClickZoomInBtn" />
-                            <LinearLayout
-                                android:layout_marginTop="10dp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="right">
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <ImageView
-                            android:layout_marginLeft="10dp"
-                            android:id="@+id/zoom_minus_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/zoom_out_btn_select"
-                            android:onClick="onClickZoomOutBtn" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/geocoding_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:background="@android:color/white"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:padding="5dp"
-                        android:visibility="gone" >
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/geocoding_title"
+                            android:fontFamily="@font/nexon_medium"
+                            android:id="@+id/textView42"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:textSize="18sp" />
+                            android:layout_marginTop="24dp"
+                            android:layout_marginBottom="24dp"
+                            android:text="즐겨찾기 등록"
+                            android:textColor="@color/black"
+                            android:textSize="28sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/geocoding_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:color/white"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:visibility="gone" >
 
-                        <TextView
-                            android:id="@+id/geocoding_sub"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:textSize="16sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/route_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:background="@android:color/white"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        android:padding="5dp"
-                        android:visibility="gone" >
-
-                        <TextView
-                            android:id="@+id/route_distance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/route_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/route_fare"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:textSize="16sp"
-                            android:visibility="gone" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/autoComplete_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/white"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:padding="5dp"
-                        android:visibility="gone" >
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:text="POI 자동완성 "
-                            android:textColor="@android:color/black"
-                            android:textSize="25sp" />
-
-                        <EditText
-                            android:id="@+id/edit_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text" />
-
-                        <ListView
-                            android:id="@+id/list"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/white"
-                            android:cacheColorHint="#00000000"
-                            android:divider="#dcdcdc"
-                            android:dividerHeight="1dp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/ll_empty"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:orientation="horizontal" />
-
-                    <LinearLayout
-                        android:id="@+id/centerPointLayout"
+                    <TextView
+                        android:id="@+id/geocoding_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_margin="10dp"
-                        android:visibility="gone"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/geocoding_sub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/route_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:color/white"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:visibility="gone" >
+
+                    <TextView
+                        android:id="@+id/route_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/route_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/route_fare"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/linear_shape"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="0dp">
+                    <TextView
+                        android:id="@+id/searchBookmark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="30dp"
+                        android:padding="10dp"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text=""
+                        android:layout_marginRight="30dp"
+                        android:textSize="18sp" />
+                    <!--현재 위치로 맵을 이동시키는 버튼-->
+                    <!--                  <ImageView
+                        android:id="@+id/location_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/zoomlevel_text"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="end"
+                        android:layout_marginRight="50dp"
+                        android:layout_marginTop="-40dp"
+                        android:background="@drawable/location_btn"></ImageView> -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp">
+
+                        <Button
+                            android:id="@+id/add_bookmark"
+                            android:layout_width="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_height="70dp"
+                            android:background="@drawable/select_shape"
+                            android:text="설정"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/autoComplete_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="80dp"
+                    android:background="#F4F4F4"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    android:visibility="visible">
+
+                    <EditText
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:drawablePadding="10dp"
+                        android:id="@+id/search_place"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="장소 검색"
+                        android:background="@drawable/box_shape"
+                        android:inputType="text"
+                        android:padding="20dp" />
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/go_map"
+                        android:layout_marginRight="20dp"
+                        android:layout_width="35dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/bm_map"
+                        android:layout_gravity="right"/>
+                    <View
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/view7"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                    <ListView
+                        android:id="@+id/list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"
+                        android:cacheColorHint="#00000000"
+                        android:divider="#dcdcdc"
+                        android:dividerHeight="1dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/centerPointLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/black"
                         android:orientation="vertical" >
 
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/centerLatitude"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:text="POI 자동완성 "
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/centerLongitude"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/black"
-                            android:orientation="vertical" >
-
-                            <TextView
-                                android:id="@+id/centerLatitude"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="5dp"
-                                android:text="POI 자동완성 "
-                                android:textColor="@android:color/white"
-                                android:textSize="14sp" />
-
-                            <TextView
-                                android:id="@+id/centerLongitude"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@android:color/black"
-                                android:padding="5dp"
-                                android:text="POI 자동완성 "
-                                android:textColor="@android:color/white"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@android:color/black"
-                            android:textSize="16sp" />
+                            android:padding="5dp"
+                            android:text="POI 자동완성 "
+                            android:textColor="@android:color/white"
+                            android:textSize="14sp" />
                     </LinearLayout>
-                </RelativeLayout>
-                <!-- 올라오는 화면을 꽉 채우고 싶다면 match_parent, 내용물 만큼만 보이고 뒷 배경이 반투명처리로 보이고 싶다면 wrap_content-->
-                <LinearLayout
-                    android:id="@+id/dragView"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:clickable="true"
-                    android:focusable="false"
-                    android:orientation="vertical"
-                    android:visibility="visible"
-                    android:background="@drawable/linear_shape">
+
                     <TextView
-                        android:id="@+id/slideTitle"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="장소를 선택해 주세요"
-                        android:textAlignment="center"
-                        android:textSize="30sp"
-                        android:gravity="center_horizontal" />
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
 
-                    <LinearLayout
-                        android:id="@+id/place_page"
-                        android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:orientation="vertical">
-
-                        <EditText
-                            android:id="@+id/searchBookmark"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="40dp"
-                            android:layout_marginRight="30dp"
-                            android:background="@drawable/box_shape"
-                            android:imeOptions="actionSearch"
-                            android:inputType="text"
-                            android:padding="10dp"
-                            android:textSize="15sp" />
-                        <!--현재 위치로 맵을 이동시키는 버튼-->
-                        <!--                  <ImageView
-                            android:id="@+id/location_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/zoomlevel_text"
-                            android:layout_alignParentRight="true"
-                            android:layout_gravity="end"
-                            android:layout_marginRight="50dp"
-                            android:layout_marginTop="-40dp"
-                            android:background="@drawable/location_btn"></ImageView> -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="20dp">
-
-                            <Button
-                                android:id="@+id/add_bookmark"
-                                android:layout_width="300dp"
-                                android:layout_height="70dp"
-                                android:background="@drawable/select_shape"
-                                android:text="추가"
-                                android:textColor="#FFFFFF"
-                                android:textSize="20sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
                 </LinearLayout>
-
-            </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+            </RelativeLayout>
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>

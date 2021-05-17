@@ -40,17 +40,10 @@ public class MainViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view);
 
-        Intent intent = getIntent();
+        Log.d("MainViewActivity", "m_id : " + getPreferenceString("m_id"));
+        Log.d("MainViewActivity", "m_name : " + getPreferenceString("m_name"));
 
-
-        setPreference("m_id", intent.getStringExtra("m_id"));
-        setPreference("m_name", intent.getStringExtra("m_name"));
-
-
-        Log.d("Get Preference : ", getPreferenceString("m_id"));
-        Log.d("Get Preference : ", getPreferenceString("m_name"));
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
+        fragmentManager.beginTransaction().replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView_main_menu);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,23 +52,23 @@ public class MainViewActivity extends AppCompatActivity {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
 
                 switch (menuItem.getItemId()) {
-                    case R.id.call : {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
+                    case R.id.call : {  // 메인 호출 화면
+                        transaction.replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
                         navbarFlag = R.id.call;
                         return true;
                     }
-                    case R.id.bo_info : {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, carInfoFragment).commitAllowingStateLoss();
+                    case R.id.bo_info : {   // 탑승 정보 화면
+                        transaction.replace(R.id.frameLayout, carInfoFragment).commitAllowingStateLoss();
                         navbarFlag = R.id.bo_info;
                         return true;
                     }
-                    case R.id.event : {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, eventFragment).commitAllowingStateLoss();
+                    case R.id.event : {     // 이벤트 화면
+                        transaction.replace(R.id.frameLayout, eventFragment).commitAllowingStateLoss();
                         navbarFlag = R.id.event;
                         return true;
                     }
-                    case R.id.more : {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, my_info_fragment).commitAllowingStateLoss();
+                    case R.id.more : {      // 더보기 (기타 서비스 목록 화면)
+                        transaction.replace(R.id.frameLayout, my_info_fragment).commitAllowingStateLoss();
                         navbarFlag = R.id.more;
                         return true;
                     }
@@ -105,7 +98,7 @@ public class MainViewActivity extends AppCompatActivity {
 
         switch (navbarFlag) {
 
-            case R.id.bo_info : case R.id.event : case R.id.more :
+            case R.id.bo_info : case R.id.event : case R.id.more : case 4 :
                 bottomNavigationView.setSelectedItemId(R.id.call);
                 break;
             case 3:

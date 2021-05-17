@@ -130,6 +130,10 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesHolder> {
     public void addItem(FavoritesData data) {
         items.add(data);
     }
+    public void clear() {
+        items.clear();
+    }
+
 
 }
 class FavoritesHolder extends RecyclerView.ViewHolder {

@@ -28,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:fontFamily="@font/nexon_medium"
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,23 +43,66 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/hcard"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#2C2C2C"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout31" />
+    <TextView
+        android:layout_margin="15dp"
+        android:id="@+id/textView17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ㆍ최근 1년 동안 이용기록을 확인할 수 있습니다."
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout31" />
+    <TextView
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ㆍ전화와 평가는 완료 후 3일 이내에만 가능합니다."
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+    <TextView
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/textView19"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ㆍ실제 탑승 위치가 아닌, 요청 시점에 설정한 위치가 표시됩니다."
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <View
+        android:id="@+id/view8"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="15dp"
+        android:background="#2C2C2C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/ref_history"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout31" />
+        app:layout_constraintTop_toBottomOf="@+id/view8">
 
-
-
-
-
-
-
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hcard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

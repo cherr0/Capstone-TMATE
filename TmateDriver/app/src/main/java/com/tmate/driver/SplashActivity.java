@@ -24,6 +24,9 @@ public class SplashActivity extends AnimatedSplash {
         /* you don't have to override every property */
         imei = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
+//        setPreference("d_id","d1010918400420");
+//        setPreference("d_approve","true");
+
         //Customize Circular Reveal
         configSplash.setBackgroundColor(R.color.white); //any color you want form colors.xml
         configSplash.setAnimCircularRevealDuration(2000); //int ms
@@ -36,7 +39,6 @@ public class SplashActivity extends AnimatedSplash {
         configSplash.setLogoSplash(R.drawable.logo); //or any other drawable
         configSplash.setAnimLogoSplashDuration(2000); //int ms
         configSplash.setAnimLogoSplashTechnique(Techniques.FadeIn); //choose one form Techniques (ref: https://github.com/daimajia/AndroidViewAnimations)
-
 
 //        Customize Title
 
@@ -62,5 +64,13 @@ public class SplashActivity extends AnimatedSplash {
     public String getPreferenceString(String key) {
         SharedPreferences pref = getSharedPreferences("loginDriver", MODE_PRIVATE);
         return pref.getString(key, "");
+    }
+
+    // 데이터 저장 함수
+    public void setPreference(String key, String value){
+        SharedPreferences pref = getSharedPreferences("loginDriver", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, value);
+        editor.apply();
     }
 }

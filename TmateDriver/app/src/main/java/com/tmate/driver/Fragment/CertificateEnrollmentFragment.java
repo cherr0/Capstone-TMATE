@@ -180,8 +180,8 @@ public class CertificateEnrollmentFragment extends Fragment implements Validator
 
     @Override
     public void onValidationSucceeded() {
-        bundle.putString("d_license_no", license_no.getText().toString());
         Log.i("자격증 번호", "값 저장됨 : " + license_no.getText().toString());
+        bundle.putString("d_license_no", license_no.getText().toString());
 
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         AccountRegistrationFragment arf = new AccountRegistrationFragment();

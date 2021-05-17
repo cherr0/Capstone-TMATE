@@ -36,7 +36,7 @@
 
                                                 <th:block th:each="payment : ${paymentList}">
                                                     <div class="account mycard" th:data-account="${payment.credit_no}">
-                                                        <input type="hidden" th:value="${payment.customer_uid}">
+                                                        <input type="hidden" th:value="${payment.sid}">
                                                         <span class="float-right" th:switch="${payment.pay_rep}">
                                                             <th:block th:case="0">후보</th:block>
                                                             <th:block th:case="1">대표</th:block>
@@ -277,15 +277,15 @@
             console.log(typeof e);
             console.log(typeof e.currentTarget.childNodes);
 
-            let customer_uid = e.currentTarget.childNodes[1].value;
-            console.log(customer_uid);
+            let sid = e.currentTarget.childNodes[1].value;
+            console.log(sid);
 
             let cardUL = $(".account-details-container");
             let str;
             $.ajax({
                 method:'POST',
                 url:'/api/tuser/mycard',
-                data:customer_uid,
+                data:sid,
                 success:function (result) {
                     console.log(result);
                     str += "<input class='uid' type='hidden'>";
@@ -333,13 +333,13 @@
                     str += "<div class='transaction-date'><button class='btn btn-primary repBtn'>선호하는 수단으로 설정</button></div>";
                     str += "</div></div></div>";
                     cardUL.html(str);
-                    $('.uid').val(result.customer_uid);
+                    $('.uid').val(result.sid);
 
                     $(".card-delete").on("click",function () {
-                        let customer_uid = $('.uid').val();
+                        let sid = $('.uid').val();
                         console.log('삭제될까?');
                         $.ajax({
-                            url:'/api/tuser/remove/'+customer_uid,
+                            url:'/api/tuser/remove/'+sid,
                             method:'DELETE',
                             success: function () {
 

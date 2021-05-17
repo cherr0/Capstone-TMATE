@@ -1,6 +1,7 @@
 package com.tmate.web.android;
 
 import com.tmate.domain.BoardDTO;
+import com.tmate.domain.LoginVO;
 import com.tmate.domain.PhoneDTO;
 import com.tmate.service.SMSService;
 import com.tmate.service.android.common.AppNoticeService;
@@ -109,5 +110,22 @@ public class AppCommonApiController {
 
             return new ResponseEntity<>(SMSService.REJECT, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    /* -----------------------
+            로그인 컨트롤러
+       ----------------------- */
+    // 로그인 체크
+    @GetMapping("/login")
+    public ResponseEntity<LoginVO> loginCheck(@RequestBody LoginVO loginVO) {
+        log.info("어플 로그인 진행 : " + loginVO.toString());
+        return new ResponseEntity<>(commonService.userLogin(loginVO), HttpStatus.OK);
+    }
+
+    // 앱 사용 기기 변경에 따른 IMEI 값 변경
+    @PutMapping("/common/imei/{m_id}/{m_imei}")
+    public ResponseEntity<Boolean> updateImei(@PathVariable("m_id")String m_id, @PathVariable("m_imei")String m_imei) {
+        log.info("Controller imei 변경 진행 중");
+        return new ResponseEntity<>(commonService.updateImei(m_id, m_imei), HttpStatus.OK);
     }
 }

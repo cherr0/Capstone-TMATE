@@ -57,22 +57,25 @@ public interface Membermapper {
     // 권한 조회
     List<MemberRole> findRoleList(String m_id);
 
+    // 유저 로그인 체크
+    LoginVO loginCheck(LoginVO loginVO);
+
+    // IMEI 값 업데이트
+    int putIMEIByM_id(String m_id, String m_imei);
+
     /*
     * APP 포인트 내역
     * 포인트 내역
     * 총 포인트 가져오는 로직, 업데이트 하는 로직, 포인트 내역 리스트로 받아오는 것
     * */
-
-    // 멤버 총요금 업데이트 시 값 변경 하기 위함
-    int updateM_point(@Param("m_id") String m_id,@Param("fare") int fare);
-
+    // 포인트 적립
     int insertPoint(PointDTO pointDTO);
 
     // 포인트 리스트 가져오기
     List<PointDTO> findPointListByM_id(String m_id);
 
-    // 총 요금 가져오기
-    int findM_Point(String m_id);
+    // 미사용 포인트 조회
+    int unusedPointByM_id(String m_id);
 
     /*
     * 운행 옵션 기능
@@ -83,5 +86,7 @@ public interface Membermapper {
 
     // 2. 운행 옵션 상태 변경
     int updateDv_optionStatus(Dv_optionDTO dv_optionDTO);
+
+
 
 }
