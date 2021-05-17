@@ -20,7 +20,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Log.d("로그아웃버튼시 값 체크 ", getPreferenceString("m_id"));
+
+
 
         Intent intent = getIntent();
         String m_imei = intent.getStringExtra("m_imei");

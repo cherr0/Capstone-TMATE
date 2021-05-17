@@ -121,4 +121,11 @@ public class AppCommonApiController {
         log.info("어플 로그인 아이디 : " + id + ", 비밀번호 : " + password + ", 권한 : " + auth);
         return new ResponseEntity<>(commonService.userLogin(id,password,auth), HttpStatus.OK);
     }
+
+    // 앱 사용 기기 변경에 따른 IMEI 값 변경
+    @PutMapping("/common/imei/{m_id}/{m_imei}")
+    public ResponseEntity<Boolean> updateImei(@PathVariable("m_id")String m_id, @PathVariable("m_imei")String m_imei) {
+        log.info("Controller imei 변경 진행 중");
+        return new ResponseEntity<>(commonService.updateImei(m_id, m_imei), HttpStatus.OK);
+    }
 }

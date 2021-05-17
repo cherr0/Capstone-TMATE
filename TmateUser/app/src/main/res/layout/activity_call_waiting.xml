@@ -7,7 +7,7 @@
     tools:context=".Activity.CallWaitingActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/cw_match_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical|center"
@@ -30,7 +30,7 @@
         app:indicatorName="BallSpinFadeLoaderIndicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/cw_match_message" />
 
     <TextView
         android:id="@+id/textView15"

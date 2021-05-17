@@ -188,4 +188,25 @@ public class AppMatchingApiController {
         return new ResponseEntity<>(appMemberMatchService.insertPassengerTOList(merchant_uid,m_id,id,to_seat),HttpStatus.OK);
     }
 
+    /*
+    * 일반 호출
+    * */
+    @GetMapping("/get/d_id/{merchant_uid}")
+    public ResponseEntity<String> getDriverByMer_uid(@PathVariable("merchant_uid") String merchant_uid) {
+        log.info("계속하여 사용자는 기사를 찾는다. : " + merchant_uid);
+
+        String d_idDuringCall = appMemberMatchService.getD_idDuringCall(merchant_uid);
+
+        return new ResponseEntity<>(d_idDuringCall, HttpStatus.OK);
+    }
+
+    // APP 호출 시 뒤로가기 버튼을 누를때 일반 이용 정보 내역을 삭제 시켜주는 메서드
+    @DeleteMapping("/remove/normal/call/{merchant_uid}")
+    public ResponseEntity<Boolean> removeNormalCall(@PathVariable("merchant_uid") String merchant_uid) {
+        log.info("호출 정보를 삭제하기 위한 이용 코드 : " + merchant_uid);
+
+        return new ResponseEntity<>(appMemberMatchService.removeNowCall(merchant_uid), HttpStatus.OK);
+    }
+
+
 }

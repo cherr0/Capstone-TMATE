@@ -24,4 +24,8 @@ public class JoinDriverProfileVO {
     private String car_no;
 
     private String car_model;
+
+    // 기사 위치
+    private double m_lttd;
+    private double m_lngtd;
 }

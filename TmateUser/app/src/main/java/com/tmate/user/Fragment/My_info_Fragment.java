@@ -30,7 +30,6 @@ import retrofit2.Response;
 
 public class My_info_Fragment extends Fragment implements View.OnClickListener{
     private View view;
-    private TextView tv_point;
     private TextView tv_preference;
     private TextView tv_alert;
     private TextView tv_friend;
@@ -80,7 +79,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
 
 
 
-        tv_point = view.findViewById(R.id.tv_point);
         tv_preference = view.findViewById(R.id.tv_preference);
         tv_alert = view.findViewById(R.id.tv_alert);
         tv_friend = view.findViewById(R.id.tv_friend);
@@ -92,7 +90,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
 
 
         tv_account.setOnClickListener(this);
-        tv_point.setOnClickListener(this);
         tv_preference.setOnClickListener(this);
         tv_alert.setOnClickListener(this);
         tv_friend.setOnClickListener(this);
@@ -119,53 +116,52 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         MainViewActivity.navbarFlag = 3;
         switch (v.getId()) {
-            case R.id.tv_account : {
-
+            case R.id.tv_account : { // 사용자 상세 프로필
                 ProfileFragment profileFragment = new ProfileFragment();
                 transaction.replace(R.id.frameLayout, profileFragment).commit();
                 return ;
             }
-            case R.id.tv_point : {
+            case R.id.tv_point : { // 포인트 관리
                 PointFragment pointFragment = new PointFragment();
                 transaction.replace(R.id.frameLayout, pointFragment).commit();
                 return ;
             }
-            case R.id.tv_preference : {
+            case R.id.tv_preference : { // 선호 운행 옵션
                 PreferenceFragment preferenceFragment = new PreferenceFragment();
                 transaction.replace(R.id.frameLayout, preferenceFragment).commit();
                 return ;
             }
-            case R.id.tv_alert : {
+            case R.id.tv_alert : { // 알림 설정
                 NotificationFragment notificationFragment = new NotificationFragment();
                 transaction.replace(R.id.frameLayout, notificationFragment).commit();
                 return ;
             }
-            case R.id.tv_friend :{
+            case R.id.tv_friend :{ // 지인번호 등록
                 FriendFragment friendFragment = new FriendFragment();
                 transaction.replace(R.id.frameLayout, friendFragment).commit();
                 return ;
             }
-            case R.id.tv_history : {
+            case R.id.tv_history : { // 이용기록
                 historyFragment historyFragment = new historyFragment();
                 transaction.replace(R.id.frameLayout, historyFragment).commit();
                 return ;
             }
-            case R.id.tv_notice : {
+            case R.id.tv_notice : { // 공지사항
                 NoticeFragment noticeFragment = new NoticeFragment();
                 transaction.replace(R.id.frameLayout, noticeFragment).commit();
                 return ;
             }
-            case R.id.tv_bookmark : {
+            case R.id.tv_bookmark : { // 즐겨찾기
                 favoritesFragment favoritesFragment = new favoritesFragment();
                 transaction.replace(R.id.frameLayout, favoritesFragment).commit();
                 return ;
             }
-            case R.id.service : {
+            case R.id.service : { // 상담 연결
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_xlxnzUK/chat"));
                 startActivity(intent);
                 return;
             }
-            case R.id.tv_card : {
+            case R.id.tv_card : { // 카드 관리
                 card_management card_management = new card_management();
                 transaction.replace(R.id.frameLayout, card_management).commit();
             }

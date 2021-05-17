@@ -75,8 +75,8 @@ public class PointFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                My_info_Fragment my_info_fragment = new My_info_Fragment();
-                transaction.replace(R.id.frameLayout, my_info_fragment).commit();
+                CallFragment cf = new CallFragment();
+                transaction.replace(R.id.frameLayout, cf).commit();
             }
         });
 

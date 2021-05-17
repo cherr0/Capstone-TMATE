@@ -44,6 +44,24 @@ public class AppMemberMatchServiceImpl implements AppMemberMatchService{
 
         return merchant_uid;
     }
+
+    // 일반 호출시 사용자는 기사코드를 계속하여 찾게 된다.
+    @Override
+    public String getD_idDuringCall(String merchant_uid) {
+
+        log.info("기사코드를 찾고있는 서비스중입니다. 넘어오는 이용코드 : " + merchant_uid);
+
+        return historyMapper.selectD_id(merchant_uid);
+    }
+
+    // 일반 호출시 뒤로가기 누르면 호출 정보가 삭제가 되어진다.
+
+    @Override
+    public Boolean removeNowCall(String merchant_uid) {
+        return historyMapper.deleteNormalMatch(merchant_uid) == 1;
+    }
+
+
     /*
      * 동승 호출 시
      * */

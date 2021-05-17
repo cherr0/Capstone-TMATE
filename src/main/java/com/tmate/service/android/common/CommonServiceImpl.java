@@ -62,4 +62,10 @@ public class CommonServiceImpl implements CommonService {
         log.info("유저 로그인 서비스 처리 중");
         return membermapper.loginCheck(id, password, auth);
     }
+
+    @Override   // IMEI 업데이트
+    public Boolean updateImei(String m_id, String m_imei) {
+        log.info("유저 다른 기기 접속 m_id : " + m_id + ", m_imei : " + m_imei);
+        return membermapper.putIMEIByM_id(m_id,m_imei) == 1;
+    }
 }

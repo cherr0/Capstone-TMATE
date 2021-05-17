@@ -31,6 +31,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:fontFamily="@font/nexon_medium"
                     android:id="@+id/textView42"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -226,25 +227,6 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/tv_point"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:layout_gravity="center"
-                            android:background="@color/white"
-                            android:drawableLeft="@drawable/ic_coin"
-                            android:drawableRight="@drawable/ic_arrow_right"
-                            android:drawablePadding="15dp"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="16dp"
-                            android:text="포인트관리"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_account" />
-
-                        <TextView
                             android:id="@+id/tv_preference"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
@@ -261,7 +243,7 @@
                             android:textSize="20sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_point" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_account" />
 
                         <TextView
                             android:id="@+id/tv_bookmark"

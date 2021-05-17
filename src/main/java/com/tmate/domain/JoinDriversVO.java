@@ -23,5 +23,9 @@ public class JoinDriversVO {
     private String car_no;
 
     // 기사 차량량
-    private String carmodel;
+    private String car_model;
+
+    // 기사 위치
+    private double m_lttd;
+    private double m_lngtd;
 }
