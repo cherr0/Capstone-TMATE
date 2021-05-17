@@ -92,6 +92,9 @@ public interface MemberAPI {
     @GET("member/point/{m_id}")
     Call<List<PointData>> getPointList(@Path("m_id") String m_id);
 
+    @GET("member/unusedPoint/{m_id}")
+    Call<Integer> getUnusedPoint(@Path("m_id") String m_id);
+
     /*
     *  카드 관련 서비스
     * */

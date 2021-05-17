@@ -70,7 +70,7 @@ public class MemberDTO {
     // 소셜 이메일
     private String s_email;
 
-    // 패스워드 -임시
+    // 패스워드
     private String password;
 
     // 권한

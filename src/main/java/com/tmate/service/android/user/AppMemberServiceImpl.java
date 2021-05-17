@@ -134,16 +134,11 @@ public class AppMemberServiceImpl implements AppMemberService {
         return membermapper.insertMemberRole(memberRole) == 1;
     }
 
-    @Transactional
     @Override
     public List<PointDTO> getPointListByM_id(String m_id) {
         log.info("포인트 리스트 가져오기 서비스 처리중 ....");
 
-        int mPoint = membermapper.findM_Point(m_id);
         List<PointDTO> pointList = membermapper.findPointListByM_id(m_id);
-        pointList.forEach(i -> {
-            i.setPo_point(mPoint);
-        });
 
         return pointList;
     }
@@ -179,5 +174,13 @@ public class AppMemberServiceImpl implements AppMemberService {
     @Override
     public Boolean modifyDv_optionByM_id(Dv_optionDTO dv_optionDTO) {
         return membermapper.updateDv_optionStatus(dv_optionDTO) == 1;
+    }
+
+    // 미사용 포인트 조회
+    @Override
+    public Integer getunusedPoint(String m_id) {
+        int point = membermapper.unusedPointByM_id(m_id);
+        log.info("사용자 미사용 포인트 : " + point);
+        return point;
     }
 }
