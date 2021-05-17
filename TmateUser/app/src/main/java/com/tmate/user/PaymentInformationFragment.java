@@ -201,6 +201,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     @Override
     public void onDestroy() {
         super.onDestroy();
-        pointRequest.cancel();
+        if(pointRequest != null) pointRequest.cancel();
+        if(subscriptionRequest != null) subscriptionRequest.cancel();
     }
 }

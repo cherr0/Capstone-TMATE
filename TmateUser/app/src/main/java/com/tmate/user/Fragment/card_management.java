@@ -133,6 +133,8 @@ public class card_management  extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        listRequest.cancel();
+        if (listRequest != null) listRequest.cancel();
+        if(adapter.deleteCardRequest != null) adapter.deleteCardRequest.cancel();
+        if(adapter.selectCardRequest != null) adapter.selectCardRequest.cancel();
     }
 }
