@@ -40,10 +40,12 @@ public class card_management  extends Fragment {
     RecyclerView recyclerView;
     private static SharedPreferences pref;
     Context context;
+
     private String m_id;
+    ArrayList<CardData> cardList;
 
+    Call<List<CardData>> listRequest;
 
-    DataService dataService = DataService.getInstance();
 
     private ImageView btn_back_cardManagement;
     private CardAdapter adapter;
@@ -51,7 +53,7 @@ public class card_management  extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.card_management,container,false);
-
+        cardList = new ArrayList<>();
 
         context = container.getContext();
         pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
@@ -65,7 +67,7 @@ public class card_management  extends Fragment {
         getData();
         button = v.findViewById(R.id.cardAdd);
         button.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @Override // 카드 등록. 카카오페이 정기 결제 등록 웹뷰 열기
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), KakaopayWebviewActivity.class);
                 startActivity(intent);
@@ -84,7 +86,6 @@ public class card_management  extends Fragment {
         refCard.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                ArrayList<CardData> cardList = new ArrayList<>();
                 cardList.clear();
                 adapter.clear();
                 removeScrollPullUpListener(); //스와이프와(위에서 아래로 댕기는 새로고침) 리사이클러뷰 포지션 리스너를 같이 쓰면 에러가나므로 리사이클러뷰 리스너는 잠시 끊어주고 새로고침후 다시연결해준다.
@@ -95,8 +96,10 @@ public class card_management  extends Fragment {
         return v;
     }
 
+    // 카드 리스트 가져오기
     private void getData() {
-        dataService.memberAPI.getUserCard(m_id).enqueue(new Callback<List<CardData>>() {
+        listRequest = DataService.getInstance().memberAPI.getUserCard(m_id);
+        listRequest.enqueue(new Callback<List<CardData>>() {
             @Override
             public void onResponse(Call<List<CardData>> call, Response<List<CardData>> response) {
                 if (response.isSuccessful()) {
@@ -125,5 +128,11 @@ public class card_management  extends Fragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        listRequest.cancel();
     }
 }
