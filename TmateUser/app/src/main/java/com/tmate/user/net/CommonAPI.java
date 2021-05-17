@@ -46,8 +46,8 @@ public interface CommonAPI {
     Call<String> sendSMS(@Body PhoneDTO phoneDTO);
 
     // 로그인 체크
-    @GET("common/login")
-    Call<LoginVO> loginCheck(@Body LoginVO loginVO);
+    @GET("common/login/{id}/{password}/{auth}")
+    Call<LoginVO> loginCheck(@Path("id") String id, @Path("password") String password, @Path("auth") String auth);
 
     // IMEI 값 변경
     @PUT("common/imei/{m_id}/{m_imei}")
