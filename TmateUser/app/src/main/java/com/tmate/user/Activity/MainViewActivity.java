@@ -98,7 +98,7 @@ public class MainViewActivity extends AppCompatActivity {
 
         switch (navbarFlag) {
 
-            case R.id.bo_info : case R.id.event : case R.id.more :
+            case R.id.bo_info : case R.id.event : case R.id.more : case 4 :
                 bottomNavigationView.setSelectedItemId(R.id.call);
                 break;
             case 3:

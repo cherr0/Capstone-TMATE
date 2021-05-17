@@ -30,7 +30,6 @@ import retrofit2.Response;
 
 public class My_info_Fragment extends Fragment implements View.OnClickListener{
     private View view;
-    private TextView tv_point;
     private TextView tv_preference;
     private TextView tv_alert;
     private TextView tv_friend;
@@ -80,7 +79,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
 
 
 
-        tv_point = view.findViewById(R.id.tv_point);
         tv_preference = view.findViewById(R.id.tv_preference);
         tv_alert = view.findViewById(R.id.tv_alert);
         tv_friend = view.findViewById(R.id.tv_friend);
@@ -92,7 +90,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
 
 
         tv_account.setOnClickListener(this);
-        tv_point.setOnClickListener(this);
         tv_preference.setOnClickListener(this);
         tv_alert.setOnClickListener(this);
         tv_friend.setOnClickListener(this);
