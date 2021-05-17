@@ -19,4 +19,13 @@ public interface CallAPI {
     // 2km 이내 기사 리스트 가져오기
     @GET("/call/get/callinfo/{m_lttd}/{m_lngtd}")
     Call<List<CallHistory>> getCallInfoByPosition(@Path("m_lttd") double m_lttd, @Path("m_lngtd") double m_lngtd);
+
+    // 콜 수락
+    @PUT("/call/modify/history/{merchant_uid}/{d_id}/{m_lttd}/{m_lngtd}")
+    Call<Boolean> modifyHistoryByDriver(
+            @Path("merchant_uid") String merchant_uid,
+            @Path("d_id") String d_id,
+            @Path("m_lttd") double m_lttd,
+            @Path("m_lngtd") double m_lngtd
+    );
 }

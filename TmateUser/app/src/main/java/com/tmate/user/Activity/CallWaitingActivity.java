@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,6 +36,9 @@ public class CallWaitingActivity extends AppCompatActivity {
      // 레트로핏
      // 1. 기사코드 가져오는 요청 객체
      Call<String> request;
+     // 2. 호출 취소 시 호출을 삭제하는 요청 객체
+    Call<Boolean> deleteRequest;
+
 
      // 쓰레드 관련
      boolean isRunning;
@@ -114,6 +118,8 @@ public class CallWaitingActivity extends AppCompatActivity {
                         else{
                             isRunning = false;
                             Intent intent = new Intent(CallWaitingActivity.this, CarInfoActivity.class);
+                            intent.putExtra("merchant_uid",merchant_uid);
+                            intent.putExtra("d_id", d_id);
                             startActivity(intent);
                         }
                     }
@@ -167,18 +173,27 @@ public class CallWaitingActivity extends AppCompatActivity {
         super.onDestroy();
         isRunning = false;
     }
+
+    // 뒤로 가기 버튼 눌릴때
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        deleteRequest = DataService.getInstance().matchAPI.removeNormalCall(merchant_uid);
+        deleteRequest.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    Toast.makeText(CallWaitingActivity.this, "호출을 취소하셨습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 }
 
 
-//        wait_h_s_place = findViewById(R.id.wait_h_s_place);
-//        s_place = wait_h_s_place.getText().toString();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Intent intent = new Intent(CallWaitingActivity.this, MainViewActivity.class);
-//                intent.putExtra("출발지", "경북대");
-////                Log.d("CallWaitingActivity", s_place);
-//                startActivity(intent);
-//            }
-//        }, 4000);
-//    }
+

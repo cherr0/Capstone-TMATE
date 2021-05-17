@@ -53,6 +53,20 @@
         where merchant_uid = #{merchant_uid}
     </update>
 
+    <!-- 기사 위치 갱신 -->
+    <update id="updateDriverLocation">
+        update member
+        set m_lttd = #{m_lttd}, m_lngtd = #{m_lngtd}
+        where m_id = #{d_id}
+    </update>
+
+    <!-- 기사 상태 변경 -->
+    <update id="updateDriverStatus">
+        update driver
+        set d_status = '2'
+        where d_id = #{d_id}
+    </update>
+
     <!-- 매칭방 생성시 인서트 문 총 2개 필요함 이용내역 하나 넣고 그 다음 동승 넣고 -->
     <insert id="insertMatching">
 

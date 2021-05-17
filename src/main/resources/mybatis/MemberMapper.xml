@@ -153,5 +153,4 @@
                  group by m_id
              )
     </select>
-
 </mapper>

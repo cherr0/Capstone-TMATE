@@ -4,9 +4,11 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +21,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.skt.Tmap.TMapTapi;
 import com.skt.Tmap.TMapView;
+import com.tmate.driver.GpsTracker;
 import com.tmate.driver.R;
 import com.tmate.driver.data.CallHistory;
+import com.tmate.driver.net.DataService;
 import com.tmate.driver.services.driving_overlay;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
     ArrayList<CallHistory> items = new ArrayList<>();
@@ -32,11 +40,29 @@ public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
     private TMapView tMapView = null;
 
 
+    private SharedPreferences pref;
+    String d_id;
+    String merchant_uid;
+    double m_lttd;
+    double m_lngtd;
+    GpsTracker gpsTracker;
+
+    // 레트로 핏
+    Call<Boolean> request;
+
     @NonNull
     @Override
     public WaitingHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_waiting, parent, false);
+
+        pref = context.getSharedPreferences("loginDriver", Context.MODE_PRIVATE);
+        d_id = pref.getString("d_id", "");
+
+        gpsTracker = new GpsTracker(context);
+        m_lttd = gpsTracker.getLatitude();
+        m_lngtd = gpsTracker.getLongitude();
+
         return new WaitingHolder(view);
     }
 
@@ -59,11 +85,31 @@ public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
                     context.startActivity(i);
                     System.out.println("되니??" + result);
                 } else {
-                    checkPermission();
-                    tmaptapi.invokeNavigate("", 128.5058153f, 35.8356814f,0,true);
+                    merchant_uid = holder.cw_merchant_uid.getText().toString();
+                    request = DataService.getInstance().call.modifyHistoryByDriver(merchant_uid, d_id, m_lttd, m_lngtd);
+                    request.enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            if (response.code() == 200 & response.body() != null) {
+                                float h_s_lttd = Float.valueOf(holder.cw_h_s_lttd.getText().toString());
+                                float h_s_lngtd = Float.valueOf(holder.cw_h_s_lngtd.getText().toString());
+                                Log.d("TMAP으로 넘어가는 위도&경도 : ", h_s_lttd + "&" + h_s_lngtd);
+
+                                checkPermission();
+                                tmaptapi.invokeNavigate("", h_s_lngtd,h_s_lttd,0,true);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+
                 }
             }
         });
+
     }
     public void checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
@@ -129,9 +175,15 @@ class WaitingHolder extends RecyclerView.ViewHolder {
     Button matching_btn_refusal;
     Button matching_btn_accept;
 
+
+    TextView cw_h_s_lttd;
+    TextView cw_h_s_lngtd;
+    TextView cw_h_f_lttd;
+    TextView cw_h_f_lngtd;
+
     void onBind(CallHistory data) {
 
-        switch (data.getMerchant_uid().substring(29)){
+        switch (data.getMerchant_uid().substring(28)){
             case "0":
                 h_flag.setText("동승");
                 break;
@@ -145,6 +197,11 @@ class WaitingHolder extends RecyclerView.ViewHolder {
         matching_s_place.setText(data.getH_s_place());
         matching_e_place.setText(data.getH_f_place());
         cw_merchant_uid.setText(data.getMerchant_uid());
+        cw_h_s_lttd.setText(String.valueOf(data.getH_s_lttd()));
+        cw_h_s_lngtd.setText(String.valueOf(data.getH_s_lngtd()));
+        cw_h_f_lttd.setText(String.valueOf(data.getH_f_lttd()));
+        cw_h_f_lngtd.setText(String.valueOf(data.getH_f_lngtd()));
+
     }
 
     public WaitingHolder(@NonNull View itemView) {
@@ -157,6 +214,10 @@ class WaitingHolder extends RecyclerView.ViewHolder {
         matching_btn_accept = itemView.findViewById(R.id.matching_btn_accept);
         matching_btn_refusal = itemView.findViewById(R.id.matching_btn_refusal);
         cw_merchant_uid = itemView.findViewById(R.id.cw_merchant_uid);
+        cw_h_s_lttd = itemView.findViewById(R.id.cw_h_s_lttd);
+        cw_h_s_lngtd = itemView.findViewById(R.id.cw_h_s_lngtd);
+        cw_h_f_lttd = itemView.findViewById(R.id.cw_h_f_lttd);
+        cw_h_f_lngtd = itemView.findViewById(R.id.cw_h_f_lngtd);
 
     }
 }

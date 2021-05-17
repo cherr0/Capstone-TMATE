@@ -17,6 +17,9 @@ public interface AppMemberMatchService {
     // 2. 일반 호출 CallWaiting에서 기사코드 찾는 서비스
     String getD_idDuringCall(String merchant_uid);
 
+    // 3. 일반 호출 시 뒤로가기 버튼 눌렀을때 삭제 시킨다.
+    Boolean removeNowCall(String merchant_uid);
+
 
     // 동승 호출 시
     // 거리순으로 리스트 보여주기

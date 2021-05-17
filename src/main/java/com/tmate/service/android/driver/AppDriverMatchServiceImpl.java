@@ -5,6 +5,7 @@ import com.tmate.mapper.HistoryMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,10 +31,29 @@ public class AppDriverMatchServiceImpl implements AppDriverMatchService {
     }
 
     // 기사 2km 이내 콜정보 가져오기
-
     @Override
     public List<HistoryDTO> getCallList(double m_lttd, double m_lngtd) {
 
         return historyMapper.selectCallInfo(m_lttd,m_lngtd);
+    }
+
+    // 기사가 콜을 수락 할시
+    /*
+     *  @Transactional
+     *  1. 기사코드를 그 호출 정보에 넣어준다.
+     *  2. 이용정보의 상태를 바꿔준다. -> 3
+     *  3. 기사의 실시간 위치를 넣어준다. -> m_lttd, m_lngtd
+     * 4. 기사의 상태도 운행 중으로 바꿔준다. -> 2
+     * */
+    @Transactional
+    @Override
+    public Boolean driverCallAgree(String merchant_uid, String d_id, double m_lttd, double m_lngtd) {
+        // 1. 기사코드를 그 호출 정보에 넣어준다.
+        // 2. 이용정보의 상태를 바꿔준다.
+        historyMapper.updateMatchStatus(merchant_uid, d_id);
+        // 3. 기사의 실시간 위치를 넣어준다.
+        historyMapper.updateDriverLocation(m_lttd, m_lngtd,d_id);
+        // 4. 기사의 상태도 운행 중으로 바꿔준다. -> 이것이 Return 값이 될것이다.
+        return historyMapper.updateDriverStatus(d_id) == 1;
     }
 }
