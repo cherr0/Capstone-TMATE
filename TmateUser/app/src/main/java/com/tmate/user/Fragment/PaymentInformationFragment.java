@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.Fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.tmate.user.R;
 import com.tmate.user.adapter.PaymentAdapter;
 import com.tmate.user.data.SubscriptionRes;
 import com.tmate.user.databinding.FragmentPaymentInformationBinding;

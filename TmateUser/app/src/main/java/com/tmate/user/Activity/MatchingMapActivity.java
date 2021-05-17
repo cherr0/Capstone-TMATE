@@ -35,7 +35,7 @@ import com.skt.Tmap.TMapPOIItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
-import com.tmate.user.PaymentInformationFragment;
+import com.tmate.user.Fragment.PaymentInformationFragment;
 import com.tmate.user.R;
 import com.tmate.user.common.Common;
 import com.tmate.user.common.PermissionManager;

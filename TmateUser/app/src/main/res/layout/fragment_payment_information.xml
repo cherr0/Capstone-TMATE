@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".PaymentInformationFragment"
+    tools:context=".Fragment.PaymentInformationFragment"
     android:background="#F4F4F4F4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
