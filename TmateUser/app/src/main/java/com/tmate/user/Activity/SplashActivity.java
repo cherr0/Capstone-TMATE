@@ -51,6 +51,11 @@ public class SplashActivity extends AnimatedSplash {
 
     @Override
     public void animationsFinished() {
+
+        setPreference("m_id","m1010918400420");
+        setPreference("m_name","하창현");
+        setPreference("m_birth","970606");
+
         // sharedpreference 값 있을떄 바로 메인뷰로 간다.
         if (!(getPreferenceString("m_id").equals(""))) {
             Intent intent = new Intent(this, MainViewActivity.class);
