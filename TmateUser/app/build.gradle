@@ -86,6 +86,9 @@ dependencies {
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    //뷰퍼이저 페이지 수체크
+    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
+
 }
 
 // 구글 로그인 관련
