@@ -340,12 +340,24 @@
                         android:id="@+id/payment_information_m_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1002원"
+                        android:text="0"
                         android:textSize="24sp"
                         android:textColor="@color/black"
                         app:layout_constraintStart_toStartOf="@+id/point_possession"
                         app:layout_constraintTop_toBottomOf="@+id/point_possession"
+                        app:layout_constraintRight_toLeftOf="@+id/payment_information_m_point_won"
                         android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:id="@+id/payment_information_m_point_won"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="원"
+                        android:textSize="24sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="@+id/payment_information_m_point"
+                        app:layout_constraintStart_toEndOf="@+id/payment_information_m_point"
+                        app:layout_constraintTop_toTopOf="@+id/payment_information_m_point" />
 
                     <Button
                         android:id="@+id/point_btn_all"
@@ -363,6 +375,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:hint="사용할 포인트를 입력해주세요"
+                        android:inputType="number"
                         app:layout_constraintTop_toBottomOf="@+id/payment_information_m_point"
                         app:layout_constraintStart_toStartOf="@id/payment_information_m_point"
                         app:layout_constraintEnd_toStartOf="@+id/point_btn_use"
@@ -395,10 +408,21 @@
                         android:id="@+id/payment_information_rest_m_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1002원"
+                        android:text="0"
                         app:layout_constraintStart_toEndOf="@+id/point_rest"
                         app:layout_constraintTop_toTopOf="@+id/point_rest"
                         android:layout_marginStart="12dp"/>
+
+                    <TextView
+                        android:id="@+id/payment_information_rest_m_point_won"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="원"
+                        app:layout_constraintStart_toEndOf="@+id/payment_information_rest_m_point"
+                        app:layout_constraintTop_toTopOf="@+id/payment_information_rest_m_point"
+                        app:layout_constraintBottom_toBottomOf="@+id/payment_information_rest_m_point" />
+
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -441,7 +465,7 @@
                         android:id="@+id/pay_h_allFare"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="36000원"
+                        android:text="0원"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -460,10 +484,21 @@
                         android:layout_marginTop="8dp"/>
 
                     <TextView
+                        android:id="@+id/pay_point_minus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="- "
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintRight_toLeftOf="@+id/pay_po_result"
+                        app:layout_constraintTop_toTopOf="@+id/pay_po_result"
+                        app:layout_constraintBottom_toBottomOf="@+id/pay_po_result" />
+
+                    <TextView
                         android:id="@+id/pay_po_result"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="- 1000원"
+                        android:text="0원"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -524,7 +559,7 @@
                         android:id="@+id/pay_total_h_ep_Fare"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="35000원"
+                        android:text="0원"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
