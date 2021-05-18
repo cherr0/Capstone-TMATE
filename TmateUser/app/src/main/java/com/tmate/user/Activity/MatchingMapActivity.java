@@ -437,6 +437,81 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
 
             }
         });
+        b.home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search = 2;
+                initSildeMenu();
+                arDessert.clear();
+                buttonLatitude.clear();
+                buttonLongitude.clear();
+
+                arDessert.add("영진전문대");
+                buttonLatitude.add(35.8956224);
+                buttonLongitude.add(128.6224265);
+
+                Adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_layout, arDessert);
+                b.list.setAdapter(Adapter);
+                b.list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                b.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if(b.startPlace.getText().toString().equals("") || b.startPlace.toString() == null) {
+                            b.startPlace.setText(arDessert.get(position));
+                            d1 = buttonLatitude.get(position);
+                            d2 = buttonLongitude.get(position);
+                            tMapPointStart = new TMapPoint(d1,d2);
+                        } else {
+                            b.finishPlace.setText(arDessert.get(position));
+                            d3 = buttonLatitude.get(position);
+                            d4 = buttonLongitude.get(position);
+                            tMapPointEnd = new TMapPoint(d3,d4);
+                        }
+                    }
+                });
+
+
+            }
+        });
+        b.history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search = 2;
+                initSildeMenu();
+                arDessert.clear();
+                buttonLatitude.clear();
+                buttonLongitude.clear();
+
+                arDessert.add("대구 신세계");
+                arDessert.add("화원고등학교");
+                buttonLatitude.add(35.8777867);
+                buttonLongitude.add(128.6285734);
+                buttonLatitude.add(35.7975259);
+                buttonLongitude.add(128.4887906);
+
+                Adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_layout, arDessert);
+                b.list.setAdapter(Adapter);
+                b.list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                b.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if(b.startPlace.getText().toString().equals("") || b.startPlace.toString() == null) {
+                            b.startPlace.setText(arDessert.get(position));
+                            d1 = buttonLatitude.get(position);
+                            d2 = buttonLongitude.get(position);
+                            tMapPointStart = new TMapPoint(d1,d2);
+                        } else {
+                            b.finishPlace.setText(arDessert.get(position));
+                            d3 = buttonLatitude.get(position);
+                            d4 = buttonLongitude.get(position);
+                            tMapPointEnd = new TMapPoint(d3,d4);
+                        }
+                    }
+                });
+
+
+            }
+        });
         /*b.startPlace.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
