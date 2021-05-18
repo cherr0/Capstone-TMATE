@@ -137,15 +137,11 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
 
     //간편결제를 눌렀을 때 카드 선택뷰 보이기
     private void selectedCard() {
-        b.paymentSimpleCl.setVisibility(View.GONE);
-        b.paymentRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.payment_simple) {
-                    b.paymentSimpleCl.setVisibility(View.VISIBLE);
-                } else {
-                    b.paymentSimpleCl.setVisibility(View.GONE);
-                }
+        b.paymentRadiogroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.payment_simple) {
+                b.paymentSimpleCl.setVisibility(View.VISIBLE);
+            } else {
+                b.paymentSimpleCl.setVisibility(View.GONE);
             }
         });
     }
