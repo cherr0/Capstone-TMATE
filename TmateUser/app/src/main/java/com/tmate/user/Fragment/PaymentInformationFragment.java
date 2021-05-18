@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.Fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -6,13 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.tmate.user.R;
 import com.tmate.user.adapter.PaymentAdapter;
 import com.tmate.user.data.SubscriptionRes;
 import com.tmate.user.databinding.FragmentPaymentInformationBinding;
@@ -34,7 +37,9 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     private FragmentPaymentInformationBinding b;
 
     private ArrayList<Integer> imageList;
+    private Integer unusedPoint;
     private Integer point;
+    private Integer price;
 
     final String auth = "KakaoAK e24eec29f82748733f7a2be2de93c236";
     Call<Integer> pointRequest;
@@ -51,10 +56,14 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         View v = b.getRoot();
 
         b.paymentInformationFinish.setOnClickListener(this);
+        b.pointBtnAll.setOnClickListener(this);
+        b.pointBtnUse.setOnClickListener(this);
 
-        this.initializeData();
+        cardImgList(); // 카드 이미지 리스트 가져오기
+        findUnusedPoint(); // 사용자 미사용 포인트 검색
         Log.d("PayInfoFragment", "사용자 아이디 : " + getPreferenceString("m_id"));
-        this.findData();
+        Log.d("PayInfoFragment", "사용자 미사용 포인트 : " + unusedPoint);
+
 
         if (getArguments() != null) {
             bundle = getArguments();
@@ -63,6 +72,9 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
             b.paymentInformationHFPlace.setText(bundle.getString("h_f_place")); // 도착지
             b.payHAllFare.setText(bundle.getString("h_ep_fare")+"원"); // 예상금액
             b.payToPeople.setText(bundle.getString("together")+"명"); // 동승인원
+            b.payTotalHEpFare.setText(bundle.getString("h_ep_fare")+"원"); // 총 금액
+            price = Integer.parseInt(bundle.getString("h_ep_fare")); // 총 금액 변수에 추가
+
         }else {
             Log.d("PayInfoFragment","번들 값을 받아오지 못했습니다.");
         }
@@ -79,22 +91,23 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         //간편결제를 눌렀을때 카드 선택뷰 보이기
         selectedCard();
 
+//        b.pointEt.addTextChangedListener(new);
 
 
         return v;
     }
 
-
-
-    public void findData() {
+    // 사용자 미사용 포인트 검색
+    public void findUnusedPoint() {
         pointRequest = DataService.getInstance().memberAPI.getUnusedPoint(getPreferenceString("m_id"));
         pointRequest.enqueue(new Callback<Integer>() {
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.code() == 200 && response.body() != null) {
-                    point = response.body();
-                    Log.d("PaymentFragment", "사용자 사용가능 포인트  " + point);
-
+                    unusedPoint = response.body();
+                    Log.d("PaymentFragment", "사용자 사용가능 포인트  " + unusedPoint);
+                    b.paymentInformationMPoint.setText(unusedPoint.toString());
+                    b.paymentInformationRestMPoint.setText(unusedPoint.toString());
                 } else {
                     try {
                         Log.d("PayInfoFragment", "에러 : " + response);
@@ -112,8 +125,9 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
             }
         });
     }
+
     //카드 이미지 리스트
-    private void initializeData() {
+    private void cardImgList() {
         imageList = new ArrayList();
         imageList.add(R.drawable.ic_logo);
         imageList.add(R.drawable.ic_map);
@@ -121,43 +135,18 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         imageList.add(R.drawable.logo);
     }
 
-    public String getPreferenceString(String key) {
-        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
-        return pref.getString(key, "");
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.payment_information_finish:   // 결제완료 버튼
-                Log.d("payInfoFragemnt", "결제 완료 눌림");
-                kakaoSubscription("9000");
-                return;
-
-            case R.id.point_btn_all :               //모두적용 버튼
-
-                return;
-            case R.id.payment_information_point :   // 포인트 적용 버튼
-
-                return;
-        }
-    }
-
     //간편결제를 눌렀을 때 카드 선택뷰 보이기
     private void selectedCard() {
-        b.paymentSimpleCl.setVisibility(View.GONE);
-        b.paymentRadiogroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.payment_simple) {
-                    b.paymentSimpleCl.setVisibility(View.VISIBLE);
-                } else {
-                    b.paymentSimpleCl.setVisibility(View.GONE);
-                }
+        b.paymentRadiogroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.payment_simple) {
+                b.paymentSimpleCl.setVisibility(View.VISIBLE);
+            } else {
+                b.paymentSimpleCl.setVisibility(View.GONE);
             }
         });
     }
 
+    // 카카오 정기결제 진행
     private void kakaoSubscription(String amount) {
         Map<String,String> map = new HashMap<>();
         map.put("cid","TCSUBSCRIP");
@@ -196,6 +185,57 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                 t.printStackTrace();
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.payment_information_finish:   // 결제완료 버튼
+                Log.d("payInfoFragemnt", "결제 완료 눌림");
+                kakaoSubscription("9000");
+                return;
+
+            case R.id.point_btn_all :  //모두적용 버튼
+                Log.d("payInfoFragment", "포인트 모두 적용");
+                b.paymentInformationRestMPoint.setText("0");
+                b.payPoResult.setText(unusedPoint.toString() + "원");
+                b.payTotalHEpFare.setText(price - unusedPoint + "원");
+                hideKeyBoard(); // 키보드 비활성화
+                return;
+
+            case R.id.point_btn_use :   // 포인트 적용 버튼
+                String getUsePoint = b.pointEt.getText().toString();
+                if(getUsePoint.isEmpty()) { // 포인트 값 입력 확인
+                    Toast.makeText(getActivity(), "포인트 값을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                point = Integer.parseInt(getUsePoint);
+
+                if(point <= unusedPoint){ // 입력 포인트 초과되는지 확인
+                    b.paymentInformationRestMPoint.setText(String.valueOf(unusedPoint - point));
+                    b.payPoResult.setText(String.valueOf(point));
+                    b.payTotalHEpFare.setText(price - point + "원");
+                    b.pointEt.setText("");
+
+                }else {
+                    Toast.makeText(getActivity(), "보유 포인트 초과하여 사용은 불가합니다.", Toast.LENGTH_SHORT).show();
+                    b.pointEt.setText("");
+                }
+
+                hideKeyBoard(); // 키보드 비활성화
+                return;
+        }
+    }
+
+    //키보드 숨기기
+    public void hideKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(b.pointEt.getWindowToken(), 0);
+    }
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 
     @Override

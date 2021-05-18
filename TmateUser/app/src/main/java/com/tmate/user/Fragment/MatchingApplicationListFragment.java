@@ -1,4 +1,4 @@
-package com.tmate.user;
+package com.tmate.user.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tmate.user.R;
 import com.tmate.user.adapter.MatchingApplicationListAdapter;
 import com.tmate.user.data.MatchingApplicationList;
 
