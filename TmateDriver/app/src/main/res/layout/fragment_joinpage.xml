@@ -22,30 +22,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/tv_welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:text="반갑습니다"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-        app:layout_constraintTop_toBottomOf="@+id/tv_info_input" />
-
-    <TextView
-        android:id="@+id/tv_info_plz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="기본정보를 입력해주세요"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_welcome"
-        app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
-
     <com.kofigyan.stateprogressbar.StateProgressBar
         android:id="@+id/first_reg"
         android:layout_width="wrap_content"
@@ -68,7 +44,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginEnd="44dp"
         android:background="@drawable/radius"
@@ -162,6 +138,47 @@
             android:text="생년월일을 지정해주세요."
             app:layout_constraintStart_toStartOf="@+id/tv_birth"
             app:layout_constraintTop_toBottomOf="@+id/tv_birth" />
+
+        <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="비밀번호"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/et_birth"
+            app:layout_constraintTop_toBottomOf="@+id/et_birth" />
+
+        <EditText
+            android:id="@+id/et_reg_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/m_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_password"
+            app:layout_constraintTop_toBottomOf="@+id/tv_password" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="이메일"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintStart_toStartOf="@+id/et_reg_password"
+            app:layout_constraintTop_toBottomOf="@+id/et_reg_password" />
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="@+id/et_reg_password"
+            app:layout_constraintStart_toStartOf="@+id/tv_email"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@800&display=swap" rel="stylesheet">
     <link th:href="@{/css/pay.css}" rel="stylesheet">
 </head>
 <body>
@@ -21,6 +22,22 @@
         <div>
             <span>카드사 : </span><span id="pay_company">신한</span>
         </div>
+
+    <form>
+        <label for="fname">카드별명</label><br>
+        <input type="text" id="fname" name="fname" class="input_box">
+    </form>
+
+    <input type="radio" name="radio" value="1" id="individual"> 개인카드
+    <input type="radio" name="radio" value="2" id="company"> 법인카드
+
+    <div id="con" style="display:none" class="radio-value-div">
+        <form>
+            <label for="registration">사업자 등록번호</label><br>
+            <input type="text" id="registration" name="fname" class="input_box">
+        </form>
+    </div>
+
 </div>
     <button id="submit" class="payApproval_btn">확인</button>
 
@@ -28,12 +45,71 @@
 
 
 
-<input id="tid" type="hidden" th:value="${result.tid}"/>
-<input id="partner_order_id" type="hidden" th:value="${result.d_id}"/>
-<input id="partner_user_id" type="hidden" th:value="${result.m_id}"/>
-<input id="pg_token" type="hidden" th:value="${token}"/>
-<input id="amount" type="hidden" th:value="${result.re_amt}"/>
-<input id="approved_at" type="hidden" th:value="${result.re_time}"/>
+<!--<input id="tid" type="hidden" th:value="${result.tid}"/>-->
+<!--<input id="partner_order_id" type="hidden" th:value="${result.d_id}"/>-->
+<!--<input id="partner_user_id" type="hidden" th:value="${result.m_id}"/>-->
+<!--<input id="pg_token" type="hidden" th:value="${token}"/>-->
+<!--<input id="amount" type="hidden" th:value="${result.re_amt}"/>-->
+<!--<input id="approved_at" type="hidden" th:value="${result.re_time}"/>-->
+
+
+<script>
+    $('#fname').on('input', setFname);
+    $('#registration').on('input', setRegistration);
+    let fname = 0;
+    let registration = 0;
+
+    function setFname() {
+        let input = $('#fname').val();
+        if (input.length > 0) {
+            fname = 1;
+        } else {
+            fname = 0;
+        }
+        payApprovalBtn();
+    }
+
+    function setRegistration() {
+        let input = $('#registration').val();
+        if (input.length > 9) {
+            registration = 1;
+        } else {
+            registration = 0;
+        }
+        payApprovalBtn();
+    }
+
+    function payApprovalBtn() {
+        if (fname == 1 && registration == 1) {
+            btnEnabled();
+        } else {
+            btnDisabled();
+        }
+    }
+
+    function btnDisabled() {
+        $('#submit').css('background-color', '#9b9b9b');
+        $('#submit').attr('disabled', true);
+    }
+
+    function btnEnabled() {
+        $('#submit').css('background-color', '#3F72F4');
+        $('#submit').attr('disabled', false);
+    }
+
+    $('input[name=radio]').click(function () {
+        if (this.id == "company") {
+            $("#con").show();
+            registration = 0;
+            payApprovalBtn();
+        } else {
+            $("#con").hide();
+            registration = 1;
+            payApprovalBtn();
+        }
+    });
+</script>
+
 <script>
     console.log('스크립트 실행됨');
 
