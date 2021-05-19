@@ -10,11 +10,12 @@
         android:id="@+id/notice_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/ibmplexsanskr_medium"
         android:text="반가워요, 대구광역시 오픈!\n가나다라마"
         android:textColor="@color/black"
         android:textSize="24sp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
+        android:fontFamily="@font/ibmplexsanskr_extralight"
         android:text="3.22"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/View"

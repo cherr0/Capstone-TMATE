@@ -27,12 +27,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:fontFamily="@font/nexon_medium"
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
+            android:fontFamily="@font/ibmplexsanskr_semibold"
             android:text="지인관리"
             android:textColor="@color/black"
             android:textSize="28sp"
@@ -48,6 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/ibmplexsanskr_extralight"
         android:text="요청한 회원"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout31" />
@@ -68,11 +69,13 @@
             android:layout_height="match_parent"
             tools:listitem="@layout/friend_item" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
     <TextView
         android:id="@+id/textView44"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/ibmplexsanskr_extralight"
         android:text="MY T 지인"
         app:layout_constraintStart_toStartOf="@+id/ref_request"
         app:layout_constraintTop_toBottomOf="@+id/ref_request" />
