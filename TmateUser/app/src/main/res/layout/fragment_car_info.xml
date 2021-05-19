@@ -20,12 +20,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:fontFamily="@font/nexon_medium"
                 android:id="@+id/textView42"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
                 android:text="탑승 정보"
                 android:textColor="@color/black"
                 android:textSize="28sp"
@@ -46,6 +46,7 @@
                 android:id="@+id/fc_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="이용중"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -75,10 +76,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/ibmplexsanskr_medium"
                         android:text="택시"
-                        android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/htogether"
@@ -86,6 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:background="@drawable/box_shape"
+                        android:fontFamily="@font/ibmplexsanskr_extralight"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:text="일반"
@@ -102,13 +105,15 @@
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:background="@drawable/select_shape">
+
                             <TextView
                                 android:id="@+id/status_badge"
-                                android:textSize="18dp"
-                                android:textColor="@color/white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="배차 성공"/>
+                                android:fontFamily="@font/ibmplexsanskr_extralight"
+                                android:text="배차 성공"
+                                android:textColor="@color/white"
+                                android:textSize="18dp" />
 
 
                         </LinearLayout>
@@ -137,13 +142,14 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_marginTop="10dp"
                         android:id="@+id/h_s_place"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:text="대구 북구 복현동 영진전문대 정문"
                         android:textColor="@color/black"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        android:fontFamily="@font/ibmplexsanskr_extralight" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -174,10 +180,11 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_marginTop="10dp"
                         android:id="@+id/h_f_place"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/ibmplexsanskr_extralight"
                         android:text="대구 신세계백화점"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
@@ -192,14 +199,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="차량정보"/>
+                        android:fontFamily="@font/ibmplexsanskr_extralight"
+                        android:text="차량정보"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/car_no"
-                        android:layout_marginLeft="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/ibmplexsanskr_extralight"
                         android:text="대구 16 바 3415"
                         android:textColor="@color/black"
                         android:textSize="15dp" />
@@ -209,10 +218,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="|"/>
+
                     <TextView
                         android:id="@+id/car_model"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/ibmplexsanskr_extralight"
                         android:text="쏘나타"
                         android:textColor="@color/black"
                         android:textSize="15dp" />

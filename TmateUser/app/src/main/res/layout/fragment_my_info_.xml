@@ -31,7 +31,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:fontFamily="@font/nexon_medium"
+                    android:fontFamily="@font/ibmplexsanskr_semibold"
                     android:id="@+id/textView42"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,6 +105,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_marginTop="36dp"
+                            android:fontFamily="@font/ibmplexsanskr_medium"
                             android:text="VIP"
                             app:layout_constraintStart_toEndOf="@+id/circleImageView2"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -114,6 +115,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
+                            android:fontFamily="@font/ibmplexsanskr_medium"
                             android:text="박한수"
                             android:textColor="@color/black"
                             app:layout_constraintStart_toEndOf="@+id/circleImageView2"
@@ -122,6 +124,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/ibmplexsanskr_extralight"
                             android:text="님 상담이 필요하신가요?"
                             android:textColor="@color/black"
                             app:layout_constraintStart_toEndOf="@+id/mi_m_name"
@@ -135,8 +138,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:padding="10dp"
-                        android:paddingBottom="20dp"
                         app:layout_constraintTop_toBottomOf="@+id/service">
 
                         <LinearLayout
@@ -157,6 +158,7 @@
                                 android:layout_gravity="center"
                                 android:drawableTop="@drawable/ic_history"
                                 android:drawablePadding="15dp"
+                                android:fontFamily="@font/ibmplexsanskr_medium"
                                 android:gravity="center_vertical"
                                 android:text="이용기록"
                                 android:textColor="@color/black"
@@ -185,6 +187,7 @@
                                 android:layout_gravity="center"
                                 android:drawableTop="@drawable/ic_card"
                                 android:drawablePadding="15dp"
+                                android:fontFamily="@font/ibmplexsanskr_medium"
                                 android:gravity="center_vertical"
                                 android:text="카드관리"
                                 android:textColor="@color/black"
@@ -210,12 +213,13 @@
                         <TextView
                             android:id="@+id/tv_account"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:layout_gravity="center"
                             android:background="@color/white"
                             android:drawableLeft="@drawable/ic_account"
                             android:drawableRight="@drawable/ic_arrow_right"
                             android:drawablePadding="16dp"
+                            android:fontFamily="@font/ibmplexsanskr_medium"
                             android:gravity="center_vertical"
                             android:paddingLeft="15dp"
                             android:paddingRight="16dp"
@@ -229,12 +233,13 @@
                         <TextView
                             android:id="@+id/tv_preference"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:layout_gravity="center"
                             android:background="@color/white"
                             android:drawableLeft="@drawable/ic_driver"
                             android:drawableRight="@drawable/ic_arrow_right"
                             android:drawablePadding="15dp"
+                            android:fontFamily="@font/ibmplexsanskr_medium"
                             android:gravity="center_vertical"
                             android:paddingLeft="15dp"
                             android:paddingRight="16dp"
@@ -248,12 +253,13 @@
                         <TextView
                             android:id="@+id/tv_bookmark"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:layout_gravity="center"
                             android:background="@color/white"
                             android:drawableLeft="@drawable/ic_favorite"
                             android:drawableRight="@drawable/ic_arrow_right"
                             android:drawablePadding="15dp"
+                            android:fontFamily="@font/ibmplexsanskr_medium"
                             android:gravity="center_vertical"
                             android:paddingLeft="15dp"
                             android:paddingRight="16dp"
@@ -267,13 +273,14 @@
                         <TextView
                             android:id="@+id/tv_notice"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="15dp"
                             android:background="@color/white"
                             android:drawableLeft="@drawable/ic_notice"
                             android:drawableRight="@drawable/ic_arrow_right"
                             android:drawablePadding="16dp"
+                            android:fontFamily="@font/ibmplexsanskr_medium"
                             android:gravity="center_vertical"
                             android:paddingLeft="15dp"
                             android:paddingRight="16dp"
@@ -288,12 +295,13 @@
                         <TextView
                             android:id="@+id/tv_alert"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:layout_gravity="center"
                             android:background="@color/white"
                             android:drawableLeft="@drawable/ic_alert"
                             android:drawableRight="@drawable/ic_arrow_right"
                             android:drawablePadding="15dp"
+                            android:fontFamily="@font/ibmplexsanskr_medium"
                             android:gravity="center_vertical"
                             android:paddingLeft="15dp"
                             android:paddingRight="16dp"
@@ -307,12 +315,13 @@
                         <TextView
                             android:id="@+id/tv_friend"
                             android:layout_width="match_parent"
-                            android:layout_height="60dp"
+                            android:layout_height="55dp"
                             android:layout_gravity="center"
                             android:background="@color/white"
                             android:drawableLeft="@drawable/ic_call"
                             android:drawableRight="@drawable/ic_arrow_right"
                             android:drawablePadding="15dp"
+                            android:fontFamily="@font/ibmplexsanskr_medium"
                             android:gravity="center_vertical"
                             android:paddingLeft="15dp"
                             android:paddingRight="16dp"
@@ -325,10 +334,11 @@
 
 
                         <TextView
-                            android:layout_marginRight="3dp"
                             android:id="@+id/textView20"
                             android:layout_width="wrap_content"
                             android:layout_height="60dp"
+                            android:layout_marginRight="3dp"
+                            android:fontFamily="@font/ibmplexsanskr_extralight"
                             android:gravity="center_vertical"
                             android:text="ver"
                             android:textSize="13sp"
@@ -336,11 +346,11 @@
                             app:layout_constraintTop_toBottomOf="@+id/tv_friend" />
 
                         <TextView
-                            android:layout_marginRight="20dp"
                             android:id="@+id/tv_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="3dp"
+                            android:layout_marginRight="20dp"
+                            android:fontFamily="@font/ibmplexsanskr_extralight"
                             android:gravity="center_vertical"
                             android:text="1.1.1"
                             android:textSize="13sp"

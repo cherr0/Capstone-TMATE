@@ -19,14 +19,14 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:fontFamily="@font/nexon_medium"
                 android:id="@+id/tv_match"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
                 android:text="매칭리스트"
-                android:textSize="30sp"
                 android:textColor="#000000"
+                android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -35,15 +35,16 @@
                 android:id="@+id/tv_want"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_match"
+                android:background="#4267B2"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:gravity="center_vertical"
                 android:paddingLeft="20dp"
                 android:text="원하는 동승상대를 찾으세요"
-                android:textSize="18sp"
-                android:background="#4267B2"
                 android:textColor="#FFFFFF"
-                android:gravity="center_vertical"/>
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_match" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -75,16 +76,17 @@
         android:id="@+id/tooltip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/ic_bubble"
+        android:fontFamily="@font/ibmplexsanskr_extralight"
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp"
         android:text="원하는 리스트가 없다면\n여기를 클릭해주세요."
         app:layout_constraintBottom_toTopOf="@+id/btn_add"
-        app:layout_constraintEnd_toEndOf="@+id/btn_add"
-        android:paddingTop="10dp"
-        android:paddingBottom="20dp"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp"
-        android:layout_marginBottom="4dp"
-        android:gravity="center"/>
+        app:layout_constraintEnd_toEndOf="@+id/btn_add" />
 
     <Button
         android:id="@+id/btn_add"
