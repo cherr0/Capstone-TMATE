@@ -28,12 +28,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:fontFamily="@font/nexon_medium"
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
+            android:fontFamily="@font/ibmplexsanskr_semibold"
             android:text="카드 등록"
             android:textColor="@color/black"
             android:textSize="28sp"
@@ -65,6 +65,7 @@
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="은행사"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -75,14 +76,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/box_bold">
+
                 <TextView
                     android:id="@+id/bank_name_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/ibmplexsanskr_medium"
+                    android:gravity="center"
                     android:text="은행 선택"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:gravity="center"/>
+                    android:textColor="@color/black" />
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,6 +106,7 @@
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="카드번호"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -153,6 +157,7 @@
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="유효기간"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -186,6 +191,7 @@
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="비밀번호"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -207,6 +213,7 @@
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="CVC"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
@@ -225,6 +232,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/ibmplexsanskr_medium"
             android:text="법인" />
 
         <LinearLayout
@@ -293,6 +301,7 @@
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:fontFamily="@font/ibmplexsanskr_extralight"
                 android:gravity=""
                 android:text="유효성 확인\n카드 등록 시, 유효성 확인을 위해 100원이 결제 된 후 24시간 이내에 결제\n취소 처리 됩니다."
                 android:textSize="12sp"
@@ -305,6 +314,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:fontFamily="@font/ibmplexsanskr_extralight"
                 android:text="선결제 안내\n호출 시, 등록된 카드의 결제 가능 여부를 확인하기 위해 운행요금을\n먼저 결제합니다.\n하차 시, 결제 금액으로 은행요금이 자동결제 되며, 선결제 금액은\n자동 취소됩니다."
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/card"
@@ -321,6 +331,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/select_shape"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="카드 정보 등록"
                 android:textColor="#ffffff"
                 android:textSize="20sp"

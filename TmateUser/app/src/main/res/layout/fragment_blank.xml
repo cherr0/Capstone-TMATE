@@ -8,7 +8,7 @@
     tools:context=".Activity.LoginActivity">
 
     <TextView
-        android:fontFamily="@font/nexon_medium"
+        android:fontFamily="@font/ibmplexsanskr_semibold"
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,6 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/ibmplexsanskr_medium"
             android:text="이름"
             android:textColor="#000000"
             android:textSize="17sp"
@@ -90,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/ibmplexsanskr_medium"
             android:text="휴대폰번호"
             android:textColor="#000000"
             android:textSize="17sp"
@@ -133,6 +135,7 @@
                 android:id="@+id/radioButton6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_extralight"
                 android:text="남자"
                 android:textColor="#000000" />
 
@@ -140,6 +143,7 @@
                 android:id="@+id/radioButton7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_extralight"
                 android:text="여자"
                 android:textColor="#000000" />
         </RadioGroup>
@@ -149,6 +153,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/ibmplexsanskr_medium"
             android:text="성별"
             android:textColor="#000000"
             android:textSize="17sp"
@@ -162,10 +167,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:fontFamily="@font/ibmplexsanskr_medium"
             android:text="생년월일"
             android:textColor="#000000"
             android:textSize="17sp"
@@ -196,6 +200,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/ibmplexsanskr_medium"
             android:text="비밀번호"
             android:textColor="@color/black"
             android:textSize="17sp"
@@ -218,6 +223,7 @@
         android:id="@+id/btn_next"
         android:layout_width="0dp"
         android:layout_height="70dp"
+        android:fontFamily="@font/ibmplexsanskr_medium"
         android:text="다음으로"
         android:textSize="15sp"
         app:backgroundTint="#5589EE"

@@ -38,6 +38,7 @@
                 android:id="@+id/hdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="21/11/06"
                 android:textColor="@color/black"
                 android:textSize="18dp" />
@@ -48,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/box_shape"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="일반"
@@ -77,6 +79,7 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="출발\n"
                 android:textSize="15dp" />
 
@@ -84,6 +87,7 @@
                 android:id="@+id/hstart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="대구 북구 복현동 영진전문대 정문"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -97,6 +101,7 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="도착\n"
                 android:textSize="15dp" />
 
@@ -104,6 +109,7 @@
                 android:id="@+id/hfinish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="대웅아파트"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -118,6 +124,7 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="운행 시간\n"
                 android:textSize="15dp" />
 
@@ -125,6 +132,7 @@
                 android:id="@+id/htime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="11:32 - 11:48"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -139,6 +147,7 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="기사 명\n"
                 android:textSize="15dp" />
 
@@ -146,6 +155,7 @@
                 android:id="@+id/hdrivername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="김*치"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -160,6 +170,7 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="택시 정보"
                 android:textSize="15dp" />
 
@@ -167,6 +178,7 @@
                 android:id="@+id/hcarinfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="대구 32 바 1806 | 쏘나타"
                 android:textColor="@color/black"
                 android:textSize="15dp" />

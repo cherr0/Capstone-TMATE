@@ -27,12 +27,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:fontFamily="@font/nexon_medium"
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/ibmplexsanskr_semibold"
             android:text="카드관리"
             android:textColor="@color/black"
             android:textSize="28sp"
@@ -73,33 +73,35 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:fontFamily="@font/ibmplexsanskr_extralight"
                 android:gravity=""
-                android:textSize="12sp"
                 android:text="유효성 확인\n카드 등록 시, 유효성 확인을 위해 100원이 결제 된 후 24시간 이내에 결제\n취소 처리 됩니다."
-                />
+                android:textSize="12sp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:fontFamily="@font/ibmplexsanskr_extralight"
                 android:text="선결제 안내\n호출 시, 등록된 카드의 결제 가능 여부를 확인하기 위해 운행요금을\n먼저 결제합니다.\n하차 시, 결제 금액으로 은행요금이 자동결제 되며, 선결제 금액은\n자동 취소됩니다."
                 android:textSize="12sp" />
 
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/cardAdd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/select_shape"
-            android:text="카드등록"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/card_mes"
-            />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/cardAdd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/select_shape"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="카드등록"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/card_mes"
+                app:layout_constraintStart_toStartOf="@+id/card_mes"
+                app:layout_constraintTop_toBottomOf="@+id/card_mes" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
