@@ -560,13 +560,25 @@
                         android:id="@+id/pay_total_h_ep_Fare"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0원"
+                        android:text="원"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/pay_total"
                         android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/pay_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="@+id/pay_total_h_ep_Fare"
+                        app:layout_constraintEnd_toStartOf="@+id/pay_total_h_ep_Fare"
+                        app:layout_constraintTop_toTopOf="@+id/pay_total_h_ep_Fare" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

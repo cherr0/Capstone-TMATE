@@ -41,8 +41,6 @@ public class MatchingFragment extends Fragment {
     TextView tooltip;
 
     // 레트로핏 이용
-//    MatchDataService dataService = new MatchDataService();
-    DataService dataService = DataService.getInstance();
     Call<List<History>> matchingRequest;
 
     // 거리 순으로 나오게 할것이기 때문에 기준으로 인하여 필요한 값들이다.

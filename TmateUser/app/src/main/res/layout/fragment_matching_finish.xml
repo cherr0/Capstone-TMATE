@@ -178,10 +178,20 @@
             android:layout_marginTop="40dp"/>
 
         <TextView
+            android:id="@+id/finish_h_allFare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_ep_distance"
+            app:layout_constraintEnd_toStartOf="@+id/matching_finish_h_allFare"
+            android:layout_marginTop="40dp"/>
+
+        <TextView
             android:id="@+id/matching_finish_h_allFare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="25000원"
+            android:text="원"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_ep_distance"
             app:layout_constraintEnd_toEndOf="@+id/matching_finish_h_ep_distance"
@@ -198,10 +208,30 @@
             android:layout_marginTop="16dp"/>
 
         <TextView
+            android:id="@+id/matching_finish_po_result_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- "
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_allFare"
+            app:layout_constraintEnd_toStartOf="@+id/finish_use_point"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/finish_use_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_allFare"
+            app:layout_constraintEnd_toStartOf="@+id/matching_finish_po_result"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
             android:id="@+id/matching_finish_po_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-10000원"
+            android:text="원"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_allFare"
             app:layout_constraintEnd_toEndOf="@+id/matching_finish_h_allFare"
@@ -218,10 +248,19 @@
             android:layout_marginTop="16dp"/>
 
         <TextView
+            android:id="@+id/together_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@+id/matching_finish_to_people"
+            app:layout_constraintEnd_toStartOf="@+id/matching_finish_to_people"/>
+
+        <TextView
             android:id="@+id/matching_finish_to_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-10000원"
+            android:text="명"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/matching_finish_po_result"
             app:layout_constraintEnd_toEndOf="@+id/matching_finish_po_result"
@@ -239,10 +278,22 @@
             android:layout_marginTop="40dp"/>
 
         <TextView
+            android:id="@+id/total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="28sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/matching_finish_total_h_eq_fare"
+            app:layout_constraintEnd_toStartOf="@+id/matching_finish_total_h_eq_fare"
+            app:layout_constraintTop_toTopOf="@+id/matching_finish_total_h_eq_fare" />
+
+        <TextView
             android:id="@+id/matching_finish_total_h_eq_fare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="15000원"
+            android:text="원"
             android:textSize="28sp"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -259,6 +310,8 @@
             android:textColor="@color/white"
             android:background="@color/main"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

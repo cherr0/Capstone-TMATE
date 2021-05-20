@@ -172,7 +172,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         setGps(); //시작하자마자 자신의 위치가 보이게 한다
 
         //마커 설정
-        mArrayMarkerID = new ArrayList<String>();
+        mArrayMarkerID = new ArrayList<>();
         mMarkerID = 0;
 
         initSildeMenu();
@@ -317,8 +317,8 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     bundle1.putString("slngtd", String.valueOf(tMapPointStart.getLongitude())); // 출발지 경도
                     bundle1.putString("flttd", String.valueOf(tMapPointEnd.getLatitude())); // 도착지 위도
                     bundle1.putString("flngtd", String.valueOf(tMapPointEnd.getLongitude())); //도착지 경도
-                    bundle1.putString("h_s_place", h_s_place); // 출발지
-                    bundle1.putString("h_f_place", h_f_place); // 도착지
+                    bundle1.putString("h_s_place", b.startPlace.getText().toString()); // 출발지
+                    bundle1.putString("h_f_place", b.finishPlace.getText().toString()); // 도착지
                     bundle1.putString("h_ep_fare", String.valueOf(moneyplan)); // 예상금액
                     bundle1.putString("together", String.valueOf(together)); // 탑승인원
 
@@ -664,7 +664,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     totalDistance = getContentFromNode(item2, "tmap:totalDistance"); //총 거리설정
                     Log.d("총 거리 : ", totalDistance);
                     totalFare = getExpectTaxiFare(totalDistance);
-                    Log.d("총 예쌍 요금 : ", totalFare);
+                    Log.d("총 예상 요금 : ", totalFare);
                     totalTime = getContentFromNode(item2, "tmap:totalTime"); //총 시간 설정
                     Log.d("총 시간 : ", totalTime);
 
@@ -942,13 +942,13 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                         d2 = exlon[item]; //도착지 경도
                         b.startPlace.setText(items[item]); //출발지 이름을 출발지 검색창에 세팅
                         h_s_place = b.startPlace.getText().toString();
-                        //Log.d("출발지 명 : ", h_s_place);
+                        Log.d("MatchingMapActivity", "출발지 명 : " + h_s_place);
                     } else { //도착지를 검색 할 경우
                         d3 = exlat[item]; //도착지 위도
                         d4 = exlon[item]; //도착지 경도
                         b.finishPlace.setText(items[item]); //도착지 이름을 도착지 검색창에 세팅
                         h_f_place = b.finishPlace.getText().toString();
-                        //Log.d("도착지 명 : ", h_f_place);
+                        Log.d("MatchingMapActivity", "도착지 명 : " + h_f_place);
                     }
                 }
 
