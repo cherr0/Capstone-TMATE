@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.rd.PageIndicatorView;
+import com.tmate.user.Activity.LoginActivity;
 import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.Activity.MatchingMapActivity;
 import com.tmate.user.R;
@@ -95,24 +96,6 @@ public class CallFragment extends Fragment {
             }
         });
 
-//        btn_chat = view.findViewById(R.id.btn_chat);
-//        btn_chat.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(), ChatActivity.class);
-//                v.getContext().startActivity(intent);
-//            }
-//        });
-
-        requset_list = view.findViewById(R.id.requset_list);
-        requset_list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                MatchingApplicationListFragment matchingApplicationListFragment = new MatchingApplicationListFragment();
-                transaction.replace(R.id.frameLayout, matchingApplicationListFragment).commit();
-            }
-        });
         go_point = view.findViewById(R.id.go_point);
         go_point.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +126,11 @@ public class CallFragment extends Fragment {
                 transaction.replace(R.id.frameLayout, pcf);
                 transaction.addToBackStack(null);
                 transaction.commit();            }
+        });
+        call_notice_first = view.findViewById(R.id.call_notice_first);
+        call_notice_first.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
         });
 
 
