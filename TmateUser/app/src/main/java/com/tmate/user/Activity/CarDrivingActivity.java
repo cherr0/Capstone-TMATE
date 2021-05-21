@@ -12,7 +12,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,6 +37,7 @@ import com.tmate.user.Fragment.MatchingFragment;
 import com.tmate.user.R;
 import com.tmate.user.common.Common;
 import com.tmate.user.common.PermissionManager;
+import com.tmate.user.databinding.ActivityCarDrivingBinding;
 import com.tmate.user.databinding.ActivityCarInfoBinding;
 import com.tmate.user.databinding.ActivityMatchingMapBinding;
 
@@ -49,10 +49,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.skt.Tmap.util.HttpConnect.getContentFromNode;
 
-public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
+public class CarDrivingActivity extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
 
     //바뀐 위치에 대한 좌표값 설정
     @Override
@@ -69,7 +68,7 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
 
 
 
-    private ActivityCarInfoBinding b;
+    private ActivityCarDrivingBinding b;
     private Context mContext;
 
     //맵을 띄우기 위한 변수 들
@@ -133,21 +132,20 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         super.onCreate(savedInstanceState);
         mContext=getApplicationContext();
         geocoder = new Geocoder(mContext);//지오코더
-        b= ActivityCarInfoBinding.inflate(getLayoutInflater());
+        b= ActivityCarDrivingBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
         //임의의 값
-        d1 = 35.894479;
-        d2 = 128.623895;
-        d3 = 35.8777867;
-        d4 = 128.6285734;
-        tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
+        Intent intent = getIntent();
+        d3 = intent.getDoubleExtra("도착지위도",35.8777867);
+        d4 = intent.getDoubleExtra("도착지경도",128.6285734);
         tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
 
 
 
+
         //gps
-        gps = new TMapGpsManager(CarInfoActivity.this);
+        gps = new TMapGpsManager(CarDrivingActivity.this);
         mPermissionManager = new PermissionManager();
         //맵 화면에 띄우기
         mMapView = new TMapView(this);
@@ -172,19 +170,6 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         //값 가져오기
         //Intent intent = getIntent();
 
-        b.complete.setOnClickListener(v -> {
-            Intent intent = new Intent(this,CarDrivingActivity.class);
-            intent.putExtra("출발지위도",35.888836);
-            intent.putExtra("출발지경도",128.6102996);
-            intent.putExtra("도착지위도",35.8686835);
-            intent.putExtra("도착지경도",128.5989036);
-            startActivity(intent);
-            finish();
-        });
-        b.driverCall.setOnClickListener(v -> {
-            Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:012-3456-7890"));
-            startActivity(mIntent.addFlags(FLAG_ACTIVITY_NEW_TASK));
-        });
         mContext = this;
     }
     private void initSildeMenu() {
@@ -362,7 +347,7 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
                 }
                 @Override
                 public void denied() {
-                    Toast.makeText(CarInfoActivity.this, "위치정보 수신에 동의하지 않으시면 현재위치로 이동할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CarDrivingActivity.this, "위치정보 수신에 동의하지 않으시면 현재위치로 이동할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
             });
             b.locationBtn.setBackgroundResource(R.drawable.location_btn_sel);
