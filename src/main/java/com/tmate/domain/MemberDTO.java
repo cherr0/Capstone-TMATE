@@ -73,6 +73,11 @@ public class MemberDTO {
     // 패스워드 -임시
     private String password;
 
+    // 멤버 위치
+    private double m_lat;
+
+    private double m_lng;
+
     // 권한
     private List<MemberRole> role = new ArrayList<>();
 

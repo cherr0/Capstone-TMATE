@@ -106,6 +106,7 @@
         from together
         where merchant_uid = #{merchant_uid} and m_id = #{m_id}
     </select>
+
     <!-- 일반 호출 삽입 xml -->
     <insert id="insertNormalMatch">
 

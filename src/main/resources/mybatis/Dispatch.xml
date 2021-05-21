@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.DispatchMapper">
+    <!-- 일반 호출 -->
+    <!-- 사용자 APP -->
+
+    <!-- 일반 호출 시 -> 배차 정보 생성 (O) -->
+    <insert id="insertNormalMatch">
+
+        <selectKey resultType="string" keyProperty="dp_id" order="BEFORE">
+            select to_char(systimestamp,'yyMMddhhmissff')||'1'
+            from dual
+        </selectKey>
+
+        insert into DISPATCH (dp_id, dp_status ,start_place, start_lat, start_lng, finish_place, finish_lat, finish_lng, ep_time, ep_distance, m_id)
+        values(#{dp_id},'2',#{start_place},#{start_lat},#{start_lng},#{finish_place},#{finish_lat},#{finish_lng},
+               #{ep_time},#{ep_distance},#{m_id})
+    </insert>
+
+    <!-- 일반 호출 취소 시 -> 일반 호출 삭제 (O) -->
+    <delete id="deleteNormalMatch">
+        DELETE FROM DISPATCH
+        WHERE dp_id = #{dp_id}
+    </delete>
+
+    <!-- 일반 호출 시 기사를 찾는다. -->
+    <select id="selectDriver" resultType="string">
+        SELECT d_id
+        FROM DISPATCH
+        WHERE  dp_id = #{dp_id}
+    </select>
+
+    <!-- 호출 매칭시 상태 바꿔주면서 기사 값도 넣어준다. (O) -->
+    <update id="updateNormalMatchCall">
+        update DISPATCH
+        SET dp_status = '3', d_id = #{d_id}
+        WHERE dp_id = #{dp_id}
+    </update>
+
+    <!-- 이용 서비스 상태 변경 (O) -->
+    <update id="updateNormalMatchStatus">
+        UPDATE DISPATCH
+        SET dp_status = #{dp_status}
+        WHERE dp_id = #{dp_id}
+    </update>
+
+    <!-- 이용 정보 가져오기 (O) -->
+    <select id="getCurrentDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
+        SELECT d.dp_id, d.dp_status , d.start_place, d.finish_place, c.car_no, c.car_model
+        FROM DISPATCH d LEFT OUTER JOIN CAR c ON d.d_id = c.m_id
+        WHERE d.m_id = #{m_id} AND dp_status IN('0','1','2','3','4')
+    </select>
+
+    <!-- 이용 상세정보 가져오기 (O) -->
+    <select id="getDetailCurrentDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
+        SELECT di.dp_id, di.d_id, di.dp_status, di.start_place, di.start_lat, di.start_lng, di.finish_place, di.finish_lat, di.finish_lng,
+               di.cur_people, di.ep_time, di.all_fare, m.m_name, m.m_lat, m.m_lng, c.car_no, c.car_model
+        FROM DISPATCH di LEFT OUTER JOIN CAR c ON di.d_id = c.m_id
+        LEFT OUTER JOIN MEMBER m ON di.d_id = m.m_id
+        WHERE di.dp_id = #{dp_id}
+    </select>
+
+    <!-- 기사 위치 실시간으로 가져오기 (O) -->
+    <select id="getRealTimeDriverLocation" resultType="com.tmate.domain.MemberDTO">
+        SELECT m_lat, m_lng
+        FROM MEMBER
+        WHERE m_id = #{d_id}
+    </select>
+
+    <!-- 손님 태웠을시 -> 운행 시간, 탑승 중 (O) -->
+    <update id="updateDispatchBoarding">
+        UPDATE DISPATCH
+        SET dp_status = '4', start_time = systimestamp
+        WHERE dp_id = #{dp_id}
+    </update>
+
+    <!-- 탑승완료시 -> 탑승 종료, 운행 종료 시간 (O) -->
+    <update id="updateDisptchBoardingEnds">
+        UPDATE DISPATCH
+        SET  dp_status = '5', end_time = systimestamp
+        WHERE dp_id = #{dp_id}
+    </update>
+
+    <!-- 기사 APP -->
+
+    <!-- 기사의 위치 (O) -->
+    <update id="updateDriverLocation">
+        UPDATE MEMBER
+        SET m_lat = #{m_lat}, m_lng = #{m_lng}
+        WHERE m_id = #{d_id}
+    </update>
+
+    <!-- 기사 상태 변경 -->
+    <update id="updateDriverStatus">
+        UPDATE DRIVER
+        SET d_status = #{d_stauts}
+        WHERE d_id = #{d_id}
+    </update>
+
+    <!-- 기사 운행중으로 변경 -->
+    <update id="updateDriverDriving">
+        UPDATE DRIVER
+        SET D_STATUS = '2'
+        WHERE D_ID = #{D_ID}
+    </update>
+
+    <!-- 기사 2KM 이내의 호출정보 가져온다. -->
+    <select id="selectCallInfo" resultType="com.tmate.domain.DispatchDTO">
+       <![CDATA[
+            SELECT dp_id, start_place, start_lat, start_lng, finish_place, finish_lat, finish_lng,
+                   GOOGLE_DISTANCE(#{m_lat},#{m_lng},start_lat,start_lng) as distance
+            FROM DISPATCH
+            WHERE dp_status = '2' and GOOGLE_DISTANCE(#{m_lat},#{m_lng},start_lat,start_lng) <= 2
+        ]]>
+    </select>
+</mapper>
