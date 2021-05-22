@@ -19,24 +19,21 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
+import com.skt.Tmap.TMapTapi;
 import com.tmate.driver.R;
 import com.tmate.driver.activity.PaymentActivity;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class driving_overlay extends Service {
+public class driving_overlay extends Service implements View.OnLongClickListener {
     private View mView = null;
     private WindowManager mWm = null;
     private int root;
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int strId) {
-        strId = intent.getIntExtra("경로",0);
-        root = strId;
-        return root;
-
-    }
+    Button btn_before_take;
+    Button btn_take_complete;
+    Button call;
 
     @Override
     public IBinder onBind(Intent intent) { return null; }
@@ -83,38 +80,14 @@ public class driving_overlay extends Service {
         // mView.setOnTouchListener(onTouchListener);
         // Android O 이상의 버전에서는 터치리스너가 동작하지 않는다. ( TYPE_APPLICATION_OVERLAY 터치 미지원)
 
-        Button btn_img =  (Button) mView.findViewById(R.id.btn_before_take);
-        btn_img.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Log.d("test","onClick ");
-                if(root == 3) {
-                    Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
-                    intent.putExtra("서비스결과",1);
-                    startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
-                } else if (root == 2){
-                    Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
-                    intent.putExtra("서비스결과",0);
-                    startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
-                }
-                ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
-                am.killBackgroundProcesses (getPackageName());
-                stopSelf();
-                return true;
-            }
+        btn_before_take =  (Button) mView.findViewById(R.id.btn_before_take);
+        btn_take_complete = mView.findViewById(R.id.btn_take_complete);
+        call =  (Button) mView.findViewById(R.id.overlay_call);
 
-        });
-        Button call =  (Button) mView.findViewById(R.id.overlay_call);
-        call.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Log.d("test","onClick ");
-                Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:012-3456-7890"));
-                startActivity(mIntent.addFlags(FLAG_ACTIVITY_NEW_TASK));
-                return true;
-            }
+        btn_before_take.setOnLongClickListener(this);
+        btn_take_complete.setOnLongClickListener(this);
+        call.setOnLongClickListener(this);
 
-        });
         mWm.addView(mView, params); // 윈도우에 layout 을 추가 한다.
     }
 
@@ -129,7 +102,31 @@ public class driving_overlay extends Service {
         }
         mWm = null;
     }
-
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_before_take :
+                Log.d("test","onClick ");
+                TMapTapi tmaptapi = new TMapTapi(getApplication());
+                boolean isTmapApp = tmaptapi.isTmapApplicationInstalled(); //앱 설치했는지 판단
+                tmaptapi.invokeNavigate("", 128.5829737f, 35.8861837f,0,true);
+                btn_before_take.setVisibility(View.GONE);
+                break;
+            case R.id.overlay_call :
+                Log.d("test","onClick ");
+                Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:012-3456-7890"));
+                startActivity(mIntent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+                break;
+            case R.id.btn_take_complete :
+                Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+                startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+                ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
+                am.killBackgroundProcesses (getPackageName());
+                stopSelf();
+                break;
+        }
+        return false;
+    }
     @Override
     public void onDestroy() {
         killAWindowService();
