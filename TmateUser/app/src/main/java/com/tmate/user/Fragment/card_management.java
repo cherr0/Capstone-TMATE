@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.kcrimi.tooltipdialog.ToolTipDialog;
 import com.tmate.user.R;
 import com.tmate.user.adapter.CardAdapter;
 import com.tmate.user.data.CardData;
@@ -34,7 +35,7 @@ import retrofit2.Response;
 
 public class card_management  extends Fragment {
     SwipeRefreshLayout refCard;
-    Button button;
+    Button button, btn_card_tooltip;
     LinearLayout nocard;
     ArrayList<String> list;
     RecyclerView recyclerView;
@@ -52,20 +53,20 @@ public class card_management  extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.card_management,container,false);
+        View view = inflater.inflate(R.layout.card_management,container,false);
         cardList = new ArrayList<>();
 
         context = container.getContext();
         pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.cardlist_recy);
+        recyclerView = (RecyclerView) view.findViewById(R.id.cardlist_recy);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new CardAdapter();
         recyclerView.setAdapter(adapter);
         getData();
-        button = v.findViewById(R.id.cardAdd);
+        button = view.findViewById(R.id.cardAdd);
         button.setOnClickListener(new View.OnClickListener() {
             @Override // 카드 등록. 카카오페이 정기 결제 등록 웹뷰 열기
             public void onClick(View v) {
@@ -73,7 +74,7 @@ public class card_management  extends Fragment {
                 startActivity(intent);
             }
         });
-        btn_back_cardManagement = v.findViewById(R.id.btn_back_cardManagement);
+        btn_back_cardManagement = view.findViewById(R.id.btn_back_cardManagement);
         btn_back_cardManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +83,7 @@ public class card_management  extends Fragment {
                 transaction.replace(R.id.frameLayout, my_info_fragment).commit();
             }
         });
-        refCard = v.findViewById(R.id.ref_card);
+        refCard = view.findViewById(R.id.ref_card);
         refCard.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -93,7 +94,13 @@ public class card_management  extends Fragment {
 
             }
         });
-        return v;
+
+        btn_card_tooltip = view.findViewById(R.id.btn_card_tooltip);
+        btn_card_tooltip.setOnClickListener(v -> {
+
+
+        });
+        return view;
     }
 
     // 카드 리스트 가져오기
