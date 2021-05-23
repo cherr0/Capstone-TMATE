@@ -1,6 +1,7 @@
 package com.tmate.user.net;
 
 import com.tmate.user.data.Approval;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.History;
 import com.tmate.user.data.JoinHistoryVO;
 import com.tmate.user.data.Together;
@@ -27,9 +28,6 @@ public interface MatchAPI {
     @POST("match/register/matching")
     Call<Boolean> registerMatchingRegister(@Body HashMap<String, Object> hashMap);
 
-    @GET("match/select/using/history/{m_id}")
-    Call<JoinHistoryVO> getUsingHistory(@Path("m_id") String m_id);
-
     @DELETE("match/remove/{merchant_uid}")
     Call<Boolean> removeMatchingByMaster(@Path("merchant_uid") String merchant_uid);
 
@@ -42,9 +40,6 @@ public interface MatchAPI {
     @POST("match/register/apply")
     Call<Boolean> registerApply(@Body Approval approval);
 
-    @POST("match/register/normal")
-    Call<String> registerNormalMatching(@Body History history);
-
     @GET("match/get/approval/{merchant_uid}")
     Call<List<TogetherRequest>> getTogetherRequest(@Path("merchant_uid") String merchant_uid);
 
@@ -55,11 +50,24 @@ public interface MatchAPI {
     Call<Boolean> registerTogether(@Body Approval approval);
 
 
+    // 일반 호출
+    @POST("match/register/normal")
+    Call<String> registerNormalMatching(@Body Dispatch dispatch);
+
     // 기사를 찾는다. CallWaitingActivity에서
-    @GET("match/get/d_id/{merchant_uid}")
-    Call<String> getd_idDuringCall(@Path("merchant_uid") String merchant_uid);
+    @GET("match/get/driver/{dp_id}")
+    Call<String> getd_idDuringCall(@Path("dp_id") String dp_id);
 
     // 호출 취소를 누른다. -> CallWaitingActivity에서 뒤로가기 누를 때
-    @DELETE("match/remove/normal/call/{merchant_uid}")
-    Call<Boolean> removeNormalCall(@Path("merchant_uid") String merchant_uid);
+    @DELETE("match/remove/normal/call/{dp_id}")
+    Call<Boolean> removeNormalCall(@Path("dp_id") String dp_id);
+
+    // 일반 호출 상세 정보
+    @GET("match/read/dispatch/{dp_id}")
+    Call<Dispatch> readCurrentDispatch(@Path("dp_id") String dp_id);
+
+    // 이용중인 호출 요약 정보
+    @GET("match/get/dispatch/{m_id}")
+    Call<Dispatch> getUsingHistory(@Path("m_id") String m_id);
+
 }
