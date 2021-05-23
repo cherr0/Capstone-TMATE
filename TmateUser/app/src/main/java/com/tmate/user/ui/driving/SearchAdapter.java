@@ -79,7 +79,7 @@ class SearchHolder extends RecyclerView.ViewHolder {
 
     void onBind(TMapPOIItem data) {
         search_name.setText(data.getPOIName());
-        search_address.setText(data.getPOIAddress());
+        search_address.setText(data.getPOIAddress().replace(" null",""));
         finish_lat.setText(String.valueOf(data.getPOIPoint().getLatitude()));
         finish_lng.setText(String.valueOf(data.getPOIPoint().getLongitude()));
     }
