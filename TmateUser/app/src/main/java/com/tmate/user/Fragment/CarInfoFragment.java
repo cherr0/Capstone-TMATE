@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.tmate.user.Activity.CarInfoActivity;
 import com.tmate.user.Activity.MatchingDetailActivity;
 import com.tmate.user.R;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.JoinHistoryVO;
 import com.tmate.user.databinding.ActivityMatchingMapBinding;
 import com.tmate.user.databinding.FragmentCarInfoBinding;
@@ -34,7 +35,7 @@ public class CarInfoFragment extends Fragment {
     String h_status;
     String m_id;
     String merchant_uid;
-    Call<JoinHistoryVO> request;
+    Call<Dispatch> request;
 
     @Nullable
     @Override
@@ -46,21 +47,21 @@ public class CarInfoFragment extends Fragment {
 
         request = DataService.getInstance().matchAPI.getUsingHistory(m_id);
 
-        request.enqueue(new Callback<JoinHistoryVO>() {
+        request.enqueue(new Callback<Dispatch>() {
             @Override
-            public void onResponse(Call<JoinHistoryVO> call, Response<JoinHistoryVO> response) {
+            public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
                 if (response.isSuccessful()) {
                     if (response.code() == 200) {
-                        JoinHistoryVO joinHistoryVO = response.body();
+                        Dispatch dispatch = response.body();
 
-                        if (joinHistoryVO != null) {
+                        if (dispatch != null) {
 
                             b.fcTitle.setText("이용중");
 
 
-                            merchant_uid = joinHistoryVO.getMerchant_uid();
+                            merchant_uid = dispatch.getDp_id();
 
-                            switch (joinHistoryVO.getH_status()) {
+                            switch (dispatch.getDp_status()) {
                                 case "0":
                                     h_status = "0";
                                     b.statusBadge.setText("매칭 중");
@@ -83,23 +84,23 @@ public class CarInfoFragment extends Fragment {
                                     break;
                             }
 
-                            switch (joinHistoryVO.getMerchant_uid().substring(27)) {
-                                case "0":
-                                    b.htogether.setText("동승");
-                                    break;
-
+                            switch (dispatch.getDp_id().substring(18)) {
                                 case "1":
                                     b.htogether.setText("일반");
                                     break;
+
+                                default:
+                                    b.htogether.setText("동승");
+                                    break;
                             }
 
-                            b.hSPlace.setText(joinHistoryVO.getH_s_place());
-                            b.hFPlace.setText(joinHistoryVO.getH_f_place());
+                            b.hSPlace.setText(dispatch.getStart_place());
+                            b.hFPlace.setText(dispatch.getFinish_place());
 
                             // null 검
-                            if (joinHistoryVO.getCar_model() != null && joinHistoryVO.getCar_no() != null) {
-                                b.carModel.setText(joinHistoryVO.getCar_model());
-                                b.carNo.setText(joinHistoryVO.getCar_no());
+                            if (dispatch.getCar_model() != null && dispatch.getCar_no() != null) {
+                                b.carModel.setText(dispatch.getCar_model());
+                                b.carNo.setText(dispatch.getCar_no());
                             } else {
                                 b.carModel.setText("택시 호출 후 생성");
                                 b.carNo.setText("택시 호출 후 생성");
@@ -125,7 +126,7 @@ public class CarInfoFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<JoinHistoryVO> call, Throwable t) {
+            public void onFailure(Call<Dispatch> call, Throwable t) {
                 t.printStackTrace();
             }
         });
@@ -148,7 +149,7 @@ public class CarInfoFragment extends Fragment {
                 // 지도로 넘어간다. 실시간 위치 지도로 넘어간다.
                 if(h_status == "3" || h_status == "4"){
                     Intent intent = new Intent(getContext(), CarInfoActivity.class);
-                    intent.putExtra("merchant_uid", merchant_uid);
+                    intent.putExtra("dp_id", merchant_uid);
                     intent.putExtra("m_id", m_id);
                     intent.putExtra("h_status", h_status);
                     startActivity(intent);

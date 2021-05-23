@@ -183,12 +183,12 @@ class WaitingHolder extends RecyclerView.ViewHolder {
 
     void onBind(CallHistory data) {
 
-        switch (data.getMerchant_uid().substring(28)){
-            case "0":
-                h_flag.setText("동승");
-                break;
+        switch (data.getMerchant_uid().substring(18)){
             case "1":
                 h_flag.setText("일반");
+                break;
+            default:
+                h_flag.setText("동승");
                 break;
         }
 

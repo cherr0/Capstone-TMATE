@@ -14,7 +14,7 @@
 
         insert into DISPATCH (dp_id, dp_status ,start_place, start_lat, start_lng, finish_place, finish_lat, finish_lng, ep_time, ep_distance, m_id)
         values(#{dp_id},'2',#{start_place},#{start_lat},#{start_lng},#{finish_place},#{finish_lat},#{finish_lng},
-               #{ep_time},#{ep_distance},#{m_id})
+               #{ep_time,jdbcType=NUMERIC},#{ep_distance,jdbcType=NUMERIC},#{m_id})
     </insert>
 
     <!-- 일반 호출 취소 시 -> 일반 호출 삭제 (O) -->
@@ -93,7 +93,7 @@
     <!-- 기사 상태 변경 -->
     <update id="updateDriverStatus">
         UPDATE DRIVER
-        SET d_status = #{d_stauts}
+        SET d_status = #{d_status}
         WHERE d_id = #{d_id}
     </update>
 

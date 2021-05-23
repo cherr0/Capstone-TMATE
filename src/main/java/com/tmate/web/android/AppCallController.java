@@ -32,11 +32,12 @@ public class AppCallController {
     }
 
     // 2. 기사 2km 콜정보 가져오기
-    @GetMapping("/get/callInfo/{m_lat}/{m_lng}")
+    @GetMapping("/get/callinfo/{m_lat}/{m_lng}")
     public ResponseEntity<List<DispatchDTO>> getCallInfoByPosition(
             @PathVariable("m_lat") double m_lat,
             @PathVariable("m_lng") double m_lng
     ){
+        log.info("콜 정보를 찾습니다." + m_lat + m_lng);
         return new ResponseEntity<>(appCallService.getCallList(m_lat, m_lng), HttpStatus.OK);
     }
 
