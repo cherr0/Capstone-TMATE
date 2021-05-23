@@ -313,12 +313,12 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     hideKeyBoard();
 
                     Bundle bundle1 = new Bundle();
-                    bundle1.putString("slttd", String.valueOf(tMapPointStart.getLatitude())); //출발지 위도
-                    bundle1.putString("slngtd", String.valueOf(tMapPointStart.getLongitude())); // 출발지 경도
-                    bundle1.putString("flttd", String.valueOf(tMapPointEnd.getLatitude())); // 도착지 위도
-                    bundle1.putString("flngtd", String.valueOf(tMapPointEnd.getLongitude())); //도착지 경도
-                    bundle1.putString("h_s_place", b.startPlace.getText().toString()); // 출발지
-                    bundle1.putString("h_f_place", b.finishPlace.getText().toString()); // 도착지
+                    bundle1.putString("start_lat", String.valueOf(tMapPointStart.getLatitude())); //출발지 위도
+                    bundle1.putString("start_lng", String.valueOf(tMapPointStart.getLongitude())); // 출발지 경도
+                    bundle1.putString("finish_lat", String.valueOf(tMapPointEnd.getLatitude())); // 도착지 위도
+                    bundle1.putString("finish_lng", String.valueOf(tMapPointEnd.getLongitude())); //도착지 경도
+                    bundle1.putString("start_place", b.startPlace.getText().toString()); // 출발지
+                    bundle1.putString("finish_place", b.finishPlace.getText().toString()); // 도착지
                     bundle1.putString("h_ep_fare", String.valueOf(moneyplan)); // 예상금액
                     bundle1.putString("together", String.valueOf(together)); // 탑승인원
 

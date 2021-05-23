@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -14,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -35,7 +33,7 @@ public class MatchingFragment extends Fragment {
     private ArrayList<History> arrayList;
     private View view;
     private MatchingAdapter matchingAdapter;
-    private LinearLayoutManager linearLayoutManager;
+    private GridLayoutManager gridLayoutManager;
     private RecyclerView recyclerView;
     private Button btn_add;
     TextView tooltip;
@@ -62,10 +60,6 @@ public class MatchingFragment extends Fragment {
 
 
         recyclerView = view.findViewById(R.id.rv_matching);
-
-        tooltip = view.findViewById(R.id.tooltip);
-        Animation myanim = AnimationUtils.loadAnimation(getContext(), R.anim.translate);
-        tooltip.startAnimation(myanim);
 
         if (getArguments() != null) {
 
@@ -95,8 +89,8 @@ public class MatchingFragment extends Fragment {
         }
 
 
-        linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         arrayList = new ArrayList<>();
 

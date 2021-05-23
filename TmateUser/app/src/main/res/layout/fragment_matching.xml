@@ -24,27 +24,70 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/ibmplexsanskr_semibold"
-                android:text="매칭리스트"
+                android:text="방 참여하기"
                 android:textColor="#000000"
                 android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_want"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="#4267B2"
-                android:fontFamily="@font/ibmplexsanskr_medium"
-                android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                android:text="원하는 동승상대를 찾으세요"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="0.2dp"
+                android:background="#2C2C2C"
                 app:layout_constraintTop_toBottomOf="@+id/tv_match" />
+
+            <TextView
+                android:id="@+id/tv_route"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="선택경로"
+                app:layout_constraintTop_toBottomOf="@+id/tv_match"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/matching_start_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="강남역"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_route"
+                app:layout_constraintStart_toStartOf="@+id/tv_route"
+                android:layout_marginTop="8dp"/>
+
+            <ImageView
+                android:id="@+id/matching_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_arrow_right"
+                android:tint="@color/black"
+                app:layout_constraintTop_toTopOf="@+id/matching_start_place"
+                app:layout_constraintStart_toEndOf="@+id/matching_start_place"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="사당역 4번 출구"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="@+id/matching_start_place"
+                app:layout_constraintStart_toEndOf="@+id/matching_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="12dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="#2C2C2C"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -54,7 +97,7 @@
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_add"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -72,33 +115,14 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <TextView
-        android:id="@+id/tooltip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/ic_bubble"
-        android:fontFamily="@font/ibmplexsanskr_extralight"
-        android:gravity="center"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="20dp"
-        android:text="원하는 리스트가 없다면\n여기를 클릭해주세요."
-        app:layout_constraintBottom_toTopOf="@+id/btn_add"
-        app:layout_constraintEnd_toEndOf="@+id/btn_add" />
-
     <Button
         android:id="@+id/btn_add"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/image_radius"
-        android:text="+"
-        android:textSize="50sp"
-        app:backgroundTint="#536DFE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:backgroundTint="#000000"
+        android:text="+ 새로운 방만들기"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

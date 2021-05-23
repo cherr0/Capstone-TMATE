@@ -280,7 +280,7 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <View
-                            android:id="@+id/payment_View"
+                            android:id="@+id/event_View"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="#CDCDCD"
@@ -303,13 +303,79 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/payment_information_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/payment_information_payment"
+                app:layout_constraintStart_toStartOf="@+id/payment_information_payment"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    android:id="@+id/payment_event"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이벤트"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginTop="12dp"/>
+
+
+                <RadioGroup
+                    android:id="@+id/payment_radiogroup_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@id/payment_simple"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_event"
+                    app:layout_constraintStart_toStartOf="@+id/payment_event">
+
+                    <RadioButton
+                        android:id="@+id/event_Roulette"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="룰렛 돌리기"
+                        android:textSize="20sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"/>
+
+                    <View
+                        android:id="@+id/payment_View"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#CDCDCD"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintVertical_bias="0.0"/>
+
+                    <RadioButton
+                        android:id="@+id/event_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="포인트적립"
+                        android:textSize="20sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"/>
+
+                </RadioGroup>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/payment_information_point"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/payment_information_payment"
-                    app:layout_constraintStart_toStartOf="@+id/payment_information_payment"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_information_event"
+                    app:layout_constraintStart_toStartOf="@+id/payment_information_event"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="16dp">
 

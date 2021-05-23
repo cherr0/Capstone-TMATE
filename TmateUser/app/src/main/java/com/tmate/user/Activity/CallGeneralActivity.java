@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tmate.user.R;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.History;
 import com.tmate.user.net.DataService;
 
@@ -55,7 +56,7 @@ public class CallGeneralActivity extends AppCompatActivity {
 
     // 레트로핏 -> 리퀘스트
     Call<String> request;
-    History history;
+    Dispatch dispatch;
 
     // 다음 화면으로 넘어갈 때 필요한것
     String h_s_place;
@@ -88,18 +89,18 @@ public class CallGeneralActivity extends AppCompatActivity {
             intent = getIntent();
             Log.d("CallGeneralActivity", "인텐트 넘어오는 값 : " + intent);
 
-            history = new History();
+            dispatch = new Dispatch();
 
             // 값 설정 해준다.
             Log.d("CallGeneralActivity", "이름 : " + getSharedPreferences("loginUser", MODE_PRIVATE).getString("m_name", ""));
             cg_m_name.setText(m_name);
 
-            h_s_place = intent.getStringExtra("h_s_place");
-            h_f_place = intent.getStringExtra("h_f_place");
-            slttd = intent.getStringExtra("slttd");
-            slngtd = intent.getStringExtra("slngtd");
-            flttd = intent.getStringExtra("flttd");
-            flngtd = intent.getStringExtra("flngtd");
+            h_s_place = intent.getStringExtra("start_place");
+            h_f_place = intent.getStringExtra("finish_place");
+            slttd = intent.getStringExtra("start_lat");
+            slngtd = intent.getStringExtra("start_lng");
+            flttd = intent.getStringExtra("finish_lat");
+            flngtd = intent.getStringExtra("finish_lng");
 
             Log.d("CallGeneralActivity", slttd + ":" + slngtd + ":" + flngtd + ":" + flttd);
 
@@ -111,19 +112,18 @@ public class CallGeneralActivity extends AppCompatActivity {
             cg_h_f_lngtd.setText(flngtd);
             fare2.setText(intent.getStringExtra("h_ep_fare"));
 
-            history.setM_id(m_id);
-            history.setH_s_place(h_s_place);
-            history.setH_s_lttd(Double.parseDouble(slttd));
-            history.setH_s_lngtd(Double.parseDouble(slngtd));
-            history.setH_f_place(h_f_place);
-            history.setH_f_lttd(Double.parseDouble(flttd));
-            history.setH_f_lngtd(Double.parseDouble(flngtd));
-            history.setH_made_flag("0");
-            history.setH_ep_fare(intent.getStringExtra("h_ep_fare"));
-            history.setH_ep_distance(intent.getStringExtra("h_ep_distance"));
-            history.setH_ep_time(intent.getStringExtra("h_ep_time"));
 
 
+            dispatch.setM_id(m_id);
+            dispatch.setStart_place(h_s_place);
+            dispatch.setStart_lat(Double.parseDouble(slttd));
+            dispatch.setStart_lng(Double.parseDouble(slngtd));
+            dispatch.setFinish_place(h_f_place);
+            dispatch.setFinish_lat(Double.parseDouble(flttd));
+            dispatch.setFinish_lng(Double.parseDouble(flngtd));
+            /*
+            * 예상 거리, 예상 요금 dispatch 에 추가해야됨
+            * */
 
         }
 
@@ -153,12 +153,12 @@ public class CallGeneralActivity extends AppCompatActivity {
 
                 Intent intent2 = new Intent(CallGeneralActivity.this, CallWaitingActivity.class);
 
-                intent2.putExtra("h_s_place",h_s_place);
-                intent2.putExtra("h_f_place", h_f_place);
-                intent2.putExtra("h_s_lttd", slttd);
-                intent2.putExtra("h_s_lngtd", slngtd);
-                intent2.putExtra("h_f_lttd", flttd);
-                intent2.putExtra("h_f_lngtd", flngtd);
+                intent2.putExtra("start_place",h_s_place);
+                intent2.putExtra("finish_place", h_f_place);
+                intent2.putExtra("start_lat", slttd);
+                intent2.putExtra("start_lng", slngtd);
+                intent2.putExtra("finish_lat", flttd);
+                intent2.putExtra("finish_lng", flngtd);
                 intent2.putExtra("m_name", m_name);
                 intent2.putExtra("m_id",m_id);
                 
@@ -169,18 +169,18 @@ public class CallGeneralActivity extends AppCompatActivity {
 
                 Intent finalIntent = intent2;
 
-                request = DataService.getInstance().matchAPI.registerNormalMatching(history);
+                request = DataService.getInstance().matchAPI.registerNormalMatching(dispatch);
                 request.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         if (response.code() == 200) {
-                            String merchant_uid = response.body();
-                            finalIntent.putExtra("merchant_uid", merchant_uid);
+                            String dp_id = response.body();
+                            finalIntent.putExtra("dp_id", dp_id);
 
                             Toast.makeText(CallGeneralActivity.this, "호출을 시작합니다.", Toast.LENGTH_LONG).show();
 
-                            if (merchant_uid != null && merchant_uid.length() != 0) {
-                                Log.d("값 찍히는지 보자 :  이용코드 : ", merchant_uid);
+                            if (dp_id != null && dp_id.length() != 0) {
+                                Log.d("값 찍히는지 보자 :  이용코드 : ", dp_id);
                                 startActivity(finalIntent);
                             }
 
