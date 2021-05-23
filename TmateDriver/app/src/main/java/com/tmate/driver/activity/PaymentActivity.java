@@ -19,7 +19,6 @@ import com.tmate.driver.services.driving_overlay;
 
 public class PaymentActivity extends AppCompatActivity {
     private ActivityPaymentBinding binding;
-    private Dialog dialog;
     private Dialog dialog2;
     private int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 100;
     private int result =0;
@@ -28,14 +27,6 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityPaymentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        Intent intent = getIntent();
-        result = intent.getExtras().getInt("서비스결과");
-        if(result == 1) {
-            dialog = new Dialog(PaymentActivity.this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.dialog_directions);
-            mapShowdialog();
-        }
         dialog2 = new Dialog(PaymentActivity.this);
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog2.setContentView(R.layout.dialog_payment);
@@ -65,61 +56,11 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
     }
-    public void mapShowdialog() {
-        dialog.show();
-        Button bgt = dialog.findViewById(R.id.btn_go_tmap);
-        bgt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkPermission();
-                TMapTapi tmaptapi = new TMapTapi(getApplication());
-                boolean isTmapApp = tmaptapi.isTmapApplicationInstalled(); //앱 설치했는지 판단
-                tmaptapi.invokeNavigate("", 128.5829737f, 35.8861837f,0,true);
-                dialog.dismiss();
-            }
-        });
-    }
-    public void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {   // 마시멜로우 이상일 경우
-            if (!Settings.canDrawOverlays(this)) {              // 다른앱 위에 그리기 체크
-                Uri uri = Uri.fromParts("package", getPackageName(), null);
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, uri);
-                startActivityForResult(intent, ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE);
-            } else {
-                startMain();
-            }
-        } else {
-            startMain();
-        }
-    }
-    @TargetApi(Build.VERSION_CODES.M)
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE) {
-            if (!Settings.canDrawOverlays(this)) {
-                finish();
-            } else {
-                startMain();
-            }
-        }
-    }
-    void startMain() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Intent intent = new Intent(this, driving_overlay.class);
-            intent.putExtra("경로",2);
-            startForegroundService(intent);
-        } else {
-            startService(new Intent(this, driving_overlay.class));
-        }
-        finish();
-    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-        }
         if(dialog2 != null && dialog2.isShowing()) {
             dialog2.dismiss();
         }

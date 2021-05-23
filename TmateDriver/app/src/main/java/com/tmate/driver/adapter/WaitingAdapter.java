@@ -138,7 +138,6 @@ public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
     void startMain() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Intent intent = new Intent(context, driving_overlay.class);
-            intent.putExtra("경로",3);
             context.startForegroundService(intent);
         } else {
             Toast.makeText(context, "불가능", Toast.LENGTH_SHORT).show();
