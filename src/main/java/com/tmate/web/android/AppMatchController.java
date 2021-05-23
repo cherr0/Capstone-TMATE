@@ -39,6 +39,8 @@ public class AppMatchController {
     // 일반 호출시 기사 계속 찾기
     @GetMapping("/get/driver/{dp_id}")
     public ResponseEntity<String> getDriver(@PathVariable("dp_id") String dp_id) {
+
+        log.info("기사찾는 중 이용코드 : " + dp_id);
         String d_id = appMatchService.getD_idDuringCall(dp_id);
 
         return new ResponseEntity<>(d_id, HttpStatus.OK);
@@ -56,17 +58,19 @@ public class AppMatchController {
     // 현재 이용중인 이용정보 보여주기
     @GetMapping("/get/dispatch/{m_id}")
     public ResponseEntity<DispatchDTO> getCurrentDispatch(@PathVariable("m_id") String m_id) {
+        log.info("이용중인 이용 요약 정보 : " + m_id);
         return new ResponseEntity<>(appMatchService.getCurrentCallInfo(m_id), HttpStatus.OK);
     }
 
     // 현재 이용중인 이용정보 클릭할 시 이용 상세정보 가져온다
     @GetMapping("/read/dispatch/{dp_id}")
     public ResponseEntity<DispatchDTO> readCurrentDispatch(@PathVariable("dp_id") String dp_id) {
+        log.info("이용 상세정보 가져오기 : " + dp_id );
         return new ResponseEntity<>(appMatchService.getDetailCurrentCallInfo(dp_id), HttpStatus.OK);
     }
 
 
-    // 현재 이용 중인 이용정보 클릭 할 시 이용 상세 정보 가져온다.
+    // 기사위치 가져온다. --> 쓰레드
     @GetMapping("/get/driver/position/{d_id}")
     public ResponseEntity<MemberDTO> getDriverPosition(@PathVariable("d_id") String d_id) {
         return new ResponseEntity<>(appMatchService.getCurrentDriverLocation(d_id), HttpStatus.OK);
