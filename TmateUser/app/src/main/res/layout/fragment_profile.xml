@@ -574,6 +574,7 @@
                 android:id="@+id/constraintLayout18"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginTop="20dp"
                 android:background="#F8F8F8"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -629,6 +630,8 @@
                     android:id="@+id/btn_google"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -645,6 +648,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout19">
 
                 <TextView
+                    android:id="@+id/textView35"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -665,13 +669,24 @@
 <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
 <!--                    app:layout_constraintEnd_toEndOf="parent"-->
 <!--                    app:layout_constraintTop_toTopOf="parent" />-->
-                <com.kakao.usermgmt.LoginButton
-                    android:id="@+id/btn_kakao"
-                    android:layout_width="50dp"
-                    android:layout_height="40dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.kakao.usermgmt.LoginButton
+                        android:id="@+id/btn_kakao"
+                        android:layout_width="20dp"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="10dp"/>
+                    <ImageView
+                        android:id="@+id/fake_kakao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:src="@drawable/kakao_login_small" />
+                </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
