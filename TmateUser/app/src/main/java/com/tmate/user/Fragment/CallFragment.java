@@ -28,6 +28,7 @@ import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.Activity.MatchingMapActivity;
 import com.tmate.user.R;
 import com.tmate.user.adapter.CallAdvertisingAdapter;
+import com.tmate.user.ui.driving.DrivingActivity;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -89,7 +90,7 @@ public class CallFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 together =1;
-                Intent intent = new Intent(getContext(), MatchingMapActivity.class);
+                Intent intent = new Intent(getContext(), DrivingActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
                 

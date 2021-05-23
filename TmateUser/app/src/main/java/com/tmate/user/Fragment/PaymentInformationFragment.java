@@ -1,5 +1,6 @@
 package com.tmate.user.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.tmate.user.Activity.CallWaitingActivity;
 import com.tmate.user.R;
 import com.tmate.user.adapter.PaymentAdapter;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.SubscriptionRes;
 import com.tmate.user.databinding.FragmentPaymentInformationBinding;
 import com.tmate.user.net.DataService;
@@ -50,6 +52,12 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
 
     Bundle bundle;
 
+    // 추가 작업 05 22
+    SharedPreferences pref;
+    String m_id;
+    // 넘어갈때 저장하고 CallWaiting으로 넘어간다.
+    Call<String> request;
+    Dispatch dispatch;
 
     @Nullable
     @Override
@@ -61,21 +69,33 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         b.pointBtnAll.setOnClickListener(this);
         b.pointBtnUse.setOnClickListener(this);
 
+
+
         cardImgList(); // 카드 이미지 리스트 가져오기
         findUnusedPoint(); // 사용자 미사용 포인트 검색
         Log.d("PayInfoFragment", "사용자 아이디 : " + getPreferenceString("m_id"));
+        m_id = getPreferenceString("m_id");
         Log.d("PayInfoFragment", "사용자 미사용 포인트 : " + unusedPoint);
 
 
         if (getArguments() != null) {
             bundle = getArguments();
             Log.d("PayInfoFragment", "가져온 번들 값 : " + bundle);
-            b.paymentInformationHSPlace.setText(bundle.getString("h_s_place")); // 출발지
-            b.paymentInformationHFPlace.setText(bundle.getString("h_f_place")); // 도착지
+            b.paymentInformationHSPlace.setText(bundle.getString("start_place")); // 출발지
+            b.paymentInformationHFPlace.setText(bundle.getString("finish_place")); // 도착지
             b.payHAllFare.setText(bundle.getString("h_ep_fare")+"원"); // 예상금액
             b.payToPeople.setText(bundle.getString("together")+"명"); // 동승인원
             b.payTotalAmount.setText(bundle.getString("h_ep_fare")); // 총 금액
             price = Integer.parseInt(bundle.getString("h_ep_fare")); // 총 금액 변수에 추가
+
+            dispatch = new Dispatch();
+            dispatch.setM_id(m_id);
+            dispatch.setStart_place(bundle.getString("start_place"));
+            dispatch.setStart_lat(Double.parseDouble(bundle.getString("start_lat")));
+            dispatch.setStart_lng(Double.parseDouble(bundle.getString("start_lng")));
+            dispatch.setFinish_place(bundle.getString("finish_place"));
+            dispatch.setFinish_lat(Double.parseDouble(bundle.getString("finish_lat")));
+            dispatch.setFinish_lng(Double.parseDouble(bundle.getString("finish_lng")));
 
         }else {
             Log.d("PayInfoFragment","번들 값을 받아오지 못했습니다.");
@@ -193,6 +213,34 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         switch(v.getId()) {
             case R.id.payment_information_finish:   // 결제완료 버튼
                 Log.d("payInfoFragemnt", "결제 완료 눌림");
+                Intent intent = new Intent(getActivity(), CallWaitingActivity.class);
+                intent.putExtra("m_id", m_id);
+                intent.putExtra("start_place", bundle.getString("start_place"));
+                intent.putExtra("start_lat", bundle.getString("start_lat"));
+                intent.putExtra("start_lng", bundle.getString("start_lng"));
+                intent.putExtra("finish_place", bundle.getString("finish_place"));
+                intent.putExtra("finish_lat", bundle.getString("finish_lat"));
+                intent.putExtra("finish_lng", bundle.getString("finish_lng"));
+                intent.putExtra("h_ep_fare", bundle.getString("h_ep_fare"));
+
+                request = DataService.getInstance().matchAPI.registerNormalMatching(dispatch);
+                request.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (response.code() == 200) {
+                            String dp_id = response.body();
+                            intent.putExtra("dp_id", dp_id);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+
+
 
                 /*
                 Intent intent = new Intent(getContext(), CallWaitingActivity.class);
@@ -212,7 +260,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                 startActivity(intent);
                 getActivity().finish();
                  */
-                kakaoSubscription(b.payTotalAmount.getText().toString());
+//                kakaoSubscription(b.payTotalAmount.getText().toString());
                 return;
 
             case R.id.point_btn_all :  //모두적용 버튼

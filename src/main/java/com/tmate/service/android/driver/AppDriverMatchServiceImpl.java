@@ -43,7 +43,7 @@ public class AppDriverMatchServiceImpl implements AppDriverMatchService {
      *  1. 기사코드를 그 호출 정보에 넣어준다.
      *  2. 이용정보의 상태를 바꿔준다. -> 3
      *  3. 기사의 실시간 위치를 넣어준다. -> m_lttd, m_lngtd
-     * 4. 기사의 상태도 운행 중으로 바꿔준다. -> 2
+     * 4. 기사의 상태도 운행 중으로 바꿔준다. -> 2e
      * */
     @Transactional
     @Override
