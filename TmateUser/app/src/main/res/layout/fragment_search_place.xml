@@ -26,10 +26,10 @@
                 tools:context=".ui.driving.DrivingActivity"
                 android:gravity="bottom"
                 app:umanoDragView="@id/dragView"
-                app:umanoPanelHeight="150dp"
+                app:umanoPanelHeight="80dp"
                 app:umanoOverlay="true"
-                app:umanoParallaxOffset="200dp"
-                app:umanoShadowHeight="10dp">
+                app:umanoParallaxOffset="100dp"
+                app:umanoShadowHeight="5dp">
 
                 <!--  맵 띄우는 레이아웃  -->
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clickable="true"
-                    android:focusable="false"
+                    android:focusable="true"
                     android:orientation="vertical"
                     android:visibility="visible"
                     android:background="@drawable/linear_shape">
@@ -66,9 +66,7 @@
                         android:id="@+id/place_page"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        tools:layout_editor_absoluteX="107dp"
-                        tools:layout_editor_absoluteY="-51dp">
+                        android:orientation="vertical">
 
                         <EditText
                             android:id="@+id/start_place"
