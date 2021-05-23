@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,6 @@ import com.tmate.user.data.History;
 import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
 
@@ -73,13 +72,15 @@ public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
 
 class MatchingHolder extends RecyclerView.ViewHolder {
 
-    CircleImageView iv_profile;
-    TextView tv_matching_name;
-    TextView tv_personnel;
+    TextView matching_dp_status;
+    TextView matching_item_cur_people;
     TextView tv_start;
-    TextView tv_start_place;
+    TextView matching_item_start_place;
     TextView tv_end;
-    TextView tv_end_place;
+    TextView matching_item_finish_place;
+    ImageView matching_img;
+    TextView matching_item_ep_time;
+
 
     TextView distance1, distance2;
 
@@ -90,15 +91,14 @@ class MatchingHolder extends RecyclerView.ViewHolder {
     public MatchingHolder(View itemView) {
         super(itemView);
 
-        this.iv_profile =(CircleImageView) itemView.findViewById(R.id.iv_profile);
-        this.tv_matching_name = (TextView) itemView.findViewById(R.id.tv_matching_name);
-        this.tv_personnel = (TextView) itemView.findViewById(R.id.tv_personnel);
+        this.matching_dp_status = (TextView) itemView.findViewById(R.id.matching_dp_status);
+        this.matching_item_cur_people = (TextView) itemView.findViewById(R.id.matching_item_cur_people);
         this.tv_start = (TextView) itemView.findViewById(R.id.tv_start);
-        this.tv_start_place = (TextView) itemView.findViewById(R.id.cg_start_place);
+        this.matching_item_start_place = (TextView) itemView.findViewById(R.id.matching_item_start_place);
         this.tv_end = (TextView) itemView.findViewById(R.id.tv_end);
-        this.tv_end_place = (TextView) itemView.findViewById(R.id.cg_end_place);
-        this.distance1 = (TextView) itemView.findViewById(R.id.distance1);
-        this.distance2 = (TextView) itemView.findViewById(R.id.distance2);
+        this.matching_item_finish_place = (TextView) itemView.findViewById(R.id.matching_item_finish_place);
+        this.matching_img = (ImageView) itemView.findViewById(R.id.matching_img);
+        this.matching_item_ep_time = (TextView) itemView.findViewById(R.id.matching_item_ep_time);
 
 
         /*
@@ -116,7 +116,6 @@ class MatchingHolder extends RecyclerView.ViewHolder {
     void onBind(History data) {
         // 회원 코드, 이름
         tv_m_id.setText(data.getM_id());
-        tv_matching_name.setText(data.getM_name());
 
         // 매칭 방 코드
         tv_merchant_uid.setText(data.getMerchant_uid());
@@ -139,15 +138,15 @@ class MatchingHolder extends RecyclerView.ViewHolder {
         }
 
         // 회원 이거는 머고
-        tv_personnel.setText("모집인원("+data.getTo_people()+"/"+data.getTo_max()+")");
+        matching_item_cur_people.setText("모집인원("+data.getTo_people()+"/"+data.getTo_max()+")");
 
         // 출발지 , 위도, 경도
-        tv_start_place.setText(data.getH_s_place());
+        matching_item_start_place.setText(data.getH_s_place());
         tv_h_s_lttd.setText(String.valueOf(data.getH_s_lttd()));
         tv_h_s_lngtd.setText(String.valueOf(data.getH_s_lngtd()));
 
         // 도착지, 위도, 경도
-        tv_end_place.setText(data.getH_f_place());
+        matching_item_finish_place.setText(data.getH_f_place());
         tv_h_f_lttd.setText(String.valueOf(data.getH_f_lttd()));
         tv_h_f_lngtd.setText(String.valueOf(data.getH_f_lngtd()));
     }
