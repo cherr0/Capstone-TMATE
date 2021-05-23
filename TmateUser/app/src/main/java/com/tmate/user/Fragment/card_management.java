@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.kcrimi.tooltipdialog.ToolTipDialog;
 import com.tmate.user.R;
 import com.tmate.user.adapter.CardAdapter;
 import com.tmate.user.data.CardData;
@@ -26,7 +25,6 @@ import com.tmate.user.net.DataService;
 import com.tmate.user.net.KakaopayWebviewActivity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
