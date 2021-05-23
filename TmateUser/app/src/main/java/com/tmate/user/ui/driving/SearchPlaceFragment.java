@@ -229,13 +229,10 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
 
         TMapData tMapData = new TMapData();
         tMapData.convertGpsToAddress(tpoint.getLatitude(), tpoint.getLongitude(),
-                new TMapData.ConvertGPSToAddressListenerCallback() {
-                    @Override
-                    public void onConvertToGPSToAddress(String s) {
-                        b.startPlace.setText(s);
-                        mViewModel.dispatch.setStart_lat(tpoint.getLatitude());
-                        mViewModel.dispatch.setStart_lng(tpoint.getLongitude());
-                    }
+                s -> {
+                    b.startPlace.setText(s);
+                    mViewModel.dispatch.setStart_lat(tpoint.getLatitude());
+                    mViewModel.dispatch.setStart_lng(tpoint.getLongitude());
                 });
     }
 
@@ -277,14 +274,11 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
             mViewModel.dispatch.setStart_lng(centerPoint.getLongitude());
             TMapData tMapData = new TMapData();
             tMapData.convertGpsToAddress(centerPoint.getLatitude(), centerPoint.getLongitude(),
-                    new TMapData.ConvertGPSToAddressListenerCallback() {
-                        @Override
-                        public void onConvertToGPSToAddress(String s) {
-                            b.startPlace.setText(s);
-                            mViewModel.dispatch.setStart_place(s);
-                            mViewModel.dispatch.setStart_lat(centerPoint.getLatitude());
-                            mViewModel.dispatch.setStart_lng(centerPoint.getLongitude());
-                        }
+                    s -> {
+                        b.startPlace.setText(s);
+                        mViewModel.dispatch.setStart_place(s);
+                        mViewModel.dispatch.setStart_lat(centerPoint.getLatitude());
+                        mViewModel.dispatch.setStart_lng(centerPoint.getLongitude());
                     });
         });
 
