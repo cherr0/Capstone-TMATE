@@ -20,7 +20,7 @@ import retrofit2.Response;
 public class CallWaitingActivity extends AppCompatActivity {
 
      // 이용코드는 필수
-    String merchant_uid;
+    String dp_id;
 
      // 레트로핏
      // 1. 기사코드 가져오는 요청 객체
@@ -52,27 +52,16 @@ public class CallWaitingActivity extends AppCompatActivity {
         if (getIntent() != null) {
             intent = getIntent();
             // 이용 코드도 받아야 한다.
-            /*
-            intent.putExtra("pay",b.payTotalHEpFare.getText().toString()); // 결제 금액
-                intent.putExtra("use_point", b.payPoResult.getText().toString()); // 사용 포인트
-                intent.putExtra("h_ep_fare", bundle.getString("h_ep_fare")); // 총금액
-                intent.putExtra("h_s_place", bundle.getString("h_s_place")); // 출발지
-                intent.putExtra("h_f_place", bundle.getString("h_f_place"));// 목적지
-                intent.putExtra("slngtd",bundle.getString("slngtd")); // 출발지 경도
-                intent.putExtra("slttd", bundle.getString("slttd")); // 출발지 위도
-                intent.putExtra("flngtd", bundle.getString("flngtd")); // 도착지 경도
-                intent.putExtra("flttd", bundle.getString("flttd")); // 도착지 위도
-                intent.putExtra("together", bundle.getString("together")); // 동승인원
-             */
-            b.cwMerchantUid.setText(intent.getStringExtra("merchant_uid"));
-            merchant_uid = intent.getStringExtra("merchant_uid");
-            b.waitHSPlace.setText(intent.getStringExtra("h_s_place"));
-            b.cwHSLttd.setText(intent.getStringExtra("h_s_lttd"));
-            b.cwHSLngtd.setText(intent.getStringExtra("h_s_lngtd"));
 
-            b.waitHFPlace.setText(intent.getStringExtra("h_f_place"));
-            b.cwHFLttd.setText(intent.getStringExtra("h_f_lttd"));
-            b.cwHFLngtd.setText(intent.getStringExtra("h_f_lngtd"));
+            b.cwMerchantUid.setText(intent.getStringExtra("dp_id"));
+            dp_id = intent.getStringExtra("dp_id");
+            b.waitHSPlace.setText(intent.getStringExtra("start_place"));
+            b.cwHSLttd.setText(intent.getStringExtra("start_lat"));
+            b.cwHSLngtd.setText(intent.getStringExtra("start_lng"));
+
+            b.waitHFPlace.setText(intent.getStringExtra("finish_place"));
+            b.cwHFLttd.setText(intent.getStringExtra("finish_lat"));
+            b.cwHFLngtd.setText(intent.getStringExtra("finish_lng"));
         }
 
         // 쓰레드 상태
@@ -106,7 +95,7 @@ public class CallWaitingActivity extends AppCompatActivity {
     public class Matching implements Runnable {
         @Override
         public void run() {
-            request = DataService.getInstance().matchAPI.getd_idDuringCall(merchant_uid);
+            request = DataService.getInstance().matchAPI.getd_idDuringCall(dp_id);
             request.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
@@ -120,7 +109,7 @@ public class CallWaitingActivity extends AppCompatActivity {
                         else{
                             isRunning = false;
                             Intent intent = new Intent(CallWaitingActivity.this, CarInfoActivity.class);
-                            intent.putExtra("merchant_uid",merchant_uid);
+                            intent.putExtra("dp_id",dp_id);
                             intent.putExtra("d_id", d_id);
                             startActivity(intent);
                         }
@@ -169,7 +158,7 @@ public class CallWaitingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        deleteRequest = DataService.getInstance().matchAPI.removeNormalCall(merchant_uid);
+        deleteRequest = DataService.getInstance().matchAPI.removeNormalCall(dp_id);
         deleteRequest.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

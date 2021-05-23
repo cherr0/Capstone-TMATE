@@ -1,4 +1,4 @@
-package com.tmate.user.data;
+package com.tmate.driver.data;
 
 import java.sql.Timestamp;
 
@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Dispatch {
-
     // 1. 배차 코드 (PK) : TIMESTAMP + 최대인원(1)
     private String dp_id;
 

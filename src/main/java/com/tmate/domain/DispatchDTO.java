@@ -1,15 +1,15 @@
-package com.tmate.user.data;
-
-import java.sql.Timestamp;
+package com.tmate.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Dispatch {
+public class DispatchDTO {
 
     // 1. 배차 코드 (PK) : TIMESTAMP + 최대인원(1)
     private String dp_id;
@@ -63,8 +63,8 @@ public class Dispatch {
     private String m_id;
 
     /*
-     *  JOIN시 생길수 있는 Column
-     * */
+    *  JOIN시 생길수 있는 Column
+    * */
 
     // 멤버 관련
     private String m_name;
@@ -81,8 +81,8 @@ public class Dispatch {
 
 
     /*
-     *  값이 추가적으로 필요한 경우
-     * */
+    *  값이 추가적으로 필요한 경우
+    * */
 
     // 기사와 출발지와의 거리
     private double distance;

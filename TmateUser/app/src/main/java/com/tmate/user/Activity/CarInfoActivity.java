@@ -38,8 +38,10 @@ import com.tmate.user.Fragment.MatchingFragment;
 import com.tmate.user.R;
 import com.tmate.user.common.Common;
 import com.tmate.user.common.PermissionManager;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.databinding.ActivityCarInfoBinding;
 import com.tmate.user.databinding.ActivityMatchingMapBinding;
+import com.tmate.user.net.DataService;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -49,10 +51,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.skt.Tmap.util.HttpConnect.getContentFromNode;
 
 public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
+
+    // 화면 위젯 변수
+    TextView car_no;
+    TextView h_status;
+    TextView h_s_place;
+    TextView h_f_place;
+    TextView h_people;
+
+
+    // 레트로핏 사용 부분
+    Call<Dispatch> request;
 
     //바뀐 위치에 대한 좌표값 설정
     @Override
@@ -136,11 +153,8 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         b= ActivityCarInfoBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
-        //임의의 값
-        d1 = 35.894479;
-        d2 = 128.623895;
-        d3 = 35.8777867;
-        d4 = 128.6285734;
+        dataInitWidget();
+
         tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
         tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
 
@@ -169,8 +183,7 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         initSildeMenu();
 
 
-        //값 가져오기
-        //Intent intent = getIntent();
+
 
         b.complete.setOnClickListener(v -> {
             Intent intent = new Intent(this,CarDrivingActivity.class);
@@ -187,6 +200,80 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         });
         mContext = this;
     }
+
+
+    // 레트로핏 관련 화면 UI 초기화 메서드
+    public void initWidget() {
+        car_no = findViewById(R.id.car_no);
+        h_status = findViewById(R.id.h_status);
+        h_s_place = findViewById(R.id.h_s_place);
+        h_f_place = findViewById(R.id.h_f_place);
+        h_people = findViewById(R.id.h_people);
+    }
+
+    public void dataInitWidget() {
+        initWidget();
+        Intent intent =getIntent();
+        String dp_id = intent.getStringExtra("dp_id");
+        Log.d("찍히는 이용정보코드 : ", dp_id);
+        request = DataService.getInstance().matchAPI.readCurrentDispatch(dp_id);
+        request.enqueue(new Callback<Dispatch>() {
+            @Override
+            public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    Log.d("넘어오는 호출 정보 : ", response.body().toString());
+                    Dispatch dispatch = response.body();
+                    car_no.setText(dispatch.getCar_no());
+                    h_s_place.setText(dispatch.getStart_place());
+                    h_f_place.setText(dispatch.getFinish_place());
+
+                    switch (dispatch.getDp_id().substring(18)) {
+                        case "1":
+                            h_people.setText("1명");
+                            break;
+                        case "2":
+                            h_people.setText("2명");
+                            break;
+                        case "3":
+                            h_people.setText("3명");
+                            break;
+                    }
+
+                    switch (dispatch.getDp_status()) {
+                        case "3" :
+                            h_status.setText("탑승완료");
+                            break;
+                        case "4" :
+                            h_status.setText("탑승중");
+                            break;
+                    }
+
+                    // 탑승 대기중일때 기사위치에서 출발지
+                    if(dispatch.getDp_status().equals("3")) {
+                        d1 = dispatch.getM_lat();
+                        d2 = dispatch.getM_lng();
+                        d3 = dispatch.getStart_lat();
+                        d4 = dispatch.getStart_lng();
+                    }
+
+                    // 탑승중일때 기사위치에서 도착지
+                    if (dispatch.getDp_status().equals("4")) {
+                        d1 = dispatch.getM_lat();
+                        d2 = dispatch.getM_lng();
+                        d3 = dispatch.getFinish_lat();
+                        d4 = dispatch.getFinish_lng();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Dispatch> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void initSildeMenu() {
         //api키 정상적인지 체크
         mMapView.setOnApiKeyListener(new TMapView.OnApiKeyListenerCallback() {
