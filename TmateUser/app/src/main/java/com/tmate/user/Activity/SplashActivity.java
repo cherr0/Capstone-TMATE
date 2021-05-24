@@ -27,8 +27,11 @@ public class SplashActivity extends AnimatedSplash {
 //        setPreference("m_id","m1010675016640");
 //        setPreference("m_name","박중원");
 
-        setPreference("m_id","m1010918400420");
-        setPreference("m_name","하창현");
+//        setPreference("m_id","m1010918400420");
+//        setPreference("m_name","하창현");
+
+        setPreference("m_id","m1010540892990");
+        setPreference("m_name","박한수");
 
 
 

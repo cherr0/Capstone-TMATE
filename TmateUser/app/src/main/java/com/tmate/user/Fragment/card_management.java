@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -38,7 +40,9 @@ public class card_management  extends Fragment {
     ArrayList<String> list;
     RecyclerView recyclerView;
     private static SharedPreferences pref;
+    private TextView tv_toolTip;
     Context context;
+    Boolean click = false;
 
     private String m_id;
     ArrayList<CardData> cardList;
@@ -55,6 +59,7 @@ public class card_management  extends Fragment {
         cardList = new ArrayList<>();
 
         context = container.getContext();
+        tv_toolTip = view.findViewById(R.id.tv_toolTip);
         pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
 
@@ -95,8 +100,13 @@ public class card_management  extends Fragment {
 
         btn_card_tooltip = view.findViewById(R.id.btn_card_tooltip);
         btn_card_tooltip.setOnClickListener(v -> {
-
-
+            if (click == false) {
+                tv_toolTip.setVisibility(View.GONE);
+                click = true;
+            } else {
+                tv_toolTip.setVisibility(View.VISIBLE);
+                click = false;
+            }
         });
         return view;
     }
