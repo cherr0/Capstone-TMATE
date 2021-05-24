@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Fragment.PaymentInformationFragment"
+    tools:context=".ui.driving.PaymentInformationFragment"
     android:background="#F4F4F4F4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -106,7 +106,7 @@
                         android:id="@+id/payment_information_h_s_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="영진전문대"
+                        android:text="없음"
                         android:textSize="20sp"
                         android:textColor="@color/black"
                         android:textStyle="bold"
@@ -128,7 +128,7 @@
                         android:id="@+id/payment_information_h_f_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="경북대학교 북문"
+                        android:text="없음"
                         android:textSize="20sp"
                         android:textColor="@color/black"
                         android:textStyle="bold"
@@ -332,15 +332,15 @@
                     android:id="@+id/payment_radiogroup_event"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checkedButton="@id/payment_simple"
+                    android:checkedButton="@id/event_point"
                     app:layout_constraintTop_toBottomOf="@+id/payment_event"
                     app:layout_constraintStart_toStartOf="@+id/payment_event">
 
                     <RadioButton
-                        android:id="@+id/event_Roulette"
+                        android:id="@+id/event_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="룰렛 돌리기"
+                        android:text="포인트적립"
                         android:textSize="20sp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"/>
@@ -357,10 +357,10 @@
                         app:layout_constraintVertical_bias="0.0"/>
 
                     <RadioButton
-                        android:id="@+id/event_point"
+                        android:id="@+id/event_Roulette"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="포인트적립"
+                        android:text="룰렛 돌리기"
                         android:textSize="20sp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"/>
