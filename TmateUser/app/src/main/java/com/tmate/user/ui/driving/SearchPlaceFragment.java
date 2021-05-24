@@ -22,10 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.skt.Tmap.TMapData;
@@ -59,7 +62,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     @Override
     public void onStart() {
         super.onStart();
-
+        setGps(); //시작하자마자 자신의 위치가 보이게 한다
     }
 
     @Override // onViewCreated 가 실행되기 전 레이아웃을 구성하기 위해 실행되는 생명주기 메서드
@@ -106,6 +109,15 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     private void clickListenerApply() {
         b.goTogetherSelect.setOnClickListener(this);
         b.locationBtn.setOnClickListener(this);
+        b.finishPlace.setOnEditorActionListener((v, actionId, event) -> {
+            boolean handled = false;
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+                Log.d("SearchPlaceFragment","Done.");
+                hideKeyBoard();
+                handled = true;
+            }
+            return handled;
+        });
     }
 
 
@@ -229,6 +241,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         TMapData tMapData = new TMapData();
         tMapData.convertGpsToAddress(tpoint.getLatitude(), tpoint.getLongitude(),
                 s -> {
+                    Log.d("SearchPlaceFragment", "트래킹 모드 설정");
                     mViewModel.dispatch.setStart_place(s);
                     mViewModel.dispatch.setStart_lat(tpoint.getLatitude());
                     mViewModel.dispatch.setStart_lng(tpoint.getLongitude());
@@ -253,7 +266,6 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         mMapView.setZoomLevel(16);
         mMapView.setBufferStep(3);
         mMapView.setIconVisibility(true);//현재위치로 표시될 아이콘을 표시할지 여부를 설정
-        setGps(); //시작하자마자 자신의 위치가 보이게 한다
 
         // 나중에 맵 세팅 메서드에 추가
         // api 키 정상적인지 체크
@@ -274,6 +286,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
             TMapData tMapData = new TMapData();
             tMapData.convertGpsToAddress(centerPoint.getLatitude(), centerPoint.getLongitude(),
                     s -> {
+                        Log.d("SearchPlaceFragment","줌 스크롤 이벤트 실행");
                         mViewModel.dispatch.setStart_place(s);
                         mViewModel.dispatch.setStart_lat(centerPoint.getLatitude());
                         mViewModel.dispatch.setStart_lng(centerPoint.getLongitude());
@@ -294,6 +307,8 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
       --------------------------- */
     //키보드 숨기기
     private void hideKeyBoard() {
+        if(b.finishPlace.requestFocus())
+            ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(b.finishPlace, 0);
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(b.startPlace.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(b.finishPlace.getWindowToken(), 0);
