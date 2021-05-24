@@ -2,7 +2,6 @@ package com.tmate.user.ui.driving;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
@@ -37,6 +36,7 @@ import com.skt.Tmap.TMapView;
 import com.tmate.user.R;
 import com.tmate.user.common.PermissionManager;
 import com.tmate.user.databinding.FragmentSearchPlaceBinding;
+
 
 import java.util.ArrayList;
 
@@ -94,7 +94,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.go_together_select : // 출발, 도착지 설정 완료 버튼
-                selectedPlace(v);
+                selectedPlace();
                 break;
             case R.id.location_btn : // 현재 위치 클릭
                 onClickLocationBtn();
@@ -229,10 +229,11 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         TMapData tMapData = new TMapData();
         tMapData.convertGpsToAddress(tpoint.getLatitude(), tpoint.getLongitude(),
                 s -> {
-                    b.startPlace.setText(s);
                     mViewModel.dispatch.setStart_place(s);
                     mViewModel.dispatch.setStart_lat(tpoint.getLatitude());
                     mViewModel.dispatch.setStart_lng(tpoint.getLongitude());
+                    Log.d("SearchPlaceFragment","출발지 값 : " + s + ", " + tpoint.getLatitude() + "," + tpoint.getLongitude());
+                    b.startPlace.setText(mViewModel.dispatch.getStart_place());
                 });
     }
 
@@ -273,11 +274,13 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
             TMapData tMapData = new TMapData();
             tMapData.convertGpsToAddress(centerPoint.getLatitude(), centerPoint.getLongitude(),
                     s -> {
-                        b.startPlace.setText(s);
                         mViewModel.dispatch.setStart_place(s);
                         mViewModel.dispatch.setStart_lat(centerPoint.getLatitude());
                         mViewModel.dispatch.setStart_lng(centerPoint.getLongitude());
+                        Log.d("SearchPlaceFragment","출발지 값 : " + s + ", " + centerPoint.getLatitude() + "," + centerPoint.getLongitude());
+                        b.startPlace.setText(mViewModel.dispatch.getStart_place());
                     });
+
         });
 
 
@@ -304,13 +307,11 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     }
 
     // 출발지, 목적지 설정완료 버튼
-    private void selectedPlace(View v) {
+    private void selectedPlace() {
         if(b.finishPlace.getText().toString().equals("")) {
             Snackbar.make(mMapView,"도착지를 작성해주세요",Snackbar.LENGTH_SHORT).show();
             return;
         }
-
-
 
         Log.d("SearchPlaceFragment","dispatch 데이터");
         Log.d("SearchPlaceFragment", mViewModel.dispatch.toString());
