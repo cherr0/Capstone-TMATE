@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -226,10 +228,15 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                     mViewModel.dispatch.setDp_id(dp_id);
                     Log.d("PayInfoFragment", "결제 완료 dp_id : " +  dp_id);
 
+                    // 만나서 결제 시 현금 결제 여부 추가
                     if(b.paymentMeet.isChecked()) {
                         mViewModel.use_cash = 1;
-
                     }
+
+                    NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                    controller.navigate(R.id.action_paymentInformationFragment_to_callWaitingFragment);
+
+
 
                 }
             }
