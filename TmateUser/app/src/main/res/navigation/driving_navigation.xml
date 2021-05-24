@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/driving_navigation"
     app:startDestination="@id/searchPlace">
 
     <fragment
         android:id="@+id/searchPlace"
         android:name="com.tmate.user.ui.driving.SearchPlaceFragment"
-        android:label="SearchPlace" />
+        android:label="SearchPlace" >
+        <action
+            android:id="@+id/action_searchPlace_to_paymentInformationFragment"
+            app:destination="@id/paymentInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentInformationFragment"
+        android:name="com.tmate.user.ui.driving.PaymentInformationFragment"
+        android:label="fragment_payment_information"
+        tools:layout="@layout/fragment_payment_information" >
+        <action
+            android:id="@+id/action_paymentInformationFragment_to_callWaitingFragment"
+            app:destination="@id/callWaitingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/callWaitingFragment"
+        android:name="com.tmate.user.ui.driving.CallWaitingFragment"
+        android:label="fragment_call_waiting"
+        tools:layout="@layout/fragment_call_waiting" />
 </navigation>
