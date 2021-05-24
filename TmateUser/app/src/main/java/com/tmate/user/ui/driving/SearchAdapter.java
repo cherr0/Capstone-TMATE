@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.skt.Tmap.TMapPOIItem;
+import com.skt.Tmap.TMapPoint;
 import com.tmate.user.R;
 
 import java.util.ArrayList;
@@ -44,18 +45,42 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchHolder> {
         holder.itemView.setOnClickListener( v -> {
             Log.d("SearchAdapter", "도착지 데이터 삽입 중");
             TMapPOIItem data = items.get(posit);
+
+            mViewModel.dispatch.setFinish_place(data.getPOIName()); // 이름 설정
+            mViewModel.dispatch.setFinish_lat(data.getPOIPoint().getLatitude()); // 위도 설정
+            mViewModel.dispatch.setFinish_lng(data.getPOIPoint().getLongitude()); // 경도 설정
+
+            TMapPoint point = new TMapPoint(mViewModel.dispatch.getStart_lat(), mViewModel.dispatch.getStart_lng());
+            double distance = data.getDistance(point);
+            mViewModel.dispatch.setDistance(distance); // 예상 거리 설정
+            mViewModel.dispatch.setAll_fare(getExpectTaxiFare(distance)); // 요금 설정
+
+            finish.setText(data.getPOIName());
+
             Log.d("SearchAdapter", "도착지 주소 : " + data.getPOIAddress().replace(" null",""));
             Log.d("SearchAdapter","도착지 이름 : " + data.getPOIName());
             Log.d("SearchAdapter", "도착지 좌표 : " + data.getPOIPoint());
-
-            mViewModel.dispatch.setFinish_place(data.getPOIName());
-            mViewModel.dispatch.setFinish_lat(data.getPOIPoint().getLatitude());
-            mViewModel.dispatch.setFinish_lng(data.getPOIPoint().getLongitude());
-
-
-            finish.setText(data.getPOIName());
+            Log.d("SearchAdapter", "예상거리 : " + mViewModel.dispatch.getDistance());
+            Log.d("SearchAdapter","예상 요금 : " + mViewModel.dispatch.getAll_fare());
         });
 
+    }
+
+    // 택시 요금 계산 로직
+    private int getExpectTaxiFare(double totalDistance) {
+        int pay = 3300; // 기본 요금
+
+        // 입력된 거리에서 2000을 빼준다.
+        int i = (int) totalDistance - 2000;
+        if (i < 0) {
+            return pay;
+        }else{
+            /*
+             * 대구시 보니깐 144m에 150원씩 추가한다.
+             * */
+            pay = pay + (i / 144) * 150;
+            return pay;
+        }
     }
 
     @Override
