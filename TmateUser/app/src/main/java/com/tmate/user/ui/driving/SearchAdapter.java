@@ -57,6 +57,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchHolder> {
 
             finish.setText(data.getPOIName());
 
+            Log.d("SearchAdapter", "출발지 주소 : " + mViewModel.dispatch.getStart_place());
+            Log.d("SearchAdapter", "출발지 좌표 : " + mViewModel.dispatch.getStart_lat() + ", " + mViewModel.dispatch.getStart_lng());
             Log.d("SearchAdapter", "도착지 주소 : " + data.getPOIAddress().replace(" null",""));
             Log.d("SearchAdapter","도착지 이름 : " + data.getPOIName());
             Log.d("SearchAdapter", "도착지 좌표 : " + data.getPOIPoint());
