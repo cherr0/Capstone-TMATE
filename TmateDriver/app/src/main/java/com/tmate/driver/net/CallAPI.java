@@ -29,4 +29,16 @@ public interface CallAPI {
             @Path("m_lat") double m_lat,
             @Path("m_lng") double m_lng
     );
+
+    // 승객을 태웠을 시 -> 탑승 중 , 도착지 가져온다.
+    @GET("/call/modify/dispatch/boarding/{d_id}")
+    Call<Dispatch> modifyDispatchBoarding(@Path("d_id") String d_id);
+
+    // 기사 위치 최신화
+    @PUT("/call/modify/driver/position/{m_lat}/{m_lng}/{d_id}")
+    Call<Boolean> modifyDriverPosition(
+            @Path("m_lat") double m_lat,
+            @Path("m_lng") double m_lng,
+            @Path("d_id") String d_id
+    );
 }

@@ -90,7 +90,7 @@ public class CallFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 together =1;
-                Intent intent = new Intent(getContext(), DrivingActivity.class);
+                Intent intent = new Intent(getContext(), MatchingMapActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
                 

@@ -23,6 +23,8 @@ public class Member {
     private int m_count;
     private String m_level;
     private int m_point;
+    private double m_lat;
+    private double m_lng;
     private String m_invite;
     private String m_profile;
     private int like;
