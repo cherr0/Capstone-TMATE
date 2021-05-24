@@ -14,7 +14,7 @@ public class DataService {
     //private static final String BASE_URL = "http://192.168.1.21:9090"; // 로컬 URL
 
     // 안드로이드 폰 연결
-    private static final String BASE_URL = "http://192.168.0.141:9090";
+    private static final String BASE_URL = "http://172.26.3.112:9090";
 
 //    private static final String BASE_URL = "http://10.0.2.2:9090";
     private static DataService instance;

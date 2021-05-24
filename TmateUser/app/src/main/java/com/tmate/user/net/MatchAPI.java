@@ -4,6 +4,7 @@ import com.tmate.user.data.Approval;
 import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.History;
 import com.tmate.user.data.JoinHistoryVO;
+import com.tmate.user.data.Member;
 import com.tmate.user.data.Together;
 import com.tmate.user.data.TogetherRequest;
 
@@ -69,5 +70,9 @@ public interface MatchAPI {
     // 이용중인 호출 요약 정보
     @GET("match/get/dispatch/{m_id}")
     Call<Dispatch> getUsingHistory(@Path("m_id") String m_id);
+
+    // 기사 위치 가져온다 - 쓰레드
+    @GET("match/get/driver/position/{dp_id}")
+    Call<Dispatch> getDriverPosition(@Path("dp_id") String d_id);
 
 }
