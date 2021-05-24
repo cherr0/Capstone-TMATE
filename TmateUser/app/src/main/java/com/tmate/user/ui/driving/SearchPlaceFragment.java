@@ -42,6 +42,7 @@ import com.tmate.user.databinding.FragmentSearchPlaceBinding;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchPlaceFragment extends Fragment implements View.OnClickListener {
 
@@ -78,7 +79,6 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
         mapSetting(); // 맵 뷰에 필요한 설정 적용
         clickListenerApply(); // 클릭 리스너 활성화
-        textChangedListenerApply(); // 도착지 변경 활성화
 
         // 리사이클러 뷰 설정
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -118,38 +118,30 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
             }
             return handled;
         });
-    }
 
-
-    // 도착지 검색 리스트 적용
-    private void textChangedListenerApply() {
         b.finishPlace.addTextChangedListener(new TextWatcher() {
-            @Override // 입력하기 전에 호출
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override // TextEdit 에 변화가 있을 때 호출
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override // 입력이 끝났을 때
-            public void afterTextChanged(Editable s) {
-                searchList.clear();
-
-                String text = s.toString();
+                if(!searchList.isEmpty())
+                    searchList.clear();
+                String text = b.finishPlace.getText().toString();
+                TMapPoint tPoint = new TMapPoint(mViewModel.dispatch.getStart_lat(), mViewModel.dispatch.getStart_lng());
                 TMapData mapData = new TMapData();
-                mapData.findAllPOI(text, list -> {
-                    for(TMapPOIItem item : list) {
+                mapData.findAroundKeywordPOI(tPoint, text, 200, 50, arrayList -> {
+                    Log.d("SearchPlaceFragment", "검색 리스트 : " + arrayList);
+                    for(TMapPOIItem item : arrayList) {
                         searchAdapter.addItem(item);
                     }
                 });
-
                 searchAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
     }
-
 
     /* ------------------------
             지도 관련 메서드
@@ -296,8 +288,6 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
 
         });
 
-
-
         b.cursor.bringToFront(); // 중심점 아이콘 최상단으로 올리기
     }
 
@@ -307,8 +297,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
       --------------------------- */
     //키보드 숨기기
     private void hideKeyBoard() {
-        if(b.finishPlace.requestFocus())
-            ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).showSoftInput(b.finishPlace, 0);
+        b.finishPlace.clearFocus();
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(b.startPlace.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(b.finishPlace.getWindowToken(), 0);
