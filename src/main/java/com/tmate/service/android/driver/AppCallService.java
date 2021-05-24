@@ -28,7 +28,7 @@ public interface AppCallService {
     Boolean modifyRealTimeDriverLocation(double m_lat, double m_lng, String d_id);
 
     // 손님 태웠을시 -> 1. 탑승 중  2. 운행 시작 시간
-    Boolean modifyDispatchBoarding(String dp_id);
+    DispatchDTO modifyDispatchBoarding(String d_id);
 
     // 탑승 완료시 -> 1. 탑승 완료 2. 운행 종료 시간
     Boolean modifyDispatchBoardingEnds(String dp_id);

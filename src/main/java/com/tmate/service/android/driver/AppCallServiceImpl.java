@@ -44,9 +44,18 @@ public class AppCallServiceImpl implements AppCallService {
         return dispatchMapper.updateDriverLocation(m_lat, m_lng, d_id) == 1;
     }
 
+    @Transactional
     @Override
-    public Boolean modifyDispatchBoarding(String dp_id) {
-        return dispatchMapper.updateDispatchBoarding(dp_id) == 1;
+    public DispatchDTO modifyDispatchBoarding(String d_id) {
+
+        // 1. 기사가 운행중인 코드 가져온다.
+        String dp_id = dispatchMapper.getDrivingDp_id(d_id);
+
+        // 운행 중인 호출정보 상태 -> 탑승중으로 변경
+        dispatchMapper.updateDispatchBoarding(dp_id);
+
+        // 목적지를 가져온다.
+        return dispatchMapper.getDestination(dp_id);
     }
 
     @Override

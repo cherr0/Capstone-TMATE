@@ -32,7 +32,6 @@ public class AppMatchController {
     // 일반 호출 뒤로가기시 삭제
     @DeleteMapping("/remove/normal/call/{dp_id}")
     public ResponseEntity<Boolean> removeNormalMatching(@PathVariable("dp_id") String dp_id) {
-
         return new ResponseEntity<>(appMatchService.removeNowCall(dp_id),HttpStatus.OK);
     }
 
@@ -71,8 +70,9 @@ public class AppMatchController {
 
 
     // 기사위치 가져온다. --> 쓰레드
-    @GetMapping("/get/driver/position/{d_id}")
-    public ResponseEntity<MemberDTO> getDriverPosition(@PathVariable("d_id") String d_id) {
-        return new ResponseEntity<>(appMatchService.getCurrentDriverLocation(d_id), HttpStatus.OK);
+    @GetMapping("/get/driver/position/{dp_id}")
+    public ResponseEntity<DispatchDTO> getDriverPosition(@PathVariable("dp_id") String dp_id) {
+        log.info("기사의 위치를 가져옵니다." + dp_id);
+        return new ResponseEntity<>(appMatchService.getCurrentDriverLocation(dp_id), HttpStatus.OK);
     }
 }

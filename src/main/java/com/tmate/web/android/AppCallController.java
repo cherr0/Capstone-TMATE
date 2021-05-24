@@ -53,19 +53,21 @@ public class AppCallController {
     }
 
     // 4. 기사 위치 최신화
-    @PutMapping("/modify/driver/postion/{m_lat}/{m_lng}/{d_id}")
-    public ResponseEntity<Boolean> modifyDriverPostion(
+    @PutMapping("/modify/driver/position/{m_lat}/{m_lng}/{d_id}")
+    public ResponseEntity<Boolean> modifyDriverPosition(
             @PathVariable("m_lat") double m_lat,
             @PathVariable("m_lng") double m_lng,
             @PathVariable("d_id") String d_id
     ){
+        log.info("기사정보를 최신화 시키기위한 것 : " + m_lat + ":" + m_lng);
         return new ResponseEntity<>(appCallService.modifyRealTimeDriverLocation(m_lat, m_lng, d_id), HttpStatus.OK);
     }
 
     // 5. 탑승 완료 시 -> 운행 시간 , 탑승 중으로 상태 변경
-    @PutMapping("/modify/dispatch/boarding/{dp_id}")
-    public ResponseEntity<Boolean> modifyDispatchBoarding(@PathVariable("dp_id") String dp_id) {
-        return new ResponseEntity<>(appCallService.modifyDispatchBoarding(dp_id), HttpStatus.OK);
+    @GetMapping("/modify/dispatch/boarding/{d_id}")
+    public ResponseEntity<DispatchDTO> modifyDispatchBoarding(@PathVariable("d_id") String d_id) {
+        log.info("승객 잘태우는지 확인합니다." + d_id);
+        return new ResponseEntity<>(appCallService.modifyDispatchBoarding(d_id), HttpStatus.OK);
     }
 
     // 6. 탑승 종료 시 -> 운행 종료 시간, 탑승 완료로 상태 변경
