@@ -15,6 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -224,13 +226,11 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         }
         setTrackingMode(m_bTrackingMode); //트래킹모드(화면 중심을 현재위치로 이동) 설정
         TMapPoint tpoint = mMapView.getCenterPoint();
-        mViewModel.dispatch.setStart_lat(tpoint.getLatitude()); //출발지 위도
-        mViewModel.dispatch.setStart_lng(tpoint.getLongitude()); //출발지 경도
-
         TMapData tMapData = new TMapData();
         tMapData.convertGpsToAddress(tpoint.getLatitude(), tpoint.getLongitude(),
                 s -> {
                     b.startPlace.setText(s);
+                    mViewModel.dispatch.setStart_place(s);
                     mViewModel.dispatch.setStart_lat(tpoint.getLatitude());
                     mViewModel.dispatch.setStart_lng(tpoint.getLongitude());
                 });
@@ -270,8 +270,6 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
 
         //줌 스크롤 이벤트
         mMapView.setOnDisableScrollWithZoomLevelListener((zoom, centerPoint) -> {
-            mViewModel.dispatch.setStart_lat(centerPoint.getLatitude());
-            mViewModel.dispatch.setStart_lng(centerPoint.getLongitude());
             TMapData tMapData = new TMapData();
             tMapData.convertGpsToAddress(centerPoint.getLatitude(), centerPoint.getLongitude(),
                     s -> {
@@ -291,23 +289,6 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     /* ---------------------------
              가내수공업 메서드
       --------------------------- */
-    // 택시 요금 계산 로직
-    private String getExpectTaxiFare(String totalDistance) {
-        int pay = 3300; // 기본 요금
-
-        // 입력된 거리에서 2000을 빼준다.
-        int i = Integer.valueOf(totalDistance) - 2000;
-        if (i < 0) {
-            return pay+"";
-        }else{
-            /*
-             * 대구시 보니깐 144m에 150원씩 추가한다.
-             * */
-            pay = pay + (i / 144) * 150;
-            return pay+"";
-        }
-    }
-
     //키보드 숨기기
     private void hideKeyBoard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
@@ -329,6 +310,8 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
             return;
         }
 
+
+
         Log.d("SearchPlaceFragment","dispatch 데이터");
         Log.d("SearchPlaceFragment", mViewModel.dispatch.toString());
         Log.d("SearchPlaceFragment","출발지 : " + mViewModel.dispatch.getStart_place());
@@ -336,7 +319,8 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         Log.d("SearchPlaceFragment", "동승 유무 : " + mViewModel.together);
 
         if(mViewModel.together == 1) { // 일반 탑승 시
-
+            NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            controller.navigate(R.id.action_searchPlace_to_paymentInformationFragment);
         }
     }
 
