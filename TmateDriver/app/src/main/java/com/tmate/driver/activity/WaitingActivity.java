@@ -169,8 +169,7 @@ public class WaitingActivity extends AppCompatActivity {
                 showDialogForLocationServiceSetting();
             }
 
-            if(gpsTracker == null)
-                gpsTracker = new GpsTracker(WaitingActivity.this);
+            gpsTracker = new GpsTracker(WaitingActivity.this);
 
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
@@ -213,9 +212,7 @@ public class WaitingActivity extends AppCompatActivity {
                         // list가 널일때
                         // 계속해서 검색한다.
                         else{
-
                             isRunning = true;
-
                         }
 
                     }

@@ -41,4 +41,8 @@ public interface CallAPI {
             @Path("m_lng") double m_lng,
             @Path("d_id") String d_id
     );
+
+    // 네비 앱으로 넘어 갈 시 현재 이용중인 승객에게 전화하기 위해 회원코드를 반환
+    @GET("/call/get/using/m_id/{d_id}")
+    Call<String> getUsingM_idByD_id(@Path("d_id") String d_id);
 }

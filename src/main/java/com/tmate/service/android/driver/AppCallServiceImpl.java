@@ -62,4 +62,9 @@ public class AppCallServiceImpl implements AppCallService {
     public Boolean modifyDispatchBoardingEnds(String dp_id) {
         return dispatchMapper.updateDisptchBoardingEnds(dp_id) == 1;
     }
+
+    @Override
+    public String getUsingServiceM_id(String d_id) {
+        return dispatchMapper.getUseDispatchM_id(d_id);
+    }
 }

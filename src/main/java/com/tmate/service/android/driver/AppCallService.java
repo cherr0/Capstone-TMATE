@@ -32,4 +32,7 @@ public interface AppCallService {
 
     // 탑승 완료시 -> 1. 탑승 완료 2. 운행 종료 시간
     Boolean modifyDispatchBoardingEnds(String dp_id);
+
+    // 네비앱으로 넘어갈때 전화버튼에 이용하는 회원전화번호를 넣기 위한 서비스
+    String getUsingServiceM_id(String d_id);
 }

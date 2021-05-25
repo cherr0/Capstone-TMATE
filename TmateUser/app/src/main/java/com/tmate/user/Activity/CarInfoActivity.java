@@ -67,11 +67,14 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
     TextView h_s_place;
     TextView h_f_place;
     TextView h_people;
-
+    TextView meet_time;
+    TextView h_ep_time;
+    TextView amount;
 
 
     // 레트로핏 사용 부분
     Call<Dispatch> request;
+    String driverPhoneNo;
 
     // 쓰레드 관련
     String dp_id2;
@@ -220,7 +223,7 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
             finish();
         });
         b.driverCall.setOnClickListener(v -> {
-            Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:012-3456-7890"));
+            Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"+driverPhoneNo));
             startActivity(mIntent.addFlags(FLAG_ACTIVITY_NEW_TASK));
         });
         mContext = this;
@@ -244,15 +247,20 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
                             case "3":
                                 tMapPointEnd = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
                                 h_status.setText("탑승 대기중");
+                                drawCarPath();
+                                isRunning = true;
                                 break;
                             case "4":
                                 tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
                                 h_status.setText("탑승중");
+                                drawCarPath();
+                                isRunning = true;
+                                break;
+                            case "5":
+                                isRunning = false;
                                 break;
                         }
 
-                        drawCarPath();
-                        isRunning = true;
                     }
                 }
 
@@ -273,6 +281,9 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         h_s_place = findViewById(R.id.h_s_place);
         h_f_place = findViewById(R.id.h_f_place);
         h_people = findViewById(R.id.h_people);
+        meet_time = findViewById(R.id.meet_time);
+        h_ep_time = findViewById(R.id.h_ep_time);
+        amount = findViewById(R.id.amount);
     }
 
     public void dataInitWidget() {
@@ -287,46 +298,46 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
                 if (response.code() == 200 && response.body() != null) {
                     Log.d("넘어오는 호출 정보 : ", response.body().toString());
                     Dispatch dispatch = response.body();
+                    String d_id = dispatch.getD_id();
+                    driverPhoneNo = d_id.substring(2, 5) + "-" + d_id.substring(5,9) + "-" + d_id.substring(9,13);
+                    Log.d("기사 전화번호 : ", driverPhoneNo);
+                    // 일반과 동승(2,3)
+                    switch (dispatch.getDp_id().substring(18)) {
+                        case "1":
+                            h_people.setText("1명");
+                            meet_time.setText("동승이용시");
+                            break;
+                        case  "2":
+                            h_people.setText("2명");
+                            meet_time.setText("보류");
+                            break;
+                        case "3":
+                            h_people.setText("3명");
+                            meet_time.setText("보류");
+                            break;
+                    }
+
 
                     dp_id2 = dispatch.getDp_id();
                     car_no.setText(dispatch.getCar_no());
                     h_s_place.setText(dispatch.getStart_place());
                     h_f_place.setText(dispatch.getFinish_place());
+                    h_ep_time.setText("보류");
+                    amount.setText("보류");
 
-
-                    switch (dispatch.getDp_id().substring(18)) {
-                        case "1":
-                            h_people.setText("1명");
-                            break;
-                        case "2":
-                            h_people.setText("2명");
-                            break;
-                        case "3":
-                            h_people.setText("3명");
-                            break;
-                    }
-
-                    switch (dispatch.getDp_status()) {
-                        case "3" :
-                            h_status.setText("탑승완료");
-                            break;
-                        case "4" :
-                            h_status.setText("탑승중");
-                            break;
-                    }
 
                     // 탑승 대기중일때 기사위치에서 출발지
                     if(dispatch.getDp_status().equals("3")) {
+                        h_status.setText("탑승완료");
                         d1 = dispatch.getM_lat();
                         d2 = dispatch.getM_lng();
                         d3 = dispatch.getStart_lat();
                         d4 = dispatch.getStart_lng();
-
-
                     }
 
                     // 탑승중일때 기사위치에서 도착지
                     if (dispatch.getDp_status().equals("4")) {
+                        h_status.setText("탑승중");
                         d1 = dispatch.getM_lat();
                         d2 = dispatch.getM_lng();
                         d3 = dispatch.getFinish_lat();
@@ -445,7 +456,7 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
                     TMapInfo info = mMapView.getDisplayTMapInfo(polyline.getLinePoint());
 
                     mMapView.addTMapPath(polyline);
-                    mMapView.setZoomLevel(16);
+//                    mMapView.setZoomLevel(16);
                     mMapView.setCenterPoint(info.getTMapPoint().getLongitude(), info.getTMapPoint().getLatitude());
                     setTextLevel(MESSAGE_STATE_ROUTE);
                 }
@@ -586,5 +597,8 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         super.onDestroy();
         request.cancel();
         request2.cancel();
+        isRunning = false;
     }
+
+
 }
