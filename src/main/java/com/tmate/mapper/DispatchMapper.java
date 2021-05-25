@@ -73,6 +73,9 @@ public interface DispatchMapper {
     // 탑승완료시 -> 탑승 종료, 운행 종료 시간 (O)
     int updateDisptchBoardingEnds(String dp_id);
 
+    // 기사가 전화할 승객의 전화를 하기위해 승객 회원 코드를 가져온다.
+    String getUseDispatchM_id(String d_id);
+
     /*
     * 동승 호출시
     * */

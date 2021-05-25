@@ -75,4 +75,12 @@ public class AppCallController {
     public ResponseEntity<Boolean> modifyDispatchBoardingEnds(@PathVariable("dp_id") String dp_id) {
         return new ResponseEntity<>(appCallService.modifyDispatchBoardingEnds(dp_id), HttpStatus.OK);
     }
+
+    // 7. 네비 앱으로 넘어 갈 시 현재 이용중인 승객에게 전화하기 위해 회원코드를 반환
+    @GetMapping("/get/using/m_id/{d_id}")
+    public ResponseEntity<String> getUsingM_idByD_id(@PathVariable("d_id") String d_id) {
+        log.info("기사가 승객에게 전화하기 위해 넘어오는 기사코드 : " + d_id);
+
+        return new ResponseEntity<>(appCallService.getUsingServiceM_id(d_id),HttpStatus.OK);
+    }
 }
