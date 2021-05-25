@@ -68,13 +68,9 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
     PermissionManager mPermissionManager; //권한 요청(GPS)
     TMapGpsManager gps; //gps
 
-
-
     Call<Dispatch> curDispatchRequest;
 
-
-
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,6 +83,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mapSetting(); // 지도 옵션 셋팅 및 활성화
+        clickListenerApply();
 
         // 인텐트 dp_id 값 받아보고 없다면 이전 단계 거쳐서 온 것이기에 mViewModel 값 사용
         dp_id = getActivity().getIntent().getStringExtra("dp_id");
@@ -96,6 +93,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         Log.d("DriverWaitingFragment","dp_id : " + dp_id);
         dispatchRequest(dp_id);
         modelDataBinding();
+        drawCarPath(); // 자동차 경로 그리기
     }
 
     @Override
@@ -201,7 +199,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                      */
                 }).start();
             }
-
         });
     }
 
@@ -216,15 +213,15 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                 if(response.code() == 200 && response.body() != null) {
                     mViewModel.dispatch = response.body();
                     mViewModel.together = Integer.parseInt(mViewModel.dispatch.getDp_id().substring(18));
+                    tMapPointStart = new TMapPoint(mViewModel.dispatch.getStart_lat(),mViewModel.dispatch.getStart_lng());
+                    tMapPointEnd = new TMapPoint(mViewModel.dispatch.getFinish_lat(), mViewModel.dispatch.getFinish_lng());
                 }
             }
             @Override
             public void onFailure(Call<Dispatch> call, Throwable t) {
-
+                t.printStackTrace();
             }
         });
-
-
     }
 
     /* -----------------------
@@ -241,12 +238,12 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
         // 탑승상태
         switch (mViewModel.dispatch.getDp_status()) {
-            case "3" : b.dpStatus.setText("탑승완료"); break;
+            case "3" : b.dpStatus.setText("탑승 대기중"); break;
             case "4" : b.dpStatus.setText("탑승중"); break;
             case "5" :
-                /*
-                    스레드 돌릴 시 여기 값
-                 */
+                // 탑승완료 될 경우 다음 레이아웃으로 이동
+                NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                controller.navigate(R.id.action_driverWaitingFragment_to_driverMovingFragment);
         }
     }
 
@@ -254,6 +251,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
     private void clickListenerApply() {
         b.complete.setOnClickListener(v -> {
             NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            controller.navigate(R.id.action_driverWaitingFragment_to_driverMovingFragment);
         });
     }
 }
