@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -50,6 +51,10 @@ public class driving_overlay extends Service implements View.OnLongClickListener
     double finish_lat;
     double finish_lng;
 
+    // 회원코드를 가져온다.
+    Call<String> request3;
+    String memberPhoneNo;
+
     SharedPreferences pref;
     String d_id;
 
@@ -66,8 +71,6 @@ public class driving_overlay extends Service implements View.OnLongClickListener
     @Override
     public void onCreate() {
         super.onCreate();
-
-        gpsTracker = new GpsTracker(driving_overlay.this);
 
         pref = getSharedPreferences("loginDriver", MODE_PRIVATE);
         d_id = pref.getString("d_id", "");
@@ -145,9 +148,29 @@ public class driving_overlay extends Service implements View.OnLongClickListener
         mWm.addView(mView, params); // 윈도우에 layout 을 추가 한다.
     }
 
+    public void getM_idFromServer(String d_id) {
+        request3 = DataService.getInstance().call.getUsingM_idByD_id(d_id);
+        request3.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    String m_id = response.body();
+                    memberPhoneNo = m_id.substring(2, 5) + "-" + m_id.substring(5, 9) + "-" + m_id.substring(9, 13);
+                    Log.d("이용중인 회원 번호 : ", memberPhoneNo);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
     public class Positioning implements Runnable {
         @Override
         public void run() {
+            gpsTracker = new GpsTracker(driving_overlay.this);
             double m_lat = gpsTracker.getLatitude();
             double m_lng = gpsTracker.getLongitude();
             request2 = DataService.getInstance().call.modifyDriverPosition(m_lat, m_lng, d_id);
@@ -155,8 +178,8 @@ public class driving_overlay extends Service implements View.OnLongClickListener
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                     if (response.code() == 200 && response.body() != null) {
-                        Log.d("잘찍히고 있나요 위도 : ", String.valueOf(m_lat));
-                        Log.d("잘찍히고 있나요 경도 : ", String.valueOf(m_lng));
+                        Toast.makeText(driving_overlay.this, "현재 기사 위도 : " + m_lat, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(driving_overlay.this, "현재 기사 경도 : " + m_lng, Toast.LENGTH_SHORT).show();
                         isRunning = true;
                     }
                 }
@@ -214,7 +237,7 @@ public class driving_overlay extends Service implements View.OnLongClickListener
                 break;
             case R.id.overlay_call :
                 Log.d("test","onClick ");
-                Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:012-3456-7890"));
+                Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"+memberPhoneNo));
                 startActivity(mIntent.addFlags(FLAG_ACTIVITY_NEW_TASK));
                 break;
             case R.id.btn_take_complete :
@@ -233,7 +256,7 @@ public class driving_overlay extends Service implements View.OnLongClickListener
         killAWindowService();
         if(request != null) request.cancel();
         if(request2 != null) request2.cancel();
-        isRunning = false;
+
     }
 
 
