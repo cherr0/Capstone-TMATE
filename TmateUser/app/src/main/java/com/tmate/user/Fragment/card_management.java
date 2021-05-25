@@ -134,8 +134,8 @@ public class card_management  extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if (listRequest != null) listRequest.cancel();
-        if(adapter.deleteCardRequest != null) adapter.deleteCardRequest.cancel();
-        if(adapter.selectCardRequest != null) adapter.selectCardRequest.cancel();
+//        if(adapter.deleteCardRequest != null) adapter.deleteCardRequest.cancel();
+//        if(adapter.selectCardRequest != null) adapter.selectCardRequest.cancel();
         if(adapter.kakaoInactiveRequest != null) adapter.kakaoInactiveRequest.cancel();
     }
 }
