@@ -2,7 +2,6 @@ package com.tmate.user.ui.driving;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
@@ -15,16 +14,21 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.skt.Tmap.TMapData;
@@ -36,7 +40,9 @@ import com.tmate.user.R;
 import com.tmate.user.common.PermissionManager;
 import com.tmate.user.databinding.FragmentSearchPlaceBinding;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchPlaceFragment extends Fragment implements View.OnClickListener {
 
@@ -57,7 +63,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     @Override
     public void onStart() {
         super.onStart();
-
+        setGps(); //시작하자마자 자신의 위치가 보이게 한다
     }
 
     @Override // onViewCreated 가 실행되기 전 레이아웃을 구성하기 위해 실행되는 생명주기 메서드
@@ -73,7 +79,6 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         super.onViewCreated(view, savedInstanceState);
         mapSetting(); // 맵 뷰에 필요한 설정 적용
         clickListenerApply(); // 클릭 리스너 활성화
-        textChangedListenerApply(); // 도착지 변경 활성화
 
         // 리사이클러 뷰 설정
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -92,7 +97,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.go_together_select : // 출발, 도착지 설정 완료 버튼
-                selectedPlace(v);
+                selectedPlace();
                 break;
             case R.id.location_btn : // 현재 위치 클릭
                 onClickLocationBtn();
@@ -104,38 +109,39 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     private void clickListenerApply() {
         b.goTogetherSelect.setOnClickListener(this);
         b.locationBtn.setOnClickListener(this);
-    }
+        b.finishPlace.setOnEditorActionListener((v, actionId, event) -> {
+            boolean handled = false;
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+                Log.d("SearchPlaceFragment","Done.");
+                hideKeyBoard();
+                handled = true;
+            }
+            return handled;
+        });
 
-
-    // 도착지 검색 리스트 적용
-    private void textChangedListenerApply() {
         b.finishPlace.addTextChangedListener(new TextWatcher() {
-            @Override // 입력하기 전에 호출
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override // TextEdit 에 변화가 있을 때 호출
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override // 입력이 끝났을 때
-            public void afterTextChanged(Editable s) {
-                searchList.clear();
-
-                String text = s.toString();
+                if(!searchList.isEmpty())
+                    searchList.clear();
+                String text = b.finishPlace.getText().toString();
+                TMapPoint tPoint = new TMapPoint(mViewModel.dispatch.getStart_lat(), mViewModel.dispatch.getStart_lng());
                 TMapData mapData = new TMapData();
-                mapData.findAllPOI(text, list -> {
-                    for(TMapPOIItem item : list) {
+                mapData.findAroundKeywordPOI(tPoint, text, 200, 50, arrayList -> {
+                    Log.d("SearchPlaceFragment", "검색 리스트 : " + arrayList);
+                    for(TMapPOIItem item : arrayList) {
                         searchAdapter.addItem(item);
                     }
                 });
-
                 searchAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
     }
-
 
     /* ------------------------
             지도 관련 메서드
@@ -224,15 +230,15 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         }
         setTrackingMode(m_bTrackingMode); //트래킹모드(화면 중심을 현재위치로 이동) 설정
         TMapPoint tpoint = mMapView.getCenterPoint();
-        mViewModel.dispatch.setStart_lat(tpoint.getLatitude()); //출발지 위도
-        mViewModel.dispatch.setStart_lng(tpoint.getLongitude()); //출발지 경도
-
         TMapData tMapData = new TMapData();
         tMapData.convertGpsToAddress(tpoint.getLatitude(), tpoint.getLongitude(),
                 s -> {
-                    b.startPlace.setText(s);
+                    Log.d("SearchPlaceFragment", "트래킹 모드 설정");
+                    mViewModel.dispatch.setStart_place(s);
                     mViewModel.dispatch.setStart_lat(tpoint.getLatitude());
                     mViewModel.dispatch.setStart_lng(tpoint.getLongitude());
+                    Log.d("SearchPlaceFragment","출발지 값 : " + s + ", " + tpoint.getLatitude() + "," + tpoint.getLongitude());
+                    b.startPlace.setText(mViewModel.dispatch.getStart_place());
                 });
     }
 
@@ -252,7 +258,6 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         mMapView.setZoomLevel(16);
         mMapView.setBufferStep(3);
         mMapView.setIconVisibility(true);//현재위치로 표시될 아이콘을 표시할지 여부를 설정
-        setGps(); //시작하자마자 자신의 위치가 보이게 한다
 
         // 나중에 맵 세팅 메서드에 추가
         // api 키 정상적인지 체크
@@ -270,19 +275,18 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
 
         //줌 스크롤 이벤트
         mMapView.setOnDisableScrollWithZoomLevelListener((zoom, centerPoint) -> {
-            mViewModel.dispatch.setStart_lat(centerPoint.getLatitude());
-            mViewModel.dispatch.setStart_lng(centerPoint.getLongitude());
             TMapData tMapData = new TMapData();
             tMapData.convertGpsToAddress(centerPoint.getLatitude(), centerPoint.getLongitude(),
                     s -> {
-                        b.startPlace.setText(s);
+                        Log.d("SearchPlaceFragment","줌 스크롤 이벤트 실행");
                         mViewModel.dispatch.setStart_place(s);
                         mViewModel.dispatch.setStart_lat(centerPoint.getLatitude());
                         mViewModel.dispatch.setStart_lng(centerPoint.getLongitude());
+                        Log.d("SearchPlaceFragment","출발지 값 : " + s + ", " + centerPoint.getLatitude() + "," + centerPoint.getLongitude());
+                        b.startPlace.setText(mViewModel.dispatch.getStart_place());
                     });
+
         });
-
-
 
         b.cursor.bringToFront(); // 중심점 아이콘 최상단으로 올리기
     }
@@ -291,25 +295,9 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     /* ---------------------------
              가내수공업 메서드
       --------------------------- */
-    // 택시 요금 계산 로직
-    private String getExpectTaxiFare(String totalDistance) {
-        int pay = 3300; // 기본 요금
-
-        // 입력된 거리에서 2000을 빼준다.
-        int i = Integer.valueOf(totalDistance) - 2000;
-        if (i < 0) {
-            return pay+"";
-        }else{
-            /*
-             * 대구시 보니깐 144m에 150원씩 추가한다.
-             * */
-            pay = pay + (i / 144) * 150;
-            return pay+"";
-        }
-    }
-
     //키보드 숨기기
     private void hideKeyBoard() {
+        b.finishPlace.clearFocus();
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(b.startPlace.getWindowToken(), 0);
         imm.hideSoftInputFromWindow(b.finishPlace.getWindowToken(), 0);
@@ -323,7 +311,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     }
 
     // 출발지, 목적지 설정완료 버튼
-    private void selectedPlace(View v) {
+    private void selectedPlace() {
         if(b.finishPlace.getText().toString().equals("")) {
             Snackbar.make(mMapView,"도착지를 작성해주세요",Snackbar.LENGTH_SHORT).show();
             return;
@@ -336,7 +324,8 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         Log.d("SearchPlaceFragment", "동승 유무 : " + mViewModel.together);
 
         if(mViewModel.together == 1) { // 일반 탑승 시
-
+            NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            controller.navigate(R.id.action_searchPlace_to_paymentInformationFragment);
         }
     }
 

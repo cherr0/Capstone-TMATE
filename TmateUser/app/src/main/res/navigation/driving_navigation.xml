@@ -1,11 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/driving_navigation"
     app:startDestination="@id/searchPlace">
 
     <fragment
         android:id="@+id/searchPlace"
         android:name="com.tmate.user.ui.driving.SearchPlaceFragment"
-        android:label="SearchPlace" />
+        android:label="SearchPlace" >
+        <action
+            android:id="@+id/action_searchPlace_to_paymentInformationFragment"
+            app:destination="@id/paymentInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentInformationFragment"
+        android:name="com.tmate.user.ui.driving.PaymentInformationFragment"
+        android:label="fragment_payment_information"
+        tools:layout="@layout/fragment_payment_information" >
+        <action
+            android:id="@+id/action_paymentInformationFragment_to_callWaitingFragment"
+            app:destination="@id/callWaitingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/callWaitingFragment"
+        android:name="com.tmate.user.ui.driving.CallWaitingFragment"
+        android:label="fragment_call_waiting"
+        tools:layout="@layout/fragment_call_waiting" >
+        <action
+            android:id="@+id/action_callWaitingFragment_to_driverWaitingFragment"
+            app:destination="@id/driverWaitingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/driverWaitingFragment"
+        android:name="com.tmate.user.ui.driving.DriverWaitingFragment"
+        android:label="DriverWaitingFragment" >
+        <action
+            android:id="@+id/action_driverWaitingFragment_to_driverMovingFragment"
+            app:destination="@id/driverMovingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/driverMovingFragment"
+        android:name="com.tmate.user.ui.driving.DriverMovingFragment"
+        android:label="fragment_driver_moving"
+        tools:layout="@layout/fragment_driver_moving" >
+        <action
+            android:id="@+id/action_driverMovingFragment_to_driverFinishingFragment"
+            app:destination="@id/driverFinishingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/driverFinishingFragment"
+        android:name="com.tmate.user.ui.driving.DriverFinishingFragment"
+        android:label="fragment_driver_finishing"
+        tools:layout="@layout/fragment_driver_finishing" />
 </navigation>
