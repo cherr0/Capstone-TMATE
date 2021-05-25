@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,6 +31,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.tmate.user.Activity.MainViewActivity;
+import com.tmate.user.LoadingDialog;
 import com.tmate.user.R;
 import com.tmate.user.data.LoginVO;
 import com.tmate.user.net.DataService;
@@ -36,11 +42,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
-public class SocialFragment extends Fragment implements Validator.ValidationListener{
+
+public class SocialFragment extends Fragment implements Validator.ValidationListener {
     private Validator validator;
     private View view;
     private Button btn_reg, btn_login;
+    static LoadingDialog loadingDialog;
 
     private Call<LoginVO> loginRequest;
     Bundle bundle;
@@ -74,7 +83,7 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
             @Override
             public void onClick(View v) {
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                BlankFragment blankFragment= new BlankFragment();
+                BlankFragment blankFragment = new BlankFragment();
                 blankFragment.setArguments(bundle);
                 transaction.replace(R.id.fm_main, blankFragment);
                 transaction.commit();
@@ -99,6 +108,15 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
         });
 
         btn_login.setOnClickListener(v -> {
+            DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics();
+
+            int width = dm.widthPixels;
+            int height = dm.heightPixels;
+
+            loadingDialog = new LoadingDialog(getActivity());
+            WindowManager.LayoutParams wm = loadingDialog.getWindow().getAttributes();
+            wm.copyFrom(loadingDialog.getWindow().getAttributes());
+            loadingDialog.show();
             Authorization();
         });
         return view;
@@ -160,10 +178,13 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
                         Log.d("SocialFragment", "d_id 값 : " + result.getM_id());
                         Intent intent = new Intent(getActivity(), MainViewActivity.class);
                         startActivity(intent);
+
                     } else {
+                        loadingDialog.cancel();
                         Snackbar.make(view, "가입하지않은 계정이거나 잘못된 비밀번호입니다.", Snackbar.LENGTH_SHORT).show();
                     }
                 } else {
+                    loadingDialog.cancel();
                     Snackbar.make(view, "가입하지않은 계정이거나 잘못된 비밀번호입니다.", Snackbar.LENGTH_SHORT).show();
                 }
             }
@@ -178,6 +199,6 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (loginRequest != null)loginRequest.cancel();
+        if (loginRequest != null) loginRequest.cancel();
     }
 }
