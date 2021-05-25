@@ -419,5 +419,10 @@ public class WaitingActivity extends AppCompatActivity {
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(request != null) request.cancel();
+        if(request2 != null) request2.cancel();
+    }
 }

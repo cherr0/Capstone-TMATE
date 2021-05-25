@@ -67,12 +67,31 @@
         WHERE m_id = #{d_id}
     </select>
 
+    <!-- 기사 위치 실시간으로 가져오기 - 수정 버전 (O) -->
+    <select id="getRealTimeDriverPosition" resultType="com.tmate.domain.DispatchDTO">
+        select dp_status, m.m_lat, m.m_lng, start_lat, start_lng, finish_lat, finish_lng
+        from dispatch d left outer join member m on d.d_id = m.m_id
+        where d.dp_id = #{dp_id}
+    </select>
+
     <!-- 손님 태웠을시 -> 운행 시간, 탑승 중 (O) -->
     <update id="updateDispatchBoarding">
         UPDATE DISPATCH
         SET dp_status = '4', start_time = systimestamp
         WHERE dp_id = #{dp_id}
     </update>
+
+    <select id="getDestination" resultType="com.tmate.domain.DispatchDTO">
+        SELECT finish_lat, finish_lng
+        FROM DISPATCH
+        WHERE dp_id = #{dp_id}
+    </select>
+
+    <select id="getDrivingDp_id" resultType="string">
+        SELECT dp_id
+        FROM DISPATCH
+        WHERE d_id = #{d_id} and dp_status = '3'
+    </select>
 
     <!-- 탑승완료시 -> 탑승 종료, 운행 종료 시간 (O) -->
     <update id="updateDisptchBoardingEnds">
