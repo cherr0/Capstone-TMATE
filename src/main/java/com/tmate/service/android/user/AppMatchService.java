@@ -28,6 +28,6 @@ public interface AppMatchService {
     DispatchDTO getDetailCurrentCallInfo(String dp_id);
 
     // 1.6 일반 호출 이용 시 계속하여 기사 위치를 가져온 후 기사 위치를 맵에 그린다.
-    MemberDTO getCurrentDriverLocation(String d_id);
+    DispatchDTO getCurrentDriverLocation(String dp_id);
 
 }

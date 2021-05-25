@@ -43,6 +43,9 @@ public interface DispatchMapper {
     // 기사 위치 실시간으로 가져오기 (O)
     MemberDTO getRealTimeDriverLocation(String d_id);
 
+    // 기사 위치 실시간으로 가져오기 - 수정버전 (O)
+    DispatchDTO getRealTimeDriverPosition(String dp_id);
+
     /*
     *  기사 APP
     * */
@@ -61,6 +64,11 @@ public interface DispatchMapper {
 
     // 손님 태웠을시 -> 운행 시간, 탑승 중 (O)
     int updateDispatchBoarding(String dp_id);
+
+    DispatchDTO getDestination(String dp_id);
+
+    // 기사가 현재 운행중인 이용코드 가져오기
+    String getDrivingDp_id(String d_id);
 
     // 탑승완료시 -> 탑승 종료, 운행 종료 시간 (O)
     int updateDisptchBoardingEnds(String dp_id);

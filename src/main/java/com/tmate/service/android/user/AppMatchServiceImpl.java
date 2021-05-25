@@ -45,7 +45,7 @@ public class AppMatchServiceImpl implements AppMatchService {
     }
 
     @Override
-    public MemberDTO getCurrentDriverLocation(String d_id) {
-        return dispatchMapper.getRealTimeDriverLocation(d_id);
+    public DispatchDTO getCurrentDriverLocation(String dp_id) {
+        return dispatchMapper.getRealTimeDriverPosition(dp_id);
     }
 }
