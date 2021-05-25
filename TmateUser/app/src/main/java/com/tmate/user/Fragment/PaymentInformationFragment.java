@@ -147,13 +147,14 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         });
     }
 
-    //카드 이미지 리스트
+    //카드 이미지 리스트 //하드코딩
     private void cardImgList() {
         imageList = new ArrayList();
-        imageList.add(R.drawable.ic_logo);
-        imageList.add(R.drawable.ic_map);
-        imageList.add(R.drawable.banner);
-        imageList.add(R.drawable.logo);
+        imageList.add(R.drawable.kakaobk);
+        imageList.add(R.drawable.scbk);
+        imageList.add(R.drawable.woribk);
+        imageList.add(R.drawable.dgbk);
+
     }
 
     //간편결제를 눌렀을 때 카드 선택뷰 보이기
