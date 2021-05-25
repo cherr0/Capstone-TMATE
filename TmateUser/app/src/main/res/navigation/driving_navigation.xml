@@ -26,5 +26,31 @@
         android:id="@+id/callWaitingFragment"
         android:name="com.tmate.user.ui.driving.CallWaitingFragment"
         android:label="fragment_call_waiting"
-        tools:layout="@layout/fragment_call_waiting" />
+        tools:layout="@layout/fragment_call_waiting" >
+        <action
+            android:id="@+id/action_callWaitingFragment_to_driverWaitingFragment"
+            app:destination="@id/driverWaitingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/driverWaitingFragment"
+        android:name="com.tmate.user.ui.driving.DriverWaitingFragment"
+        android:label="DriverWaitingFragment" >
+        <action
+            android:id="@+id/action_driverWaitingFragment_to_driverMovingFragment"
+            app:destination="@id/driverMovingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/driverMovingFragment"
+        android:name="com.tmate.user.ui.driving.DriverMovingFragment"
+        android:label="fragment_driver_moving"
+        tools:layout="@layout/fragment_driver_moving" >
+        <action
+            android:id="@+id/action_driverMovingFragment_to_driverFinishingFragment"
+            app:destination="@id/driverFinishingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/driverFinishingFragment"
+        android:name="com.tmate.user.ui.driving.DriverFinishingFragment"
+        android:label="fragment_driver_finishing"
+        tools:layout="@layout/fragment_driver_finishing" />
 </navigation>
