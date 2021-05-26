@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:padding="20dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="20dp">
 
-    <ImageView
-        android:id="@+id/review_finish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/review_unchecked"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/review_picture"
@@ -35,6 +26,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/review_picture"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/r_to_seat"
         android:layout_width="wrap_content"
@@ -45,16 +37,29 @@
         app:layout_constraintStart_toEndOf="@+id/review_m_name"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_review"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/box_bold"
-        android:text="평가하기"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/review_finish"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ToggleButton
+            android:id="@+id/member_like"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/review_good"
+            android:textOff=""
+            android:textOn="" />
+
+        <ToggleButton
+            android:id="@+id/member_dislike"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/review_dislike"
+            android:textOff=""
+            android:textOn="" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
