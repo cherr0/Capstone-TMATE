@@ -75,7 +75,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         b.paymentInformationHSPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
         b.paymentInformationHFPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
         b.payHAllFare.setText(String.valueOf(price)); // 예상금액
-        b.payToPeople.setText(String.valueOf(mViewModel.together)); // 동승인원
+        b.payToPeople.setText(mViewModel.together); // 동승인원
         b.payTotalAmount.setText(String.valueOf(price)); // 총합 지불 금액
 
         Log.d("PayInfoFragment", "사용자 아이디 : " + mViewModel.dispatch.getM_id());
@@ -233,6 +233,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                         mViewModel.use_cash = 1;
                     }
 
+                    Log.d("PayInfoFragment", "넘어가는 dispatch 정보 : " + mViewModel.dispatch);
                     NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                     controller.navigate(R.id.action_paymentInformationFragment_to_callWaitingFragment);
 

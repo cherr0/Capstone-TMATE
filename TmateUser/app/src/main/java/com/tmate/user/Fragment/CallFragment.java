@@ -40,7 +40,7 @@ public class CallFragment extends Fragment {
     private View view;
     private CardView Ll_together;
     private CardView Ll_solo, requset_list;
-    private int together;
+    private String together;
     private Dialog dialog;
     private Button btn_chat;
     private TextView point_charge;
@@ -89,8 +89,8 @@ public class CallFragment extends Fragment {
         Ll_solo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                together =1;
-                Intent intent = new Intent(getContext(), MatchingMapActivity.class);
+                together = "1";
+                Intent intent = new Intent(getContext(), DrivingActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
                 
@@ -185,7 +185,7 @@ public class CallFragment extends Fragment {
         btn_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                together =2;
+                together ="2";
                 Intent intent = new Intent(getContext(), MatchingMapActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
@@ -196,7 +196,7 @@ public class CallFragment extends Fragment {
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                together =3;
+                together ="3";
                 Intent intent = new Intent(getContext(), MatchingMapActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
