@@ -12,8 +12,8 @@
             from dual
         </selectKey>
 
-        insert into DISPATCH (dp_id, dp_status ,start_place, start_lat, start_lng, finish_place, finish_lat, finish_lng, ep_time, ep_distance, m_id)
-        values(#{dp_id},'2',#{start_place},#{start_lat},#{start_lng},#{finish_place},#{finish_lat},#{finish_lng},
+        insert into DISPATCH (dp_id, dp_status, all_fare, start_place, start_lat, start_lng, finish_place, finish_lat, finish_lng, ep_time, ep_distance, m_id)
+        values(#{dp_id},'2', #{all_fare},#{start_place},#{start_lat},#{start_lng},#{finish_place},#{finish_lat},#{finish_lng},
                #{ep_time,jdbcType=NUMERIC},#{ep_distance,jdbcType=NUMERIC},#{m_id})
     </insert>
 
@@ -46,7 +46,7 @@
 
     <!-- 이용 정보 가져오기 (O) -->
     <select id="getCurrentDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
-        SELECT d.dp_id, d.dp_status , d.start_place, d.finish_place, c.car_no, c.car_model
+        SELECT d.dp_id, d.dp_status , d.start_place, d.finish_place, c.car_no, c.car_model, d.ALL_FARE
         FROM DISPATCH d LEFT OUTER JOIN CAR c ON d.d_id = c.m_id
         WHERE d.m_id = #{m_id} AND dp_status IN('0','1','2','3','4')
     </select>
