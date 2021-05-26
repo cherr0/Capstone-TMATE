@@ -25,7 +25,7 @@ public class AppMatchController {
     @PostMapping("/register/normal")
     public ResponseEntity<String> registerNormalMatching(@RequestBody DispatchDTO dispatchDTO) {
         String dp_id = appMatchService.registerNormalMatch(dispatchDTO);
-
+        log.info("받아온 배차 정보 : " + dispatchDTO);
         return new ResponseEntity<>(dp_id, HttpStatus.OK);
     }
 

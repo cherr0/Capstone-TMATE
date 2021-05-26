@@ -323,7 +323,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         Log.d("SearchPlaceFragment", "도착지 : " + mViewModel.dispatch.getFinish_place());
         Log.d("SearchPlaceFragment", "동승 유무 : " + mViewModel.together);
 
-        if(mViewModel.together == 1) { // 일반 탑승 시
+        if(mViewModel.together.equals("1")) { // 일반 탑승 시
             NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
             controller.navigate(R.id.action_searchPlace_to_paymentInformationFragment);
         }

@@ -2,40 +2,42 @@ package com.tmate.user.ui.driving;
 
 import static com.skt.Tmap.util.HttpConnect.getContentFromNode;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.skt.Tmap.TMapData;
 import com.skt.Tmap.TMapGpsManager;
 import com.skt.Tmap.TMapInfo;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
-import com.tmate.user.Activity.CarDrivingActivity;
 import com.tmate.user.R;
 import com.tmate.user.common.PermissionManager;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.databinding.FragmentDriverMovingBinding;
+import com.tmate.user.net.DataService;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DriverMovingFragment extends Fragment implements TMapGpsManager.onLocationChangedCallback {
 
@@ -56,6 +58,13 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
     TMapPoint tMapPointStart; //출발지 위,경도를 담은 좌표
     TMapPoint tMapPointEnd; //도착지 위,경도를 담은 좌표
 
+    String dp_id; // 배차 코드
+
+    Handler handler;
+    Positioning positioning;
+
+    Call<Dispatch> getDriverRequest;
+    boolean isRunning;
 
 
 
@@ -72,6 +81,33 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mapSetting();
+        modelDataBinding();
+
+        // 인텐트 dp_id 값 받아보고 없다면 이전 단계 거쳐서 온 것이기에 mViewModel 값 사용
+        dp_id = getActivity().getIntent().getStringExtra("dp_id");
+        if(dp_id == null) {
+            dp_id = mViewModel.dispatch.getDp_id();
+        }
+        Log.d("DriverWaitingFragment","dp_id : " + dp_id);
+
+        // 쓰레드 상태
+        handler = new Handler();
+        positioning = new Positioning();
+        isRunning = true;
+
+        Thread thread = new Thread(() -> {
+            try {
+                while (isRunning) {
+                    handler.post(positioning);
+                    Thread.sleep(2000);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        isRunning = true;
+        thread.start();
     }
 
     //권한 요청
@@ -81,6 +117,23 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         mPermissionManager.setResponse(requestCode, grantResults);
     }
 
+    /* ---------------------
+            View 관련 메서드
+       --------------------- */
+    private void modelDataBinding() {
+        b.moveStartPlace.setText(mViewModel.dispatch.getStart_place());
+        b.moveFinishPlace.setText(mViewModel.dispatch.getFinish_place());
+
+        if(mViewModel.together.equals("1")) {
+            Log.d("DriverMovingFragment","배차 정보 : " + mViewModel.dispatch.toString());
+            b.amount.setText(String.valueOf(mViewModel.dispatch.getAll_fare()));
+        }else {
+//            b.amount.setText();
+            /*
+                추후 동승 시 attend 가져와서 setText
+             */
+        }
+    }
 
     /* ------------------------
           지도 관련 메서드
@@ -161,5 +214,46 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
             }
 
         });
+    }
+
+    // 택시 기사 위치 실시간으로 가져오는 내부 쓰레드 클래스
+    public class Positioning implements Runnable {
+        @Override
+        public void run() {
+            getDriverRequest = DataService.getInstance().matchAPI.getDriverPosition(dp_id);
+            getDriverRequest.enqueue(new Callback<Dispatch>() {
+                @Override
+                public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
+                    if (response.code() == 200 && response.body() != null) {
+                        Dispatch dispatch = response.body();
+                        Log.d("넘어오는 기사 정보", dispatch.toString());
+                        Snackbar.make(mMapView, "계속하여 기사 위치를 가져옵니다.", Snackbar.LENGTH_SHORT).show();
+                        tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
+
+                        switch (dispatch.getDp_status()) {
+                            case "4": // 운행 중
+                                tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
+                                drawCarPath();
+                                isRunning = true;
+                                break;
+                            case "5":
+                                isRunning = false;
+                                // 탑승완료 될 경우 다음 레이아웃으로 이동
+                                NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                                controller.navigate(R.id.action_driverMovingFragment_to_driverFinishingFragment);
+                                /*
+                                    결제 관련 넣고 결제유무에 따라 성공, 실패 여부 같이 전송
+                                 */
+                                break;
+                        }
+
+                    }
+                }
+                @Override
+                public void onFailure(Call<Dispatch> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
     }
 }
