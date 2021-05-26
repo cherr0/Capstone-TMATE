@@ -61,4 +61,7 @@ PAY_COM_REG           CHAR(10)
 
     // 카드 별칭
     private String pay_alias;
+
+    //카드 활성화 비활성화 활성화 : 0 비활성화 : 1
+    private String active;
 }
