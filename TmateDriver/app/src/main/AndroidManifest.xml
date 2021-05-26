@@ -28,7 +28,7 @@
 
         <activity android:name=".activity.BlackListSelectActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
-        <activity android:name=".MatchingFinishedActivity"
+        <activity android:name=".activity.MatchingFinishedActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity android:name=".activity.LoginActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
@@ -44,7 +44,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".activity.WaitingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
-        <activity android:name=".SplashActivity"
+        <activity android:name=".activity.SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

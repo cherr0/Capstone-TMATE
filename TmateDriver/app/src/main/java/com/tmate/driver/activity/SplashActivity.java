@@ -1,4 +1,4 @@
-package com.tmate.driver;
+package com.tmate.driver.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.pharid.splash.lib.activity.AnimatedSplash;
 import com.pharid.splash.lib.cnst.Flags;
 import com.pharid.splash.lib.model.ConfigSplash;
+import com.tmate.driver.R;
 import com.tmate.driver.activity.LoginActivity;
 import com.tmate.driver.activity.MainViewActivity;
 

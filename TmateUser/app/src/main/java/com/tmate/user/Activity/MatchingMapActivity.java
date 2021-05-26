@@ -186,7 +186,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
             public void onClick(View v) {
 
                 if (together == 2) { //동승 일 경우
-                    b.dragView.getLayoutParams().height = 800;
+                    b.dragView.getLayoutParams().height = 1400;
                     b.slideTitle.setText("소요 거리 및 시간");
                     b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
                     hideKeyBoard();//키보드 숨기기
@@ -201,7 +201,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     Log.d("도착지 경도", String.valueOf(tMapPointEnd.getLongitude()));
                     drawCarPath();//자동차 경로 그리는 메서드 호출
                 } else if(together == 3){
-                    b.dragView.getLayoutParams().height = 800;
+                    b.dragView.getLayoutParams().height = 1400;
                     b.slideTitle.setText("소요 거리 및 시간");
                     b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
                     hideKeyBoard();//키보드 숨기기
