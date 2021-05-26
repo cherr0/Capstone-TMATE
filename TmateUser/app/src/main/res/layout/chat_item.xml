@@ -23,13 +23,14 @@
             android:id="@+id/msgText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/editbox_background"
+            android:background="@drawable/leftchat"
             android:textSize="24sp" />
         <TextView
             android:id="@+id/msgTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="14:04"
+            android:layout_marginLeft="2dp"
             android:textSize="14sp"/>
 
 
