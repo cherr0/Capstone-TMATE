@@ -4,7 +4,6 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.skt.Tmap.util.HttpConnect.getContentFromNode;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Geocoder;
 import android.location.Location;
@@ -35,11 +34,17 @@ import com.skt.Tmap.TMapView;
 import com.tmate.user.R;
 import com.tmate.user.common.PermissionManager;
 import com.tmate.user.data.Dispatch;
+import com.tmate.user.data.SubscriptionRes;
 import com.tmate.user.databinding.FragmentDriverWaitingBinding;
 import com.tmate.user.net.DataService;
+import com.tmate.user.net.KakaoService;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,6 +80,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
     Call<Dispatch> curDispatchRequest; // 상세 이용정보 가져오기
     Call<Dispatch> getDriverRequest; // 기사 위치 가져오는 메서드
+    Call<SubscriptionRes> subscriptionRequest;
     boolean isRunning;
 
     
@@ -246,6 +252,48 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         });
     }
 
+    // 카카오 정기결제 진행
+    private void kakaoSubscription(Dispatch dispatch) {
+        Map<String,String> map = new HashMap<>();
+
+        map.put("cid","TCSUBSCRIP");
+        map.put("sid", dispatch.getSid());
+        map.put("partner_order_id", dispatch.getD_id());
+        map.put("partner_user_id", dispatch.getM_id());
+        map.put("item_name","택시 기본 요금 선결제");
+        map.put("quantity","1");
+        map.put("total_amount",String.valueOf(dispatch.getAmount()));
+        map.put("vat_amount","0");
+        map.put("tax_free_amount","0");
+
+        Log.d("payInfoFragemnt","map 전달 내용 : " + map);
+
+        subscriptionRequest = KakaoService.getInstance().getApi().kakaoSubscription(DrivingModel.auth, map);
+        subscriptionRequest.enqueue(new Callback<SubscriptionRes>() {
+            @Override
+            public void onResponse(Call<SubscriptionRes> call, Response<SubscriptionRes> response) {
+                if(response.code() == 200 && response.body() != null) {
+                    SubscriptionRes result = response.body();
+                    Log.d("payInfoFragemnt", "받아오는 값 :" + result);
+
+                }else {
+                    try {
+                        Log.d("payInfoFragemnt", "에러 : " + response);
+                        assert response.errorBody() != null;
+                        Log.d("payInfoFragemnt", "데이터 삽입 실패 : " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SubscriptionRes> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
     /* -----------------------
             가내수공업 메서드
        ----------------------- */
@@ -254,8 +302,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         b.carNo.setText(mViewModel.dispatch.getCar_no()); // 기사 차 번호
         b.infoStartPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
         b.infoFinishPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
-
-
 
         // 탑승인원
         b.infoTogether.setText(mViewModel.together);
@@ -308,11 +354,12 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                             case "4": // 탑승 완료
                                 isRunning = false;
                                 // 탑승완료 될 경우 다음 레이아웃으로 이동
+                                /*
+                                   가져온 결제 정보대로 결제 진행 후 DB 등록
+                                 */
+//                                kakaoSubscription(mViewModel.dispatch);
                                 NavController controller = Navigation.findNavController(activity, R.id.nav_host_fragment);
                                 controller.navigate(R.id.action_driverWaitingFragment_to_driverMovingFragment);
-                                /*
-                                    운행 중으로 넘어가기전 선결제 진행
-                                 */
                                 break;
 
                         }
@@ -333,5 +380,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         super.onDestroy();
         if(curDispatchRequest != null) curDispatchRequest.cancel();
         if(getDriverRequest != null) getDriverRequest.cancel();
+        if(subscriptionRequest != null) subscriptionRequest.cancel();
     }
 }
