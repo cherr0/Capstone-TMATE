@@ -29,10 +29,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/Theme.Tmate" />
         <activity
-            android:name=".Activity.ReviewActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/Theme.Tmate" />
-        <activity
             android:name=".net.KakaopayWebviewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"

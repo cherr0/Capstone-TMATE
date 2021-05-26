@@ -19,7 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmate.user.Activity.ReviewActivity;
+import com.tmate.user.Fragment.ReviewFragment;
 import com.tmate.user.R;
 import com.tmate.user.data.Data;
 import com.tmate.user.net.DataService;
@@ -86,9 +86,10 @@ public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
                 hReview.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), ReviewActivity.class);
-                        v.getContext().startActivity(intent);
+//                        Intent intent = new Intent(v.getContext(), ReviewFragment.class);
+//                        v.getContext().startActivity(intent);
                         dialog.dismiss();
+                        //리뷰로 이동
                     }
                 });
 

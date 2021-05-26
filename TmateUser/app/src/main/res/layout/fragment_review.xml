@@ -65,16 +65,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="20dp" />
 
-        <ImageView
-            android:id="@+id/review_driver_finish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/review_unchecked"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circleImageView2"
             android:layout_width="60dp"
@@ -99,17 +89,32 @@
             app:layout_constraintStart_toEndOf="@+id/circleImageView2"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
-        <Button
-            android:id="@+id/btn_driver_review"
-            android:text="평가하기"
-            android:background="@drawable/box_bold"
-            android:textStyle="bold"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/review_driver_finish"
-            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView17">
+
+            <ToggleButton
+                android:id="@+id/driver_like"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/review_good"
+                android:textOff=""
+                android:textOn="" />
+
+            <ToggleButton
+                android:layout_marginLeft="10dp"
+                android:id="@+id/driver_dislike"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/review_dislike"
+                android:textOff=""
+                android:textOn="" />
+
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
