@@ -29,11 +29,17 @@ import com.skt.Tmap.TMapView;
 import com.tmate.user.R;
 import com.tmate.user.common.PermissionManager;
 import com.tmate.user.data.Dispatch;
+import com.tmate.user.data.SubscriptionRes;
 import com.tmate.user.databinding.FragmentDriverMovingBinding;
 import com.tmate.user.net.DataService;
+import com.tmate.user.net.KakaoService;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,6 +70,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
     Positioning positioning;
 
     Call<Dispatch> getDriverRequest;
+    Call<SubscriptionRes> subscriptionRequest;
     boolean isRunning;
 
 
@@ -216,6 +223,60 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         });
     }
 
+    /*
+        카카오 결제 관련
+     */
+
+    // 카카오 정기결제 진행
+    private void kakaoSubscription(Dispatch dispatch) {
+        Map<String,String> map = new HashMap<>();
+
+        map.put("cid","TCSUBSCRIP");
+        map.put("sid", dispatch.getSid());
+        map.put("partner_order_id", dispatch.getD_id());
+        map.put("partner_user_id", dispatch.getM_id());
+        map.put("item_name","택시 운임 결제");
+        map.put("quantity","1");
+        map.put("total_amount",String.valueOf(dispatch.getAmount()));
+        map.put("vat_amount","0");
+        map.put("tax_free_amount","0");
+
+        Log.d("payInfoFragemnt","map 전달 내용 : " + map);
+
+        subscriptionRequest = KakaoService.getInstance().getApi().kakaoSubscription(DrivingModel.auth, map);
+        subscriptionRequest.enqueue(new Callback<SubscriptionRes>() {
+            @Override
+            public void onResponse(Call<SubscriptionRes> call, Response<SubscriptionRes> response) {
+                if(response.code() == 200 && response.body() != null) {
+                    SubscriptionRes result = response.body();
+                    Log.d("payInfoFragemnt", "받아오는 값 :" + result);
+
+                }else {
+                    try {
+                        Log.d("payInfoFragemnt", "에러 : " + response);
+                        assert response.errorBody() != null;
+                        Log.d("payInfoFragemnt", "데이터 삽입 실패 : " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SubscriptionRes> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(getDriverRequest != null) getDriverRequest.cancel();
+        if(subscriptionRequest != null) subscriptionRequest.cancel();
+    }
+
     // 택시 기사 위치 실시간으로 가져오는 내부 쓰레드 클래스
     public class Positioning implements Runnable {
         @Override
@@ -239,11 +300,12 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
                             case "5":
                                 isRunning = false;
                                 // 탑승완료 될 경우 다음 레이아웃으로 이동
+                                /*
+                                    결제 관련 값 받아오는 api 작성해서 메서드 실행
+                                 */
+//                                kakaoSubscription(mViewModel.dispatch);
                                 NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                                 controller.navigate(R.id.action_driverMovingFragment_to_driverFinishingFragment);
-                                /*
-                                    결제 관련 넣고 결제유무에 따라 성공, 실패 여부 같이 전송
-                                 */
                                 break;
                         }
 

@@ -50,7 +50,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
 
 
     Call<Integer> pointRequest;
-    Call<SubscriptionRes> subscriptionRequest;
     Call<String> normalMatchingRequest;
 
     @Nullable
@@ -174,47 +173,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         });
     }
 
-    // 카카오 정기결제 진행
-    private void kakaoSubscription(String amount) {
-        Map<String,String> map = new HashMap<>();
-        map.put("cid","TCSUBSCRIP");
-        map.put("sid","S2895826273194274441");
-        map.put("partner_order_id","d1010894658790");
-        map.put("partner_user_id",getPreferenceString("m_id"));
-        map.put("item_name","택시 운임");
-        map.put("quantity","1");
-        map.put("total_amount",amount);
-        map.put("vat_amount","0");
-        map.put("tax_free_amount","0");
-
-        Log.d("payInfoFragemnt","map 전달 내용 : " + map);
-
-        subscriptionRequest = KakaoService.getInstance().getApi().kakaoSubscription(DrivingModel.auth, map);
-        subscriptionRequest.enqueue(new Callback<SubscriptionRes>() {
-            @Override
-            public void onResponse(Call<SubscriptionRes> call, Response<SubscriptionRes> response) {
-                if(response.code() == 200 && response.body() != null) {
-                    SubscriptionRes result = response.body();
-                    Log.d("payInfoFragemnt", "받아오는 값 :" + result);
-
-                }else {
-                    try {
-                        Log.d("payInfoFragemnt", "에러 : " + response);
-                        assert response.errorBody() != null;
-                        Log.d("payInfoFragemnt", "데이터 삽입 실패 : " + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SubscriptionRes> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
     // 결제 완료 시 일반 매칭
     // 넘어갈때 저장하고 CallWaiting 으로 넘어간다.
     private void normalMatching() {
@@ -302,7 +260,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     public void onDestroy() {
         super.onDestroy();
         if(pointRequest != null) pointRequest.cancel();
-        if(subscriptionRequest != null) subscriptionRequest.cancel();
         if (normalMatchingRequest != null) normalMatchingRequest.cancel();
     }
 }

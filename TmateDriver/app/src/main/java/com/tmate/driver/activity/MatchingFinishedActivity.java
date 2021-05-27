@@ -1,9 +1,11 @@
-package com.tmate.driver;
+package com.tmate.driver.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.tmate.driver.R;
 
 public class MatchingFinishedActivity extends AppCompatActivity {
 
