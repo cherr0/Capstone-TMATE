@@ -78,6 +78,59 @@ public class DispatchDTO {
 
     private String car_model;
 
+    // attend 참여
+    // 사용 포인트
+    private int use_point;
+
+    // 참여 상태 코드
+    private String at_status;
+
+    // 좌석번호
+    private int seat;
+
+    // 노쇼 사유
+    private String noshow;
+
+    // 금액
+    private int amount;
+
+    // 기사 평가
+    private String re_driver;
+
+    // 기사 평가 사유
+    private String re_driver_reason;
+
+    // 1번 자리 평가
+    private String re_one;
+
+    // 2번 자리 평가
+    private String re_two;
+
+    // 3번 자리 평가
+    private String re_three;
+
+    // 결제 수단
+    // 결제 고유 번호
+    private String sid;
+
+    // 결제수단
+    private String pay_pg;
+
+    // 카드 활성 유무
+    private String active;
+
+    // 카드사
+    private String pay_company;
+
+    // 사업자 등록 번호
+    private String pay_com_reg;
+
+    // 카드 타입
+    private String card_type;
+
+    // 카드 별칭
+    private String pay_alias;
+
 
 
     /*

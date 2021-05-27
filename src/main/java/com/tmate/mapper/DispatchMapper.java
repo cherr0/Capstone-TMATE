@@ -19,11 +19,17 @@ public interface DispatchMapper {
     *  사용자 APP
     * */
 
-    // 일반 호출 시 -> 배차 정보 생성 (O)
+    // 일반 호출 시 -> 배차 정보 생성 (O) + 참여 테이블 까지 같이 삽입
     int insertNormalMatch(DispatchDTO dispatchDTO);
+
+    // 일반 호출 시 -> 참여 테이블 같이 생성 (일반 호출용) (O)
+    int insertNormalAttend(DispatchDTO dispatchDTO);
 
     // 일반 호출 취소 시 -> 일반 호출 삭제 (O)
     int deleteNormalMatch(String dp_id);
+
+    // 일반 호출 취소 시 -> 일반 참여 삭제(O)
+    int deleteNormalAttend(String dp_id);
 
     // 일반 호출 시 계속해서 기사코드를 찾는다.
     String selectDriver(String dp_id);
@@ -73,8 +79,14 @@ public interface DispatchMapper {
     // 탑승완료시 -> 탑승 종료, 운행 종료 시간 (O)
     int updateDisptchBoardingEnds(String dp_id);
 
-    // 기사가 전화할 승객의 전화를 하기위해 승객 회원 코드를 가져온다.
-    String getUseDispatchM_id(String d_id);
+    // 기사가 전화할 승객의 전화를 하기위해 승객 회원 코드를 가져온다. (O)
+    DispatchDTO getUseDispatchM_id(String d_id);
+
+    // 결제 미터기 화면시 미터기 넣고 입력을 누르면 all_fare 업데이트, 배차 상태 (O)
+    int updateFareDuringPayment(
+            @Param("dp_id") String dp_id,
+            @Param("all_fare") int all_fare,
+            @Param("dp_status") String dp_status);
 
     /*
     * 동승 호출시

@@ -17,9 +17,21 @@
                #{ep_time,jdbcType=NUMERIC},#{ep_distance,jdbcType=NUMERIC},#{m_id})
     </insert>
 
+    <!-- 참여 테이블 (일반 생성)  -->
+    <insert id="insertNormalAttend">
+        insert into attend (m_id, dp_id,use_point, at_status,amount)
+        values (#{m_id},#{dp_id},#{use_point},'1', #{amount})
+    </insert>
+
     <!-- 일반 호출 취소 시 -> 일반 호출 삭제 (O) -->
     <delete id="deleteNormalMatch">
         DELETE FROM DISPATCH
+        WHERE dp_id = #{dp_id}
+    </delete>
+
+    <!-- 일반 호출 취소 시 -> 일반 참여 삭제(O) -->
+    <delete id="deleteNormalAttend">
+        DELETE FROM ATTEND
         WHERE dp_id = #{dp_id}
     </delete>
 
@@ -134,9 +146,19 @@
     </select>
 
     <!-- 현재 기사가 태우러 가는 승객의 회원 코드 -->
-    <select id="getUseDispatchM_id" resultType="string">
-        SELECT m_id
+    <select id="getUseDispatchM_id" resultType="com.tmate.domain.DispatchDTO">
+        SELECT m_id, dp_id
         FROM DISPATCH
         WHERE d_id = #{d_id} and dp_status = '3'
     </select>
+
+    <!-- 결제 미터기 화면시 미터기 넣고 입력을 누르면 all_fare 업데이트, 배차 상태 -->
+    <update id="updateFareDuringPayment">
+        update dispatch
+        set all_fare = #{all_fare}, dp_status = #{dp_status}
+        where dp_id = #{dp_id}
+    </update>
+
+    <!-- 동승 호출 -->
+
 </mapper>

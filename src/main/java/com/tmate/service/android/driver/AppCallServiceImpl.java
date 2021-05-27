@@ -64,7 +64,12 @@ public class AppCallServiceImpl implements AppCallService {
     }
 
     @Override
-    public String getUsingServiceM_id(String d_id) {
+    public DispatchDTO getUsingServiceM_id(String d_id) {
         return dispatchMapper.getUseDispatchM_id(d_id);
+    }
+
+    @Override
+    public Boolean modifyFareDuringPayment(String dp_id, int all_fare, String dp_status) {
+        return dispatchMapper.updateFareDuringPayment(dp_id, all_fare, dp_status) == 1;
     }
 }

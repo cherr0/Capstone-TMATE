@@ -34,5 +34,12 @@ public interface AppCallService {
     Boolean modifyDispatchBoardingEnds(String dp_id);
 
     // 네비앱으로 넘어갈때 전화버튼에 이용하는 회원전화번호를 넣기 위한 서비스
-    String getUsingServiceM_id(String d_id);
+    DispatchDTO getUsingServiceM_id(String d_id);
+
+    // 결제 미터기 화면시 미터기 넣고 입력을 누르면 all_fare 업데이트, 배차 상태 (O)
+    Boolean modifyFareDuringPayment(
+            String dp_id,
+            int all_fare,
+            String dp_status
+    );
 }
