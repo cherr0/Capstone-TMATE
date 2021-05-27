@@ -15,6 +15,7 @@
         android:text="계좌 등록"
         android:textColor="#000000"
         android:textSize="20sp"
+        android:fontFamily="@font/font_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -59,7 +60,8 @@
             android:text="1. 은행 선택"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:fontFamily="@font/font_sub_title"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -100,7 +102,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAlignment="center"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:fontFamily="@font/font_sub_title"/>
         <TextView
             android:id="@+id/card_change"
             android:layout_width="match_parent"
@@ -109,7 +112,8 @@
             android:textAlignment="textEnd"
             android:layout_marginRight="10dp"
             android:textColor="#4254BC"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:fontFamily="@font/font_content"/>
 
 
     </LinearLayout>
@@ -136,7 +140,8 @@
             android:text="2. 계좌 정보"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:fontFamily="@font/font_sub_title"/>
         <LinearLayout
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -157,7 +162,8 @@
                 android:text="계좌 번호"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:fontFamily="@font/font_sub_title"/>
 
             <EditText
                 android:id="@+id/d_acnum"
@@ -165,7 +171,8 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#4254BC"
                 android:hint="계좌번호 입력"
-                android:inputType="number" />
+                android:inputType="number"
+                android:fontFamily="@font/font_content"/>
 
         </LinearLayout>
         <LinearLayout
@@ -186,7 +193,8 @@
                 android:text="예금주"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:fontFamily="@font/font_sub_title"/>
 
             <EditText
                 android:id="@+id/m_name"
@@ -194,6 +202,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#4254BC"
                 android:hint="예금주 입력"
+                android:fontFamily="@font/font_content"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -205,6 +214,7 @@
         android:backgroundTint="#4254BC"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

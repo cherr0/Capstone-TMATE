@@ -15,6 +15,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="휴대폰정보 인증"
+        android:fontFamily="@font/font_header"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +48,7 @@
         android:layout_marginTop="30dp"
         android:text="인증번호 확인"
         android:textColor="#000000"
+        android:fontFamily="@font/font_header"
         android:textSize="38sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.225"
@@ -58,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="인증번호를 입력해주세요"
+        android:fontFamily="@font/font_sub_title"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,6 +86,7 @@
         android:layout_marginTop="55dp"
         android:layout_marginEnd="43dp"
         android:ems="10"
+        android:fontFamily="@font/font_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_certification_plz" />
@@ -92,6 +96,7 @@
         android:text="다음"
         android:textSize="24sp"
         android:textColor="@color/white"
+        android:fontFamily="@font/font_sub_title"
         android:backgroundTint="#4254BC"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -102,6 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:fontFamily="@font/font_content"
         app:layout_constraintStart_toStartOf="@+id/et_confirmNum"
         app:layout_constraintTop_toBottomOf="@+id/et_confirmNum" />
 

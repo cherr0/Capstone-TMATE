@@ -16,6 +16,7 @@
         android:text="완료!"
         android:textColor="#000000"
         android:textSize="20sp"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,12 +40,14 @@
             android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="신청해주셔서 감사합니다" />
+            android:text="신청해주셔서 감사합니다"
+            android:fontFamily="@font/font_sub_title"/>
         <TextView
             android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="입력하신 정보를 바탕으로 심사가 진행 됩니다. \n 심사는 영업일 기준 최대 5일이 소요될 수 도 있습니다."/>
+                android:text="입력하신 정보를 바탕으로 심사가 진행 됩니다. \n 심사는 영업일 기준 최대 5일이 소요될 수 도 있습니다."
+            android:fontFamily="@font/font_content"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
