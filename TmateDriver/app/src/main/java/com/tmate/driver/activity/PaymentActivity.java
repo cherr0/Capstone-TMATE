@@ -11,19 +11,39 @@ import android.provider.Settings;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+
 import com.skt.Tmap.TMapTapi;
 import com.tmate.driver.R;
 import com.tmate.driver.databinding.ActivityPaymentBinding;
+import com.tmate.driver.net.DataService;
 import com.tmate.driver.services.driving_overlay;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class PaymentActivity extends AppCompatActivity {
     private ActivityPaymentBinding binding;
     private Dialog dialog2;
+
     private int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 100;
     private int result =0;
+
+    // 네비에서 넘어오는 인텐트 정보
+    // 1. 배차 정보
+    String dp_id;
+
+    // 레트로핏 관련
+    Call<Boolean> modifyCallStatusRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if (getIntent() != null) {
+            dp_id = getIntent().getStringExtra("dp_id");
+        }
         super.onCreate(savedInstanceState);
         binding = ActivityPaymentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -50,9 +70,23 @@ public class PaymentActivity extends AppCompatActivity {
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PaymentActivity.this, CheckActivity.class);
-                startActivity(intent);
-                dialog2.dismiss();
+                modifyCallStatusRequest = DataService.getInstance().call.modifyPaymentDpStatus(dp_id, Integer.valueOf(binding.editText.getText().toString()), "5");
+                modifyCallStatusRequest.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if (response.code() == 200) {
+                            Intent intent = new Intent(PaymentActivity.this, CheckActivity.class);
+                            startActivity(intent);
+                            dialog2.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+
             }
         });
     }

@@ -237,8 +237,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                     NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                     controller.navigate(R.id.action_paymentInformationFragment_to_callWaitingFragment);
 
-
-
                 }
             }
 
@@ -257,7 +255,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         Log.d("PayInfoFragment", "포인트 모두 적용");
         b.paymentInformationRestMPoint.setText("0");
         b.payPoResult.setText(unusedPoint + "원");
-        mViewModel.usedPoint = unusedPoint; // 모두 사용이라 모든 포인트 사용포인트로 적용
+        mViewModel.dispatch.setUse_point(unusedPoint); // 모두 사용이라 모든 포인트 사용포인트로 적용
         b.payTotalAmount.setText(String.valueOf(price - unusedPoint));
         hideKeyBoard(); // 키보드 비활성화
     }
@@ -277,7 +275,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
             b.payPoResult.setText(String.valueOf(point));
             b.payTotalAmount.setText(String.valueOf(price - point));
             b.pointEt.setText("");
-            mViewModel.usedPoint = point; // 포인트 적용
+            mViewModel.dispatch.setUse_point(point);  // 포인트 적용
             Log.d("PayInfoFragment", "포인트 적용 가격 : " + (price - point));
         }else {
             Snackbar.make(v, "보유 포인트 초과하여 사용은 불가합니다.", Snackbar.LENGTH_SHORT).show();
@@ -298,8 +296,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
         return pref.getString(key, "");
     }
-
-
 
 
     @Override

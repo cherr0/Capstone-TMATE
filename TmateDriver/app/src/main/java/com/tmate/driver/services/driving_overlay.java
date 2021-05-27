@@ -52,8 +52,10 @@ public class driving_overlay extends Service implements View.OnLongClickListener
     double finish_lng;
 
     // 회원코드를 가져온다.
-    Call<String> request3;
+    Call<Dispatch> request3;
     String memberPhoneNo;
+    String dp_id;
+    String m_id;
 
     SharedPreferences pref;
     String d_id;
@@ -115,6 +117,8 @@ public class driving_overlay extends Service implements View.OnLongClickListener
         // mView.setOnTouchListener(onTouchListener);
         // Android O 이상의 버전에서는 터치리스너가 동작하지 않는다. ( TYPE_APPLICATION_OVERLAY 터치 미지원)
 
+        getM_idFromServer(d_id);
+
         // 쓰레드 작업
         handler = new Handler();
         positioning = new Positioning();
@@ -148,24 +152,28 @@ public class driving_overlay extends Service implements View.OnLongClickListener
         mWm.addView(mView, params); // 윈도우에 layout 을 추가 한다.
     }
 
+    // 회원 코드하고 배차코드 가져오는 것
     public void getM_idFromServer(String d_id) {
         request3 = DataService.getInstance().call.getUsingM_idByD_id(d_id);
-        request3.enqueue(new Callback<String>() {
+        request3.enqueue(new Callback<Dispatch>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
                 if (response.code() == 200 && response.body() != null) {
-                    String m_id = response.body();
+                    Dispatch dispatch = response.body();
+                    m_id = dispatch.getM_id();
+                    dp_id = dispatch.getDp_id();
                     memberPhoneNo = m_id.substring(2, 5) + "-" + m_id.substring(5, 9) + "-" + m_id.substring(9, 13);
                     Log.d("이용중인 회원 번호 : ", memberPhoneNo);
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Dispatch> call, Throwable t) {
                 t.printStackTrace();
             }
         });
     }
+
 
     public class Positioning implements Runnable {
         @Override
@@ -242,6 +250,8 @@ public class driving_overlay extends Service implements View.OnLongClickListener
                 break;
             case R.id.btn_take_complete :
                 Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+                intent.putExtra("dp_id", dp_id);
+                intent.putExtra("m_id", m_id);
                 startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
                 ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
                 am.killBackgroundProcesses (getPackageName());

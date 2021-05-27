@@ -44,5 +44,12 @@ public interface CallAPI {
 
     // 네비 앱으로 넘어 갈 시 현재 이용중인 승객에게 전화하기 위해 회원코드를 반환
     @GET("/call/get/using/m_id/{d_id}")
-    Call<String> getUsingM_idByD_id(@Path("d_id") String d_id);
+    Call<Dispatch> getUsingM_idByD_id(@Path("d_id") String d_id);
+
+    @PUT("/call/modify/payment/dp_status/{dp_id}/{all_fare}/{dp_status}")
+    Call<Boolean> modifyPaymentDpStatus(
+            @Path("dp_id") String dp_id,
+            @Path("all_fare") int all_fare,
+            @Path("dp_status") String dp_status
+    );
 }
