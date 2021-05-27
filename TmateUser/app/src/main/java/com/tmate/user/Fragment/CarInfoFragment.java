@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.tmate.user.Activity.CarInfoActivity;
 import com.tmate.user.Activity.MatchingDetailActivity;
@@ -135,7 +137,7 @@ public class CarInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // 세부 정보로 넘어가야 한다.
-                if(h_status == "0" || h_status == "1" || h_status == "2") {
+                if(h_status.equals("0") || h_status.equals("1") || h_status.equals("2")) {
 
 
                     Intent intent = new Intent(getContext(), MatchingDetailActivity.class);
@@ -147,7 +149,7 @@ public class CarInfoFragment extends Fragment {
                 }
 
                 // 지도로 넘어간다. 실시간 위치 지도로 넘어간다.
-                if(h_status == "3" || h_status == "4"){
+                if(h_status.equals("3") || h_status.equals("4")){
                     Intent intent = new Intent(getContext(), CarInfoActivity.class);
                     intent.putExtra("dp_id", merchant_uid);
                     intent.putExtra("m_id", m_id);
