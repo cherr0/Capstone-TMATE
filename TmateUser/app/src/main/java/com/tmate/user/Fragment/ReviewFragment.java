@@ -32,9 +32,7 @@ import java.util.List;
 public class ReviewFragment extends Fragment {
     private FragmentReviewBinding b;
     private ReviewAdapter adapter;
-    Button btnDriverReview;
-    TextView reviewDriverName;
-    ImageView reviewDriverFinish;
+    private ArrayList<String> selectedItems= new ArrayList<String>();
     View view;
 
 
@@ -63,11 +61,47 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 b.driverDislike.setChecked(false); //싫어요 off
+                b.driverLike.setChecked(true);
                 if(isChecked) {
-                    b.driverLike.setChecked(true);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    final String[] result = getResources().getStringArray(R.array.driver_good_review);
+                    builder.setTitle("좋아요 한 사유를 선택해주세요");
+                    builder.setMultiChoiceItems(R.array.driver_good_review, null, new DialogInterface.OnMultiChoiceClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int pos, boolean isChecked2)
+                        {
+                            if(isChecked2 == true) // Checked 상태일 때 추가
+                            {
+                                try {
+                                    selectedItems.add(result[pos]);
+                                } catch (IndexOutOfBoundsException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            else
+                            {
+                                try {
+                                    selectedItems.remove(result[pos]);
+                                } catch (IndexOutOfBoundsException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
+                    builder.setPositiveButton("완료", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(selectedItems != null && !selectedItems.isEmpty()) {
+
+                            }
+                        }
+                    });
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 } else if(!isChecked){
                     b.driverLike.setChecked(false);
-
+                    selectedItems.clear();
                 }
             }
         });
@@ -75,8 +109,44 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 b.driverLike.setChecked(false); //좋아요 off
+                b.driverDislike.setChecked(true);
                 if(isChecked) {
-                    b.driverDislike.setChecked(true);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    final String[] result = getResources().getStringArray(R.array.driver_bad_review);
+                    builder.setTitle("싫어요 한 사유를 선택해주세요");
+                    builder.setMultiChoiceItems(R.array.driver_bad_review, null, new DialogInterface.OnMultiChoiceClickListener(){
+                        @Override
+                        public void onClick(DialogInterface dialog, int pos, boolean isChecked2)
+                        {
+                            if(isChecked2 == true) // Checked 상태일 때 추가
+                            {
+                                try {
+                                    selectedItems.add(result[pos]);
+                                } catch (IndexOutOfBoundsException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            else
+                            {
+                                try {
+                                    selectedItems.remove(result[pos]);
+                                } catch (IndexOutOfBoundsException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
+                    builder.setPositiveButton("완료", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if(selectedItems != null && !selectedItems.isEmpty()) {
+                            }
+                        }
+                    });
+
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
                 } else if (!isChecked){
                     b.driverDislike.setChecked(false);
                 }
