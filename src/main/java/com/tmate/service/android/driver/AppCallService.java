@@ -1,5 +1,6 @@
 package com.tmate.service.android.driver;
 
+import com.tmate.domain.BanDTO;
 import com.tmate.domain.DispatchDTO;
 import com.tmate.domain.DriverDTO;
 
@@ -42,4 +43,7 @@ public interface AppCallService {
             int all_fare,
             String dp_status
     );
+
+    // 기사의 블랙리스트 선택 시
+    Boolean registerBlackList(BanDTO banDTO);
 }

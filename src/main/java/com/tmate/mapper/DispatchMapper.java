@@ -1,8 +1,6 @@
 package com.tmate.mapper;
 
-import com.tmate.domain.DispatchDTO;
-import com.tmate.domain.DriverDTO;
-import com.tmate.domain.MemberDTO;
+import com.tmate.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -88,8 +86,62 @@ public interface DispatchMapper {
             @Param("all_fare") int all_fare,
             @Param("dp_status") String dp_status);
 
+    // 기사의 블랙리스트 선택 시 (O)
+    int insertBlacklist(BanDTO banDTO);
+
     /*
     * 동승 호출시
     * */
+
+    /*
+    *  사용자 APP
+    * */
+
+    // 1. 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기 -> select (배차) (O) (O)
+    List<DispatchDTO> selectNearMatchList(@Param("s_lat") double s_lat, @Param("s_lng") double s_lng);
+
+    // 2. 맘에 드는거 없을시에 자기가 만든다. -> insert (배차, 참여) (O) (O)
+    // 2.1. 배차 정보 (O) (O)
+    int insertTogetherDispatch(DispatchDTO dispatchDTO);
+
+    // 2.2 참여 정보 (O) (O)
+    int insertTogehterAttend(AttendDTO attendDTO);
+
+    // 배차 정보 삭제 --> 배차 삭제, 참여 삭제 (O) (O)
+    int deleteTogetherDispatch(String dp_id);
+
+    int deleteTogetherAttend(String dp_id);
+
+
+    // 2. 동승 참가 버튼 (insert 참여) (O)
+    int insertAttendApply(AttendDTO attendDTO);
+
+    // 3. 동승 수락 및 거절 버튼 (update -> 참여) -> 거절, 삭제 (O)
+    int updateAttendStatus(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
+
+    int deleteAttendInfo(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
+
+    // 4. 동승자 신청 리스트 (O) (O)
+    List<AttendDTO> getApplyTogetherList(String dp_id);
+
+    // 5. 동승자 신청 거절 수락 (O) (O)
+    int rejectApply(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
+
+    int agreeApply(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
+
+    // 6.동승자 정보 (O) (O)
+    List<AttendDTO> getPassengerList(String dp_id);
+
+    // 7. 이미 참가된 승객들의 좌석 보여주기 (O) (O)
+    List<AttendDTO> getJoinSeat(String dp_id);
+
+
+    /*
+    *  ------------
+    *  기사 APP
+    * -------------
+    * */
+
+
 
 }
