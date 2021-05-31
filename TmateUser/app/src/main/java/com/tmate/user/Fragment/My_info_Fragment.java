@@ -127,8 +127,8 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
                 return ;
             }
             case R.id.tv_preference : { // 선호 운행 옵션
-                PreferenceFragment preferenceFragment = new PreferenceFragment();
-                transaction.replace(R.id.frameLayout, preferenceFragment).commit();
+                MatchingDetailFragment matchingDetailFragment = new MatchingDetailFragment();
+                transaction.replace(R.id.frameLayout, matchingDetailFragment).commit();
                 return ;
             }
             case R.id.tv_alert : { // 알림 설정
