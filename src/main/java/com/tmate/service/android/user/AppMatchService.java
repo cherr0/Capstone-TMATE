@@ -1,8 +1,11 @@
 package com.tmate.service.android.user;
 
+import com.tmate.domain.AttendDTO;
 import com.tmate.domain.DispatchDTO;
 import com.tmate.domain.MemberDTO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 public interface AppMatchService {
@@ -29,5 +32,39 @@ public interface AppMatchService {
 
     // 1.6 일반 호출 이용 시 계속하여 기사 위치를 가져온 후 기사 위치를 맵에 그린다.
     DispatchDTO getCurrentDriverLocation(String dp_id);
+
+    /*
+    *  동승 호출 시
+    * */
+
+    // 1. 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기
+    List<DispatchDTO> getNearMatchList(double s_lat, double s_lng);
+
+    // 2. 맘에 드는거 없을시에 자기가 만든다.
+    // @Transactional -> 배차정보, 참여정보
+    Boolean registerMatch(DispatchDTO dispatchDTO, AttendDTO attendDTO);
+
+    // 3. 배차 정보 삭제
+    // @Transactional -> 배차정보, 참여정보
+    Boolean removeMatch(String dp_id);
+
+    // 4. 동승 참가 버튼
+    Boolean registerApplyButton(AttendDTO attendDTO);
+
+    // 5. 동승 수락 및 거절 버튼
+    // 5.1 동승 수락 버튼
+    Boolean modifyAggreeMatching(String dp_id, String m_id);
+
+    // 5.1 동승 거절 버튼
+    Boolean modifyRejectMatching(String dp_id, String m_id);
+
+    // 6. 동승자 신청 리스트
+    List<AttendDTO> getApplyerList(String dp_id);
+
+    // 7. 동승자 정보
+    List<AttendDTO> getPassengerList(String dp_id);
+
+    // 8. 이미 참가된 승객들의 좌석 보여주기
+    List<AttendDTO> alreadyChoiceSeatNO(String dp_id);
 
 }

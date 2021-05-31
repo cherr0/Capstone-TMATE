@@ -1,14 +1,14 @@
 package com.tmate.user.Activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.tmate.user.R;
 import com.tmate.user.databinding.ActivityCallWaitingBinding;
 import com.tmate.user.net.DataService;
@@ -88,6 +88,11 @@ public class CallWaitingActivity extends AppCompatActivity {
 
         isRunning=true;
         thread.start();
+
+        ImageView gif = findViewById(R.id.avi);
+        Glide.with(this).asGif()
+                .load(R.drawable.taxi_loading)
+                .into(gif);
 
     }
 

@@ -23,6 +23,7 @@ public class DataService {
     // 안드로이드 폰 연결
 //    public static final String BASE_URL = "http://192.168.1.25:8080";
 
+
     private static DataService instance;
 
     public MemberAPI memberAPI;
