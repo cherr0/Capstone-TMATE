@@ -78,9 +78,23 @@ public class AppCallController {
 
     // 7. 네비 앱으로 넘어 갈 시 현재 이용중인 승객에게 전화하기 위해 회원코드를 반환
     @GetMapping("/get/using/m_id/{d_id}")
-    public ResponseEntity<String> getUsingM_idByD_id(@PathVariable("d_id") String d_id) {
+    public ResponseEntity<DispatchDTO> getUsingM_idByD_id(@PathVariable("d_id") String d_id) {
         log.info("기사가 승객에게 전화하기 위해 넘어오는 기사코드 : " + d_id);
 
         return new ResponseEntity<>(appCallService.getUsingServiceM_id(d_id),HttpStatus.OK);
     }
+
+    // 8. 결제 미터기 화면시 미터기 넣고 입력을 누르면 all_fare 업데이트
+    @PutMapping("/modify/payment/dp_status/{dp_id}/{all_fare}/{dp_status}")
+    public ResponseEntity<Boolean> modifyPaymentDpStatus(
+            @PathVariable("dp_id") String dp_id,
+            @PathVariable("all_fare") int all_fare,
+            @PathVariable("dp_status") String dp_status
+    ){
+        log.info("기사가 결제화면에서 미터기 입력시 : "+ dp_id + " : " + all_fare + ":" + dp_status);
+
+        return new ResponseEntity<>(appCallService.modifyFareDuringPayment(dp_id, all_fare, dp_status), HttpStatus.OK);
+
+    }
+
 }

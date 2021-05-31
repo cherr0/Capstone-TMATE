@@ -1,8 +1,6 @@
 package com.tmate.mapper;
 
-import com.tmate.domain.DispatchDTO;
-import com.tmate.domain.DriverDTO;
-import com.tmate.domain.MemberDTO;
+import com.tmate.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,11 +17,17 @@ public interface DispatchMapper {
     *  사용자 APP
     * */
 
-    // 일반 호출 시 -> 배차 정보 생성 (O)
+    // 일반 호출 시 -> 배차 정보 생성 (O) + 참여 테이블 까지 같이 삽입
     int insertNormalMatch(DispatchDTO dispatchDTO);
+
+    // 일반 호출 시 -> 참여 테이블 같이 생성 (일반 호출용) (O)
+    int insertNormalAttend(DispatchDTO dispatchDTO);
 
     // 일반 호출 취소 시 -> 일반 호출 삭제 (O)
     int deleteNormalMatch(String dp_id);
+
+    // 일반 호출 취소 시 -> 일반 참여 삭제(O)
+    int deleteNormalAttend(String dp_id);
 
     // 일반 호출 시 계속해서 기사코드를 찾는다.
     String selectDriver(String dp_id);
@@ -73,11 +77,71 @@ public interface DispatchMapper {
     // 탑승완료시 -> 탑승 종료, 운행 종료 시간 (O)
     int updateDisptchBoardingEnds(String dp_id);
 
-    // 기사가 전화할 승객의 전화를 하기위해 승객 회원 코드를 가져온다.
-    String getUseDispatchM_id(String d_id);
+    // 기사가 전화할 승객의 전화를 하기위해 승객 회원 코드를 가져온다. (O)
+    DispatchDTO getUseDispatchM_id(String d_id);
+
+    // 결제 미터기 화면시 미터기 넣고 입력을 누르면 all_fare 업데이트, 배차 상태 (O)
+    int updateFareDuringPayment(
+            @Param("dp_id") String dp_id,
+            @Param("all_fare") int all_fare,
+            @Param("dp_status") String dp_status);
+
+    // 기사의 블랙리스트 선택 시 (O)
+    int insertBlacklist(BanDTO banDTO);
 
     /*
     * 동승 호출시
     * */
+
+    /*
+    *  사용자 APP
+    * */
+
+    // 1. 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기 -> select (배차) (O) (O)
+    List<DispatchDTO> selectNearMatchList(@Param("s_lat") double s_lat, @Param("s_lng") double s_lng);
+
+    // 2. 맘에 드는거 없을시에 자기가 만든다. -> insert (배차, 참여) (O) (O)
+    // 2.1. 배차 정보 (O) (O)
+    int insertTogetherDispatch(DispatchDTO dispatchDTO);
+
+    // 2.2 참여 정보 (O) (O)
+    int insertTogehterAttend(AttendDTO attendDTO);
+
+    // 배차 정보 삭제 --> 배차 삭제, 참여 삭제 (O) (O)
+    int deleteTogetherDispatch(String dp_id);
+
+    int deleteTogetherAttend(String dp_id);
+
+
+    // 2. 동승 참가 버튼 (insert 참여) (O)
+    int insertAttendApply(AttendDTO attendDTO);
+
+    // 3. 동승 수락 및 거절 버튼 (update -> 참여) -> 거절, 삭제 (O)
+    int updateAttendStatus(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
+
+    int deleteAttendInfo(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
+
+    // 4. 동승자 신청 리스트 (O) (O)
+    List<AttendDTO> getApplyTogetherList(String dp_id);
+
+    // 5. 동승자 신청 거절 수락 (O) (O)
+    int rejectApply(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
+
+    int agreeApply(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
+
+    // 6.동승자 정보 (O) (O)
+    List<AttendDTO> getPassengerList(String dp_id);
+
+    // 7. 이미 참가된 승객들의 좌석 보여주기 (O) (O)
+    List<AttendDTO> getJoinSeat(String dp_id);
+
+
+    /*
+    *  ------------
+    *  기사 APP
+    * -------------
+    * */
+
+
 
 }

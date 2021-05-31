@@ -17,9 +17,21 @@
                #{ep_time,jdbcType=NUMERIC},#{ep_distance,jdbcType=NUMERIC},#{m_id})
     </insert>
 
+    <!-- 참여 테이블 (일반 생성)  -->
+    <insert id="insertNormalAttend">
+        insert into attend (m_id, dp_id,use_point, at_status,amount)
+        values (#{m_id},#{dp_id},#{use_point},'1', #{amount})
+    </insert>
+
     <!-- 일반 호출 취소 시 -> 일반 호출 삭제 (O) -->
     <delete id="deleteNormalMatch">
         DELETE FROM DISPATCH
+        WHERE dp_id = #{dp_id}
+    </delete>
+
+    <!-- 일반 호출 취소 시 -> 일반 참여 삭제(O) -->
+    <delete id="deleteNormalAttend">
+        DELETE FROM ATTEND
         WHERE dp_id = #{dp_id}
     </delete>
 
@@ -134,9 +146,108 @@
     </select>
 
     <!-- 현재 기사가 태우러 가는 승객의 회원 코드 -->
-    <select id="getUseDispatchM_id" resultType="string">
-        SELECT m_id
+    <select id="getUseDispatchM_id" resultType="com.tmate.domain.DispatchDTO">
+        SELECT m_id, dp_id
         FROM DISPATCH
         WHERE d_id = #{d_id} and dp_status = '3'
     </select>
+
+    <!-- 결제 미터기 화면시 미터기 넣고 입력을 누르면 all_fare 업데이트, 배차 상태 -->
+    <update id="updateFareDuringPayment">
+        update dispatch
+        set all_fare = #{all_fare}, dp_status = #{dp_status}
+        where dp_id = #{dp_id}
+    </update>
+
+    <!-- 기사가 승객을 블랙리스트에 추가할 시 -->
+    <insert id="insertBlacklist">
+        insert into ban (bd_id,d_id,ban_reason,ban_reg_date,m_id)
+        values(ban_seq.nextval,#{d_id},#{ban_reason},systimestamp,#{m_id})
+    </insert>
+
+
+    <!-- 동승 호출 -->
+    <!-- 사용자 APP -->
+
+    <!-- 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기 -> select (배차) -->
+    <select id="selectNearMatchList" resultType="com.tmate.domain.DispatchDTO">
+        <![CDATA[
+        SELECT d.dp_id, d.dp_status, d.start_place, d.finish_place,
+        d.start_lat, d.start_lng, d.finish_lat, d.finish_lng,
+        d.meet_time, d.cur_people,  GOOGLE_DISTANCE(#{s_lat},#{s_lng},d.start_lat, d.start_lng) as distance
+        FROM dispatch d
+        WHERE dp_id.substr(19) NOT IN (1) and GOOGLE_DISTANCE(#{s_lat},#{s_lng},d.start_lat, d.start_lng) <= 0.8
+        ]]>
+    </select>
+
+    <!-- 맘에 드는거 없을시에 자기가 만든다. -> insert (배차, 참여)  -->
+    <insert id="insertTogetherDispatch">
+        <selectKey resultType="string" keyProperty="dp_id" order="BEFORE">
+            select to_char(systimestamp,'yyMMddhhmissff')||'2'
+            from dual
+        </selectKey>
+
+        INSERT INTO DISPATCH (dp_id, dp_status, all_fare, start_place, finish_place, start_lat, start_lng,
+        finish_lat, finish_lng,meet_time, m_id, ep_time, ep_distance)
+        VALUES (#{dp_id}, '0', #{all_fare}, #{start_place}, #{finish_place}, #{start_lat}, #{start_lng},
+        #{finish_lat}, #{finish_lng}, #{meet_time,jdbcType=TIMESTAMP}, #{m_id}, #{ep_time}, #{ep_distance})
+    </insert>
+
+    <insert id="insertTogehterAttend">
+        INSERT INTO ATTEND (m_id, dp_id, at_status ,seat, amount)
+        VALUES (#{m_id},#{dp_id},#{at_status},#{seat},#{amount})
+    </insert>
+
+    <!-- 동승 참가 버튼 (insert 참여)      (O)  -->
+    <insert id="insertAttendApply">
+        INSERT INTO ATTEND (m_id, dp_id, at_status, seat)
+        VALUES (#{m_id}, #{dp_id}, '0', #{seat})
+    </insert>
+
+    <!-- 동승 수락 및 거절 버튼 (update -> 참여) -->
+    <update id="updateAttendStatus">
+        UPDATE ATTEND
+        SET at_status = '2'
+        WHERE dp_id = #{dp_id} and m_id = #{m_id}
+    </update>
+
+    <delete id="deleteAttendInfo">
+        DELETE FROM ATTEND
+        WHERE dp_id = #{dp_id}, m_id = #{m_id}
+    </delete>
+
+    <!-- 4. 동승자 신청 리스트 -->
+    <select id="getApplyTogetherList" resultType="com.tmate.domain.AttendDTO">
+        SELECT *
+        FROM ATTEND a left outer join MEMBER m ON a.m_id = m.m_id
+        WHERE dp_id = #{dp_id} and at_status = '0'
+    </select>
+
+    <!-- 5. 동승자 신청 거절 수락 -->
+    <update id="rejectApply">
+        update attend
+        set at_status = '2'
+        where dp_id = #{dp_id} and m_id = #{m_id}
+    </update>
+
+    <update id="agreeApply">
+        update attend
+        set at_status = '1'
+        where dp_id = #{dp_id} and m_id = #{m_id}
+    </update>
+
+    <!-- 6.동승자 정보 -->
+    <select id="getPassengerList" resultType="com.tmate.domain.AttendDTO">
+        SELECT *
+        FROM ATTEND a left outer join MEMBER m ON a.m_id = m.m_id
+        WHERE dp_id = #{dp_id} and at_status = '1'
+    </select>
+
+    <!-- 이미 참가된 좌석 번호 보여 주기 -->
+    <select id="getJoinSeat" resultType="com.tmate.domain.AttendDTO">
+        select seat
+        from attend
+        where dp_id = #{dp_id} and at_status = '1'
+    </select>
+
 </mapper>
