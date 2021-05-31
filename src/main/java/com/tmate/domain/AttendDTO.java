@@ -44,4 +44,14 @@ public class AttendDTO {
 
     // 12. 3번 자리 평가
     private String re_three;
+
+    // 조인시 연관되는 컬럼
+    // 멤버 관련
+    private String m_name;
+
+    private String m_birth;
+
+    private int m_n_use;
+
+    private int m_t_use;
 }
