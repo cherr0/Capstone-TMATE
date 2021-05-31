@@ -1,5 +1,8 @@
 package com.tmate.web.android;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tmate.domain.AttendDTO;
 import com.tmate.domain.DispatchDTO;
 import com.tmate.domain.MemberDTO;
 import com.tmate.service.android.user.AppMatchService;
@@ -8,6 +11,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/match")
@@ -75,4 +81,97 @@ public class AppMatchController {
         log.info("기사의 위치를 가져옵니다." + dp_id);
         return new ResponseEntity<>(appMatchService.getCurrentDriverLocation(dp_id), HttpStatus.OK);
     }
+
+    /*
+    *  -------------------
+    *       동승 호출
+    *  -------------------
+    * */
+
+    // 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기
+    @GetMapping("/get/together/list/{s_lat}/{s_lng}")
+    public ResponseEntity<List<DispatchDTO>> getTogetherList(
+            @PathVariable("s_lat") double s_lat,
+            @PathVariable("s_lng") double s_lng
+    ){
+        log.info("동승 리스트 검색 : " + s_lat + " : " + s_lng);
+
+        return new ResponseEntity<>(appMatchService.getNearMatchList(s_lat, s_lng), HttpStatus.OK);
+    }
+
+    // 맘에 드는 리스트가 없을 시 자기가 방을 만든다.
+    @PostMapping("/register/together/match")
+    public ResponseEntity<Boolean> registerTogetherMatch(@RequestBody Map<String, Object> hashMap) {
+        ObjectMapper mapper = new ObjectMapper();
+        DispatchDTO dispatchDTO = mapper.convertValue(hashMap.get("dispatch"), new TypeReference<DispatchDTO>() {});
+        AttendDTO attendDTO = mapper.convertValue(hashMap.get("attend"), new TypeReference<AttendDTO>() {});
+
+        log.info("동승 매칭 방을 생성하기 위해 넘어오는 배차 정보 & 참여 정보 : " + dispatchDTO + "," + attendDTO);
+
+        return new ResponseEntity<>(appMatchService.registerMatch(dispatchDTO, attendDTO), HttpStatus.OK);
+    }
+
+    //  배차 정보 삭제
+    @DeleteMapping("/remove/together/match/{dp_id}")
+    public ResponseEntity<Boolean> removeTogetherMatch(@PathVariable("dp_id") String dp_id) {
+        log.info("배차 정보 삭제 : " + dp_id);
+
+        return new ResponseEntity<>(appMatchService.removeMatch(dp_id), HttpStatus.OK);
+    }
+
+    // 동승 참가 버튼
+    @PostMapping("/register/apply/match")
+    public ResponseEntity<Boolean> registerApplyMatch(@RequestBody AttendDTO attendDTO) {
+        log.info("동승 참가 시 : " + attendDTO);
+
+        return new ResponseEntity<>(appMatchService.registerApplyButton(attendDTO), HttpStatus.OK);
+    }
+
+    // 동승 거절 버튼
+    @PutMapping("/reject/apply/match/{dp_id}/{m_id}")
+    public ResponseEntity<Boolean> rejectApplyMatch(
+            @PathVariable("dp_id") String dp_id,
+            @PathVariable("m_id") String m_id
+    ) {
+        log.info("동승 거절 버튼 누를 시 : " + dp_id + ", " + m_id);
+
+        return new ResponseEntity<>(appMatchService.modifyRejectMatching(dp_id, m_id), HttpStatus.OK);
+    }
+
+    // 동승 수락 버튼
+    @PutMapping("/agree/apply/match/{dp_id}/{m_id}")
+    public ResponseEntity<Boolean> agreeApplyMatch(
+            @PathVariable("dp_id") String dp_id,
+            @PathVariable("m_id") String m_id
+    ) {
+        log.info("동승 수락 버튼 누를 시 : " + dp_id + ", " + m_id);
+
+        return new ResponseEntity<>(appMatchService.modifyAggreeMatching(dp_id, m_id), HttpStatus.OK);
+    }
+
+    // 동승자 신청 리스트
+    @GetMapping("/get/applyer/list/{dp_id}")
+    public ResponseEntity<List<AttendDTO>> getApplyerList(@PathVariable("dp_id") String dp_id) {
+        log.info("동승자 신청 리스트 검색 : " + dp_id);
+
+        return new ResponseEntity<>(appMatchService.getApplyerList(dp_id), HttpStatus.OK);
+    }
+
+    // 동승자 정보들
+    @GetMapping("/get/passenger/list/{dp_id}")
+    public ResponseEntity<List<AttendDTO>> getPassengerList(@PathVariable("dp_id") String dp_id) {
+        log.info("동승자 정보 리스트 검색 : " + dp_id);
+
+        return new ResponseEntity<>(appMatchService.getPassengerList(dp_id), HttpStatus.OK);
+    }
+
+    // 이미 참가된 승객들의 좌석 보여주기
+    @GetMapping("/get/choice/seat/{dp_id}")
+    public ResponseEntity<List<AttendDTO>> getChoiceSeatNo(@PathVariable("dp_id") String dp_id) {
+        log.info("이미 선택된 좌석 검색 : " + dp_id);
+        return new ResponseEntity<>(appMatchService.alreadyChoiceSeatNO(dp_id), HttpStatus.OK);
+    }
+
+
+
 }

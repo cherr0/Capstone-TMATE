@@ -1,4 +1,4 @@
-package com.tmate.domain;
+package com.tmate.user.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttendDTO {
-
+public class Attend {
     // 1. 회원 코드
     private String m_id;
 

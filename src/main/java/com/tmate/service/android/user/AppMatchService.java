@@ -37,28 +37,28 @@ public interface AppMatchService {
     *  동승 호출 시
     * */
 
-    // 1. 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기
+    // 1. 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기 (O)
     List<DispatchDTO> getNearMatchList(double s_lat, double s_lng);
 
     // 2. 맘에 드는거 없을시에 자기가 만든다.
-    // @Transactional -> 배차정보, 참여정보
+    // @Transactional -> 배차정보, 참여정보 (O)
     Boolean registerMatch(DispatchDTO dispatchDTO, AttendDTO attendDTO);
 
-    // 3. 배차 정보 삭제
+    // 3. 배차 정보 삭제 (O)
     // @Transactional -> 배차정보, 참여정보
     Boolean removeMatch(String dp_id);
 
-    // 4. 동승 참가 버튼
+    // 4. 동승 참가 버튼 (O)
     Boolean registerApplyButton(AttendDTO attendDTO);
 
     // 5. 동승 수락 및 거절 버튼
-    // 5.1 동승 수락 버튼
+    // 5.1 동승 수락 버튼 (O)
     Boolean modifyAggreeMatching(String dp_id, String m_id);
 
-    // 5.1 동승 거절 버튼
+    // 5.1 동승 거절 버튼 (O)
     Boolean modifyRejectMatching(String dp_id, String m_id);
 
-    // 6. 동승자 신청 리스트
+    // 6. 동승자 신청 리스트 (O)
     List<AttendDTO> getApplyerList(String dp_id);
 
     // 7. 동승자 정보
