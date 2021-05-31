@@ -1,6 +1,7 @@
 package com.tmate.user.net;
 
 import com.tmate.user.data.Approval;
+import com.tmate.user.data.Attend;
 import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.History;
 import com.tmate.user.data.JoinHistoryVO;
@@ -10,12 +11,14 @@ import com.tmate.user.data.TogetherRequest;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface MatchAPI {
@@ -74,5 +77,52 @@ public interface MatchAPI {
     // 기사 위치 가져온다 - 쓰레드
     @GET("match/get/driver/position/{dp_id}")
     Call<Dispatch> getDriverPosition(@Path("dp_id") String d_id);
+
+    // 동승 호출
+
+    // 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기
+    @GET("match/get/together/list/{s_lat}/{s_lng}")
+    Call<List<Dispatch>> getTogetherList(
+            @Path("s_lat") double s_lat,
+            @Path("s_lng") double s_lng);
+
+    // 맘에 드는 리스트가 없을 시 자기가 방을 만든다.
+    @POST("match/register/together/match")
+    Call<Boolean> registerTogetherMatch(@Body Map<String, Object> hashmap);
+
+    // 배차 정보 삭제
+    @DELETE("match/remove/together/match/{dp_id}")
+    Call<Boolean> removeTogetherMatch(@Path("dp_id") String dp_id);
+
+    // 동승 참가 버튼
+    @POST("match/register/apply/match")
+    Call<Boolean> registerApplyMatch(@Body Attend attend);
+
+    // 동승 거절 버튼
+    @PUT("match/reject/apply/match/{dp_id}/{m_id}")
+    Call<Boolean> rejectApplyMatch(
+            @Path("dp_id") String dp_id,
+            @Path("m_id") String m_id
+    );
+
+    // 동승 수락 버튼
+    @PUT("match/agree/apply/match/{dp_id}/{m_id}")
+    Call<Boolean> agreeApplyMatch(
+            @Path("dp_id") String dp_id,
+            @Path("m_id") String m_id
+    );
+
+    // 동승자 신청 리스트
+    @GET("match/get/applyer/list/{dp_id}")
+    Call<List<Attend>> getApplyerList(@Path("dp_id") String dp_id);
+
+    // 동승자 정보들
+    @GET("match/get/passenger/list/{dp_id}")
+    Call<List<Attend>> getPassengerList(@Path("dp_id") String dp_id);
+
+    // 이미 참가된 승객들의 좌석 보여주기
+    @GET("match/get/choice/seat/{dp_id}")
+    Call<List<Attend>> getChoiceSeatNo(@Path("dp_id") String dp_id);
+
 
 }
