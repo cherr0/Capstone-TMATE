@@ -17,6 +17,5 @@
             android:layout_height="match_parent"
             android:src="@drawable/taxi_loading"/>
 
-
     </LinearLayout>
 </RelativeLayout>

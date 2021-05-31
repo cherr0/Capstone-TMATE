@@ -58,7 +58,8 @@ public class CarInfoFragment extends Fragment {
 
                         if (dispatch != null) {
 
-                            b.fcTitle.setText("이용중");
+                            b.constNoService.setVisibility(View.GONE);
+                            b.carInfoContent.setVisibility(View.VISIBLE);
 
 
                             merchant_uid = dispatch.getDp_id();
@@ -109,13 +110,8 @@ public class CarInfoFragment extends Fragment {
                             }
                         } else {
                             Log.d("안넘어 가는건가?", "왜 실행을 안할까?");
-                            b.fcTitle.setText("이용 중이 아닙니다.");
-                            b.htogether.setText(null);
-                            b.statusBadge.setText(null);
-                            b.hSPlace.setText(null);
-                            b.hFPlace.setText(null);
-                            b.carModel.setText(null);
-                            b.carNo.setText(null);
+                            b.constNoService.setVisibility(View.VISIBLE);
+                            b.carInfoContent.setVisibility(View.GONE);
 
 //                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 //                            BoardingFragment mf = new BoardingFragment();
