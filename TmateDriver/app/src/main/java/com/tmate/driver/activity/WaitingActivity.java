@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +52,8 @@ public class WaitingActivity extends AppCompatActivity {
     private TMapView tMapView = null;
     private ArrayList<Waiting> arrayList;
     private WaitingAdapter adapter;
+    private RecyclerView recyclerView;
+    private ConstraintLayout clWait;
 
     // 레트로핏 관련
     private SharedPreferences pref;
@@ -123,10 +126,12 @@ public class WaitingActivity extends AppCompatActivity {
         final CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, true);
         layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_waiting);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_waiting);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addOnScrollListener(new CenterScrollListener());
+
+        clWait = findViewById(R.id.cl_waiting);
 
         arrayList = new ArrayList<>();
 
@@ -191,6 +196,8 @@ public class WaitingActivity extends AppCompatActivity {
                         // 리스트 그림 그려준다.
                         if (!list.isEmpty()) {
                             isRunning = false;
+                            clWait.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
                             for (int i = 0; i < list.size(); i++) {
                                 CallHistory data = new CallHistory();
                                 data.setMerchant_uid(list.get(i).getDp_id());
@@ -212,6 +219,8 @@ public class WaitingActivity extends AppCompatActivity {
                         // list가 널일때
                         // 계속해서 검색한다.
                         else{
+                            clWait.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
                             isRunning = true;
                         }
 
