@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardview"
     android:layout_width="match_parent"
-    android:layout_height="212dp"
+    android:layout_height="wrap_content"
     android:layout_marginStart="10dp"
     android:layout_marginTop="20dp"
     android:layout_marginEnd="20dp"
@@ -26,7 +26,8 @@
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="김진수"/>
+                android:text="김진수"
+                android:fontFamily="@font/font_sub_title"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -60,14 +61,16 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:text="등록일시"/>
+                android:text="등록일시"
+                android:fontFamily="@font/font_content"/>
             <TextView
                 android:id="@+id/black_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:text="21/03/21"/>
+                android:text="21/03/21"
+                android:fontFamily="@font/font_sub_title"/>
 
             <View
                 android:id="@+id/view2"
@@ -87,14 +90,16 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:text="사유"/>
+                android:text="사유"
+                android:fontFamily="@font/font_content"/>
             <TextView
                 android:id="@+id/black_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:textColor="@color/black"
-                android:text="너무 시끄럽습니다."/>
+                android:text="너무 시끄럽습니다."
+                android:fontFamily="@font/font_sub_title"/>
         </LinearLayout>
 
     </LinearLayout>

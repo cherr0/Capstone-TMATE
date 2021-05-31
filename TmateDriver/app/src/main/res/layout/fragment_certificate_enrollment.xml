@@ -15,6 +15,7 @@
         android:text="기사 자격증 등록"
         android:textColor="#000000"
         android:textSize="20sp"
+        android:fontFamily="@font/font_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -61,7 +62,8 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="자격증 번호"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:fontFamily="@font/font_sub_title"/>
 
         <EditText
             android:id="@+id/license_no"
@@ -70,7 +72,8 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/box_shape"
             android:hint="12-대구-34567"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:fontFamily="@font/font_content"/>
 
     </LinearLayout>
 
@@ -82,6 +85,7 @@
         android:backgroundTint="#4254BC"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 
