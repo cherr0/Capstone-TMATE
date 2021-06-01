@@ -33,6 +33,7 @@ public class ReviewFragment extends Fragment {
     private FragmentReviewBinding b;
     private ReviewAdapter adapter;
     private ArrayList<String> selectedItems = new ArrayList<String>();
+    private String reason;
     View view;
 
 
@@ -64,52 +65,37 @@ public class ReviewFragment extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
                 final String[] result = getResources().getStringArray(R.array.driver_good_review);
                 builder.setTitle("좋아요 한 사유를 선택해주세요");
-                builder.setMultiChoiceItems(R.array.driver_good_review, null, (dialog, pos, isChecked2) -> {
-                    try {
-                        if(isChecked2) {
-                            selectedItems.add(result[pos]);
-                        } else {
-                            selectedItems.remove(result[pos]);
-                        }
-                    } catch (IndexOutOfBoundsException e) {
-                        e.printStackTrace();
+                builder.setItems(R.array.driver_good_review, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int pos)
+                    {
+                        reason = result[pos];
+                        Toast.makeText(getContext(),reason,Toast.LENGTH_SHORT).show();
                     }
                 });
-                builder.setPositiveButton("완료", (dialog, which) -> {
-                    if(selectedItems != null && !selectedItems.isEmpty()) {
-
-                    }
-                });
-
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             } else {
                 b.driverLike.setChecked(false);
-                selectedItems.clear();
             }
         });
         b.driverDislike.setOnCheckedChangeListener((buttonView, isChecked) -> { // 드라이버 싫어
             b.driverLike.setChecked(false); //좋아요 off
             b.driverDislike.setChecked(true);
             if(isChecked) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
                 final String[] result = getResources().getStringArray(R.array.driver_bad_review);
                 builder.setTitle("싫어요 한 사유를 선택해주세요");
-                builder.setMultiChoiceItems(R.array.driver_bad_review, null, (dialog, pos, isChecked2) -> {
-                    try {
-                        if(isChecked2) {
-                            selectedItems.add(result[pos]);
-                        } else {
-                            selectedItems.remove(result[pos]);
-                        }
-                    } catch (IndexOutOfBoundsException e) {
-                        e.printStackTrace();
+                builder.setItems(R.array.driver_bad_review, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int pos)
+                    {
+                        reason = result[pos];
+                        Toast.makeText(getContext(),reason,Toast.LENGTH_SHORT).show();
                     }
                 });
-
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
             } else {
                 b.driverDislike.setChecked(false);
             }
