@@ -81,10 +81,12 @@ public interface MatchAPI {
     // 동승 호출
 
     // 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기
-    @GET("match/get/together/list/{s_lat}/{s_lng}")
+    @GET("match/get/together/list/{s_lat}/{s_lng}/{f_lat}/{f_lng}")
     Call<List<Dispatch>> getTogetherList(
             @Path("s_lat") double s_lat,
-            @Path("s_lng") double s_lng);
+            @Path("s_lng") double s_lng,
+            @Path("f_lat") double f_lat,
+            @Path("f_lng") double f_lng);
 
     // 맘에 드는 리스트가 없을 시 자기가 방을 만든다.
     @POST("match/register/together/match")

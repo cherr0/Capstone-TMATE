@@ -38,7 +38,7 @@ public interface AppMatchService {
     * */
 
     // 1. 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기 (O)
-    List<DispatchDTO> getNearMatchList(double s_lat, double s_lng);
+    List<DispatchDTO> getNearMatchList(double s_lat, double s_lng, double f_lat, double f_lng);
 
     // 2. 맘에 드는거 없을시에 자기가 만든다.
     // @Transactional -> 배차정보, 참여정보 (O)

@@ -137,4 +137,10 @@ public class Dispatch {
 
     // 기사와 출발지와의 거리
     private double distance;
+
+    // 선택한 출발지와 리스트들과의 거리
+    private double start_distance;
+
+    // 선택한 목적지와 리스트들과의 거리
+    private double finish_distance;
 }
