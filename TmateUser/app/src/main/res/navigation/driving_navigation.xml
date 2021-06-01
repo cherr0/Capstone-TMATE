@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_searchPlace_to_paymentInformationFragment"
             app:destination="@id/paymentInformationFragment" />
+        <action
+            android:id="@+id/action_searchPlace_to_matchingFragment"
+            app:destination="@id/matchingFragment" />
     </fragment>
     <fragment
         android:id="@+id/paymentInformationFragment"
@@ -53,4 +56,22 @@
         android:name="com.tmate.user.ui.driving.DriverFinishingFragment"
         android:label="fragment_driver_finishing"
         tools:layout="@layout/fragment_driver_finishing" />
+    <fragment
+        android:id="@+id/matchingFragment"
+        android:name="com.tmate.user.Fragment.MatchingFragment"
+        android:label="fragment_matching"
+        tools:layout="@layout/fragment_matching" >
+        <action
+            android:id="@+id/action_matchingFragment_to_matchingDetailFragment"
+            app:destination="@id/matchingDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchingDetailFragment"
+        android:name="com.tmate.user.Fragment.MatchingDetailFragment"
+        android:label="fragment_matching_detail"
+        tools:layout="@layout/fragment_matching_detail" >
+        <action
+            android:id="@+id/action_matchingDetailFragment_to_paymentInformationFragment"
+            app:destination="@id/paymentInformationFragment" />
+    </fragment>
 </navigation>
