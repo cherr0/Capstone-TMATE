@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_matchingFragment_to_matchingDetailFragment"
             app:destination="@id/matchingDetailFragment" />
+        <action
+            android:id="@+id/action_matchingFragment_to_matchingSeatFragment"
+            app:destination="@id/matchingSeatFragment" />
     </fragment>
     <fragment
         android:id="@+id/matchingDetailFragment"
@@ -73,5 +76,13 @@
         <action
             android:id="@+id/action_matchingDetailFragment_to_paymentInformationFragment"
             app:destination="@id/paymentInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchingSeatFragment"
+        android:name="com.tmate.user.Fragment.MatchingSeatFragment"
+        android:label="MatchingSeatFragment" >
+        <action
+            android:id="@+id/action_matchingSeatFragment_to_matchingDetailFragment"
+            app:destination="@id/matchingDetailFragment" />
     </fragment>
 </navigation>

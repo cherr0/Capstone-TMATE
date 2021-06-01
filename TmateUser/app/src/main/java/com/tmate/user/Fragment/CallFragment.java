@@ -186,7 +186,7 @@ public class CallFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 together ="2";
-                Intent intent = new Intent(getContext(), MatchingMapActivity.class);
+                Intent intent = new Intent(getContext(), DrivingActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
                 dialog.dismiss();
@@ -197,7 +197,7 @@ public class CallFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 together ="3";
-                Intent intent = new Intent(getContext(), MatchingMapActivity.class);
+                Intent intent = new Intent(getContext(), DrivingActivity.class);
                 intent.putExtra("together", together);
                 startActivity(intent);
                 dialog.dismiss();
