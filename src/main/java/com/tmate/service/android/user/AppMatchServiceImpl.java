@@ -77,8 +77,8 @@ public class AppMatchServiceImpl implements AppMatchService {
     * */
 
     @Override
-    public List<DispatchDTO> getNearMatchList(double s_lat, double s_lng) {
-        return dispatchMapper.selectNearMatchList(s_lat, s_lng);
+    public List<DispatchDTO> getNearMatchList(double s_lat, double s_lng, double f_lat, double f_lng) {
+        return dispatchMapper.selectNearMatchList(s_lat, s_lng, f_lat, f_lng);
     }
 
     @Transactional
