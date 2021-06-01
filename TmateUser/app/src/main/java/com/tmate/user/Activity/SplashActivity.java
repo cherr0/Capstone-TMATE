@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.provider.Settings;
+import android.util.Log;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.pharid.splash.lib.activity.AnimatedSplash;
@@ -47,6 +48,7 @@ public class SplashActivity extends AnimatedSplash {
 
     @Override
     public void animationsFinished() {
+        Log.d("SplashActivity", "m_id : " + getPreferenceString("m_id"));
 
         // sharedpreference 값 있을떄 바로 메인뷰로 간다.
         if (!(getPreferenceString("m_id").equals(""))) {
