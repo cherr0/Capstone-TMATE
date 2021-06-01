@@ -146,13 +146,13 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
     }
 
     public String getPreferenceString(String key) {
-        SharedPreferences pref = getActivity().getSharedPreferences("loginMember", getActivity().MODE_PRIVATE);
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
         return pref.getString(key, "");
     }
 
     // 데이터 저장 함수
     public void setPreference(String key, String value) {
-        SharedPreferences pref = getActivity().getSharedPreferences("loginMember", getActivity().MODE_PRIVATE);
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString(key, value);
         editor.apply();
@@ -174,8 +174,8 @@ public class SocialFragment extends Fragment implements Validator.ValidationList
 
                     if (result.getM_id() != null) {
                         Log.d("SocialFragment", "로그인이 완료되었습니다");
-                        setPreference("d_id", result.getM_id());
-                        Log.d("SocialFragment", "d_id 값 : " + result.getM_id());
+                        setPreference("m_id", result.getM_id());
+                        Log.d("SocialFragment", "m_id 값 : " + result.getM_id());
                         Intent intent = new Intent(getActivity(), MainViewActivity.class);
                         startActivity(intent);
 
