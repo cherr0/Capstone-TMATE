@@ -55,7 +55,11 @@
         android:id="@+id/driverFinishingFragment"
         android:name="com.tmate.user.ui.driving.DriverFinishingFragment"
         android:label="fragment_driver_finishing"
-        tools:layout="@layout/fragment_driver_finishing" />
+        tools:layout="@layout/fragment_driver_finishing" >
+        <action
+            android:id="@+id/action_driverFinishingFragment_to_reviewFragment"
+            app:destination="@id/reviewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/matchingFragment"
         android:name="com.tmate.user.Fragment.MatchingFragment"
@@ -78,11 +82,12 @@
             app:destination="@id/paymentInformationFragment" />
     </fragment>
     <fragment
-        android:id="@+id/matchingSeatFragment"
-        android:name="com.tmate.user.Fragment.MatchingSeatFragment"
-        android:label="MatchingSeatFragment" >
-        <action
-            android:id="@+id/action_matchingSeatFragment_to_matchingDetailFragment"
-            app:destination="@id/matchingDetailFragment" />
-    </fragment>
+        android:id="@+id/reviewFragment"
+        android:name="com.tmate.user.Fragment.ReviewFragment"
+        android:label="ReviewFragment" />
+    <action android:id="@+id/action_global_callWaitingFragment" app:destination="@id/callWaitingFragment"/>
+    <action android:id="@+id/action_global_driverWaitingFragment" app:destination="@id/driverWaitingFragment"/>
+    <action android:id="@+id/action_global_driverMovingFragment" app:destination="@id/driverMovingFragment"/>
+    <action android:id="@+id/action_global_matchingFragment" app:destination="@id/matchingFragment"/>
+    <action android:id="@+id/action_global_matchingDetailFragment" app:destination="@id/matchingDetailFragment"/>
 </navigation>

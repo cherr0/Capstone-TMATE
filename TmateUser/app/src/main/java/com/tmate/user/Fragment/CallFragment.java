@@ -35,20 +35,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class CallFragment extends Fragment {
-    ArrayList<String> list;
+public class CallFragment extends Fragment implements View.OnClickListener {
     private View view;
-    private CardView Ll_together;
-    private CardView Ll_solo, requset_list;
     private String together;
     private Dialog dialog;
-    private Button btn_chat;
-    private TextView point_charge;
-    ViewFlipper call_banner_ViewFlipper, call_notice_ViewFlipper;
-    ImageView viewFlipper_img_first, viewFlipper_img_second, viewFlipper_img_third, call_banner_img,
-    call_logo;
-    TextView call_notice_first, call_notice_second, call_notice_third;
-    private CardView go_point;
+
+    ViewFlipper call_notice_ViewFlipper;
+    ImageView call_logo;
     private CallAdvertisingAdapter caa;
     int currentPage = 0;
     ViewPager vp;
@@ -63,7 +56,6 @@ public class CallFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_call, container, false);
 
-
         //로고 애니메이션
         call_logo = view.findViewById(R.id.call_logo);
         Animation myanim = AnimationUtils.loadAnimation(getContext(), R.anim.call_translate);
@@ -77,83 +69,31 @@ public class CallFragment extends Fragment {
         call_notice_ViewFlipper.startFlipping();
         call_notice_ViewFlipper.setFlipInterval(5000);
 
-        Ll_together = view.findViewById(R.id.together_call);
-        Ll_together.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog(); //동승 설정 알림창
-            }
-        });
-        // 일반 호출
-        Ll_solo = view.findViewById(R.id.normal_call);
-        Ll_solo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                together = "1";
-                Intent intent = new Intent(getContext(), DrivingActivity.class);
-                intent.putExtra("together", together);
-                startActivity(intent);
-                
-            }
-        });
-
-        go_point = view.findViewById(R.id.go_point);
-        go_point.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainViewActivity.navbarFlag = 4;
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                PointFragment pf = new PointFragment();
-                transaction.replace(R.id.frameLayout, pf);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
         PageIndicatorView pageIndicatorView = view.findViewById(R.id.vp_fm_call_indicator);
         pageIndicatorView.setCount(5);
         pageIndicatorView.setSelection(1);
 
         vp = view.findViewById(R.id.vp_fm_call);
-        caa = new CallAdvertisingAdapter(getFragmentManager());
         vp.setAdapter(new CallAdvertisingAdapter(getChildFragmentManager()));
-
-        point_charge = view.findViewById(R.id.point_charge);
-        point_charge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainViewActivity.navbarFlag = 4;
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                PointChargeFragment pcf = new PointChargeFragment();
-                transaction.replace(R.id.frameLayout, pcf);
-                transaction.addToBackStack(null);
-                transaction.commit();            }
-        });
-        call_notice_first = view.findViewById(R.id.call_notice_first);
-        call_notice_first.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-        });
-
-
+        caa = new CallAdvertisingAdapter(getFragmentManager());
         return view;
     }
+
     @Override
     public void onResume() {
         super.onResume();
 
         // Adapter 세팅 후 타이머 실행
         final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                currentPage = vp.getCurrentItem();
-                int nextPage = currentPage + 1;
+        final Runnable Update = () -> {
+            currentPage = vp.getCurrentItem();
+            int nextPage = currentPage + 1;
 
-                if (nextPage >= NUM_PAGES) {
-                    nextPage = 0;
-                }
-                vp.setCurrentItem(nextPage, true);
-                currentPage = nextPage;
+            if (nextPage >= NUM_PAGES) {
+                nextPage = 0;
             }
+            vp.setCurrentItem(nextPage, true);
+            currentPage = nextPage;
         };
 
         timer = new Timer(); // thread에 작업용 thread 추가
@@ -177,31 +117,45 @@ public class CallFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onClick(View v) {
 
-    public void showDialog(){
-        dialog.show();
+        Intent intent;
 
-        Button btn_no = dialog.findViewById(R.id.btn_double);
-        btn_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                together ="2";
-                Intent intent = new Intent(getContext(), DrivingActivity.class);
-                intent.putExtra("together", together);
+        switch(v.getId()) {
+            case R.id.normal_call:
+                intent = new Intent(getContext(),DrivingActivity.class);
+                intent.putExtra("together", "1");
+                startActivity(intent);
+                break;
+            case R.id.together_call:
+                dialog.show();
+                break;
+            case R.id.btn_double:
+                intent = new Intent(getContext(),DrivingActivity.class);
+                intent.putExtra("together","2");
                 startActivity(intent);
                 dialog.dismiss();
-            }
-        });
-        Button btn_yes = dialog.findViewById(R.id.btn_triple);
-        btn_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                together ="3";
-                Intent intent = new Intent(getContext(), DrivingActivity.class);
-                intent.putExtra("together", together);
+                break;
+            case R.id.btn_triple:
+                intent = new Intent(getContext(),DrivingActivity.class);
+                intent.putExtra("together","3");
                 startActivity(intent);
                 dialog.dismiss();
-            }
-        });
+                break;
+            case R.id.go_point:
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                PointChargeFragment pcf = new PointChargeFragment();
+                transaction.replace(R.id.frameLayout, pcf);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
+            case R.id.call_notice_first:
+                /*
+                나중에 TextView 값에 따라 공지사항 이동
+                 */
+                //startActivity(intent);
+        }
+
     }
 }

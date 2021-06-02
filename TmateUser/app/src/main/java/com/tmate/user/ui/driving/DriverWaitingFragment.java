@@ -99,10 +99,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         clickListenerApply();
 
         // 인텐트 dp_id 값 받아보고 없다면 이전 단계 거쳐서 온 것이기에 mViewModel 값 사용
-        dp_id = getActivity().getIntent().getStringExtra("dp_id");
-        if(dp_id == null) {
-            dp_id = mViewModel.dispatch.getDp_id();
-        }
+        dp_id = mViewModel.dispatch.getDp_id();
         Log.d("DriverWaitingFragment","dp_id : " + dp_id);
         dispatchRequest(dp_id);
         modelDataBinding();
