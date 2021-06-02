@@ -5,7 +5,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>T mate</title>
 
   <!-- Bootstrap Core CSS -->
   <link th:href="@{~/vendor/bootstrap-4.1/bootstrap.min.css}" rel="stylesheet">
@@ -39,8 +38,8 @@
 </script>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand js-scroll-trigger title_logo col-sm-1 col-md-1 col-lg-1" href="#page-top"><img class="btn_img" src="/images/Tmate_logo.png"><span class="text_size">Tmate</span></a>
+<nav class="navbar navbar-bar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand js-scroll-trigger title_logo col-sm-1 col-md-1 col-lg-1" href="#page-top"><img class="btn_img" src="/images/logo3.png"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -62,7 +61,7 @@
     </div>
     <div class="col-sm-1 col-md-1 col-lg-1 offset-5">
       <div class="nav-item login-btn" sec:authorize="!isAuthenticated()">
-        <a class="nav-link" data-toggle="modal" href="#myModal"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a>
+        <a class="nav-login" data-toggle="modal" href="#myModal"><i class="fas fa-sign-in-alt"></i> <span>Login</span></a>
       </div>
       <div class="nav-item login-btn" sec:authorize="isAuthenticated()">
         <i class="fas fa-sign-in-alt"></i> <span>[[${#authentication.principal.m_name}]]님</span>
@@ -88,26 +87,30 @@
   <!-- Header -->
   <header class="masthead d-flex">
     <div class="container text-center my-auto">
-      <h1 class="mb-1">T Mate</h1>
-      <h2>ver 1.13.1</h2>
+      <h1 class="mb-1">더 안전하게,부담없이.</h1>
       <h3 class="mb-5">
-        <em>안녕하세요 T mate 입니다.</em>
       </h3>
-      <a class="btn btn-dark btn-xl js-scroll-trigger" href="#about">더보기</a>
+
     </div>
     <div class="overlay"></div>
   </header>
 
   <!-- About -->
-  <section class="content-section bg-light" id="about">
-    <div class="container text-center">
+  <section class="content-section bg-background" id="about">
+    <div class="container">
       <div class="row">
-        <div class="col-lg-10 mx-auto">
-          <h3>믿고 부르는 T mate 택시 !</h3>
-          <br>
-          <h4>이용 고객에게도 기사님에게도 편리한 T mate 지금 소개합니다.</h4>
-          <br><br><br>
-          <a class="btn btn-dark btn-xl js-scroll-trigger" href="#services">더보기</a>
+        <div class="col-lg-12 box-center">
+          <div class="left-box">
+            <p>새롭게 이동을</p><br>
+            <p>시작하다.</p>
+          </div>
+          <div class="right-box">
+            <p>자신이 원하는 장소를 맞춰 금액의 부담을 덜고, 안전하게,</p><br>
+            <p>새로운 서비스, 간편 결제와 포인트 지급까지.</p><br>
+            <p>Tmate는 가벼운 금액으로 택시서비스를 이용할수이 있습니다.</p><br>
+            <br>
+            <p>새로운 택시를 만들어갑니다.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -118,7 +121,7 @@
     <div class="container">
       <div class="content-section-heading">
         <h3 class="text-secondary mb-0">T mate Services</h3>
-        <h2 class="mb-5">주요 서비스</h2>
+        <S1 class="mb-5">주요 서비스</S1>
       </div>
       <div class="row">
         <div class="col-lg-3 col-md-6 mb-5 mb-lg-0" data-aos="fade-up" data-aos-duration="1500">
@@ -168,7 +171,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-xs-12 col-sm-12 index-img" id="img-hover">
-          <img src="images/portfolio-5.jpg" alt="" class="img-responsive" data-aos="zoom-out-right" data-aos-duration="1200">
+          <img src="images/twodriver.png" alt="" class="img-responsive" data-aos="zoom-out-right" data-aos-duration="1200">
           <div class="carousel-caption">
             <div><h3>동승호출</h3></div>
             <p><strong>비슷한 목적지의 승객과 같이 타고<br>요금을저렴하게 내고<br>이용할수있는 호출 옵션입니다.</strong></p>
@@ -176,7 +179,7 @@
         </div>
 
         <div class="col-md-6 col-xs-12 col-sm-12 index-img" id="img-hover">
-          <img src="images/portfolio-6.jpg" alt="test" class="img-responsive" data-aos="zoom-out-left" data-aos-duration="3000">
+          <img src="images/onedriver.png" alt="test" class="img-responsive" data-aos="zoom-out-left" data-aos-duration="3000">
           <div class="carousel-caption">
             <div><h3>일반호출</h3></div>
             <p><strong>혼자서 혹은 친구,가족과 함께<br>언제 어디서나 이용 가능한<br>일반호출 옵션입니다.</strong></p>
