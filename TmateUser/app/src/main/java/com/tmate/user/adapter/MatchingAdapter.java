@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.Activity.MatchingDetailActivity;
 import com.tmate.user.R;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.History;
 import com.tmate.user.net.DataService;
 
@@ -20,11 +21,11 @@ import java.util.ArrayList;
 
 public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
 
-    private ArrayList<History> items = new ArrayList<>();
+    private ArrayList<Dispatch> items = new ArrayList<>();
 
     DataService dataService = DataService.getInstance();
 
-    public MatchingAdapter(ArrayList<History> items) {
+    public MatchingAdapter(ArrayList<Dispatch> items) {
         this.items = items;
     }
 
@@ -52,7 +53,7 @@ public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
             public void onClick(View v) {
 
                 Intent intent = new Intent(v.getContext(), MatchingDetailActivity.class);
-                intent.putExtra("merchant_uid",items.get(position).getMerchant_uid());
+                intent.putExtra("merchant_uid",items.get(position).getDp_id());
                 intent.putExtra("m_id", items.get(position).getM_id());
 
                 v.getContext().startActivity(intent);
@@ -65,7 +66,7 @@ public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
         return (null != items ? items.size() : 0);
     }
 
-    public void addItem(History matchingData) {
+    public void addItem(Dispatch matchingData) {
         items.add(matchingData);
     }
 }
@@ -113,16 +114,16 @@ class MatchingHolder extends RecyclerView.ViewHolder {
         this.tv_h_f_lngtd = (TextView) itemView.findViewById(R.id.tv_h_f_lngtd);
     }
 
-    void onBind(History data) {
+    void onBind(Dispatch data) {
         // 회원 코드, 이름
         tv_m_id.setText(data.getM_id());
 
         // 매칭 방 코드
-        tv_merchant_uid.setText(data.getMerchant_uid());
+        tv_merchant_uid.setText(data.getDp_id());
 
         // 내가 설정한 출발지와의 거리
-        double distanceStart = data.getDistance1() *1000;
-        double distanceFinish = data.getDistance2() *1000;
+        double distanceStart = data.getStart_distance() *1000;
+        double distanceFinish = data.getFinish_distance() *1000;
 
         if (distanceStart < 1000) {
             distance1.setText((int)distanceStart+"m");
@@ -138,16 +139,16 @@ class MatchingHolder extends RecyclerView.ViewHolder {
         }
 
         // 회원 이거는 머고
-        matching_item_cur_people.setText("모집인원("+data.getTo_people()+"/"+data.getTo_max()+")");
+        matching_item_cur_people.setText("모집인원("+data.getCur_people()+"/"+data.getDp_id().substring(18)+")");
 
         // 출발지 , 위도, 경도
-        matching_item_start_place.setText(data.getH_s_place());
-        tv_h_s_lttd.setText(String.valueOf(data.getH_s_lttd()));
-        tv_h_s_lngtd.setText(String.valueOf(data.getH_s_lngtd()));
+        matching_item_start_place.setText(data.getStart_place());
+        tv_h_s_lttd.setText(String.valueOf(data.getStart_lat()));
+        tv_h_s_lngtd.setText(String.valueOf(data.getStart_lng()));
 
         // 도착지, 위도, 경도
-        matching_item_finish_place.setText(data.getH_f_place());
-        tv_h_f_lttd.setText(String.valueOf(data.getH_f_lttd()));
-        tv_h_f_lngtd.setText(String.valueOf(data.getH_f_lngtd()));
+        matching_item_finish_place.setText(data.getFinish_place());
+        tv_h_f_lttd.setText(String.valueOf(data.getFinish_lat()));
+        tv_h_f_lngtd.setText(String.valueOf(data.getFinish_lat()));
     }
 }

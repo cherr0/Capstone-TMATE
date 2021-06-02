@@ -89,14 +89,16 @@ public class AppMatchController {
     * */
 
     // 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기
-    @GetMapping("/get/together/list/{s_lat}/{s_lng}")
+    @GetMapping("/get/together/list/{s_lat}/{s_lng}/{f_lat}/{f_lng}")
     public ResponseEntity<List<DispatchDTO>> getTogetherList(
             @PathVariable("s_lat") double s_lat,
-            @PathVariable("s_lng") double s_lng
+            @PathVariable("s_lng") double s_lng,
+            @PathVariable("f_lat") double f_lat,
+            @PathVariable("f_lng") double f_lng
     ){
-        log.info("동승 리스트 검색 : " + s_lat + " : " + s_lng);
+        log.info("동승 리스트 검색 : " + s_lat + " : " + s_lng + " : " + f_lat + " : " + f_lng);
 
-        return new ResponseEntity<>(appMatchService.getNearMatchList(s_lat, s_lng), HttpStatus.OK);
+        return new ResponseEntity<>(appMatchService.getNearMatchList(s_lat, s_lng, f_lat, f_lng), HttpStatus.OK);
     }
 
     // 맘에 드는 리스트가 없을 시 자기가 방을 만든다.

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,14 +22,18 @@ import com.tmate.user.Activity.MatchingActivity;
 import com.tmate.user.Activity.MatchingMapActivity;
 import com.tmate.user.R;
 import com.tmate.user.data.Approval;
+import com.tmate.user.data.Attend;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.History;
 import com.tmate.user.data.Together;
 import com.tmate.user.databinding.FragmentMatchingSeatBinding;
 import com.tmate.user.net.DataService;
+import com.tmate.user.ui.driving.DrivingModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,14 +45,19 @@ public class MatchingSeatFragment extends Fragment {
     private int togetherAdd = 0;
     private FragmentMatchingSeatBinding b;
 
+    private DrivingModel mViewModel;
 
     Call<Boolean> request;
     Call<List<Together>> request2;
     Call<Boolean> request3;
 
     Bundle bundle;
-    History history;
-    Together together;
+//    History history;
+//    Together together;
+
+    // 동승 참가 하는 것
+    Dispatch dispatch;
+    Attend attend;
 
     private int to_seat;
 
@@ -63,29 +73,27 @@ public class MatchingSeatFragment extends Fragment {
         b = FragmentMatchingSeatBinding.inflate(getLayoutInflater());
         view = b.getRoot();
 
-
+        mViewModel = new ViewModelProvider(requireActivity()).get(DrivingModel.class);
 
         // 새로 추가하기 - 리스트
-        if(getArguments().getString("merchant_uid") == null) {
+        if(mViewModel.dispatch.getDp_id() == null) {
             Log.d("만약 널이라면","여기가 찍히겠");
             bundle = getArguments();
 
 
 
-            //자리 선택 완료 후 버튼클릭이벤트
+            //자리 선택 완료 후 버튼클릭이벤트 --> Dispatch 하고 Attend들어가는거
             b.btnSeat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //매칭방 만들때의 경로(자리 선택 후 매칭리스트로 이동)
-                    if(togetherAdd == 0) {
-
                         Log.d("찍히긴 찍히냐", "반응은 하냐? 좀 해라 궁금하다 왜 안되냐");
                         initializeObjects(bundle);
 
-                        HashMap<String, Object> hashmap = new HashMap<>();
+                        Map<String, Object> hashmap = new HashMap<>();
 
-                        hashmap.put("history", history);
-                        hashmap.put("together", together);
+                        hashmap.put("dispatch", dispatch);
+                        hashmap.put("attend", attend);
 
 
 
@@ -112,16 +120,13 @@ public class MatchingSeatFragment extends Fragment {
                             }
                         });
 
-                    } else { //이미 만들어진 매칭방에서 들어왔을때의 경로(결제화면으로 이동)
-                        Intent intent = new Intent(getContext(),CallGeneralActivity.class);
-                        startActivity(intent);
-                    }
+                    
                 }
             });
 
             seatClickEvent();
         }
-        // 기존의 방에서 좌석 선
+        // 기존의 방에서 좌석 선택
         else{
             Log.d("만약 널이아니라면","여기가 찍히겠");
 
@@ -221,34 +226,38 @@ public class MatchingSeatFragment extends Fragment {
 
             try {
 
-                history = new History();
-                together = new Together();
+                dispatch = new Dispatch();
+                attend = new Attend();
+                
+                
                 String m_id = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE).getString("m_id", "");
 
-                history.setM_id(m_id);
 
-                history.setH_s_place(bundle.getString("h_s_place"));
-                history.setH_s_lttd(Double.valueOf(bundle.getString("slttd")));
-                history.setH_s_lngtd(Double.valueOf(bundle.getString("slngtd")));
+                dispatch.setM_id(m_id);
 
-                history.setH_f_place(bundle.getString("h_f_place"));
-                history.setH_f_lttd(Double.valueOf(bundle.getString("flttd")));
-                history.setH_f_lngtd(Double.valueOf(bundle.getString("flngtd")));
+                dispatch.setStart_place(mViewModel.dispatch.getStart_place());
 
-                history.setH_made_flag("0");
+                dispatch.setStart_lat(mViewModel.dispatch.getStart_lat());
+                dispatch.setStart_lng(mViewModel.dispatch.getStart_lng());
 
-                history.setH_ep_fare(bundle.getString("h_ep_fare"));
-                history.setH_ep_time(bundle.getString("h_ep_time"));
-                history.setH_ep_distance(bundle.getString("h_ep_distance"));
 
-                together.setM_id(m_id);
-                together.setTo_max(bundle.getInt("to_max"));
-                together.setTo_seat(Integer.valueOf(to_seat));
+                dispatch.setFinish_place(mViewModel.dispatch.getFinish_place());
 
-                Log.d("1.", String.valueOf(history.getH_s_lngtd()));
-                Log.d("2.", String.valueOf(history.getH_s_lttd()));
-                Log.d("3.", String.valueOf(history.getH_f_lngtd()));
-                Log.d("4.", String.valueOf(history.getH_f_lttd()));
+                dispatch.setFinish_lat(mViewModel.dispatch.getFinish_lat());
+                dispatch.setFinish_lng(mViewModel.dispatch.getFinish_lng());
+
+
+                dispatch.setAll_fare(mViewModel.dispatch.getAll_fare());
+                dispatch.setEp_time(mViewModel.dispatch.getEp_time());
+                dispatch.setEp_distance(mViewModel.dispatch.getEp_distance());
+
+
+
+                attend.setM_id(m_id);
+                attend.setAt_status("1");
+                attend.setSeat(to_seat);
+                attend.setAmount(mViewModel.dispatch.getAll_fare());
+
 
 
 

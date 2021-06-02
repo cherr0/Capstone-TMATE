@@ -174,9 +174,11 @@
         <![CDATA[
         SELECT d.dp_id, d.dp_status, d.start_place, d.finish_place,
         d.start_lat, d.start_lng, d.finish_lat, d.finish_lng,
-        d.meet_time, d.cur_people,  GOOGLE_DISTANCE(#{s_lat},#{s_lng},d.start_lat, d.start_lng) as distance
+        d.meet_time, d.cur_people,  GOOGLE_DISTANCE(#{s_lat},#{s_lng},d.start_lat, d.start_lng) as start_distance,
+               GOOGLE_DISTANCE(#{f_lat},#{f_lng},d.finish_lat, d.finish_lng) as finish_distance
         FROM dispatch d
-        WHERE dp_id.substr(19) NOT IN (1) and GOOGLE_DISTANCE(#{s_lat},#{s_lng},d.start_lat, d.start_lng) <= 0.8
+        WHERE substr(d.dp_id,19) NOT IN (1) and d.dp_status = '0' and  GOOGLE_DISTANCE(#{s_lat},#{s_lng},d.start_lat, d.start_lng) <= 0.8
+        ORDER BY GOOGLE_DISTANCE(#{f_lat},#{f_lng},d.finish_lat, d.finish_lng)
         ]]>
     </select>
 

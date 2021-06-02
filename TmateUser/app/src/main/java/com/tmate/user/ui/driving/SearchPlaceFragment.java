@@ -327,6 +327,12 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
             NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
             controller.navigate(R.id.action_searchPlace_to_paymentInformationFragment);
         }
+
+        // 동승 호출 시 -> 매칭 리스트로 넘어간다.
+        if (mViewModel.together.equals("2") || mViewModel.together.equals("3")) {
+            NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+            controller.navigate(R.id.action_searchPlace_to_matchingFragment);
+        }
     }
 
     @Override

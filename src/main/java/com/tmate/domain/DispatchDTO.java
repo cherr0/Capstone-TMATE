@@ -63,8 +63,8 @@ public class DispatchDTO {
     private String m_id;
 
     /*
-    *  JOIN시 생길수 있는 Column
-    * */
+     *  JOIN시 생길수 있는 Column
+     * */
 
     // 멤버 관련
     private String m_name;
@@ -134,9 +134,15 @@ public class DispatchDTO {
 
 
     /*
-    *  값이 추가적으로 필요한 경우
-    * */
+     *  값이 추가적으로 필요한 경우
+     * */
 
     // 기사와 출발지와의 거리
     private double distance;
+
+    // 선택한 출발지와 리스트들과의 거리
+    private double start_distance;
+
+    // 선택한 목적지와 리스트들과의 거리
+    private double finish_distance;
 }

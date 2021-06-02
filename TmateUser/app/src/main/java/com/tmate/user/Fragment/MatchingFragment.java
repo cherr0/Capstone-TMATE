@@ -12,17 +12,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tmate.user.R;
 import com.tmate.user.adapter.MatchingAdapter;
+import com.tmate.user.data.Attend;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.History;
 import com.tmate.user.net.DataService;
+import com.tmate.user.ui.driving.DrivingModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +38,11 @@ import retrofit2.Response;
 
 
 public class MatchingFragment extends Fragment {
-    private ArrayList<History> arrayList;
+
+    // view 모델
+    private DrivingModel mViewModel;
+
+    private ArrayList<Dispatch> arrayList;
     private View view;
     private MatchingAdapter matchingAdapter;
     private GridLayoutManager gridLayoutManager;
@@ -41,11 +53,13 @@ public class MatchingFragment extends Fragment {
     // 레트로핏 이용
     Call<List<History>> matchingRequest;
 
+    Call<List<Dispatch>> getMatchListRequest;
+
     // 거리 순으로 나오게 할것이기 때문에 기준으로 인하여 필요한 값들이다.
-    String slttd;
-    String slngtd;
-    String flttd;
-    String flngtd;
+    double s_lat;
+    double s_lng;
+    double f_lat;
+    double f_lng;
     int to_max = 0;
     String h_s_place;
     String h_f_place;
@@ -53,41 +67,34 @@ public class MatchingFragment extends Fragment {
     String h_ep_time;
     String h_ep_distance;
 
+    TextView matching_start_place;
+    TextView matching_finish_place;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_matching, container, false);
 
+        // view모델 삽입
+        mViewModel = new ViewModelProvider(requireActivity()).get(DrivingModel.class);
 
         recyclerView = view.findViewById(R.id.rv_matching);
 
-        if (getArguments() != null) {
+        matching_start_place = view.findViewById(R.id.matching_start_place);
+        matching_finish_place = view.findViewById(R.id.matching_finish_place);
 
-            slttd = getArguments().getString("slttd");
-            slngtd = getArguments().getString("slngtd");
-            flttd = getArguments().getString("flttd");
-            flngtd = getArguments().getString("flngtd");
-            to_max = getArguments().getInt("to_max");
-            h_s_place = getArguments().getString("h_s_place");
-            h_f_place = getArguments().getString("h_f_place");
-            h_ep_fare = getArguments().getString("h_ep_fare");
-            h_ep_time = getArguments().getString("h_ep_time");
-            h_ep_distance = getArguments().getString("h_ep_distance");
+        Log.d("한번찍어보자 출위도", String.valueOf(mViewModel.dispatch.getStart_lat()));
+        Log.d("한번찍어보자 출경도", String.valueOf(mViewModel.dispatch.getStart_lng()));
+        Log.d("한번찍어보자 도위도", String.valueOf(mViewModel.dispatch.getFinish_lat()));
+        Log.d("한번찍어보자 도경도", String.valueOf(mViewModel.dispatch.getFinish_lng()));
 
-            Log.d("넘어오는 출발지 위도 : ", slttd);
-            Log.d("넘어오는 출발지 경도 : ", slngtd);
-            Log.d("넘어오는 도착지 위도 : ", flttd);
-            Log.d("넘어오는 도착지 경도 : ", flngtd);
-            Log.i("MatchingFragment 동승인원", String.valueOf(to_max));
-            Log.d("MF 출발지 장소 : ", h_s_place);
-            Log.d("MF 도착지 장소 : ", h_f_place);
-            Log.d("예상 시간 : ", h_ep_time);
-            Log.d("예상 요금 : ", h_ep_fare);
-            Log.d("예상 거리 : ", h_ep_distance);
+        s_lat = mViewModel.dispatch.getStart_lat();
+        s_lng = mViewModel.dispatch.getStart_lng();
+        f_lat = mViewModel.dispatch.getFinish_lat();
+        f_lng = mViewModel.dispatch.getFinish_lng();
 
-
-        }
-
+        matching_start_place.setText(mViewModel.dispatch.getStart_place());
+        matching_finish_place.setText(mViewModel.dispatch.getFinish_place());
 
         gridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -115,16 +122,10 @@ public class MatchingFragment extends Fragment {
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 좌석 선택
+                NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                controller.navigate(R.id.action_matchingFragment_to_matchingSeatFragment);
 
-                Bundle bundle = getArguments();
-                Log.d("Bundle 값 잇나 확인 : ", bundle.getString("h_s_place"));
-
-
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                MatchingSeatFragment matchingEnrollmentFragment = new MatchingSeatFragment();
-                matchingEnrollmentFragment.setArguments(bundle);
-                transaction.replace(R.id.fm_matching_activity, matchingEnrollmentFragment);
-                transaction.commit();
             }
         });
         return view;
@@ -132,59 +133,53 @@ public class MatchingFragment extends Fragment {
 
     private void getMatchingList() {
 
-        matchingRequest = DataService.getInstance().matchAPI.getMatchingList(slttd, slngtd, flttd, flngtd);
-        matchingRequest.enqueue(new Callback<List<History>>() {
+        matchingRequest = DataService.getInstance().matchAPI.getMatchingList(String.valueOf(s_lat), String.valueOf(s_lng), String.valueOf(f_lat), String.valueOf(f_lng));
+
+        getMatchListRequest = DataService.getInstance().matchAPI.getTogetherList(s_lat, s_lng, f_lat, f_lng);
+        getMatchListRequest.enqueue(new Callback<List<Dispatch>>() {
             @Override
-            public void onResponse(Call<List<History>> call, Response<List<History>> response) {
-                if (response.isSuccessful()) {
-                    if (response.code() == 200) {
-                        List<History> list = response.body();
-                        Log.d("넘어오는 기준리스트", list.toString());
-                        for (int i = 0; i < list.size(); i++) {
-                            History history = new History();
+            public void onResponse(Call<List<Dispatch>> call, Response<List<Dispatch>> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    List<Dispatch> list = response.body();
+                    Log.d("MatchingFragment", list.toString());
 
-                            // 매칭방 코드
-                            history.setMerchant_uid(list.get(i).getMerchant_uid());
+                    for (int i = 0; i < list.size(); i++) {
+                        Dispatch dispatch = new Dispatch();
 
-                            // 매칭 만든사람 방 이름 & 회원 코드
-                            history.setM_id(list.get(i).getM_id());
-                            history.setM_name(list.get(i).getM_name());
+                        // 매칭방 코드
+                        dispatch.setDp_id(list.get(i).getDp_id());
 
-                            // 출발지 위도 경도 설정
-                            history.setH_s_lttd(list.get(i).getH_s_lttd());
-                            history.setH_s_lngtd(list.get(i).getH_s_lngtd());
+                        // 출발지 위도 경도 설정
+                        dispatch.setStart_lat(list.get(i).getStart_lat());
+                        dispatch.setStart_lng(list.get(i).getStart_lng());
 
-                            // 도착지 위도 경도 설정
-                            history.setH_f_lttd(list.get(i).getH_f_lttd());
-                            history.setH_f_lngtd(list.get(i).getH_f_lngtd());
+                        // 도착지 위도 경도 설정
+                        dispatch.setFinish_lat(list.get(i).getFinish_lat());
+                        dispatch.setFinish_lng(list.get(i).getFinish_lng());
 
-                            // 출발지 거리, 도착지 거리
-                            history.setDistance1(list.get(i).getDistance1());
-                            history.setDistance2(list.get(i).getDistance2());
+                        // 출발지 거리, 도착지 거리
+                        dispatch.setStart_distance(list.get(i).getStart_distance());
+                        dispatch.setFinish_distance(list.get(i).getFinish_distance());
 
-                            // 장소명 설정
-                            history.setH_s_place(list.get(i).getH_s_place());
-                            history.setH_f_place(list.get(i).getH_f_place());
+                        // 장소명 설정
+                        dispatch.setStart_place(list.get(i).getStart_place());
+                        dispatch.setFinish_place(list.get(i).getFinish_place());
 
-                            // 현재 인원
-                            history.setTo_people(list.get(i).getTo_people());
+                        // 현재 인원
+                        dispatch.setCur_people(list.get(i).getCur_people());
 
-                            // 최대 인원수 설정
-                            history.setTo_max(list.get(i).getTo_max());
-
-
-                            matchingAdapter.addItem(history);
-                        }
-                        matchingAdapter.notifyDataSetChanged();
+                        matchingAdapter.addItem(dispatch);
                     }
+                    matchingAdapter.notifyDataSetChanged();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<History>> call, Throwable t) {
+            public void onFailure(Call<List<Dispatch>> call, Throwable t) {
                 t.printStackTrace();
             }
         });
+
 
 
         }
