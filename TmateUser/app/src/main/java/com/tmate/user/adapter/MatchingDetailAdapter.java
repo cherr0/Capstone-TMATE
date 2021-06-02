@@ -1,6 +1,8 @@
 package com.tmate.user.adapter;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -10,15 +12,19 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.Fragment.MatchingDetailFragment;
 import com.tmate.user.R;
+import com.tmate.user.data.Attend;
 import com.tmate.user.data.MatchingDetailData;
 import com.tmate.user.data.MatchingMember;
 import com.tmate.user.data.TogetherRequest;
 import com.tmate.user.net.DataService;
+import com.tmate.user.ui.driving.DrivingModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +40,12 @@ public class MatchingDetailAdapter extends RecyclerView.Adapter<MatchingDetailHo
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
     private int prePosition = -1;
 
+    public DrivingModel mViewModel;
+
+    public MatchingDetailAdapter(DrivingModel mViewModel) {
+        this.mViewModel = mViewModel;
+    }
+
 
     @NonNull
     @Override
@@ -41,8 +53,7 @@ public class MatchingDetailAdapter extends RecyclerView.Adapter<MatchingDetailHo
     public MatchingDetailHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //전개자(Inflater)를 통해 얻은 참조 객체를 통해 뷰홀더 객체 생성
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_matching_recycle, parent, false);
-
-        return new MatchingDetailHolder(view);
+        return new MatchingDetailHolder(view,mViewModel);
     }
 
 
@@ -89,11 +100,20 @@ class MatchingDetailHolder extends RecyclerView.ViewHolder {
     ArrayList<MatchingMember> memberArrayList;
     TogetherRequestAdapter requestAdapter;
     MatchingMemberAdapter memberAdapter;
+    TextView mf_dp_id;
     int position;
+    DrivingModel mViewModel;
+
+    // 레트로핏
+    Call<List<Attend>> getApplyerList;
+    Call<List<Attend>> getPassengerList;
+    String dp_id;
+
+
 
     OnViewHolderItemClickListener onViewHolderItemClickListener;
 
-    public MatchingDetailHolder(@NonNull View itemView) {
+    public MatchingDetailHolder(@NonNull View itemView, DrivingModel model) {
         super(itemView);
         situation = itemView.findViewById(R.id.situation);
         id_num = itemView.findViewById(R.id.id_num);
@@ -101,6 +121,9 @@ class MatchingDetailHolder extends RecyclerView.ViewHolder {
         requestRecycle = itemView.findViewById(R.id.together_request_rv);
         item_matching_recycle = itemView.findViewById(R.id.item_matching_recycle);
         item_matching_const = itemView.findViewById(R.id.item_matching_const);
+        mf_dp_id = itemView.findViewById(R.id.mf_dp_id);
+        this.mViewModel = model;
+        dp_id = this.mViewModel.dispatch.getDp_id();
 
         item_matching_recycle.setOnClickListener(v -> {
             onViewHolderItemClickListener.onViewHolderItemClick();
@@ -111,14 +134,11 @@ class MatchingDetailHolder extends RecyclerView.ViewHolder {
     void onBind(MatchingDetailData data, int position, SparseBooleanArray selectedItems) {
         situation.setText(data.getSituation());
         id_num.setText(data.getId_num());
-
         changeVisibility(selectedItems.get(position));
-
         LinearLayoutManager requestLinearLayoutManager = new LinearLayoutManager(itemView.getContext());
         matchingDetailRecycle.setLayoutManager(requestLinearLayoutManager);
 
         if (position == 1) {
-
 
             requestArrayList = new ArrayList<>();
             requestAdapter = new TogetherRequestAdapter();
@@ -160,64 +180,67 @@ class MatchingDetailHolder extends RecyclerView.ViewHolder {
         this.onViewHolderItemClickListener = onViewHolderItemClickListener;
     }
 
+    // 신청자 리스트
     private void getRequestData() {
-        List<String> m_name = Arrays.asList(
-                "박한수",
-                "장원준"
-        );
-//        List<> m_birth = Arrays.asList(
-//                "20대",
-//                "10대"
-//        );
-        List<Integer> m_t_use = Arrays.asList(
-                33,
-                12
-        );
-        for (int i = 0; i < m_name.size(); i++) {
+        getApplyerList = DataService.getInstance().matchAPI.getApplyerList(dp_id);
+        getApplyerList.enqueue(new Callback<List<Attend>>() {
+            @Override
+            public void onResponse(Call<List<Attend>> call, Response<List<Attend>> response) {
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        List<Attend> body = response.body();
+                        for (int i = 0; i < body.size(); i++) {
+                            TogetherRequest data = new TogetherRequest();
+                            data.setM_name(body.get(i).getM_name());
+                            data.setM_t_use(body.get(i).getM_t_use() + body.get(i).getM_n_use());
+                            requestAdapter.addItem(data);
+                        }
+                        requestAdapter.notifyDataSetChanged();
+                    }
+                } else{
+                    requestAdapter.addItem(null);
+                }
+            }
 
-            TogetherRequest togetherRequest = new TogetherRequest();
-            togetherRequest.setM_name(m_name.get(i));
-//            togetherRequest.setM_birth(m_birth.get(i));
-            togetherRequest.setM_t_use(m_t_use.get(i));
+            @Override
+            public void onFailure(Call<List<Attend>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
-            requestAdapter.addItem(togetherRequest);
-        }
-
-        requestAdapter.notifyDataSetChanged();
     }
 
+    // 동승자 리스트
     private void getMemberData() {
-        List<String> m_name = Arrays.asList(
-                "김진수",
-                "장원준",
-                "강병현"
-        );
-        List<String> m_birth = Arrays.asList(
-                "30대",
-                "20대",
-                "20대"
-        );
-        List<String> m_t_use = Arrays.asList(
-                "14",
-                "32",
-                "27"
-        );
 
-        for (int i = 0; i < m_name.size(); i++) {
-            // 각 List의 값들을 data 객체에 set 해줍니다.
-            MatchingMember MatchingMember = new MatchingMember();
-            MatchingMember.setM_name(m_name.get(i));
-            MatchingMember.setM_birth(m_birth.get(i));
-            MatchingMember.setM_t_use(m_t_use.get(i));
+        getPassengerList = DataService.getInstance().matchAPI.getPassengerList(dp_id);
+        getPassengerList.enqueue(new Callback<List<Attend>>() {
+            @Override
+            public void onResponse(Call<List<Attend>> call, Response<List<Attend>> response) {
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        List<Attend> list = response.body();
+                        for (int i = 0; i < list.size(); i++) {
+                            MatchingMember member = new MatchingMember();
+                            member.setM_name(list.get(i).getM_name());
+                            member.setM_birth(null);
+                            member.setM_t_use(list.get(i).getM_t_use() + list.get(i).getM_n_use() + "");
+                            memberAdapter.addItem(member);
+                        }
+                        memberAdapter.notifyDataSetChanged();
+                    } else {
+                        memberAdapter.addItem(null);
+                    }
+                }
+            }
 
-            // 각 값이 들어간 data를 adapter에 추가합니다.
-            memberAdapter.addItem(MatchingMember);
-        }
+            @Override
+            public void onFailure(Call<List<Attend>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
 
-        // adapter의 값이 변경되었다는 것을 알려줍니다.
-        memberAdapter.notifyDataSetChanged();
     }
-
 }
 
 

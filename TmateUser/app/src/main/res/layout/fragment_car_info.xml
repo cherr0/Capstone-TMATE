@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/car_info_merchant_uid"
+            android:id="@+id/car_info_dp_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
