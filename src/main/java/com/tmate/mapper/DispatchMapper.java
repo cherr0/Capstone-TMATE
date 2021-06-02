@@ -38,8 +38,11 @@ public interface DispatchMapper {
     // 이용 서비스 상태 변경 (O)
     int updateNormalMatchStatus(DispatchDTO dispatchDTO);
 
-    // 이용정보 가져오기 (O)
+    // 이용정보 가져오기 (O) -> 방만든 사람이거나 , 일반 호출 경우
     DispatchDTO getCurrentDispatchInfo(String m_id);
+
+    // 동승 호출 시 -> 신청자나 동승자 정보
+    DispatchDTO getCurrentPassengerDispatchInfo(String m_id);
 
     // 이용정보 상세 가져오기 (O)
     DispatchDTO getDetailCurrentDispatchInfo(String dp_id);

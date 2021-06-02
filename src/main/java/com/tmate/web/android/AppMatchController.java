@@ -103,7 +103,7 @@ public class AppMatchController {
 
     // 맘에 드는 리스트가 없을 시 자기가 방을 만든다.
     @PostMapping("/register/together/match")
-    public ResponseEntity<Boolean> registerTogetherMatch(@RequestBody Map<String, Object> hashMap) {
+    public ResponseEntity<String> registerTogetherMatch(@RequestBody Map<String, Object> hashMap) {
         ObjectMapper mapper = new ObjectMapper();
         DispatchDTO dispatchDTO = mapper.convertValue(hashMap.get("dispatch"), new TypeReference<DispatchDTO>() {});
         AttendDTO attendDTO = mapper.convertValue(hashMap.get("attend"), new TypeReference<AttendDTO>() {});

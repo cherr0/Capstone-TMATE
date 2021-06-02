@@ -58,15 +58,23 @@
 
     <!-- 이용 정보 가져오기 (O) -->
     <select id="getCurrentDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
-        SELECT d.dp_id, d.dp_status , d.start_place, d.finish_place, c.car_no, c.car_model, d.ALL_FARE
+        SELECT d.dp_id, d.dp_status , d.start_place, d.finish_place, c.car_no, c.car_model, d.all_fare, a.at_status
         FROM DISPATCH d LEFT OUTER JOIN CAR c ON d.d_id = c.m_id
+        LEFT OUTER JOIN ATTEND a ON d.dp_id = a.dp_id
         WHERE d.m_id = #{m_id} AND dp_status IN('0','1','2','3','4')
+    </select>
+
+    <!-- 동승 신청자인 경우나 동승자일 경우 이용정보 가져오기 -->
+    <select id="getCurrentPassengerDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
+        select d.*, a.*
+        from attend a left outer join dispatch d on a.dp_id = d.dp_id
+        where a.m_id = #{m_id} AND d.dp_status IN ('0','1','2','3','4')
     </select>
 
     <!-- 이용 상세정보 가져오기 (O) -->
     <select id="getDetailCurrentDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
         SELECT di.dp_id, di.d_id, di.dp_status, di.start_place, di.start_lat, di.start_lng, di.finish_place, di.finish_lat, di.finish_lng,
-               di.cur_people, di.ep_time, di.all_fare, m.m_name, m.m_lat, m.m_lng, c.car_no, c.car_model
+               di.cur_people, di.ep_time, di.all_fare, m.m_name ,m.m_lat, m.m_lng, c.car_no, c.car_model
         FROM DISPATCH di LEFT OUTER JOIN CAR c ON di.d_id = c.m_id
         LEFT OUTER JOIN MEMBER m ON di.d_id = m.m_id
         WHERE di.dp_id = #{dp_id}
