@@ -22,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.tmate.user.Activity.CallWaitingActivity;
 import com.tmate.user.R;
 import com.tmate.user.adapter.PaymentAdapter;
+import com.tmate.user.data.CardData;
 import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.SubscriptionRes;
 import com.tmate.user.databinding.FragmentPaymentInformationBinding;
@@ -31,6 +32,7 @@ import com.tmate.user.net.KakaoService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import me.relex.circleindicator.CircleIndicator;
@@ -48,9 +50,12 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     private Integer point;
     private Integer price;
 
+    List<CardData> cardList;
+
 
     Call<Integer> pointRequest;
     Call<String> normalMatchingRequest;
+    Call<List<CardData>> cardListRequest;
 
     @Nullable
     @Override
@@ -88,17 +93,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         b.pointBtnUse.setOnClickListener(this);
     }
 
-    // 이미지 슬라이드 관련
-    private void imgViewPager(View v) {
-        ViewPager viewPager = v.findViewById(R.id.payment_pager);
-        viewPager.setClipToPadding(false);
-        float density = getResources().getDisplayMetrics().density;
-        CircleIndicator indicator = v.findViewById(R.id.indicator);
-        indicator.setViewPager(viewPager);
-        viewPager.setCurrentItem(2);
-        viewPager.setAdapter(new PaymentAdapter(getContext(), imageList));
-    }
-
 
     /* ---------------------------
             카드 선택 관련
@@ -117,10 +111,45 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     //카드 이미지 리스트
     private void cardImgList() {
         imageList = new ArrayList();
-        imageList.add(R.drawable.ic_logo);
-        imageList.add(R.drawable.ic_map);
+
+        cardListRequest = DataService.getInstance().memberAPI.getUserCard(getPreferenceString("m_id"));
+        cardListRequest.enqueue(new Callback<List<CardData>>() {
+            @Override
+            public void onResponse(Call<List<CardData>> call, Response<List<CardData>> response) {
+                if(response.code() == 200 && response.body() != null) {
+                    cardList = response.body();
+
+                    for(CardData data : cardList) {
+                        switch (data.getPay_company()){
+                            
+                        }
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CardData>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+
+        imageList.add(R.drawable.dgbk);
+        imageList.add(R.drawable.defaultbk);
         imageList.add(R.drawable.banner);
         imageList.add(R.drawable.logo);
+    }
+
+    // 이미지 슬라이드 관련
+    private void imgViewPager(View v) {
+        ViewPager viewPager = v.findViewById(R.id.payment_pager);
+        viewPager.setClipToPadding(false);
+        float density = getResources().getDisplayMetrics().density;
+        CircleIndicator indicator = v.findViewById(R.id.indicator);
+        indicator.setViewPager(viewPager);
+        viewPager.setCurrentItem(2);
+        viewPager.setAdapter(new PaymentAdapter(getContext(), imageList));
     }
 
     @Override
