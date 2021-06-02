@@ -40,15 +40,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaymentInformationFragment extends Fragment implements View.OnClickListener {
+public class PaymentInformationFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private FragmentPaymentInformationBinding b;
     private DrivingModel mViewModel;
+    private PaymentAdapter adapter;
 
     private ArrayList<Integer> imageList;
     private Integer unusedPoint;
     private Integer point;
     private Integer price;
+    private int position;
+    private ViewPager.OnPageChangeListener listener;
 
     List<CardData> cardList;
 
@@ -75,12 +78,15 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         selectedCard(); //간편결제를 눌렀을때 카드 선택뷰 보이기
         imgViewPager(view); //이미지 슬라이드 관련
         clickListenerApply(); // 클릭 리스너 연결
+        b.paymentPager.addOnPageChangeListener(listener);
 
         b.paymentInformationHSPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
         b.paymentInformationHFPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
         b.payHAllFare.setText(String.valueOf(price)); // 예상금액
         b.payToPeople.setText(mViewModel.together); // 동승인원
         b.payTotalAmount.setText(String.valueOf(price)); // 총합 지불 금액
+
+        position =  b.paymentPager.getCurrentItem();
 
         Log.d("PayInfoFragment", "사용자 아이디 : " + mViewModel.dispatch.getM_id());
         Log.d("PayInfoFragment", "사용자 미사용 포인트 : " + unusedPoint);
@@ -112,6 +118,9 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     private void cardImgList() {
         imageList = new ArrayList();
 
+        position = b.paymentPager.getCurrentItem();
+
+        Log.d("PaymentFragment", "position : " + position);
         cardListRequest = DataService.getInstance().memberAPI.getUserCard(getPreferenceString("m_id"));
         cardListRequest.enqueue(new Callback<List<CardData>>() {
             @Override
@@ -143,13 +152,12 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
 
     // 이미지 슬라이드 관련
     private void imgViewPager(View v) {
-        ViewPager viewPager = v.findViewById(R.id.payment_pager);
-        viewPager.setClipToPadding(false);
+        b.paymentPager.setClipToPadding(false);
         float density = getResources().getDisplayMetrics().density;
         CircleIndicator indicator = v.findViewById(R.id.indicator);
-        indicator.setViewPager(viewPager);
-        viewPager.setCurrentItem(2);
-        viewPager.setAdapter(new PaymentAdapter(getContext(), imageList));
+        indicator.setViewPager(b.paymentPager);
+        b.paymentPager.setCurrentItem(2);
+        b.paymentPager.setAdapter(new PaymentAdapter(getContext(), imageList));
     }
 
     @Override
@@ -297,5 +305,20 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         super.onDestroy();
         if(pointRequest != null) pointRequest.cancel();
         if (normalMatchingRequest != null) normalMatchingRequest.cancel();
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        Log.d("PaymentFragment", "position" + state);
+
     }
 }
