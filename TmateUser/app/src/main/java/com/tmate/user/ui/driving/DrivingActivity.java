@@ -30,6 +30,8 @@ public class DrivingActivity extends AppCompatActivity {
         String at_status = intent.getStringExtra("at_status");
         String dp_id = intent.getStringExtra("dp_id");
         Log.d("DrivingActivity", "동승 인원 : " + together);
+        Log.d("DrivingActivity","배차 코드 : " + dp_id);
+
         model.dispatch = new Dispatch(); // 객체에 값을 담을 수 있도록 액티비티 생성 시 생성
         model.dp_status = dp_status;
         model.at_status = at_status;
