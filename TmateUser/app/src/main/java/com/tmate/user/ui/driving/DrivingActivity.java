@@ -38,6 +38,7 @@ public class DrivingActivity extends AppCompatActivity {
         model.dispatch.setDp_status(dp_status);
         model.dispatch.setAt_status(at_status);
         model.dispatch.setDp_id(dp_id);
+        model.together = together;
         model.dispatch.setM_id(getPreferenceString("m_id")); // 시작 시 m_id 값 담기
 
     }

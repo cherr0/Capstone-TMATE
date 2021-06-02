@@ -7,7 +7,7 @@
     </select>
 
     <select id="getPaymentByCustomer" resultType="com.tmate.domain.PaymentDTO">
-        select SID, substr(credit_no,61,4) as credit_no, pay_company, credit_vali from payment where SID = #{customer_uid}
+        select SID, substr(credit_no,61,4) as credit_no, pay_company, credit_vali, pay_alias from payment where SID = #{customer_uid}
     </select>
 
     <insert id="insert">
