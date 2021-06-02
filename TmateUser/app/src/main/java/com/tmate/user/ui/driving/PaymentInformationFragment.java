@@ -128,7 +128,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         switch(v.getId()) {
             case R.id.payment_information_finish:   // 결제완료 버튼
                 normalMatching();
-//                kakaoSubscription(b.payTotalAmount.getText().toString());
                 return;
 
             case R.id.point_btn_all :  //모두적용 버튼
@@ -253,6 +252,14 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     public String getPreferenceString(String key) {
         SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
         return pref.getString(key, "");
+    }
+
+    // perf 저장
+    public void setPreference(String key, String value){
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, value);
+        editor.apply();
     }
 
 
