@@ -1,6 +1,5 @@
 package com.tmate.user.Fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -150,10 +148,10 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     //카드 이미지 리스트 //하드코딩
     private void cardImgList() {
         imageList = new ArrayList();
-        imageList.add(R.drawable.kakaobk);
-        imageList.add(R.drawable.scbk);
-        imageList.add(R.drawable.woribk);
-        imageList.add(R.drawable.dgbk);
+        imageList.add(R.drawable.kakao_card);
+        imageList.add(R.drawable.sc_card);
+        imageList.add(R.drawable.woori_card);
+        imageList.add(R.drawable.dgb_card);
 
     }
 
