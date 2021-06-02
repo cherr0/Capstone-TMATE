@@ -40,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaymentInformationFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
+public class PaymentInformationFragment extends Fragment implements View.OnClickListener {
 
     private FragmentPaymentInformationBinding b;
     private DrivingModel mViewModel;
@@ -50,7 +50,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     private Integer unusedPoint;
     private Integer point;
     private Integer price;
-    private int position;
     private ViewPager.OnPageChangeListener listener;
 
     List<CardData> cardList;
@@ -86,10 +85,25 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         b.payToPeople.setText(mViewModel.together); // 동승인원
         b.payTotalAmount.setText(String.valueOf(price)); // 총합 지불 금액
 
-        position =  b.paymentPager.getCurrentItem();
-
         Log.d("PayInfoFragment", "사용자 아이디 : " + mViewModel.dispatch.getM_id());
         Log.d("PayInfoFragment", "사용자 미사용 포인트 : " + unusedPoint);
+
+        b.paymentPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.d("paymentfragment", "position : " + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     // 클릭 리스너 활성화
@@ -98,7 +112,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         b.pointBtnAll.setOnClickListener(this);
         b.pointBtnUse.setOnClickListener(this);
     }
-
 
     /* ---------------------------
             카드 선택 관련
@@ -117,10 +130,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     //카드 이미지 리스트
     private void cardImgList() {
         imageList = new ArrayList();
-
-        position = b.paymentPager.getCurrentItem();
-
-        Log.d("PaymentFragment", "position : " + position);
         cardListRequest = DataService.getInstance().memberAPI.getUserCard(getPreferenceString("m_id"));
         cardListRequest.enqueue(new Callback<List<CardData>>() {
             @Override
@@ -305,20 +314,5 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         super.onDestroy();
         if(pointRequest != null) pointRequest.cancel();
         if (normalMatchingRequest != null) normalMatchingRequest.cancel();
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        Log.d("PaymentFragment", "position" + state);
-
     }
 }
