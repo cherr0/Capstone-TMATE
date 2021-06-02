@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.rd.PageIndicatorView;
@@ -28,6 +31,7 @@ import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.Activity.MatchingMapActivity;
 import com.tmate.user.R;
 import com.tmate.user.adapter.CallAdvertisingAdapter;
+import com.tmate.user.databinding.FragmentCallBinding;
 import com.tmate.user.ui.driving.DrivingActivity;
 
 import java.util.ArrayList;
@@ -39,6 +43,8 @@ public class CallFragment extends Fragment implements View.OnClickListener {
     private View view;
     private String together;
     private Dialog dialog;
+
+    FragmentCallBinding b;
 
     ViewFlipper call_notice_ViewFlipper;
     ImageView call_logo;
@@ -54,7 +60,9 @@ public class CallFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_call, container, false);
+        b = FragmentCallBinding.inflate(getLayoutInflater());
+        view = b.getRoot();
+        clickListener();
 
         //로고 애니메이션
         call_logo = view.findViewById(R.id.call_logo);
@@ -72,6 +80,21 @@ public class CallFragment extends Fragment implements View.OnClickListener {
         PageIndicatorView pageIndicatorView = view.findViewById(R.id.vp_fm_call_indicator);
         pageIndicatorView.setCount(5);
         pageIndicatorView.setSelection(1);
+
+        Button btn_double = dialog.findViewById(R.id.btn_double);
+        btn_double.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(),DrivingActivity.class);
+            intent.putExtra("together","2");
+            startActivity(intent);
+            dialog.dismiss();
+        });
+        Button btn_triple = dialog.findViewById(R.id.btn_triple);
+        btn_triple.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(),DrivingActivity.class);
+            intent.putExtra("together","3");
+            startActivity(intent);
+            dialog.dismiss();
+        });
 
         vp = view.findViewById(R.id.vp_fm_call);
         vp.setAdapter(new CallAdvertisingAdapter(getChildFragmentManager()));
@@ -131,18 +154,6 @@ public class CallFragment extends Fragment implements View.OnClickListener {
             case R.id.together_call:
                 dialog.show();
                 break;
-            case R.id.btn_double:
-                intent = new Intent(getContext(),DrivingActivity.class);
-                intent.putExtra("together","2");
-                startActivity(intent);
-                dialog.dismiss();
-                break;
-            case R.id.btn_triple:
-                intent = new Intent(getContext(),DrivingActivity.class);
-                intent.putExtra("together","3");
-                startActivity(intent);
-                dialog.dismiss();
-                break;
             case R.id.go_point:
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 PointChargeFragment pcf = new PointChargeFragment();
@@ -157,5 +168,12 @@ public class CallFragment extends Fragment implements View.OnClickListener {
                 //startActivity(intent);
         }
 
+    }
+
+    public void clickListener() {
+        b.normalCall.setOnClickListener(this);
+        b.togetherCall.setOnClickListener(this);
+        b.goPoint.setOnClickListener(this);
+        b.callNoticeFirst.setOnClickListener(this);
     }
 }

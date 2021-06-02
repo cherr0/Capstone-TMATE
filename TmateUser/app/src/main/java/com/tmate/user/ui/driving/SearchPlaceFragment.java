@@ -64,6 +64,29 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     public void onStart() {
         super.onStart();
         setGps(); //시작하자마자 자신의 위치가 보이게 한다
+
+        NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        String at_status = mViewModel.dispatch.getAt_status();
+        if(at_status != null) {
+            if (at_status.equals("1")) { // 참여 상태 1(참가) 인 경우 배차 상태대로 이동
+                switch (mViewModel.dispatch.getDp_status()) {
+                    case "0":
+                        controller.navigate(R.id.action_global_matchingDetailFragment);
+                        break;
+                    case "2":
+                        controller.navigate(R.id.action_global_callWaitingFragment);
+                        break;
+                    case "3":
+                        controller.navigate(R.id.action_global_driverWaitingFragment);
+                        break;
+                    case "4":
+                        controller.navigate(R.id.action_global_driverMovingFragment);
+                        break;
+                }
+            } else { // 참여 상태 0,1,2 인 경우 이동
+                controller.navigate(R.id.action_global_matchingFragment);
+            }
+        }
     }
 
     @Override // onViewCreated 가 실행되기 전 레이아웃을 구성하기 위해 실행되는 생명주기 메서드

@@ -40,26 +40,6 @@ public class DrivingActivity extends AppCompatActivity {
         model.dispatch.setDp_id(dp_id);
         model.dispatch.setM_id(getPreferenceString("m_id")); // 시작 시 m_id 값 담기
 
-        NavController controller = Navigation.findNavController(this, R.id.nav_host_fragment);
-        if(at_status.equals("1")) { // 참여 상태 1(참가) 인 경우 배차 상태대로 이동
-            switch(dp_status) {
-                case "0":
-                    controller.navigate(R.id.action_global_matchingDetailFragment);
-                    break;
-                case "2":
-                    controller.navigate(R.id.action_global_callWaitingFragment);
-                    break;
-                case "3":
-                    controller.navigate(R.id.action_global_driverWaitingFragment);
-                    break;
-                case "4" :
-                    controller.navigate(R.id.action_global_driverMovingFragment);
-                    break;
-            }
-        }else { // 참여 상태 0,1,2 인 경우 이동
-            controller.navigate(R.id.action_global_matchingFragment);
-        }
-
     }
 
     public String getPreferenceString(String key) {
