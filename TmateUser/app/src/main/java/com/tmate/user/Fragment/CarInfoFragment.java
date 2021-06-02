@@ -46,6 +46,7 @@ public class CarInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         b = FragmentCarInfoBinding.inflate(getLayoutInflater());
         view = b.getRoot();
+        b.noService.bringToFront();
 
         m_id = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE).getString("m_id", "");
 
@@ -53,64 +54,54 @@ public class CarInfoFragment extends Fragment {
         request.enqueue(new Callback<Dispatch>() {
             @Override
             public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
-                if (response.isSuccessful()) {
-                    if (response.code() == 200) {
-                        Dispatch dispatch = response.body();
+                if (response.code() == 200 && response.body() != null) {
+                    Dispatch dispatch = response.body();
+                    b.noService.setVisibility(View.GONE);
+                    b.detailService.setVisibility(View.VISIBLE);
+                    Log.d("CarInfoFragment", "dispatch : " + dispatch.toString());
 
-                        if (dispatch != null) {
-                            Log.d("CarinfoFragment : ", dispatch.toString());
-                            b.constNoService.setVisibility(View.GONE);
-                            b.carInfoContent.setVisibility(View.VISIBLE);
+                    dp_id = dispatch.getDp_id();
+                    dp_status = dispatch.getDp_status();
+                    at_status = dispatch.getAt_status();
 
-                            dp_id = dispatch.getDp_id();
-                            dp_status = dispatch.getDp_status();
-                            at_status = dispatch.getAt_status();
+                    switch (dp_status) {
+                        case "0":
+                            b.statusBadge.setText("매칭 중");
+                            break;
+                        case "1":
+                            b.statusBadge.setText("매칭 완료");
+                            break;
+                        case "2":
+                            b.statusBadge.setText("호출 중");
+                            break;
+                        case "3":
+                            b.statusBadge.setText("탑승 대기중");
+                            break;
+                        case "4":
+                            b.statusBadge.setText("탑승 중");
+                            break;
+                    }
 
+                    switch (dispatch.getDp_id().substring(18)) {
+                        case "1":
+                            b.htogether.setText("일반");
+                            break;
 
-                            switch (dp_status) {
-                                case "0":
-                                    b.statusBadge.setText("매칭 중");
-                                    break;
-                                case "1":
-                                    b.statusBadge.setText("매칭 완료");
-                                    break;
-                                case "2":
-                                    b.statusBadge.setText("호출 중");
-                                    break;
-                                case "3":
-                                    b.statusBadge.setText("탑승 대기중");
-                                    break;
-                                case "4":
-                                    b.statusBadge.setText("탑승 중");
-                                    break;
-                            }
+                        default:
+                            b.htogether.setText("동승");
+                            break;
+                    }
 
-                            switch (dispatch.getDp_id().substring(18)) {
-                                case "1":
-                                    b.htogether.setText("일반");
-                                    break;
+                    b.hSPlace.setText(dispatch.getStart_place());
+                    b.hFPlace.setText(dispatch.getFinish_place());
 
-                                default:
-                                    b.htogether.setText("동승");
-                                    break;
-                            }
-
-                            b.hSPlace.setText(dispatch.getStart_place());
-                            b.hFPlace.setText(dispatch.getFinish_place());
-
-                            // null 검
-                            if (dispatch.getCar_model() != null && dispatch.getCar_no() != null) {
-                                b.carModel.setText(dispatch.getCar_model());
-                                b.carNo.setText(dispatch.getCar_no());
-                            } else {
-                                b.carModel.setText("택시 호출 후 생성");
-                                b.carNo.setText("택시 호출 후 생성");
-                            }
-                        } else {
-                            Log.d("안넘어 가는건가?", "왜 실행을 안할까?");
-                            b.constNoService.setVisibility(View.VISIBLE);
-                            b.carInfoContent.setVisibility(View.GONE);
-                        }
+                    // null 검출
+                    if (dispatch.getCar_model() != null && dispatch.getCar_no() != null) {
+                        b.carModel.setText(dispatch.getCar_model());
+                        b.carNo.setText(dispatch.getCar_no());
+                    } else {
+                        b.carModel.setText("택시 호출 후 생성");
+                        b.carNo.setText("택시 호출 후 생성");
                     }
                 }
             }
