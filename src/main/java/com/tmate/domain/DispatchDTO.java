@@ -69,6 +69,8 @@ public class DispatchDTO {
     // 멤버 관련
     private String m_name;
 
+    private Timestamp m_birth;
+
     private double m_lat;
 
     private double m_lng;

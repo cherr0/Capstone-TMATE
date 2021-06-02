@@ -42,7 +42,7 @@ public interface AppMatchService {
 
     // 2. 맘에 드는거 없을시에 자기가 만든다.
     // @Transactional -> 배차정보, 참여정보 (O)
-    Boolean registerMatch(DispatchDTO dispatchDTO, AttendDTO attendDTO);
+    String registerMatch(DispatchDTO dispatchDTO, AttendDTO attendDTO);
 
     // 3. 배차 정보 삭제 (O)
     // @Transactional -> 배차정보, 참여정보

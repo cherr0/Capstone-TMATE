@@ -52,7 +52,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchHolder> {
 
             TMapPoint point = new TMapPoint(mViewModel.dispatch.getStart_lat(), mViewModel.dispatch.getStart_lng());
             double distance = data.getDistance(point);
-            mViewModel.dispatch.setDistance(distance); // 예상 거리 설정
+            mViewModel.dispatch.setEp_distance((int) distance); // 예상 거리 설정
             mViewModel.dispatch.setAll_fare(getExpectTaxiFare(distance)); // 요금 설정
 
             finish.setText(data.getPOIName());
@@ -62,7 +62,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchHolder> {
             Log.d("SearchAdapter", "도착지 주소 : " + data.getPOIAddress().replace(" null",""));
             Log.d("SearchAdapter","도착지 이름 : " + data.getPOIName());
             Log.d("SearchAdapter", "도착지 좌표 : " + data.getPOIPoint());
-            Log.d("SearchAdapter", "예상거리 : " + mViewModel.dispatch.getDistance());
+            Log.d("SearchAdapter", "예상거리 : " + mViewModel.dispatch.getEp_distance());
             Log.d("SearchAdapter","예상 요금 : " + mViewModel.dispatch.getAll_fare());
         });
 

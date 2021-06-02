@@ -90,7 +90,7 @@ public interface MatchAPI {
 
     // 맘에 드는 리스트가 없을 시 자기가 방을 만든다.
     @POST("match/register/together/match")
-    Call<Boolean> registerTogetherMatch(@Body Map<String, Object> hashmap);
+    Call<String> registerTogetherMatch(@Body Map<String, Object> hashmap);
 
     // 배차 정보 삭제
     @DELETE("match/remove/together/match/{dp_id}")

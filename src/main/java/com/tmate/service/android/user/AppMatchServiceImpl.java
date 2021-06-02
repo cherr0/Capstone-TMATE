@@ -57,7 +57,12 @@ public class AppMatchServiceImpl implements AppMatchService {
 
     @Override
     public DispatchDTO getCurrentCallInfo(String m_id) {
-        return dispatchMapper.getCurrentDispatchInfo(m_id);
+        DispatchDTO dispatchInfo = dispatchMapper.getCurrentDispatchInfo(m_id);
+        if(dispatchInfo != null)
+            return dispatchInfo;
+        else
+            return dispatchMapper.getCurrentPassengerDispatchInfo(m_id);
+
     }
 
     @Override
@@ -83,15 +88,17 @@ public class AppMatchServiceImpl implements AppMatchService {
 
     @Transactional
     @Override
-    public Boolean registerMatch(DispatchDTO dispatchDTO, AttendDTO attendDTO) {
-
+    public String registerMatch(DispatchDTO dispatchDTO, AttendDTO attendDTO) {
+        String dp_id = "";
         if (dispatchMapper.insertTogetherDispatch(dispatchDTO) == 1) {
             attendDTO.setDp_id(dispatchDTO.getDp_id());
             attendDTO.setM_id(dispatchDTO.getM_id());
+            dispatchMapper.insertTogehterAttend(attendDTO);
+            dp_id = dispatchDTO.getDp_id();
         }
 
 
-        return dispatchMapper.insertTogehterAttend(attendDTO) == 1;
+        return dp_id;
     }
 
     @Transactional

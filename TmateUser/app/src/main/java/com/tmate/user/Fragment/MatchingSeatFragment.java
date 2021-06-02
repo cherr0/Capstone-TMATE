@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,7 +49,7 @@ public class MatchingSeatFragment extends Fragment {
 
     private DrivingModel mViewModel;
 
-    Call<Boolean> request;
+    Call<String> request;
     Call<List<Together>> request2;
     Call<Boolean> request3;
 
@@ -78,7 +80,7 @@ public class MatchingSeatFragment extends Fragment {
         // 새로 추가하기 - 리스트
         if(mViewModel.dispatch.getDp_id() == null) {
             Log.d("만약 널이라면","여기가 찍히겠");
-            bundle = getArguments();
+
 
 
 
@@ -97,25 +99,25 @@ public class MatchingSeatFragment extends Fragment {
 
 
 
-                        request = DataService.getInstance().matchAPI.registerMatchingRegister(hashmap);
+                        request = DataService.getInstance().matchAPI.registerTogetherMatch(hashmap);
 
-                        request.enqueue(new Callback<Boolean>() {
+                        request.enqueue(new Callback<String>() {
                             @Override
-                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            public void onResponse(Call<String> call, Response<String> response) {
                                 if (response.isSuccessful()) {
                                     if (response.code() == 200) {
                                         Log.d("넘어온거 보면 성공했겠죠?", String.valueOf(response.body()));
-                                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                                        CarInfoFragment mf = new CarInfoFragment();
-                                        transaction.replace(R.id.fm_matching_activity, mf);
-                                        transaction.commit();
+                                        String dp_id = response.body();
+                                        mViewModel.dispatch.setDp_id(dp_id);
+                                        NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                                        controller.navigate(R.id.action_matchingSeatFragment_to_matchingDetailFragment);
 
                                     }
                                 }
                             }
 
                             @Override
-                            public void onFailure(Call<Boolean> call, Throwable t) {
+                            public void onFailure(Call<String> call, Throwable t) {
                                 t.printStackTrace();
                             }
                         });
