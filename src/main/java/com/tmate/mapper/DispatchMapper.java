@@ -134,6 +134,9 @@ public interface DispatchMapper {
     // 5. 동승자 신청 거절 수락 (O) (O)
     int rejectApply(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
 
+    // 올라간다.
+    int plusCurPeople(String dp_id);
+
     int agreeApply(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
 
     // 6.동승자 정보 (O) (O)
