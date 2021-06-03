@@ -84,59 +84,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     }
 
-
-//        holder.card_rep.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (holder.card_rep.getText().equals("지정")) {
-//                    Toast.makeText(context.getApplicationContext(), "이미 지정된 카드입니다.", Toast.LENGTH_SHORT).show();
-//                }else{
-//                    final AlertDialog.Builder builder = new AlertDialog.Builder(holder.card_rep.getContext());
-//                    builder.setTitle("메인카드 지정");
-//                    builder.setMessage("대표카드로 지정하시겠습니까?");
-//                    builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-//                        @Override // 대표카드 지정
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            selectCard(holder.sid.getText().toString());
-//                        }
-//                    });
-//                    builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            dialog.cancel();
-//                        }
-//                    });
-//                    builder.show();
-//                }
-//            }
-//        });paymentMapper.updateDRep(c_id);
-//            
-
-    // 대표카드 지정
-//    private void selectCard(String sid) {
-//        selectCardRequest = DataService.getInstance().memberAPI.modifyRep(sid,m_id);
-//        selectCardRequest.enqueue(new Callback<Boolean>() {
-//            @Override
-//            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-//                if (response.code() == 200 && response.body() != null) {
-//                    Toast.makeText(context.getApplicationContext(), "메인카드 지정하셨습니다.", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    try{
-//                        Log.d("cardAdapter", "에러 : " + response);
-//                        assert response.errorBody() != null;
-//                        Log.d("cardAdapter", "데이터 삽입 실패 : " + response.errorBody().string());
-//                    } catch(IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onFailure(Call<Boolean> call, Throwable t) {
-//                t.printStackTrace();
-//            }
-//        });
-//    }
-
     private void inactiveCard(String sid, int position) {
         Map<String, String> map = new HashMap<>();
         map.put("cid", "TCSUBSCRIP");
@@ -188,6 +135,8 @@ class CardHolder extends RecyclerView.ViewHolder {
     TextView card_no;
     TextView card_rno;
     TextView sid;
+    TextView card_rep;
+
     //TextView card_rep;
     Switch active;
 
@@ -197,27 +146,19 @@ class CardHolder extends RecyclerView.ViewHolder {
                 bank_mark.setImageResource(R.drawable.kb);
                 break;
             case "농협":
-                bank_mark.setImageResource(R.drawable.nh);
+                bank_mark.setImageResource(R.drawable.nh_card);
                 break;
             case "신한":
                 bank_mark.setImageResource(R.drawable.sinhan);
                 break;
             case "우리":
-                bank_mark.setImageResource(R.drawable.woori);
+                bank_mark.setImageResource(R.drawable.woori_card);
                 break;
         }
         bank_name.setText(data.getPay_company());
         card_no.setText("**** **** **** ");
         card_rno.setText(data.getCredit_no());
         sid.setText(data.getSid());
-//        switch (data.getPay_rep()) {
-//            case "0":
-//                card_rep.setText("미지정");
-//                break;
-//            case "1":
-//                card_rep.setText("지정");
-//                break;
-//        }
         switch (data.getActive()) {
             case "0":
                 active.setChecked(false);
@@ -226,6 +167,7 @@ class CardHolder extends RecyclerView.ViewHolder {
                 active.setChecked(true);
                 break;
         }
+        if(data.getPay_alias() != null) card_rep.setText(data.getPay_alias());
 
     }
 
@@ -236,7 +178,7 @@ class CardHolder extends RecyclerView.ViewHolder {
         card_no = (TextView) itemView.findViewById(R.id.card_no);
         card_rno = (TextView) itemView.findViewById(R.id.card_rno);
         sid = (TextView) itemView.findViewById(R.id.sid);
-        //card_rep = (TextView) itemView.findViewById(R.id.card_rep);
+        card_rep = (TextView) itemView.findViewById(R.id.card_rep);
         active = (Switch) itemView.findViewById(R.id.active);
     }
 

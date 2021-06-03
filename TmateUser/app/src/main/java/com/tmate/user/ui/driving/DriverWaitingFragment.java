@@ -5,6 +5,7 @@ import static com.skt.Tmap.util.HttpConnect.getContentFromNode;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
@@ -255,15 +256,18 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
         map.put("cid","TCSUBSCRIP");
         // 결제 수단
-        map.put("sid", dispatch.getSid());
+//        map.put("sid", getPreferenceString("sid")); // 이후 결제 정보 값 받아올 수 있으면 적용
+        map.put("sid","S2903531010731483902");
         // 기사 코드
         map.put("partner_order_id", dispatch.getD_id());
         // 돈내는 사람
-        map.put("partner_user_id", dispatch.getM_id());
+        map.put("partner_user_id", getPreferenceString("m_id"));
         map.put("item_name","택시 기본 요금 선결제");
         map.put("quantity","1");
         // 조건문 처리 -> 동승 1/n , 일반은 그대로
-        map.put("total_amount",String.valueOf(dispatch.getAmount()));
+        int payment= 3300 / Integer.parseInt(together);
+        mViewModel.payCash = payment;
+        map.put("total_amount",String.valueOf(payment));
         map.put("vat_amount","0");
         map.put("tax_free_amount","0");
 
@@ -276,6 +280,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                 if(response.code() == 200 && response.body() != null) {
                     SubscriptionRes result = response.body();
                     Log.d("payInfoFragemnt", "받아오는 값 :" + result);
+                    mViewModel.use_cash = payment;
 
                 }else {
                     try {
@@ -313,7 +318,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         }else {
             b.meetTime.setText(mViewModel.dispatch.getMeet_time().toString());
         }
-
     }
 
     // 클릭 리스너 관리
@@ -322,6 +326,11 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
             Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"+driverPhoneNo));
             startActivity(mIntent.addFlags(FLAG_ACTIVITY_NEW_TASK));
         });
+    }
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 
     // 택시 기사 위치 실시간으로 가져오는 내부 쓰레드 클래스
@@ -347,7 +356,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
                         switch (dispatch.getDp_status()) {
                             case "3": // 탑승 대기 중
-                                tMapPointEnd = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
+                                tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
                                 b.dpStatus.setText("탑승 대기중");
                                 drawCarPath();
                                 isRunning = true;
@@ -355,10 +364,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                             case "4": // 탑승 완료
                                 isRunning = false;
                                 // 탑승완료 될 경우 다음 레이아웃으로 이동
-                                /*
-                                   가져온 결제 정보대로 결제 진행 후 DB 등록
-                                 */
-//                                kakaoSubscription(mViewModel.dispatch);
+                                kakaoSubscription(mViewModel.dispatch);
                                 NavController controller = Navigation.findNavController(activity, R.id.nav_host_fragment);
                                 controller.navigate(R.id.action_driverWaitingFragment_to_driverMovingFragment);
                                 break;

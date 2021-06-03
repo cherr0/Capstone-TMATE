@@ -51,7 +51,7 @@ public class PaymentAdapter extends PagerAdapter {
         imageView.setImageResource(imageList.get(position));
 
         //카드 별칭
-        TextView textView = view.findViewById(R.id.payment_pay_alias);
+//        TextView textView = view.findViewById(R.id.payment_pay_alias);
 //        textView.setText(cardData.getPay_alias());
 
         container.addView(view);

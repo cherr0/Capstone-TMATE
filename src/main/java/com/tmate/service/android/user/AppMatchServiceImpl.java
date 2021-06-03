@@ -2,6 +2,8 @@ package com.tmate.service.android.user;
 
 import com.tmate.domain.AttendDTO;
 import com.tmate.domain.DispatchDTO;
+import com.tmate.domain.MemberDTO;
+import com.tmate.domain.ReviewVO;
 import com.tmate.mapper.DispatchMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -141,5 +143,10 @@ public class AppMatchServiceImpl implements AppMatchService {
     @Override
     public List<AttendDTO> alreadyChoiceSeatNO(String dp_id) {
         return dispatchMapper.getJoinSeat(dp_id);
+    }
+
+    @Override
+    public Boolean attendReviewUpdate(ReviewVO reviewVO) {
+        return dispatchMapper.reviewUpdate(reviewVO) == 1;
     }
 }

@@ -267,4 +267,14 @@
         where dp_id = #{dp_id} and at_status = '1'
     </select>
 
+    <!--  운행 완료 시 리뷰 업데이트  -->
+    <update id="reviewUpdate">
+        update attend
+        set re_one = #{re_one, jdbcType=VARCHAR},
+            re_two = #{re_two, jdbcType=VARCHAR},
+            re_three = #{re_three, jdbcType=VARCHAR},
+            re_driver = #{re_driver, jdbcType=VARCHAR},
+            re_driver_reason = #{re_driver_reason, jdbcType=VARCHAR}
+        where dp_id = #{dp_id} and m_id = #{m_id}
+    </update>
 </mapper>
