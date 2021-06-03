@@ -19,8 +19,8 @@ body {
 }
 
 .content-section {
-  padding-top: 7.5rem;
-  padding-bottom: 7.5rem;
+  padding-top: 8.5rem;
+  padding-bottom: 5.5rem;
 }
 
 .content-section-heading h2 {
@@ -28,7 +28,7 @@ body {
 }
 
 .content-section-heading h3 {
-  font-size: 1rem;
+  font-size: 2rem;
   text-transform: uppercase;
 }
 .content-section-heading S1 {
@@ -121,7 +121,8 @@ button {
     height: 100vh;
   }
   .masthead h1 {
-    font-size: 3rem;
+    font-size: 6rem;
+    color: #ffffff;
   }
 }
 
@@ -414,7 +415,7 @@ a:hover, a:focus, a:active {
 }
 
 .index-img .carousel-caption {
-  margin-bottom: 3em;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
@@ -440,7 +441,8 @@ a:hover, a:focus, a:active {
 
 .nav-login {
   display: block;
-  padding: 0px 0.5rem;
+  padding: 0px -0.5rem;
+  color: #FFFFFF;
 }
 
 
@@ -475,4 +477,75 @@ a:hover, a:focus, a:active {
 }
 .box-center {
   justify-content: center;
+}
+
+.p1 {
+  font-size: 20px;
+  font-weight: 0;
+  line-height: 8.5px;
+  color: #000000;
+  text-align: left;
+}
+.p2 {
+  font-size: 35px;
+  font-weight: bold;
+  line-height: 0px;
+  color: #000000;
+  text-align: left;
+
+}
+
+.btn_mimg {
+  width: 130px;
+  height: 90px;
+  margin-left: 30px;
+}
+
+@font-face {
+  font-family: 'KOTRA_BOLD-Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.1/KOTRA_BOLD-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font {
+  font-family: 'KOTRA_BOLD-Bold';
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'S-CoreDream-5Medium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-center {
+  font-family: 'S-CoreDream-5Medium';
+}
+
+@font-face {
+  font-family: 'S-CoreDream-8Heavy';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-8Heavy.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-bar {
+  font-family: 'S-CoreDream-8Heavy';
+}
+
+.T {
+  color: #007cff;
+}
+.T2 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+.text-stroke {
+  -webkit-text-stroke: 0.2px #868686;
+}
+
+.text-shadow {
+  text-shadow: -1px -1px 0px #e7e7e7, 2px 2px 0px #e7e7e7, 4px 4px 4px #b6b6b6;
 }
