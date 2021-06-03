@@ -3,6 +3,7 @@ package com.tmate.service.android.user;
 import com.tmate.domain.AttendDTO;
 import com.tmate.domain.DispatchDTO;
 import com.tmate.domain.MemberDTO;
+import com.tmate.domain.ReviewVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,4 +68,6 @@ public interface AppMatchService {
     // 8. 이미 참가된 승객들의 좌석 보여주기
     List<AttendDTO> alreadyChoiceSeatNO(String dp_id);
 
+    // 운행 완료 시 리뷰 업데이트
+    Boolean attendReviewUpdate(ReviewVO reviewVO);
 }

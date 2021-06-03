@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmate.domain.AttendDTO;
 import com.tmate.domain.DispatchDTO;
 import com.tmate.domain.MemberDTO;
+import com.tmate.domain.ReviewVO;
 import com.tmate.service.android.user.AppMatchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -174,6 +175,10 @@ public class AppMatchController {
         return new ResponseEntity<>(appMatchService.alreadyChoiceSeatNO(dp_id), HttpStatus.OK);
     }
 
-
-
+    // 운행 완료 후 리뷰 데이터 삽입
+    @PutMapping("/finish/review")
+    public ResponseEntity<Boolean> updateReview(@RequestBody ReviewVO reviewVO) {
+        log.info("사용자 리뷰 목록 업데이트 : " + reviewVO);
+        return  new ResponseEntity<>(appMatchService.attendReviewUpdate(reviewVO),HttpStatus.OK);
+    }
 }
