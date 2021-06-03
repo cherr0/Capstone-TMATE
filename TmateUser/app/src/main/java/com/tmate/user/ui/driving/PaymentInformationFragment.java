@@ -134,11 +134,8 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
             }
         });
 
-
-        imageList.add(R.drawable.dgbk);
-        imageList.add(R.drawable.defaultbk);
-        imageList.add(R.drawable.banner);
-        imageList.add(R.drawable.logo);
+        imageList.add(R.drawable.kakao_card);
+        imageList.add(R.drawable.sh_card);
     }
 
     // 이미지 슬라이드 관련
