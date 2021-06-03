@@ -18,6 +18,7 @@ import com.tmate.user.R;
 import com.tmate.user.databinding.FragmentDriverFinishingBinding;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class DriverFinishingFragment extends Fragment {
 
@@ -57,8 +58,8 @@ public class DriverFinishingFragment extends Fragment {
 
         b.matchingFinishHSPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
         b.matchingFinishHFPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
-        b.matchingFinishHSTime.setText(String.format(mViewModel.dispatch.getStart_time().toString(), "hh:mi:ss")); // 출발 시간
-        b.matchingFinishHETime.setText(String.format(mViewModel.dispatch.getEnd_time().toString(),"hh:mi:ss")); // 도착 시간
+        b.matchingFinishHSTime.setText(new SimpleDateFormat("HH:mm:ss").format(mViewModel.dispatch.getStart_time())); // 출발 시간
+        b.matchingFinishHETime.setText(new SimpleDateFormat("HH:mm:ss").format(mViewModel.dispatch.getEnd_time())); // 도착 시간
         b.matchingFinishHEpDistance.setText(String.valueOf(mViewModel.dispatch.getEp_distance())); // 이동 거리
         b.finishHAllFare.setText(String.valueOf(mViewModel.dispatch.getAll_fare())); // 총합 택시 비용
         b.finishUsePoint.setText(String.valueOf(mViewModel.dispatch.getUse_point())); // 사용 포인트
