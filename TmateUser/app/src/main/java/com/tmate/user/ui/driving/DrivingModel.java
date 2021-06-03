@@ -26,6 +26,5 @@ public class DrivingModel extends ViewModel {
     public Dispatch dispatch;
 
     public int payFlag;  // 1: 성공, 2: 오류, 3: 취소
-    public String dp_status; // 배차 상태
-    public String at_status; // 참여 상태
+    public int payCash; // 지불 금액
 }
