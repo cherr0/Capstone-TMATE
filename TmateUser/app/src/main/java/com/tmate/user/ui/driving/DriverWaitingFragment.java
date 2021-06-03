@@ -256,15 +256,18 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
         map.put("cid","TCSUBSCRIP");
         // 결제 수단
-        map.put("sid", getPreferenceString("sid"));
+//        map.put("sid", getPreferenceString("sid")); // 이후 결제 정보 값 받아올 수 있으면 적용
+        map.put("sid","S2903531010731483902");
         // 기사 코드
         map.put("partner_order_id", dispatch.getD_id());
         // 돈내는 사람
-        map.put("partner_user_id", dispatch.getM_id());
+        map.put("partner_user_id", getPreferenceString("m_id"));
         map.put("item_name","택시 기본 요금 선결제");
         map.put("quantity","1");
         // 조건문 처리 -> 동승 1/n , 일반은 그대로
-        map.put("total_amount",String.valueOf( 3300 / Integer.parseInt(together)));
+        int payment= 3300 / Integer.parseInt(together);
+        mViewModel.payCash = payment;
+        map.put("total_amount",String.valueOf(payment));
         map.put("vat_amount","0");
         map.put("tax_free_amount","0");
 
@@ -277,6 +280,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                 if(response.code() == 200 && response.body() != null) {
                     SubscriptionRes result = response.body();
                     Log.d("payInfoFragemnt", "받아오는 값 :" + result);
+                    mViewModel.use_cash = payment;
 
                 }else {
                     try {
@@ -352,7 +356,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
                         switch (dispatch.getDp_status()) {
                             case "3": // 탑승 대기 중
-                                tMapPointEnd = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
+                                tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
                                 b.dpStatus.setText("탑승 대기중");
                                 drawCarPath();
                                 isRunning = true;
