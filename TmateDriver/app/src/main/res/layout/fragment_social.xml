@@ -79,7 +79,6 @@
             android:enabled="false"
             android:text="로그인"
             android:textColor="@color/black"
-            android:enabled="false"
             android:fontFamily="@font/font_sub_title"
             app:layout_constraintEnd_toEndOf="@+id/et_password"
             app:layout_constraintHorizontal_bias="0.0"

@@ -17,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,16 +49,15 @@ public class MatchingDetailFragment extends Fragment {
     private Button btn_match;
     private FragmentMatchingDetailBinding b;
     private Dialog dialog;
-    private Bundle bundle;
+    
     private String m_id;
-    private String list_m_id;
-    private String merchant_uid;
-    private String id_num;
+    SharedPreferences pref; 
+    
     private MatchingDetailAdapter adapter;
     private MatchingDetailData matchingDetailData;
     private ArrayList<MatchingDetailData> arrayList;
 
-
+    
 
     Call<Dispatch> getMasterDispatchDetailInfo;
     String dp_id;
@@ -72,6 +73,9 @@ public class MatchingDetailFragment extends Fragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_together_info);
 
+        pref = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
+        m_id = pref.getString("m_id", "");
+
         RecyclerView recyclerView = view.findViewById(R.id.matching_recycle);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -84,11 +88,22 @@ public class MatchingDetailFragment extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        widgetInfoInitialize();
-
-        getData();
+            widgetInfoInitialize();
 
 
+
+
+        // 여기서 버튼 이벤트 추가 : 호출하기 (결제화면으로 넘어가기), 동승하기(의자화면으로 넘어가기)
+        NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        b.btnMatch.setOnClickListener(v -> {
+            if (b.btnMatch.getText().toString().equals("호출하기")) {
+                // 호출하기로 넘어가쥬
+                controller.navigate(R.id.action_matchingDetailFragment_to_paymentInformationFragment);
+            }else{
+                // 넘어가쥬
+                controller.navigate(R.id.action_global_matchingSeatFragment);
+            }
+        });
 
         return view;
     }
@@ -112,8 +127,8 @@ public class MatchingDetailFragment extends Fragment {
 
     // 이용 상세정보
     public void widgetInfoInitialize() {
+
         dp_id = mViewModel.dispatch.getDp_id();
-        Log.d("MatchingDetailFragment", dp_id);
 
         getMasterDispatchDetailInfo = DataService.getInstance().matchAPI.readCurrentDispatch(dp_id);
         getMasterDispatchDetailInfo.enqueue(new Callback<Dispatch>() {
@@ -121,6 +136,10 @@ public class MatchingDetailFragment extends Fragment {
             public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
                 if (response.code() == 200) {
                     Dispatch dispatch = response.body();
+                    String user = dispatch.getM_id();
+                    Log.d("MatchingDetail : ", m_id + ":" + user);
+                    b.fmdCurPeople.setText(String.valueOf(dispatch.getCur_people()));
+                    b.fmdMaxPeople.setText(dispatch.getDp_id().substring(18));
                     b.mfDpId.setText(dispatch.getDp_id());
                     b.cgStartPlace.setText(dispatch.getStart_place());
                     b.cgEndPlace.setText(dispatch.getFinish_place());
@@ -128,6 +147,13 @@ public class MatchingDetailFragment extends Fragment {
                     b.hEpDistance.setText((float)(mViewModel.dispatch.getEp_distance())/1000+"");
                     b.tvMName.setText(dispatch.getM_name());
                     b.mBirth.setText(String.valueOf(dispatch.getM_birth()));
+
+                    if (user.equals(m_id)) {
+                        b.btnMatch.setText("호출하기");
+                        getData();
+                    }else{
+                        b.btnMatch.setText("동승하기");
+                    }
                 }
             }
 
@@ -158,4 +184,6 @@ public class MatchingDetailFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
     }
+
+
 }

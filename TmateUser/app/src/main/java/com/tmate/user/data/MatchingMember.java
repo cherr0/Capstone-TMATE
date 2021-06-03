@@ -1,6 +1,7 @@
 package com.tmate.user.data;
 
 public class MatchingMember {
+    String dp_id;
     String m_id;
     String m_name;
     String m_birth;
@@ -8,6 +9,14 @@ public class MatchingMember {
     String like;
     String dislike;
     String m_count;
+
+    public String getDp_id() {
+        return dp_id;
+    }
+
+    public void setDp_id(String dp_id) {
+        this.dp_id = dp_id;
+    }
 
     public String getM_id() {
         return m_id;

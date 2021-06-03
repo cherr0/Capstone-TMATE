@@ -103,8 +103,9 @@ public class MatchingFragment extends Fragment {
 
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.refresh_layout);
 
-        matchingAdapter = new MatchingAdapter(arrayList);
+        matchingAdapter = new MatchingAdapter(arrayList,requireActivity(),mViewModel);
         recyclerView.setAdapter(matchingAdapter);
+
         getMatchingList();
 
 
@@ -146,6 +147,7 @@ public class MatchingFragment extends Fragment {
                     for (int i = 0; i < list.size(); i++) {
                         Dispatch dispatch = new Dispatch();
 
+
                         // 매칭방 코드
                         dispatch.setDp_id(list.get(i).getDp_id());
 
@@ -157,9 +159,6 @@ public class MatchingFragment extends Fragment {
                         dispatch.setFinish_lat(list.get(i).getFinish_lat());
                         dispatch.setFinish_lng(list.get(i).getFinish_lng());
 
-                        // 출발지 거리, 도착지 거리
-                        dispatch.setStart_distance(list.get(i).getStart_distance());
-                        dispatch.setFinish_distance(list.get(i).getFinish_distance());
 
                         // 장소명 설정
                         dispatch.setStart_place(list.get(i).getStart_place());

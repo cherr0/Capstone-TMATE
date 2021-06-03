@@ -50,7 +50,7 @@ public class MatchingSeatFragment extends Fragment {
     private DrivingModel mViewModel;
 
     Call<String> request;
-    Call<List<Together>> request2;
+    Call<List<Attend>> request2;
     Call<Boolean> request3;
 
     Bundle bundle;
@@ -130,21 +130,18 @@ public class MatchingSeatFragment extends Fragment {
         }
         // 기존의 방에서 좌석 선택
         else{
-            Log.d("만약 널이아니라면","여기가 찍히겠");
 
-            merchant_uid = getArguments().getString("merchant_uid");
-            list_m_id = getArguments().getString("list_m_id");
 
-            request2 = DataService.getInstance().matchAPI.getCurrentSeatNums(merchant_uid);
+            request2 = DataService.getInstance().matchAPI.getChoiceSeatNo(mViewModel.dispatch.getDp_id());
 
-            request2.enqueue(new Callback<List<Together>>() {
+            request2.enqueue(new Callback<List<Attend>>() {
                 @Override
-                public void onResponse(Call<List<Together>> call, Response<List<Together>> response) {
-                    List<Together> list = response.body();
+                public void onResponse(Call<List<Attend>> call, Response<List<Attend>> response) {
+                    List<Attend> list = response.body();
 
                     if (list != null) {
                         for (int i = 0; i < list.size(); i++) {
-                            switch (list.get(i).getTo_seat()) {
+                            switch (list.get(i).getSeat()) {
                                 case 1:
                                     b.seatOne.setChecked(true);
                                     b.seatOne.setOnClickListener(new View.OnClickListener() {
@@ -178,18 +175,18 @@ public class MatchingSeatFragment extends Fragment {
 
                     seatClickEvent();
 
-                    Approval approval = new Approval();
 
-                    approval.setId(getActivity().getSharedPreferences("loginUser",Context.MODE_PRIVATE).getString("m_id",""));
-                    approval.setName(getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE).getString("m_name", ""));
-                    approval.setTo_seat(to_seat);
-                    approval.setM_id(list_m_id);
-                    approval.setMerchant_uid(merchant_uid);
+
+                    Attend attend = new Attend();
+                    attend.setM_id(getActivity().getSharedPreferences("loginUser",Context.MODE_PRIVATE).getString("m_id",""));
+                    attend.setDp_id(mViewModel.dispatch.getDp_id());
+                    attend.setSeat(to_seat);
+
 
                     b.btnSeat.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            request3 = DataService.getInstance().matchAPI.registerApply(approval);
+                            request3 = DataService.getInstance().matchAPI.registerApplyMatch(attend);
                             request3.enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -199,7 +196,7 @@ public class MatchingSeatFragment extends Fragment {
 
                                 @Override
                                 public void onFailure(Call<Boolean> call, Throwable t) {
-
+                                    t.printStackTrace();
                                 }
                             });
                         }
@@ -209,7 +206,7 @@ public class MatchingSeatFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<List<Together>> call, Throwable t) {
+                public void onFailure(Call<List<Attend>> call, Throwable t) {
 
                 }
             });
