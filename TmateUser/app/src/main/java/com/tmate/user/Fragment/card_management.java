@@ -35,7 +35,8 @@ import retrofit2.Response;
 
 public class card_management  extends Fragment {
     SwipeRefreshLayout refCard;
-    Button button, btn_card_tooltip;
+    Button button ;
+    ImageView btn_card_tooltip;
     LinearLayout nocard;
     ArrayList<String> list;
     RecyclerView recyclerView;
@@ -101,10 +102,10 @@ public class card_management  extends Fragment {
         btn_card_tooltip = view.findViewById(R.id.btn_card_tooltip);
         btn_card_tooltip.setOnClickListener(v -> {
             if (click == false) {
-                tv_toolTip.setVisibility(View.GONE);
+                tv_toolTip.setVisibility(View.VISIBLE);
                 click = true;
             } else {
-                tv_toolTip.setVisibility(View.VISIBLE);
+                tv_toolTip.setVisibility(View.GONE);
                 click = false;
             }
         });
