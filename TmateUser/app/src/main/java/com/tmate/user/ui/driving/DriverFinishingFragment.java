@@ -9,12 +9,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmate.user.R;
 import com.tmate.user.databinding.FragmentDriverFinishingBinding;
+
+import java.sql.Timestamp;
 
 public class DriverFinishingFragment extends Fragment {
 
@@ -50,15 +53,18 @@ public class DriverFinishingFragment extends Fragment {
                 break;
         }
 
+        Log.d("DriverFinishingFragment","dispatch 넘어가는 데이터 : " + mViewModel.dispatch);
+
         b.matchingFinishHSPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
         b.matchingFinishHFPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
-        b.matchingFinishHSTime.setText(mViewModel.dispatch.getStart_time().toString()); // 출발 시간
-        b.matchingFinishHETime.setText(mViewModel.dispatch.getEnd_time().toString()); // 도착 시간
-        b.matchingFinishHEpDistance.setText(String.valueOf(mViewModel.dispatch.getDistance() / 1000)); // 이동 거리
-        b.finishHAllFare.setText(mViewModel.dispatch.getAll_fare()); // 총합 택시 비용
-        b.finishUsePoint.setText(mViewModel.dispatch.getUse_point()); // 사용 포인트
+        b.matchingFinishHSTime.setText(String.format(mViewModel.dispatch.getStart_time().toString(), "hh:mi:ss")); // 출발 시간
+        b.matchingFinishHETime.setText(String.format(mViewModel.dispatch.getEnd_time().toString(),"hh:mi:ss")); // 도착 시간
+        b.matchingFinishHEpDistance.setText(String.valueOf(mViewModel.dispatch.getEp_distance())); // 이동 거리
+        b.finishHAllFare.setText(String.valueOf(mViewModel.dispatch.getAll_fare())); // 총합 택시 비용
+        b.finishUsePoint.setText(String.valueOf(mViewModel.dispatch.getUse_point())); // 사용 포인트
         b.togetherCount.setText(mViewModel.together); // 동승 인원
-        b.totalAmount.setText(mViewModel.dispatch.getAmount()); // 최종 결제 금액
+        int totalAmount = mViewModel.dispatch.getAll_fare() - mViewModel.dispatch.getUse_point();
+        b.totalAmount.setText(String.valueOf(totalAmount)); // 최종 결제 금액
 
         b.matchingFinishSubmit.setOnClickListener(v -> { // 확인 완료 버튼
             NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
