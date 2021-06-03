@@ -191,6 +191,8 @@ class MatchingDetailHolder extends RecyclerView.ViewHolder {
                         List<Attend> body = response.body();
                         for (int i = 0; i < body.size(); i++) {
                             TogetherRequest data = new TogetherRequest();
+                            data.setDp_id(body.get(i).getDp_id());
+                            data.setM_id(body.get(i).getM_id());
                             data.setM_name(body.get(i).getM_name());
                             data.setM_t_use(body.get(i).getM_t_use() + body.get(i).getM_n_use());
                             requestAdapter.addItem(data);
@@ -222,6 +224,8 @@ class MatchingDetailHolder extends RecyclerView.ViewHolder {
                         List<Attend> list = response.body();
                         for (int i = 0; i < list.size(); i++) {
                             MatchingMember member = new MatchingMember();
+                            member.setDp_id(list.get(i).getDp_id());
+                            member.setM_id(list.get(i).getM_id());
                             member.setM_name(list.get(i).getM_name());
                             member.setM_birth(null);
                             member.setM_t_use(list.get(i).getM_t_use() + list.get(i).getM_n_use() + "");

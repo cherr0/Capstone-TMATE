@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TogetherRequest {
 
-    String merchant_uid;
-    String id;
+
+    String m_id;
     String m_name;
     Timestamp m_birth;
     String distance;
@@ -21,6 +21,7 @@ public class TogetherRequest {
     String like;
     String dislike;
     int m_count;
+    String dp_id;
 
 
 }

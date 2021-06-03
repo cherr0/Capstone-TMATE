@@ -118,8 +118,10 @@ public class AppMatchServiceImpl implements AppMatchService {
         return dispatchMapper.insertAttendApply(attendDTO) == 1;
     }
 
+    @Transactional
     @Override
     public Boolean modifyAggreeMatching(String dp_id, String m_id) {
+        dispatchMapper.plusCurPeople(dp_id);
         return dispatchMapper.agreeApply(dp_id, m_id) == 1;
     }
 

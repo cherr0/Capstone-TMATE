@@ -31,6 +31,10 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
     Context context;
     SharedPreferences pref;
     String m_id;
+    String m_id2;
+    String dp_id;
+
+    Call<Boolean> agreeApply;
 
     @NonNull
     @Override
@@ -97,21 +101,19 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
                 builder.setPositiveButton("예",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Approval approval = new Approval();
-                                approval.setMerchant_uid(holder.tr_merchant_uid.getText().toString());
-                                approval.setId(holder.m_id.getText().toString());
-                                Log.d("뭐가 찍힐까", holder.m_id.getText().toString());
-                                approval.setM_id(m_id);
-                                Log.d("뭐가 찍힐까 : m_id", m_id);
-                                approval.setTo_seat(2);
 
-                                DataService.getInstance().matchAPI.registerTogether(approval).enqueue(new Callback<Boolean>() {
+                                m_id2 = holder.m_id.getText().toString();
+                                dp_id = holder.tr_merchant_uid.getText().toString();
+
+                                agreeApply = DataService.getInstance().matchAPI.agreeApplyMatch(dp_id, m_id2);
+                                agreeApply.enqueue(new Callback<Boolean>() {
                                     @Override
                                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                                        Toast.makeText(context, "추가 완료", Toast.LENGTH_SHORT).show();
-                                        items.remove(position);
-                                        notifyItemRemoved(position);
-                                        notifyItemChanged(position, items.size());
+                                        if (response.code() == 200) {
+                                            items.remove(position);
+                                            notifyItemRemoved(position);
+                                            notifyItemChanged(position, items.size());
+                                        }
                                     }
 
                                     @Override
@@ -119,6 +121,7 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
                                         t.printStackTrace();
                                     }
                                 });
+
 
                             }
                         });
@@ -155,11 +158,11 @@ class TogetherRequestHolder extends RecyclerView.ViewHolder {
     TextView tr_merchant_uid;
 
     public void onBind(TogetherRequest data) {
-        m_id.setText(data.getId());
+        m_id.setText(data.getM_id());
         m_name.setText(data.getM_name());
         m_birth.setText("20대");
         m_t_use.setText(data.getM_t_use() + data.getM_n_use()+"");
-        tr_merchant_uid.setText(data.getMerchant_uid());
+        tr_merchant_uid.setText(data.getDp_id());
     }
 
     public TogetherRequestHolder(@NonNull View itemView) {

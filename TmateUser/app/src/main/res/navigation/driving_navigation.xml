@@ -94,5 +94,5 @@
         <action
             android:id="@+id/action_matchingSeatFragment_to_matchingDetailFragment"
             app:destination="@id/matchingDetailFragment" />
-    </fragment><action android:id="@+id/action_global_searchPlace" app:destination="@id/searchPlace"/>
+    </fragment><action android:id="@+id/action_global_searchPlace" app:destination="@id/searchPlace"/><action android:id="@+id/action_global_matchingSeatFragment" app:destination="@id/matchingSeatFragment"/>
 </navigation>

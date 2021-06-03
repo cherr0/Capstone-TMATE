@@ -27,6 +27,9 @@ public class SplashActivity extends AnimatedSplash {
 
         imei = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
+//        setPreference("m_id", "m1010540892990");
+//        setPreference("m_name", "박한수");
+
         //Customize Circular Reveal
         configSplash.setBackgroundColor(R.color.white); //any color you want form colors.xml
         configSplash.setAnimCircularRevealDuration(2000); //int ms
