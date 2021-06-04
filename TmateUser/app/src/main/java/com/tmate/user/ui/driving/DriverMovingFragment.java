@@ -281,6 +281,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         super.onDestroy();
         if(getDriverRequest != null) getDriverRequest.cancel();
         if(subscriptionRequest != null) subscriptionRequest.cancel();
+        if(isRunning) isRunning = false;
     }
 
     // 택시 기사 위치 실시간으로 가져오는 내부 쓰레드 클래스
@@ -295,13 +296,15 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
                         Dispatch dispatch = response.body();
                         mViewModel.dispatch = dispatch;
                         Log.d("넘어오는 기사 정보", dispatch.toString());
-                        Snackbar.make(mMapView, "계속하여 기사 위치를 가져옵니다.", Snackbar.LENGTH_SHORT).show();
                         tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
 
                         switch (dispatch.getDp_status()) {
                             case "4": // 운행 중
-                                tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
-                                drawCarPath();
+                                if(tMapPointEnd.getLongitude() != dispatch.getFinish_lng() && tMapPointEnd.getLatitude() != dispatch.getFinish_lat()){
+                                    tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
+                                    drawCarPath();
+                                    Log.d("DirverMovingFragment","경로 그리는 중");
+                                }
                                 isRunning = true;
                                 break;
                             case "5":

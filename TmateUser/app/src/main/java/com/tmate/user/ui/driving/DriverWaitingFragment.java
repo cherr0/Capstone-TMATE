@@ -269,7 +269,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                     SubscriptionRes result = response.body();
                     Log.d("payInfoFragemnt", "받아오는 값 :" + result);
                     mViewModel.use_cash = payment;
-
                 }else {
                     try {
                         Log.d("payInfoFragemnt", "에러 : " + response);
@@ -344,11 +343,13 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
                         switch (dispatch.getDp_status()) {
                             case "3" : // 탑승 대기 중
-                                tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
-                                b.dpStatus.setText("탑승 대기중");
-                                drawCarPath();
+                                if(tMapPointEnd.getLongitude() != dispatch.getFinish_lng() && tMapPointEnd.getLatitude() != dispatch.getFinish_lat()) {
+                                    tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
+                                    drawCarPath();
+                                    Log.d("DriverWaitingFragment", "맵 그리는 중");
+                                    b.dpStatus.setText("탑승 대기중");
+                                }
                                 isRunning = true;
-                                Log.d("DriverWaitingFragment", "맵 그리는 중");
                                 break;
                             case "4": // 탑승 완료
                                 isRunning = false;
@@ -377,5 +378,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         if(curDispatchRequest != null) curDispatchRequest.cancel();
         if(getDriverRequest != null) getDriverRequest.cancel();
         if(subscriptionRequest != null) subscriptionRequest.cancel();
+        if(isRunning) isRunning = false;
     }
 }
