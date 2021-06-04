@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="분 초"
+                android:text="2분"
                 android:textColor="#F44336"
                 app:layout_constraintStart_toEndOf="@+id/textView13"
                 app:layout_constraintTop_toTopOf="@+id/textView13" />
@@ -231,17 +231,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="35분"
+                android:text="35"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/meet_time" />
+
+            <TextView
+                android:id="@+id/ep_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="분"
+                app:layout_constraintStart_toEndOf="@+id/info_ep_time"
+                app:layout_constraintTop_toTopOf="@+id/info_ep_time"
+                app:layout_constraintBottom_toBottomOf="@+id/info_ep_time"/>
+
 
             <TextView
                 android:id="@+id/amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="10,000원"
+                android:text="0원"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/info_ep_time" />
