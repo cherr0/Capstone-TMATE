@@ -46,7 +46,6 @@ public class AppMatchController {
     @GetMapping("/get/driver/{dp_id}")
     public ResponseEntity<String> getDriver(@PathVariable("dp_id") String dp_id) {
 
-        log.info("기사찾는 중 이용코드 : " + dp_id);
         String d_id = appMatchService.getD_idDuringCall(dp_id);
 
         return new ResponseEntity<>(d_id, HttpStatus.OK);
@@ -79,7 +78,6 @@ public class AppMatchController {
     // 기사위치 가져온다. --> 쓰레드
     @GetMapping("/get/driver/position/{dp_id}")
     public ResponseEntity<DispatchDTO> getDriverPosition(@PathVariable("dp_id") String dp_id) {
-        log.info("기사의 위치를 가져옵니다." + dp_id);
         return new ResponseEntity<>(appMatchService.getCurrentDriverLocation(dp_id), HttpStatus.OK);
     }
 
