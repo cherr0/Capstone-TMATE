@@ -28,6 +28,7 @@ public class PaymentAdapter extends  RecyclerView.Adapter<PaymentHolder> {
     private Context context;
     ArrayList<CardData> items = new ArrayList<>();
 
+
     public PaymentAdapter(ArrayList<CardData> cardArrayList) {
 
     }

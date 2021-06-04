@@ -1,5 +1,6 @@
 package com.tmate.user.adapter;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.IntDef;
@@ -41,6 +42,7 @@ public class SnapPagerScrollListener extends RecyclerView.OnScrollListener {
     @Override
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
+
         if ((type == ON_SCROLL) || !hasItemPosition()) {
             notifyListenerIfNeeded(getSnapPosition(recyclerView));
         }
@@ -51,6 +53,7 @@ public class SnapPagerScrollListener extends RecyclerView.OnScrollListener {
         super.onScrollStateChanged(recyclerView, newState);
         if (type == ON_SETTLED && newState == RecyclerView.SCROLL_STATE_IDLE) {
             notifyListenerIfNeeded(getSnapPosition(recyclerView));
+            Log.d("SnapPagerScrollListener", "newState : " + newState);
         }
     }
 
