@@ -1,33 +1,34 @@
 package com.tmate.user.adapter;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.internal.GmsClientEventManager;
 import com.tmate.user.R;
-import com.tmate.user.data.ReviewData;
+import com.tmate.user.data.Attend;
+import com.tmate.user.data.ReviewVO;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeoutException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewHolder>{
-    ArrayList<ReviewData> items = new ArrayList<>();
-    Dialog dialog;
+    ArrayList<Attend> items = new ArrayList<>();
+
+    ReviewVO reviewVO;
+
+
+    public ReviewAdapter(ReviewVO reviewVO) {
+        this.reviewVO = reviewVO;
+    }
 
     @NonNull
     @Override
@@ -42,27 +43,66 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ReviewHolder holder, int position) {
         holder.onBind(items.get(position));
+        Log.d("ReviewAdapter","position 값 : " + position);
 
-        holder.member_like.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                holder.member_dislike.setChecked(false); //싫어요 off
-                if(isChecked) {
-                    holder.member_like.setChecked(true);
-                } else if(!isChecked){
-                    holder.member_like.setChecked(false);
-
+        holder.member_like.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            holder.member_dislike.setChecked(false); //싫어요 off
+            if(isChecked) {
+                holder.member_like.setChecked(true);
+                switch (position) {
+                    case 1:
+                        reviewVO.setRe_one("0");
+                        break;
+                    case 2:
+                        reviewVO.setRe_two("0");
+                        break;
+                    case 3:
+                        reviewVO.setRe_three("0");
+                        break;
                 }
+            } else {
+                holder.member_like.setChecked(false);
+                switch (position) {
+                    case 1:
+                        reviewVO.setRe_one("");
+                        break;
+                    case 2:
+                        reviewVO.setRe_two("");
+                        break;
+                    case 3:
+                        reviewVO.setRe_three("");
+                        break;
+                }
+
             }
         });
-        holder.member_dislike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                holder.member_like.setChecked(false); //좋아요 off
-                if(isChecked) {
-                    holder.member_dislike.setChecked(true);
-                } else if (!isChecked){
-                    holder.member_dislike.setChecked(false);
+        holder.member_dislike.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            holder.member_like.setChecked(false); //좋아요 off
+            if(isChecked) {
+                holder.member_dislike.setChecked(true);
+                switch (position) {
+                    case 1:
+                        reviewVO.setRe_one("0");
+                        break;
+                    case 2:
+                        reviewVO.setRe_two("0");
+                        break;
+                    case 3:
+                        reviewVO.setRe_three("0");
+                        break;
+                }
+            } else {
+                holder.member_dislike.setChecked(false);
+                switch (position) {
+                    case 1:
+                        reviewVO.setRe_one("");
+                        break;
+                    case 2:
+                        reviewVO.setRe_two("");
+                        break;
+                    case 3:
+                        reviewVO.setRe_three("");
+                        break;
                 }
             }
         });
@@ -74,7 +114,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewHolder>{
     public int getItemCount() {
         return items.size();
     }
-    public void addItem(ReviewData data) {
+    public void addItem(Attend data) {
         // 외부에서 item을 추가시킬 함수입니다.
         items.add(data);
     }
@@ -98,10 +138,20 @@ class ReviewHolder extends RecyclerView.ViewHolder {
         member_dislike = itemView.findViewById(R.id.member_dislike);
         r_to_seat = itemView.findViewById(R.id.r_to_seat);
     }
-    void onBind(ReviewData data) {
-        mi_m_name.setText(data.getName());
-        r_to_seat.setText(data.getR_to_seat());
-        review_picture.setImageResource(data.getReview_picture());
+    void onBind(Attend data) {
+        mi_m_name.setText(data.getM_name());
+        int seat = data.getSeat();
+        switch (seat) {
+            case 1:
+                r_to_seat.setText("(보조석)");
+                break;
+            case 2:
+                r_to_seat.setText("(왼쪽 뒷자석)");
+                break;
+            case 3:
+                r_to_seat.setText("(오른쪽 뒷자석)");
+                break;
+        }
     }
 
 }

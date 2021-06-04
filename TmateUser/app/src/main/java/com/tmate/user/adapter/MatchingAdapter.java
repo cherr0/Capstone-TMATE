@@ -1,5 +1,6 @@
 package com.tmate.user.adapter;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.Activity.MatchingDetailActivity;
@@ -16,17 +19,20 @@ import com.tmate.user.R;
 import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.History;
 import com.tmate.user.net.DataService;
+import com.tmate.user.ui.driving.DrivingModel;
 
 import java.util.ArrayList;
 
 public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
 
-    private ArrayList<Dispatch> items = new ArrayList<>();
+    ArrayList<Dispatch> items;
+    Activity activity;
+    DrivingModel mViewModel;
 
-    DataService dataService = DataService.getInstance();
-
-    public MatchingAdapter(ArrayList<Dispatch> items) {
+    public MatchingAdapter(ArrayList<Dispatch> items, Activity activity, DrivingModel mViewModel) {
         this.items = items;
+        this.activity = activity;
+        this.mViewModel = mViewModel;
     }
 
     @NonNull
@@ -34,8 +40,7 @@ public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
     public MatchingHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_matching,parent,false);
-        MatchingHolder holder = new MatchingHolder(view);
-        return holder;
+        return new MatchingHolder(view);
     }
 
     @Override
@@ -43,7 +48,9 @@ public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
 
         try {
             holder.onBind(items.get(position));
+
         } catch (Exception e) {
+            e.printStackTrace();
             Log.e("아무것도 안옴", e.toString());
         }
 
@@ -51,12 +58,9 @@ public class MatchingAdapter extends RecyclerView.Adapter<MatchingHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(v.getContext(), MatchingDetailActivity.class);
-                intent.putExtra("merchant_uid",items.get(position).getDp_id());
-                intent.putExtra("m_id", items.get(position).getM_id());
-
-                v.getContext().startActivity(intent);
+                mViewModel.dispatch.setDp_id(holder.tv_merchant_uid.getText().toString());
+                NavController controller = Navigation.findNavController(activity, R.id.nav_host_fragment);
+                controller.navigate(R.id.action_global_matchingDetailFragment);
             }
         });
     }
@@ -115,28 +119,10 @@ class MatchingHolder extends RecyclerView.ViewHolder {
     }
 
     void onBind(Dispatch data) {
-        // 회원 코드, 이름
-        tv_m_id.setText(data.getM_id());
 
         // 매칭 방 코드
         tv_merchant_uid.setText(data.getDp_id());
 
-        // 내가 설정한 출발지와의 거리
-        double distanceStart = data.getStart_distance() *1000;
-        double distanceFinish = data.getFinish_distance() *1000;
-
-        if (distanceStart < 1000) {
-            distance1.setText((int)distanceStart+"m");
-        }else{
-            distance1.setText((int)distanceStart/1000.0 + "km");
-        }
-        // 내가 설정한 목적지와의 거리
-
-        if (distanceFinish < 1000) {
-            distance2.setText((int)distanceFinish+"m");
-        }else{
-            distance2.setText((int)distanceFinish/1000.0 + "km");
-        }
 
         // 회원 이거는 머고
         matching_item_cur_people.setText("모집인원("+data.getCur_people()+"/"+data.getDp_id().substring(18)+")");

@@ -34,11 +34,12 @@ public class CarInfoFragment extends Fragment {
     private FragmentCarInfoBinding b;
     private View view;
 
-    // 레트로핏 연
+    // 레트로핏 연동
     String dp_status;
     String at_status;
     String m_id;
     String dp_id;
+    String together;
     Call<Dispatch> request;
 
     @Nullable
@@ -82,7 +83,8 @@ public class CarInfoFragment extends Fragment {
                             break;
                     }
 
-                    switch (dispatch.getDp_id().substring(18)) {
+                    together = dispatch.getDp_id().substring(18);
+                    switch (together) {
                         case "1":
                             b.htogether.setText("일반");
                             break;
@@ -100,8 +102,8 @@ public class CarInfoFragment extends Fragment {
                         b.carModel.setText(dispatch.getCar_model());
                         b.carNo.setText(dispatch.getCar_no());
                     } else {
-                        b.carModel.setText("택시 호출 후 생성");
-                        b.carNo.setText("택시 호출 후 생성");
+                        b.carModel.setText("택시 호출 후");
+                        b.carNo.setText("생성");
                     }
                 }
             }
@@ -116,6 +118,7 @@ public class CarInfoFragment extends Fragment {
             // 세부 정보로 넘어가야 한다.
             Intent intent = new Intent(getContext(), DrivingActivity.class);
             intent.putExtra("dp_id",dp_id);
+            intent.putExtra("together", together);
             intent.putExtra("dp_status", dp_status);
             intent.putExtra("at_status", at_status);
             startActivity(intent);

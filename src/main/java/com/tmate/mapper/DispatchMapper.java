@@ -134,6 +134,9 @@ public interface DispatchMapper {
     // 5. 동승자 신청 거절 수락 (O) (O)
     int rejectApply(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
 
+    // 올라간다.
+    int plusCurPeople(String dp_id);
+
     int agreeApply(@Param("dp_id") String dp_id, @Param("m_id") String m_id);
 
     // 6.동승자 정보 (O) (O)
@@ -141,6 +144,9 @@ public interface DispatchMapper {
 
     // 7. 이미 참가된 승객들의 좌석 보여주기 (O) (O)
     List<AttendDTO> getJoinSeat(String dp_id);
+
+    // 운행 완료 시 리뷰 데이터 업데이트
+    int reviewUpdate(ReviewVO reviewVO);
 
 
     /*

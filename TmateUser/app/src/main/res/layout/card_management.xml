@@ -41,14 +41,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageView
             android:id="@+id/btn_card_tooltip"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/radius_button"
-            android:fontFamily="@font/ibmplexsanskr_medium"
-            android:text="선결제 안내"
+            android:src="@drawable/ic_info"
             app:layout_constraintBottom_toBottomOf="@+id/tv_card_management_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_card_management_title" />
@@ -59,7 +57,9 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/ref_card"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/const_card_management">
@@ -91,11 +91,11 @@
         android:id="@+id/tv_toolTip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/message"
         android:gravity="center"
         android:text="호출 시, 등록된 카드의 결제 가능 여부를\n확인하기 위해 운행요금을 먼저 결제합니다.\n하차 시, 결제 금액으로 은행요금이 자동결제 되며, \n선결제 금액은 자동 취소됩니다."
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/const_card_management" />
 

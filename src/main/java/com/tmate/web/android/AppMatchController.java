@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmate.domain.AttendDTO;
 import com.tmate.domain.DispatchDTO;
 import com.tmate.domain.MemberDTO;
+import com.tmate.domain.ReviewVO;
 import com.tmate.service.android.user.AppMatchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -45,7 +46,6 @@ public class AppMatchController {
     @GetMapping("/get/driver/{dp_id}")
     public ResponseEntity<String> getDriver(@PathVariable("dp_id") String dp_id) {
 
-        log.info("기사찾는 중 이용코드 : " + dp_id);
         String d_id = appMatchService.getD_idDuringCall(dp_id);
 
         return new ResponseEntity<>(d_id, HttpStatus.OK);
@@ -78,7 +78,6 @@ public class AppMatchController {
     // 기사위치 가져온다. --> 쓰레드
     @GetMapping("/get/driver/position/{dp_id}")
     public ResponseEntity<DispatchDTO> getDriverPosition(@PathVariable("dp_id") String dp_id) {
-        log.info("기사의 위치를 가져옵니다." + dp_id);
         return new ResponseEntity<>(appMatchService.getCurrentDriverLocation(dp_id), HttpStatus.OK);
     }
 
@@ -174,6 +173,10 @@ public class AppMatchController {
         return new ResponseEntity<>(appMatchService.alreadyChoiceSeatNO(dp_id), HttpStatus.OK);
     }
 
-
-
+    // 운행 완료 후 리뷰 데이터 삽입
+    @PutMapping("/finish/review")
+    public ResponseEntity<Boolean> updateReview(@RequestBody ReviewVO reviewVO) {
+        log.info("사용자 리뷰 목록 업데이트 : " + reviewVO);
+        return  new ResponseEntity<>(appMatchService.attendReviewUpdate(reviewVO),HttpStatus.OK);
+    }
 }

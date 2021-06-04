@@ -6,6 +6,7 @@ import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.History;
 import com.tmate.user.data.JoinHistoryVO;
 import com.tmate.user.data.Member;
+import com.tmate.user.data.ReviewVO;
 import com.tmate.user.data.Together;
 import com.tmate.user.data.TogetherRequest;
 
@@ -126,5 +127,8 @@ public interface MatchAPI {
     @GET("match/get/choice/seat/{dp_id}")
     Call<List<Attend>> getChoiceSeatNo(@Path("dp_id") String dp_id);
 
+    // 리뷰 데이터 업데이트
+    @PUT("match/finish/review")
+    Call<Boolean> updateReview(@Body ReviewVO reviewVO);
 
 }

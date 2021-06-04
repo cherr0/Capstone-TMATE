@@ -96,14 +96,12 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mapSetting(); // 지도 옵션 셋팅 및 활성화
         clickListenerApply();
 
         // 인텐트 dp_id 값 받아보고 없다면 이전 단계 거쳐서 온 것이기에 mViewModel 값 사용
         dp_id = mViewModel.dispatch.getDp_id();
         Log.d("DriverWaitingFragment","dp_id : " + dp_id);
         dispatchRequest(dp_id);
-        modelDataBinding();
 
         // 쓰레드 상태
         handler = new Handler();
@@ -173,10 +171,9 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                 NodeList list = doc.getElementsByTagName("Document");
                 Element item2 = (Element) list.item(0);
                 totalDistance = getContentFromNode(item2, "tmap:totalDistance"); //총 거리설정
-                Log.d("총 거리 : ", totalDistance);
+                Log.d("DriverMovingFragment", "총 거리 : " + totalDistance);
                 totalTime = getContentFromNode(item2, "tmap:totalTime"); //총 시간 설정
-                Log.d("총 시간 : ", totalTime);
-
+                Log.d("DriverMovingFragment", "총 시간 : " + totalTime);
                 NodeList list2 = doc.getElementsByTagName("LineString");
 
                 for (int i = 0; i < list2.getLength(); i++) {
@@ -185,6 +182,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                     if (str == null) {
                         continue;
                     }
+
                     String[] str2 = str.split(" ");
                     for (int k = 0; k < str2.length; k++) {
                         try {
@@ -195,32 +193,21 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                             e.printStackTrace();
                         }
                     }
-
-                    int totalSec = Integer.parseInt(totalTime);
-                    int day = totalSec / (60 * 60 * 24);
-                    int hour = (totalSec - day * 60 * 60 * 24) / (60 * 60);
-                    int minute = (totalSec - day * 60 * 60 * 24 - hour * 3600) / 60;
-
-                    String time;
-                    if (hour > 0) {
-                        time = hour + "시간 " + minute + "분";
-                        b.arriveTime.setText(time);
-                    } else {
-                        time = minute + "분 ";
-                        b.arriveTime.setText(time);
-                    }
-                    double km = Double.parseDouble(totalDistance) / 1000; // 거리 (km기준)
-                        /*
-                            거리도 필요할 시 나중에 로직 추가
-                         */
-                    Toast.makeText(getActivity(), "스레드 실행 중", Toast.LENGTH_SHORT).show();
                 }
                 //줌 설정
                 TMapInfo info = mMapView.getDisplayTMapInfo(polyline.getLinePoint());
+                int zoom = info.getTMapZoomLevel();
+                if (Integer.parseInt(totalDistance) > 1500) {
+                    zoom = 14;
+                }else if (Integer.parseInt(totalDistance) > 1000) {
+                    zoom = 16;
+                }
+                
                 mMapView.addTMapPath(polyline);
-                mMapView.setZoomLevel(16);
+                mMapView.setZoomLevel(zoom);
                 mMapView.setCenterPoint(info.getTMapPoint().getLongitude(), info.getTMapPoint().getLatitude());
             }
+            b.infoEpTime.setText(String.valueOf(totalTime));
         });
     }
 
@@ -233,14 +220,15 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
             @Override
             public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
                 if(response.code() == 200 && response.body() != null) {
-                    mViewModel.dispatch = response.body();
-                    Log.d("DriverWaitingFragment","가져온 배차 정보 : " + mViewModel.dispatch.toString());
-                    mViewModel.together = mViewModel.dispatch.getDp_id().substring(18);
+                    Dispatch dispatch = response.body();
+                    mViewModel.dispatch = dispatch;
+                    Log.d("DriverWaitingFragment","가져온 배차 정보 : " + dispatch.toString());
                     String d_id = mViewModel.dispatch.getD_id();
                     driverPhoneNo = d_id.substring(2, 5) + "-" + d_id.substring(5,9) + "-" + d_id.substring(9,13);
-                    together = mViewModel.dispatch.getDp_id().substring(18);
-                    tMapPointStart = new TMapPoint(mViewModel.dispatch.getStart_lat(),mViewModel.dispatch.getStart_lng());
-                    tMapPointEnd = new TMapPoint(mViewModel.dispatch.getFinish_lat(), mViewModel.dispatch.getFinish_lng());
+                    tMapPointStart = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
+                    tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
+                    modelDataBinding();
+                    mapSetting(); // 지도 옵션 셋팅 및 활성화
                 }
             }
             @Override
@@ -256,15 +244,18 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
         map.put("cid","TCSUBSCRIP");
         // 결제 수단
-        map.put("sid", getPreferenceString("sid"));
+//        map.put("sid", getPreferenceString("sid")); // 이후 결제 정보 값 받아올 수 있으면 적용
+        map.put("sid","S2903531010731483902");
         // 기사 코드
         map.put("partner_order_id", dispatch.getD_id());
         // 돈내는 사람
-        map.put("partner_user_id", dispatch.getM_id());
+        map.put("partner_user_id", getPreferenceString("m_id"));
         map.put("item_name","택시 기본 요금 선결제");
         map.put("quantity","1");
         // 조건문 처리 -> 동승 1/n , 일반은 그대로
-        map.put("total_amount",String.valueOf( 3300 / Integer.parseInt(together)));
+        int payment= 3300 / Integer.parseInt(together);
+        mViewModel.payCash = payment;
+        map.put("total_amount",String.valueOf(payment));
         map.put("vat_amount","0");
         map.put("tax_free_amount","0");
 
@@ -277,7 +268,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                 if(response.code() == 200 && response.body() != null) {
                     SubscriptionRes result = response.body();
                     Log.d("payInfoFragemnt", "받아오는 값 :" + result);
-
+                    mViewModel.use_cash = payment;
                 }else {
                     try {
                         Log.d("payInfoFragemnt", "에러 : " + response);
@@ -305,8 +296,10 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         b.infoStartPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
         b.infoFinishPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
 
-        // 탑승인원
-        b.infoTogether.setText(mViewModel.together);
+        b.infoTogether.setText(mViewModel.together); // 현재 인원
+        b.maxPeople.setText(mViewModel.dispatch.getDp_id().substring(18)); // 최대 인원
+        b.amount.setText(mViewModel.dispatch.getAll_fare() / Integer.parseInt(mViewModel.together) + "원");
+
 
         // 만나는 시간
         if(mViewModel.together.equals("1")) {
@@ -346,15 +339,16 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                 public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
                     if (response.code() == 200 && response.body() != null) {
                         Dispatch dispatch = response.body();
-                        Log.d("DriverWaitingFragment", "넘어오는 기사 위치 정보" + dispatch.toString());
-                        Snackbar.make(mMapView, "계속하여 기사 위치를 가져옵니다.", Snackbar.LENGTH_SHORT).show();
-                        tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
+                        Log.d("DriverWaitingFragment", "넘어오는 기사 위치 정보 : " + dispatch.toString());
 
                         switch (dispatch.getDp_status()) {
-                            case "3": // 탑승 대기 중
-                                tMapPointEnd = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
-                                b.dpStatus.setText("탑승 대기중");
-                                drawCarPath();
+                            case "3" : // 탑승 대기 중
+                                if(tMapPointEnd.getLongitude() != dispatch.getFinish_lng() && tMapPointEnd.getLatitude() != dispatch.getFinish_lat()) {
+                                    tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
+                                    drawCarPath();
+                                    Log.d("DriverWaitingFragment", "맵 그리는 중");
+                                    b.dpStatus.setText("탑승 대기중");
+                                }
                                 isRunning = true;
                                 break;
                             case "4": // 탑승 완료
@@ -384,5 +378,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         if(curDispatchRequest != null) curDispatchRequest.cancel();
         if(getDriverRequest != null) getDriverRequest.cancel();
         if(subscriptionRequest != null) subscriptionRequest.cancel();
+        if(isRunning) isRunning = false;
     }
 }

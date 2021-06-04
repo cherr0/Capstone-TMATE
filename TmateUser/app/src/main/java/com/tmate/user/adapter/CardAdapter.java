@@ -146,13 +146,13 @@ class CardHolder extends RecyclerView.ViewHolder {
                 bank_mark.setImageResource(R.drawable.kb);
                 break;
             case "농협":
-                bank_mark.setImageResource(R.drawable.nh);
+                bank_mark.setImageResource(R.drawable.nh_card);
                 break;
             case "신한":
                 bank_mark.setImageResource(R.drawable.sinhan);
                 break;
             case "우리":
-                bank_mark.setImageResource(R.drawable.woori);
+                bank_mark.setImageResource(R.drawable.woori_card);
                 break;
         }
         bank_name.setText(data.getPay_company());

@@ -230,12 +230,14 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         Map<String,String> map = new HashMap<>();
 
         map.put("cid","TCSUBSCRIP");
-        map.put("sid", getPreferenceString("sid"));
+//        map.put("sid", getPreferenceString("sid"));
+        map.put("sid","S2903531010731483902");
         map.put("partner_order_id", dispatch.getD_id());
-        map.put("partner_user_id", dispatch.getM_id());
+        map.put("partner_user_id", getPreferenceString("m_id"));
         map.put("item_name","택시 운임 결제");
         map.put("quantity","1");
-        map.put("total_amount",String.valueOf(dispatch.getAmount()));
+        int amount = (dispatch.getAll_fare() / Integer.parseInt(mViewModel.together)) - dispatch.getUse_point() - mViewModel.payCash;
+        map.put("total_amount",String.valueOf(amount));
         map.put("vat_amount","0");
         map.put("tax_free_amount","0");
 
@@ -245,12 +247,13 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         subscriptionRequest.enqueue(new Callback<SubscriptionRes>() {
             @Override
             public void onResponse(Call<SubscriptionRes> call, Response<SubscriptionRes> response) {
+                mViewModel.payFlag = 1;
                 if(response.code() == 200 && response.body() != null) {
                     SubscriptionRes result = response.body();
                     Log.d("payInfoFragemnt", "받아오는 값 :" + result);
-
                 }else {
                     try {
+                        mViewModel.payFlag = 2;
                         Log.d("payInfoFragemnt", "에러 : " + response);
                         assert response.errorBody() != null;
                         Log.d("payInfoFragemnt", "데이터 삽입 실패 : " + response.errorBody().string());
@@ -262,6 +265,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
 
             @Override
             public void onFailure(Call<SubscriptionRes> call, Throwable t) {
+                mViewModel.payFlag = 3;
                 t.printStackTrace();
             }
         });
@@ -277,6 +281,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         super.onDestroy();
         if(getDriverRequest != null) getDriverRequest.cancel();
         if(subscriptionRequest != null) subscriptionRequest.cancel();
+        if(isRunning) isRunning = false;
     }
 
     // 택시 기사 위치 실시간으로 가져오는 내부 쓰레드 클래스
@@ -289,20 +294,23 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
                 public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
                     if (response.code() == 200 && response.body() != null) {
                         Dispatch dispatch = response.body();
+                        mViewModel.dispatch = dispatch;
                         Log.d("넘어오는 기사 정보", dispatch.toString());
-                        Snackbar.make(mMapView, "계속하여 기사 위치를 가져옵니다.", Snackbar.LENGTH_SHORT).show();
                         tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
 
                         switch (dispatch.getDp_status()) {
                             case "4": // 운행 중
-                                tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
-                                drawCarPath();
+                                if(tMapPointEnd.getLongitude() != dispatch.getFinish_lng() && tMapPointEnd.getLatitude() != dispatch.getFinish_lat()){
+                                    tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
+                                    drawCarPath();
+                                    Log.d("DirverMovingFragment","경로 그리는 중");
+                                }
                                 isRunning = true;
                                 break;
                             case "5":
                                 isRunning = false;
                                 // 탑승완료 될 경우 다음 레이아웃으로 이동
-                                kakaoSubscription(mViewModel.dispatch);
+                                kakaoSubscription(dispatch);
                                 NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                                 controller.navigate(R.id.action_driverMovingFragment_to_driverFinishingFragment);
                                 break;

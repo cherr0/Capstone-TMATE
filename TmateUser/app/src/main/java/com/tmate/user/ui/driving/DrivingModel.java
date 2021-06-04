@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DrivingModel extends ViewModel {
-    public static final String mApiKey = "l7xx4fac78a5b9bf445db00bb99ae2708cee";
+    public static final String mApiKey = "l7xx71323be26ff04765a4ecec767ed725db";
     public static final String auth = "KakaoAK e24eec29f82748733f7a2be2de93c236";
 
     public String together; //동승 설정
@@ -25,7 +25,6 @@ public class DrivingModel extends ViewModel {
     //DB에 들어갈 거리와 시간에 대한 변수들
     public Dispatch dispatch;
 
-    public int payFlag;  // 1: 성공, 2: 오류, 3: 취소
-    public String dp_status; // 배차 상태
-    public String at_status; // 참여 상태
+    public int payFlag = 1;  // 1: 성공, 2: 오류, 3: 취소
+    public int payCash; // 지불 금액
 }
