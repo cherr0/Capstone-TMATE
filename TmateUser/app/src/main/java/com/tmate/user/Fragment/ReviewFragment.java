@@ -28,6 +28,7 @@ import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.R;
 import com.tmate.user.adapter.ReviewAdapter;
 import com.tmate.user.data.Attend;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.ReviewData;
 import com.tmate.user.data.ReviewVO;
 import com.tmate.user.databinding.FragmentReviewBinding;
@@ -67,7 +68,8 @@ public class ReviewFragment extends Fragment {
         reviewVO.setDp_id(mViewModel.dispatch.getDp_id());
         reviewVO.setM_id(getPreferenceString("m_id"));
 
-        getData();
+        if(!mViewModel.together.equals("1"))
+            getTogetherList();
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         b.reReTogether.setLayoutManager(manager); // LayoutManager 등록
@@ -136,17 +138,14 @@ public class ReviewFragment extends Fragment {
         return view;
     }
 
-    private void getData() {
+    private void getTogetherList() {
         listRequest = DataService.getInstance().matchAPI.getPassengerList(mViewModel.dispatch.getDp_id());
         listRequest.enqueue(new Callback<List<Attend>>() {
             @Override
             public void onResponse(Call<List<Attend>> call, Response<List<Attend>> response) {
                 if(response.code() == 200 && response.body() != null) {
                     for(Attend data : response.body()) {
-                        String name = getPreferenceString("m_name");
-                        if(!data.getM_name().equals(name)) {
-                            adapter.addItem(data);
-                        }
+                        adapter.addItem(data);
                     }
                     adapter.notifyDataSetChanged();
                 }
