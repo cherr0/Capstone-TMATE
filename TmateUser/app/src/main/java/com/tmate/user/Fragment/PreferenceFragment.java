@@ -61,9 +61,7 @@ public class PreferenceFragment extends Fragment {
             public void onResponse(Call<Dv_option> call, Response<Dv_option> response) {
                 if (response.code() == 200) {
                     Dv_option dvOption = response.body();
-
-                    Log.d("dvOption", dvOption.toString());
-
+                    Log.d("PreferenceFragment", "dvOption : " + dvOption);
 
                     switch (dvOption.getDo_hurry()) {
                         case "0":
@@ -183,7 +181,6 @@ public class PreferenceFragment extends Fragment {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             if (response.code() == 200) {
-                                Log.d("과연 성공할까요?", "성공했나요?");
                                 Toast.makeText(getActivity(), "변경 완료", Toast.LENGTH_SHORT).show();
                             }
                         }
