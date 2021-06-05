@@ -18,6 +18,9 @@ public interface Membermapper {
     // 회원 가입
     int insertMember(MemberDTO memberDTO);
 
+    // 선호 운행 옵션 설정
+    int insertCallOption(String m_id);
+
     // 회원 수정
     int updateMember(MemberDTO memberDTO);
 
