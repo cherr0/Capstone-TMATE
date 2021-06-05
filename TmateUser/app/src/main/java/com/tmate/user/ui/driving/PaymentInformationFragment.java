@@ -1,8 +1,10 @@
 package com.tmate.user.ui.driving;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,10 +54,25 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
 
     List<CardData> cardList;
 
-
+    Call<Dispatch> getCheckingMasterOrUser;
     Call<Integer> pointRequest;
     Call<String> normalMatchingRequest;
     Call<List<CardData>> cardListRequest;
+    Call<Boolean> modifyTogetherStatus;
+
+    // 쓰레드
+    boolean isRunning;
+    Handler handler;
+    Checking2 checking2;
+    // 동승 매칭 이용코드
+    String together_dp_id;
+    // 동승 여부
+    String together;
+    
+     // 방장
+    String master;
+    // 승객
+    String user;
 
     @Nullable
     @Override
@@ -71,16 +88,19 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         super.onViewCreated(view, savedInstanceState);
         price = mViewModel.dispatch.getAll_fare(); // 시작 시
         cardImgList(); // 카드 이미지 리스트 가져오기
-        findUnusedPoint(); // 사용자 미사용 포인트 검색
+//        findUnusedPoint(); // 사용자 미사용 포인트 검색
         selectedCard(); //간편결제를 눌렀을때 카드 선택뷰 보이기
         imgViewPager(view); //이미지 슬라이드 관련
         clickListenerApply(); // 클릭 리스너 연결
 
-        b.paymentInformationHSPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
-        b.paymentInformationHFPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
-        b.payHAllFare.setText(String.valueOf(price)); // 예상금액
-        b.payToPeople.setText(mViewModel.together); // 동승인원
-        b.payTotalAmount.setText(String.valueOf(price)); // 총합 지불 금액
+
+        together_dp_id = mViewModel.dispatch.getDp_id();
+        checkingMasterOrUser(together_dp_id);
+//        b.paymentInformationHSPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
+//        b.paymentInformationHFPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
+//        b.payHAllFare.setText(String.valueOf(price)); // 예상금액
+//        b.payToPeople.setText(mViewModel.together); // 동승인원
+//        b.payTotalAmount.setText(String.valueOf(price)); // 총합 지불 금액
 
         Log.d("PayInfoFragment", "사용자 아이디 : " + mViewModel.dispatch.getM_id());
         Log.d("PayInfoFragment", "사용자 미사용 포인트 : " + unusedPoint);
@@ -149,11 +169,36 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         viewPager.setAdapter(new PaymentAdapter(getContext(), imageList));
     }
 
+    // 여기서 동승 구분 해야 된다.
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.payment_information_finish:   // 결제완료 버튼
-                normalMatching();
+                if(mViewModel.together.equals("1"))
+                    normalMatching();
+                else{
+                    Dispatch dispatch = new Dispatch();
+                    dispatch.setDp_id(together_dp_id);
+                    dispatch.setDp_status("2");
+                    // 상태 변화는 레트로 핏 메서드 넣기
+                    modifyTogetherStatus = DataService.getInstance().matchAPI.modifyTogetherStatus(dispatch);
+                    modifyTogetherStatus.enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            if (response.code() == 200) {
+                                NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                                controller.navigate(R.id.action_paymentInformationFragment_to_callWaitingFragment);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+
+                        }
+                    });
+
+                }
+
                 return;
 
             case R.id.point_btn_all :  //모두적용 버튼
@@ -288,10 +333,127 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         editor.apply();
     }
 
+    // 사용자와 방장을 가리기위해
+    public void checkingMasterOrUser(String dp_id) {
+
+        getCheckingMasterOrUser = DataService.getInstance().matchAPI.readCurrentDispatch(dp_id);
+        getCheckingMasterOrUser.enqueue(new Callback<Dispatch>() {
+            @Override
+            public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
+                if (response.code() == 200) {
+                    Dispatch di = response.body();
+                    master = di.getM_id();
+                    user = getPreferenceString("m_id");
+                    together = di.getDp_id().substring(18);
+                    mViewModel.together = together;
+                    mViewModel.dispatch.setStart_place(di.getStart_place());
+                    mViewModel.dispatch.setFinish_place(di.getFinish_place());
+                    // 여기서 계속해서 가져온다. 방장이면 괜춘
+                    if (master.equals(user)) {
+                        b.paymentInformationHSPlace.setText(di.getStart_place()); // 출발지
+                        b.paymentInformationHFPlace.setText(di.getFinish_place()); // 도착지
+                        b.payHAllFare.setText(String.valueOf(di.getAll_fare())); // 예상금액
+                        b.payToPeople.setText(di.getDp_id().substring(18)); // 동승인원
+                        b.payTotalAmount.setText(String.valueOf(di.getAll_fare())); // 총합 지불 금액
+                        b.paymentInformationFinish.setVisibility(View.VISIBLE);
+                    }
+
+                    // 여기서 방장이 아니라면 쓰레드를 돌려야지
+                    else{
+                        b.paymentInformationHSPlace.setText(di.getStart_place()); // 출발지
+                        b.paymentInformationHFPlace.setText(di.getFinish_place()); // 도착지
+                        b.payHAllFare.setText(String.valueOf(di.getAll_fare())); // 예상금액
+                        b.payToPeople.setText(di.getDp_id().substring(18)); // 동승인원
+                        b.payTotalAmount.setText(String.valueOf(di.getAll_fare())); // 총합 지불 금액
+                        b.paymentInformationFinish.setVisibility(View.VISIBLE);
+                        b.paymentInformationFinish.setVisibility(View.GONE);
+                        handler = new Handler();
+                        checking2 = new Checking2();
+                        isRunning = true;
+
+                        Thread thread = new Thread(() -> {
+                            try {
+                                while (isRunning) {
+                                    handler.post(checking2);
+                                    Thread.sleep(2000);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+
+                        isRunning = true;
+                        thread.start();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Dispatch> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    // 내부 쓰레드 클래스
+    public class Checking2 implements Runnable {
+        @Override
+        public void run() {
+            getCheckingMasterOrUser = DataService.getInstance().matchAPI.readCurrentDispatch(together_dp_id);
+            getCheckingMasterOrUser.enqueue(new Callback<Dispatch>() {
+                @Override
+                public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
+                    if (response.code() == 200) {
+                        Dispatch dispatch = response.body();
+                        String dp_status = dispatch.getDp_status();
+
+                        if (dp_status.equals("2")) {
+                            isRunning = false;
+                            NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                            controller.navigate(R.id.action_paymentInformationFragment_to_callWaitingFragment);
+                        }else {
+                            isRunning = true;
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Dispatch> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        isRunning = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isRunning = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isRunning = false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isRunning = false;
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        isRunning = false;
         if(pointRequest != null) pointRequest.cancel();
         if (normalMatchingRequest != null) normalMatchingRequest.cancel();
     }

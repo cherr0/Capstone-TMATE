@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DrivingModel extends ViewModel {
-    public static final String mApiKey = "l7xx4fac78a5b9bf445db00bb99ae2708cee";
+    public static final String mApiKey = "l7xx71323be26ff04765a4ecec767ed725db";
     public static final String auth = "KakaoAK e24eec29f82748733f7a2be2de93c236";
 
     public String together; //동승 설정
