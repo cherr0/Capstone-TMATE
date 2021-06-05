@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,8 +61,16 @@ public class MatchingDetailFragment extends Fragment {
     
 
     Call<Dispatch> getMasterDispatchDetailInfo;
+    Call<Dispatch> getCheckingDispatchStatus;
+    Call<Boolean> modifyDispatchInfo;
     String dp_id;
     DrivingModel mViewModel;
+    String user;
+
+    // 쓰레드 관련
+    Boolean isRunning;
+    Handler handler;
+    Checking checking;
 
 
     @Nullable
@@ -83,13 +92,12 @@ public class MatchingDetailFragment extends Fragment {
 
         mViewModel =  new ViewModelProvider(requireActivity()).get(DrivingModel.class);
 
+        // 매칭상세정보 데이터 연동
+        widgetInfoInitialize();
+
         arrayList = new ArrayList<>();
         adapter = new MatchingDetailAdapter(mViewModel);
         recyclerView.setAdapter(adapter);
-
-
-            widgetInfoInitialize();
-
 
 
 
@@ -97,8 +105,26 @@ public class MatchingDetailFragment extends Fragment {
         NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
         b.btnMatch.setOnClickListener(v -> {
             if (b.btnMatch.getText().toString().equals("호출하기")) {
-                // 호출하기로 넘어가쥬
-                controller.navigate(R.id.action_matchingDetailFragment_to_paymentInformationFragment);
+
+                Dispatch dispatch = new Dispatch();
+                dispatch.setDp_id(dp_id);
+                dispatch.setDp_status("1");
+
+                modifyDispatchInfo = DataService.getInstance().matchAPI.modifyTogetherStatus(dispatch);
+                modifyDispatchInfo.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if (response.code() == 200) {
+                            // 결제정보로 넘어가쥬
+                            controller.navigate(R.id.action_matchingDetailFragment_to_paymentInformationFragment);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+
+                    }
+                });
             }else{
                 // 넘어가쥬
                 controller.navigate(R.id.action_global_matchingSeatFragment);
@@ -107,17 +133,37 @@ public class MatchingDetailFragment extends Fragment {
 
         return view;
     }
-    public void showDialog(){
-        dialog.show();
 
-        TextView exit = dialog.findViewById(R.id.exit);
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+
+    public class Checking implements Runnable {
+        @Override
+        public void run() {
+            getCheckingDispatchStatus = DataService.getInstance().matchAPI.readCurrentDispatch(dp_id);
+            getCheckingDispatchStatus.enqueue(new Callback<Dispatch>() {
+                @Override
+                public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
+                    if (response.code() == 200) {
+                        Dispatch dispatch = response.body();
+                        String dp_status = dispatch.getDp_status();
+
+                        if (dp_status.equals("1")) {
+                            isRunning = false;
+                            NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                            controller.navigate(R.id.action_matchingDetailFragment_to_paymentInformationFragment);
+                        }else {
+                            isRunning = true;
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Dispatch> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
     }
+
 
     // 데이터 불러오기 함수
     public String getPreferenceString(String key){
@@ -136,8 +182,9 @@ public class MatchingDetailFragment extends Fragment {
             public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
                 if (response.code() == 200) {
                     Dispatch dispatch = response.body();
-                    String user = dispatch.getM_id();
-                    Log.d("MatchingDetail : ", m_id + ":" + user);
+                    Log.d("MatchingDetail : ", dispatch.toString());
+                    user = dispatch.getM_id();
+                    Log.d("MatchingDetail user ", user);
                     b.fmdCurPeople.setText(String.valueOf(dispatch.getCur_people()));
                     b.fmdMaxPeople.setText(dispatch.getDp_id().substring(18));
                     b.mfDpId.setText(dispatch.getDp_id());
@@ -148,11 +195,33 @@ public class MatchingDetailFragment extends Fragment {
                     b.tvMName.setText(dispatch.getM_name());
                     b.mBirth.setText(String.valueOf(dispatch.getM_birth()));
 
+
+
                     if (user.equals(m_id)) {
                         b.btnMatch.setText("호출하기");
                         getData();
+
+
+
                     }else{
                         b.btnMatch.setText("동승하기");
+                        handler = new Handler();
+                        checking = new Checking();
+                        isRunning = true;
+
+                        Thread thread = new Thread(() -> {
+                            try {
+                                while (isRunning) {
+                                    handler.post(checking);
+                                    Thread.sleep(2000);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+
+                        isRunning = true;
+                        thread.start();
                     }
                 }
             }
@@ -183,6 +252,38 @@ public class MatchingDetailFragment extends Fragment {
         }
 
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        isRunning = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isRunning = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isRunning = false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isRunning = false;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isRunning = false;
+        if(getCheckingDispatchStatus != null) getCheckingDispatchStatus.cancel();
+        if(getMasterDispatchDetailInfo != null) getMasterDispatchDetailInfo.cancel();
     }
 
 

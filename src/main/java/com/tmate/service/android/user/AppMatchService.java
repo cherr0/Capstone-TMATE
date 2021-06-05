@@ -70,4 +70,7 @@ public interface AppMatchService {
 
     // 운행 완료 시 리뷰 업데이트
     Boolean attendReviewUpdate(ReviewVO reviewVO);
+
+    // 동승시 방장이 호출하기 , 호출하기 눌렀을 시 방상태 변경
+    Boolean modifyTogetherStatus(DispatchDTO dispatchDTO);
 }
