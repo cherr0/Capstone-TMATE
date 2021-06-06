@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -53,6 +54,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     private Integer unusedPoint;
     private Integer point;
     private Integer price;
+    private LinearLayoutManager linearLayoutManager;
 
     List<CardData> cardList;
 
@@ -79,7 +81,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         selectedCard(); //간편결제를 눌렀을때 카드 선택뷰 보이기
         clickListenerApply(); // 클릭 리스너 연결
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         b.payInfoRv.setLayoutManager(linearLayoutManager);
         cardArrayList = new ArrayList<>();
@@ -97,11 +99,13 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                 new SnapPagerScrollListener.OnChangeListener() {
                     @Override
                     public void onSnapped(int position) {
+
                         //position 받아서 이벤트 처리
                     }
                 }
         );
         b.payInfoRv.addOnScrollListener(listener);
+
 
 
         b.paymentInformationHSPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
@@ -138,6 +142,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
 
     //카드 이미지 리스트
     private void getData() {
+        CheckBox payment_card_check = getLayoutInflater().inflate(R.layout.payment_card, null).findViewById(R.id.payment_card_check);
         cardListRequest = DataService.getInstance().memberAPI.getUserCard(getPreferenceString("m_id"));
         cardListRequest.enqueue(new Callback<List<CardData>>() {
             @Override
@@ -147,7 +152,12 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                     Log.d("PayInfoFragment", "바디 : " + response.body());
                     Log.d("PayInfoFragment", "코드 : " + response.code());
                     for(CardData data : cardList) {
+                        if (payment_card_check.isChecked()) {
+                            setPreference("sid", data.getSid());
+                            Log.d("PayInfoFragment", "sid : " + getPreferenceString("sid"));
+                        }
                         adapter.addItem(data);
+
                     }
                     adapter.notifyDataSetChanged();
                 }
@@ -223,7 +233,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                     String dp_id = response.body();
                     mViewModel.dispatch.setDp_id(dp_id);
                     Log.d("PayInfoFragment", "결제 완료 dp_id : " +  dp_id);
-
+                    mViewModel.dispatch.getSid();
                     // 만나서 결제 시 현금 결제 여부 추가
                     if(b.paymentMeet.isChecked()) {
                         mViewModel.use_cash = 1;
