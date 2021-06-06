@@ -1,15 +1,20 @@
 package com.tmate.user.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -141,13 +146,13 @@ class CardHolder extends RecyclerView.ViewHolder {
                 bank_mark.setImageResource(R.drawable.kb);
                 break;
             case "농협":
-                bank_mark.setImageResource(R.drawable.nh);
+                bank_mark.setImageResource(R.drawable.nh_card);
                 break;
             case "신한":
                 bank_mark.setImageResource(R.drawable.sinhan);
                 break;
             case "우리":
-                bank_mark.setImageResource(R.drawable.woori);
+                bank_mark.setImageResource(R.drawable.woori_card);
                 break;
         }
         bank_name.setText(data.getPay_company());

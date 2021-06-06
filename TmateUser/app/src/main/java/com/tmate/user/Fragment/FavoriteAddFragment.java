@@ -52,16 +52,6 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class FavoriteAddFragment extends Fragment {
 
-    //바뀐 위치에 대한 좌표값 설정(자신의 위치)
-    //프래그먼트로 변경시 잘 작동되지 않음
-    /*@Override
-    public void onLocationChange(Location location) {
-        if (m_bTrackingMode) {
-            mMapView.setLocationPoint(location.getLongitude(), location.getLatitude());
-            mMapView.setIconVisibility(m_bTrackingMode);
-        }
-    }*/
-
     Geocoder geocoder;
 
     private FragmentFavoritesAddBinding b;
@@ -348,76 +338,6 @@ public class FavoriteAddFragment extends Fragment {
         imm.hideSoftInputFromWindow(b.searchPlace.getWindowToken(), 0);
     }
 
-    //현재 위치 버튼을 눌렀을때 현재 위치로 이동하고 포인트를 찍어주는 메소드
-    /*public void onClickLocationBtn(View v) {
-        m_bTrackingMode = !m_bTrackingMode;
-        if (m_bTrackingMode) {
-            mMapView.setIconVisibility(m_bTrackingMode);
-        }
-        setTrackingMode(m_bTrackingMode); //트래킹모드(화면 중심을 현재위치로 이동) 설정
-        TMapPoint tpoint = mMapView.getCenterPoint();
-        d1 = tpoint.getLatitude(); //출발지 위도
-        d2 = tpoint.getLongitude(); //출발지 경도
-
-        List<Address> list = null;
-        try {
-            list = geocoder.getFromLocation(
-                    d1, // 위도
-                    d2, // 경도
-                    1); // 얻어올 값의 개수
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("test", "입출력 오류 - 서버에서 주소변환시 에러발생");
-        };
-        //주소만 추출
-        String mail = list.get(0).toString();
-        int idx = mail.indexOf(":");
-        String mail1 = mail.substring(idx+1);
-        idx = mail1.indexOf("]");
-        String mail2 = mail1.substring(0,idx);
-        String result = mail2.substring(mail2.indexOf("국")+1);
-        idx = result.indexOf("\"");
-        result = result.substring(0,idx);
-
-        if (list != null) { //주소를 못 찾을 경우
-            if (list.size()==0) {
-                Toast.makeText(getContext(), "주소를 찾지 못했습니다", Toast.LENGTH_LONG).show();
-            } else { //주소를 찾을 경우
-                Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();            }
-        }
-    }*/
-
-
-    // setTrackingMode 화면중심을 단말의 현재위치로 이동시켜주는 트래킹모드로 설정한다.
-    /*public void setTrackingMode(boolean isShow) {
-        mMapView.setTrackingMode(isShow);
-        if (isShow) {//gps 버튼을 켰을때
-            mPermissionManager.request(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, new PermissionManager.PermissionListener() {
-                @Override
-                public void granted() {
-                    if (gps != null) {
-                        gps.setMinTime(1000);
-                        gps.setMinDistance(5);
-                        gps.setProvider(gps.GPS_PROVIDER);
-                        gps.OpenGps();
-                        gps.setProvider(gps.NETWORK_PROVIDER);
-                        gps.OpenGps();
-                    }
-                }
-                @Override
-                public void denied() {
-                    Toast.makeText(getContext(), "위치정보 수신에 동의하지 않으시면 현재위치로 이동할 수 없습니다.", Toast.LENGTH_SHORT).show();
-                }
-            });
-            b.locationBtn.setBackgroundResource(R.drawable.location_btn_sel);
-            mMapView.setCenterPoint(mMapView.getLocationPoint().getLongitude(), mMapView.getLocationPoint().getLatitude());
-        } else { // gps 버튼을 껐을때
-            if (gps != null) {
-                gps.CloseGps();
-            }
-            b.locationBtn.setBackgroundResource(R.drawable.location_btn);
-        }
-    }*/
 
     //getLocationPoint 현재위치로 표시될 좌표의 위도, 경도를 반환한다.
     public void getLocationPoint() {
@@ -455,7 +375,6 @@ public class FavoriteAddFragment extends Fragment {
         if (gps != null) {
             gps.CloseGps();
         }
-        //b.locationBtn.setBackgroundResource(R.drawable.location_btn);
     }
 
     //findAllPoi 통합검색 POI를 요청한다.

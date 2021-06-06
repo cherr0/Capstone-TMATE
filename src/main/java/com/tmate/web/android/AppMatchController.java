@@ -3,8 +3,7 @@ package com.tmate.web.android;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmate.domain.AttendDTO;
-import com.tmate.domain.DispatchDTO;
-import com.tmate.domain.MemberDTO;
+import com.tmate.domain.DispatchDTO;;
 import com.tmate.domain.ReviewVO;
 import com.tmate.service.android.user.AppMatchService;
 import lombok.RequiredArgsConstructor;
@@ -178,5 +177,13 @@ public class AppMatchController {
     public ResponseEntity<Boolean> updateReview(@RequestBody ReviewVO reviewVO) {
         log.info("사용자 리뷰 목록 업데이트 : " + reviewVO);
         return  new ResponseEntity<>(appMatchService.attendReviewUpdate(reviewVO),HttpStatus.OK);
+    }
+
+    // 동승시 방장이 버틑클릭시 바뀌는 동승 이용정보의 힘
+    @PostMapping("/modify/together/status")
+    public ResponseEntity<Boolean> modifyTogetherStatus(@RequestBody DispatchDTO dispatchDTO) {
+        log.info("버튼클릭시 스탯이 바뀌어요 ! " + dispatchDTO.getDp_status());
+
+        return new ResponseEntity<>(appMatchService.modifyTogetherStatus(dispatchDTO), HttpStatus.OK);
     }
 }

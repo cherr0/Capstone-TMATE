@@ -23,13 +23,13 @@
             <com.sothree.slidinguppanel.SlidingUpPanelLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ui.driving.DrivingActivity"
                 android:gravity="bottom"
                 app:umanoDragView="@id/dragView"
-                app:umanoPanelHeight="80dp"
                 app:umanoOverlay="true"
+                app:umanoPanelHeight="80dp"
                 app:umanoParallaxOffset="100dp"
-                app:umanoShadowHeight="5dp">
+                app:umanoShadowHeight="5dp"
+                tools:context=".ui.driving.DrivingActivity">
 
                 <!--  맵 띄우는 레이아웃  -->
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,11 +43,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/poi_star"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -57,11 +56,12 @@
                     android:id="@+id/dragView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/linear_shape"
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="vertical"
-                    android:visibility="visible"
-                    android:background="@drawable/linear_shape">
+                    android:visibility="visible">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/place_page"
                         android:layout_width="match_parent"
@@ -93,31 +93,31 @@
                             android:background="@drawable/location_btn"
                             app:layout_constraintBottom_toBottomOf="@+id/start_place"
                             app:layout_constraintEnd_toEndOf="@+id/start_place"
-                            app:layout_constraintTop_toTopOf="@+id/start_place"/>
+                            app:layout_constraintTop_toTopOf="@+id/start_place" />
 
                         <!-- 도착지 설정 -->
                         <EditText
                             android:id="@+id/finish_place"
-                            android:layout_margin="20dp"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
+                            android:layout_margin="20dp"
                             android:background="@drawable/box_shape"
                             android:drawableLeft="@drawable/map_pin_red"
-                            android:inputType="text"
                             android:imeOptions="actionDone"
+                            android:inputType="text"
                             android:padding="10dp"
                             android:textSize="15sp"
                             app:layout_constraintTop_toBottomOf="@+id/start_place" />
 
                         <TextView
                             android:id="@+id/bookmark"
-                            android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
                             android:background="@drawable/box_bold"
                             android:padding="15dp"
                             android:text="최근검색"
-                            android:layout_marginTop="10dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/finish_place"
@@ -125,15 +125,14 @@
 
                         <TextView
                             android:id="@+id/home"
-                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:background="@drawable/box_bold"
                             android:padding="15dp"
                             android:text="집"
                             app:layout_constraintStart_toEndOf="@+id/bookmark"
-                            app:layout_constraintTop_toTopOf="@+id/bookmark"
-                            />
+                            app:layout_constraintTop_toTopOf="@+id/bookmark" />
 
                         <!-- 검색 창과 나눠주는 실선 -->
                         <View
@@ -144,43 +143,54 @@
                             android:background="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/bookmark"/>
+                            app:layout_constraintTop_toBottomOf="@+id/bookmark" />
 
                         <!-- 검색 리스트가 들어가는 뷰 -->
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/list"
+                        <androidx.core.widget.NestedScrollView
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:background="@android:color/white"
-                            app:layout_constraintTop_toBottomOf="@id/view7"
+                            app:layout_constraintBottom_toTopOf="@+id/go_together_select"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintBottom_toTopOf="@+id/go_together_select"/>
+                            app:layout_constraintTop_toBottomOf="@id/view7">
+                            <LinearLayout
+                                android:descendantFocusability="blocksDescendants"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/list"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@android:color/white"
+                                    android:overScrollMode="never"
+                                    android:nestedScrollingEnabled="false"/>
+                            </LinearLayout>
+                        </androidx.core.widget.NestedScrollView>
 
                         <LinearLayout
-                            android:layout_marginTop="10dp"
                             android:id="@+id/autoComplete_layout"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_alignParentTop="true"
+                            android:layout_marginTop="10dp"
                             android:gravity="center_vertical"
                             android:orientation="vertical"
                             android:padding="5dp"
                             android:visibility="visible"
                             app:layout_constraintBottom_toTopOf="@+id/go_together_select"
-                            app:layout_constraintTop_toBottomOf="@+id/finish_place">
-                        </LinearLayout>
+                            app:layout_constraintTop_toBottomOf="@+id/finish_place"></LinearLayout>
 
                         <!-- 확인 버튼 -->
                         <Button
                             android:id="@+id/go_together_select"
                             android:layout_width="300dp"
                             android:layout_height="70dp"
+                            android:layout_marginBottom="20dp"
                             android:background="@drawable/select_shape"
                             android:text="확인"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
-                            android:layout_marginBottom="20dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />

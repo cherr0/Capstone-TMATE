@@ -227,6 +227,11 @@ public class MatchingSeatFragment extends Fragment {
 
                 dispatch = new Dispatch();
                 attend = new Attend();
+
+                if(mViewModel.together.equals("2"))
+                    dispatch.setKeyword("2");
+                if(mViewModel.together.equals("3"))
+                    dispatch.setKeyword("3");
                 
                 
                 String m_id = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE).getString("m_id", "");

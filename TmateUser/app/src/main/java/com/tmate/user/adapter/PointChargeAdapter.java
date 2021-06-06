@@ -16,8 +16,7 @@ import com.tmate.user.R;
 
 import java.util.ArrayList;
 
-public class
-PointChargeAdapter extends RecyclerView.Adapter<PointChargeAdapter.ViewHolder> {
+public class PointChargeAdapter extends RecyclerView.Adapter<PointChargeAdapter.ViewHolder> {
 
     private ArrayList<String> itemList;
     private Context context;

@@ -35,6 +35,7 @@ public class DrivingActivity extends AppCompatActivity {
         if(dp_status != null) Log.d("DrivingActivity", "참여 상태 : " + at_status);
 
         model.dispatch = new Dispatch(); // 객체에 값을 담을 수 있도록 액티비티 생성 시 생성
+        model.dispatch.setKeyword(together);
         model.dispatch.setDp_status(dp_status);
         model.dispatch.setAt_status(at_status);
         model.dispatch.setDp_id(dp_id);

@@ -149,4 +149,10 @@ public class AppMatchServiceImpl implements AppMatchService {
     public Boolean attendReviewUpdate(ReviewVO reviewVO) {
         return dispatchMapper.reviewUpdate(reviewVO) == 1;
     }
+
+    @Override
+    public Boolean modifyTogetherStatus(DispatchDTO dispatchDTO) {
+        return dispatchMapper.updateNormalMatchStatus(dispatchDTO) == 1;
+    }
+
 }

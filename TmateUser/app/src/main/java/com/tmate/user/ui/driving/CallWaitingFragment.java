@@ -1,8 +1,6 @@
 package com.tmate.user.ui.driving;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -35,8 +33,6 @@ public class CallWaitingFragment extends Fragment {
 
     private DrivingModel mViewModel;
     FragmentCallWaitingBinding b;
-    String sid;
-    SharedPreferences pref;
 
     // 쓰레드 관련
     boolean isRunning;
@@ -56,11 +52,6 @@ public class CallWaitingFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        pref = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
-        sid = pref.getString("sid", "");
-
-        Log.d("CallWaitingFragment", "sid : " + sid);
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
