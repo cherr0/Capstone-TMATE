@@ -233,7 +233,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                     String dp_id = response.body();
                     mViewModel.dispatch.setDp_id(dp_id);
                     Log.d("PayInfoFragment", "결제 완료 dp_id : " +  dp_id);
-                    mViewModel.dispatch.getSid();
                     // 만나서 결제 시 현금 결제 여부 추가
                     if(b.paymentMeet.isChecked()) {
                         mViewModel.use_cash = 1;
