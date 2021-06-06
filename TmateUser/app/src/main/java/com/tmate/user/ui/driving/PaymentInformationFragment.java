@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,12 +19,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.tmate.user.Activity.CallWaitingActivity;
 import com.tmate.user.R;
 import com.tmate.user.adapter.PaymentAdapter;
+import com.tmate.user.adapter.SnapPagerScrollListener;
 import com.tmate.user.data.CardData;
 import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.SubscriptionRes;
@@ -46,11 +50,15 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
 
     private FragmentPaymentInformationBinding b;
     private DrivingModel mViewModel;
+    private PaymentAdapter adapter;
 
-    private ArrayList<Integer> imageList;
+
+    private ArrayList<CardData> cardArrayList;
     private Integer unusedPoint;
     private Integer point;
     private Integer price;
+    private LinearLayoutManager linearLayoutManager;
+
 
     List<CardData> cardList;
 
@@ -87,11 +95,35 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         price = mViewModel.dispatch.getAll_fare(); // 시작 시
-        cardImgList(); // 카드 이미지 리스트 가져오기
+        getData(); // 카드 리스트
 //        findUnusedPoint(); // 사용자 미사용 포인트 검색
         selectedCard(); //간편결제를 눌렀을때 카드 선택뷰 보이기
-        imgViewPager(view); //이미지 슬라이드 관련
         clickListenerApply(); // 클릭 리스너 연결
+
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        b.payInfoRv.setLayoutManager(linearLayoutManager);
+        cardArrayList = new ArrayList<>();
+        adapter = new PaymentAdapter(cardArrayList);
+        b.payInfoRv.setAdapter(adapter);
+
+        // 뷰페이저 같이 쓰는거
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(b.payInfoRv);
+
+        SnapPagerScrollListener listener = new SnapPagerScrollListener(
+                snapHelper,
+                SnapPagerScrollListener.ON_SCROLL,
+                true,
+                new SnapPagerScrollListener.OnChangeListener() {
+                    @Override
+                    public void onSnapped(int position) {
+
+                        //position 받아서 이벤트 처리
+                    }
+                }
+        );
+        b.payInfoRv.addOnScrollListener(listener);
 
 
         together_dp_id = mViewModel.dispatch.getDp_id();
@@ -129,22 +161,25 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     }
 
     //카드 이미지 리스트
-    private void cardImgList() {
-        imageList = new ArrayList();
-
+    private void getData() {
+        CheckBox payment_card_check = getLayoutInflater().inflate(R.layout.payment_card, null).findViewById(R.id.payment_card_check);
         cardListRequest = DataService.getInstance().memberAPI.getUserCard(getPreferenceString("m_id"));
         cardListRequest.enqueue(new Callback<List<CardData>>() {
             @Override
             public void onResponse(Call<List<CardData>> call, Response<List<CardData>> response) {
                 if(response.code() == 200 && response.body() != null) {
                     cardList = response.body();
-
+                    Log.d("PayInfoFragment", "바디 : " + response.body());
+                    Log.d("PayInfoFragment", "코드 : " + response.code());
                     for(CardData data : cardList) {
-                        switch (data.getPay_company()){
-                            
+                        if (payment_card_check.isChecked()) {
+                            setPreference("sid", data.getSid());
+                            Log.d("PayInfoFragment", "sid : " + getPreferenceString("sid"));
                         }
+                        adapter.addItem(data);
 
                     }
+                    adapter.notifyDataSetChanged();
                 }
             }
 
@@ -154,19 +189,6 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
             }
         });
 
-        imageList.add(R.drawable.kakao_card);
-        imageList.add(R.drawable.sh_card);
-    }
-
-    // 이미지 슬라이드 관련
-    private void imgViewPager(View v) {
-        ViewPager viewPager = v.findViewById(R.id.payment_pager);
-        viewPager.setClipToPadding(false);
-        float density = getResources().getDisplayMetrics().density;
-        CircleIndicator indicator = v.findViewById(R.id.indicator);
-        indicator.setViewPager(viewPager);
-        viewPager.setCurrentItem(2);
-        viewPager.setAdapter(new PaymentAdapter(getContext(), imageList));
     }
 
     // 여기서 동승 구분 해야 된다.
