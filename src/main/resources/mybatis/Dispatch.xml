@@ -73,7 +73,7 @@
 
     <!-- 이용 상세정보 가져오기 (O) -->
     <select id="getDetailCurrentDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
-        SELECT di.dp_id, di.d_id, di.dp_status, di.start_place, di.start_lat, di.start_lng, di.finish_place, di.finish_lat, di.finish_lng,
+        SELECT di.dp_id, di.d_id, di.m_id,di.dp_status, di.start_place, di.start_lat, di.start_lng, di.finish_place, di.finish_lat, di.finish_lng,
                di.cur_people, di.m_id ,di.ep_time, di.all_fare, m.m_name ,m.m_lat, m.m_lng, c.car_no, c.car_model
         FROM DISPATCH di LEFT OUTER JOIN CAR c ON di.d_id = c.m_id
         LEFT OUTER JOIN MEMBER m ON di.d_id = m.m_id
@@ -89,8 +89,9 @@
 
     <!-- 기사 위치 실시간으로 가져오기 - 수정 버전 (O) -->
     <select id="getRealTimeDriverPosition" resultType="com.tmate.domain.DispatchDTO">
-        select d.dp_status,d.start_time, d.end_time, m.m_lat, m.m_lng, d.start_lat, d.start_lng, d.finish_lat, d.finish_lng, d.all_fare, d.dp_id, d.d_id,d.ep_distance, d.start_place, d.finish_place
+        select d.dp_status,d.start_time, d.end_time, m.m_lat, m.m_lng, d.start_lat, d.start_lng, d.finish_lat, d.finish_lng, d.all_fare, d.dp_id, d.d_id, a.use_point,d.ep_distance, d.start_place, d.finish_place
         from dispatch d left outer join member m on d.d_id = m.m_id
+        left outer join attend a on d.dp_id = a.dp_id
         where d.dp_id = #{dp_id}
     </select>
 
@@ -193,7 +194,7 @@
     <!-- 맘에 드는거 없을시에 자기가 만든다. -> insert (배차, 참여)  -->
     <insert id="insertTogetherDispatch">
         <selectKey resultType="string" keyProperty="dp_id" order="BEFORE">
-            select to_char(systimestamp,'yyMMddhhmissff')||#{keyword}
+            select to_char(systimestamp,'yyMMddhhmissff')||'2'
             from dual
         </selectKey>
 

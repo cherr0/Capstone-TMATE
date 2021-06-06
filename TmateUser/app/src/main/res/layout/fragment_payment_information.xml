@@ -256,26 +256,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="12dp">
 
-                        <androidx.viewpager.widget.ViewPager
-                            android:id="@+id/payment_pager"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        <me.relex.circleindicator.CircleIndicator
-                            android:id="@+id/indicator"
-                            android:layout_width="match_parent"
-                            android:layout_height="20dp"
-                            app:ci_drawable="@drawable/image_slider_black"
-                            app:ci_height="7dp"
-                            app:ci_margin="4dp"
-                            app:ci_width="7dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:layout_marginBottom="16dp"/>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/pay_info_rv"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -669,11 +656,13 @@
             android:id="@+id/payment_information_finish"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/main"
             android:text="결제하기"
-            android:textSize="32sp"
             android:textColor="@color/white"
-            android:background="@color/main"/>
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

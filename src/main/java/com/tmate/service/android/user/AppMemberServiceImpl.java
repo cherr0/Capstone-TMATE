@@ -35,7 +35,6 @@ public class AppMemberServiceImpl implements AppMemberService {
     private final HistoryMapper historyMapper;
 
     //  회원가입 등록
-    @Transactional
     @Override
     public Boolean registerMember(Map<String,String> map) {
 
@@ -72,11 +71,9 @@ public class AppMemberServiceImpl implements AppMemberService {
         if (map.get("m_email") != null) {
             member.setM_email(map.get("m_email"));
         }
-
-        membermapper.insertMember(member);
-
+        
         // insertMember 실행
-        return  membermapper.insertCallOption(map.get("m_id")) == 1 ;
+        return membermapper.insertMember(member) == 1;
     }
 
 

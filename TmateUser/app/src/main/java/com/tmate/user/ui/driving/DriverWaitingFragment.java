@@ -305,7 +305,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         if(mViewModel.together.equals("1")) {
             b.meetTime.setText("동승 시 이용");
         }else {
-            b.meetTime.setText("보류");
+            b.meetTime.setText(mViewModel.dispatch.getMeet_time().toString());
         }
     }
 

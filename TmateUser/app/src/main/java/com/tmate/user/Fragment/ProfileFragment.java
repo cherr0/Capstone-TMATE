@@ -69,7 +69,8 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
     private View view;
     private ImageView btn_back_profile;
-
+    private ImageView fake_kakao;
+    private LoginButton btn_kakao;
 
     // 레트로핏2 서비스
 //    DataService dataService = new DataService();
@@ -193,8 +194,70 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
         });
 
 
+        // 카카오 로그인 관련
+        btn_kakao = view.findViewById(R.id.btn_kakao);
+        fake_kakao = view.findViewById(R.id.fake_kakao);
+        fake_kakao.setOnClickListener(v -> {
+            btn_kakao.performClick();
+        });
+
+        mSessionCallback = new ISessionCallback() {
+            @Override
+            public void onSessionOpened() {
+                // 로그인 요청 하는 부분
+                UserManagement.getInstance().me(new MeV2ResponseCallback() {
+                    // 로그인 실패
+                    @Override
+                    public void onFailure(ErrorResult errorResult) {
+                        Toast.makeText(getActivity(), "연동 실패하셨습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    // 세션 닫힘
+                    @Override
+                    public void onSessionClosed(ErrorResult errorResult) {
+                        Toast.makeText(getActivity(), "세션이 닫혔습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                    }
+
+                    // 로그인 성공
+                    @Override
+                    public void onSuccess(MeV2Response result) {
+                        String m_id = getPreferenceString("m_id");
+                        Log.d("연동한 계정 이름 : ", result.getKakaoAccount().getProfile().getNickname());
+                        Log.d("연동한 이메일 : ", result.getKakaoAccount().getEmail());
+
+                        social = new Social();
+                        social.setS_email(result.getKakaoAccount().getEmail());
+                        social.setM_id(m_id);
 
 
+                        dataService.memberAPI.socialAccount(social).enqueue(new Callback<Boolean>() {
+                            @Override
+                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                if (response.isSuccessful()) {
+                                    if (response.code() == 200) {
+                                        Toast.makeText(getActivity(), "카카오 계정을 연동하셨습니다.", Toast.LENGTH_SHORT).show();
+                                        Session.getCurrentSession().removeCallback(mSessionCallback);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Boolean> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
+
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onSessionOpenFailed(KakaoException exception) {
+
+            }
+        };
 
 
         // 이전 화면
@@ -207,6 +270,10 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                 transaction.replace(R.id.frameLayout, my_info_fragment).commit();
             }
         });
+
+        // 카카오 로그인 활성
+        Session.getCurrentSession().addCallback(mSessionCallback);
+        Session.getCurrentSession().checkAndImplicitOpen();
 
 
         return view;
@@ -406,7 +473,21 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
         return pref.getString(key, "");
     }
 
-
+    // 카카오 로그인 시 필요한 해시키를 얻는 메소드 이다.
+    private void getAppKeyHash() {
+        try {
+            PackageInfo info = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md;
+                md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String something = new String(Base64.encode(md.digest(), 0));
+                Log.e("Hash key", something);
+            }
+        } catch (Exception e) {
+            Log.e("name not found", e.toString());
+        }
+    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

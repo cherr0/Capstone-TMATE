@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Dispatch {
 
-    // 동승 인원시 인원 설정
-    private String keyword;
-
     // 1. 배차 코드 (PK) : TIMESTAMP + 최대인원(1)
     private String dp_id;
 

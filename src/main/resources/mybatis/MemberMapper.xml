@@ -7,11 +7,6 @@
             values(#{m_id},#{m_name},#{m_imei},#{m_birth,jdbcType=TIMESTAMP},#{m_email,jdbcType=VARCHAR},#{m_house})
         </insert>
 
-    <insert id="insertCallOption">
-        insert into driving_option(m_id)
-        values(#{m_id})
-    </insert>
-
     <select id="getList" resultType="com.tmate.domain.MemberDTO">
          <![CDATA[
         select m_id, m_name, m_regdate, m_n_use, m_t_use, m_status, m_birth

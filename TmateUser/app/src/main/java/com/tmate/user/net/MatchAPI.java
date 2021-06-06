@@ -131,8 +131,4 @@ public interface MatchAPI {
     @PUT("match/finish/review")
     Call<Boolean> updateReview(@Body ReviewVO reviewVO);
 
-    // 방장의 버튼 클릭시 변하는 이용정보
-    @POST("match/modify/together/status")
-    Call<Boolean> modifyTogetherStatus(@Body Dispatch dispatch);
-
 }
