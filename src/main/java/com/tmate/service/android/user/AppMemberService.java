@@ -15,7 +15,7 @@ public interface AppMemberService {
     MemberDTO getMemberProfile(String m_id);
 
     // 이용 내역 - 유저 이용 내역
-    List<JoinHistoryVO> getMemberHistoryList(String m_id);
+    List<DispatchDTO> getMemberHistoryList(String m_id);
 
     // 이용 내역 삭제
     Boolean removeMemberHistory(String merchant_uid, String m_id);

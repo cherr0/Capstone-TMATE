@@ -48,7 +48,7 @@ public class AndroidApiController {
     }
 
     @GetMapping("/historys/{m_id}")
-    public ResponseEntity<List<JoinHistoryVO>> getHistory(@PathVariable("m_id") String m_id) {
+    public ResponseEntity<List<DispatchDTO>> getHistory(@PathVariable("m_id") String m_id) {
         log.info("이용내역 요청 시 넘어오는 회원 번호 : " + m_id);
 
 
