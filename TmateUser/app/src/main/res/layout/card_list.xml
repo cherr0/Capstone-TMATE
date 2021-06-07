@@ -75,11 +75,11 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/card_rep"
+                android:id="@+id/pay_alias"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ibmplexsanskr_extralight"
-                android:text="TextView"
+                android:text="별칭 미설정"
                 app:layout_constraintStart_toStartOf="@+id/card_rno"
                 app:layout_constraintTop_toTopOf="@+id/bank_name" />
 

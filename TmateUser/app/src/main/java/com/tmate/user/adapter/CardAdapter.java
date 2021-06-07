@@ -135,7 +135,7 @@ class CardHolder extends RecyclerView.ViewHolder {
     TextView card_no;
     TextView card_rno;
     TextView sid;
-    TextView card_rep;
+    TextView pay_alias;
 
     //TextView card_rep;
     Switch active;
@@ -167,7 +167,7 @@ class CardHolder extends RecyclerView.ViewHolder {
                 active.setChecked(true);
                 break;
         }
-        if(data.getPay_alias() != null) card_rep.setText(data.getPay_alias());
+        if(data.getPay_alias() != null) pay_alias.setText(data.getPay_alias());
 
     }
 
@@ -178,7 +178,7 @@ class CardHolder extends RecyclerView.ViewHolder {
         card_no = (TextView) itemView.findViewById(R.id.card_no);
         card_rno = (TextView) itemView.findViewById(R.id.card_rno);
         sid = (TextView) itemView.findViewById(R.id.sid);
-        card_rep = (TextView) itemView.findViewById(R.id.card_rep);
+        pay_alias = (TextView) itemView.findViewById(R.id.pay_alias);
         active = (Switch) itemView.findViewById(R.id.active);
     }
 
