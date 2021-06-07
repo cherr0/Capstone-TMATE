@@ -12,7 +12,8 @@
         android:layout_marginRight="50dp"
         android:background="@drawable/box_radius"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_call"
+        android:src="@drawable/logo"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nexon_medium"
-        android:text="등급이 올라갈수록\n혜택이 올라간답니다!"
+        android:text="검색창에 TMATE를\n검색 해보세요!"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
