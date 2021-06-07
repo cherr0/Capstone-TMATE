@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.material.snackbar.Snackbar;
 import com.tmate.user.Activity.CallWaitingActivity;
 import com.tmate.user.Activity.CarInfoActivity;
+import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.R;
 import com.tmate.user.databinding.FragmentCallWaitingBinding;
 import com.tmate.user.net.DataService;
@@ -80,6 +81,10 @@ public class CallWaitingFragment extends Fragment {
         mViewModel = new ViewModelProvider(requireActivity()).get(DrivingModel.class);
         b = FragmentCallWaitingBinding.inflate(getLayoutInflater());
         modelDataBinding();
+        b.backCallWaiting.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), MainViewActivity.class);
+            startActivity(intent);
+        });
         return b.getRoot();
     }
 

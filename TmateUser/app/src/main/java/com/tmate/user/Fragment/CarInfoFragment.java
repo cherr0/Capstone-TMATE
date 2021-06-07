@@ -52,7 +52,7 @@ public class CarInfoFragment extends Fragment {
         b.noService.bringToFront();
 
         m_id = getActivity().getSharedPreferences("loginUs" +
-                "ㅇㅁㅅㅁㄴㄷㄱㅍer", Context.MODE_PRIVATE).getString("m_id", "");
+                "dataserver", Context.MODE_PRIVATE).getString("m_id", "");
 
         request = DataService.getInstance().matchAPI.getUsingHistory(m_id);
         request.enqueue(new Callback<Dispatch>() {
