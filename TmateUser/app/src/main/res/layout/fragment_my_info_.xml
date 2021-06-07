@@ -250,25 +250,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_account" />
 
-                        <TextView
-                            android:id="@+id/tv_bookmark"
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:layout_gravity="center"
-                            android:background="@color/white"
-                            android:drawableLeft="@drawable/ic_favorite"
-                            android:drawableRight="@drawable/ic_arrow_right"
-                            android:drawablePadding="15dp"
-                            android:fontFamily="@font/ibmplexsanskr_medium"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="16dp"
-                            android:text="즐겨찾기"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_preference" />
 
                         <TextView
                             android:id="@+id/tv_notice"
@@ -290,7 +271,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_bookmark" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_preference" />
 
                         <TextView
                             android:id="@+id/tv_alert"

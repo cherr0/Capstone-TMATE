@@ -35,7 +35,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
     private TextView tv_friend;
     private TextView tv_history;
     private TextView tv_notice;
-    private TextView tv_bookmark;
     private TextView tv_account;
 
 
@@ -84,7 +83,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
         tv_friend = view.findViewById(R.id.tv_friend);
         tv_history = view.findViewById(R.id.tv_history);
         tv_notice = view.findViewById(R.id.tv_notice);
-        tv_bookmark = view.findViewById(R.id.tv_bookmark);
         service = view.findViewById(R.id.service);
         tv_card = view.findViewById(R.id.tv_card);
 
@@ -95,7 +93,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
         tv_friend.setOnClickListener(this);
         tv_history.setOnClickListener(this);
         tv_notice.setOnClickListener(this);
-        tv_bookmark.setOnClickListener(this);
         service.setOnClickListener(this);
         tv_card.setOnClickListener(this);
 
@@ -149,11 +146,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
             case R.id.tv_notice : { // 공지사항
                 NoticeFragment noticeFragment = new NoticeFragment();
                 transaction.replace(R.id.frameLayout, noticeFragment).commit();
-                return ;
-            }
-            case R.id.tv_bookmark : { // 즐겨찾기
-                favoritesFragment favoritesFragment = new favoritesFragment();
-                transaction.replace(R.id.frameLayout, favoritesFragment).commit();
                 return ;
             }
             case R.id.service : { // 상담 연결
