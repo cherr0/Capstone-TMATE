@@ -1,28 +1,46 @@
 package com.tmate.user.ui.driving;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.skt.Tmap.TMapPOIItem;
 import com.skt.Tmap.TMapPoint;
 import com.tmate.user.R;
+import com.tmate.user.adapter.FavoritesAdapter;
+import com.tmate.user.data.FavoritesData;
+import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchHolder> {
 
     private ArrayList<TMapPOIItem> items;
     DrivingModel mViewModel;
     TextView finish;
+    Context context;
+
+    FavoritesData bookmark;
+    Call<Boolean> insertRequest;
+    Call<Boolean> deleteRequest;
 
     public SearchAdapter(ArrayList<TMapPOIItem> items, DrivingModel model, TextView finish) {
         this.mViewModel = model;
@@ -34,6 +52,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchHolder> {
     @Override
     public SearchHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_address, parent, false);
+        context = parent.getContext();
         return new SearchHolder(view);
     }
 
@@ -66,6 +85,46 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchHolder> {
             Log.d("SearchAdapter","예상 요금 : " + mViewModel.dispatch.getAll_fare());
         });
 
+        holder.favorite_btn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            TMapPOIItem data = items.get(posit);
+            bookmark = new FavoritesData();
+            bookmark.setM_id(mViewModel.dispatch.getM_id());
+            bookmark.setBm_lat(data.getPOIPoint().getLatitude());
+            bookmark.setBm_lng(data.getPOIPoint().getLongitude());
+            bookmark.setBm_name(data.getPOIName());
+            holder.favorite_btn.setEnabled(false);
+            if(isChecked) {
+                insertRequest = DataService.getInstance().memberAPI.insertBookmark(bookmark);
+                insertRequest.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if(response.code() == 200 && response.body() != null) {
+                            Toast.makeText(context, "즐겨찾기 등록 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                            holder.favorite_btn.setEnabled(true);
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+            } else {
+                deleteRequest = DataService.getInstance().memberAPI.deleteBookmark(bookmark.getBm_name(), bookmark.getM_id());
+                deleteRequest.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if(response.code() == 200 && response.body() != null) {
+                            Toast.makeText(context, "즐겨찾기 삭제 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                            holder.favorite_btn.setEnabled(true);
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+            }
+        });
     }
 
     // 택시 요금 계산 로직
@@ -102,7 +161,8 @@ class SearchHolder extends RecyclerView.ViewHolder {
     TextView search_address;
     TextView finish_lat;
     TextView finish_lng;
-    Button finish_button;
+    TextView bm_id;
+    ToggleButton favorite_btn;
 
     void onBind(TMapPOIItem data) {
         search_name.setText(data.getPOIName());
@@ -116,8 +176,10 @@ class SearchHolder extends RecyclerView.ViewHolder {
 
         search_name = (TextView) itemView.findViewById(R.id.search_name);
         search_address = (TextView) itemView.findViewById(R.id.search_address);
-        finish_button = (Button) itemView.findViewById(R.id.finish_button);
         finish_lat = (TextView) itemView.findViewById(R.id.finish_lat);
         finish_lng = (TextView) itemView.findViewById(R.id.finish_lng);
+        favorite_btn = (ToggleButton) itemView.findViewById(R.id.favorite_btn);
+        bm_id = (TextView) itemView.findViewById(R.id.bm_id);
     }
+
 }

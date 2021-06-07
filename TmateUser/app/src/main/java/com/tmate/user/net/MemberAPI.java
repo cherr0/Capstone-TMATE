@@ -86,6 +86,13 @@ public interface MemberAPI {
     @GET("member/bookmark/{m_id}")
     Call<List<FavoritesData>> getBookmarkList(@Path("m_id") String m_id);
 
+    // 즐겨찾기 등록
+    @POST("member/bookmark")
+    Call<Boolean> insertBookmark(@Body FavoritesData favoritesData);
+
+    // 즐겨찾기 삭제
+    @DELETE("member/bookmark/{bm_name}/{m_id}")
+    Call<Boolean> deleteBookmark(@Path("bd_name") String bm_name, @Path("m_id") String m_id);
 
     /*
     * 포인트 관련 서비스
