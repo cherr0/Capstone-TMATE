@@ -22,8 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tmate.user.Fragment.ReviewFragment;
 import com.tmate.user.R;
 import com.tmate.user.data.Data;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.net.DataService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -31,7 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
-    ArrayList<Data> items = new ArrayList<>();
+    ArrayList<Dispatch> items = new ArrayList<>();
 
     Context context;
     SharedPreferences pref;
@@ -53,9 +55,10 @@ public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull HistoryHolder holder, int position) {
-        holder.onBind(items.get(position));
+        int posit = holder.getAdapterPosition();
+        holder.onBind(items.get(posit));
 
-        holder.itemView.setTag(position);
+        holder.itemView.setTag(posit);
 
         holder.more.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,9 +111,9 @@ public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
                                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                         if(response.code() == 200) {
                                             Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                                            items.remove(position);
-                                            notifyItemRemoved(position);
-                                            notifyItemChanged(position, items.size());
+                                            items.remove(posit);
+                                            notifyItemRemoved(posit);
+                                            notifyItemChanged(posit, items.size());
                                         }
                                     }
 
@@ -147,7 +150,7 @@ public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
 
 
 
-    public void addItem(Data data) {
+    public void addItem(Dispatch data) {
         items.add(data);
     }
     public void clear() {
@@ -183,14 +186,30 @@ class HistoryHolder extends RecyclerView.ViewHolder {
         cv_merchant_uid = itemView.findViewById(R.id.cv_merchant_uid);
     }
 
-    void onBind(Data data) {
-        start.setText(data.getStart());
-        together.setText(data.getTogether());
-        date.setText(data.getDate());
-        finish.setText(data.getFinish());
-        time.setText(data.getTime());
-        drivername.setText(data.getDrivername());
-        carinfo.setText(data.getCarinfo());
-        cv_merchant_uid.setText(data.getMerchant_uid());
+    void onBind(Dispatch data) {
+        start.setText(data.getStart_place());
+        switch(data.getDp_id().substring(18)){
+            case "1" :
+                together.setText("일반");
+                break;
+            case "2" :
+                together.setText("동승");
+        }
+        String meet = new SimpleDateFormat("yy/MM/dd").format(data.getStart_time());
+        date.setText(meet);
+        finish.setText(data.getFinish_place());
+        String startTime = new SimpleDateFormat("HH:mm").format(data.getStart_time());
+        String finishTime;
+        if(data.getEnd_time() !=null) {
+            finishTime = new SimpleDateFormat("HH:mm").format(data.getEnd_time());
+            time.setText(startTime + " : " + finishTime);
+        }else {
+            time.setText(startTime);
+        }
+
+
+        drivername.setText(data.getM_name());
+        carinfo.setText(data.getCar_no() + " | " + data.getCar_model());
+        cv_merchant_uid.setText(data.getDp_id());
     }
 }
