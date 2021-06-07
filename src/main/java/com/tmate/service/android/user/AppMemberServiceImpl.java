@@ -34,6 +34,9 @@ public class AppMemberServiceImpl implements AppMemberService {
     // HistoryMapper 의존
     private final HistoryMapper historyMapper;
 
+    // BoardMapper 의존
+    private final BoardMapper boardMapper;
+
     //  회원가입 등록
     @Transactional
     @Override
@@ -104,6 +107,13 @@ public class AppMemberServiceImpl implements AppMemberService {
 
 
         return joinMapper.findHistoryToApp(m_id);
+    }
+
+    // 메인 뷰 최신 공지 리스트 가져오기
+    @Override
+    public List<BoardDTO> getMainNoticeList() {
+        log.info("최신 공지 리스트 가져오는 중");
+        return boardMapper.findMainNoticeList();
     }
 
     // 유저 이용내역 삭제

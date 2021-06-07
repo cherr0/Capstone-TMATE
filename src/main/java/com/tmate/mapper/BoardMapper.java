@@ -67,4 +67,6 @@ public interface BoardMapper {
 
     // 이벤트 읽어오기
     BoardDTO findEventByBd_id(String bd_id);
+
+    List<BoardDTO> findMainNoticeList();
 }

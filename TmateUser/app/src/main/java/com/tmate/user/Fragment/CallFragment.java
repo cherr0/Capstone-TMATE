@@ -29,14 +29,24 @@ import com.rd.PageIndicatorView;
 import com.tmate.user.Activity.LoginActivity;
 import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.Activity.MatchingMapActivity;
+import com.tmate.user.Activity.NoticeDetailActivity;
 import com.tmate.user.R;
 import com.tmate.user.adapter.CallAdvertisingAdapter;
+import com.tmate.user.data.Notice;
 import com.tmate.user.databinding.FragmentCallBinding;
+import com.tmate.user.net.DataService;
 import com.tmate.user.ui.driving.DrivingActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CallFragment extends Fragment implements View.OnClickListener {
@@ -56,6 +66,11 @@ public class CallFragment extends Fragment implements View.OnClickListener {
     final long DELAY_MS = 3000;           // 오토 플립용 타이머 시작 후 해당 시간에 작동(초기 웨이팅 타임) ex) 앱 로딩 후 3초 뒤 플립됨.
     final long PERIOD_MS = 5000;          // 5초 주기로 작동
 
+    List<Notice> noticeList;
+    Call<List<Notice>> noticeRequest;
+
+    // 타임스탬프 String 변환용
+    SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.KOREA);
 
     @Nullable
     @Override
@@ -63,6 +78,7 @@ public class CallFragment extends Fragment implements View.OnClickListener {
         b = FragmentCallBinding.inflate(getLayoutInflater());
         view = b.getRoot();
         clickListener();
+        getMainLoticeList();
 
         //로고 애니메이션
         call_logo = view.findViewById(R.id.call_logo);
@@ -143,37 +159,67 @@ public class CallFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        Intent intent;
-
         switch(v.getId()) {
             case R.id.normal_call:
-                intent = new Intent(getContext(),DrivingActivity.class);
+                Intent intent = new Intent(getContext(),DrivingActivity.class);
                 intent.putExtra("together", "1");
                 startActivity(intent);
                 break;
             case R.id.together_call:
                 dialog.show();
                 break;
-            case R.id.go_point:
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                PointChargeFragment pcf = new PointChargeFragment();
-                transaction.replace(R.id.frameLayout, pcf);
-                transaction.addToBackStack(null);
-                transaction.commit();
-                break;
             case R.id.call_notice_first:
-                /*
-                나중에 TextView 값에 따라 공지사항 이동
-                 */
-                //startActivity(intent);
+                moveNoticeDetail(0);
+                break;
+            case R.id.call_notice_second:
+                moveNoticeDetail(1);
+                break;
+            case R.id.call_notice_third:
+                moveNoticeDetail(2);
+                break;
         }
 
     }
 
-    public void clickListener() {
+    private void clickListener() {
         b.normalCall.setOnClickListener(this);
         b.togetherCall.setOnClickListener(this);
-        b.goPoint.setOnClickListener(this);
         b.callNoticeFirst.setOnClickListener(this);
+        b.callNoticeSecond.setOnClickListener(this);
+        b.callNoticeThird.setOnClickListener(this);
+    }
+
+    private void moveNoticeDetail(int position) {
+        Intent intent = new Intent(requireActivity(), NoticeDetailActivity.class);
+        Notice notice = noticeList.get(position);
+        intent.putExtra("title",notice.getBd_title());
+        intent.putExtra("date", sdf.format(notice.getBd_cre_date()));
+        intent.putExtra("content", notice.getBd_contents());
+        startActivity(intent);
+    }
+
+    private void getMainLoticeList() {
+        noticeRequest = DataService.getInstance().memberAPI.getMainNoticeList();
+        noticeRequest.enqueue(new Callback<List<Notice>>() {
+            @Override
+            public void onResponse(Call<List<Notice>> call, Response<List<Notice>> response) {
+                if(response.code() == 200 && response.body() != null) {
+                    noticeList = response.body();
+                    Log.d("CallFragment", "받아오는 공지사항 : " + noticeList);
+                    b.callNoticeFirst.setText(noticeList.get(0).getBd_title());
+                    b.callNoticeSecond.setText(noticeList.get(1).getBd_title());
+                    b.callNoticeThird.setText(noticeList.get(2).getBd_title());
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Notice>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
