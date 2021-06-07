@@ -186,7 +186,7 @@
             app:layout_constraintTop_toBottomOf="@+id/const_h_f_place" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/const_personnel_sit"
+            android:id="@+id/const_personnel_seat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@+id/const_h_f_place"
@@ -206,6 +206,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/cur_people"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="28dp"
@@ -218,45 +219,45 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_personnel_seat" />
 
             <ImageView
-                android:id="@+id/iv_driver_sit"
+                android:id="@+id/iv_driver_seat"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="32dp"
                 android:src="@drawable/ic_sit_off"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/iv_sit_two" />
+                app:layout_constraintTop_toTopOf="@+id/iv_seat_two" />
 
             <ImageView
-                android:id="@+id/iv_sit_one"
+                android:id="@+id/iv_seat_one"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_sit_off"
-                app:layout_constraintEnd_toEndOf="@+id/iv_driver_sit"
-                app:layout_constraintTop_toBottomOf="@+id/iv_driver_sit" />
+                app:layout_constraintEnd_toEndOf="@+id/iv_driver_seat"
+                app:layout_constraintTop_toBottomOf="@+id/iv_driver_seat" />
 
             <ImageView
-                android:id="@+id/iv_sit_two"
+                android:id="@+id/iv_seat_two"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_sit_off"
-                app:layout_constraintEnd_toStartOf="@+id/iv_driver_sit"
+                app:layout_constraintEnd_toStartOf="@+id/iv_driver_seat"
                 app:layout_constraintTop_toTopOf="@+id/tv_personnel_seat" />
 
             <ImageView
-                android:id="@+id/iv_sit_three"
+                android:id="@+id/iv_seat_three"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/ic_sit_off"
-                app:layout_constraintEnd_toStartOf="@+id/iv_sit_one"
-                app:layout_constraintTop_toBottomOf="@+id/iv_sit_two" />
+                app:layout_constraintEnd_toStartOf="@+id/iv_seat_one"
+                app:layout_constraintTop_toBottomOf="@+id/iv_seat_two" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/const_personnel_sit_view"
+            android:id="@+id/const_personnel_seat_view"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="40dp"
@@ -264,15 +265,15 @@
             android:background="@drawable/dotted_line"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/const_personnel_sit" />
+            app:layout_constraintTop_toBottomOf="@id/const_personnel_seat" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/const_car_info"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/const_personnel_sit"
-            app:layout_constraintStart_toStartOf="@+id/const_personnel_sit"
-            app:layout_constraintTop_toBottomOf="@+id/const_personnel_sit">
+            app:layout_constraintEnd_toEndOf="@+id/const_personnel_seat"
+            app:layout_constraintStart_toStartOf="@+id/const_personnel_seat"
+            app:layout_constraintTop_toBottomOf="@+id/const_personnel_seat">
 
             <TextView
                 android:id="@+id/tv_car_info"

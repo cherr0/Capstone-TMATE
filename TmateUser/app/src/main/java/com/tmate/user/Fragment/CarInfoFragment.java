@@ -40,6 +40,8 @@ public class CarInfoFragment extends Fragment {
     String m_id;
     String dp_id;
     String together;
+    int cur_people;
+    int seat;
     Call<Dispatch> request;
 
     @Nullable
@@ -64,6 +66,19 @@ public class CarInfoFragment extends Fragment {
                     dp_id = dispatch.getDp_id();
                     dp_status = dispatch.getDp_status();
                     at_status = dispatch.getAt_status();
+                    seat = dispatch.getSeat();
+                    cur_people = dispatch.getCur_people();
+
+
+
+                    switch (seat) {
+                        case 1 :
+                            b.ivSeatOne.setImageResource(R.drawable.ic_sit_off_more);
+                        case 2:
+                            b.ivSeatTwo.setImageResource(R.drawable.ic_sit_off_more);
+                        case 3:
+                            b.ivSeatThree.setImageResource(R.drawable.ic_sit_off_more);
+                    }
 
                     switch (dp_status) {
                         case "0":
