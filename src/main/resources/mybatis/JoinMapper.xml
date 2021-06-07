@@ -73,15 +73,11 @@
     </select>
 
 
-    <select id="findHistoryToApp" resultType="com.tmate.domain.JoinHistoryVO">
-        <![CDATA[
-        select merchant_uid, h_s_place, h_f_place, h_s_time, h_e_time, m_name, car_no, car_model
-        from (select  h.merchant_uid as merchant_uid , h.h_s_place as h_s_place, h.h_f_place as h_f_place, h.h_s_time as h_s_time, h.h_e_time as h_e_time
-                   , m.m_name as m_name ,c.car_no as car_no , c.car_model as car_model
-              from history h inner join member m on h.d_id = m.m_id
-                             inner join car c on m.m_id = c.m_id
-              where h.m_id = #{m_id} and h.h_status='5')
-        ]]>
+    <select id="findHistoryToApp" resultType="com.tmate.domain.DispatchDTO">
+        select d.dp_id, d.start_place, finish_place, start_time, end_time, m.m_name, c.car_no, c.car_model
+        from (select DP_ID, START_PLACE, FINISH_PLACE, START_TIME, END_TIME, m_id,d_id from dispatch where m_id = #{m_id} and DP_STATUS = '5') d
+                 join member m on d.m_id = m.m_id
+                 join car c on d.d_id = c.m_id
     </select>
 
 

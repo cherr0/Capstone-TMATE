@@ -39,5 +39,5 @@ public interface JoinMapper {
     *
     * */
 
-    List<JoinHistoryVO> findHistoryToApp(String m_id);
+    List<DispatchDTO> findHistoryToApp(String m_id);
 }

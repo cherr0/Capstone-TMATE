@@ -96,7 +96,7 @@ public class AppMemberServiceImpl implements AppMemberService {
 
     // 유저 이용내역 리스트
     @Override
-    public List<JoinHistoryVO> getMemberHistoryList(String m_id) {
+    public List<DispatchDTO> getMemberHistoryList(String m_id) {
         log.info("회원 이용 내역 서비스 로직 처리중");
 
 
