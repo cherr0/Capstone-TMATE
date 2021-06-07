@@ -51,7 +51,8 @@ public class CarInfoFragment extends Fragment {
         view = b.getRoot();
         b.noService.bringToFront();
 
-        m_id = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE).getString("m_id", "");
+        m_id = getActivity().getSharedPreferences("loginUs" +
+                "ㅇㅁㅅㅁㄴㄷㄱㅍer", Context.MODE_PRIVATE).getString("m_id", "");
 
         request = DataService.getInstance().matchAPI.getUsingHistory(m_id);
         request.enqueue(new Callback<Dispatch>() {
@@ -67,9 +68,6 @@ public class CarInfoFragment extends Fragment {
                     dp_status = dispatch.getDp_status();
                     at_status = dispatch.getAt_status();
                     seat = dispatch.getSeat();
-                    cur_people = dispatch.getCur_people();
-
-
 
                     switch (seat) {
                         case 1 :
@@ -102,10 +100,12 @@ public class CarInfoFragment extends Fragment {
                     switch (together) {
                         case "1":
                             b.htogether.setText("일반");
+                            b.curPeople.setText("1명");
                             break;
 
                         default:
                             b.htogether.setText("동승");
+                            b.curPeople.setText(dispatch.getCur_people() + "명");
                             break;
                     }
 
