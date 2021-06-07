@@ -2,6 +2,7 @@ package com.tmate.user.ui.driving;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
@@ -37,23 +38,34 @@ import com.skt.Tmap.TMapPOIItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapView;
 import com.tmate.user.R;
+import com.tmate.user.adapter.FavoritesAdapter;
 import com.tmate.user.common.PermissionManager;
+import com.tmate.user.data.FavoritesData;
 import com.tmate.user.databinding.FragmentSearchPlaceBinding;
+import com.tmate.user.net.DataService;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SearchPlaceFragment extends Fragment implements View.OnClickListener {
 
     private DrivingModel mViewModel;
     SearchAdapter searchAdapter;
+    FavoritesAdapter favoritesAdapter;
     ArrayList<TMapPOIItem> searchList;
+    ArrayList<FavoritesData> bookmarkList;
     FragmentSearchPlaceBinding b;
 
     Geocoder geocoder;
 
     private TMapView mMapView; //맵 뷰
+
+    Call<List<FavoritesData>> bookmarkRequest;
 
     // gps 및 경로 그리기 위한 변수들
     private boolean m_bTrackingMode = false; // geofencing type save
@@ -104,11 +116,17 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         clickListenerApply(); // 클릭 리스너 활성화
 
         // 리사이클러 뷰 설정
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager searchManager = new LinearLayoutManager(getContext());
         searchList = new ArrayList<>();
         searchAdapter = new SearchAdapter(searchList, mViewModel, b.finishPlace);
-        b.list.setLayoutManager(layoutManager);
-        b.list.setAdapter(searchAdapter);
+        b.searchList.setLayoutManager(searchManager);
+        b.searchList.setAdapter(searchAdapter);
+
+        RecyclerView.LayoutManager bookmarkManager = new LinearLayoutManager(getContext());
+        bookmarkList = new ArrayList<>();
+        favoritesAdapter = new FavoritesAdapter(bookmarkList, mViewModel, b.finishPlace);
+        b.favoriteList.setLayoutManager(bookmarkManager);
+        b.favoriteList.setAdapter(favoritesAdapter);
 
 
     }
@@ -125,6 +143,19 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
             case R.id.location_btn : // 현재 위치 클릭
                 onClickLocationBtn();
                 break;
+            case R.id.bookmark:
+                getBookmarkList();
+                break;
+            case R.id.search_btn:
+                searchListVisible();
+                break;
+        }
+    }
+
+    private void searchListVisible() {
+        if(b.searchList.getVisibility() == View.GONE) {
+            b.searchList.setVisibility(View.VISIBLE);
+            b.favoriteList.setVisibility(View.GONE);
         }
     }
 
@@ -147,8 +178,13 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(b.searchList.getVisibility() == View.GONE) {
+                    b.searchList.setVisibility(View.VISIBLE);
+                    b.favoriteList.setVisibility(View.GONE);
+                }
                 if(!searchList.isEmpty())
                     searchList.clear();
+
                 String text = b.finishPlace.getText().toString();
                 TMapPoint tPoint = new TMapPoint(mViewModel.dispatch.getStart_lat(), mViewModel.dispatch.getStart_lng());
                 TMapData mapData = new TMapData();
@@ -164,6 +200,9 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
             public void afterTextChanged(Editable s) {
             }
         });
+
+        b.bookmark.setOnClickListener(this);
+        b.searchBtn.setOnClickListener(this);
     }
 
     /* ------------------------
@@ -190,7 +229,6 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         }
     };
 
-    // 3인일 경우 핫플레이스 검색
 
     //자신의 위치로 보여주게한다 (시작 할 경우 사용)
     public void setGps() {
@@ -326,6 +364,12 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         imm.hideSoftInputFromWindow(b.finishPlace.getWindowToken(), 0);
     }
 
+    // perf 가져오기
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
+        return pref.getString(key, "");
+    }
+
     // 위치 권한 요청
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -358,6 +402,27 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    // 즐겨찾기 가져오기
+    private void getBookmarkList() {
+        bookmarkList.clear();
+        bookmarkRequest = DataService.getInstance().memberAPI.getBookmarkList(getPreferenceString("m_id"));
+        bookmarkRequest.enqueue(new Callback<List<FavoritesData>>() {
+            @Override
+            public void onResponse(Call<List<FavoritesData>> call, Response<List<FavoritesData>> response) {
+                if(response.code() == 200 && response.body() != null) {
+                    bookmarkList.addAll(response.body());
+                    favoritesAdapter.notifyDataSetChanged();
+                    b.favoriteList.setVisibility(View.VISIBLE);
+                    b.searchList.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onFailure(Call<List<FavoritesData>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -366,5 +431,11 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
             gps.CloseGps();
         }
         b.locationBtn.setBackgroundResource(R.drawable.location_btn);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(bookmarkRequest != null) bookmarkRequest.cancel();
     }
 }

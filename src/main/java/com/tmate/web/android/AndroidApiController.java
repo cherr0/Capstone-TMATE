@@ -194,6 +194,18 @@ public class AndroidApiController {
         return new ResponseEntity<>(appMemberService.getunusedPoint(m_id), HttpStatus.OK);
     }
 
+    @PostMapping("/bookmark")
+    public ResponseEntity<Boolean> insertBookmark(@RequestBody BookmarkDTO bookmarkDTO) {
+        log.info("북마크 삽입 진행 중");
+        return new ResponseEntity<>(appMemberService.insertBookmark(bookmarkDTO), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/bookmark/{bm_name}/{m_id}")
+    public ResponseEntity<Boolean> deleteBookmark(@PathVariable("bm_name") String bm_name, @PathVariable("m_id") String m_id) {
+        log.info("북마크 삭제 진행 중");
+        return new ResponseEntity<>(appMemberService.removeBookmark(bm_name,m_id), HttpStatus.OK);
+    }
+
 
     /*
      *  사용자 APP 카드 관리 컨트롤러

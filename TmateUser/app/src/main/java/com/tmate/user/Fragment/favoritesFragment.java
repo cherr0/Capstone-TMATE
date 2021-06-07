@@ -119,8 +119,8 @@ public class favoritesFragment extends Fragment {
                                 data.setBm_date(list.get(i).getBm_date());
                                 data.setBm_id(list.get(i).getBm_id());
                                 data.setBm_name(list.get(i).getBm_name());
-                                data.setBm_lttd(list.get(i).getBm_lttd());
-                                data.setBm_lngtd(list.get(i).getBm_lngtd());
+                                data.setBm_lat(list.get(i).getBm_lat());
+                                data.setBm_lng(list.get(i).getBm_lng());
                                 favoritesAdapter.addItem(data);
                             }
                         }else {

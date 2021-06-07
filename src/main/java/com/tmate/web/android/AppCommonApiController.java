@@ -74,16 +74,7 @@ public class AppCommonApiController {
         log.info("App에서 상세보기를 위한 이벤트 코드" + bd_id);
         return new ResponseEntity<>(commonService.readEvent(bd_id),HttpStatus.OK);
     }
-
-    @DeleteMapping("/deletebookmark/{bm_id}/{m_id}")
-    public ResponseEntity<Boolean> removeBookmark(@PathVariable("bm_id") String bm_id, @PathVariable("m_id") String m_id) {
-
-        log.info("즐겨 찾기 지우는 중: " + bm_id + m_id);
-
-        Integer bm_ids = Integer.valueOf(bm_id);
-
-        return new ResponseEntity<>(appMemberService.removeBookmark(bm_ids, m_id),HttpStatus.OK);
-    }
+    
 
     /* -----------------------
           휴대폰 인증 컨트롤러
