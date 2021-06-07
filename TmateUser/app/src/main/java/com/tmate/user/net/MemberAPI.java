@@ -2,6 +2,7 @@ package com.tmate.user.net;
 
 import com.tmate.user.data.Approval;
 import com.tmate.user.data.CardData;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.Dv_option;
 import com.tmate.user.data.FavoritesData;
 import com.tmate.user.data.Member;
@@ -74,7 +75,7 @@ public interface MemberAPI {
 
     // 유저 이용 내역 정보
     @GET("member/historys/{m_id}")
-    Call<List<UserHistroy>> selectHistory(@Path("m_id") String m_id);
+    Call<List<Dispatch>> selectHistory(@Path("m_id") String m_id);
 
     // 유저 이용 내역 삭제
     @DELETE("member/remove/history/{merchant_uid}/{m_id}")
