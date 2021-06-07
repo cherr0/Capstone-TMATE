@@ -35,7 +35,7 @@ import retrofit2.Response;
 
 public class card_management  extends Fragment {
     SwipeRefreshLayout refCard;
-    Button button ;
+    Button cardAdd ;
     ImageView btn_card_tooltip;
     LinearLayout nocard;
     ArrayList<String> list;
@@ -70,8 +70,8 @@ public class card_management  extends Fragment {
         adapter = new CardAdapter();
         recyclerView.setAdapter(adapter);
         getData();
-        button = view.findViewById(R.id.cardAdd);
-        button.setOnClickListener(new View.OnClickListener() {
+        cardAdd = view.findViewById(R.id.cardAdd);
+        cardAdd.setOnClickListener(new View.OnClickListener() {
             @Override // 카드 등록. 카카오페이 정기 결제 등록 웹뷰 열기
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), KakaopayWebviewActivity.class);
