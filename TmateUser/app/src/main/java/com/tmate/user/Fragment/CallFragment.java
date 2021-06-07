@@ -95,7 +95,7 @@ public class CallFragment extends Fragment implements View.OnClickListener {
 
         PageIndicatorView pageIndicatorView = view.findViewById(R.id.vp_fm_call_indicator);
         pageIndicatorView.setCount(5);
-        pageIndicatorView.setSelection(1);
+        pageIndicatorView.setSelection(0);
 
         Button btn_double = dialog.findViewById(R.id.btn_double);
         btn_double.setOnClickListener(v -> {
