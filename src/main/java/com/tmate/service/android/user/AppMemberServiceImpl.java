@@ -170,10 +170,15 @@ public class AppMemberServiceImpl implements AppMemberService {
     }
 
     @Override
-    public Boolean removeBookmark(int bm_id, String m_id) {
-        return placeMapper.deleteBookmark(bm_id, m_id) == 1;
+    public Boolean removeBookmark(String bm_name, String m_id) {
+        return placeMapper.deleteBookmark(bm_name, m_id) == 1;
     }
 
+    @Override
+    public Boolean insertBookmark(BookmarkDTO bookmarkDTO) {
+        log.info("즐겨찾기 추가 중 : " + bookmarkDTO);
+        return placeMapper.insertBookmark(bookmarkDTO) == 1;
+    }
 
     /*
     * 운행 옵션

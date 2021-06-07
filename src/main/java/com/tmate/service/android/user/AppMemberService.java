@@ -43,7 +43,10 @@ public interface AppMemberService {
     List<BookmarkDTO> getBookmarkListByM_id(String m_id);
 
     // 즐겨 찾기 삭제
-    Boolean removeBookmark(int bm_id, String m_id);
+    Boolean removeBookmark(String bm_name, String m_id);
+
+    // 즐겨 찾기 추가
+    Boolean insertBookmark(BookmarkDTO bookmarkDTO);
 
     /*
      * 운행 옵션 부분
