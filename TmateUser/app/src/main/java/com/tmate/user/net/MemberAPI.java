@@ -92,7 +92,7 @@ public interface MemberAPI {
 
     // 즐겨찾기 삭제
     @DELETE("member/bookmark/{bm_name}/{m_id}")
-    Call<Boolean> deleteBookmark(@Path("bd_name") String bm_name, @Path("m_id") String m_id);
+    Call<Boolean> deleteBookmark(@Path("bm_name") String bm_name, @Path("m_id") String m_id);
 
     /*
     * 포인트 관련 서비스
