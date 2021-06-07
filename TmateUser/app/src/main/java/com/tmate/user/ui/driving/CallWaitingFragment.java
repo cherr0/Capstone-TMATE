@@ -16,8 +16,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.tmate.user.Activity.CallWaitingActivity;
 import com.tmate.user.Activity.CarInfoActivity;
@@ -25,6 +27,8 @@ import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.R;
 import com.tmate.user.databinding.FragmentCallWaitingBinding;
 import com.tmate.user.net.DataService;
+
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,19 +60,8 @@ public class CallWaitingFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                deleteRequest = DataService.getInstance().matchAPI.removeNormalCall(mViewModel.dispatch.getDp_id());
-                deleteRequest.enqueue(new Callback<Boolean>() {
-                    @Override
-                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                        if (response.code() == 200 && response.body() != null) {
-                            Snackbar.make(getView(), "호출을 취소하셨습니다.", Snackbar.LENGTH_SHORT).show();
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<Boolean> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+                Intent intent = new Intent(getActivity(), MainViewActivity.class);
+                startActivity(intent);
             }
         };
 
@@ -81,9 +74,31 @@ public class CallWaitingFragment extends Fragment {
         mViewModel = new ViewModelProvider(requireActivity()).get(DrivingModel.class);
         b = FragmentCallWaitingBinding.inflate(getLayoutInflater());
         modelDataBinding();
-        b.backCallWaiting.setOnClickListener(v -> {
+
+        ImageView gif = b.getRoot().findViewById(R.id.call_waiting_img);
+        Glide.with(requireContext()).asGif()
+                .load(R.drawable.taxi_loading)
+                .into(gif);
+        b.homeCallWaiting.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), MainViewActivity.class);
             startActivity(intent);
+        });
+        b.callCancel.setOnClickListener(v -> {
+            deleteRequest = DataService.getInstance().matchAPI.removeNormalCall(mViewModel.dispatch.getDp_id());
+            deleteRequest.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    if (response.code() == 200 && response.body() != null) {
+                        Intent intent = new Intent(getContext(), MainViewActivity.class);
+                        startActivity(intent);
+                        Snackbar.make(getView(), "호출을 취소하셨습니다.", Snackbar.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
         });
         return b.getRoot();
     }
