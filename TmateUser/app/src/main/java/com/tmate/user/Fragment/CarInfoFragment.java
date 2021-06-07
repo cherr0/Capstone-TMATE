@@ -40,6 +40,8 @@ public class CarInfoFragment extends Fragment {
     String m_id;
     String dp_id;
     String together;
+    int cur_people;
+    int seat;
     Call<Dispatch> request;
 
     @Nullable
@@ -49,7 +51,8 @@ public class CarInfoFragment extends Fragment {
         view = b.getRoot();
         b.noService.bringToFront();
 
-        m_id = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE).getString("m_id", "");
+        m_id = getActivity().getSharedPreferences("loginUs" +
+                "ㅇㅁㅅㅁㄴㄷㄱㅍer", Context.MODE_PRIVATE).getString("m_id", "");
 
         request = DataService.getInstance().matchAPI.getUsingHistory(m_id);
         request.enqueue(new Callback<Dispatch>() {
@@ -64,6 +67,16 @@ public class CarInfoFragment extends Fragment {
                     dp_id = dispatch.getDp_id();
                     dp_status = dispatch.getDp_status();
                     at_status = dispatch.getAt_status();
+                    seat = dispatch.getSeat();
+
+                    switch (seat) {
+                        case 1 :
+                            b.ivSeatOne.setImageResource(R.drawable.ic_sit_off_more);
+                        case 2:
+                            b.ivSeatTwo.setImageResource(R.drawable.ic_sit_off_more);
+                        case 3:
+                            b.ivSeatThree.setImageResource(R.drawable.ic_sit_off_more);
+                    }
 
                     switch (dp_status) {
                         case "0":
@@ -87,10 +100,12 @@ public class CarInfoFragment extends Fragment {
                     switch (together) {
                         case "1":
                             b.htogether.setText("일반");
+                            b.curPeople.setText("1명");
                             break;
 
                         default:
                             b.htogether.setText("동승");
+                            b.curPeople.setText(dispatch.getCur_people() + "명");
                             break;
                     }
 
