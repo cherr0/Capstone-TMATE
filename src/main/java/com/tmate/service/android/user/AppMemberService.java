@@ -29,6 +29,9 @@ public interface AppMemberService {
     // 미사용 포인트 조회
     Integer getunusedPoint(String m_id);
 
+    // 메인 뷰 최신 공지 리스트 가져오기
+    List<BoardDTO> getMainNoticeList();
+
     // 포인트 삽입
 
     // 포인트 삽입 시 멤버 테이블 총 포인트 업데이트

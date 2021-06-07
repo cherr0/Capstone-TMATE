@@ -250,5 +250,9 @@ public class AndroidApiController {
         return new ResponseEntity<>(appMemberService.modifyDv_optionByM_id(dv_optionDTO), HttpStatus.OK);
     }
 
-
+    // 메인 뷰 최신 공지 리스트 가져오기
+    @GetMapping("board/mainnotice")
+    public ResponseEntity<List<BoardDTO>> getMainNoticeList() {
+        return new ResponseEntity<>(appMemberService.getMainNoticeList(), HttpStatus.OK);
+    }
 }
