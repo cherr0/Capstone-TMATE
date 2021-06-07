@@ -24,7 +24,7 @@
         android:fontFamily="@font/nexon_medium"
         android:text="동승 호출을 하여 \n비용을 절감해 보세요!"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/call_banner_img"
         app:layout_constraintStart_toStartOf="parent"
