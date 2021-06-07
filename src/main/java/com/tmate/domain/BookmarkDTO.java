@@ -25,9 +25,9 @@ public class BookmarkDTO {
     private Timestamp bm_date;
 
     // 위도
-    private int bm_lttd;
+    private double bm_lat;
 
     // 경도
-    private int bm_lngtd;
+    private double bm_lng;
 
 }
