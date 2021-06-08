@@ -113,7 +113,8 @@ public class PaymentAdapter extends  RecyclerView.Adapter<PaymentAdapter.Payment
                 if (payment_card_check.isChecked()) {
                     setPreference("sid", data.getSid());
                     Log.d("PaymentAdapter", "sid : " + getPreferenceString("sid"));
-                }notifyDataSetChanged();
+                }
+                notifyDataSetChanged();
             });
 
         }

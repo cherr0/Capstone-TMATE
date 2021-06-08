@@ -139,7 +139,7 @@
             cardInfo.sid = res.data.sid;
             cardInfo["pay_pg"] = "카카오페이";
             cardInfo["pay_company"] = cardInfo["kakaopay_purchase_corp"];
-            cardInfo["pay_alias"] = $("#fname").val();
+            cardInfo["pay_alias"] = $("#registration").text();
             console.log(cardInfo);
 
 
@@ -159,8 +159,7 @@
             });
 
 
-        })
-        .catch((err) => {
+        }).catch((err) => {
             console.log("승인 오류");
             console.log(err);
             console.log(err.response);
