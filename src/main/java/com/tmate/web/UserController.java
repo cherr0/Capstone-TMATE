@@ -69,10 +69,10 @@ public class UserController {
     // 사용자 이용기록 확인
     @GetMapping("/historyd")
     public String userHistoryD(Criteria cri, String m_id, Model model) {
-        List<JoinHistoryVO> historyList = userService.getMyHistoryList(cri, m_id);
+        List<DispatchDTO> dispatchList = userService.getMyHistoryList(cri, m_id);
         int total = memberService.getTotalHistoryCount(m_id);
 
-        model.addAttribute("history", historyList);
+        model.addAttribute("dispatch", dispatchList);
         model.addAttribute("pageMaker", new PageDTO(cri, total));
 
         return "user/historyDetail";
