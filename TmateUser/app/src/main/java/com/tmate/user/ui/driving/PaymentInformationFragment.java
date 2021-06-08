@@ -96,7 +96,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         super.onViewCreated(view, savedInstanceState);
         price = mViewModel.dispatch.getAll_fare(); // 시작 시
         getData(); // 카드 리스트
-//        findUnusedPoint(); // 사용자 미사용 포인트 검색
+        findUnusedPoint(); // 사용자 미사용 포인트 검색
         selectedCard(); //간편결제를 눌렀을때 카드 선택뷰 보이기
         clickListenerApply(); // 클릭 리스너 연결
 
@@ -177,12 +177,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                     Log.d("PayInfoFragment", "바디 : " + response.body());
                     Log.d("PayInfoFragment", "코드 : " + response.code());
                     for(CardData data : cardList) {
-                        if (payment_card_check.isChecked()) {
-                            setPreference("sid", data.getSid());
-                            Log.d("PayInfoFragment", "sid : " + getPreferenceString("sid"));
-                        }
                         adapter.addItem(data);
-
                     }
                     adapter.notifyDataSetChanged();
                 }
