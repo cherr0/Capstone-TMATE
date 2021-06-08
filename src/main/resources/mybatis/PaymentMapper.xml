@@ -11,8 +11,8 @@
     </select>
 
     <insert id="insert">
-        insert into payment (SID, m_id, pay_pg, pay_rep, pay_company, credit_no, credit_pw, credit_cvc, credit_vali)
-        values(to_char(systimestamp,'yyMMddhh24missff')||pa_sec.nextval,#{m_id},'pg','0',#{pay_company},#{credit_no},#{credit_pw},#{credit_cvc},#{credit_vali})
+        insert into payment (SID, m_id, pay_pg, pay_company, credit_no, credit_pw, credit_cvc, credit_vali)
+        values(to_char(systimestamp,'yyMMddhh24missff')||pa_sec.nextval,#{m_id},'pg',#{pay_company},#{credit_no},#{credit_pw},#{credit_cvc},#{credit_vali})
     </insert>
 
     <insert id="kakaoReady">
@@ -43,18 +43,18 @@
     <select id="findPayment" resultType="string">
         select SID
         from payment
-        where pay_rep = '1' and m_id = #{m_id}
+        where m_id = #{m_id}
     </select>
 
     <update id="updateDRep">
         update payment
-        set pay_rep = '0'
+        set ACTIVE = '0'
         where SID = #{customer_uid}
     </update>
 
     <update id="updateRep">
         update payment
-        set pay_rep = '1'
+        set ACTIVE = '1'
         where SID = #{customer_uid}
     </update>
 
