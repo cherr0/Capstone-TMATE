@@ -80,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/ibmplexsanskr_extralight"
                 android:text="별칭 미설정"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/card_rno"
                 app:layout_constraintTop_toTopOf="@+id/bank_name" />
 
