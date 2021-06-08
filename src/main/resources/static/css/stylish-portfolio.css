@@ -12,6 +12,7 @@ html {
 
 body {
   font-family: 'Source Sans Pro';
+  line-height: 1.5;
 }
 
 .btn-xl {
@@ -104,7 +105,7 @@ button {
   height: auto;
   padding-top: 8rem;
   padding-bottom: 8rem;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%), url("../images/bg-main.gif");
+  background: linear-gradient(100deg, rgba(0, 0, 0, 0.4) 100%, rgba(0, 0, 0, 0.2) 0%), url("../images/bg-main.gif");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -122,7 +123,6 @@ button {
   }
   .masthead h1 {
     font-size: 6rem;
-    color: #ffffff;
   }
 }
 
@@ -224,7 +224,7 @@ button {
 
 .service-icon {
   background-color: #fff;
-  color: #1D809F;
+  color: #383bad;
   height: 7rem;
   width: 7rem;
   display: block;
@@ -434,7 +434,7 @@ a:hover, a:focus, a:active {
 
 .navbar-bar {
   align-items: center;
-  padding: 0.1rem 3.5rem;
+  padding: -0.1rem 3.5rem;
 }
 
 
@@ -447,9 +447,9 @@ a:hover, a:focus, a:active {
 
 
 .login-btn {
-  font-size: 1.2rem;
+  font-size: 1.0rem;
   font-weight: bold;
-  color: #7D8AE3;
+  color: #ffffff;
 }
 .btn_img{
   width: 95px;
@@ -469,14 +469,16 @@ a:hover, a:focus, a:active {
 .left-box {
   float: left;
   width: 50%;
+  justify-content: center;
 }
 
 .right-box {
   float: right;
   width: 50%;
+  margin: 0 auto;
 }
 .box-center {
-  justify-content: center;
+  text-align: center;
 }
 
 .p1 {
@@ -489,16 +491,38 @@ a:hover, a:focus, a:active {
 .p2 {
   font-size: 35px;
   font-weight: bold;
-  line-height: 0px;
+  line-height: 16px;
   color: #000000;
   text-align: left;
 
 }
+@media (min-width: 992px) {
+  .btn_mimg {
+    width: 100px;
+    height: 40px;
+    margin-left: 2px;
+  }
+}
+@media (max-width: 992px) {
+  .btn_mimg {
 
-.btn_mimg {
-  width: 130px;
-  height: 90px;
-  margin-left: 30px;
+  }
+}
+
+.line {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color:rgba(0,0,0,0.35);
+  font-size: 14px;
+  margin:8px 0px;
+}
+
+.line::after {
+  content:"";
+  flex-grow: 1;
+  margin:0px 16px;
+  background: rg;
 }
 
 @font-face {
@@ -546,6 +570,50 @@ a:hover, a:focus, a:active {
   -webkit-text-stroke: 0.2px #868686;
 }
 
-.text-shadow {
-  text-shadow: -1px -1px 0px #e7e7e7, 2px 2px 0px #e7e7e7, 4px 4px 4px #b6b6b6;
+.text-title {
+  color: #ffffff;
+}
+.h3-1 {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .p5 {
+    line-height: 25px;
+    font-size: 20px;
+    font-weight: 0;
+    color: #000000;
+    text-align: left;
+  }
+}
+@media (min-width: 992px) {
+  .p5 {
+    font-size: 20px;
+    color: #000000;
+    text-align: left;
+    line-height: 15px;
+  }
+}
+.content-section-info {
+  margin-bottom: 5rem;
+  margin-top: 5rem;
+}
+.hr-sect {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.35);
+  font-size: 12px;
+  margin: 8px 0px;
+}
+.hr-sect::after {
+  content: "";
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 1.0);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 16px;
+  margin-bottom: 22px;
 }
