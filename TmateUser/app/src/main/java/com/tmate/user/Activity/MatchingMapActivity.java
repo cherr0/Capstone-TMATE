@@ -16,11 +16,15 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,7 +39,7 @@ import com.skt.Tmap.TMapPOIItem;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
-import com.tmate.user.PaymentInformationFragment;
+import com.tmate.user.ui.driving.PaymentInformationFragment;
 import com.tmate.user.R;
 import com.tmate.user.common.Common;
 import com.tmate.user.common.PermissionManager;
@@ -93,6 +97,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     private int moneyplan = 0;// 도착지에 도착하는 시간에따른 예상 가격
     private String time = null;//예상 도착 시간
     private Double km;//출발지에서 도착지까지의 거리
+    private int search =1;
 
     //임시 데이터
     Double exlat[];
@@ -121,9 +126,13 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     public static final int MESSAGE_STATE_ROUTE = 5; //경로에 대한 정보 요청
     public static final int MESSAGE_STATE_APIKEY = 6; //api키가 잘못됐거나 오류가 났을때의 요청
     public static final int MESSAGE_ERROR = 7; //정보가 없을때의 요청
+    public static final int MESSAGE_STATE_POI_AUTO = 8;//자동 검색 요청
 
     //위치 리스트
     ArrayList<String> arDessert = new ArrayList<String>();
+    ArrayList<Double> buttonLatitude = new ArrayList<>();
+    ArrayList<Double> buttonLongitude = new ArrayList<>();
+
 
     //권한 요청
     @Override
@@ -160,7 +169,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
         setGps(); //시작하자마자 자신의 위치가 보이게 한다
 
         //마커 설정
-        mArrayMarkerID = new ArrayList<String>();
+        mArrayMarkerID = new ArrayList<>();
         mMarkerID = 0;
 
         initSildeMenu();
@@ -177,6 +186,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
             public void onClick(View v) {
 
                 if (together == 2) { //동승 일 경우
+                    b.dragView.getLayoutParams().height = 1400;
                     b.slideTitle.setText("소요 거리 및 시간");
                     b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
                     hideKeyBoard();//키보드 숨기기
@@ -191,6 +201,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     Log.d("도착지 경도", String.valueOf(tMapPointEnd.getLongitude()));
                     drawCarPath();//자동차 경로 그리는 메서드 호출
                 } else if(together == 3){
+                    b.dragView.getLayoutParams().height = 1400;
                     b.slideTitle.setText("소요 거리 및 시간");
                     b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
                     hideKeyBoard();//키보드 숨기기
@@ -205,6 +216,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     Log.d("도착지 경도", String.valueOf(tMapPointEnd.getLongitude()));
                     drawCarPath();//자동차 경로 그리는 메서드 호출
                 } else if(together==1) { //동승이 아닐 경우
+                    b.dragView.getLayoutParams().height = 800;
                     b.slideTitle.setText("소요 거리 및 시간");
                     b.placePage.setVisibility(View.GONE);//위치 설정 레이아웃 숨기기
                     hideKeyBoard();//키보드 숨기기
@@ -298,12 +310,12 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     hideKeyBoard();
 
                     Bundle bundle1 = new Bundle();
-                    bundle1.putString("slttd", String.valueOf(tMapPointStart.getLatitude())); //출발지 위도
-                    bundle1.putString("slngtd", String.valueOf(tMapPointStart.getLongitude())); // 출발지 경도
-                    bundle1.putString("flttd", String.valueOf(tMapPointEnd.getLatitude())); // 도착지 위도
-                    bundle1.putString("flngtd", String.valueOf(tMapPointEnd.getLongitude())); //도착지 경도
-                    bundle1.putString("h_s_place", h_s_place); // 출발지
-                    bundle1.putString("h_f_place", h_f_place); // 도착지
+                    bundle1.putString("start_lat", String.valueOf(tMapPointStart.getLatitude())); //출발지 위도
+                    bundle1.putString("start_lng", String.valueOf(tMapPointStart.getLongitude())); // 출발지 경도
+                    bundle1.putString("finish_lat", String.valueOf(tMapPointEnd.getLatitude())); // 도착지 위도
+                    bundle1.putString("finish_lng", String.valueOf(tMapPointEnd.getLongitude())); //도착지 경도
+                    bundle1.putString("start_place", b.startPlace.getText().toString()); // 출발지
+                    bundle1.putString("finish_place", b.finishPlace.getText().toString()); // 도착지
                     bundle1.putString("h_ep_fare", String.valueOf(moneyplan)); // 예상금액
                     bundle1.putString("together", String.valueOf(together)); // 탑승인원
 
@@ -316,7 +328,188 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
 
             }
         });
-        b.startPlace.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        b.startPlace.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                start_flag=1; //출발지를 검색하는 중임을 알려준다
+                search = 1;
+                initSildeMenu();
+                final String startData = s.toString();
+                TMapData tmapdata = new TMapData();
+                tmapdata.autoComplete(startData, new TMapData.AutoCompleteListenerCallback() {
+                    @Override
+                    public void onAutoComplete(ArrayList<String> poiItem) {
+                        if (poiItem == null && poiItem.size() < 0) {
+                            setTextLevel(MESSAGE_ERROR);
+                            return;
+                        }
+                        arDessert.clear();
+
+                        for (int i = 0; i < poiItem.size(); i++) {
+                            arDessert.add(poiItem.get(i));
+                        }
+                        setTextLevel(MESSAGE_STATE_POI_AUTO);
+                        b.list.setVisibility(View.VISIBLE);
+                        b.buttonList.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
+        b.finishPlace.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                start_flag=3; //출발지를 검색하는 중임을 알려준다
+                search = 1;
+                initSildeMenu();
+                final String finishData = s.toString();
+                TMapData tmapdata = new TMapData();
+                tmapdata.autoComplete(finishData, new TMapData.AutoCompleteListenerCallback() {
+                    @Override
+                    public void onAutoComplete(ArrayList<String> poiItem) {
+                        if (poiItem == null && poiItem.size() < 0) {
+                            setTextLevel(MESSAGE_ERROR);
+                            return;
+                        }
+                        arDessert.clear();
+
+                        for (int i = 0; i < poiItem.size(); i++) {
+                            arDessert.add(poiItem.get(i));
+                        }
+                        setTextLevel(MESSAGE_STATE_POI_AUTO);
+                        b.list.setVisibility(View.VISIBLE);
+                        b.buttonList.setVisibility(View.GONE);
+
+                    }
+                });
+            }
+        });
+        b.bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search = 2;
+                initSildeMenu();
+                arDessert.clear();
+                buttonLatitude.clear();
+                buttonLongitude.clear();
+
+                arDessert.add("영진전문대");
+                arDessert.add("두류공원");
+                buttonLatitude.add(35.8956224);
+                buttonLongitude.add(128.6224265);
+                buttonLatitude.add(35.8472435);
+                buttonLongitude.add(128.5577827);
+
+                Adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_layout, arDessert);
+                b.list.setAdapter(Adapter);
+                b.list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                b.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if(b.startPlace.getText().toString().equals("") || b.startPlace.toString() == null) {
+                            b.startPlace.setText(arDessert.get(position));
+                            d1 = buttonLatitude.get(position);
+                            d2 = buttonLongitude.get(position);
+                            tMapPointStart = new TMapPoint(d1,d2);
+                        } else {
+                            b.finishPlace.setText(arDessert.get(position));
+                            d3 = buttonLatitude.get(position);
+                            d4 = buttonLongitude.get(position);
+                            tMapPointEnd = new TMapPoint(d3,d4);
+                        }
+                    }
+                });
+
+
+            }
+        });
+        b.home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search = 2;
+                initSildeMenu();
+                arDessert.clear();
+                buttonLatitude.clear();
+                buttonLongitude.clear();
+
+                arDessert.add("영진전문대");
+                buttonLatitude.add(35.8956224);
+                buttonLongitude.add(128.6224265);
+
+                Adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_layout, arDessert);
+                b.list.setAdapter(Adapter);
+                b.list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                b.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if(b.startPlace.getText().toString().equals("") || b.startPlace.toString() == null) {
+                            b.startPlace.setText(arDessert.get(position));
+                            d1 = buttonLatitude.get(position);
+                            d2 = buttonLongitude.get(position);
+                            tMapPointStart = new TMapPoint(d1,d2);
+                        } else {
+                            b.finishPlace.setText(arDessert.get(position));
+                            d3 = buttonLatitude.get(position);
+                            d4 = buttonLongitude.get(position);
+                            tMapPointEnd = new TMapPoint(d3,d4);
+                        }
+                    }
+                });
+
+
+            }
+        });
+        b.history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search = 2;
+                initSildeMenu();
+                arDessert.clear();
+                buttonLatitude.clear();
+                buttonLongitude.clear();
+
+                arDessert.add("대구 신세계");
+                arDessert.add("화원고등학교");
+                buttonLatitude.add(35.8777867);
+                buttonLongitude.add(128.6285734);
+                buttonLatitude.add(35.7975259);
+                buttonLongitude.add(128.4887906);
+
+                Adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_layout, arDessert);
+                b.list.setAdapter(Adapter);
+                b.list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                b.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        if(b.startPlace.getText().toString().equals("") || b.startPlace.toString() == null) {
+                            b.startPlace.setText(arDessert.get(position));
+                            d1 = buttonLatitude.get(position);
+                            d2 = buttonLongitude.get(position);
+                            tMapPointStart = new TMapPoint(d1,d2);
+                        } else {
+                            b.finishPlace.setText(arDessert.get(position));
+                            d3 = buttonLatitude.get(position);
+                            d4 = buttonLongitude.get(position);
+                            tMapPointEnd = new TMapPoint(d3,d4);
+                        }
+                    }
+                });
+
+
+            }
+        });
+        /*b.startPlace.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
             {
@@ -334,7 +527,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                 TMapPoint tpoint = mMapView.getCenterPoint();
                 return true;
             }
-        });
+        });*/
 
         mContext = this;
     }
@@ -364,6 +557,20 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                 setTextLevel(MESSAGE_STATE_ZOOM);
             }
         });
+        if(search == 1 ){
+            Adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.list_layout, arDessert);
+            b.list.setAdapter(Adapter);
+            b.list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            b.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    findAllPoi(arDessert.get(position));
+                }
+            });
+        }
+
+
+
 
     }
     //맵 + 버튼 클릭 시
@@ -454,7 +661,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     totalDistance = getContentFromNode(item2, "tmap:totalDistance"); //총 거리설정
                     Log.d("총 거리 : ", totalDistance);
                     totalFare = getExpectTaxiFare(totalDistance);
-                    Log.d("총 예쌍 요금 : ", totalFare);
+                    Log.d("총 예상 요금 : ", totalFare);
                     totalTime = getContentFromNode(item2, "tmap:totalTime"); //총 시간 설정
                     Log.d("총 시간 : ", totalTime);
 
@@ -484,7 +691,6 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                     if (zoom > 12) {
                         zoom = 12;
                     }
-                    System.out.println("자동차경로 그리기 시작 진2짜");
                     mMapView.addTMapPath(polyline);
                     mMapView.setZoomLevel(zoom);
                     mMapView.setCenterPoint(info.getTMapPoint().getLongitude(), info.getTMapPoint().getLatitude());
@@ -498,7 +704,9 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
     //키보드 숨기기
     public void hideKeyBoard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(b.editText.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(b.startPlace.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(b.finishPlace.getWindowToken(), 0);
+
     }
 
     //현재 위치 버튼을 눌렀을때 현재 위치로 이동하고 포인트를 찍어주는 메소드
@@ -698,6 +906,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                         d2 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
                         b.startPlace.setText(mPoiItem.getPOIName()); //출발지 이름을 출발지 검색창에 세팅
                         h_s_place = b.startPlace.getText().toString();
+
                         Log.d("출발지 명 : ", h_s_place);
 
 
@@ -706,6 +915,7 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                         d4 = mPoiItem.getPOIPoint().getLongitude(); //도착지 경도
                         b.finishPlace.setText(mPoiItem.getPOIName()); //도착지 이름을 도착지 검색창에 세팅
                         h_f_place = b.finishPlace.getText().toString();
+
                         Log.d("도착지 명 : ", h_f_place);
                     }
                 } else if (together ==3) {
@@ -729,13 +939,13 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                         d2 = exlon[item]; //도착지 경도
                         b.startPlace.setText(items[item]); //출발지 이름을 출발지 검색창에 세팅
                         h_s_place = b.startPlace.getText().toString();
-                        //Log.d("출발지 명 : ", h_s_place);
+                        Log.d("MatchingMapActivity", "출발지 명 : " + h_s_place);
                     } else { //도착지를 검색 할 경우
                         d3 = exlat[item]; //도착지 위도
                         d4 = exlon[item]; //도착지 경도
                         b.finishPlace.setText(items[item]); //도착지 이름을 도착지 검색창에 세팅
                         h_f_place = b.finishPlace.getText().toString();
-                        //Log.d("도착지 명 : ", h_f_place);
+                        Log.d("MatchingMapActivity", "도착지 명 : " + h_f_place);
                     }
                 }
 
@@ -772,6 +982,10 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
             }
         }.start();
     }
+    ArrayAdapter<String> Adapter;
+    ListView list;
+    EditText editText;
+
     final Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -812,12 +1026,13 @@ public class MatchingMapActivity extends AppCompatActivity implements TMapGpsMan
                 //위치 알림창 올려달라는 메세지
                 case MESSAGE_STATE_POI:
                     if (b.autoCompleteLayout.getVisibility() == View.VISIBLE) {
-                        b.autoCompleteLayout.setVisibility(View.GONE);
                         arDessert.clear();
-                        b.editText.setText("");
                         hideKeyBoard();
                     }
                     showPOIListAlert();
+                    break;
+                case MESSAGE_STATE_POI_AUTO:
+                    Adapter.notifyDataSetChanged();
                     break;
                 case MESSAGE_ERROR:
                     Toast.makeText(getApplicationContext(), "정보가 없습니다.", Toast.LENGTH_SHORT).show();

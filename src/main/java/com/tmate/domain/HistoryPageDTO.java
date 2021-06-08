@@ -12,5 +12,5 @@ import java.util.List;
 public class HistoryPageDTO {
 
     private int historyCnt;
-    private List<JoinHistoryVO> list;
+    private List<DispatchDTO> list;
 }

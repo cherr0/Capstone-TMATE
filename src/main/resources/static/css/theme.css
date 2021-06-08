@@ -46,7 +46,8 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: 'Jua', sans-serif;
+    font-family: ELAND_Choice_M;
+
 }
 
 ul {
@@ -1676,7 +1677,7 @@ a i{
     display: block;
     color: #555;
     font-size: 25px;
-    padding: 20px;
+    padding: 18px;
     font-weight: bolder;
 }
 
@@ -15035,9 +15036,7 @@ input[type="checkbox"]:checked.toggle:after {
 th {
     font-size: 22px;
     font-weight: bolder;
-    background: -moz-linear-gradient(90deg, #83e1f1 0%, #687ff5 80%);
-    background: -webkit-linear-gradient(90deg, #83e1f1 0%, #687ff5 80%);
-    background: -ms-linear-gradient(90deg, #83e1f1 0%, #687ff5 80%);
+    background-color: #333;
     color: #FFFFFF;
 }
 td {
@@ -15142,4 +15141,11 @@ td {
 
 .bd_title a:visited{
     color: #000000;
+}
+
+@font-face {
+    font-family: 'ELAND_Choice_M';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_M.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }

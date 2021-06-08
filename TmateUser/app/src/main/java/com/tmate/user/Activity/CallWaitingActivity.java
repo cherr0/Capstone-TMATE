@@ -1,15 +1,16 @@
 package com.tmate.user.Activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.tmate.user.R;
+import com.tmate.user.databinding.ActivityCallWaitingBinding;
 import com.tmate.user.net.DataService;
 
 import retrofit2.Call;
@@ -18,27 +19,17 @@ import retrofit2.Response;
 
 public class CallWaitingActivity extends AppCompatActivity {
 
-     TextView cw_merchant_uid;
-
-     TextView wait_h_s_place;
-     TextView cw_h_s_lttd;
-     TextView cw_h_s_lngtd;
-
-     TextView wait_h_f_place;
-     TextView cw_h_f_lttd;
-     TextView cw_h_f_lngtd;
-
-     TextView cw_match_message;
-
      // 이용코드는 필수
-    String merchant_uid;
+    String dp_id;
 
      // 레트로핏
      // 1. 기사코드 가져오는 요청 객체
      Call<String> request;
      // 2. 호출 취소 시 호출을 삭제하는 요청 객체
-    Call<Boolean> deleteRequest;
+     Call<Boolean> deleteRequest;
 
+     // 뷰바인딩
+    ActivityCallWaitingBinding b;
 
      // 쓰레드 관련
      boolean isRunning;
@@ -55,22 +46,22 @@ public class CallWaitingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_call_waiting);
-
-        initWidget();
+        b = ActivityCallWaitingBinding.inflate(getLayoutInflater());
+        setContentView(b.getRoot());
 
         if (getIntent() != null) {
             intent = getIntent();
             // 이용 코드도 받아야 한다.
-            cw_merchant_uid.setText(intent.getStringExtra("merchant_uid"));
-            merchant_uid = intent.getStringExtra("merchant_uid");
-            wait_h_s_place.setText(intent.getStringExtra("h_s_place"));
-            cw_h_s_lttd.setText(intent.getStringExtra("h_s_lttd"));
-            cw_h_s_lngtd.setText(intent.getStringExtra("h_s_lngtd"));
 
-            wait_h_f_place.setText(intent.getStringExtra("h_f_place"));
-            cw_h_f_lttd.setText(intent.getStringExtra("h_f_lttd"));
-            cw_h_f_lngtd.setText(intent.getStringExtra("h_f_lngtd"));
+            b.cwMerchantUid.setText(intent.getStringExtra("dp_id"));
+            dp_id = intent.getStringExtra("dp_id");
+            b.waitHSPlace.setText(intent.getStringExtra("start_place"));
+            b.cwHSLttd.setText(intent.getStringExtra("start_lat"));
+            b.cwHSLngtd.setText(intent.getStringExtra("start_lng"));
+
+            b.waitHFPlace.setText(intent.getStringExtra("finish_place"));
+            b.cwHFLttd.setText(intent.getStringExtra("finish_lat"));
+            b.cwHFLngtd.setText(intent.getStringExtra("finish_lng"));
         }
 
         // 쓰레드 상태
@@ -98,13 +89,18 @@ public class CallWaitingActivity extends AppCompatActivity {
         isRunning=true;
         thread.start();
 
+        ImageView gif = findViewById(R.id.avi);
+        Glide.with(this).asGif()
+                .load(R.drawable.taxi_loading)
+                .into(gif);
+
     }
 
     // 내부 쓰레드 클래스
     public class Matching implements Runnable {
         @Override
         public void run() {
-            request = DataService.getInstance().matchAPI.getd_idDuringCall(merchant_uid);
+            request = DataService.getInstance().matchAPI.getd_idDuringCall(dp_id);
             request.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(Call<String> call, Response<String> response) {
@@ -118,7 +114,7 @@ public class CallWaitingActivity extends AppCompatActivity {
                         else{
                             isRunning = false;
                             Intent intent = new Intent(CallWaitingActivity.this, CarInfoActivity.class);
-                            intent.putExtra("merchant_uid",merchant_uid);
+                            intent.putExtra("dp_id",dp_id);
                             intent.putExtra("d_id", d_id);
                             startActivity(intent);
                         }
@@ -131,17 +127,6 @@ public class CallWaitingActivity extends AppCompatActivity {
                 }
             });
         }
-    }
-
-    public void initWidget() {
-        cw_merchant_uid = findViewById(R.id.cw_merchant_uid);
-        cw_match_message = findViewById(R.id.cw_match_message);
-        wait_h_s_place = findViewById(R.id.wait_h_s_place);
-        cw_h_s_lttd = findViewById(R.id.cw_h_s_lttd);
-        cw_h_s_lngtd = findViewById(R.id.cw_h_s_lngtd);
-        wait_h_f_place = findViewById(R.id.wait_h_f_place);
-        cw_h_f_lttd = findViewById(R.id.cw_h_f_lttd);
-        cw_h_f_lngtd = findViewById(R.id.cw_h_s_lngtd);
     }
 
     @Override
@@ -178,7 +163,7 @@ public class CallWaitingActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        deleteRequest = DataService.getInstance().matchAPI.removeNormalCall(merchant_uid);
+        deleteRequest = DataService.getInstance().matchAPI.removeNormalCall(dp_id);
         deleteRequest.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

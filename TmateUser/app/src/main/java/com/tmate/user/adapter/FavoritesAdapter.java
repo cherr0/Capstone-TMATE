@@ -15,9 +15,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.skt.Tmap.TMapPoint;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.FavoritesData;
 import com.tmate.user.R;
 import com.tmate.user.net.DataService;
+import com.tmate.user.ui.driving.DrivingModel;
 
 import java.util.ArrayList;
 
@@ -28,6 +31,10 @@ import retrofit2.Response;
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesHolder> {
 
     private ArrayList<FavoritesData> items;
+    private DrivingModel mViewModel;
+    private TextView finishPlace;
+
+    Call<Boolean> deleteRequest;
 
     // 레트로핏 어뎁터 서비스
 //    AdapterComService dataService = new AdapterComService();
@@ -40,6 +47,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesHolder> {
 
     public FavoritesAdapter(ArrayList<FavoritesData> items) {
         this.items = items;
+    }
+
+    public FavoritesAdapter(ArrayList<FavoritesData> items, DrivingModel model, TextView finish) {
+        this.items = items;
+        this.mViewModel = model;
+        this.finishPlace = finish;
     }
 
     @NonNull
@@ -66,50 +79,37 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesHolder> {
         }
 
         holder.itemView.setTag(position);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String curName = holder.bm_name.getText().toString();
-                Toast.makeText(v.getContext(), curName, Toast.LENGTH_SHORT).show();
-            }
+
+        holder.itemView.setOnClickListener(v -> {
+            FavoritesData data = items.get(position);
+            mViewModel.dispatch.setFinish_place(data.getBm_name());
+            mViewModel.dispatch.setFinish_lat(data.getBm_lat());
+            mViewModel.dispatch.setFinish_lng(data.getBm_lng());
+            finishPlace.setText(data.getBm_name());
         });
 
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
-                builder.setTitle("즐겨찾기");
-                builder.setMessage("삭제하시겠습니까");
-                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+        holder.itemView.setOnLongClickListener(v -> {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
+            builder.setTitle("즐겨찾기");
+            builder.setMessage("삭제하시겠습니까");
+            builder.setPositiveButton("예", (dialog, which) -> {
+                deleteRequest = DataService.getInstance().memberAPI.deleteBookmark((String) holder.bm_name.getText(), mViewModel.dispatch.getM_id());
+                deleteRequest.enqueue(new Callback<Boolean>() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dataService.commonAPI.removeBookmark(holder.bm_id.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
-                            @Override
-                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                                if (response.isSuccessful()) {
-                                    if (response.code() == 200) {
-                                        remove(holder.getAdapterPosition());
-                                    }
-                                }
-                            }
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        Toast.makeText(context, "즐겨찾기 삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
 
-                            @Override
-                            public void onFailure(Call<Boolean> call, Throwable t) {
-                                    t.printStackTrace();
-                            }
-                        });
-                    }
-                });
-                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        t.printStackTrace();
                     }
                 });
-                builder.show();
-                return true;
-            }
+            });
+            builder.setNegativeButton("아니오", (dialog, which) -> dialog.cancel());
+            builder.show();
+            return true;
         });
     }
 
@@ -142,8 +142,8 @@ class FavoritesHolder extends RecyclerView.ViewHolder {
     TextView bm_name;
     TextView bm_date;
     TextView bm_id;
-    TextView bm_lttd;
-    TextView bm_lngtd;
+    TextView bm_lat;
+    TextView bm_lng;
 
     public FavoritesHolder(View itemView) {
         super(itemView);
@@ -151,8 +151,8 @@ class FavoritesHolder extends RecyclerView.ViewHolder {
         this.bm_name = (TextView) itemView.findViewById(R.id.bm_name);
         this.bm_date = (TextView) itemView.findViewById(R.id.bm_date);
         this.bm_id = (TextView) itemView.findViewById(R.id.bm_id);
-        this.bm_lttd = (TextView) itemView.findViewById(R.id.bm_lttd);
-        this.bm_lngtd = (TextView) itemView.findViewById(R.id.bm_lngtd);
+        this.bm_lat = (TextView) itemView.findViewById(R.id.bm_lat);
+        this.bm_lng = (TextView) itemView.findViewById(R.id.bm_lng);
 
     }
 
@@ -160,8 +160,8 @@ class FavoritesHolder extends RecyclerView.ViewHolder {
         bm_name.setText(data.getBm_name());
         bm_date.setText(data.getBm_date().substring(0, 10));
         bm_id.setText(data.getBm_id());
-        bm_lttd.setText(data.getBm_lttd() + "");
-        bm_lngtd.setText(data.getBm_lngtd() + "");
+        bm_lat.setText(String.valueOf(data.getBm_lat()));
+        bm_lng.setText(String.valueOf(data.getBm_lng()));
         favorites_linear.setVisibility(View.VISIBLE);
     }
 

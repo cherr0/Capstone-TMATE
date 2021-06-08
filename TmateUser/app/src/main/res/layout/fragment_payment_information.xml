@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".PaymentInformationFragment"
+    tools:context=".ui.driving.PaymentInformationFragment"
     android:background="#F4F4F4F4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -106,7 +106,7 @@
                         android:id="@+id/payment_information_h_s_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="영진전문대"
+                        android:text="없음"
                         android:textSize="20sp"
                         android:textColor="@color/black"
                         android:textStyle="bold"
@@ -128,7 +128,7 @@
                         android:id="@+id/payment_information_h_f_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="경북대학교 북문"
+                        android:text="없음"
                         android:textSize="20sp"
                         android:textColor="@color/black"
                         android:textStyle="bold"
@@ -237,6 +237,7 @@
                         android:id="@+id/payment_radiogroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:checkedButton="@id/payment_simple"
                         app:layout_constraintTop_toBottomOf="@+id/payment_payment"
                         app:layout_constraintStart_toStartOf="@+id/payment_payment">
 
@@ -255,31 +256,18 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="12dp">
 
-                        <androidx.viewpager.widget.ViewPager
-                            android:id="@+id/payment_pager"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        <me.relex.circleindicator.CircleIndicator
-                            android:id="@+id/indicator"
-                            android:layout_width="match_parent"
-                            android:layout_height="20dp"
-                            app:ci_drawable="@drawable/image_slider_black"
-                            app:ci_height="7dp"
-                            app:ci_margin="4dp"
-                            app:ci_width="7dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:layout_marginBottom="16dp"/>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/pay_info_rv"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <View
-                            android:id="@+id/payment_View"
+                            android:id="@+id/event_View"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="#CDCDCD"
@@ -303,12 +291,78 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/payment_information_point"
+                    android:id="@+id/payment_information_event"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     app:layout_constraintTop_toBottomOf="@+id/payment_information_payment"
                     app:layout_constraintStart_toStartOf="@+id/payment_information_payment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:id="@+id/payment_event"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이벤트"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginTop="12dp"/>
+
+
+                    <RadioGroup
+                        android:id="@+id/payment_radiogroup_event"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checkedButton="@id/event_point"
+                        app:layout_constraintTop_toBottomOf="@+id/payment_event"
+                        app:layout_constraintStart_toStartOf="@+id/payment_event">
+
+                        <RadioButton
+                            android:id="@+id/event_point"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="포인트적립"
+                            android:textSize="20sp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"/>
+
+                        <View
+                            android:id="@+id/payment_View"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#CDCDCD"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintVertical_bias="0.0"/>
+
+                        <RadioButton
+                            android:id="@+id/event_Roulette"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="룰렛 돌리기"
+                            android:textSize="20sp"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"/>
+
+                    </RadioGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/payment_information_point"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_information_event"
+                    app:layout_constraintStart_toStartOf="@+id/payment_information_event"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="16dp">
 
@@ -340,12 +394,24 @@
                         android:id="@+id/payment_information_m_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1002원"
+                        android:text="0"
                         android:textSize="24sp"
                         android:textColor="@color/black"
                         app:layout_constraintStart_toStartOf="@+id/point_possession"
                         app:layout_constraintTop_toBottomOf="@+id/point_possession"
+                        app:layout_constraintRight_toLeftOf="@+id/payment_information_m_point_won"
                         android:layout_marginTop="8dp"/>
+
+                    <TextView
+                        android:id="@+id/payment_information_m_point_won"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="원"
+                        android:textSize="24sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="@+id/payment_information_m_point"
+                        app:layout_constraintStart_toEndOf="@+id/payment_information_m_point"
+                        app:layout_constraintTop_toTopOf="@+id/payment_information_m_point" />
 
                     <Button
                         android:id="@+id/point_btn_all"
@@ -363,6 +429,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:hint="사용할 포인트를 입력해주세요"
+                        android:inputType="number"
                         app:layout_constraintTop_toBottomOf="@+id/payment_information_m_point"
                         app:layout_constraintStart_toStartOf="@id/payment_information_m_point"
                         app:layout_constraintEnd_toStartOf="@+id/point_btn_use"
@@ -395,10 +462,21 @@
                         android:id="@+id/payment_information_rest_m_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1002원"
+                        android:text="0"
                         app:layout_constraintStart_toEndOf="@+id/point_rest"
                         app:layout_constraintTop_toTopOf="@+id/point_rest"
                         android:layout_marginStart="12dp"/>
+
+                    <TextView
+                        android:id="@+id/payment_information_rest_m_point_won"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="원"
+                        app:layout_constraintStart_toEndOf="@+id/payment_information_rest_m_point"
+                        app:layout_constraintTop_toTopOf="@+id/payment_information_rest_m_point"
+                        app:layout_constraintBottom_toBottomOf="@+id/payment_information_rest_m_point" />
+
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -441,7 +519,7 @@
                         android:id="@+id/pay_h_allFare"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="36000원"
+                        android:text="0원"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -460,10 +538,21 @@
                         android:layout_marginTop="8dp"/>
 
                     <TextView
+                        android:id="@+id/pay_point_minus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="- "
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        app:layout_constraintRight_toLeftOf="@+id/pay_po_result"
+                        app:layout_constraintTop_toTopOf="@+id/pay_po_result"
+                        app:layout_constraintBottom_toBottomOf="@+id/pay_po_result" />
+
+                    <TextView
                         android:id="@+id/pay_po_result"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="- 1000원"
+                        android:text="0원"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -524,13 +613,25 @@
                         android:id="@+id/pay_total_h_ep_Fare"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="35000원"
+                        android:text="원"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/pay_total"
                         android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/pay_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="@+id/pay_total_h_ep_Fare"
+                        app:layout_constraintEnd_toStartOf="@+id/pay_total_h_ep_Fare"
+                        app:layout_constraintTop_toTopOf="@+id/pay_total_h_ep_Fare" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -555,11 +656,13 @@
             android:id="@+id/payment_information_finish"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/main"
             android:text="결제하기"
-            android:textSize="32sp"
             android:textColor="@color/white"
-            android:background="@color/main"/>
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

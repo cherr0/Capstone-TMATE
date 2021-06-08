@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.driving.DriverFinishingFragment"
+    android:background="@color/fui_bgGitHub">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/matching_finish_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="50dp">
+
+        <ImageView
+            android:id="@+id/matching_finish_success"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_check_circle_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/matching_finish_cancel"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_cancel_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/matching_finish_error"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_error_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/matching_finish_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="목적지에 도착했습니다."
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/matching_finish_check"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"/>
+
+    <TextView
+        android:id="@+id/pay_finish_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="결제완료 되었습니다."
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        app:layout_constraintTop_toBottomOf="@id/matching_finish_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/pay_finish_tv"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp">
+
+        <TextView
+            android:id="@+id/matching_finish_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="출발"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_h_S_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="22:48"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@+id/matching_finish_start"
+            app:layout_constraintStart_toEndOf="@+id/matching_finish_start"
+            android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="도착"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_start"
+            app:layout_constraintStart_toStartOf="@+id/matching_finish_start"
+            android:layout_marginTop="24dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_h_E_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="22:48"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@+id/matching_finish_finish"
+            app:layout_constraintStart_toEndOf="@+id/matching_finish_finish"
+            android:layout_marginStart="8dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_mileage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="운행거리"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_finish"
+            app:layout_constraintStart_toStartOf="@+id/matching_finish_finish"
+            android:layout_marginTop="24dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_h_s_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="H스쿼어 N동"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="24dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_h_f_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="강남구 논현동 88-13"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_s_place"
+            app:layout_constraintEnd_toEndOf="@+id/matching_finish_h_s_place"
+            android:layout_marginTop="24dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_h_ep_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15.8"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/finish_h_ep_distance_km"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_f_place"
+
+            android:layout_marginTop="24dp"/>
+
+        <TextView
+            android:id="@+id/finish_h_ep_distance_km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="m"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/matching_finish_h_ep_distance"
+            app:layout_constraintEnd_toEndOf="@+id/matching_finish_h_f_place"
+
+            app:layout_constraintTop_toTopOf="@+id/matching_finish_h_ep_distance" />
+
+
+        <TextView
+            android:id="@+id/matching_finish_fare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="운행요금"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_mileage"
+            app:layout_constraintStart_toStartOf="@+id/matching_finish_mileage"
+            android:layout_marginTop="40dp"/>
+
+        <TextView
+            android:id="@+id/finish_h_allFare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_ep_distance"
+            app:layout_constraintEnd_toStartOf="@+id/matching_finish_h_allFare"
+            android:layout_marginTop="40dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_h_allFare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="원"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_ep_distance"
+            app:layout_constraintEnd_toEndOf="@+id/finish_h_ep_distance_km"
+            android:layout_marginTop="40dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="포인트"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_fare"
+            app:layout_constraintStart_toStartOf="@+id/matching_finish_fare"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_po_result_minus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="- "
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_allFare"
+            app:layout_constraintEnd_toStartOf="@+id/finish_use_point"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/finish_use_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_allFare"
+            app:layout_constraintEnd_toStartOf="@+id/matching_finish_po_result"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_po_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="원"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_h_allFare"
+            app:layout_constraintEnd_toEndOf="@+id/matching_finish_h_allFare"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_together"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="동승인원"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_point"
+            app:layout_constraintStart_toStartOf="@+id/matching_finish_point"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/together_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@+id/matching_finish_to_people"
+            app:layout_constraintEnd_toStartOf="@+id/matching_finish_to_people"/>
+
+        <TextView
+            android:id="@+id/matching_finish_to_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="명"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_po_result"
+            app:layout_constraintEnd_toEndOf="@+id/matching_finish_po_result"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/matching_finish_pay_pg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자동결제"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_together"
+            app:layout_constraintStart_toStartOf="@+id/matching_finish_together"
+            android:layout_marginTop="40dp"/>
+
+        <TextView
+            android:id="@+id/total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="28sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/matching_finish_total_h_eq_fare"
+            app:layout_constraintEnd_toStartOf="@+id/matching_finish_total_h_eq_fare"
+            app:layout_constraintTop_toTopOf="@+id/matching_finish_total_h_eq_fare" />
+
+        <TextView
+            android:id="@+id/matching_finish_total_h_eq_fare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="원"
+            android:textSize="28sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/matching_finish_to_people"
+            app:layout_constraintEnd_toEndOf="@+id/matching_finish_to_people"
+            android:layout_marginTop="40dp"/>
+
+        <Button
+            android:id="@+id/matching_finish_submit"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="확인"
+            android:textSize="28sp"
+            android:textColor="@color/white"
+            android:background="@color/main"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

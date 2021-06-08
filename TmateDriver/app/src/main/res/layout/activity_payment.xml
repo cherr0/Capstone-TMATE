@@ -14,6 +14,7 @@
         android:text="요금 입력"
         android:textColor="@color/background_color"
         android:textSize="28sp"
+        android:fontFamily="@font/font_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,6 +28,7 @@
         android:text="운행요금"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -37,6 +39,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/edit_stroke"
+        android:fontFamily="@font/font_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
@@ -49,6 +52,7 @@
         android:text="수수료"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintStart_toStartOf="@+id/editText"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
@@ -59,6 +63,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/edit_stroke"
+        android:fontFamily="@font/font_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
@@ -71,6 +76,7 @@
         android:text="결제"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/editText2"
         app:layout_constraintStart_toStartOf="@+id/editText2" />

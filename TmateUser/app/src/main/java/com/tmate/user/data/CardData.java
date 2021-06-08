@@ -28,7 +28,7 @@ PAY_COM_REG           CHAR(10)
     private String pay_pg;
 
     // 대표카드 여부
-    private String pay_rep;
+    //private String pay_rep;
 
     // 회사
     private String pay_company;
@@ -56,4 +56,7 @@ PAY_COM_REG           CHAR(10)
 
     // 카드 별칭
     private String pay_alias;
+
+    // 카드 활성화 비활성화
+    private String active;
 }

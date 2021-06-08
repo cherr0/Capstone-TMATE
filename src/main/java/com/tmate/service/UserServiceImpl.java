@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     // My 이력 - 이용 내역
     @Override
-    public List<JoinHistoryVO> getMyHistoryList(Criteria cri, String m_id) {
+    public List<DispatchDTO> getMyHistoryList(Criteria cri, String m_id) {
         return joinMapper.getHistoryByMember(cri,m_id);
     }
 

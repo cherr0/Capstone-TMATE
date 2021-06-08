@@ -100,9 +100,6 @@
                                 <a th:href="@{/tuser/pointd}"><span class="menu-color">포인트 내역</span></a>
                             </li>
                             <li>
-                                <a th:href="@{/tuser/paymentd}"><span class="menu-color">결제 내역</span></a>
-                            </li>
-                            <li>
                                 <a th:href="@{/tuser/historyd}"><span class="menu-color">이용 내역</span></a>
                             </li>
                         </ul>
@@ -173,9 +170,6 @@
                         <ul class="list-unstyled navbar__sub-list js-sub-list">
                             <li>
                                 <a  th:href="@{/tuser/pointd(m_id=${#authentication.principal.m_id})}"><span class="menu-color js-sub">포인트 내역</span></a>
-                            </li>
-                            <li>
-                                <a th:href="@{/tuser/paymentd(m_id=${#authentication.principal.m_id})}"><span class="menu-color js-sub">결제 이력</span></a>
                             </li>
                             <li>
                                 <a th:href="@{/tuser/historyd(m_id=${#authentication.principal.m_id})}"><span class="menu-color js-sub">이용 내역</span></a>

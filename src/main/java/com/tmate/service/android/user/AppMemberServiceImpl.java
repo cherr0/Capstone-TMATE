@@ -34,7 +34,11 @@ public class AppMemberServiceImpl implements AppMemberService {
     // HistoryMapper 의존
     private final HistoryMapper historyMapper;
 
+    // BoardMapper 의존
+    private final BoardMapper boardMapper;
+
     //  회원가입 등록
+    @Transactional
     @Override
     public Boolean registerMember(Map<String,String> map) {
 
@@ -71,9 +75,11 @@ public class AppMemberServiceImpl implements AppMemberService {
         if (map.get("m_email") != null) {
             member.setM_email(map.get("m_email"));
         }
-        
+
+        membermapper.insertMember(member);
+
         // insertMember 실행
-        return membermapper.insertMember(member) == 1;
+        return  membermapper.insertCallOption(map.get("m_id")) == 1 ;
     }
 
 
@@ -96,11 +102,18 @@ public class AppMemberServiceImpl implements AppMemberService {
 
     // 유저 이용내역 리스트
     @Override
-    public List<JoinHistoryVO> getMemberHistoryList(String m_id) {
+    public List<DispatchDTO> getMemberHistoryList(String m_id) {
         log.info("회원 이용 내역 서비스 로직 처리중");
 
 
         return joinMapper.findHistoryToApp(m_id);
+    }
+
+    // 메인 뷰 최신 공지 리스트 가져오기
+    @Override
+    public List<BoardDTO> getMainNoticeList() {
+        log.info("최신 공지 리스트 가져오는 중");
+        return boardMapper.findMainNoticeList();
     }
 
     // 유저 이용내역 삭제
@@ -157,10 +170,15 @@ public class AppMemberServiceImpl implements AppMemberService {
     }
 
     @Override
-    public Boolean removeBookmark(int bm_id, String m_id) {
-        return placeMapper.deleteBookmark(bm_id, m_id) == 1;
+    public Boolean removeBookmark(String bm_name, String m_id) {
+        return placeMapper.deleteBookmark(bm_name, m_id) == 1;
     }
 
+    @Override
+    public Boolean insertBookmark(BookmarkDTO bookmarkDTO) {
+        log.info("즐겨찾기 추가 중 : " + bookmarkDTO);
+        return placeMapper.insertBookmark(bookmarkDTO) == 1;
+    }
 
     /*
     * 운행 옵션

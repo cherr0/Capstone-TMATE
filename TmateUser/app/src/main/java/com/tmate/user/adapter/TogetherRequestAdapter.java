@@ -31,6 +31,11 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
     Context context;
     SharedPreferences pref;
     String m_id;
+    String m_id2;
+    String dp_id;
+
+    Call<Boolean> agreeApply;
+    Call<Boolean> rejectApply;
 
     @NonNull
     @Override
@@ -59,7 +64,8 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
                             public void onClick(DialogInterface dialog, int which) {
                                 String id = holder.m_id.getText().toString();
                                 String merchant_uid = holder.tr_merchant_uid.getText().toString();
-                                DataService.getInstance().matchAPI.removeApproval(id, merchant_uid).enqueue(new Callback<Boolean>() {
+                                rejectApply = DataService.getInstance().matchAPI.rejectApplyMatch(merchant_uid, id);
+                                rejectApply.enqueue(new Callback<Boolean>() {
                                     @Override
                                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                         if (response.code() == 200) {
@@ -74,6 +80,7 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
                                         t.printStackTrace();
                                     }
                                 });
+
 
                             }
                         });
@@ -97,21 +104,19 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
                 builder.setPositiveButton("예",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Approval approval = new Approval();
-                                approval.setMerchant_uid(holder.tr_merchant_uid.getText().toString());
-                                approval.setId(holder.m_id.getText().toString());
-                                Log.d("뭐가 찍힐까", holder.m_id.getText().toString());
-                                approval.setM_id(m_id);
-                                Log.d("뭐가 찍힐까 : m_id", m_id);
-                                approval.setTo_seat(2);
 
-                                DataService.getInstance().matchAPI.registerTogether(approval).enqueue(new Callback<Boolean>() {
+                                m_id2 = holder.m_id.getText().toString();
+                                dp_id = holder.tr_merchant_uid.getText().toString();
+
+                                agreeApply = DataService.getInstance().matchAPI.agreeApplyMatch(dp_id, m_id2);
+                                agreeApply.enqueue(new Callback<Boolean>() {
                                     @Override
                                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                                        Toast.makeText(context, "추가 완료", Toast.LENGTH_SHORT).show();
-                                        items.remove(position);
-                                        notifyItemRemoved(position);
-                                        notifyItemChanged(position, items.size());
+                                        if (response.code() == 200) {
+                                            items.remove(position);
+                                            notifyItemRemoved(position);
+                                            notifyItemChanged(position, items.size());
+                                        }
                                     }
 
                                     @Override
@@ -119,6 +124,7 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
                                         t.printStackTrace();
                                     }
                                 });
+
 
                             }
                         });
@@ -149,25 +155,17 @@ class TogetherRequestHolder extends RecyclerView.ViewHolder {
     TextView m_id;
     TextView m_name;
     TextView m_birth;
-    TextView distance;
     TextView m_t_use;
-    TextView like;
-    TextView dislike;
-    TextView m_count;
     Button btn_agree;
     Button btn_reject;
     TextView tr_merchant_uid;
 
     public void onBind(TogetherRequest data) {
-        m_id.setText(data.getId());
+        m_id.setText(data.getM_id());
         m_name.setText(data.getM_name());
         m_birth.setText("20대");
-        distance.setText(null);
         m_t_use.setText(data.getM_t_use() + data.getM_n_use()+"");
-        like.setText("0");
-        dislike.setText("0");
-        m_count.setText(data.getM_count() + "");
-        tr_merchant_uid.setText(data.getMerchant_uid());
+        tr_merchant_uid.setText(data.getDp_id());
     }
 
     public TogetherRequestHolder(@NonNull View itemView) {
@@ -175,13 +173,9 @@ class TogetherRequestHolder extends RecyclerView.ViewHolder {
         m_id = itemView.findViewById(R.id.request_m_id);
         m_name =itemView.findViewById(R.id.request_m_name);
         m_birth =itemView.findViewById(R.id.request_m_birth);
-        distance =itemView.findViewById(R.id.request_distance);
         m_t_use =itemView.findViewById(R.id.request_m_t_use);
-        like =itemView.findViewById(R.id.request_r_code_like);
-        dislike =itemView.findViewById(R.id.request_r_code_dislike);
         btn_agree = itemView.findViewById(R.id.request_btn_agree);
         btn_reject = itemView.findViewById(R.id.request_btn_reject);
-        m_count = itemView.findViewById(R.id.request_m_count);
         tr_merchant_uid = itemView.findViewById(R.id.tr_merchant_uid);
     }
 }

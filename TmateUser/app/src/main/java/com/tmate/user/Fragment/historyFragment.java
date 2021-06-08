@@ -19,8 +19,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.tmate.user.R;
 import com.tmate.user.adapter.historyAdapter;
-import com.tmate.user.data.CardData;
 import com.tmate.user.data.Data;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.UserHistroy;
 import com.tmate.user.net.DataService;
 
@@ -41,6 +41,8 @@ public class historyFragment extends Fragment {
     private ImageView btn_back_history;
     private SwipeRefreshLayout refHis;
     private RecyclerView recyclerView;
+
+    Call<List<Dispatch>> historyRequest;
 
     @Nullable
     @Override
@@ -91,50 +93,28 @@ public class historyFragment extends Fragment {
         String m_id = getPreferenceString("m_id");
 
 
-        dataService.memberAPI.selectHistory(m_id).enqueue(new Callback<List<UserHistroy>>() {
+        historyRequest = DataService.getInstance().memberAPI.selectHistory(m_id);
+        historyRequest.enqueue(new Callback<List<Dispatch>>() {
             @Override
-            public void onResponse(Call<List<UserHistroy>> call, Response<List<UserHistroy>> response) {
-                if (response.isSuccessful()) {
-                    if (response.code() == 200) {
-                        List<UserHistroy> histroyList = response.body();
-                        Log.d("넘어오는 이용내역 리스트", histroyList.toString());
-                        for (int i = 0; i < histroyList.size(); i++) {
-                            Data data = new Data();
-                            data.setMerchant_uid(histroyList.get(i).getMerchant_uid());
-                            data.setCarinfo(histroyList.get(i).getCar_no()+" | "+histroyList.get(i).getCar_model());
-                            data.setDrivername(histroyList.get(i).getM_name());
-                            data.setStart(histroyList.get(i).getH_s_place());
-                            data.setFinish(histroyList.get(i).getH_f_place());
-                            data.setTime(histroyList.get(i).getH_s_time().toString().substring(10,16)+" - "+histroyList.get(i).getH_e_time().toString().substring(10,16));
-                            data.setDate(histroyList.get(i).getMerchant_uid().substring(9,11)+"/"+histroyList.get(i).getMerchant_uid().substring(11,13)+"/"+histroyList.get(i).getMerchant_uid().substring(13,15));
-                            switch (histroyList.get(i).getMerchant_uid().substring(27)) {
-                                case "0":
-                                    data.setTogether("동승");
-                                    break;
-
-                                case "1":
-                                    data.setTogether("일반");
-                                    break;
-                            }
-
-                            adapter.addItem(data);
-                        }
-
-                        adapter.notifyDataSetChanged();
-                        //카드 새로고침 후 로딩중 아이콘 지우기
-                        refHis.setRefreshing(false);
-
+            public void onResponse(Call<List<Dispatch>> call, Response<List<Dispatch>> response) {
+                if(response.code() == 200 && response.body() != null) {
+                    List<Dispatch> histroyList = response.body();
+                    Log.d("넘어오는 이용내역 리스트", histroyList.toString());
+                    for(Dispatch data : histroyList) {
+                        adapter.addItem(data);
                     }
+
+                    adapter.notifyDataSetChanged();
+                    //카드 새로고침 후 로딩중 아이콘 지우기
+                    refHis.setRefreshing(false);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<UserHistroy>> call, Throwable t) {
+            public void onFailure(Call<List<Dispatch>> call, Throwable t) {
                 t.printStackTrace();
             }
         });
-
-
     }
 
 
@@ -151,4 +131,9 @@ public class historyFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(historyRequest != null) historyRequest.cancel();
+    }
 }

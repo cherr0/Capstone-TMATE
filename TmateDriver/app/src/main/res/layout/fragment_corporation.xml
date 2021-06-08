@@ -7,13 +7,14 @@
     android:background="#F4F4F4">
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/corp_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="법인구분"
         android:textColor="@color/black"
         android:textSize="24sp"
+        android:fontFamily="@font/font_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +27,7 @@
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/corp_title"
         app:spb_animateToCurrentProgressState="true"
         app:spb_checkStateCompleted="true"
         app:spb_currentStateDescriptionColor="#DB0082"
@@ -48,6 +49,7 @@
         android:entries="@array/corp"
         app:layout_constraintBottom_toBottomOf="@+id/btn_corp_submit"
         app:layout_constraintEnd_toStartOf="@+id/btn_corp_submit"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/first_reg">
 
@@ -59,6 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="확인"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spinner_corp" />
 
@@ -70,8 +73,8 @@
         android:layout_marginTop="32dp"
         android:text="회사명"
         android:textSize="18sp"
-
         android:visibility="gone"
+        android:fontFamily="@font/font_content"
         app:layout_constraintStart_toStartOf="@+id/spinner_corp"
         app:layout_constraintTop_toBottomOf="@+id/spinner_corp" />
 

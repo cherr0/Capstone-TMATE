@@ -2,14 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tmate.mapper.JoinMapper">
 
-    <select id="getHistoryByMember" resultType="com.tmate.domain.JoinHistoryVO">
+    <select id="getHistoryByMember" resultType="com.tmate.domain.DispatchDTO">
        <![CDATA[
-        select merchant_uid, h_s_place, h_f_place, h_s_time, h_e_time, m_name, car_no, car_model
-        from (select rownum rn,  h.merchant_uid as merchant_uid , h.h_s_place as h_s_place, h.h_f_place as h_f_place, h.h_s_time as h_s_time, h.h_e_time as h_e_time
-                   , m.m_name as m_name ,c.car_no as car_no , c.car_model as car_model
-              from history h inner join member m on h.d_id = m.m_id
-                             inner join car c on m.m_id = c.m_id
-              where h.m_id = #{m_id} and rownum <= #{cri.pageNum} * #{cri.amount})
+        with driver_info as (
+            select d.d_id, m.m_name, c.car_no, c.car_model
+            from driver d join corp co on d.D_ID = co.D_ID
+                          join car c on co.CAR_NO = c.car_no
+                          join MEMBER m on d.d_id = m.m_id
+        )
+        select dp_id, start_place, finish_place, end_time, m_name, car_no, car_model
+        from (select rownum rn, d.dp_id, d.start_place, d.finish_place, d.end_time, i.m_name, i.car_no, i.car_model
+              from dispatch d, driver_info i, attend a
+              where d.D_ID = i.D_ID and d.dp_id = a.dp_id and a.m_id = #{m_id} and d.DP_STATUS = '5' and rownum <= #{cri.pageNum} * #{cri.amount})
         where rn > (#{cri.pageNum} - 1) * #{cri.amount}
         ]]>
     </select>
@@ -73,15 +77,11 @@
     </select>
 
 
-    <select id="findHistoryToApp" resultType="com.tmate.domain.JoinHistoryVO">
-        <![CDATA[
-        select merchant_uid, h_s_place, h_f_place, h_s_time, h_e_time, m_name, car_no, car_model
-        from (select  h.merchant_uid as merchant_uid , h.h_s_place as h_s_place, h.h_f_place as h_f_place, h.h_s_time as h_s_time, h.h_e_time as h_e_time
-                   , m.m_name as m_name ,c.car_no as car_no , c.car_model as car_model
-              from history h inner join member m on h.d_id = m.m_id
-                             inner join car c on m.m_id = c.m_id
-              where h.m_id = #{m_id} and h.h_status='5')
-        ]]>
+    <select id="findHistoryToApp" resultType="com.tmate.domain.DispatchDTO">
+        select d.dp_id, d.start_place, finish_place, start_time, end_time, m.m_name, c.car_no, c.car_model
+        from (select DP_ID, START_PLACE, FINISH_PLACE, START_TIME, END_TIME, m_id,d_id from dispatch where m_id = #{m_id} and DP_STATUS = '5') d
+                 join member m on d.m_id = m.m_id
+                 join car c on d.d_id = c.m_id
     </select>
 
 

@@ -22,7 +22,12 @@
     </select>
 
     <delete id="deleteBookmark">
-        delete from bookmark where bm_id = #{bm_id} and m_id = #{m_id}
+        delete from bookmark where bm_name = #{bm_name} and m_id = #{m_id}
     </delete>
+
+    <insert id="insertBookmark">
+        insert into bookmark(bm_id, m_id, bm_name, bm_lat, bm_lng)
+        values (bm_seq.nextval,#{m_id},#{bm_name}, ${bm_lat},${bm_lng})
+    </insert>
 
 </mapper>

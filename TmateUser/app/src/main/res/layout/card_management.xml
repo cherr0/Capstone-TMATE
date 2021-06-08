@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout31"
+        android:id="@+id/const_card_management"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -22,17 +22,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_card_management_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tv_card_management_title" />
 
         <TextView
-            android:fontFamily="@font/nexon_medium"
-            android:id="@+id/textView42"
+            android:id="@+id/tv_card_management_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/ibmplexsanskr_semibold"
             android:text="카드관리"
             android:textColor="@color/black"
             android:textSize="28sp"
@@ -41,66 +41,62 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/btn_card_tooltip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_card_management_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_card_management_title" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/ref_card"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/const_card_management">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cardlist_recy"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <Button
+        android:id="@+id/cardAdd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/select_shape"
+        android:fontFamily="@font/ibmplexsanskr_medium"
+        android:text="카드등록"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/card_mes"
-            android:layout_marginTop="30dp"
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
-           >
+    <TextView
+        android:id="@+id/tv_toolTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/message"
+        android:gravity="center"
+        android:text="호출 시, 등록된 카드의 결제 가능 여부를\n확인하기 위해 운행요금을 먼저 결제합니다.\n하차 시, 결제 금액으로 은행요금이 자동결제 되며, \n선결제 금액은 자동 취소됩니다."
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/const_card_management" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:gravity=""
-                android:textSize="12sp"
-                android:text="유효성 확인\n카드 등록 시, 유효성 확인을 위해 100원이 결제 된 후 24시간 이내에 결제\n취소 처리 됩니다."
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="선결제 안내\n호출 시, 등록된 카드의 결제 가능 여부를 확인하기 위해 운행요금을\n먼저 결제합니다.\n하차 시, 결제 금액으로 은행요금이 자동결제 되며, 선결제 금액은\n자동 취소됩니다."
-                android:textSize="12sp" />
-
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/cardAdd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/select_shape"
-            android:text="카드등록"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/card_mes"
-            />
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
-
-</LinearLayout>

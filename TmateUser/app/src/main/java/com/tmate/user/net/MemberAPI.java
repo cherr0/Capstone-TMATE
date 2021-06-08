@@ -2,9 +2,11 @@ package com.tmate.user.net;
 
 import com.tmate.user.data.Approval;
 import com.tmate.user.data.CardData;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.Dv_option;
 import com.tmate.user.data.FavoritesData;
 import com.tmate.user.data.Member;
+import com.tmate.user.data.Notice;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.PhoneDTO;
 import com.tmate.user.data.PointData;
@@ -74,7 +76,7 @@ public interface MemberAPI {
 
     // 유저 이용 내역 정보
     @GET("member/historys/{m_id}")
-    Call<List<UserHistroy>> selectHistory(@Path("m_id") String m_id);
+    Call<List<Dispatch>> selectHistory(@Path("m_id") String m_id);
 
     // 유저 이용 내역 삭제
     @DELETE("member/remove/history/{merchant_uid}/{m_id}")
@@ -84,6 +86,13 @@ public interface MemberAPI {
     @GET("member/bookmark/{m_id}")
     Call<List<FavoritesData>> getBookmarkList(@Path("m_id") String m_id);
 
+    // 즐겨찾기 등록
+    @POST("member/bookmark")
+    Call<Boolean> insertBookmark(@Body FavoritesData favoritesData);
+
+    // 즐겨찾기 삭제
+    @DELETE("member/bookmark/{bm_name}/{m_id}")
+    Call<Boolean> deleteBookmark(@Path("bm_name") String bm_name, @Path("m_id") String m_id);
 
     /*
     * 포인트 관련 서비스
@@ -126,5 +135,8 @@ public interface MemberAPI {
     @PUT("member/modify/dvoption")
     Call<Boolean> modifyDvOption(@Body Dv_option dv_option);
 
+    // 메인 뷰 최신 공지 리스트 가져오기
+    @GET("member/board/mainnotice")
+    Call<List<Notice>> getMainNoticeList();
 
 }

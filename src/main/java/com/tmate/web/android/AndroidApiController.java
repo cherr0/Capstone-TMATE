@@ -48,7 +48,7 @@ public class AndroidApiController {
     }
 
     @GetMapping("/historys/{m_id}")
-    public ResponseEntity<List<JoinHistoryVO>> getHistory(@PathVariable("m_id") String m_id) {
+    public ResponseEntity<List<DispatchDTO>> getHistory(@PathVariable("m_id") String m_id) {
         log.info("이용내역 요청 시 넘어오는 회원 번호 : " + m_id);
 
 
@@ -194,6 +194,18 @@ public class AndroidApiController {
         return new ResponseEntity<>(appMemberService.getunusedPoint(m_id), HttpStatus.OK);
     }
 
+    @PostMapping("/bookmark")
+    public ResponseEntity<Boolean> insertBookmark(@RequestBody BookmarkDTO bookmarkDTO) {
+        log.info("북마크 삽입 진행 중");
+        return new ResponseEntity<>(appMemberService.insertBookmark(bookmarkDTO), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/bookmark/{bm_name}/{m_id}")
+    public ResponseEntity<Boolean> deleteBookmark(@PathVariable("bm_name") String bm_name, @PathVariable("m_id") String m_id) {
+        log.info("북마크 삭제 진행 중");
+        return new ResponseEntity<>(appMemberService.removeBookmark(bm_name,m_id), HttpStatus.OK);
+    }
+
 
     /*
      *  사용자 APP 카드 관리 컨트롤러
@@ -250,5 +262,9 @@ public class AndroidApiController {
         return new ResponseEntity<>(appMemberService.modifyDv_optionByM_id(dv_optionDTO), HttpStatus.OK);
     }
 
-
+    // 메인 뷰 최신 공지 리스트 가져오기
+    @GetMapping("board/mainnotice")
+    public ResponseEntity<List<BoardDTO>> getMainNoticeList() {
+        return new ResponseEntity<>(appMemberService.getMainNoticeList(), HttpStatus.OK);
+    }
 }

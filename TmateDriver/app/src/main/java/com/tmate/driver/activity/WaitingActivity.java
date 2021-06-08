@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,6 +30,7 @@ import com.tmate.driver.GpsTracker;
 import com.tmate.driver.R;
 import com.tmate.driver.adapter.WaitingAdapter;
 import com.tmate.driver.data.CallHistory;
+import com.tmate.driver.data.Dispatch;
 import com.tmate.driver.data.HistoryData;
 import com.tmate.driver.data.Waiting;
 import com.tmate.driver.net.DataService;
@@ -50,12 +52,14 @@ public class WaitingActivity extends AppCompatActivity {
     private TMapView tMapView = null;
     private ArrayList<Waiting> arrayList;
     private WaitingAdapter adapter;
+    private RecyclerView recyclerView;
+    private ConstraintLayout clWait;
 
     // 레트로핏 관련
     private SharedPreferences pref;
     private String d_id;
     Call<Boolean> request;
-    Call<List<CallHistory>> request2;
+    Call<List<Dispatch>> request2;
 
     // GpsTracker 자기 위치 가져오기
     private GpsTracker gpsTracker;
@@ -122,10 +126,12 @@ public class WaitingActivity extends AppCompatActivity {
         final CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, true);
         layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_waiting);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_waiting);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addOnScrollListener(new CenterScrollListener());
+
+        clWait = findViewById(R.id.cl_waiting);
 
         arrayList = new ArrayList<>();
 
@@ -168,8 +174,7 @@ public class WaitingActivity extends AppCompatActivity {
                 showDialogForLocationServiceSetting();
             }
 
-            if(gpsTracker == null)
-                gpsTracker = new GpsTracker(WaitingActivity.this);
+            gpsTracker = new GpsTracker(WaitingActivity.this);
 
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
@@ -179,11 +184,11 @@ public class WaitingActivity extends AppCompatActivity {
             isRunning = true;
 
             request2 = DataService.getInstance().call.getCallInfoByPosition(latitude, longitude);
-            request2.enqueue(new Callback<List<CallHistory>>() {
+            request2.enqueue(new Callback<List<Dispatch>>() {
                 @Override
-                public void onResponse(Call<List<CallHistory>> call, Response<List<CallHistory>> response) {
+                public void onResponse(Call<List<Dispatch>> call, Response<List<Dispatch>> response) {
                     if (response.code() == 200) {
-                        List<CallHistory> list = response.body();
+                        List<Dispatch> list = response.body();
 
                         Log.d("넘어오는 리스트 정보 ", list.toString());
 
@@ -191,19 +196,20 @@ public class WaitingActivity extends AppCompatActivity {
                         // 리스트 그림 그려준다.
                         if (!list.isEmpty()) {
                             isRunning = false;
+                            clWait.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
                             for (int i = 0; i < list.size(); i++) {
                                 CallHistory data = new CallHistory();
-                                data.setMerchant_uid(list.get(i).getMerchant_uid());
-                                data.setTo_people(list.get(i).getTo_people());
-                                data.setDistance1(list.get(i).getDistance1());
-                                data.setH_s_place(list.get(i).getH_s_place());
-                                data.setH_f_place(list.get(i).getH_f_place());
-                                data.setH_s_lttd(list.get(i).getH_s_lttd());
-                                data.setH_s_lngtd(list.get(i).getH_s_lngtd());
-                                data.setH_f_lttd(list.get(i).getH_f_lttd());
-                                data.setH_f_lngtd(list.get(i).getH_f_lngtd());
-                                data.setH_s_lttd(list.get(i).getH_s_lttd());
-                                data.setH_s_lngtd(list.get(i).getH_s_lngtd());
+                                data.setMerchant_uid(list.get(i).getDp_id());
+                                data.setTo_people(Integer.parseInt(list.get(i).getDp_id().substring(18)));
+                                data.setDistance1(list.get(i).getDistance());
+                                data.setH_s_place(list.get(i).getStart_place());
+                                data.setH_f_place(list.get(i).getFinish_place());
+                                data.setH_s_lttd(list.get(i).getStart_lat());
+                                data.setH_s_lngtd(list.get(i).getStart_lng());
+                                data.setH_f_lttd(list.get(i).getFinish_lat());
+                                data.setH_f_lngtd(list.get(i).getFinish_lng());
+
 
                                 adapter.addItem(data);
                             }
@@ -213,16 +219,16 @@ public class WaitingActivity extends AppCompatActivity {
                         // list가 널일때
                         // 계속해서 검색한다.
                         else{
-
+                            clWait.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
                             isRunning = true;
-
                         }
 
                     }
                 }
 
                 @Override
-                public void onFailure(Call<List<CallHistory>> call, Throwable t) {
+                public void onFailure(Call<List<Dispatch>> call, Throwable t) {
                     t.printStackTrace();
                 }
             });
@@ -419,5 +425,35 @@ public class WaitingActivity extends AppCompatActivity {
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(request != null) request.cancel();
+        if(request2 != null) request2.cancel();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        isRunning = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isRunning = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isRunning = false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isRunning = false;
+    }
 
 }

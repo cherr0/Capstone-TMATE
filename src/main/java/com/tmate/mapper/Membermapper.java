@@ -18,6 +18,9 @@ public interface Membermapper {
     // 회원 가입
     int insertMember(MemberDTO memberDTO);
 
+    // 선호 운행 옵션 설정
+    int insertCallOption(String m_id);
+
     // 회원 수정
     int updateMember(MemberDTO memberDTO);
 
@@ -58,7 +61,7 @@ public interface Membermapper {
     List<MemberRole> findRoleList(String m_id);
 
     // 유저 로그인 체크
-    LoginVO loginCheck(LoginVO loginVO);
+    LoginVO loginCheck(String id, String password, String auth);
 
     // IMEI 값 업데이트
     int putIMEIByM_id(String m_id, String m_imei);

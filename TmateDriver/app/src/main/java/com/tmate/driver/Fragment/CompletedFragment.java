@@ -7,24 +7,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.mobsandgeeks.saripaar.ValidationError;
-import com.mobsandgeeks.saripaar.Validator;
-import com.tmate.driver.activity.LoginActivity;
 import com.tmate.driver.OnBackPressedListener;
+import com.tmate.driver.activity.LoginActivity;
 import com.tmate.driver.activity.MainViewActivity;
 import com.tmate.driver.databinding.FragmentCompletedBinding;
 import com.tmate.driver.net.DataService;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,6 +46,7 @@ public class CompletedFragment extends Fragment implements OnBackPressedListener
         }
 
         request = DataService.getInstance().driver.approveSearch(getPreferenceString("d_id"));
+        Log.d("CompletedFragment", "d_id 값 : " + getPreferenceString("d_id"));
         request.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {

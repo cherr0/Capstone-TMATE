@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.DispatchMapper">
+    <!-- 일반 호출 -->
+    <!-- 사용자 APP -->
+
+    <!-- 일반 호출 시 -> 배차 정보 생성 (O) -->
+    <insert id="insertNormalMatch">
+
+        <selectKey resultType="string" keyProperty="dp_id" order="BEFORE">
+            select to_char(systimestamp,'yyMMddhhmissff')||'1'
+            from dual
+        </selectKey>
+
+        insert into DISPATCH (dp_id, dp_status, all_fare, start_place, start_lat, start_lng, finish_place, finish_lat, finish_lng, ep_time, ep_distance, m_id)
+        values(#{dp_id},'2', #{all_fare},#{start_place},#{start_lat},#{start_lng},#{finish_place},#{finish_lat},#{finish_lng},
+               #{ep_time,jdbcType=NUMERIC},#{ep_distance,jdbcType=NUMERIC},#{m_id})
+    </insert>
+
+    <!-- 참여 테이블 (일반 생성)  -->
+    <insert id="insertNormalAttend">
+        insert into attend (m_id, dp_id,use_point, at_status,amount)
+        values (#{m_id},#{dp_id},#{use_point},'1', #{amount})
+    </insert>
+
+    <!-- 일반 호출 취소 시 -> 일반 호출 삭제 (O) -->
+    <delete id="deleteNormalMatch">
+        DELETE FROM DISPATCH
+        WHERE dp_id = #{dp_id}
+    </delete>
+
+    <!-- 일반 호출 취소 시 -> 일반 참여 삭제(O) -->
+    <delete id="deleteNormalAttend">
+        DELETE FROM ATTEND
+        WHERE dp_id = #{dp_id}
+    </delete>
+
+    <!-- 일반 호출 시 기사를 찾는다. -->
+    <select id="selectDriver" resultType="string">
+        SELECT d_id
+        FROM DISPATCH
+        WHERE  dp_id = #{dp_id}
+    </select>
+
+    <!-- 호출 매칭시 상태 바꿔주면서 기사 값도 넣어준다. (O) -->
+    <update id="updateNormalMatchCall">
+        update DISPATCH
+        SET dp_status = '3', d_id = #{d_id}
+        WHERE dp_id = #{dp_id}
+    </update>
+
+    <!-- 이용 서비스 상태 변경 (O) -->
+    <update id="updateNormalMatchStatus">
+        UPDATE DISPATCH
+        SET dp_status = #{dp_status}
+        WHERE dp_id = #{dp_id}
+    </update>
+
+    <!-- 이용 정보 가져오기 (O) -->
+    <select id="getCurrentDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
+        SELECT d.dp_id, d.dp_status , d.start_place, d.finish_place, c.car_no, c.car_model, d.all_fare, a.at_status
+        FROM DISPATCH d LEFT OUTER JOIN CAR c ON d.d_id = c.m_id
+        LEFT OUTER JOIN ATTEND a ON d.dp_id = a.dp_id
+        WHERE d.m_id = #{m_id} AND dp_status IN('0','1','2','3','4') AND a.m_id = #{m_id}
+    </select>
+
+    <!-- 동승 신청자인 경우나 동승자일 경우 이용정보 가져오기 -->
+    <select id="getCurrentPassengerDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
+        select d.*, a.*
+        from attend a left outer join dispatch d on a.dp_id = d.dp_id
+        where a.m_id = #{m_id} AND d.dp_status IN ('0','1','2','3','4')
+    </select>
+
+    <!-- 이용 상세정보 가져오기 (O) -->
+    <select id="getDetailCurrentDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
+        SELECT di.dp_id, di.d_id, di.dp_status, di.start_place, di.start_lat, di.start_lng, di.finish_place, di.finish_lat, di.finish_lng,
+               di.cur_people, di.m_id ,di.ep_time, di.all_fare, m.m_name ,m.m_lat, m.m_lng, c.car_no, c.car_model
+        FROM DISPATCH di LEFT OUTER JOIN CAR c ON di.d_id = c.m_id
+        LEFT OUTER JOIN MEMBER m ON di.d_id = m.m_id
+        WHERE di.dp_id = #{dp_id}
+    </select>
+
+    <!-- 기사 위치 실시간으로 가져오기 (O) -->
+    <select id="getRealTimeDriverLocation" resultType="com.tmate.domain.MemberDTO">
+        SELECT m_lat, m_lng
+        FROM MEMBER
+        WHERE m_id = #{d_id}
+    </select>
+
+    <!-- 기사 위치 실시간으로 가져오기 - 수정 버전 (O) -->
+    <select id="getRealTimeDriverPosition" resultType="com.tmate.domain.DispatchDTO">
+        select d.dp_status,d.start_time, d.end_time, m.m_lat, m.m_lng, d.start_lat, d.start_lng, d.finish_lat, d.finish_lng, d.all_fare, d.dp_id, d.d_id,d.ep_distance, d.start_place, d.finish_place
+        from dispatch d left outer join member m on d.d_id = m.m_id
+        where d.dp_id = #{dp_id}
+    </select>
+
+    <!-- 손님 태웠을시 -> 운행 시간, 탑승 중 (O) -->
+    <update id="updateDispatchBoarding">
+        UPDATE DISPATCH
+        SET dp_status = '4', start_time = systimestamp
+        WHERE dp_id = #{dp_id}
+    </update>
+
+    <select id="getDestination" resultType="com.tmate.domain.DispatchDTO">
+        SELECT finish_lat, finish_lng
+        FROM DISPATCH
+        WHERE dp_id = #{dp_id}
+    </select>
+
+    <select id="getDrivingDp_id" resultType="string">
+        SELECT dp_id
+        FROM DISPATCH
+        WHERE d_id = #{d_id} and dp_status = '3'
+    </select>
+
+    <!-- 탑승완료시 -> 탑승 종료, 운행 종료 시간 (O) -->
+    <update id="updateDisptchBoardingEnds">
+        UPDATE DISPATCH
+        SET  dp_status = '5', end_time = systimestamp
+        WHERE dp_id = #{dp_id}
+    </update>
+
+    <!-- 기사 APP -->
+
+    <!-- 기사의 위치 (O) -->
+    <update id="updateDriverLocation">
+        UPDATE MEMBER
+        SET m_lat = #{m_lat}, m_lng = #{m_lng}
+        WHERE m_id = #{d_id}
+    </update>
+
+    <!-- 기사 상태 변경 -->
+    <update id="updateDriverStatus">
+        UPDATE DRIVER
+        SET d_status = #{d_status}
+        WHERE d_id = #{d_id}
+    </update>
+
+    <!-- 기사 운행중으로 변경 -->
+    <update id="updateDriverDriving">
+        UPDATE DRIVER
+        SET D_STATUS = '2'
+        WHERE D_ID = #{D_ID}
+    </update>
+
+    <!-- 기사 2KM 이내의 호출정보 가져온다. -->
+    <select id="selectCallInfo" resultType="com.tmate.domain.DispatchDTO">
+       <![CDATA[
+            SELECT dp_id, start_place, start_lat, start_lng, finish_place, finish_lat, finish_lng,
+                   GOOGLE_DISTANCE(#{m_lat},#{m_lng},start_lat,start_lng) as distance
+            FROM DISPATCH
+            WHERE dp_status = '2' and GOOGLE_DISTANCE(#{m_lat},#{m_lng},start_lat,start_lng) <= 2
+        ]]>
+    </select>
+
+    <!-- 현재 기사가 태우러 가는 승객의 회원 코드 -->
+    <select id="getUseDispatchM_id" resultType="com.tmate.domain.DispatchDTO">
+        SELECT m_id, dp_id
+        FROM DISPATCH
+        WHERE d_id = #{d_id} and dp_status = '3'
+    </select>
+
+    <!-- 결제 미터기 화면시 미터기 넣고 입력을 누르면 all_fare 업데이트, 배차 상태 -->
+    <update id="updateFareDuringPayment">
+        update dispatch d
+        set all_fare = #{all_fare}, dp_status = #{dp_status}, end_time = systimestamp
+        where dp_id = #{dp_id}
+    </update>
+
+    <!-- 기사가 승객을 블랙리스트에 추가할 시 -->
+    <insert id="insertBlacklist">
+        insert into ban (bd_id,d_id,ban_reason,ban_reg_date,m_id)
+        values(ban_seq.nextval,#{d_id},#{ban_reason},systimestamp,#{m_id})
+    </insert>
+
+
+    <!-- 동승 호출 -->
+    <!-- 사용자 APP -->
+
+    <!-- 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기 -> select (배차) -->
+    <select id="selectNearMatchList" resultType="com.tmate.domain.DispatchDTO">
+        <![CDATA[
+        SELECT d.dp_id, d.dp_status, d.start_place, d.finish_place,
+        d.start_lat, d.start_lng, d.finish_lat, d.finish_lng,
+        d.meet_time, d.cur_people,  GOOGLE_DISTANCE(#{s_lat},#{s_lng},d.start_lat, d.start_lng) as start_distance,
+               GOOGLE_DISTANCE(#{f_lat},#{f_lng},d.finish_lat, d.finish_lng) as finish_distance
+        FROM dispatch d
+        WHERE substr(d.dp_id,19) NOT IN (1) and d.dp_status = '0' and  GOOGLE_DISTANCE(#{s_lat},#{s_lng},d.start_lat, d.start_lng) <= 0.8
+        ORDER BY GOOGLE_DISTANCE(#{f_lat},#{f_lng},d.finish_lat, d.finish_lng)
+        ]]>
+    </select>
+
+    <!-- 맘에 드는거 없을시에 자기가 만든다. -> insert (배차, 참여)  -->
+    <insert id="insertTogetherDispatch">
+        <selectKey resultType="string" keyProperty="dp_id" order="BEFORE">
+            select to_char(systimestamp,'yyMMddhhmissff')||#{keyword}
+            from dual
+        </selectKey>
+
+        INSERT INTO DISPATCH (dp_id, dp_status, all_fare, start_place, finish_place, start_lat, start_lng,
+        finish_lat, finish_lng,meet_time, m_id, ep_time, ep_distance)
+        VALUES (#{dp_id}, '0', #{all_fare}, #{start_place}, #{finish_place}, #{start_lat}, #{start_lng},
+        #{finish_lat}, #{finish_lng}, #{meet_time,jdbcType=TIMESTAMP}, #{m_id}, #{ep_time}, #{ep_distance})
+    </insert>
+
+    <insert id="insertTogehterAttend">
+        INSERT INTO ATTEND (m_id, dp_id, at_status ,seat, amount)
+        VALUES (#{m_id},#{dp_id},#{at_status},#{seat},#{amount})
+    </insert>
+
+    <!-- 동승 참가 버튼 (insert 참여)      (O)  -->
+    <insert id="insertAttendApply">
+        INSERT INTO ATTEND (m_id, dp_id, at_status, seat)
+        VALUES (#{m_id}, #{dp_id}, '0', #{seat})
+    </insert>
+
+    <!-- 동승 수락 및 거절 버튼 (update -> 참여) -->
+    <update id="updateAttendStatus">
+        UPDATE ATTEND
+        SET at_status = '2'
+        WHERE dp_id = #{dp_id} and m_id = #{m_id}
+    </update>
+
+    <delete id="deleteAttendInfo">
+        DELETE FROM ATTEND
+        WHERE dp_id = #{dp_id}, m_id = #{m_id}
+    </delete>
+
+    <!-- 4. 동승자 신청 리스트 -->
+    <select id="getApplyTogetherList" resultType="com.tmate.domain.AttendDTO">
+        SELECT *
+        FROM ATTEND a left outer join MEMBER m ON a.m_id = m.m_id
+        WHERE dp_id = #{dp_id} and at_status = '0'
+    </select>
+
+    <!-- 5. 동승자 신청 거절 수락 -->
+    <update id="rejectApply">
+        update attend
+        set at_status = '2'
+        where dp_id = #{dp_id} and m_id = #{m_id}
+    </update>
+
+    <update id="agreeApply">
+        update attend
+        set at_status = '1'
+        where dp_id = #{dp_id} and m_id = #{m_id}
+    </update>
+
+    <update id="plusCurPeople">
+        UPDATE DISPATCH
+        SET cur_people = cur_people + 1
+        WHERE dp_id = #{dp_id}
+    </update>
+
+    <!-- 6.동승자 정보 -->
+    <select id="getPassengerList" resultType="com.tmate.domain.AttendDTO">
+        SELECT *
+        FROM ATTEND a left outer join MEMBER m ON a.m_id = m.m_id
+        WHERE dp_id = #{dp_id} and at_status = '1'
+    </select>
+
+    <!-- 이미 참가된 좌석 번호 보여 주기 -->
+    <select id="getJoinSeat" resultType="com.tmate.domain.AttendDTO">
+        select seat
+        from attend
+        where dp_id = #{dp_id} and at_status = '1'
+    </select>
+
+    <!--  운행 완료 시 리뷰 업데이트  -->
+    <update id="reviewUpdate">
+        update attend
+        set re_one = #{re_one, jdbcType=VARCHAR},
+            re_two = #{re_two, jdbcType=VARCHAR},
+            re_three = #{re_three, jdbcType=VARCHAR},
+            re_driver = #{re_driver, jdbcType=VARCHAR},
+            re_driver_reason = #{re_driver_reason, jdbcType=VARCHAR}
+        where dp_id = #{dp_id} and m_id = #{m_id}
+    </update>
+</mapper>

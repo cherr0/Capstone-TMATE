@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.LoginButton;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
@@ -68,6 +70,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
     private View view;
     private ImageView btn_back_profile;
 
+
     // 레트로핏2 서비스
 //    DataService dataService = new DataService();
     DataService dataService = DataService.getInstance();
@@ -75,12 +78,12 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
     ImageView iv_level;
 
     TextView tv_name, tv_like, tv_dislike, tv_name2, tv_phone, tv_email, tv_gender, tv_birth, tv_grade,
-    tv_point, tv_m_n_use, tv_m_t_use, tv_m_count;
+            tv_point, tv_m_n_use, tv_m_t_use, tv_m_count;
 
     // 프로필 변경
     static final int REQUEST_IMAGE_CAPTURE = 1;
     public final static int REQUEST_PERMISSIONS_REQUEST_CODE = 100;
-    ImageView  m_profile_img;
+    ImageView m_profile_img;
 
     // 구글 로그인 연동
     private SignInButton btn_google; // 구글 로그인 버튼
@@ -185,69 +188,12 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
             @Override
             public void onClick(View v) {
                 Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-                startActivityForResult(intent,REQ_SIGN_GOOGLE);
+                startActivityForResult(intent, REQ_SIGN_GOOGLE);
             }
         });
 
 
-        // 카카오 로그인 관련
-        mSessionCallback = new ISessionCallback() {
-            @Override
-            public void onSessionOpened() {
 
-                // 로그인 요청 하는 부분
-                UserManagement.getInstance().me(new MeV2ResponseCallback() {
-                    // 로그인 실패
-                    @Override
-                    public void onFailure(ErrorResult errorResult) {
-                        Toast.makeText(getActivity(), "연동 실패하셨습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                    // 세션 닫힘
-                    @Override
-                    public void onSessionClosed(ErrorResult errorResult) {
-                        Toast.makeText(getActivity(), "세션이 닫혔습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
-                    }
-                    // 로그인 성공
-                    @Override
-                    public void onSuccess(MeV2Response result) {
-                        String m_id = getPreferenceString("m_id");
-                        Log.d("연동한 계정 이름 : ", result.getKakaoAccount().getProfile().getNickname());
-                        Log.d("연동한 이메일 : ", result.getKakaoAccount().getEmail());
-
-                        social = new Social();
-                        social.setS_email(result.getKakaoAccount().getEmail());
-                        social.setM_id(m_id);
-                        
-
-                        dataService.memberAPI.socialAccount(social).enqueue(new Callback<Boolean>() {
-                            @Override
-                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                                if (response.isSuccessful()) {
-                                    if (response.code() == 200) {
-                                        Toast.makeText(getActivity(), "카카오 계정을 연동하셨습니다.", Toast.LENGTH_SHORT).show();
-                                        Session.getCurrentSession().removeCallback(mSessionCallback);
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<Boolean> call, Throwable t) {
-                                t.printStackTrace();
-                            }
-                        });
-
-
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void onSessionOpenFailed(KakaoException exception) {
-
-            }
-        };
 
 
 
@@ -261,12 +207,6 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                 transaction.replace(R.id.frameLayout, my_info_fragment).commit();
             }
         });
-
-        // 카카오 로그인 활성
-        Session.getCurrentSession().addCallback(mSessionCallback);
-        Session.getCurrentSession().checkAndImplicitOpen();
-
-
 
 
         return view;
@@ -287,7 +227,6 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
         ActivityCompat.requestPermissions(getActivity(),
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSIONS_REQUEST_CODE);
     }
-
 
 
     @Override
@@ -361,13 +300,12 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                             });
 
 
-                        } else{ // 로그인 실패
+                        } else { // 로그인 실패
                             Toast.makeText(getActivity(), "연동 실패", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
-
 
 
     public void initWidget(View v) {
@@ -403,8 +341,8 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
 
                         Member member = response.body();
 
-                        tv_like.setText(member.getLike()+"");
-                        tv_dislike.setText(member.getDislike()+"");
+                        tv_like.setText(member.getLike() + "");
+                        tv_dislike.setText(member.getDislike() + "");
 
                         // 멤버 등급별 이미지 리소스
                         int normalCnt = member.getM_n_use();
@@ -425,27 +363,29 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
 
                         tv_name.setText(member.getM_name());
                         tv_name2.setText(member.getM_name());
-                        tv_phone.setText(member.getM_id().substring(2,13));
+                        tv_phone.setText(member.getM_id().substring(2, 13));
                         tv_email.setText(member.getM_email());
 
                         switch (member.getM_id().substring(1, 2)) {
-                            case "1": case "3":
+                            case "1":
+                            case "3":
                                 tv_gender.setText("남자");
                                 break;
-                            case "2": case "4":
+                            case "2":
+                            case "4":
                                 tv_gender.setText("여자");
                                 break;
                         }
                         Log.d("넘어오는 생년월일", member.getM_birth().toString());
 //                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 //                        tv_birth.setText(sdf.format(member.getM_birth()));
-                        tv_birth.setText(member.getM_birth().toString().substring(0,10));
+                        tv_birth.setText(member.getM_birth().toString().substring(0, 10));
 
                         tv_point.setText(member.getM_point() + "P");
 
-                        tv_m_n_use.setText(member.getM_n_use()+"회");
-                        tv_m_t_use.setText(member.getM_t_use()+"회");
-                        tv_m_count.setText(member.getM_count()+"회");
+                        tv_m_n_use.setText(member.getM_n_use() + "회");
+                        tv_m_t_use.setText(member.getM_t_use() + "회");
+                        tv_m_count.setText(member.getM_count() + "회");
 
 
                     }
@@ -466,21 +406,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
         return pref.getString(key, "");
     }
 
-    // 카카오 로그인 시 필요한 해시키를 얻는 메소드 이다.
-    private void getAppKeyHash() {
-        try {
-            PackageInfo info = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md;
-                md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                String something = new String(Base64.encode(md.digest(), 0));
-                Log.e("Hash key", something);
-            }
-        } catch (Exception e) {
-            Log.e("name not found", e.toString());
-        }
-    }
+
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {

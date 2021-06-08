@@ -20,6 +20,9 @@ public class DriverDTO {
     // 기사 승인 날짜
     private Timestamp d_j_date;
 
+    // 기사 상태
+    private String d_status;
+
     // 은행사
     private String bank_company;
 

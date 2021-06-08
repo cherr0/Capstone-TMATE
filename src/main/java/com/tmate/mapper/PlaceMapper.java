@@ -30,6 +30,9 @@ public interface PlaceMapper {
     List<BookmarkDTO> findBookmarkList(String m_id);
 
     // 즐겨 찾기 지우기
-    int deleteBookmark(@Param("bm_id") int bm_id, @Param("m_id") String m_id);
+    int deleteBookmark(@Param("bm_name") String bm_name, @Param("m_id") String m_id);
+
+    // 즐겨찾기 등록
+    int insertBookmark(BookmarkDTO bookmarkDTO);
 
 }

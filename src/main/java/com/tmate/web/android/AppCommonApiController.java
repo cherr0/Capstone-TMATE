@@ -74,16 +74,7 @@ public class AppCommonApiController {
         log.info("App에서 상세보기를 위한 이벤트 코드" + bd_id);
         return new ResponseEntity<>(commonService.readEvent(bd_id),HttpStatus.OK);
     }
-
-    @DeleteMapping("/deletebookmark/{bm_id}/{m_id}")
-    public ResponseEntity<Boolean> removeBookmark(@PathVariable("bm_id") String bm_id, @PathVariable("m_id") String m_id) {
-
-        log.info("즐겨 찾기 지우는 중: " + bm_id + m_id);
-
-        Integer bm_ids = Integer.valueOf(bm_id);
-
-        return new ResponseEntity<>(appMemberService.removeBookmark(bm_ids, m_id),HttpStatus.OK);
-    }
+    
 
     /* -----------------------
           휴대폰 인증 컨트롤러
@@ -115,11 +106,11 @@ public class AppCommonApiController {
     /* -----------------------
             로그인 컨트롤러
        ----------------------- */
-    // 로그인 체크
-    @GetMapping("/login")
-    public ResponseEntity<LoginVO> loginCheck(@RequestBody LoginVO loginVO) {
-        log.info("어플 로그인 진행 : " + loginVO.toString());
-        return new ResponseEntity<>(commonService.userLogin(loginVO), HttpStatus.OK);
+    @GetMapping("/login/{id}/{password}/{auth}")
+    public ResponseEntity<LoginVO> loginCheck(@PathVariable("id") String id, @PathVariable("password") String password,
+                                              @PathVariable("auth") String auth) {
+        log.info("어플 로그인 아이디 : " + id + ", 비밀번호 : " + password + ", 권한 : " + auth);
+        return new ResponseEntity<>(commonService.userLogin(id,password,auth), HttpStatus.OK);
     }
 
     // 앱 사용 기기 변경에 따른 IMEI 값 변경

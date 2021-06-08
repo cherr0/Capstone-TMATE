@@ -58,9 +58,9 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override // 유저 로그인
-    public LoginVO userLogin(LoginVO loginVO) {
+    public LoginVO userLogin(String id, String password, String auth) {
         log.info("유저 로그인 서비스 처리 중");
-        return membermapper.loginCheck(loginVO);
+        return membermapper.loginCheck(id, password, auth);
     }
 
     @Override   // IMEI 업데이트

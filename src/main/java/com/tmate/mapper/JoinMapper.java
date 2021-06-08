@@ -11,7 +11,7 @@ import java.util.List;
 public interface JoinMapper {
 
     // 관리자페이지 이용내역 정보 가져오는 메서드
-    List<JoinHistoryVO> getHistoryByMember(@Param("cri") Criteria cri, @Param("m_id") String m_id);
+    List<DispatchDTO> getHistoryByMember(@Param("cri") Criteria cri, @Param("m_id") String m_id);
 
     // 포인트 내역 조인 관계로 가져오기
     List<JoinPointVO> getPointByMember(@Param("cri") Criteria cri,@Param("m_id") String m_id);
@@ -39,5 +39,5 @@ public interface JoinMapper {
     *
     * */
 
-    List<JoinHistoryVO> findHistoryToApp(String m_id);
+    List<DispatchDTO> findHistoryToApp(String m_id);
 }

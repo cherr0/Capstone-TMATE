@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,8 +38,11 @@ import com.tmate.user.Fragment.MatchingFragment;
 import com.tmate.user.R;
 import com.tmate.user.common.Common;
 import com.tmate.user.common.PermissionManager;
+import com.tmate.user.data.Dispatch;
+import com.tmate.user.data.Member;
 import com.tmate.user.databinding.ActivityCarInfoBinding;
 import com.tmate.user.databinding.ActivityMatchingMapBinding;
+import com.tmate.user.net.DataService;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -48,9 +52,37 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.skt.Tmap.util.HttpConnect.getContentFromNode;
 
 public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager.onLocationChangedCallback {
+
+    // 화면 위젯 변수
+    TextView car_no;
+    TextView h_status;
+    TextView h_s_place;
+    TextView h_f_place;
+    TextView h_people;
+    TextView meet_time;
+    TextView h_ep_time;
+    TextView amount;
+
+
+    // 레트로핏 사용 부분
+    Call<Dispatch> request;
+    String driverPhoneNo;
+
+    // 쓰레드 관련
+    String dp_id2;
+
+    Call<Dispatch> request2;
+    boolean isRunning;
+    Handler handler2;
+    Positioning positioning;
 
     //바뀐 위치에 대한 좌표값 설정
     @Override
@@ -135,7 +167,6 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         setContentView(b.getRoot());
 
 
-
         //gps
         gps = new TMapGpsManager(CarInfoActivity.this);
         mPermissionManager = new PermissionManager();
@@ -150,38 +181,183 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         mMapView.setSKTMapApiKey(mApiKey);
         m_nCurrentZoomLevel = -1;
         mMapView.setIconVisibility(true);//현재위치로 표시될 아이콘을 표시할지 여부를 설정
-        setGps(); //시작하자마자 자신의 위치가 보이게 한다
+//        setGps(); //시작하자마자 자신의 위치가 보이게 한다
 
         //마커 설정
         mArrayMarkerID = new ArrayList<String>();
         mMarkerID = 0;
 
+        dataInitWidget();
+
+        // 쓰레드 상태
+        handler2 = new Handler();
+        positioning = new Positioning();
+        isRunning = true;
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    while (isRunning) {
+                        handler.post(positioning);
+                        Thread.sleep(2000);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        isRunning = true;
+        thread.start();
+
         initSildeMenu();
 
-
-        //값 가져오기
-        //Intent intent = getIntent();
-
-        //임의의 값
-        d1 = 35.894479;
-        d2 = 128.623895;
-        d3 = 35.8777867;
-        d4 = 128.6285734;
-        tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
-        tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
-
-        //임의로 다음 화면으로 넘어가는 것을 보기 위해 설정
-        b.goDriverMessage.setOnClickListener(v -> {
-            drawCarPath();
-            mMapView.setIconVisibility(false);//자신의 위치를 표시해주던 마커 제거
-            b.driverinfo.setVisibility(View.GONE);
-            b.drivinginfo.setVisibility(View.VISIBLE);
-            b.locationBtn.setVisibility(View.GONE);
+        b.complete.setOnClickListener(v -> {
+            Intent intent = new Intent(this,CarDrivingActivity.class);
+            intent.putExtra("출발지위도",35.888836);
+            intent.putExtra("출발지경도",128.6102996);
+            intent.putExtra("도착지위도",35.8686835);
+            intent.putExtra("도착지경도",128.5989036);
+            startActivity(intent);
+            finish();
+        });
+        b.driverCall.setOnClickListener(v -> {
+            Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"+driverPhoneNo));
+            startActivity(mIntent.addFlags(FLAG_ACTIVITY_NEW_TASK));
         });
         mContext = this;
     }
 
+    // 택시 기사 위치 실시간으로 가져오는 내브 쓰레드 클래스
+    public class Positioning implements Runnable {
+        @Override
+        public void run() {
+            request2 = DataService.getInstance().matchAPI.getDriverPosition(dp_id2);
+            request2.enqueue(new Callback<Dispatch>() {
+                @Override
+                public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
+                    if (response.code() == 200 && response.body() != null) {
+                        Dispatch dispatch = response.body();
+                        Log.d("넘어오는 기사 정보", dispatch.toString());
+                        Toast.makeText(mContext, "계속하여 기사 위치를 가져옵니다.", Toast.LENGTH_SHORT).show();
+                        tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
 
+                        switch (dispatch.getDp_status()) {
+                            case "3":
+                                tMapPointEnd = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
+                                h_status.setText("탑승 대기중");
+                                drawCarPath();
+                                isRunning = true;
+                                break;
+                            case "4":
+                                tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
+                                h_status.setText("탑승중");
+                                drawCarPath();
+                                isRunning = true;
+                                break;
+                            case "5":
+                                isRunning = false;
+                                break;
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Dispatch> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
+    }
+
+
+
+    // 레트로핏 관련 화면 UI 초기화 메서드
+    public void initWidget() {
+        car_no = findViewById(R.id.car_no);
+        h_status = findViewById(R.id.h_status);
+        h_s_place = findViewById(R.id.h_s_place);
+        h_f_place = findViewById(R.id.h_f_place);
+        h_people = findViewById(R.id.h_people);
+        meet_time = findViewById(R.id.meet_time);
+        h_ep_time = findViewById(R.id.h_ep_time);
+        amount = findViewById(R.id.amount);
+    }
+
+    public void dataInitWidget() {
+        initWidget();
+        Intent intent =getIntent();
+        String dp_id = intent.getStringExtra("dp_id");
+        Log.d("찍히는 이용정보코드 : ", dp_id);
+        request = DataService.getInstance().matchAPI.readCurrentDispatch(dp_id);
+        request.enqueue(new Callback<Dispatch>() {
+            @Override
+            public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    Log.d("넘어오는 호출 정보 : ", response.body().toString());
+                    Dispatch dispatch = response.body();
+                    String d_id = dispatch.getD_id();
+                    driverPhoneNo = d_id.substring(2, 5) + "-" + d_id.substring(5,9) + "-" + d_id.substring(9,13);
+                    Log.d("기사 전화번호 : ", driverPhoneNo);
+                    // 일반과 동승(2,3)
+                    switch (dispatch.getDp_id().substring(18)) {
+                        case "1":
+                            h_people.setText("1명");
+                            meet_time.setText("동승이용시");
+                            break;
+                        case  "2":
+                            h_people.setText("2명");
+                            meet_time.setText("보류");
+                            break;
+                        case "3":
+                            h_people.setText("3명");
+                            meet_time.setText("보류");
+                            break;
+                    }
+
+
+                    dp_id2 = dispatch.getDp_id();
+                    car_no.setText(dispatch.getCar_no());
+                    h_s_place.setText(dispatch.getStart_place());
+                    h_f_place.setText(dispatch.getFinish_place());
+                    h_ep_time.setText("보류");
+                    amount.setText("보류");
+
+
+                    // 탑승 대기중일때 기사위치에서 출발지
+                    if(dispatch.getDp_status().equals("3")) {
+                        h_status.setText("탑승완료");
+                        d1 = dispatch.getM_lat();
+                        d2 = dispatch.getM_lng();
+                        d3 = dispatch.getStart_lat();
+                        d4 = dispatch.getStart_lng();
+                    }
+
+                    // 탑승중일때 기사위치에서 도착지
+                    if (dispatch.getDp_status().equals("4")) {
+                        h_status.setText("탑승중");
+                        d1 = dispatch.getM_lat();
+                        d2 = dispatch.getM_lng();
+                        d3 = dispatch.getFinish_lat();
+                        d4 = dispatch.getFinish_lng();
+                    }
+
+                    tMapPointStart = new TMapPoint(d1, d2); //출발지 좌표 설정
+                    tMapPointEnd = new TMapPoint(d3, d4); //도착지 좌표 설정
+
+                    drawCarPath();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Dispatch> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 
     private void initSildeMenu() {
         //api키 정상적인지 체크
@@ -221,39 +397,6 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
                     }
                 }).show();
     }
-    private final LocationListener mLocationListener = new LocationListener() {
-        public void onLocationChanged(Location location) {
-
-            if (location != null) { //자신의 위치정보를 가져온다
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-                mMapView.setLocationPoint(longitude, latitude);
-                mMapView.setCenterPoint(longitude, latitude);
-
-            }
-
-        }
-
-        public void onProviderDisabled(String provider) {
-        }
-
-        public void onProviderEnabled(String provider) {
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
-    };
-    //자신의 위치로 보여주게한다
-    public void setGps() {
-        final LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, // 등록할 위치제공자(실내에선 NETWORK_PROVIDER 권장)
-                1000, // 통지사이의 최소 시간간격 (miliSecond)
-                1, // 통지사이의 최소 변경거리 (m)
-                mLocationListener);
-    }
 
     //getZoomLevel 현재 줌의 레벨을 가지고 온다.
     public void getZoomLevel() {
@@ -262,6 +405,7 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
     }
     //자동차 경로 그리기
     public void drawCarPath() {
+        Log.d("여기 들어오는가 ? ", d1 + ":" + d2 + ":" + d3 + ":" + d4);
         findPathDataAllType(TMapData.TMapPathType.CAR_PATH);//자동차경로 그리기 호출
     }
     //자동차 경로 그리기
@@ -310,13 +454,9 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
                     }
                     //줌 설정
                     TMapInfo info = mMapView.getDisplayTMapInfo(polyline.getLinePoint());
-                    int zoom = info.getTMapZoomLevel();
-                    if (zoom > 12) {
-                        zoom = 12;
-                    }
-                    System.out.println("자동차경로 그리기 시작 진2짜");
+
                     mMapView.addTMapPath(polyline);
-                    mMapView.setZoomLevel(zoom);
+//                    mMapView.setZoomLevel(16);
                     mMapView.setCenterPoint(info.getTMapPoint().getLongitude(), info.getTMapPoint().getLatitude());
                     setTextLevel(MESSAGE_STATE_ROUTE);
                 }
@@ -337,8 +477,6 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
         d1 = tpoint.getLatitude(); //출발지 위도
         d2 = tpoint.getLongitude(); //출발지 경도
     }
-
-
     // setTrackingMode 화면중심을 단말의 현재위치로 이동시켜주는 트래킹모드로 설정한다.
     public void setTrackingMode(boolean isShow) {
         mMapView.setTrackingMode(isShow);
@@ -425,7 +563,6 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
                     break;
                 //자동차 경로 보여주는 메세지를 받았을때
                 case MESSAGE_STATE_ROUTE:
-                    b.routeLayout.setVisibility(View.GONE);
                     b.geocodingLayout.setVisibility(View.GONE);
 
                     int totalSec = Integer.parseInt(totalTime);
@@ -439,15 +576,12 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
                     } else {
                         time = minute + "분 ";
                     }
-
                     km = null;
                     km = Double.parseDouble(totalDistance) / 1000; //거리(km기준)
 
                     //b.predictionDistance.setText(km.toString());
                     //b.predictionTime.setText(time);
                     //b.drivinginfo.setVisibility(View.VISIBLE); //예상 금액,거리, 시간 보기
-
-
                     break;
                 case MESSAGE_ERROR:
                     Toast.makeText(getApplicationContext(), "정보가 없습니다.", Toast.LENGTH_SHORT).show();
@@ -457,4 +591,14 @@ public class CarInfoActivity extends AppCompatActivity implements TMapGpsManager
             }
         }
     };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        request.cancel();
+        request2.cancel();
+        isRunning = false;
+    }
+
+
 }

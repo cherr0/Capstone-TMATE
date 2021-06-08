@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.provider.Settings;
+import android.util.Log;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.pharid.splash.lib.activity.AnimatedSplash;
@@ -24,11 +25,11 @@ public class SplashActivity extends AnimatedSplash {
 
         /* you don't have to override every property */
 
-//        setPreference("m_id","m1010675016640");
-//        setPreference("m_name","박중원");
-
-
         imei = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+//        setPreference("m_id", "m2010676819600");
+//        setPreference("m_name", "허시현");
+//        setPreference("sid", "S2905462887021313232");
 
         //Customize Circular Reveal
         configSplash.setBackgroundColor(R.color.white); //any color you want form colors.xml
@@ -51,6 +52,7 @@ public class SplashActivity extends AnimatedSplash {
 
     @Override
     public void animationsFinished() {
+        Log.d("SplashActivity", "m_id : " + getPreferenceString("m_id"));
 
         // sharedpreference 값 있을떄 바로 메인뷰로 간다.
         if (!(getPreferenceString("m_id").equals(""))) {

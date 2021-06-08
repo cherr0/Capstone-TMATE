@@ -26,12 +26,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:fontFamily="@font/nexon_medium"
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
+            android:fontFamily="@font/ibmplexsanskr_semibold"
             android:text="이벤트 수신 설정"
             android:textColor="@color/black"
             android:textSize="28sp"
@@ -63,6 +63,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:padding="16dp"
                 android:text="이벤트 알림 받기"
                 android:textColor="@color/black"
@@ -91,6 +92,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/ibmplexsanskr_extralight"
             android:text="새로운 이벤트가 있는 경우 알려드립니다. 원하지 않으면 OFF로 변경하세요."
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -111,6 +113,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:padding="16dp"
                 android:text="이벤트 및 마케팅 활용 동의"
                 android:textColor="@color/black"
@@ -139,6 +142,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/ibmplexsanskr_extralight"
             android:text="목적 : Tmate 서비스 내 이벤트 및 광고 등 마케팅에 활용"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -152,6 +156,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/ibmplexsanskr_extralight"
             android:text="보유기간 : 회원탈퇴 또는 동의철회 시 지체없이 파기"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -162,6 +167,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/ibmplexsanskr_extralight"
             android:text="동의하지 않아도 서비스 이용이 가능합니다"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textView39"

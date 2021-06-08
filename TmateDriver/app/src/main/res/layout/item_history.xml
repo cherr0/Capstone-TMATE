@@ -26,7 +26,8 @@
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="21/11/06"/>
+                android:text="21/11/06"
+                android:fontFamily="@font/font_header"/>
 
             <TextView
                 android:id="@+id/htogether"
@@ -34,19 +35,23 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/box_shape"
                 android:text="일반"
-                android:layout_marginLeft="20dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:textSize="18sp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:fontFamily="@font/font_sub_title"/>
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
                 android:gravity="right"
+                android:paddingRight="10dp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_up" />
@@ -58,12 +63,14 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:layout_marginLeft="5dp"
-                    android:text="횟수" />
+                    android:text="횟수"
+                    android:fontFamily="@font/font_sub_title"/>
 
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
                     android:src="@drawable/ic_down"/>
 
                 <TextView
@@ -73,16 +80,9 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:text="횟수"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="5dp"/>
-
-                <TextView
-                    android:id="@+id/re_amt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4500원"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"/>
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/font_sub_title"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -96,14 +96,16 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
-                android:text="탑승자\n"/>
+                android:text="탑승자\n"
+                android:fontFamily="@font/font_sub_title"/>
             <TextView
                 android:id="@+id/history_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="@color/black"
-                android:text="김*치"/>
+                android:text="김*치"
+                android:fontFamily="@font/font_sub_title"/>
 
         </LinearLayout>
 
@@ -115,14 +117,16 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
-                android:text="출발\n"/>
+                android:text="출발\n"
+                android:fontFamily="@font/font_sub_title"/>
             <TextView
                 android:id="@+id/hstart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="@color/black"
-                android:text="대구 북구 복현동 영진전문대 정문"/>
+                android:text="대구 북구 복현동 영진전문대 정문"
+                android:fontFamily="@font/font_sub_title"/>
         </LinearLayout>
 
         <LinearLayout
@@ -133,15 +137,36 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
-                android:text="도착\n"/>
+                android:text="도착\n"
+                android:fontFamily="@font/font_sub_title"/>
             <TextView
                 android:id="@+id/hfinish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="@color/black"
-                android:text="대웅아파트"/>
+                android:text="대웅아파트"
+                android:fontFamily="@font/font_sub_title"/>
 
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:text="금액\n"
+                android:fontFamily="@font/font_sub_title"/>
+            <TextView
+                android:id="@+id/re_amt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:text="4500원"
+                android:fontFamily="@font/font_sub_title"/>
         </LinearLayout>
 
         <LinearLayout
@@ -152,14 +177,16 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
-                android:text="운행 시간\n"/>
+                android:text="운행 시간\n"
+                android:fontFamily="@font/font_sub_title"/>
             <TextView
                 android:id="@+id/htime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="@color/black"
-                android:text="11:32 - 11:48"/>
+                android:text="11:32 - 11:48"
+                android:fontFamily="@font/font_sub_title"/>
 
             <LinearLayout
                 android:id="@+id/black_list_submit"
@@ -168,6 +195,7 @@
                 android:layout_marginLeft="30dp">
 
             <ImageView
+                android:layout_gravity="center"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/black_list2" />
@@ -177,7 +205,8 @@
                 android:layout_height="match_parent"
                 android:text="블랙리스트 등록"
                 android:textColor="@color/black"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:fontFamily="@font/font_sub_title"/>
 
             </LinearLayout>
 
@@ -186,18 +215,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-<!--            <Button-->
-<!--                android:id="@+id/black_list_submit"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="16dp"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                android:backgroundTint="#00BCD4"-->
-<!--                android:text="블랙리스트 등록하기"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/const_reason" />-->
 
             <TextView
                 android:id="@+id/reasonView"
@@ -210,6 +227,7 @@
                 android:paddingLeft="130dp"
                 android:drawableLeft="@drawable/ic_arrowheaddown"
                 android:gravity="center_vertical"
+                android:fontFamily="@font/font_sub_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -234,6 +252,7 @@
                     android:drawablePadding="8dp"
                     android:text="택시기사가 그냥 마음에 안들어요"
                     android:textColor="#000000"
+                    android:fontFamily="@font/font_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/r_reason1" />
@@ -248,6 +267,7 @@
                     android:drawablePadding="8dp"
                     android:text="택시기사가 그냥 마음에 안들어요"
                     android:textColor="#000000"
+                    android:fontFamily="@font/font_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -263,6 +283,7 @@
                     android:drawablePadding="8dp"
                     android:text="택시기사가 그냥 마음에 안들어요"
                     android:textColor="#000000"
+                    android:fontFamily="@font/font_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/r_reason2" />

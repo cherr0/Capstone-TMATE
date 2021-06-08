@@ -43,22 +43,17 @@
                                     </tr>
                                     </thead>
                                     <tbody class="point text-center table-hover">
-                                    <tr th:each="h : ${history}">
-                                        <td class="text-center" th:switch="${#strings.substring(h.merchant_uid,27)}">
+                                    <tr th:each="d : ${dispatch}">
+                                        <td class="text-center" th:switch="${#strings.substring(d.dp_id,18)}">
                                             <p th:case="1">일반</p>
-                                            <p th:case="0">동승</p>
+                                            <p th:case="*">동승</p>
                                         </td>
-<!--                                        <td class="text-center" th:text="${#strings.substring(h.merchant_uid,9,15)}"></td>-->
-                                        <td class="text-center">
-                                            [[${#strings.substring(h.merchant_uid,9,11)}]]/[[${#strings.substring(h.merchant_uid,11,13)}]]/[[${#strings.substring(h.merchant_uid,13,15)}]]
-                                        </td>
-                                        <td class="text-center" th:text="${h.h_s_place}"></td>
-                                        <td class="text-center" th:text="${h.h_f_place}"></td>
-<!--                                        <td class="text-center"><span th:text="${#strings.substring(h.h_s_time,0,16)}"></span>-->
-<!--                                        -<span th:text="${#strings.substring(h.h_e_time,0,16)}"></span></td>-->
-                                        <td class="text-center" th:text="${h.car_no}"></td>
-                                        <td class="text-center" th:text="${h.car_model}"></td>
-                                        <td class="text-center" th:text="${h.m_name}"></td>
+                                        <td class="text-center" th:text="${#dates.format(d.end_time, 'MM-dd HH:mm')}"></td>
+                                        <td class="text-center" th:text="${d.start_place}"></td>
+                                        <td class="text-center" th:text="${d.finish_place}"></td>
+                                        <td class="text-center" th:text="${d.car_no}"></td>
+                                        <td class="text-center" th:text="${d.car_model}"></td>
+                                        <td class="text-center" th:text="${d.m_name}"></td>
                                     </tr>
                                     </tbody>
                                 </table>

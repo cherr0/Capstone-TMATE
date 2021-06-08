@@ -13,14 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.tmate.user.Activity.CarInfoActivity;
 import com.tmate.user.Activity.MatchingDetailActivity;
 import com.tmate.user.R;
+import com.tmate.user.data.Dispatch;
 import com.tmate.user.data.JoinHistoryVO;
 import com.tmate.user.databinding.ActivityMatchingMapBinding;
 import com.tmate.user.databinding.FragmentCarInfoBinding;
 import com.tmate.user.net.DataService;
+import com.tmate.user.ui.driving.DrivingActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,130 +34,108 @@ public class CarInfoFragment extends Fragment {
     private FragmentCarInfoBinding b;
     private View view;
 
-    // 레트로핏 연
-    String h_status;
+    // 레트로핏 연동
+    String dp_status;
+    String at_status;
     String m_id;
-    String merchant_uid;
-    Call<JoinHistoryVO> request;
+    String dp_id;
+    String together;
+    int cur_people;
+    int seat;
+    Call<Dispatch> request;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         b = FragmentCarInfoBinding.inflate(getLayoutInflater());
         view = b.getRoot();
+        b.noService.bringToFront();
 
-        m_id = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE).getString("m_id", "");
+        m_id = getActivity().getSharedPreferences("loginUser" , Context.MODE_PRIVATE).getString("m_id", "");
 
         request = DataService.getInstance().matchAPI.getUsingHistory(m_id);
-
-        request.enqueue(new Callback<JoinHistoryVO>() {
+        request.enqueue(new Callback<Dispatch>() {
             @Override
-            public void onResponse(Call<JoinHistoryVO> call, Response<JoinHistoryVO> response) {
-                if (response.isSuccessful()) {
-                    if (response.code() == 200) {
-                        JoinHistoryVO joinHistoryVO = response.body();
+            public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    Dispatch dispatch = response.body();
+                    b.noService.setVisibility(View.GONE);
+                    b.detailService.setVisibility(View.VISIBLE);
+                    Log.d("CarInfoFragment", "dispatch : " + dispatch.toString());
 
-                        if (joinHistoryVO != null) {
+                    dp_id = dispatch.getDp_id();
+                    dp_status = dispatch.getDp_status();
+                    at_status = dispatch.getAt_status();
+                    seat = dispatch.getSeat();
 
-                            b.fcTitle.setText("이용중");
+                    switch (seat) {
+                        case 1 :
+                            b.ivSeatOne.setImageResource(R.drawable.ic_sit_off_more);
+                        case 2:
+                            b.ivSeatTwo.setImageResource(R.drawable.ic_sit_off_more);
+                        case 3:
+                            b.ivSeatThree.setImageResource(R.drawable.ic_sit_off_more);
+                    }
 
+                    switch (dp_status) {
+                        case "0":
+                            b.statusBadge.setText("매칭 중");
+                            break;
+                        case "1":
+                            b.statusBadge.setText("매칭 완료");
+                            break;
+                        case "2":
+                            b.statusBadge.setText("호출 중");
+                            break;
+                        case "3":
+                            b.statusBadge.setText("탑승 대기중");
+                            break;
+                        case "4":
+                            b.statusBadge.setText("탑승 중");
+                            break;
+                    }
 
-                            merchant_uid = joinHistoryVO.getMerchant_uid();
+                    together = dispatch.getDp_id().substring(18);
+                    switch (together) {
+                        case "1":
+                            b.htogether.setText("일반");
+                            b.curPeople.setText("1명");
+                            break;
 
-                            switch (joinHistoryVO.getH_status()) {
-                                case "0":
-                                    h_status = "0";
-                                    b.statusBadge.setText("매칭 중");
-                                    break;
-                                case "1":
-                                    h_status = "1";
-                                    b.statusBadge.setText("매칭 완료");
-                                    break;
-                                case "2":
-                                    h_status = "2";
-                                    b.statusBadge.setText("호출 중");
-                                    break;
-                                case "3":
-                                    h_status = "3";
-                                    b.statusBadge.setText("탑승 대기중");
-                                    break;
-                                case "4":
-                                    h_status = "4";
-                                    b.statusBadge.setText("탑승 중");
-                                    break;
-                            }
+                        default:
+                            b.htogether.setText("동승");
+                            b.curPeople.setText(dispatch.getCur_people() + "명");
+                            break;
+                    }
 
-                            switch (joinHistoryVO.getMerchant_uid().substring(27)) {
-                                case "0":
-                                    b.htogether.setText("동승");
-                                    break;
+                    b.hSPlace.setText(dispatch.getStart_place());
+                    b.hFPlace.setText(dispatch.getFinish_place());
 
-                                case "1":
-                                    b.htogether.setText("일반");
-                                    break;
-                            }
-
-                            b.hSPlace.setText(joinHistoryVO.getH_s_place());
-                            b.hFPlace.setText(joinHistoryVO.getH_f_place());
-
-                            // null 검
-                            if (joinHistoryVO.getCar_model() != null && joinHistoryVO.getCar_no() != null) {
-                                b.carModel.setText(joinHistoryVO.getCar_model());
-                                b.carNo.setText(joinHistoryVO.getCar_no());
-                            } else {
-                                b.carModel.setText("택시 호출 후 생성");
-                                b.carNo.setText("택시 호출 후 생성");
-                            }
-                        } else {
-                            Log.d("안넘어 가는건가?", "왜 실행을 안할까?");
-                            b.fcTitle.setText("이용 중이 아닙니다.");
-                            b.htogether.setText(null);
-                            b.statusBadge.setText(null);
-                            b.hSPlace.setText(null);
-                            b.hFPlace.setText(null);
-                            b.carModel.setText(null);
-                            b.carNo.setText(null);
-
-//                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//                            BoardingFragment mf = new BoardingFragment();
-//                            transaction.replace(R.id.fm_matching_activity, mf);
-//                            transaction.commit();
-
-                        }
+                    // null 검출
+                    if (dispatch.getCar_model() != null && dispatch.getCar_no() != null) {
+                        b.carModel.setText(dispatch.getCar_model());
+                        b.carNo.setText(dispatch.getCar_no());
+                    } else {
+                        b.carModel.setText("택시 호출 후");
+                        b.carNo.setText("생성");
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<JoinHistoryVO> call, Throwable t) {
+            public void onFailure(Call<Dispatch> call, Throwable t) {
                 t.printStackTrace();
             }
         });
 
-        b.car.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 세부 정보로 넘어가야 한다.
-                if(h_status == "0" || h_status == "1" || h_status == "2") {
-
-
-                    Intent intent = new Intent(getContext(), MatchingDetailActivity.class);
-
-                    intent.putExtra("merchant_uid", merchant_uid);
-                    intent.putExtra("m_id", m_id);
-                    intent.putExtra("h_status", h_status);
-                    startActivity(intent);
-                }
-
-                // 지도로 넘어간다. 실시간 위치 지도로 넘어간다.
-                if(h_status == "3" || h_status == "4"){
-                    Intent intent = new Intent(getContext(), CarInfoActivity.class);
-                    intent.putExtra("merchant_uid", merchant_uid);
-                    intent.putExtra("m_id", m_id);
-                    intent.putExtra("h_status", h_status);
-                    startActivity(intent);
-                }
-            }
+        b.car.setOnClickListener(v -> {
+            // 세부 정보로 넘어가야 한다.
+            Intent intent = new Intent(getContext(), DrivingActivity.class);
+            intent.putExtra("dp_id",dp_id);
+            intent.putExtra("together", together);
+            intent.putExtra("dp_status", dp_status);
+            intent.putExtra("at_status", at_status);
+            startActivity(intent);
         });
 
         return view;

@@ -922,7 +922,7 @@
             datasets: [
               {
                 label: "적립 포인트",
-                data: chartData8,
+                data: [0,0,0,6,0,0,0,0,0,0,0,0],
                 borderColor: "rgba(0, 123, 255, 0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -1102,7 +1102,7 @@
           datasets: [
             {
               label: "일반 횟수",
-              data: chartData3,
+              data: [0,0,0,0,0,1,0,0,0,0,0,0],
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -1110,7 +1110,7 @@
             },
             {
               label: "동승 횟수",
-              data: chartData4,
+              data: [0,0,0,0,0,3,0,0,0,0,0,0],
               borderColor: "rgba(123,195,243,0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(123,195,243,0.5)",

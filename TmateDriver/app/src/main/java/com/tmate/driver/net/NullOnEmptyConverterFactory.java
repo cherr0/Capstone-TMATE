@@ -8,8 +8,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
-public class NullOnEmptyConverterFactory extends Converter.Factory
-{
+public class NullOnEmptyConverterFactory extends Converter.Factory{
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
         final Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
@@ -23,5 +22,4 @@ public class NullOnEmptyConverterFactory extends Converter.Factory
             }
         };
     }
-
 }

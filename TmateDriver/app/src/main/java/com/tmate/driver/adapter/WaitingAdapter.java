@@ -138,7 +138,6 @@ public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
     void startMain() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Intent intent = new Intent(context, driving_overlay.class);
-            intent.putExtra("경로",3);
             context.startForegroundService(intent);
         } else {
             Toast.makeText(context, "불가능", Toast.LENGTH_SHORT).show();
@@ -183,12 +182,12 @@ class WaitingHolder extends RecyclerView.ViewHolder {
 
     void onBind(CallHistory data) {
 
-        switch (data.getMerchant_uid().substring(28)){
-            case "0":
-                h_flag.setText("동승");
-                break;
+        switch (data.getMerchant_uid().substring(18)){
             case "1":
                 h_flag.setText("일반");
+                break;
+            default:
+                h_flag.setText("동승");
                 break;
         }
 

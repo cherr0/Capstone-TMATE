@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,21 +27,29 @@ import com.tmate.driver.Fragment.NoticeFragment;
 import com.tmate.driver.Fragment.ProfileFragment;
 import com.tmate.driver.Fragment.StatisticsFragment;
 import com.tmate.driver.R;
+import com.tmate.driver.data.SidebarProfile;
 import com.tmate.driver.databinding.ActivityDrawerBinding;
 import com.tmate.driver.databinding.ActivityMainViewBinding;
+import com.tmate.driver.net.DataService;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainViewActivity extends AppCompatActivity  implements View.OnClickListener{
 
     private ActivityMainViewBinding binding;
     private ActivityDrawerBinding drawerBinding;
     private View drawerView ;
-    private TextView profile, history, black_list, notice, statistics, tv_home;
+    private TextView profile, history, black_list, notice, statistics, tv_home, car_name, car_num;
     private Button service;
     private CircleImageView profile_img;
     private long backBtnTime = 0;
     public static int navbarFlag  = R.id.tv_home;
+    private Call<SidebarProfile> sidebarRequest;
+    private Intent intent;
+    private Spinner state;
 
 
     @Override
@@ -61,6 +72,8 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         statistics = findViewById(R.id.statistics);
         service = findViewById(R.id.service);
         tv_home = findViewById(R.id.tv_home);
+        car_name = findViewById(R.id.side_profile_car_name);
+        car_num = findViewById(R.id.side_profile_car_num);
 
         profile_img.setOnClickListener(this);
         history.setOnClickListener(this);
@@ -70,9 +83,72 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         service.setOnClickListener(this);
         tv_home.setOnClickListener(this);
 
+        //Spinner객체 생성
+
+        final Spinner spinner_field = (Spinner)findViewById(R.id.side_profile_state);
+
+
+
+        //1번에서 생성한 field.xml의 item을 String 배열로 가져오기
+
+        String[] str = getResources().getStringArray(R.array.state);
+
+
+        //2번에서 생성한 spinner_item.xml과 str을 인자로 어댑터 생성.
+
+        final ArrayAdapter<String> adapter= new ArrayAdapter<String>(getApplicationContext(),R.layout.item_spinner,str);
+
+        adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down);
+
+        spinner_field.setAdapter(adapter);
+
+        //spinner 이벤트 리스너
+
+        spinner_field.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(spinner_field.getSelectedItemPosition() > 0){
+
+                    //선택된 항목
+
+                    Log.v("알림",spinner_field.getSelectedItem().toString()+ "is selected");
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+
+        intent = getIntent();
+        String d_id = intent.getStringExtra("d_id");
         // 사이드 바 프로필 작성
-        Log.i("MainViewActivity","m_name 값 : " + getPreferenceString("m_name"));
-        profile.setText(getPreferenceString("m_name"));
+        sidebarRequest = DataService.getInstance().driver.searchSidebarProfile(d_id);
+        Log.d("MainViewActivity", "d_id 값 : " + d_id);
+        sidebarRequest.enqueue(new Callback<SidebarProfile>() {
+            @Override
+            public void onResponse(Call<SidebarProfile> call, Response<SidebarProfile> response) {
+                Log.d("MainViewActivity", "바디 : " + response.body());
+                Log.d("MainViewActivity", "코드 : " + response.code());
+                if (response.code() == 200 && response.body() != null) {
+                    SidebarProfile sidebarProfile = response.body();
+                    if (response.body().getM_name() != null) {
+                        profile.setText(sidebarProfile.getM_name());
+                        car_name.setText(sidebarProfile.getCar_model());
+                        car_num.setText(sidebarProfile.getCar_no());
+                    }
+                } else {
+                    Log.d("MainViewActivity", "연결 실패");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SidebarProfile> call, Throwable t) {
+
+            }
+        });
+
+
 
         binding.ivOpen.setOnClickListener(new View.OnClickListener() {
             @Override

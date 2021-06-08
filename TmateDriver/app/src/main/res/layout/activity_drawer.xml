@@ -48,45 +48,60 @@
             android:text="게스트"
             android:textColor="@color/white"
             android:textSize="24sp"
+            android:fontFamily="@font/font_sub_title"
             app:layout_constraintStart_toEndOf="@+id/circleImageView"
             app:layout_constraintTop_toTopOf="@+id/circleImageView" />
 
-        <TextView
+        <Spinner
             android:id="@+id/side_profile_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:drawableLeft="@drawable/ic_green"
-            android:drawablePadding="8dp"
-            android:gravity="center"
-            android:text="현재상태"
-            android:textColor="@color/white"
+            android:background="@drawable/spinner_side"
+            android:popupBackground="#4163BA"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/side_profile_car_num"
             app:layout_constraintStart_toStartOf="@+id/side_profile_name"
             app:layout_constraintTop_toBottomOf="@+id/side_profile_name" />
 
+<!--        <TextView-->
+<!--            android:id="@+id/side_profile_state"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="16dp"-->
+<!--            android:drawableLeft="@drawable/ic_green"-->
+<!--            android:drawablePadding="8dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="현재상태"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/side_profile_name"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/side_profile_name" />-->
+
         <TextView
             android:id="@+id/side_profile_car_num"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:gravity="center"
             android:text="차량 번호"
             android:textColor="@color/white"
+            android:fontFamily="@font/font_content"
             app:layout_constraintBottom_toBottomOf="@+id/side_profile_state"
             app:layout_constraintEnd_toEndOf="@+id/side_profile_car_name"
-            app:layout_constraintStart_toStartOf="@+id/side_profile_car_name"
+            app:layout_constraintStart_toEndOf="@+id/side_profile_state"
             app:layout_constraintTop_toTopOf="@+id/side_profile_state" />
 
         <TextView
             android:id="@+id/side_profile_car_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="24dp"
             android:gravity="center"
             android:text="선택 차량"
             android:textColor="@color/white"
             android:textSize="20sp"
+            android:fontFamily="@font/font_sub_title"
             app:layout_constraintBottom_toBottomOf="@+id/side_profile_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -107,6 +122,7 @@
         android:drawablePadding="16dp"
         android:paddingLeft="15dp"
         android:gravity="center_vertical"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
@@ -123,6 +139,7 @@
         android:paddingRight="16dp"
         android:text="운행기록"
         android:textSize="20sp"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_home" />
@@ -139,6 +156,7 @@
         android:paddingRight="16dp"
         android:text="블랙리스트 관리"
         android:textSize="20sp"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintEnd_toEndOf="@+id/history"
         app:layout_constraintStart_toStartOf="@+id/history"
         app:layout_constraintTop_toBottomOf="@+id/history" />
@@ -155,6 +173,7 @@
         android:paddingRight="16dp"
         android:text="공지사항"
         android:textSize="20sp"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintEnd_toEndOf="@+id/black_list"
         app:layout_constraintStart_toStartOf="@+id/black_list"
         app:layout_constraintTop_toBottomOf="@+id/black_list" />
@@ -172,6 +191,7 @@
         android:paddingRight="16dp"
         android:text="통계"
         android:textSize="20sp"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintEnd_toEndOf="@+id/notice"
         app:layout_constraintStart_toStartOf="@+id/notice"
         app:layout_constraintTop_toBottomOf="@+id/notice" />
@@ -184,6 +204,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="서비스 문의"
+        android:fontFamily="@font/font_sub_title"
         app:layout_constraintEnd_toEndOf="@+id/statistics"
         app:layout_constraintStart_toStartOf="@+id/statistics"
         app:layout_constraintTop_toBottomOf="@+id/statistics" />

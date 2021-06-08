@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.tmate.driver.R;
 import com.tmate.driver.activity.WaitingActivity;
 import com.tmate.driver.databinding.FragmentMainViewBinding;
@@ -73,6 +74,10 @@ public class MainViewFragment  extends Fragment {
                 });
             }
         });
+        Glide
+                .with(getContext())
+                .load(R.raw.taxi)
+                .into(b.ivGif);
 
         tv_car_no = b.tvCarNo;
         return view;

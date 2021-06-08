@@ -28,12 +28,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:fontFamily="@font/nexon_medium"
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
+            android:fontFamily="@font/ibmplexsanskr_semibold"
             android:text="지인 등록"
             android:textColor="@color/black"
             android:textSize="28sp"
@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/ibmplexsanskr_extralight"
         android:text="친구 번호"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout31" />
@@ -60,8 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/search_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView45" />
 
@@ -70,6 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/ibmplexsanskr_extralight"
         android:text="검색 결과"
         app:layout_constraintStart_toStartOf="@+id/editText"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
@@ -91,7 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/ibmplexsanskr_extralight"
             android:text="강병현"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -101,6 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:fontFamily="@font/ibmplexsanskr_extralight"
             android:text="남"
             app:layout_constraintBottom_toBottomOf="@+id/search_name"
             app:layout_constraintStart_toEndOf="@+id/search_name"
@@ -111,6 +114,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:fontFamily="@font/ibmplexsanskr_extralight"
             android:text="97-11-01"
             app:layout_constraintBottom_toBottomOf="@+id/search_gender"
             app:layout_constraintStart_toEndOf="@+id/search_gender"
@@ -121,7 +125,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/ibmplexsanskr_extralight"
             android:text="010-6248-0674"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/search_name"
             app:layout_constraintTop_toBottomOf="@+id/search_gender" />
 
@@ -133,6 +140,7 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:backgroundTint="#536DFE"
+        android:fontFamily="@font/ibmplexsanskr_medium"
         android:text="지인 요청"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -145,10 +153,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="316dp"
-        android:layout_marginTop="116dp"
+        android:fontFamily="@font/ibmplexsanskr_medium"
         android:text="Button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/editText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

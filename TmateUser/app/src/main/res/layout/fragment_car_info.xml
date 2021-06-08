@@ -1,235 +1,362 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/car_info_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:background="#F4F4F4">
+
+    <LinearLayout
+        android:id="@+id/no_service"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F4F4F4">
+        android:gravity="center"
+        android:background="#88AAAAAA">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ibmplexsanskr_semibold"
+            android:text="현재 이용 중인 서비스가 없습니다."
+            android:textColor="#000117"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/car_info_const"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="#3D86EF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/car_info_dp_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fc_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/car_info_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/car_info_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/car_info_const">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout31"
-            android:layout_width="match_parent"
+            android:id="@+id/h_s_place_const"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:fontFamily="@font/nexon_medium"
-                android:id="@+id/textView42"
+                android:id="@+id/htogether"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/car_info_badge"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text=""
+                android:textColor="#000117"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/status_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/status_badge"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text=""
+                android:textColor="#F17171"
+                app:layout_constraintStart_toStartOf="@+id/tv_h_s_place_info"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_h_s_place_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="출발지 탑승정보"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status_badge" />
+
+            <TextView
+                android:id="@+id/h_s_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:text="탑승 정보"
-                android:textColor="@color/black"
-                android:textSize="28sp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
+                android:text=""
+                android:textColor="#000117"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_h_s_place_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_h_s_place_info" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/h_s_place_view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/dotted_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/h_s_place_const" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_h_f_place"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/h_s_place_view">
+
+            <TextView
+                android:id="@+id/tv_h_f_place_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="목적지 탑승정보"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/h_f_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
+                android:text=""
+                android:textColor="#000117"
+                android:textSize="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_h_f_place_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_h_f_place_info" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/h_f_place_view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/dotted_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/const_h_f_place" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_personnel_seat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/const_h_f_place"
+            app:layout_constraintStart_toStartOf="@+id/const_h_f_place"
+            app:layout_constraintTop_toBottomOf="@+id/h_f_place_view">
+
+            <TextView
+                android:id="@+id/tv_personnel_seat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="동승인원 및 좌석정보"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cur_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
+                android:text=""
+                android:textColor="#000117"
+                android:textSize="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_personnel_seat"
+                app:layout_constraintTop_toBottomOf="@+id/tv_personnel_seat" />
+
+            <ImageView
+                android:id="@+id/iv_driver_seat"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/ic_sit_off"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_seat_two" />
+
+            <ImageView
+                android:id="@+id/iv_seat_one"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_sit_off"
+                app:layout_constraintEnd_toEndOf="@+id/iv_driver_seat"
+                app:layout_constraintTop_toBottomOf="@+id/iv_driver_seat" />
+
+            <ImageView
+                android:id="@+id/iv_seat_two"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_sit_off"
+                app:layout_constraintEnd_toStartOf="@+id/iv_driver_seat"
+                app:layout_constraintTop_toTopOf="@+id/tv_personnel_seat" />
+
+            <ImageView
+                android:id="@+id/iv_seat_three"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_sit_off"
+                app:layout_constraintEnd_toStartOf="@+id/iv_seat_one"
+                app:layout_constraintTop_toBottomOf="@+id/iv_seat_two" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/const_personnel_seat_view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/dotted_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/const_personnel_seat" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const_car_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/const_personnel_seat"
+            app:layout_constraintStart_toStartOf="@+id/const_personnel_seat"
+            app:layout_constraintTop_toBottomOf="@+id/const_personnel_seat">
+
+            <TextView
+                android:id="@+id/tv_car_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="차량 정보"
+                android:textSize="16sp"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/car_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
+                android:text=""
+                android:textColor="#000117"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_car_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_car_info" />
+
+            <TextView
+                android:id="@+id/car_model"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
+                android:text=""
+                android:textColor="#000117"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/car_no"
+                app:layout_constraintTop_toTopOf="@+id/car_no" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/personnel_seat_view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="#DADADA"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/const_car_info" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/car"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/personnel_seat_view">
+
+            <TextView
+                android:id="@+id/detail_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="세부정보"
+                android:visibility="gone"
+                android:textColor="#3D86EF"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout31">
-
-            <TextView
-                android:id="@+id/fc_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="이용중"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-        </LinearLayout>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:cardCornerRadius="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
-
-            <LinearLayout
-                android:id="@+id/car"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="택시"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-                    <TextView
-                        android:id="@+id/htogether"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:background="@drawable/box_shape"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:text="일반"
-                        android:textColor="@color/black"
-                        android:textSize="18sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:orientation="horizontal">
-                        <LinearLayout
-                            android:gravity="center"
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/select_shape">
-                            <TextView
-                                android:id="@+id/status_badge"
-                                android:textSize="18dp"
-                                android:textColor="@color/white"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="배차 성공"/>
-
-
-                        </LinearLayout>
-
-
-
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:gravity="center"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/start" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/h_s_place"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="대구 북구 복현동 영진전문대 정문"
-                        android:textColor="@color/black"
-                        android:textSize="15dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:gravity="center"
-                    android:layout_width="70dp"
-                    android:layout_height="25dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/go_image" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:gravity="center"
-                        android:layout_width="70dp"
-                        android:layout_height="40dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/red_circle" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/h_f_place"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="대구 신세계백화점"
-                        android:textColor="@color/black"
-                        android:textSize="15dp" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_marginTop="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:text="차량정보"/>
-
-                    <TextView
-                        android:id="@+id/car_no"
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="대구 16 바 3415"
-                        android:textColor="@color/black"
-                        android:textSize="15dp" />
-                    <TextView
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="|"/>
-                    <TextView
-                        android:id="@+id/car_model"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="쏘나타"
-                        android:textColor="@color/black"
-                        android:textSize="15dp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/car_info_merchant_uid"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:text="TextView" />
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,6 +44,10 @@ public class BlankFragment extends Fragment implements Validator.ValidationListe
     @Length (min = 6,max = 6, message = "생년월일은 6자리로 입력 해주세요.\n ex)000426")
     private EditText et_birth;
 
+    @NotEmpty
+    @Length(min = 8, max = 20, message = "최소 8 ~ 최대 20")
+    private EditText et_reg_password;
+
     @Checked(message = "성별을 선택해 주세요")
     private RadioGroup radioGroup2;
     private RadioButton radioButton6, radioButton7;
@@ -64,6 +68,7 @@ public class BlankFragment extends Fragment implements Validator.ValidationListe
         et_name = view.findViewById(R.id.et_name);
         et_phone = view.findViewById(R.id.et_phone);
         et_birth = view.findViewById(R.id.et_birth);
+        et_reg_password = view.findViewById(R.id.et_reg_password);
         radioButton6 = view.findViewById(R.id.radioButton6);
         radioButton7 = view.findViewById(R.id.radioButton7);
         radioGroup2 = view.findViewById(R.id.radioGroup2);
@@ -84,11 +89,22 @@ public class BlankFragment extends Fragment implements Validator.ValidationListe
     @Override //유효성 검사 통과하면 호출
     public void onValidationSucceeded() {
         bundle.putString("m_name", et_name.getText().toString());
+        String birth_str = et_birth.getText().toString();
+        birth_str.substring(0, 1);
         if (radioButton6.isChecked()) {
-            bundle.putString("m_id","m1"+et_phone.getText().toString()+"0");
+            if (birth_str == "0") {
+                bundle.putString("m_id", "m3" + et_phone.getText().toString() + "0");
+            } else {
+                bundle.putString("m_id","m1"+et_phone.getText().toString()+"0");
+            }
         }else if (radioButton7.isChecked()) {
-            bundle.putString("m_id","m2"+et_phone.getText().toString()+"0");
+            if (birth_str == "0") {
+                bundle.putString("m_id", "m4" + et_phone.getText().toString() + "0");
+            } else {
+                bundle.putString("m_id","m2"+et_phone.getText().toString()+"0");
+            }
         }
+        bundle.putString("m_password", et_reg_password.getText().toString());
         bundle.putString("m_birth",et_birth.getText().toString());
 
         Log.i("BlankFragment","넘어가는 번들 값 : " + bundle);

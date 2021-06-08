@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/service"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/no_show_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/font_header"
+            android:text="노쇼 인원 설정"
+            android:textColor="#000000"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/no_show_seat_one_const"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_show_title">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/no_show_profile_one"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/default_profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/no_show_name_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/font_sub_title"
+                android:text="박한수"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/no_show_profile_one"
+                app:layout_constraintStart_toEndOf="@+id/no_show_profile_one" />
+
+            <TextView
+                android:id="@+id/no_show_seat_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/font_sub_title"
+                android:text="보조석"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/no_show_profile_one"
+                app:layout_constraintTop_toTopOf="@+id/no_show_profile_one" />
+
+
+            <TextView
+                android:id="@+id/no_show_to_seat_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/font_sub_title"
+                android:text="(1번)"
+                app:layout_constraintBottom_toBottomOf="@+id/no_show_seat_one"
+                app:layout_constraintStart_toEndOf="@+id/no_show_seat_one"
+                app:layout_constraintTop_toTopOf="@+id/no_show_seat_one" />
+
+            <Button
+                android:id="@+id/no_show_check_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_stroke_off"
+                android:fontFamily="@font/font_sub_title"
+                android:text="탑승중"
+                app:layout_constraintBottom_toBottomOf="@+id/no_show_profile_one"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/no_show_profile_one" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/no_show_seat_two_const"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_show_seat_one_const">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/no_show_profile_two"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/default_profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/no_show_name_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/font_sub_title"
+                android:text="강병현"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/no_show_profile_two"
+                app:layout_constraintStart_toEndOf="@+id/no_show_profile_two" />
+
+            <TextView
+                android:id="@+id/no_show_seat_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/font_sub_title"
+                android:text="운전석 뒷자리"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/no_show_profile_two"
+                app:layout_constraintTop_toTopOf="@+id/no_show_profile_two" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/font_sub_title"
+                android:text="(2번)"
+                app:layout_constraintBottom_toBottomOf="@+id/no_show_seat_two"
+                app:layout_constraintStart_toEndOf="@+id/no_show_seat_two"
+                app:layout_constraintTop_toTopOf="@+id/no_show_seat_two" />
+
+            <Button
+                android:id="@+id/no_show_check_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_stroke_off"
+                android:fontFamily="@font/font_sub_title"
+                android:text="탑승중"
+                app:layout_constraintBottom_toBottomOf="@+id/no_show_profile_two"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/no_show_profile_two" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/no_show_seat_three"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_show_seat_two_const">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/no_show_profile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/default_profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/no_show_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/font_sub_title"
+                android:text="장원준"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/no_show_profile"
+                app:layout_constraintStart_toEndOf="@+id/no_show_profile" />
+
+            <TextView
+                android:id="@+id/no_show_seat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/font_sub_title"
+                android:text="보조석 뒷자리"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/no_show_profile"
+                app:layout_constraintTop_toTopOf="@+id/no_show_profile" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="(3번)"
+                android:fontFamily="@font/font_sub_title"
+                app:layout_constraintBottom_toBottomOf="@+id/no_show_seat"
+                app:layout_constraintStart_toEndOf="@+id/no_show_seat"
+                app:layout_constraintTop_toTopOf="@+id/no_show_seat" />
+
+            <Button
+                android:id="@+id/no_show_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_stroke_off"
+                android:fontFamily="@font/font_sub_title"
+                android:text="탑승중"
+                app:layout_constraintBottom_toBottomOf="@+id/no_show_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/no_show_profile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_seat"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/ibmplexsanskr_medium"
+        android:text="확인"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/main"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

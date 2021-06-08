@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -25,7 +27,6 @@ import com.tmate.user.net.DataService;
 import com.tmate.user.net.KakaopayWebviewActivity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,12 +35,15 @@ import retrofit2.Response;
 
 public class card_management  extends Fragment {
     SwipeRefreshLayout refCard;
-    Button button;
+    Button cardAdd ;
+    ImageView btn_card_tooltip;
     LinearLayout nocard;
     ArrayList<String> list;
     RecyclerView recyclerView;
     private static SharedPreferences pref;
+    private TextView tv_toolTip;
     Context context;
+    Boolean click = false;
 
     private String m_id;
     ArrayList<CardData> cardList;
@@ -52,28 +56,29 @@ public class card_management  extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.card_management,container,false);
+        View view = inflater.inflate(R.layout.card_management,container,false);
         cardList = new ArrayList<>();
 
         context = container.getContext();
+        tv_toolTip = view.findViewById(R.id.tv_toolTip);
         pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.cardlist_recy);
+        recyclerView = (RecyclerView) view.findViewById(R.id.cardlist_recy);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new CardAdapter();
         recyclerView.setAdapter(adapter);
         getData();
-        button = v.findViewById(R.id.cardAdd);
-        button.setOnClickListener(new View.OnClickListener() {
+        cardAdd = view.findViewById(R.id.cardAdd);
+        cardAdd.setOnClickListener(new View.OnClickListener() {
             @Override // 카드 등록. 카카오페이 정기 결제 등록 웹뷰 열기
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), KakaopayWebviewActivity.class);
                 startActivity(intent);
             }
         });
-        btn_back_cardManagement = v.findViewById(R.id.btn_back_cardManagement);
+        btn_back_cardManagement = view.findViewById(R.id.btn_back_cardManagement);
         btn_back_cardManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +87,7 @@ public class card_management  extends Fragment {
                 transaction.replace(R.id.frameLayout, my_info_fragment).commit();
             }
         });
-        refCard = v.findViewById(R.id.ref_card);
+        refCard = view.findViewById(R.id.ref_card);
         refCard.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -93,7 +98,18 @@ public class card_management  extends Fragment {
 
             }
         });
-        return v;
+
+        btn_card_tooltip = view.findViewById(R.id.btn_card_tooltip);
+        btn_card_tooltip.setOnClickListener(v -> {
+            if (click == false) {
+                tv_toolTip.setVisibility(View.VISIBLE);
+                click = true;
+            } else {
+                tv_toolTip.setVisibility(View.GONE);
+                click = false;
+            }
+        });
+        return view;
     }
 
     // 카드 리스트 가져오기
@@ -134,8 +150,8 @@ public class card_management  extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         if (listRequest != null) listRequest.cancel();
-        if(adapter.deleteCardRequest != null) adapter.deleteCardRequest.cancel();
-        if(adapter.selectCardRequest != null) adapter.selectCardRequest.cancel();
+//        if(adapter.deleteCardRequest != null) adapter.deleteCardRequest.cancel();
+//        if(adapter.selectCardRequest != null) adapter.selectCardRequest.cancel();
         if(adapter.kakaoInactiveRequest != null) adapter.kakaoInactiveRequest.cancel();
     }
 }

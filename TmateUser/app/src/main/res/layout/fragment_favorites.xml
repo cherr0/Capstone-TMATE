@@ -32,12 +32,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:fontFamily="@font/nexon_medium"
                 android:id="@+id/textView42"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
                 android:text="즐겨찾기 설정"
                 android:textColor="@color/black"
                 android:textSize="28sp"
@@ -76,6 +76,7 @@
                     android:layout_gravity="center"
                     android:drawableTop="@drawable/bm_home"
                     android:drawablePadding="15dp"
+                    android:fontFamily="@font/ibmplexsanskr_medium"
                     android:gravity="center_vertical"
                     android:text="집"
                     android:textColor="@color/white"
@@ -117,6 +118,7 @@
                     android:layout_gravity="center"
                     android:drawableTop="@drawable/bm_add"
                     android:drawablePadding="15dp"
+                    android:fontFamily="@font/ibmplexsanskr_medium"
                     android:text="즐겨찾기"
                     android:textColor="@color/white"
                     android:textSize="20sp"
