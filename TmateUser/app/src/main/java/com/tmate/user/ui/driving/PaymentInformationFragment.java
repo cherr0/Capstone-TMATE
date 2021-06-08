@@ -126,13 +126,18 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         b.payInfoRv.addOnScrollListener(listener);
 
 
-        together_dp_id = mViewModel.dispatch.getDp_id();
-        checkingMasterOrUser(together_dp_id);
-//        b.paymentInformationHSPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
-//        b.paymentInformationHFPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
-//        b.payHAllFare.setText(String.valueOf(price)); // 예상금액
-//        b.payToPeople.setText(mViewModel.together); // 동승인원
-//        b.payTotalAmount.setText(String.valueOf(price)); // 총합 지불 금액
+        if(mViewModel.together.equals("1")){
+            b.paymentInformationHSPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
+            b.paymentInformationHFPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
+            b.payHAllFare.setText(String.valueOf(price)); // 예상금액
+            b.payToPeople.setText(mViewModel.together); // 동승인원
+            b.payTotalAmount.setText(String.valueOf(price)); // 총합 지불 금액
+        }
+        else {
+            together_dp_id = mViewModel.dispatch.getDp_id();
+            checkingMasterOrUser(together_dp_id);
+        }
+
 
         Log.d("PayInfoFragment", "사용자 아이디 : " + mViewModel.dispatch.getM_id());
         Log.d("PayInfoFragment", "사용자 미사용 포인트 : " + unusedPoint);
@@ -215,7 +220,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
 
                         @Override
                         public void onFailure(Call<Boolean> call, Throwable t) {
-
+                            t.printStackTrace();
                         }
                     });
 
@@ -370,7 +375,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                     mViewModel.together = together;
                     mViewModel.dispatch.setStart_place(di.getStart_place());
                     mViewModel.dispatch.setFinish_place(di.getFinish_place());
-                    // 여기서 계속해서 가져온다. 방장이면 괜춘
+
                     if (master.equals(user)) {
                         b.paymentInformationHSPlace.setText(di.getStart_place()); // 출발지
                         b.paymentInformationHFPlace.setText(di.getFinish_place()); // 도착지
@@ -414,7 +419,9 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
             public void onFailure(Call<Dispatch> call, Throwable t) {
                 t.printStackTrace();
             }
+
         });
+
     }
 
     // 내부 쓰레드 클래스

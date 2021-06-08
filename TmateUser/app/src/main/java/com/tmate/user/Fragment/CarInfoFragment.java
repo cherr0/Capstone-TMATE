@@ -51,8 +51,7 @@ public class CarInfoFragment extends Fragment {
         view = b.getRoot();
         b.noService.bringToFront();
 
-        m_id = getActivity().getSharedPreferences("loginUs" +
-                "dataserver", Context.MODE_PRIVATE).getString("m_id", "");
+        m_id = getActivity().getSharedPreferences("loginUser" , Context.MODE_PRIVATE).getString("m_id", "");
 
         request = DataService.getInstance().matchAPI.getUsingHistory(m_id);
         request.enqueue(new Callback<Dispatch>() {

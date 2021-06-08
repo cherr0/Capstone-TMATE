@@ -253,6 +253,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         map.put("item_name","택시 기본 요금 선결제");
         map.put("quantity","1");
         // 조건문 처리 -> 동승 1/n , 일반은 그대로
+        together = mViewModel.together;
         int payment= 3300 / Integer.parseInt(together);
         mViewModel.payCash = payment;
         map.put("total_amount",String.valueOf(payment));
