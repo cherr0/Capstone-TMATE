@@ -244,8 +244,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
         map.put("cid","TCSUBSCRIP");
         // 결제 수단
-//        map.put("sid", getPreferenceString("sid")); // 이후 결제 정보 값 받아올 수 있으면 적용
-        map.put("sid","S2903531010731483902");
+        map.put("sid", getPreferenceString("sid")); // 이후 결제 정보 값 받아올 수 있으면 적용
         // 기사 코드
         map.put("partner_order_id", dispatch.getD_id());
         // 돈내는 사람
@@ -344,12 +343,10 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
                         switch (dispatch.getDp_status()) {
                             case "3" : // 탑승 대기 중
-                                if(tMapPointEnd.getLongitude() != dispatch.getFinish_lng() && tMapPointEnd.getLatitude() != dispatch.getFinish_lat()) {
-                                    tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
-                                    drawCarPath();
-                                    Log.d("DriverWaitingFragment", "맵 그리는 중");
-                                    b.dpStatus.setText("탑승 대기중");
-                                }
+                                tMapPointStart  = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
+                                drawCarPath();
+                                Log.d("DriverWaitingFragment", "맵 그리는 중");
+                                b.dpStatus.setText("탑승 대기중");
                                 isRunning = true;
                                 break;
                             case "4": // 탑승 완료

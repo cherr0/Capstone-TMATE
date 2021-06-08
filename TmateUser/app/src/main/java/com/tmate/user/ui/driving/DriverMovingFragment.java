@@ -230,8 +230,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         Map<String,String> map = new HashMap<>();
 
         map.put("cid","TCSUBSCRIP");
-//        map.put("sid", getPreferenceString("sid"));
-        map.put("sid","S2903531010731483902");
+        map.put("sid", getPreferenceString("sid"));
         map.put("partner_order_id", dispatch.getD_id());
         map.put("partner_user_id", getPreferenceString("m_id"));
         map.put("item_name","택시 운임 결제");
