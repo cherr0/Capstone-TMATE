@@ -191,27 +191,27 @@
 
     <!-- 신청한 유저의 리스트 가져오기 -->
     <select id="selectApplyerList" resultType="com.tmate.domain.user.TogetherRequest">
-        select a.merchant_uid, a.id, m.m_name,m.m_n_use, m.m_t_use, m.m_count
+        select a.dp_id, a.id, m.m_name,m.m_n_use, m.m_t_use, m.m_count
         from approval a left outer join  member m on a.id = m.m_id
-        where a.merchant_uid = #{merchant_uid}
+        where a.dp_id = #{merchant_uid}
     </select>
 
     <!-- 다른 유저가 신청을 했을 경우 -->
     <insert id="insertTogetherMatchingApplyer">
-        insert into approval(seq, id, name, appro_flag, m_id, to_seat,merchant_uid)
+        insert into approval(seq, id, name, appro_flag, m_id, to_seat,dp_id)
         values (ap_sec.nextval,#{id}, #{name}, '0',#{m_id},#{to_seat},#{merchant_uid})
     </insert>
 
     <!-- 거절이나 취소를 누를시 approval 지워진다. -->
     <delete id="deleteTogetherMatchingAPplyer">
         delete from approval
-        where id = #{id}  and merchant_uid = #{merchant_uid}
+        where id = #{id}  and dp_id = #{merchant_uid}
     </delete>
 
     <!-- 인원이 다 찼을 시 남은 신청자들은 자동으로 삭제된다. -->
     <delete id="deleteRemainderApplyer">
         delete from approval
-        where merchant_uid = #{merchant_uid}
+        where dp_id = #{merchant_uid}
     </delete>
 
     <!-- 현재 매칭방 좌석 -->
