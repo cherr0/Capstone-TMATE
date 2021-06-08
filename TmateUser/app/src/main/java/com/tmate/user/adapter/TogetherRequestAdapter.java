@@ -35,6 +35,7 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
     String dp_id;
 
     Call<Boolean> agreeApply;
+    Call<Boolean> rejectApply;
 
     @NonNull
     @Override
@@ -63,7 +64,8 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
                             public void onClick(DialogInterface dialog, int which) {
                                 String id = holder.m_id.getText().toString();
                                 String merchant_uid = holder.tr_merchant_uid.getText().toString();
-                                DataService.getInstance().matchAPI.removeApproval(id, merchant_uid).enqueue(new Callback<Boolean>() {
+                                rejectApply = DataService.getInstance().matchAPI.rejectApplyMatch(merchant_uid, id);
+                                rejectApply.enqueue(new Callback<Boolean>() {
                                     @Override
                                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                                         if (response.code() == 200) {
@@ -78,6 +80,7 @@ public class TogetherRequestAdapter extends RecyclerView.Adapter<TogetherRequest
                                         t.printStackTrace();
                                     }
                                 });
+
 
                             }
                         });

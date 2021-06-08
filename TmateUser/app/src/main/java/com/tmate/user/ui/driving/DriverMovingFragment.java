@@ -300,11 +300,11 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
 
                         switch (dispatch.getDp_status()) {
                             case "4": // 운행 중
-                                if(tMapPointEnd.getLongitude() != dispatch.getFinish_lng() && tMapPointEnd.getLatitude() != dispatch.getFinish_lat()){
+//                                if(tMapPointEnd.getLongitude() != dispatch.getFinish_lng() && tMapPointEnd.getLatitude() != dispatch.getFinish_lat()){
                                     tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
                                     drawCarPath();
                                     Log.d("DirverMovingFragment","경로 그리는 중");
-                                }
+//                                }
                                 isRunning = true;
                                 break;
                             case "5":

@@ -260,6 +260,7 @@ public class driving_overlay extends Service implements View.OnLongClickListener
         }
         return false;
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -267,7 +268,7 @@ public class driving_overlay extends Service implements View.OnLongClickListener
         if(request != null) request.cancel();
         if(request2 != null) request2.cancel();
 
-    }
 
+    }
 
 }

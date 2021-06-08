@@ -431,4 +431,29 @@ public class WaitingActivity extends AppCompatActivity {
         if(request != null) request.cancel();
         if(request2 != null) request2.cancel();
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        isRunning = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        isRunning = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        isRunning = false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isRunning = false;
+    }
+
 }
