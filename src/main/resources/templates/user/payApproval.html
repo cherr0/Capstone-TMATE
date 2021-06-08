@@ -45,12 +45,12 @@
 
 
 
-<!--<input id="tid" type="hidden" th:value="${result.tid}"/>-->
-<!--<input id="partner_order_id" type="hidden" th:value="${result.d_id}"/>-->
-<!--<input id="partner_user_id" type="hidden" th:value="${result.m_id}"/>-->
-<!--<input id="pg_token" type="hidden" th:value="${token}"/>-->
-<!--<input id="amount" type="hidden" th:value="${result.re_amt}"/>-->
-<!--<input id="approved_at" type="hidden" th:value="${result.re_time}"/>-->
+<input id="tid" type="hidden" th:value="${result.tid}"/>
+<input id="partner_order_id" type="hidden" th:value="${result.d_id}"/>
+<input id="partner_user_id" type="hidden" th:value="${result.m_id}"/>
+<input id="pg_token" type="hidden" th:value="${token}"/>
+<input id="amount" type="hidden" th:value="${result.re_amt}"/>
+<input id="approved_at" type="hidden" th:value="${result.re_time}"/>
 
 
 <script>
@@ -139,7 +139,7 @@
             cardInfo.sid = res.data.sid;
             cardInfo["pay_pg"] = "카카오페이";
             cardInfo["pay_company"] = cardInfo["kakaopay_purchase_corp"];
-
+            cardInfo["pay_alias"] = $("#fname").val();
             console.log(cardInfo);
 
 
