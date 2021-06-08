@@ -51,8 +51,6 @@ public class PaymentActivity extends AppCompatActivity {
         dialog2 = new Dialog(PaymentActivity.this);
         dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog2.setContentView(R.layout.dialog_payment);
-        TextView viewById = dialog2.findViewById(R.id.textView19);
-        viewById.setText(binding.editText.getText().toString());
         binding.btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
