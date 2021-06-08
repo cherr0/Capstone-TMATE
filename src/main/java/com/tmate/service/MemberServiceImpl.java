@@ -24,15 +24,7 @@ public class MemberServiceImpl implements MemberService {
     // 회원 상세 페이지 회원 정보
     @Override
     public MemberDTO getMember(String m_id) {
-        MemberDTO member = membermapper.getMemberByM_id(m_id);
-        return member;
-    }
-
-    // 회원 상세페이지 이용내역 리스트
-    @Override
-    public List<JoinHistoryVO> getHistoryList(Criteria cri, String m_id) {
-        List<JoinHistoryVO> history = joinMapper.getHistoryByMember(cri,m_id);
-        return history;
+        return membermapper.getMemberByM_id(m_id);
     }
 
     // 회원 페이지 처리 가능한 이용내역

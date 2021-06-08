@@ -28,7 +28,7 @@ public interface UserService {
     public List<JoinPointVO> getWeeklyPointList(String m_id);
 
     // My 이력 - 이용 내역
-    public List<JoinHistoryVO> getMyHistoryList(Criteria cri, String m_id);
+    public List<DispatchDTO> getMyHistoryList(Criteria cri, String m_id);
     // My 이력 - 포인트 내역
     public List<JoinPointVO> getMyPointList(Criteria cri, String m_id);
 
