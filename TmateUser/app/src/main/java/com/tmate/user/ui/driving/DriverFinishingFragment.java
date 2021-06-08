@@ -65,6 +65,7 @@ public class DriverFinishingFragment extends Fragment {
         b.finishUsePoint.setText(String.valueOf(mViewModel.dispatch.getUse_point())); // 사용 포인트
         b.togetherCount.setText(mViewModel.together); // 동승 인원
         int totalAmount = mViewModel.dispatch.getAll_fare() - mViewModel.dispatch.getUse_point();
+        totalAmount = totalAmount / Integer.parseInt(mViewModel.together);
         b.totalAmount.setText(String.valueOf(totalAmount)); // 최종 결제 금액
 
         b.matchingFinishSubmit.setOnClickListener(v -> { // 확인 완료 버튼
