@@ -22,7 +22,7 @@ public interface UserService {
     public int totalCountBan(String m_id);
 
     // 일주일 이력 - 사용자
-    public List<JoinHistoryVO> getWeeklyHistoryList(String m_id);
+    public List<DispatchDTO> getWeeklyHistoryList(String m_id);
 
     // 일주일 이력 - 포인트
     public List<JoinPointVO> getWeeklyPointList(String m_id);

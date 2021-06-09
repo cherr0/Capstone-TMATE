@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     // 메인 페이지 - 일주일 이용 내역
     @Override
-    public List<JoinHistoryVO> getWeeklyHistoryList(String m_id) {
+    public List<DispatchDTO> getWeeklyHistoryList(String m_id) {
         return userMainMapper.getMainWeeklyHistoryList(m_id);
     }
 

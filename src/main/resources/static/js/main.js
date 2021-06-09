@@ -922,7 +922,7 @@
             datasets: [
               {
                 label: "적립 포인트",
-                data: [0,0,0,6,0,0,0,0,0,0,0,0],
+                data:[0,0,0,5,0,1,0,0,0,0,0,0],
                 borderColor: "rgba(0, 123, 255, 0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -976,7 +976,7 @@
     var chartData5 = [];
     var chartData6 = [];
 
-    $.getJSON("/chart/card/" + m_id, function (result) {
+    // $.getJSON("/chart/card/" + m_id, function (result) {
       console.log(result);
       const nlen = result.card.length;
       const tlen = result.cash.length;
@@ -993,7 +993,7 @@
       }
 
       createChart4();
-    });
+    // });
 
     function createChart4() {
 
@@ -1102,7 +1102,7 @@
           datasets: [
             {
               label: "일반 횟수",
-              data: [0,0,0,0,0,1,0,0,0,0,0,0],
+              data: [1,0,1,0,0,1,0,0,0,0,0,0],
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -1110,7 +1110,7 @@
             },
             {
               label: "동승 횟수",
-              data: [0,0,0,0,0,3,0,0,0,0,0,0],
+              data: [0,1,0,1,1,3,0,0,0,0,0,0],
               borderColor: "rgba(123,195,243,0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(123,195,243,0.5)",
