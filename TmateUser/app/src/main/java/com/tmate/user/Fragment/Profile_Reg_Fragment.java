@@ -93,6 +93,7 @@ public class Profile_Reg_Fragment extends Fragment {
             map.put("m_name", getArguments().getString("m_name"));
             map.put("m_birth", getArguments().getString("m_birth"));
             map.put("m_imei", getArguments().getString("m_imei"));
+            map.put("password", getArguments().getString("password"));
         }
 
 
@@ -113,6 +114,8 @@ public class Profile_Reg_Fragment extends Fragment {
             request.enqueue(new Callback<Boolean>() {
                 @Override
                 public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
+                    Log.d("profileRegFragment", "코드 : " + response.code());
+                    Log.d("profileRegFragment", "바디 : " + response.body());
                     if (response.code() == 200) {
                         Log.d("response", response.body() + "");
                         Intent intent = new Intent(getActivity(), MainViewActivity.class);
