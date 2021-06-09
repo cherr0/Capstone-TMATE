@@ -276,4 +276,20 @@
             re_driver_reason = #{re_driver_reason, jdbcType=VARCHAR}
         where dp_id = #{dp_id} and m_id = #{m_id}
     </update>
+
+
+
+    <!-- 일반 이용 횟수 증가 -->
+    <update id="updateAddUseCnt">
+        update member
+        set m_n_use = m_n_use + 1
+        where m_id = #{m_id}
+    </update>
+
+    <!-- 동승 이용 횟수 증가 -->
+    <update id="updateAddUseCnt">
+        update member
+        set m_t_use = m_t_use + 1
+        where m_id = #{m_id}
+    </update>
 </mapper>

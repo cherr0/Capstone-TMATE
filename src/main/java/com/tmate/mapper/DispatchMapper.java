@@ -156,5 +156,11 @@ public interface DispatchMapper {
     * */
 
 
+    /*
+     *  일반 일시 동승일시
+     *  횟수 업데이트
+     * */
+    Boolean updateAddUseCnt(String m_id);
 
+    Boolean updateAddTogetherCnt(String m_id);
 }

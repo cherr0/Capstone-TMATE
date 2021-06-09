@@ -24,8 +24,8 @@ public class AppMatchController {
     private final AppMatchService appMatchService;
 
     /*
-    * 일반 호출
-    * */
+     * 일반 호출
+     * */
 
     // 일반 호출 생성
     @PostMapping("/register/normal")
@@ -38,7 +38,7 @@ public class AppMatchController {
     // 일반 호출 뒤로가기시 삭제
     @DeleteMapping("/remove/normal/call/{dp_id}")
     public ResponseEntity<Boolean> removeNormalMatching(@PathVariable("dp_id") String dp_id) {
-        return new ResponseEntity<>(appMatchService.removeNowCall(dp_id),HttpStatus.OK);
+        return new ResponseEntity<>(appMatchService.removeNowCall(dp_id), HttpStatus.OK);
     }
 
     // 일반 호출시 기사 계속 찾기
@@ -55,7 +55,7 @@ public class AppMatchController {
     public ResponseEntity<Boolean> modifyMatchStatus(
             @PathVariable("dp_id") String dp_id,
             @PathVariable("d_id") String d_id
-    ){
+    ) {
         return null;
     }
 
@@ -69,7 +69,7 @@ public class AppMatchController {
     // 현재 이용중인 이용정보 클릭할 시 이용 상세정보 가져온다
     @GetMapping("/read/dispatch/{dp_id}")
     public ResponseEntity<DispatchDTO> readCurrentDispatch(@PathVariable("dp_id") String dp_id) {
-        log.info("이용 상세정보 가져오기 : " + dp_id );
+        log.info("이용 상세정보 가져오기 : " + dp_id);
         return new ResponseEntity<>(appMatchService.getDetailCurrentCallInfo(dp_id), HttpStatus.OK);
     }
 
@@ -81,10 +81,10 @@ public class AppMatchController {
     }
 
     /*
-    *  -------------------
-    *       동승 호출
-    *  -------------------
-    * */
+     *  -------------------
+     *       동승 호출
+     *  -------------------
+     * */
 
     // 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기
     @GetMapping("/get/together/list/{s_lat}/{s_lng}/{f_lat}/{f_lng}")
@@ -93,7 +93,7 @@ public class AppMatchController {
             @PathVariable("s_lng") double s_lng,
             @PathVariable("f_lat") double f_lat,
             @PathVariable("f_lng") double f_lng
-    ){
+    ) {
         log.info("동승 리스트 검색 : " + s_lat + " : " + s_lng + " : " + f_lat + " : " + f_lng);
 
         return new ResponseEntity<>(appMatchService.getNearMatchList(s_lat, s_lng, f_lat, f_lng), HttpStatus.OK);
@@ -103,8 +103,10 @@ public class AppMatchController {
     @PostMapping("/register/together/match")
     public ResponseEntity<String> registerTogetherMatch(@RequestBody Map<String, Object> hashMap) {
         ObjectMapper mapper = new ObjectMapper();
-        DispatchDTO dispatchDTO = mapper.convertValue(hashMap.get("dispatch"), new TypeReference<DispatchDTO>() {});
-        AttendDTO attendDTO = mapper.convertValue(hashMap.get("attend"), new TypeReference<AttendDTO>() {});
+        DispatchDTO dispatchDTO = mapper.convertValue(hashMap.get("dispatch"), new TypeReference<DispatchDTO>() {
+        });
+        AttendDTO attendDTO = mapper.convertValue(hashMap.get("attend"), new TypeReference<AttendDTO>() {
+        });
 
         log.info("동승 매칭 방을 생성하기 위해 넘어오는 배차 정보 & 참여 정보 : " + dispatchDTO + "," + attendDTO);
 
@@ -176,7 +178,7 @@ public class AppMatchController {
     @PutMapping("/finish/review")
     public ResponseEntity<Boolean> updateReview(@RequestBody ReviewVO reviewVO) {
         log.info("사용자 리뷰 목록 업데이트 : " + reviewVO);
-        return  new ResponseEntity<>(appMatchService.attendReviewUpdate(reviewVO),HttpStatus.OK);
+        return new ResponseEntity<>(appMatchService.attendReviewUpdate(reviewVO), HttpStatus.OK);
     }
 
     // 동승시 방장이 버틑클릭시 바뀌는 동승 이용정보의 힘
@@ -186,4 +188,16 @@ public class AppMatchController {
 
         return new ResponseEntity<>(appMatchService.modifyTogetherStatus(dispatchDTO), HttpStatus.OK);
     }
+
+    // 사용자가 호출 이용시 일반 or 동승 인지에 따라 횟수 추가 시킨다.
+    @PutMapping("/modify/call/cnt/{m_id}/{flag}")
+    public ResponseEntity<Boolean> modifyCallCnt(
+            @PathVariable("m_id") String m_id,
+            @PathVariable("flag") int flag
+    ) {
+        log.info("이용 횟수 추가하기 위한 : " + m_id + " : " + flag);
+
+        return new ResponseEntity<>(appMatchService.modifyCallCnt(m_id, flag), HttpStatus.OK);
+    }
+
 }

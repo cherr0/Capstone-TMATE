@@ -1,5 +1,6 @@
 package com.tmate.user.ui.driving;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,17 +14,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.tmate.user.R;
 import com.tmate.user.databinding.FragmentDriverFinishingBinding;
+import com.tmate.user.net.DataService;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DriverFinishingFragment extends Fragment {
 
     FragmentDriverFinishingBinding b;
     DrivingModel mViewModel;
+
+    // 이용횟수, 동승횟수 업데이트 하기 위함
+    Call<Boolean> addCallCnt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +55,7 @@ public class DriverFinishingFragment extends Fragment {
         switch(mViewModel.payFlag) {
             case 1: // 성공
                 b.matchingFinishSuccess.setVisibility(View.VISIBLE);
+                addCallCntRetrofit();
                 break;
             case 2: // 오류
                 b.matchingFinishError.setVisibility(View.VISIBLE);
@@ -72,6 +83,30 @@ public class DriverFinishingFragment extends Fragment {
             NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
             controller.navigate(R.id.action_driverFinishingFragment_to_reviewFragment);
         });
+    }
+
+    public void addCallCntRetrofit() {
+
+        addCallCnt = DataService.getInstance().matchAPI.modifyCallCnt(getPreferenceString("m_id"), Integer.parseInt(mViewModel.together));
+        addCallCnt.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(getActivity(), "결제가 완료 되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+    }
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getActivity().MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 
 }

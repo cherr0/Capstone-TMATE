@@ -73,4 +73,9 @@ public interface AppMatchService {
 
     // 동승시 방장이 호출하기 , 호출하기 눌렀을 시 방상태 변경
     Boolean modifyTogetherStatus(DispatchDTO dispatchDTO);
+
+    /*
+     * 이것은 동승 , 일반 이용 시 횟수 업데이트
+     * */
+    Boolean modifyCallCnt(String dp_id, int flag);
 }
