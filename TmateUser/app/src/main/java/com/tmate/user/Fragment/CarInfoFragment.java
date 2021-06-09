@@ -70,11 +70,14 @@ public class CarInfoFragment extends Fragment {
 
                     switch (seat) {
                         case 1 :
-                            b.ivSeatOne.setImageResource(R.drawable.ic_sit_off_more);
+                            b.ivDriverSeat.setImageResource(R.drawable.ic_sit_off_more);
+                            break;
                         case 2:
-                            b.ivSeatTwo.setImageResource(R.drawable.ic_sit_off_more);
-                        case 3:
                             b.ivSeatThree.setImageResource(R.drawable.ic_sit_off_more);
+                            break;
+                        case 3:
+                            b.ivSeatOne.setImageResource(R.drawable.ic_sit_off_more);
+                            break;
                     }
 
                     switch (dp_status) {
