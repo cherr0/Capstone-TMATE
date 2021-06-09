@@ -135,4 +135,11 @@ public interface MatchAPI {
     @POST("match/modify/together/status")
     Call<Boolean> modifyTogetherStatus(@Body Dispatch dispatch);
 
+    // 사용자가 호출 이용시 일반 or 동승 인지에 따라 횟수 추가 시킨다.
+    @PUT("match/modify/call/cnt/{m_id}/{flag}")
+    Call<Boolean> modifyCallCnt(
+            @Path("m_id") String m_id,
+            @Path("flag") int flag
+    );
+
 }
