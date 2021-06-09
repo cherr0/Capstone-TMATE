@@ -47,7 +47,7 @@
                                         </td>
                                         <td class="text-center" th:text="|${p.po_result}포인트|"></td>
                                         <td class="text-center" th:text="${p.po_course}"></td>
-                                        <td class="text-center" th:text="${#strings.substring(p.po_time,0,16)}"></td>
+                                        <td class="text-center" th:text="${#temporals.createDate(#strings.substring(p.po_time,0, 6),'yyMMdd')}"></td>
                                     </tr>
                                     </tbody>
                                 </table>

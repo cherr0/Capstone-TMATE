@@ -11,7 +11,7 @@ import java.util.List;
 public interface UserMainMapper {
 
 
-    public List<JoinHistoryVO> getMainWeeklyHistoryList(String m_id);
+    public List<DispatchDTO> getMainWeeklyHistoryList(String m_id);
 
     // joinMapper에서 사용
     public List<JoinPointVO> getMainWeeklyPointList(String m_id);

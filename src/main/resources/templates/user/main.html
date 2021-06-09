@@ -139,14 +139,15 @@
                         </thead>
                         <tbody class="history">
                         <tr th:each="h : ${history}">
-                          <td class="text-center" th:switch="${#strings.substring(h.merchant_uid,27)}">
-                              <p th:case="0">동승</p>
+                          <td class="text-center" th:switch="${#strings.substring(h.dp_id,18)}">
+                              <p th:case="2">동승</p>
+                              <p th:case="3">동승</p>
                               <p th:case="1">일반</p>
                           </td>
-                            <td class="text-center" th:text="${#strings.substring(h.merchant_uid,9,15)}"></td>
-                            <td class="text-center" th:text="${h.h_allfare}"></td>
-                            <td class="text-center" th:text="${h.h_s_place}"></td>
-                            <td class="text-center" th:text="${h.h_f_place}"></td>
+                            <td class="text-center" th:text="${#dates.format(h.end_time, 'MM-dd HH:mm')}"></td>
+                            <td class="text-center" th:text="${h.all_fare}"></td>
+                            <td class="text-center" th:text="${h.start_place}"></td>
+                            <td class="text-center" th:text="${h.start_place}"></td>
                             <td class="text-center" th:text="|${h.car_model}/${h.car_no}|"></td>
                             <td class="text-center" th:text="${h.m_name}"></td>
                         </tr>
@@ -179,7 +180,7 @@
                            </td>
                            <td class="text-center" th:text="${p.po_result}"></td>
                            <td class="text-center" th:text="${p.po_course}"></td>
-                           <td class="text-center" th:text="${p.po_time}"></td>
+                           <td class="text-center" th:text="${#temporals.createDate(#strings.substring(p.po_time,0, 6),'yyMMdd')}"></td>
                         </tr>
                         </tbody>
                     </table>
