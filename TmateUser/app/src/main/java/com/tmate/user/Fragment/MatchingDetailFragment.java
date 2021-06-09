@@ -84,6 +84,8 @@ public class MatchingDetailFragment extends Fragment {
 
         pref = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
+        b.tvMName.setText(getPreferenceString("m_name"));
+        b.mBirth.setText("20대");
 
         RecyclerView recyclerView = view.findViewById(R.id.matching_recycle);
 
@@ -122,7 +124,7 @@ public class MatchingDetailFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<Boolean> call, Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
             }else{
@@ -192,8 +194,6 @@ public class MatchingDetailFragment extends Fragment {
                     b.cgEndPlace.setText(dispatch.getFinish_place());
                     b.hEpFare.setText(mViewModel.dispatch.getAll_fare()+"");
                     b.hEpDistance.setText((float)(mViewModel.dispatch.getEp_distance())/1000+"");
-                    b.tvMName.setText(dispatch.getM_name());
-                    b.mBirth.setText(String.valueOf(dispatch.getM_birth()));
 
 
 
