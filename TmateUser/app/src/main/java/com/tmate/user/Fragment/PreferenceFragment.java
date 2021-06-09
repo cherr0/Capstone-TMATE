@@ -59,7 +59,7 @@ public class PreferenceFragment extends Fragment {
         request.enqueue(new Callback<Dv_option>() {
             @Override
             public void onResponse(Call<Dv_option> call, Response<Dv_option> response) {
-                if (response.code() == 200) {
+                if (response.code() == 200 && response.body() != null) {
                     Dv_option dvOption = response.body();
                     Log.d("PreferenceFragment", "dvOption : " + dvOption);
 
