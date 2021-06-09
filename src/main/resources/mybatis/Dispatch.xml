@@ -58,7 +58,7 @@
 
     <!-- 이용 정보 가져오기 (O) -->
     <select id="getCurrentDispatchInfo" resultType="com.tmate.domain.DispatchDTO">
-        SELECT d.dp_id, d.dp_status , d.start_place, d.finish_place, c.car_no, c.car_model, d.all_fare, a.at_status
+        SELECT d.dp_id, d.dp_status , d.start_place, d.finish_place, d.cur_people ,c.car_no, c.car_model, d.all_fare, a.at_status,a.seat
         FROM DISPATCH d LEFT OUTER JOIN CAR c ON d.d_id = c.m_id
         LEFT OUTER JOIN ATTEND a ON d.dp_id = a.dp_id
         WHERE d.m_id = #{m_id} AND dp_status IN('0','1','2','3','4') AND a.m_id = #{m_id}
