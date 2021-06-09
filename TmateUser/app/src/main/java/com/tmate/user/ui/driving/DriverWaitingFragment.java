@@ -196,15 +196,15 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                 }
                 //줌 설정
                 TMapInfo info = mMapView.getDisplayTMapInfo(polyline.getLinePoint());
-                int zoom = info.getTMapZoomLevel();
-                if (Integer.parseInt(totalDistance) > 1500) {
-                    zoom = 14;
-                }else if (Integer.parseInt(totalDistance) > 1000) {
-                    zoom = 16;
-                }
+//                int zoom = info.getTMapZoomLevel();
+//                if (Integer.parseInt(totalDistance) > 1500) {
+//                    zoom = 14;
+//                }else if (Integer.parseInt(totalDistance) > 1000) {
+//                    zoom = 16;
+//                }
                 
                 mMapView.addTMapPath(polyline);
-                mMapView.setZoomLevel(zoom);
+//                mMapView.setZoomLevel(zoom);
                 mMapView.setCenterPoint(info.getTMapPoint().getLongitude(), info.getTMapPoint().getLatitude());
             }
             b.infoEpTime.setText(String.valueOf(totalTime));
