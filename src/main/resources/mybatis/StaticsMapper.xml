@@ -9,10 +9,10 @@
     </select>
 
     <select id="getMonthlyUsers" resultType="com.tmate.domain.MonthlyUsersVO">
-        select to_date(substr(merchant_uid,10,4),'yyMM') as standard,  count(*) as users
-        from history
-        group by to_date(substr(merchant_uid,10,4),'yyMM')
-        order by to_date(substr(merchant_uid,10,4),'yyMM')
+        select to_date(substr(dp_id,10,4),'yyMM') as standard,  count(*) as users
+        from dispatch
+        group by to_date(substr(dp_id,10,4),'yyMM')
+        order by to_date(substr(dp_id,10,4),'yyMM')
     </select>
 
     <select id="getUsersByAge" resultType="com.tmate.domain.UsersByAgeVO">
