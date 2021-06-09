@@ -32,7 +32,8 @@ public class AppDriverServiceImpl implements AppDriverService{
         memberDTO.setM_id(map.get("m_id"));
         memberDTO.setM_name(map.get("m_name"));
         memberDTO.setM_imei(map.get("m_imei"));
-
+        memberDTO.setPassword(map.get("password"));
+        memberDTO.setM_email(map.get("m_email"));
         // 회원 생년월일 포맷 변환
         try {
             DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");

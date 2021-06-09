@@ -23,24 +23,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <com.kofigyan.stateprogressbar.StateProgressBar
-        android:id="@+id/first_reg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_info_input"
-        app:spb_animateToCurrentProgressState="true"
-        app:spb_checkStateCompleted="true"
-        app:spb_currentStateDescriptionColor="#DB0082"
-        app:spb_currentStateNumber="two"
-        app:spb_maxStateNumber="five"
-        app:spb_stateBackgroundColor="#BDBDBD"
-        app:spb_stateDescriptionColor="#808080"
-        app:spb_stateForegroundColor="#eeeeee"
-        app:spb_stateNumberBackgroundColor="#808080"
-        app:spb_stateNumberForegroundColor="#2196F3" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -49,55 +31,41 @@
         android:layout_marginStart="44dp"
         android:layout_marginEnd="44dp"
         android:background="@drawable/radius"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tv_info_input">
 
-        <EditText
-            android:id="@+id/m_name"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:backgroundTint="#818181"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textColor="#000000"
-            android:fontFamily="@font/font_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="이름"
-            android:textColor="@color/black"
-            android:textSize="17sp"
-            android:fontFamily="@font/font_sub_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.049"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/m_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:hint="이름" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/font_sub_title"
             android:text="성별"
             android:textColor="@color/black"
             android:textSize="17sp"
-            android:fontFamily="@font/font_sub_title"
-            app:layout_constraintStart_toStartOf="@+id/m_name"
-            app:layout_constraintTop_toBottomOf="@+id/m_name" />
+            app:layout_constraintStart_toStartOf="@+id/tv_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
         <RadioGroup
             android:id="@+id/gender"
@@ -112,17 +80,17 @@
                 android:id="@+id/male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/font_content"
                 android:text="남자"
-                android:textColor="@color/black"
-                android:fontFamily="@font/font_content"/>
+                android:textColor="@color/black" />
 
             <RadioButton
                 android:id="@+id/female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/font_content"
                 android:text="여자"
-                android:textColor="@color/black"
-                android:fontFamily="@font/font_content"/>
+                android:textColor="@color/black" />
 
         </RadioGroup>
 
@@ -131,10 +99,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/font_sub_title"
             android:text="생년월일"
             android:textColor="@color/black"
             android:textSize="17sp"
-            android:fontFamily="@font/font_sub_title"
             app:layout_constraintStart_toStartOf="@+id/gender"
             app:layout_constraintTop_toBottomOf="@+id/gender" />
 
@@ -142,56 +110,48 @@
             android:id="@+id/et_birth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="생년월일을 지정해주세요."
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/font_content"
+            android:text="생년월일을 지정해주세요."
             app:layout_constraintStart_toStartOf="@+id/tv_birth"
             app:layout_constraintTop_toBottomOf="@+id/tv_birth" />
 
-        <TextView
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tv_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="비밀번호"
-            android:textColor="@color/black"
-            android:textSize="17sp"
-            android:fontFamily="@font/font_sub_title"
-            app:layout_constraintStart_toStartOf="@+id/et_birth"
-            app:layout_constraintTop_toBottomOf="@+id/et_birth" />
-
-        <EditText
-            android:id="@+id/et_reg_password"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:fontFamily="@font/font_content"
-            app:layout_constraintEnd_toEndOf="@+id/m_name"
-            app:layout_constraintStart_toStartOf="@+id/tv_password"
-            app:layout_constraintTop_toBottomOf="@+id/tv_password" />
-
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="이메일"
-            android:textColor="@color/black"
-            android:textSize="17sp"
-            android:fontFamily="@font/font_sub_title"
-            app:layout_constraintStart_toStartOf="@+id/et_reg_password"
-            app:layout_constraintTop_toBottomOf="@+id/et_reg_password" />
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/et_birth"
+            app:layout_constraintTop_toBottomOf="@+id/et_birth">
 
-        <EditText
-            android:id="@+id/et_email"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_reg_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:hint="비밀번호" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tv_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:fontFamily="@font/font_content"
-            app:layout_constraintEnd_toEndOf="@+id/et_reg_password"
-            app:layout_constraintStart_toStartOf="@+id/tv_email"
-            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_password"
+            app:layout_constraintStart_toStartOf="@+id/tv_password"
+            app:layout_constraintTop_toBottomOf="@+id/tv_password">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:hint="이메일" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

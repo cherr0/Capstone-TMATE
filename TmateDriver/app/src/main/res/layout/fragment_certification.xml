@@ -22,50 +22,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.kofigyan.stateprogressbar.StateProgressBar
-        android:id="@+id/first_reg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_certification"
-        app:spb_animateToCurrentProgressState="true"
-        app:spb_checkStateCompleted="true"
-        app:spb_currentStateDescriptionColor="#DB0082"
-        app:spb_currentStateNumber="one"
-        app:spb_maxStateNumber="five"
-        app:spb_stateBackgroundColor="#BDBDBD"
-        app:spb_stateDescriptionColor="#808080"
-        app:spb_stateForegroundColor="#eeeeee"
-        app:spb_stateNumberBackgroundColor="#808080"
-        app:spb_stateNumberForegroundColor="#2196F3" />
-
     <TextView
         android:id="@+id/tv_certification_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/font_header"
         android:text="인증번호 확인"
         android:textColor="#000000"
-        android:fontFamily="@font/font_header"
         android:textSize="38sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/first_reg" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_certification" />
 
     <TextView
         android:id="@+id/tv_certification_plz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="인증번호를 입력해주세요"
         android:fontFamily="@font/font_sub_title"
+        android:text="인증번호를 입력해주세요"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.213"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_certification_check"
         app:layout_constraintTop_toBottomOf="@+id/tv_certification_check" />
 
     <TextView
