@@ -61,6 +61,7 @@ public class AppMemberServiceImpl implements AppMemberService {
         
         // 회원 이름
         member.setM_name(map.get("m_name"));
+        member.setPassword(map.get("password"));
 
         member.setM_imei(map.get("m_imei"));
         /*

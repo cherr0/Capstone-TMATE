@@ -209,12 +209,12 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
                 }
                 //줌 설정
                 TMapInfo info = mMapView.getDisplayTMapInfo(polyline.getLinePoint());
-                int zoom = info.getTMapZoomLevel();
-                if (zoom > 12) {
-                    zoom = 12;
-                }
+//                int zoom = info.getTMapZoomLevel();
+//                if (zoom > 12) {
+//                    zoom = 12;
+//                }
                 mMapView.addTMapPath(polyline);
-                mMapView.setZoomLevel(zoom);
+//                mMapView.setZoomLevel(zoom);
                 mMapView.setCenterPoint(info.getTMapPoint().getLongitude(), info.getTMapPoint().getLatitude());
             }
 

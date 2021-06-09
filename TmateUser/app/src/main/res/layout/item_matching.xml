@@ -2,22 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="220dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/box_bold"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/box_bold">
+        app:layout_constraintTop_toTopOf="parent" >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/matching_item_head"
@@ -32,8 +28,7 @@
                 android:id="@+id/matching_dp_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="모으는 중"
                 android:textColor="@color/white"
                 android:textSize="20sp"
@@ -61,79 +56,81 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/matching_item_head">
 
             <ImageView
                 android:id="@+id/matching_img"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="65dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="8dp"
                 android:src="@drawable/ic_matching_img"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_end"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/tv_start" />
 
             <TextView
                 android:id="@+id/tv_start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="출발"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@id/matching_img"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/matching_img"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/matching_item_start_place"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:gravity="center"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="강남역"
                 android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@id/tv_start"
-                app:layout_constraintTop_toTopOf="@+id/tv_start" />
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_start" />
 
 
             <TextView
                 android:id="@+id/tv_end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="도착"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="도착 "
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@id/tv_start"
-                app:layout_constraintTop_toBottomOf="@+id/tv_start" />
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/matching_item_start_place"
+                app:layout_constraintTop_toBottomOf="@+id/matching_item_start_place" />
 
             <TextView
                 android:id="@+id/matching_item_finish_place"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:gravity="center"
+                android:fontFamily="@font/ibmplexsanskr_medium"
                 android:text="사당역"
                 android:textColor="#000000"
-                android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_end"
-                app:layout_constraintTop_toTopOf="@+id/tv_end" />
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_end"
+                app:layout_constraintTop_toBottomOf="@+id/tv_end" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_Participation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/box_shape"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/constraintLayout32"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/matching_item_finish_place">
 
@@ -145,24 +142,24 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="8dp"
-                    android:text="참여인원 (1/3)"
-                    android:textSize="16sp"
+                    android:fontFamily="@font/ibmplexsanskr_medium"
+                    android:text="(1/3)"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout32"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
                 android:background="@drawable/box_shape"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cl_Participation"
-                app:layout_constraintTop_toBottomOf="@+id/matching_item_finish_place">
+                app:layout_constraintTop_toTopOf="@+id/cl_Participation">
 
                 <TextView
                     android:id="@+id/matching_item_ep_time"
@@ -172,12 +169,15 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="12dp"
                     android:layout_marginBottom="8dp"
-                    android:text="탑승시간 19:00"
-                    android:textSize="16sp"
+                    android:fontFamily="@font/ibmplexsanskr_medium"
+                    android:text="입장"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
