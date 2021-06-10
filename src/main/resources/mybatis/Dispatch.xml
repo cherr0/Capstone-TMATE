@@ -292,4 +292,12 @@
         set m_t_use = m_t_use + 1
         where m_id = #{m_id}
     </update>
+
+    <!-- 알림 문자 보내기위해 등록된 지인번호 가져오기 -->
+    <select id="selectMyFriend" resultType="string">
+        select n_phone
+        from notification
+        where m_id = #{m_id} and n_whether = '1'
+    </select>
+
 </mapper>
