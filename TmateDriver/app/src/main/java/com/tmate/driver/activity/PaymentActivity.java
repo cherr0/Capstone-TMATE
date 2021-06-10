@@ -61,7 +61,7 @@ public class PaymentActivity extends AppCompatActivity {
     public void payshowDialog(){
         dialog2.show();
         TextView textView = dialog2.findViewById(R.id.textView19);
-        textView.setText(binding.editText.getText().toString()+"원\n입력하신 요금이\n맞습니까?");
+        textView.setText(binding.editText.getText().toString() + "원\n입력하신 요금이\n맞습니까?");
         Button btn_no = dialog2.findViewById(R.id.btn_no);
         btn_no.setOnClickListener(new View.OnClickListener() {
             @Override

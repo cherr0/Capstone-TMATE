@@ -76,7 +76,6 @@ public class driving_overlay extends Service implements View.OnLongClickListener
 
         pref = getSharedPreferences("loginDriver", MODE_PRIVATE);
         d_id = pref.getString("d_id", "");
-        Log.d("잘 찍히 나요? ", d_id);
 
         // Android O 이상일 경우 Foreground 서비스를 실행
         // Notification channel 설정.
@@ -186,8 +185,6 @@ public class driving_overlay extends Service implements View.OnLongClickListener
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                     if (response.code() == 200 && response.body() != null) {
-//                        Toast.makeText(driving_overlay.this, "현재 기사 위도 : " + m_lat, Toast.LENGTH_SHORT).show();
-//                        Toast.makeText(driving_overlay.this, "현재 기사 경도 : " + m_lng, Toast.LENGTH_SHORT).show();
                         isRunning = true;
                     }
                 }

@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,26 +47,28 @@ import retrofit2.Response;
 public class WaitingActivity extends AppCompatActivity {
     Button btn_drive_stop;
     private Dialog dialog;
-    private Button matching_btn_refusal;
-    private Button matching_btn_accept;
-    private int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 100;
+
     private TMapView tMapView = null;
     private ArrayList<Waiting> arrayList;
     private WaitingAdapter adapter;
     private RecyclerView recyclerView;
     private ConstraintLayout clWait;
 
+    private TextView lat, lng;
+
     // 레트로핏 관련
     private SharedPreferences pref;
     private String d_id;
+
     Call<Boolean> request;
-    Call<List<Dispatch>> request2;
+    Call<List<Dispatch>> dispatchRequest;
 
     // GpsTracker 자기 위치 가져오기
     private GpsTracker gpsTracker;
 
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
+
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
     // 쓰레드 관련
@@ -79,28 +82,21 @@ public class WaitingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting);
+
+        pref = getSharedPreferences("loginDriver", MODE_PRIVATE);
+        d_id = pref.getString("d_id", "");
+
+        // T Map 설정
         tMapView = new TMapView(this);
         tMapView.setSKTMapApiKey("l7xx4fac78a5b9bf445db00bb99ae2708cee");
-
-
-//        if (checkLocationServicesStatus()) {
-//            checkRunTimePermission();
-//        } else {
-//            showDialogForLocationServiceSetting();
-//        }
-//
-//        gpsTracker = new GpsTracker(WaitingActivity.this);
-//
-//        double latitude = gpsTracker.getLatitude();
-//        double longitude = gpsTracker.getLongitude();
-//
-//        Toast.makeText(WaitingActivity.this, "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
-//        Log.d("나의 위도", String.valueOf(latitude));
-//        Log.d("나의 경도", String.valueOf(longitude));
 
         handler = new Handler();
         calling = new Calling();
         isRunning = true;
+
+        lat = findViewById(R.id.lat_value);
+        lng = findViewById(R.id.lng_value);
+
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -119,10 +115,9 @@ public class WaitingActivity extends AppCompatActivity {
         isRunning = true;
         thread.start();
 
-        pref = getSharedPreferences("loginDriver", MODE_PRIVATE);
-        d_id = pref.getString("d_id", "");
 
-        // 리사이클러뷰 모션레이아웃
+
+        // 리사이클러 뷰 모션 레이아웃
         final CarouselLayoutManager layoutManager = new CarouselLayoutManager(CarouselLayoutManager.HORIZONTAL, true);
         layoutManager.setPostLayoutListener(new CarouselZoomPostLayoutListener());
 
@@ -147,12 +142,13 @@ public class WaitingActivity extends AppCompatActivity {
                 request.enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                        if (response.code() == 200) {
-                            isRunning = false;
-                            finish();
+                        if (response.code() == 200 && response.body() != null) {
+                            if(response.body()){
+                                isRunning = false;
+                                finish();
+                            }
                         }
                     }
-
                     @Override
                     public void onFailure(Call<Boolean> call, Throwable t) {
                         t.printStackTrace();
@@ -179,45 +175,30 @@ public class WaitingActivity extends AppCompatActivity {
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
 
-//            Toast.makeText(WaitingActivity.this, "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
+            lat.setText(String.valueOf(latitude));
+            lng.setText(String.valueOf(longitude));
 
             isRunning = true;
 
-            request2 = DataService.getInstance().call.getCallInfoByPosition(latitude, longitude);
-            request2.enqueue(new Callback<List<Dispatch>>() {
+            dispatchRequest = DataService.getInstance().call.getCallInfoByPosition(latitude, longitude);
+            dispatchRequest.enqueue(new Callback<List<Dispatch>>() {
                 @Override
                 public void onResponse(Call<List<Dispatch>> call, Response<List<Dispatch>> response) {
-                    if (response.code() == 200) {
+                    if (response.code() == 200 && response.body() != null) {
                         List<Dispatch> list = response.body();
-
                         Log.d("넘어오는 리스트 정보 ", list.toString());
-
-                        // list가 널이 아닐때
-                        // 리스트 그림 그려준다.
+                        // list가 널이 아닐 때 리스트 그림 그려준다.
                         if (!list.isEmpty()) {
                             isRunning = false;
                             clWait.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.VISIBLE);
-                            for (int i = 0; i < list.size(); i++) {
-                                CallHistory data = new CallHistory();
-                                data.setMerchant_uid(list.get(i).getDp_id());
-                                data.setTo_people(Integer.parseInt(list.get(i).getDp_id().substring(18)));
-                                data.setDistance1(list.get(i).getDistance());
-                                data.setH_s_place(list.get(i).getStart_place());
-                                data.setH_f_place(list.get(i).getFinish_place());
-                                data.setH_s_lttd(list.get(i).getStart_lat());
-                                data.setH_s_lngtd(list.get(i).getStart_lng());
-                                data.setH_f_lttd(list.get(i).getFinish_lat());
-                                data.setH_f_lngtd(list.get(i).getFinish_lng());
-
-
+                            for(Dispatch data : list) {
                                 adapter.addItem(data);
                             }
 
                             adapter.notifyDataSetChanged();
                         }
-                        // list가 널일때
-                        // 계속해서 검색한다.
+                        // list 가 null 일 때 계속해서 검색한다.
                         else{
                             clWait.setVisibility(View.VISIBLE);
                             recyclerView.setVisibility(View.GONE);
@@ -246,6 +227,7 @@ public class WaitingActivity extends AppCompatActivity {
                                            @NonNull String[] permissions,
                                            @NonNull int[] grandResults) {
 
+        super.onRequestPermissionsResult(permsRequestCode, permissions, grandResults);
         if (permsRequestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
 
             // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
@@ -385,13 +367,6 @@ public class WaitingActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(request != null) request.cancel();
-        if(request2 != null) request2.cancel();
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         isRunning = true;
@@ -413,6 +388,13 @@ public class WaitingActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         isRunning = false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(request != null) request.cancel();
+        if(dispatchRequest != null) dispatchRequest.cancel();
     }
 
 }
