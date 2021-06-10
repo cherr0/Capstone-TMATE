@@ -123,10 +123,10 @@ public class AppDriverApiController {
     }
 
     // 기사 상태 바꾸기 - PUT
-    @PutMapping("/status/set")
-    public ResponseEntity<Boolean> setStatus(@RequestBody DriverDTO driverDTO) {
-        log.info("app에서 넘어오는 기사 정보 DriverDTO : " + driverDTO);
-        return new ResponseEntity<>(appDriverService.driverModStatus(driverDTO), HttpStatus.OK);
+    @PutMapping("/status/set/{d_id}/{d_status}")
+    public ResponseEntity<Boolean> setStatus(@PathVariable("d_id") String d_id, @PathVariable("d_status") int d_status) {
+        log.info("app에서 넘어오는 기사 정보 d_id : " + d_id + ", d_status : " + d_status);
+        return new ResponseEntity<>(appDriverService.driverModStatus(d_id, d_status), HttpStatus.OK);
     }
 
 

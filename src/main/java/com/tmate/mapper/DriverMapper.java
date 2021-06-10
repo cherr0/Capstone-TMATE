@@ -78,7 +78,7 @@ public interface DriverMapper {
     public int deleteBlacklist(String d_id, String m_id);
 
     // 기사 상태 바꾸기
-    public int setDriverStatus(DriverDTO driverDTO);
+    public int setDriverStatus(String d_id, int d_status);
 
     // 기사 승인 상태 확인
     public DriverDTO findDriverDateById(String d_id);
