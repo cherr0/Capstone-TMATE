@@ -63,6 +63,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         drawerView = findViewById(R.id.drawer);
         d_id = getPreferenceString("d_id");
         Log.d("MainViewActivity", "d_id 값 : " + d_id);
+        sideProfileBinding();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         MainViewFragment mainViewFragment = new MainViewFragment();
@@ -123,6 +124,33 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
             }
         });
 
+
+        binding.ivOpen.setOnClickListener(v -> binding.drawerLayout.openDrawer(drawerView));
+
+        ImageView iv_close = findViewById(R.id.iv_close);
+        iv_close.setOnClickListener(v -> binding.drawerLayout.closeDrawers());
+
+        binding.drawerLayout.setDrawerListener(listener);
+        drawerView.setOnTouchListener((v, event) -> true);
+    }
+
+    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() { //사이드바 이벤트
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+        }
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+            sideProfileBinding();
+        }
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+        }
+        @Override
+        public void onDrawerStateChanged(int newState) {
+        }
+    };
+
+    private void sideProfileBinding() {
         // 사이드 바 프로필 작성
         sidebarRequest = DataService.getInstance().driver.searchSidebarProfile(d_id);
         sidebarRequest.enqueue(new Callback<SidebarProfile>() {
@@ -144,33 +172,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
                 t.printStackTrace();
             }
         });
-
-
-
-        binding.ivOpen.setOnClickListener(v -> binding.drawerLayout.openDrawer(drawerView));
-
-        ImageView iv_close = findViewById(R.id.iv_close);
-        iv_close.setOnClickListener(v -> binding.drawerLayout.closeDrawers());
-
-        binding.drawerLayout.setDrawerListener(listener);
-        drawerView.setOnTouchListener((v, event) -> true);
     }
-
-    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() { //사이드바 이벤트
-        @Override
-        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-        }
-        @Override
-        public void onDrawerOpened(@NonNull View drawerView) {
-        }
-        @Override
-        public void onDrawerClosed(@NonNull View drawerView) {
-        }
-        @Override
-        public void onDrawerStateChanged(int newState) {
-        }
-    };
-
 
     @Override
     public void onClick(View v) {
