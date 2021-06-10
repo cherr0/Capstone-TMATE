@@ -71,7 +71,6 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/d_acnum_click"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
@@ -110,14 +109,14 @@
         android:id="@+id/d_acnum_click"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/box_shape"
         android:orientation="vertical"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bank">
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
 
         <TextView
             android:layout_width="wrap_content"
