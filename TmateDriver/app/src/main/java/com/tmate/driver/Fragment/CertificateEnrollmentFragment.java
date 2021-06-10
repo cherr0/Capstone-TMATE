@@ -76,67 +76,6 @@ public class CertificateEnrollmentFragment extends Fragment implements Validator
                 validator.validate(); //버튼 클릭 시 이벤트 발생 //필수
             }
         });
-        b.licenseIma.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                new AlertDialog.Builder(getContext())
-                        .setTitle("사진 가져올 방법을 선택하세요.")
-                        .setPositiveButton("카메라", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA);
-                                if (permissionCheck == PackageManager.PERMISSION_DENIED) {
-                                    new AlertDialog.Builder(getContext())
-                                            .setTitle("알림")
-                                            .setMessage("저장소 권한이 필요합니다.")
-                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    startPermissionRequestcamera();
-                                                }
-                                            })
-                                            .create()
-                                            .show();
-                                } else {
-                                    Intent intentCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    startActivityForResult(intentCamera, REQUEST_IMAGE_CAPTURE);
-                                }
-                            }
-                        })
-                        .setNeutralButton("갤러리", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                int permissionCheck = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                                if (permissionCheck == PackageManager.PERMISSION_DENIED) {
-                                    new AlertDialog.Builder(getContext())
-                                            .setTitle("알림")
-                                            .setMessage("저장소 권한이 필요합니다.")
-                                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    startPermissionRequestphoto();
-                                                }
-                                            })
-                                            .create()
-                                            .show();
-                                } else {
-                                    //기기 기본 갤러리 접근
-                                    Intent intent = new Intent();
-                                    intent.setType(MediaStore.Images.Media.CONTENT_TYPE); //구글 갤러리
-                                    intent.setType("image/*");
-                                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                                    startActivityForResult(intent, 101);
-
-                                }
-
-                            }
-                        })
-                        .create()
-                        .show();
-
-
-            }
-
-        });
         return view;
 
     }
@@ -154,28 +93,6 @@ public class CertificateEnrollmentFragment extends Fragment implements Validator
     private void startPermissionRequestphoto() {
         ActivityCompat.requestPermissions(getActivity(),
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_PERMISSIONS_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        switch (requestCode) {
-            case 1:
-                if (resultCode == RESULT_OK) {
-                    Bundle extras = imageReturnedIntent.getExtras();
-                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    b.licenseIma.setImageBitmap(imageBitmap);
-
-                }
-
-                break;
-            case 101:
-                if (resultCode == RESULT_OK) {
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    b.licenseIma.setImageURI(selectedImage);
-                }
-                break;
-        }
     }
 
     @Override
