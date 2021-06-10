@@ -110,7 +110,7 @@ class HistoryHolder extends RecyclerView.ViewHolder{
         hdate = itemView.findViewById(R.id.hdate);
         htogether = itemView.findViewById(R.id.htogether);
         re_amt = itemView.findViewById(R.id.re_amt);
-        history_username = itemView.findViewById(R.id.history_username);
+        history_username = itemView.findViewById(R.id.history_m_name);
         hstart = itemView.findViewById(R.id.hstart);
         hfinish = itemView.findViewById(R.id.hfinish);
         htime = itemView.findViewById(R.id.htime);
