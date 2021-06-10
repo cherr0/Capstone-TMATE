@@ -13,25 +13,8 @@
                 <div class="heading">Login to <span class="login-T">T</span> <span class="login-MATE">MATE</span></div>
             </div>
             <div class="modal-body">
-                <div class="left">
-                    <div class="connect">QR 로그인</div>
-                    <div>
-                        <img th:src="@{~/images/qrcode.png}" class="qr-code">
-                        <div class="connect">아직 아이디가 없으신가요?</div>
-                    </div>
-<!--                    <a href="/testLogin">테스트 로그인</a><br>-->
-<!--                    <a href="/testLogin2">테스트 로그인2</a><br>-->
-<!--                    <a href="/testLogin3">테스트 로그인3</a>-->
-                </div>
                 <div class="right">
                     <div class="connect">소셜 로그인</div>
-<!--                    <a href="" class="kakao">-->
-<!--                        <img th:src="@{~/images/kakao.png}" alt="test" class="naver-image">-->
-<!--                    </a> <br/>-->
-
-<!--                    <a href="" class="naver">-->
-<!--                        <img th:src="@{~/images/naver.png}" alt="test" class="naver-image">-->
-<!--                    </a> <br/>-->
                     <a href="/oauth2/authorization/google" class="google">
                         <i class="fab fa-google-plus" aria-hidden="true"></i>
                     </a>

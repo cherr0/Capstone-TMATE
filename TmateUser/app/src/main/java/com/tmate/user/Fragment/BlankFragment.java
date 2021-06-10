@@ -104,7 +104,7 @@ public class BlankFragment extends Fragment implements Validator.ValidationListe
                 bundle.putString("m_id","m2"+et_phone.getText().toString()+"0");
             }
         }
-        bundle.putString("m_password", et_reg_password.getText().toString());
+        bundle.putString("password", et_reg_password.getText().toString());
         bundle.putString("m_birth",et_birth.getText().toString());
 
         Log.i("BlankFragment","넘어가는 번들 값 : " + bundle);

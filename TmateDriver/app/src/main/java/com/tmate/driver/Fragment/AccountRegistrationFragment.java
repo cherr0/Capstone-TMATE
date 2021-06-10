@@ -123,6 +123,8 @@ public class AccountRegistrationFragment extends Fragment implements Validator.V
         map.put("m_name", bundle.getString("m_name"));
         map.put("m_imei", bundle.getString("m_imei"));
         map.put("m_birth", bundle.getString("m_birth"));
+        map.put("password", bundle.getString("password"));
+        map.put("m_email", bundle.getString("m_email"));
 
         // 기사 객체 추가
         map.put("d_id", bundle.getString("m_id"));

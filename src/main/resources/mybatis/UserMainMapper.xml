@@ -67,10 +67,12 @@
         and substr(to_char(systimestamp,'yyMMddhh24missff'),1,6)
     </select>
 
-    <select id="getMainWeeklyHistoryList" resultType="com.tmate.domain.JoinHistoryVO">
-        select merchant_uid, h_allfare, m_name, h_s_place, h_f_place, car_no, car_model
-        from history h inner join member m on h.d_id = m.m_id
-                       inner join car c on m.m_id = c.m_id
-        where h.m_id = #{m_id} and to_date(substr(merchant_uid,10,6),'yyMMdd') between  sysdate - 7 and sysdate
+    <select id="getMainWeeklyHistoryList" resultType="com.tmate.domain.DispatchDTO">
+        select  d.dp_id, d.start_place, d.finish_place, d.all_fare ,d.start_time, d.end_time, m.m_name, c.car_no, c.car_model
+        from dispatch d join attend a on d.dp_id = a.dp_id
+                        join member m on d.d_id = m.m_id
+                        join car c on d.d_id = c.m_id
+        where a.m_id = 'm1010918400420' and d.dp_status = '5' and to_date(substr(d.dp_id,1,6),'yyMMdd') between  sysdate - 7 and sysdate
+        order by start_time desc
     </select>
 </mapper>

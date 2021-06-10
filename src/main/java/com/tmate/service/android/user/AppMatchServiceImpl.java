@@ -155,4 +155,22 @@ public class AppMatchServiceImpl implements AppMatchService {
         return dispatchMapper.updateNormalMatchStatus(dispatchDTO) == 1;
     }
 
+
+    /*
+    * 일반 이용 시 동승 이용 시 업데이트 초기화
+    * */
+
+    @Override
+    public Boolean modifyCallCnt(String m_id, int flag) {
+
+
+        if (flag == 1) {
+            // 일반 일때
+            return dispatchMapper.updateAddUseCnt(m_id);
+        } else {
+            // 동승 일때
+            return dispatchMapper.updateAddTogetherCnt(m_id);
+        }
+
+    }
 }

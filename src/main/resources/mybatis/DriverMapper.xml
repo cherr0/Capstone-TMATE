@@ -76,7 +76,7 @@
     <!--  기사 회원가입 멤버 테이블 삽입  -->
     <insert id="registerDriver">
         insert into member(m_id, m_name, m_imei, m_birth, password, m_email)
-        values (#{m_id}, #{m_name}, #{m_imei}, #{m_birth}, #{password}, ${m_email})
+        values (#{m_id}, #{m_name}, #{m_imei}, #{m_birth}, #{password}, #{m_email})
     </insert>
 
     <!--  기사 회원가입 기사 테이블 삽입  -->

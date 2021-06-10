@@ -7,31 +7,31 @@ import java.util.List;
 public interface MemberService {
 
     // 회원 리스트
-    public List<MemberDTO> getListMembers(Criteria cri);
+    List<MemberDTO> getListMembers(Criteria cri);
 
     // 회원 로그인시 계정 연동한 계정 찾을 때
 //    public MemberDTO findSocialMember(String s_email);
 
     // 회원 눌렀을때 나오는 상세페이지 - 회원정보
-    public MemberDTO getMember(String m_id);
+    MemberDTO getMember(String m_id);
 
     // 페이지 처리용 이용내역
-    public HistoryPageDTO getListPage(Criteria cri, String m_id);
+    HistoryPageDTO getListPage(Criteria cri, String m_id);
 
     // 페이지 처리용 포인트 내역
-    public PointPageDTO getPointListPage(Criteria cri, String m_id);
+    PointPageDTO getPointListPage(Criteria cri, String m_id);
 
     // 회원 눌렀을때 나오는 상세페이지 - 포인트 내역
-    public List<JoinPointVO> getPointList(Criteria cri, String m_id);
+    List<JoinPointVO> getPointList(Criteria cri, String m_id);
 
     // 회원 리스트 부분 토탈 카운트
-    public int getTotalCount(Criteria cri);
+    int getTotalCount(Criteria cri);
 
     // 이용내역 토탈 카운트
-    public int getTotalHistoryCount(String m_id);
+    int getTotalHistoryCount(String m_id);
 
     // 포인트 내역 토탈 카운트
-    public int getTotalPointCount(String m_id);
+    int getTotalPointCount(String m_id);
 
 
 }

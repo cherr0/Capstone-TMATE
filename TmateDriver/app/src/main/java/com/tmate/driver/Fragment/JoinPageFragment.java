@@ -45,7 +45,7 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
 
     @NotEmpty
     @Length(min = 8, max = 20, message = "최소8 ~ 최대 20")
-    EditText m_password;
+    EditText password;
 
     @NotEmpty(message = "이메일을 입력해 주세요")
     EditText m_email;
@@ -83,7 +83,7 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
         m_name = view.findViewById(R.id.m_name);
         et_birth = view.findViewById(R.id.et_birth);
         gender = view.findViewById(R.id.gender);
-        m_password = view.findViewById(R.id.et_reg_password);
+        password = view.findViewById(R.id.et_reg_password);
         m_email = view.findViewById(R.id.et_email);
         validator = new Validator(this);//필수
         validator.setValidationListener(this);//필수
@@ -115,7 +115,7 @@ public class JoinPageFragment extends Fragment implements Validator.ValidationLi
 
         bundle.putString("m_birth",et_birth.getText().toString()); // 생년월일
         bundle.putString("m_name",m_name.getText().toString()); // 이름
-        bundle.putString("m_password", m_password.getText().toString()); // 비밀번호
+        bundle.putString("password", password.getText().toString()); // 비밀번호
         bundle.putString("m_email", m_email.getText().toString()); // 이메일
         if (b.male.isChecked()) {
             bundle.putString("m_id","d1"+bundle.getString("phone")+"0");
