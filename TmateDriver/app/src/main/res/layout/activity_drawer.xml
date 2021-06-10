@@ -63,20 +63,6 @@
             app:layout_constraintStart_toStartOf="@+id/side_profile_name"
             app:layout_constraintTop_toBottomOf="@+id/side_profile_name" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/side_profile_state"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="16dp"-->
-<!--            android:drawableLeft="@drawable/ic_green"-->
-<!--            android:drawablePadding="8dp"-->
-<!--            android:gravity="center"-->
-<!--            android:text="현재상태"-->
-<!--            android:textColor="@color/white"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/side_profile_name"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/side_profile_name" />-->
-
         <TextView
             android:id="@+id/side_profile_car_num"
             android:layout_width="wrap_content"
