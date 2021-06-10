@@ -171,6 +171,10 @@ public class AppMatchServiceImpl implements AppMatchService {
             // 동승 일때
             return dispatchMapper.updateAddTogetherCnt(m_id);
         }
+    }
 
+    @Override
+    public List<String> getMyFriend(String m_id) {
+        return dispatchMapper.selectMyFriend(m_id);
     }
 }

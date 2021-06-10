@@ -78,4 +78,9 @@ public interface AppMatchService {
      * 이것은 동승 , 일반 이용 시 횟수 업데이트
      * */
     Boolean modifyCallCnt(String dp_id, int flag);
+
+    /*
+     * 지인 번호 가져오기
+     * */
+    List<String> getMyFriend(String m_id);
 }

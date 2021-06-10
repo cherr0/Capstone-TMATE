@@ -27,8 +27,8 @@ public class SplashActivity extends AnimatedSplash {
 
         imei = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
-//        setPreference("m_id", "m2010676819600");
-//        setPreference("m_name", "허시현");
+        setPreference("m_id", "m2010676819600");
+        setPreference("m_name", "허시현");
 //        setPreference("sid", "S2905462887021313232");
 
         //Customize Circular Reveal

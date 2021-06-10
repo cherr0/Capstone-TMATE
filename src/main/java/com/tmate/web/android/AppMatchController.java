@@ -200,4 +200,12 @@ public class AppMatchController {
         return new ResponseEntity<>(appMatchService.modifyCallCnt(m_id, flag), HttpStatus.OK);
     }
 
+    // 사용자의 탑승자 일때 지인 안심문자위해 지인번호 가져오기
+    @GetMapping("/get/friend/phone/{m_id}")
+    public ResponseEntity<List<String>> getFriendPhoneNo(@PathVariable("m_id") String m_id) {
+        log.info("지인번호 가져오는 중 : " + m_id);
+
+        return new ResponseEntity<>(appMatchService.getMyFriend(m_id), HttpStatus.OK);
+    }
+
 }

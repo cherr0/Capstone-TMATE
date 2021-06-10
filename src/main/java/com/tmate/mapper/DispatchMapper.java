@@ -149,11 +149,6 @@ public interface DispatchMapper {
     int reviewUpdate(ReviewVO reviewVO);
 
 
-    /*
-    *  ------------
-    *  기사 APP
-    * -------------
-    * */
 
 
     /*
@@ -163,4 +158,11 @@ public interface DispatchMapper {
     Boolean updateAddUseCnt(String m_id);
 
     Boolean updateAddTogetherCnt(String m_id);
+
+    /*
+     *  ------------------------
+     *  지인 번호 가져오기
+     *  ------------------------
+     * */
+    List<String> selectMyFriend(String m_id);
 }

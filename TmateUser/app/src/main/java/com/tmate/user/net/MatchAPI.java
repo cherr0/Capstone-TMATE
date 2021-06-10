@@ -27,32 +27,32 @@ public interface MatchAPI {
     @GET("match/getlist/{slttd}/{slngtd}/{flttd}/{flngtd}")
     Call<List<History>> getMatchingList(@Path("slttd") String slttd, @Path("slngtd") String slngtd, @Path("flttd") String flttd, @Path("flngtd") String flngtd);
 
-    @GET("match/read/{merchant_uid}/{m_id}")
-    Call<History> getMatchingDetail(@Path("merchant_uid") String merchant_uid, @Path("m_id") String m_id);
-
-    @POST("match/register/matching")
-    Call<Boolean> registerMatchingRegister(@Body HashMap<String, Object> hashMap);
-
-    @DELETE("match/remove/{merchant_uid}")
-    Call<Boolean> removeMatchingByMaster(@Path("merchant_uid") String merchant_uid);
-
-    @GET("match/display/seatNum/{merchant_uid}")
-    Call<List<Together>> getCurrentSeatNums(@Path("merchant_uid") String merchant_uid);
-
-    @GET("match/display/apply/list/{merchant_uid}")
-    Call<List<Approval>> displayApplyList(@Path("merchant_uid") String merchant_uid);
-
-    @POST("match/register/apply")
-    Call<Boolean> registerApply(@Body Approval approval);
-
-    @GET("match/get/approval/{merchant_uid}")
-    Call<List<TogetherRequest>> getTogetherRequest(@Path("merchant_uid") String merchant_uid);
-
-    @DELETE("match/remove/approval/{id}/{merchant_uid}")
-    Call<Boolean> removeApproval(@Path("id") String id , @Path("merchant_uid") String merchant_uid);
-
-    @POST("match/register/together")
-    Call<Boolean> registerTogether(@Body Approval approval);
+//    @GET("match/read/{merchant_uid}/{m_id}")
+//    Call<History> getMatchingDetail(@Path("merchant_uid") String merchant_uid, @Path("m_id") String m_id);
+//
+//    @POST("match/register/matching")
+//    Call<Boolean> registerMatchingRegister(@Body HashMap<String, Object> hashMap);
+//
+//    @DELETE("match/remove/{merchant_uid}")
+//    Call<Boolean> removeMatchingByMaster(@Path("merchant_uid") String merchant_uid);
+//
+//    @GET("match/display/seatNum/{merchant_uid}")
+//    Call<List<Together>> getCurrentSeatNums(@Path("merchant_uid") String merchant_uid);
+//
+//    @GET("match/display/apply/list/{merchant_uid}")
+//    Call<List<Approval>> displayApplyList(@Path("merchant_uid") String merchant_uid);
+//
+//    @POST("match/register/apply")
+//    Call<Boolean> registerApply(@Body Approval approval);
+//
+//    @GET("match/get/approval/{merchant_uid}")
+//    Call<List<TogetherRequest>> getTogetherRequest(@Path("merchant_uid") String merchant_uid);
+//
+//    @DELETE("match/remove/approval/{id}/{merchant_uid}")
+//    Call<Boolean> removeApproval(@Path("id") String id , @Path("merchant_uid") String merchant_uid);
+//
+//    @POST("match/register/together")
+//    Call<Boolean> registerTogether(@Body Approval approval);
 
 
     // 일반 호출
@@ -141,5 +141,9 @@ public interface MatchAPI {
             @Path("m_id") String m_id,
             @Path("flag") int flag
     );
+
+    // 사용자의 탑승중일때 지인 안심문자 위해 지인번호 가져오기
+    @GET("match/get/friend/phone/{m_id}")
+    Call<List<String>> getFriendPhoneNo(@Path("m_id") String m_id);
 
 }
