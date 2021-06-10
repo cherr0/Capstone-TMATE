@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tv_black_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -31,7 +31,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_seat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10">
+        app:layout_constraintTop_toBottomOf="@+id/tv_black_title">
 
         <net.colindodd.toggleimagebutton.ToggleImageButton
             android:id="@+id/seat_one"
@@ -41,8 +41,23 @@
             app:layout_constraintEnd_toEndOf="@+id/seat_three"
             app:layout_constraintStart_toStartOf="@+id/seat_three"
             app:layout_constraintTop_toTopOf="parent"
-            app:tib_drawable_off="@drawable/ic_sit_off1"
-            app:tib_drawable_on="@drawable/ic_sit_on1" />
+            app:tib_drawable_off="@drawable/ic_sit_off"
+            app:tib_drawable_on="@drawable/ic_sit_off_more" />
+
+        <TextView
+            android:id="@+id/seat_one_m_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/ibmplexsanskr_medium"
+            android:text="박한수"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/seat_one"
+            app:layout_constraintStart_toStartOf="@+id/seat_one"
+            app:layout_constraintTop_toTopOf="@+id/seat_one" />
 
         <net.colindodd.toggleimagebutton.ToggleImageButton
             android:id="@+id/seat_two"
@@ -52,8 +67,23 @@
             app:layout_constraintEnd_toStartOf="@+id/seat_three"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/seat_three"
-            app:tib_drawable_off="@drawable/ic_sit_off2"
-            app:tib_drawable_on="@drawable/ic_sit_on2" />
+            app:tib_drawable_off="@drawable/ic_sit_off"
+            app:tib_drawable_on="@drawable/ic_sit_off_more" />
+
+        <TextView
+            android:id="@+id/seat_two_m_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/ibmplexsanskr_medium"
+            android:text=""
+            android:textColor="@color/black"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/seat_two"
+            app:layout_constraintStart_toStartOf="@+id/seat_two"
+            app:layout_constraintTop_toTopOf="@+id/seat_two" />
 
         <net.colindodd.toggleimagebutton.ToggleImageButton
             android:id="@+id/seat_three"
@@ -63,8 +93,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/seat_two"
             app:layout_constraintTop_toBottomOf="@+id/seat_one"
-            app:tib_drawable_off="@drawable/ic_sit_off3"
-            app:tib_drawable_on="@drawable/ic_sit_on3" />
+            app:tib_drawable_off="@drawable/ic_sit_off"
+            app:tib_drawable_on="@drawable/ic_sit_off_more" />
+
+        <TextView
+            android:id="@+id/seat_three_m_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/ibmplexsanskr_medium"
+            android:text=""
+            android:textColor="@color/black"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/seat_three"
+            app:layout_constraintStart_toStartOf="@+id/seat_three"
+            app:layout_constraintTop_toTopOf="@+id/seat_three" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
