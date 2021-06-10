@@ -39,6 +39,9 @@ public interface AppDriverService {
     // 기사 차량 추가
     Boolean insertDriverCar(CarDTO carDTO);
 
+    // 기사 차량 선택
+    Boolean selectDriverCar(String d_id, String car_no);
+
     // 블랙리스트 추가
     Boolean blacklistRegister(BanDTO banDTO);
 

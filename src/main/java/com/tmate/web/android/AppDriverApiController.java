@@ -100,6 +100,14 @@ public class AppDriverApiController {
         return new ResponseEntity<>(appDriverService.insertDriverCar(carDTO),HttpStatus.OK);
     }
 
+    // 기사 차량 선택 - PUT
+    @PutMapping("/car/{d_id}/{car_no}")
+    public ResponseEntity<Boolean> selectDriverCar(@PathVariable("d_id") String d_id,
+                                                   @PathVariable("car_no") String car_no) {
+        log.info("AppDriverController 기사 차량 선택 d_id : " + d_id);
+        return new ResponseEntity<>(appDriverService.selectDriverCar(d_id,car_no), HttpStatus.OK);
+    }
+
     // 블랙리스트 확인 - GET
     @GetMapping("/ban/list/{d_id}")
     public ResponseEntity<List<JoinBanVO>> getBlacklist(@PathVariable("d_id") String d_id) {

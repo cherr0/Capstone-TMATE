@@ -68,6 +68,9 @@ public interface DriverMapper {
     // 기사 차량 정보
     public List<CarDTO> getCarList(String d_id);
 
+    // 기사 차량 선택
+    public int updateDriverCar(String d_id, String car_no);
+
     // 기사 차량 추가
     public int insertCar(CarDTO carDTO);
 

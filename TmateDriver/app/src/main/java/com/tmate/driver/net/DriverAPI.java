@@ -46,8 +46,8 @@ public interface DriverAPI {
     // 기사 계좌번호 수정
 
     // 기사 상태 바꾸기
-    @PUT("/driver/status/set")
-    Call<Boolean> setStatus(@Body Driver driverDTO);
+    @PUT("/driver/status/set/{d_id}/{d_status}")
+    Call<Boolean> setStatus(@Path("d_id") String d_id,@Path("d_status") int d_status);
 
     // 운행기록 리스트 - GET
     @GET("/driver/history/{d_id}")
@@ -65,6 +65,10 @@ public interface DriverAPI {
     @POST("/driver/car")
     Call<Boolean> insertCar(@Body Car carDTO);
 
+    // 기사 차량 선택 - PUT
+    @PUT("/dirver/car/{d_id}/{car_no}")
+    Call<Boolean> selectCar(@Path("d_id") String d_id, @Path("car_no") String car_no);
+
     // 블랙리스트 확인 - GET
     @GET("/driver/ban/list/{d_id}")
     Call<List<JoinBan>> getBlacklist(@Path("d_id") String d_id);
@@ -76,7 +80,4 @@ public interface DriverAPI {
     // 블랙리스트 제거 - DELETE
     @DELETE("/driver/ban/delete/{d_id}/{m_id}")
     Call<Boolean> removeBlacklist(@Path("d_id")String d_id, @Path("m_id") String m_id);
-
-    @PUT("/driver/status/set/{d_id}/{d_status}")
-    Call<Boolean> setStatus(@Path("d_id") String d_id,@Path("d_status") int d_status);
 }
