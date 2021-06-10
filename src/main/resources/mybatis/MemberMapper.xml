@@ -108,7 +108,7 @@
 
     <!-- 포인트 작업 -->
     <insert id="insertPoint">
-        insert into(po_id, m_id, po_course, po_exact, po_result, po_time, bd_id)
+        insert into point(po_id, m_id, po_course, po_exact, po_result, po_time, bd_id)
         values (p_sec.nextval,#{m_id},#{po_course},#{po_exact},#{po_result},systimestamp,null)
     </insert>
 

@@ -287,7 +287,7 @@
     </update>
 
     <!-- 동승 이용 횟수 증가 -->
-    <update id="updateAddUseCnt">
+    <update id="updateAddTogetherCnt">
         update member
         set m_t_use = m_t_use + 1
         where m_id = #{m_id}
