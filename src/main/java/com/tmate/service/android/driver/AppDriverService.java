@@ -39,6 +39,9 @@ public interface AppDriverService {
     // 기사 차량 추가
     Boolean insertDriverCar(CarDTO carDTO);
 
+    // 기사 차량 선택
+    Boolean selectDriverCar(String d_id, String car_no);
+
     // 블랙리스트 추가
     Boolean blacklistRegister(BanDTO banDTO);
 
@@ -46,7 +49,7 @@ public interface AppDriverService {
     Boolean blacklistRemove(String d_id, String m_id);
 
     // 택시 기사 상태 바꾸기 - 대기 중, 운행 중, 휴식 중
-    Boolean driverModStatus(DriverDTO driverDTO);
+    Boolean driverModStatus(String d_id, int d_status);
 
     // 콜대기 팝업 정보 전송
 

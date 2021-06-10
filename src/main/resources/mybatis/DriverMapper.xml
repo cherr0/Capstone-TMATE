@@ -152,10 +152,17 @@
 
     <!--  기사 차량 정보  -->
     <select id="getCarList" resultType="com.tmate.domain.CarDTO">
-        select *
-        from car
-        where m_id = #{d_id}
+        select c.car_model, c.CAR_NO, c.CAR_COLOR, c.car_kind
+        from car c join corp co on c.CAR_NO = co.CAR_NO
+        where co.D_ID = #{d_id}
     </select>
+
+    <!--  기사 차량 선택  -->
+    <update id="updateDriverCar">
+        update corp
+        set car_no = #{car_no}
+        where d_id = #{d_id}
+    </update>
 
     <!--  기사 차량 추가  -->
     <insert id="insertCar">

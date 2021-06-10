@@ -246,6 +246,7 @@
                             android:text="선호운행옵션"
                             android:textColor="@color/black"
                             android:textSize="20sp"
+                            android:layout_marginTop="1dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_account" />
@@ -256,7 +257,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="55dp"
                             android:layout_gravity="center"
-                            android:layout_marginTop="15dp"
                             android:background="@color/white"
                             android:drawableLeft="@drawable/ic_notice"
                             android:drawableRight="@drawable/ic_arrow_right"
@@ -268,30 +268,11 @@
                             android:text="공지사항"
                             android:textColor="@color/black"
                             android:textSize="20sp"
+                            android:layout_marginTop="1dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_preference" />
-
-                        <TextView
-                            android:id="@+id/tv_alert"
-                            android:layout_width="match_parent"
-                            android:layout_height="55dp"
-                            android:layout_gravity="center"
-                            android:background="@color/white"
-                            android:drawableLeft="@drawable/ic_alert"
-                            android:drawableRight="@drawable/ic_arrow_right"
-                            android:drawablePadding="15dp"
-                            android:fontFamily="@font/ibmplexsanskr_medium"
-                            android:gravity="center_vertical"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="16dp"
-                            android:text="알림설정"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_notice" />
 
                         <TextView
                             android:id="@+id/tv_friend"
@@ -309,9 +290,10 @@
                             android:text="지인번호 등록"
                             android:textColor="@color/black"
                             android:textSize="20sp"
+                            android:layout_marginTop="1dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_alert" />
+                            app:layout_constraintTop_toBottomOf="@+id/tv_notice" />
 
 
                         <TextView

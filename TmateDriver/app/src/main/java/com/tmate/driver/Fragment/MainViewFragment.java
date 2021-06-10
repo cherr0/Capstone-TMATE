@@ -27,8 +27,6 @@ import retrofit2.Response;
 
 public class MainViewFragment  extends Fragment {
     private FragmentMainViewBinding b;
-    private View view;
-    TextView tv_car_no ;
 
     // 레트로핏 관련
     Call<Boolean> request;
@@ -40,46 +38,36 @@ public class MainViewFragment  extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         b = FragmentMainViewBinding.inflate(inflater, container, false);
         View view = b.getRoot();
-
         pref = getActivity().getSharedPreferences("loginDriver", Context.MODE_PRIVATE);
         d_id = pref.getString("d_id", "");
 
-        b.carFind.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                CarFragment carFragment = new CarFragment();
-                transaction.replace(R.id.frame, carFragment).commit();
-            }
+        b.carFind.setOnClickListener(v -> {
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            CarFragment carFragment = new CarFragment();
+            transaction.replace(R.id.frame, carFragment).commit();
         });
 
-        b.dvSt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                request = DataService.getInstance().call.modifyStatusByD_idAndFlag(d_id,1);
-                request.enqueue(new Callback<Boolean>() {
-                    @Override
-                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                        if (response.code() == 200) {
-                            Toast.makeText(getActivity(), "운행 대기중입니다.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getContext(), WaitingActivity.class);
-                            startActivity(intent);
-                        }
+        b.dvSt.setOnClickListener(v -> {
+            request = DataService.getInstance().call.modifyStatusByD_idAndFlag(d_id,1);
+            request.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    if (response.code() == 200 && response.body() != null) {
+                        Toast.makeText(getActivity(), "운행 대기중입니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), WaitingActivity.class);
+                        startActivity(intent);
                     }
+                }
 
-                    @Override
-                    public void onFailure(Call<Boolean> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
-            }
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
         });
-        Glide
-                .with(getContext())
+        Glide.with(requireContext())
                 .load(R.raw.taxi)
                 .into(b.ivGif);
-
-        tv_car_no = b.tvCarNo;
         return view;
     }
 }

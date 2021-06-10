@@ -79,7 +79,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
 
 
         tv_preference = view.findViewById(R.id.tv_preference);
-        tv_alert = view.findViewById(R.id.tv_alert);
         tv_friend = view.findViewById(R.id.tv_friend);
         tv_history = view.findViewById(R.id.tv_history);
         tv_notice = view.findViewById(R.id.tv_notice);
@@ -89,7 +88,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
 
         tv_account.setOnClickListener(this);
         tv_preference.setOnClickListener(this);
-        tv_alert.setOnClickListener(this);
         tv_friend.setOnClickListener(this);
         tv_history.setOnClickListener(this);
         tv_notice.setOnClickListener(this);
@@ -126,11 +124,6 @@ public class My_info_Fragment extends Fragment implements View.OnClickListener{
             case R.id.tv_preference : { // 선호 운행 옵션
                 PreferenceFragment preferenceFragment = new PreferenceFragment();
                 transaction.replace(R.id.frameLayout, preferenceFragment).commit();
-                return ;
-            }
-            case R.id.tv_alert : { // 알림 설정
-                NotificationFragment notificationFragment = new NotificationFragment();
-                transaction.replace(R.id.frameLayout, notificationFragment).commit();
                 return ;
             }
             case R.id.tv_friend :{ // 지인번호 등록

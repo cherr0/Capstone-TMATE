@@ -101,6 +101,12 @@ public class AppDriverServiceImpl implements AppDriverService{
         return driverMapper.getCarList(d_id);
     }
 
+    @Override // 기사 차량 선택
+    public Boolean selectDriverCar(String d_id, String car_no) {
+        log.info("AppDriverService 기사 차량 선택 car_no : " + car_no);
+        return driverMapper.updateDriverCar(d_id, car_no) == 1;
+    }
+
     @Override   // 기사 차량 추가
     public Boolean insertDriverCar(CarDTO carDTO) {
         log.info("AppDriverService 기사 차량 추가 carDTO : " + carDTO);
@@ -120,9 +126,9 @@ public class AppDriverServiceImpl implements AppDriverService{
     }
 
     @Override   // 기사 상태 변경
-    public Boolean driverModStatus(DriverDTO driverDTO) {
-        log.info("AppDriverService 기사 상태 변경 : " + driverDTO);
-        return driverMapper.setDriverStatus(driverDTO) == 1;
+    public Boolean driverModStatus(String d_id, int d_status) {
+        log.info("AppDriverService 기사 상태 변경 : " + d_id + " status : " + d_status);
+        return driverMapper.setDriverStatus(d_id, d_status) == 1;
     }
 
 

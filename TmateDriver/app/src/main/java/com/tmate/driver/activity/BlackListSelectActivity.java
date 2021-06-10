@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +22,7 @@ import java.util.List;
 public class BlackListSelectActivity extends AppCompatActivity {
     private Button btn_seat;
     private ToggleImageButton seat_one, seat_two, seat_three;
+    TextView seat_one_m_name, seat_two_m_name, seat_three_m_name;
     private int blackList = 1;
 
     @Override
@@ -38,12 +40,21 @@ public class BlackListSelectActivity extends AppCompatActivity {
         final List<String> list = new ArrayList<String>();
 
         seat_one = findViewById(R.id.seat_one);
+        seat_one_m_name = findViewById(R.id.seat_one_m_name);
         seat_two = findViewById(R.id.seat_two);
+        seat_two_m_name = findViewById(R.id.seat_two_m_name);
         seat_three = findViewById(R.id.seat_three);
+        seat_three_m_name = findViewById(R.id.seat_three_m_name);
+
+        // 유저 이름 젤 앞으로 빼오기
+        seat_one_m_name.bringToFront();
+        seat_two_m_name.bringToFront();
+        seat_three_m_name.bringToFront();
 
         seat_one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seat_one_m_name.setVisibility(View.VISIBLE);
                 seat_one.setChecked(true);
                 seat_two.setChecked(false);
                 seat_three.setChecked(false);
@@ -52,6 +63,7 @@ public class BlackListSelectActivity extends AppCompatActivity {
         seat_two.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seat_two_m_name.setVisibility(View.VISIBLE);
                 seat_one.setChecked(false);
                 seat_two.setChecked(true);
                 seat_three.setChecked(false);
@@ -60,6 +72,7 @@ public class BlackListSelectActivity extends AppCompatActivity {
         seat_three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                seat_three_m_name.setVisibility(View.VISIBLE);
                 seat_one.setChecked(false);
                 seat_two.setChecked(false);
                 seat_three.setChecked(true);

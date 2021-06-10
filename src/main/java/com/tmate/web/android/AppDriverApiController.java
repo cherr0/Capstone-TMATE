@@ -100,6 +100,14 @@ public class AppDriverApiController {
         return new ResponseEntity<>(appDriverService.insertDriverCar(carDTO),HttpStatus.OK);
     }
 
+    // 기사 차량 선택 - PUT
+    @PutMapping("/car/{d_id}/{car_no}")
+    public ResponseEntity<Boolean> selectDriverCar(@PathVariable("d_id") String d_id,
+                                                   @PathVariable("car_no") String car_no) {
+        log.info("AppDriverController 기사 차량 선택 d_id : " + d_id);
+        return new ResponseEntity<>(appDriverService.selectDriverCar(d_id,car_no), HttpStatus.OK);
+    }
+
     // 블랙리스트 확인 - GET
     @GetMapping("/ban/list/{d_id}")
     public ResponseEntity<List<JoinBanVO>> getBlacklist(@PathVariable("d_id") String d_id) {
@@ -123,10 +131,10 @@ public class AppDriverApiController {
     }
 
     // 기사 상태 바꾸기 - PUT
-    @PutMapping("/status/set")
-    public ResponseEntity<Boolean> setStatus(@RequestBody DriverDTO driverDTO) {
-        log.info("app에서 넘어오는 기사 정보 DriverDTO : " + driverDTO);
-        return new ResponseEntity<>(appDriverService.driverModStatus(driverDTO), HttpStatus.OK);
+    @PutMapping("/status/set/{d_id}/{d_status}")
+    public ResponseEntity<Boolean> setStatus(@PathVariable("d_id") String d_id, @PathVariable("d_status") int d_status) {
+        log.info("app에서 넘어오는 기사 정보 d_id : " + d_id + ", d_status : " + d_status);
+        return new ResponseEntity<>(appDriverService.driverModStatus(d_id, d_status), HttpStatus.OK);
     }
 
 

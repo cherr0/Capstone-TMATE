@@ -24,6 +24,7 @@ import com.skt.Tmap.TMapView;
 import com.tmate.driver.GpsTracker;
 import com.tmate.driver.R;
 import com.tmate.driver.data.CallHistory;
+import com.tmate.driver.data.Dispatch;
 import com.tmate.driver.net.DataService;
 import com.tmate.driver.services.driving_overlay;
 
@@ -34,17 +35,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
-    ArrayList<CallHistory> items = new ArrayList<>();
+    ArrayList<Dispatch> items = new ArrayList<>();
     private int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 100;
     Context context;
-    private TMapView tMapView = null;
+    private TMapView tMapView;
 
 
     private SharedPreferences pref;
     String d_id;
     String merchant_uid;
-    double m_lttd;
-    double m_lngtd;
+    double m_lat;
+    double m_lng;
     GpsTracker gpsTracker;
 
     // 레트로 핏
@@ -60,8 +61,8 @@ public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
         d_id = pref.getString("d_id", "");
 
         gpsTracker = new GpsTracker(context);
-        m_lttd = gpsTracker.getLatitude();
-        m_lngtd = gpsTracker.getLongitude();
+        m_lat = gpsTracker.getLatitude();
+        m_lng = gpsTracker.getLongitude();
 
         return new WaitingHolder(view);
     }
@@ -77,26 +78,25 @@ public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
                 TMapTapi tmaptapi = new TMapTapi(context);
                 boolean isTmapApp = tmaptapi.isTmapApplicationInstalled(); //앱 설치했는지 판단
                 if(!isTmapApp) {
-                    Toast.makeText(context, "tmap을 깔아주십시오", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "tmap 을 깔아주십시오", Toast.LENGTH_SHORT).show();
                     ArrayList result = tmaptapi.getTMapDownUrl();
                     String uri = result.get(0).toString();
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(uri));
                     context.startActivity(i);
-                    System.out.println("되니??" + result);
                 } else {
-                    merchant_uid = holder.cw_merchant_uid.getText().toString();
-                    request = DataService.getInstance().call.modifyHistoryByDriver(merchant_uid, d_id, m_lttd, m_lngtd);
+                    merchant_uid = holder.cw_dp_id.getText().toString();
+                    request = DataService.getInstance().call.modifyHistoryByDriver(merchant_uid, d_id, m_lat, m_lng);
                     request.enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                             if (response.code() == 200 & response.body() != null) {
-                                float h_s_lttd = Float.valueOf(holder.cw_h_s_lttd.getText().toString());
-                                float h_s_lngtd = Float.valueOf(holder.cw_h_s_lngtd.getText().toString());
-                                Log.d("TMAP으로 넘어가는 위도&경도 : ", h_s_lttd + "&" + h_s_lngtd);
+                                float start_lat = Float.valueOf(holder.cw_h_s_lttd.getText().toString());
+                                float start_lng = Float.valueOf(holder.cw_h_s_lngtd.getText().toString());
+                                Log.d("TMAP 으로 넘어가는 위도 & 경도 : ", start_lat + "&" + start_lng);
 
                                 checkPermission();
-                                tmaptapi.invokeNavigate("", h_s_lngtd,h_s_lttd,0,true);
+                                tmaptapi.invokeNavigate("", start_lng, start_lat,0,true);
                             }
                         }
 
@@ -156,7 +156,7 @@ public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
 
 
 
-    public void addItem(CallHistory data) {
+    public void addItem(Dispatch data) {
         items.add(data);
     }
 
@@ -166,7 +166,7 @@ public class WaitingAdapter extends RecyclerView.Adapter<WaitingHolder> {
 
 class WaitingHolder extends RecyclerView.ViewHolder {
     TextView h_flag;
-    TextView cw_merchant_uid;
+    TextView cw_dp_id;
     TextView tv_distance;
     TextView personnel;
     TextView matching_s_place;
@@ -180,9 +180,9 @@ class WaitingHolder extends RecyclerView.ViewHolder {
     TextView cw_h_f_lttd;
     TextView cw_h_f_lngtd;
 
-    void onBind(CallHistory data) {
+    void onBind(Dispatch data) {
 
-        switch (data.getMerchant_uid().substring(18)){
+        switch (data.getDp_id().substring(18)){
             case "1":
                 h_flag.setText("일반");
                 break;
@@ -191,15 +191,15 @@ class WaitingHolder extends RecyclerView.ViewHolder {
                 break;
         }
 
-        tv_distance.setText(String.valueOf(data.getDistance1()));
-        personnel.setText(String.valueOf(data.getTo_people()));
-        matching_s_place.setText(data.getH_s_place());
-        matching_e_place.setText(data.getH_f_place());
-        cw_merchant_uid.setText(data.getMerchant_uid());
-        cw_h_s_lttd.setText(String.valueOf(data.getH_s_lttd()));
-        cw_h_s_lngtd.setText(String.valueOf(data.getH_s_lngtd()));
-        cw_h_f_lttd.setText(String.valueOf(data.getH_f_lttd()));
-        cw_h_f_lngtd.setText(String.valueOf(data.getH_f_lngtd()));
+        tv_distance.setText(String.valueOf(data.getDistance()));
+        personnel.setText(String.valueOf(data.getCur_people()));
+        matching_s_place.setText(data.getStart_place());
+        matching_e_place.setText(data.getFinish_place());
+        cw_dp_id.setText(data.getDp_id());
+        cw_h_s_lttd.setText(String.valueOf(data.getStart_lat()));
+        cw_h_s_lngtd.setText(String.valueOf(data.getStart_lng()));
+        cw_h_f_lttd.setText(String.valueOf(data.getFinish_lat()));
+        cw_h_f_lngtd.setText(String.valueOf(data.getFinish_lng()));
 
     }
 
@@ -212,7 +212,7 @@ class WaitingHolder extends RecyclerView.ViewHolder {
         matching_e_place = itemView.findViewById(R.id.matching_e_place);
         matching_btn_accept = itemView.findViewById(R.id.matching_btn_accept);
         matching_btn_refusal = itemView.findViewById(R.id.matching_btn_refusal);
-        cw_merchant_uid = itemView.findViewById(R.id.cw_merchant_uid);
+        cw_dp_id = itemView.findViewById(R.id.cw_dp_id);
         cw_h_s_lttd = itemView.findViewById(R.id.cw_h_s_lttd);
         cw_h_s_lngtd = itemView.findViewById(R.id.cw_h_s_lngtd);
         cw_h_f_lttd = itemView.findViewById(R.id.cw_h_f_lttd);

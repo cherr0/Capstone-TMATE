@@ -133,6 +133,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         isRunning = true;
         thread.start();
 
+
         // SMS 안심 문자보내기 클릭 이벤트 연결
         b.messageButton.setOnClickListener(v -> {
             if(checkAndRequestPermission()) {
@@ -342,6 +343,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
                         mViewModel.dispatch = dispatch;
                         Log.d("넘어오는 기사 정보", dispatch.toString());
                         tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
+                        modelDataBinding();
 
                         switch (dispatch.getDp_status()) {
                             case "4": // 운행 중
