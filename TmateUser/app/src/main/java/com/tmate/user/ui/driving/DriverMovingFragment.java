@@ -2,23 +2,30 @@ package com.tmate.user.ui.driving;
 
 import static com.skt.Tmap.util.HttpConnect.getContentFromNode;
 
+import android.Manifest;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.os.Handler;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.skt.Tmap.TMapData;
@@ -40,6 +47,7 @@ import org.w3c.dom.NodeList;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -73,6 +81,17 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
     Call<Dispatch> getDriverRequest;
     Call<SubscriptionRes> subscriptionRequest;
     boolean isRunning;
+
+    // SMS 요청 번호용 변수를 추가
+    private final int REQ_SMS=10;
+
+    // 메시지 용 변수
+    String message;
+    String phone;
+    List<String> phoneNoList;
+
+    // 안심문자위해 지인번호 가져오기
+    Call<List<String>> getFriendPhoneNoRequest;
 
 
 
@@ -113,13 +132,38 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
 
         isRunning = true;
         thread.start();
+
+        // SMS 안심 문자보내기 클릭 이벤트 연결
+        b.messageButton.setOnClickListener(v -> {
+            if(checkAndRequestPermission()) {
+                getFriendPhoneNo();
+
+                if (phoneNoList != null && phoneNoList.size() != 0) {
+                    for (int i = 0; i < phoneNoList.size(); i++) {
+                        phone = phoneNoList.get(i);
+                        sendSMS();
+                    }
+                }else{
+                    Toast.makeText(getContext(), "지인 전화번호를 등록하세요", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     //권한 요청
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.d("DriverMovingFragment", String.valueOf(requestCode));
         mPermissionManager.setResponse(requestCode, grantResults);
+
+        if (requestCode == REQ_SMS) {
+            if(grantResults[0]==PackageManager.PERMISSION_GRANTED)
+                sendSMS();
+        }else{
+            Toast.makeText(getContext(), "권한이 없어 전송하지 못했습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /* ---------------------
@@ -132,6 +176,8 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         if(mViewModel.together.equals("1")) {
             Log.d("DriverMovingFragment","배차 정보 : " + mViewModel.dispatch.toString());
             b.amount.setText(String.valueOf(mViewModel.dispatch.getAll_fare()));
+            message = "차량번호 : " + mViewModel.dispatch.getCar_no() + "/" +
+                    mViewModel.dispatch.getCar_model() + " 차량을 현시간부로 탑승하였습니다.";
         }else {
 //            b.amount.setText();
             /*
@@ -324,4 +370,55 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
             });
         }
     }
+
+    /*
+    * 퍼미션을 체크하고 없을 경우 요청하는 함수 추가
+    */
+    private Boolean checkAndRequestPermission() {
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.SEND_SMS)
+                == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        requestPermissions(new String[]{Manifest.permission.SEND_SMS}, REQ_SMS);
+        return false;
+    }
+
+
+
+    /*
+     * -----------------------
+     * SMS 발송 기능
+     * -----------------------
+     * */
+    private void sendSMS() {
+        if (!message.isEmpty() ) {
+            SmsManager manager = SmsManager.getDefault();
+            manager.sendTextMessage(phone, null, message, null, null);
+        }
+    }
+
+    /*
+    * ---------------------
+    * 지인 알림 번호 가져오기
+    * ---------------------
+    * */
+    public void getFriendPhoneNo() {
+        getFriendPhoneNoRequest = DataService.getInstance().matchAPI.getFriendPhoneNo(getPreferenceString("m_id"));
+        getFriendPhoneNoRequest.enqueue(new Callback<List<String>>() {
+            @Override
+            public void onResponse(Call<List<String>> call, Response<List<String>> response) {
+                if (response.code() == 200) {
+                    phoneNoList = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<String>> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+
+
 }
