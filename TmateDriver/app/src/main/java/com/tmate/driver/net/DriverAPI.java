@@ -76,4 +76,7 @@ public interface DriverAPI {
     // 블랙리스트 제거 - DELETE
     @DELETE("/driver/ban/delete/{d_id}/{m_id}")
     Call<Boolean> removeBlacklist(@Path("d_id")String d_id, @Path("m_id") String m_id);
+
+    @PUT("/driver/status/set/{d_id}/{d_status}")
+    Call<Boolean> setStatus(@Path("d_id") String d_id,@Path("d_status") int d_status);
 }

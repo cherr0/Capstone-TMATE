@@ -119,9 +119,9 @@ public class AppDriverServiceImpl implements AppDriverService{
     }
 
     @Override   // 기사 상태 변경
-    public Boolean driverModStatus(DriverDTO driverDTO) {
-        log.info("AppDriverService 기사 상태 변경 : " + driverDTO);
-        return driverMapper.setDriverStatus(driverDTO) == 1;
+    public Boolean driverModStatus(String d_id, int d_status) {
+        log.info("AppDriverService 기사 상태 변경 : " + d_id + " status : " + d_status);
+        return driverMapper.setDriverStatus(d_id, d_status) == 1;
     }
 
 
