@@ -186,8 +186,8 @@ public class driving_overlay extends Service implements View.OnLongClickListener
                 @Override
                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                     if (response.code() == 200 && response.body() != null) {
-                        Toast.makeText(driving_overlay.this, "현재 기사 위도 : " + m_lat, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(driving_overlay.this, "현재 기사 경도 : " + m_lng, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(driving_overlay.this, "현재 기사 위도 : " + m_lat, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(driving_overlay.this, "현재 기사 경도 : " + m_lng, Toast.LENGTH_SHORT).show();
                         isRunning = true;
                     }
                 }

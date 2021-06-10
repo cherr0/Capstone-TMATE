@@ -179,7 +179,7 @@ public class WaitingActivity extends AppCompatActivity {
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
 
-            Toast.makeText(WaitingActivity.this, "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
+//            Toast.makeText(WaitingActivity.this, "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
 
             isRunning = true;
 
@@ -236,48 +236,7 @@ public class WaitingActivity extends AppCompatActivity {
     }
 
 
-//    private void getData() {
-//        List<String> merchant_uid = Arrays.asList(
-//                "동승",
-//                "일반",
-//                "동승"
-//        );
-//        List<String> tv_distance = Arrays.asList(
-//                "0.6KM",
-//                "1KM",
-//                "2KM"
-//        );
-//        List<String> personnel = Arrays.asList(
-//                "2인",
-//                "1인",
-//                "3인"
-//        );
-//        List<String> matching_s_place = Arrays.asList(
-//                "영진전문대학교",
-//                "경산 대평그린빌",
-//                "성서 청구타운."
-//        );
-//        List<String> matching_e_place = Arrays.asList(
-//                "경북대학교 북문",
-//                "영진전문대학교",
-//                "영진전문대학교"
-//        );
-//        for (int i = 0; i < merchant_uid.size(); i++) {
-//            // 각 List의 값들을 data 객체에 set 해줍니다.
-//            Waiting data = new Waiting();
-//            data.setMerchant_uid(merchant_uid.get(i));
-//            data.setTv_distance(tv_distance.get(i));
-//            data.setPersonnel(personnel.get(i));
-//            data.setMatching_s_place(matching_s_place.get(i));
-//            data.setMatching_e_place(matching_e_place.get(i));
-//
-//            // 각 값이 들어간 data를 adapter에 추가합니다.
-//            adapter.addItem(data);
-//        }
-//
-//        // adapter의 값이 변경되었다는 것을 알려줍니다.
-//        adapter.notifyDataSetChanged();
-//    }
+
 
     /*
      * ActivityCompat.requestPermissions를 사용한 퍼미션 요청의 결과를 리턴받는 메소드입니다.
