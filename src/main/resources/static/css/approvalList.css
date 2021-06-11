@@ -15,11 +15,18 @@
 }
 .aptable-size{
     padding: 2em;
-    height: 33em;
+    height: 3em;
 }
+.ap-page {
+    position: static;
+    bottom: 100%;
+    margin-left: 350px;
+
+}
+
 .apinfo-size{
     background-color: #FFFFFF;
-    height: 33em;
+    height: 36.5em;
     border: outset;
     padding: 2em;
 }
