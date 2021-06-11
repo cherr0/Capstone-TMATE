@@ -40,5 +40,9 @@
         where n_phone = #{n_phone} and m_id =#{m_id}
     </update>
 
+    <delete id="deleteFriendPhoneNo">
+        delete from notification
+        where m_id = #{m_id} and n_name = #{n_name}
+    </delete>
 
 </mapper>
