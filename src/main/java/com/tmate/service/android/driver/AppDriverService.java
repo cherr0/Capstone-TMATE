@@ -1,6 +1,7 @@
 package com.tmate.service.android.driver;
 
 import com.tmate.domain.*;
+import com.tmate.domain.driver.AttendListVO;
 import com.tmate.domain.driver.DriverHistoryVO;
 import com.tmate.domain.driver.DriverProfileVO;
 import com.tmate.domain.driver.SidebarProfileVO;
@@ -18,9 +19,6 @@ public interface AppDriverService {
 
     // 운행 기록 확인
     List<DriverHistoryVO> historyList(String d_id);
-
-    // 리뷰 보기 클릭
-    List<ReviewDTO> getDriverReviewList(String merchant_uid);
 
     // 기사 사이드바 프로필
     SidebarProfileVO getSidebarProfileById(String d_id);
@@ -41,6 +39,9 @@ public interface AppDriverService {
 
     // 기사 차량 선택
     Boolean selectDriverCar(String d_id, String car_no);
+
+    // 블랙리스트에 표시할 데이터 리스트
+    List<AttendListVO> searchAttendList(String dp_id);
 
     // 블랙리스트 추가
     Boolean blacklistRegister(BanDTO banDTO);
