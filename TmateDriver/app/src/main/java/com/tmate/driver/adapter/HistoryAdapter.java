@@ -114,7 +114,7 @@ class HistoryHolder extends RecyclerView.ViewHolder{
         }
 
 
-        String history_time = timeSdf.format(data.getStart_time()) + " : " + timeSdf.format(data.getEnd_time());
+        String history_time = timeSdf.format(data.getStart_time()) + " - " + timeSdf.format(data.getEnd_time());
 
         hdate.setText(dateSdf.format(data.getEnd_time())); // 배차일자
         htogether.setText(data.getTogether()); // 동승인원
