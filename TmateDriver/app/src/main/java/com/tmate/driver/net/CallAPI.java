@@ -2,6 +2,7 @@ package com.tmate.driver.net;
 
 import com.tmate.driver.data.CallHistory;
 import com.tmate.driver.data.Dispatch;
+import com.tmate.driver.data.DispatchInfo;
 import com.tmate.driver.data.HistoryData;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface CallAPI {
 
     // 2km 이내 기사 리스트 가져오기
     @GET("/call/get/callinfo/{m_lat}/{m_lng}")
-    Call<List<Dispatch>> getCallInfoByPosition(@Path("m_lat") double m_lat, @Path("m_lng") double m_lng);
+    Call<List<DispatchInfo>> getCallInfoByPosition(@Path("m_lat") double m_lat, @Path("m_lng") double m_lng);
 
     // 콜 수락
     @PUT("/call/modify/dispatch/{dp_id}/{d_id}/{m_lat}/{m_lng}")

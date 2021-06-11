@@ -32,6 +32,7 @@ import com.tmate.driver.R;
 import com.tmate.driver.adapter.WaitingAdapter;
 import com.tmate.driver.data.CallHistory;
 import com.tmate.driver.data.Dispatch;
+import com.tmate.driver.data.DispatchInfo;
 import com.tmate.driver.data.HistoryData;
 import com.tmate.driver.data.Waiting;
 import com.tmate.driver.net.DataService;
@@ -61,7 +62,7 @@ public class WaitingActivity extends AppCompatActivity {
     private String d_id;
 
     Call<Boolean> request;
-    Call<List<Dispatch>> dispatchRequest;
+    Call<List<DispatchInfo>> dispatchRequest;
 
     // GpsTracker 자기 위치 가져오기
     private GpsTracker gpsTracker;
@@ -181,19 +182,19 @@ public class WaitingActivity extends AppCompatActivity {
             isRunning = true;
 
             dispatchRequest = DataService.getInstance().call.getCallInfoByPosition(latitude, longitude);
-            dispatchRequest.enqueue(new Callback<List<Dispatch>>() {
+            dispatchRequest.enqueue(new Callback<List<DispatchInfo>>() {
                 @Override
-                public void onResponse(Call<List<Dispatch>> call, Response<List<Dispatch>> response) {
+                public void onResponse(Call<List<DispatchInfo>> call, Response<List<DispatchInfo>> response) {
                     if (response.code() == 200 && response.body() != null) {
-                        List<Dispatch> list = response.body();
+                        List<DispatchInfo> list = response.body();
                         Log.d("넘어오는 리스트 정보 ", list.toString());
                         // list가 널이 아닐 때 리스트 그림 그려준다.
                         if (!list.isEmpty()) {
                             isRunning = false;
                             clWait.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.VISIBLE);
-                            for(Dispatch data : list) {
-                                adapter.addItem(data);
+                            for(DispatchInfo data : list) {
+//                                adapter.addItem(data);
                             }
 
                             adapter.notifyDataSetChanged();
@@ -209,7 +210,7 @@ public class WaitingActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<List<Dispatch>> call, Throwable t) {
+                public void onFailure(Call<List<DispatchInfo>> call, Throwable t) {
                     t.printStackTrace();
                 }
             });
