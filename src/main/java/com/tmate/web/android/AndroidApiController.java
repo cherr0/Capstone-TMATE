@@ -245,22 +245,11 @@ public class AndroidApiController {
     }
 
     // 카드 삭제
-    @DeleteMapping("/remove/{customer_uid}")
-    public ResponseEntity<Boolean> removeCard(@PathVariable("customer_uid") String customer_uid) {
-        log.info("삭제할려는 카드 빌링키 : " + customer_uid);
+    @DeleteMapping("/remove/{sid}")
+    public ResponseEntity<Boolean> removeCard(@PathVariable("sid") String sid) {
+        log.info("삭제할려는 카드 빌링키 : " + sid);
 
-        return new ResponseEntity<>(userService.removePayment(customer_uid), HttpStatus.OK);
-    }
-
-    // 카드 업데이트 대표 비대표
-    @PutMapping("/updaterep/{customer_uid}/{m_id}")
-    public ResponseEntity<Boolean> modifyRep(@PathVariable("customer_uid") String customer_uid, @PathVariable("m_id") String m_id) {
-
-        log.info("넘어오는 카드 빌링키 : " + customer_uid);
-        log.info("넘어오는 회원 번호 :" + m_id);
-
-
-        return new ResponseEntity<>(userService.modifyRep(customer_uid, m_id),HttpStatus.OK);
+        return new ResponseEntity<>(userService.removePayment(sid), HttpStatus.OK);
     }
 
     /*

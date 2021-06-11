@@ -37,7 +37,7 @@
     </update>
 
     <delete id="delete">
-        delete from payment where SID = #{customer_uid}
+        delete from payment where SID = #{sid}
     </delete>
 
     <select id="findPayment" resultType="string">
@@ -45,18 +45,6 @@
         from payment
         where m_id = #{m_id}
     </select>
-
-    <update id="updateDRep">
-        update payment
-        set ACTIVE = '0'
-        where SID = #{customer_uid}
-    </update>
-
-    <update id="updateRep">
-        update payment
-        set ACTIVE = '1'
-        where SID = #{customer_uid}
-    </update>
 
     <insert id="paymentInsert">
         insert into payment(sid, m_id, pay_pg, pay_company, card_type)

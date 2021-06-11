@@ -124,12 +124,8 @@ public interface MemberAPI {
     Call<List<CardData>> getUserCard(@Path("m_id") String m_id);
 
     // 카드 삭제
-    @DELETE("member/remove/{customer_uid}")
-    Call<Boolean> removeCard(@Path("customer_uid") String customer_uid);
-
-    // 카드 대표
-    @PUT("member/updaterep/{customer_uid}/{m_id}")
-    Call<Boolean> modifyRep(@Path("customer_uid") String customer_id, @Path("m_id") String m_id);
+    @DELETE("member/remove/{sid}")
+    Call<Boolean> removeCard(@Path("sid") String sid);
 
     /*
     * 운행 옵션

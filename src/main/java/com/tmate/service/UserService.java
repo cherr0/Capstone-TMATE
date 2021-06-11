@@ -55,13 +55,10 @@ public interface UserService {
     public PaymentDTO readPayment(String customer_uid);
 
     // 3. 카드 삭제
-    public boolean removePayment(String customer_uid);
+    public boolean removePayment(String sid);
 
     // 4. 카드 추가
     public boolean registerPayment(PaymentDTO paymentDTO);
-
-    // 5. 카드 대표 설정
-    public boolean modifyRep(String customer_uid, String m_id);
 
     // 프로필 지인 알림전송 관리
     public List<NotificationDTO> getNotifiList(String m_id);

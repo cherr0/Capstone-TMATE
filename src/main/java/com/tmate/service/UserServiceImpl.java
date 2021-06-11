@@ -107,8 +107,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean removePayment(String customer_uid) {
-        return paymentMapper.delete(customer_uid) == 1;
+    public boolean removePayment(String sid) {
+        return paymentMapper.delete(sid) == 1;
     }
 
     @Override
@@ -132,24 +132,6 @@ public class UserServiceImpl implements UserService {
         return paymentMapper.insert(paymentDTO) == 1;
     }
 
-    // 카드 대표 활성화
-
-    @Transactional
-    @Override
-    public boolean modifyRep(String customer_uid, String m_id) {
-
-        String c_id = paymentMapper.findPayment(m_id);
-
-        if (c_id == customer_uid) {
-            return true;
-        }else if(c_id != null && c_id != customer_uid) {
-            paymentMapper.updateDRep(c_id);
-            return paymentMapper.updateRep(customer_uid) ==1;
-        }else {
-            return paymentMapper.updateRep(customer_uid) == 1;
-        }
-
-    }
 
     // 프로필 수정
 
