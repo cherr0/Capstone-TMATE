@@ -49,6 +49,9 @@ public interface AppMatchService {
     // @Transactional -> 배차정보, 참여정보
     Boolean removeMatch(String dp_id);
 
+    // 3.5 매칭 대기중일시 동승 정보
+    DispatchDTO getCurrendDispatch(String dp_id);
+
     // 4. 동승 참가 버튼 (O)
     Boolean registerApplyButton(AttendDTO attendDTO);
 

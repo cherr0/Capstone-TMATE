@@ -90,6 +90,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                              Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(requireActivity()).get(DrivingModel.class);
         b = FragmentDriverWaitingBinding.inflate(getLayoutInflater());
+        geocoder = new Geocoder(getActivity());//지오코더
         return b.getRoot();
     }
 
@@ -122,6 +123,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
         isRunning = true;
         thread.start();
+
     }
 
     @Override
@@ -140,7 +142,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         //gps
         gps = new TMapGpsManager(getActivity());
         mPermissionManager = new PermissionManager();
-        geocoder = new Geocoder(getActivity());//지오코더
 
         //맵 화면에 띄우기
         mMapView = new TMapView(getActivity());
@@ -225,8 +226,8 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                     Log.d("DriverWaitingFragment","가져온 배차 정보 : " + dispatch.toString());
                     String d_id = mViewModel.dispatch.getD_id();
                     driverPhoneNo = d_id.substring(2, 5) + "-" + d_id.substring(5,9) + "-" + d_id.substring(9,13);
-                    tMapPointStart = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
-                    tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
+                    tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
+                    tMapPointEnd = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
                     modelDataBinding();
                     mapSetting(); // 지도 옵션 셋팅 및 활성화
                 }
@@ -343,7 +344,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
                         switch (dispatch.getDp_status()) {
                             case "3" : // 탑승 대기 중
-                                tMapPointStart  = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
+                                tMapPointStart  = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
                                 drawCarPath();
                                 Log.d("DriverWaitingFragment", "맵 그리는 중");
                                 b.dpStatus.setText("탑승 대기중");

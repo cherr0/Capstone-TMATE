@@ -129,6 +129,14 @@ public class AppMatchController {
         return new ResponseEntity<>(appMatchService.registerApplyButton(attendDTO), HttpStatus.OK);
     }
 
+    // 매칭 대기시 동승 정보
+    @GetMapping("/get/current/dispatch/{dp_id}")
+    public ResponseEntity<DispatchDTO> getCurrentDispatchBeforeSuccess(@PathVariable("dp_id") String dp_id) {
+
+        log.info("매칭 대기 중 동승 정보 : " + dp_id);
+        return new ResponseEntity<>(appMatchService.getCurrendDispatch(dp_id),HttpStatus.OK);
+    }
+
     // 동승 거절 버튼
     @PutMapping("/reject/apply/match/{dp_id}/{m_id}")
     public ResponseEntity<Boolean> rejectApplyMatch(
