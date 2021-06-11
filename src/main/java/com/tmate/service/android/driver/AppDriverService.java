@@ -40,6 +40,9 @@ public interface AppDriverService {
     // 기사 차량 선택
     Boolean selectDriverCar(String d_id, String car_no);
 
+    // 기사 차량 제거
+    Boolean deleteDriverCar(String car_no);
+
     // 블랙리스트에 표시할 데이터 리스트
     List<AttendListVO> searchAttendList(String dp_id);
 
