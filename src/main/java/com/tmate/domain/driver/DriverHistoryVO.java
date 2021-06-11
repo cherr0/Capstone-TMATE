@@ -14,33 +14,39 @@ public class DriverHistoryVO {
         기사 운행이력 리스트 가져오기
      */
 
+    // 동승 수
+    private String together;
+
     // 기사 코드
     private String d_id;
 
-    // 좋아요 횟수
-    private int like_cnt;
+    // 배차 코드
+    private String dp_id;
 
-    // 싫어요 횟수
-    private int hate_cnt;
-
-    // 동승 유무
-    private String to_enabled;
-
-    // 이용코드
-    private String merchant_uid;
-
-    // 총요금
-    private int h_allFare;
-
-    // 운행 시작 시간
-    private Timestamp h_s_time;
-
-    // 운행 종료 시간
-    private Timestamp h_e_time;
+    // 총 요금
+    private int all_fare;
 
     // 출발지
-    private String h_s_place;
+    private String start_place;
 
     // 도착지
-    private String h_f_place;
+    private String finish_place;
+
+    // 출발 시간
+    private Timestamp start_time;
+
+    // 도착 시간
+    private Timestamp end_time;
+
+    // 탑승자 명단
+    private String name;
+
+    // 평가 사유
+    private String reason;
+
+    // 좋아요 수
+    private int like_cnt;
+
+    // 싫어요 수
+    private int hate_cnt;
 }
