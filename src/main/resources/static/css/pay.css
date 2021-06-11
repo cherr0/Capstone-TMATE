@@ -75,6 +75,7 @@
 }
 
 .payApproval_title {
+    position: static;
     width: 100%;
     font-size: 50px;
     font-weight: bolder;
@@ -100,7 +101,7 @@
 }
 
 .payApproval_btn {
-    position: absolute;
+    position:static;
     left: 20%;
     bottom: 10%;
     width: 60%;
@@ -110,6 +111,16 @@
     border: #FFFFFF;
     background-color: #a0a0a0;
     font-family: 'Jua', sans-serif;
+}
+.payApproval_content {
+    position: static;
+    left: 10%;
+    top: 21%;
+    font-size: 35px;
+    font-weight: bolder;
+    line-height: 2em;
+    font-family: 'Nanum Myeongjo', serif;
+
 }
 
 .content {
