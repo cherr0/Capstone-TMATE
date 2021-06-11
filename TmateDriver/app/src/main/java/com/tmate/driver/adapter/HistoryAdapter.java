@@ -41,32 +41,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
         int posit = holder.getLayoutPosition();
 
         holder.onBind(items.get(posit), posit, selectedItems);
-        holder.reasonView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectedItems.get(posit)) {
-                    // 펼쳐진 Item을 클릭 시
-                    selectedItems.delete(posit);
-                } else {
-                    // 직전의 클릭됐던 Item의 클릭상태를 지움
-                    selectedItems.delete(prePosition);
-                    // 클릭한 Item의 position을 저장
-                    selectedItems.put(posit, true);
-                }
-                // 해당 포지션의 변화를 알림
-                if (prePosition != -1) notifyItemChanged(prePosition);
-                notifyItemChanged(posit);
-                // 클릭된 position 저장
-                prePosition = posit;
+        holder.reasonView.setOnClickListener(v -> {
+            if (selectedItems.get(posit)) {
+                // 펼쳐진 Item을 클릭 시
+                selectedItems.delete(posit);
+            } else {
+                // 직전의 클릭됐던 Item의 클릭상태를 지움
+                selectedItems.delete(prePosition);
+                // 클릭한 Item의 position을 저장
+                selectedItems.put(posit, true);
             }
+            // 해당 포지션의 변화를 알림
+            if (prePosition != -1) notifyItemChanged(prePosition);
+            notifyItemChanged(posit);
+            // 클릭된 position 저장
+            prePosition = posit;
         });
-        holder.black_list_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), BlackListSelectActivity.class);
-                intent.putExtra("blackList", 0);
-                v.getContext().startActivity(intent);
-            }
+        holder.black_list_submit.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), BlackListSelectActivity.class);
+            intent.putExtra("dp_id", items.get(posit).getDp_id());
+            v.getContext().startActivity(intent);
         });
     }
     @Override
