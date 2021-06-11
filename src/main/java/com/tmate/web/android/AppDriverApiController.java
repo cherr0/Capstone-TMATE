@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tmate.domain.*;
+import com.tmate.domain.driver.AttendListVO;
 import com.tmate.domain.driver.DriverHistoryVO;
 import com.tmate.domain.driver.DriverProfileVO;
 import com.tmate.domain.driver.SidebarProfileVO;
@@ -53,11 +54,10 @@ public class AppDriverApiController {
         return new ResponseEntity<>(appDriverService.historyList(d_id), HttpStatus.OK);
     }
 
-    // 운행 기록 세부 리뷰 리스트 - GET
-    @GetMapping("/history/{merchant_uid}")
-    public ResponseEntity<List<ReviewDTO>> driverReviewList(@PathVariable("merchant_uid") String merchant_uid) {
-        log.info("AppDriverController 기사 기록 리뷰 리스트 merchant_uid : " + merchant_uid);
-        return new ResponseEntity<>(appDriverService.getDriverReviewList(merchant_uid), HttpStatus.OK);
+    // 운행이력 블랙리스트 추가할 때 표시할 데이터 리스트 - GET
+    @GetMapping("/history/ban/{dp_id}")
+    public ResponseEntity<List<AttendListVO>> historyAttendList(@PathVariable("dp_id") String dp_id) {
+        return new ResponseEntity<>(appDriverService.searchAttendList(dp_id),HttpStatus.OK);
     }
 
     // 기사 사이드바 프로필 가져오기 - GET

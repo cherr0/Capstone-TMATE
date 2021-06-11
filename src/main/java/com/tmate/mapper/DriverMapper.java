@@ -1,6 +1,7 @@
 package com.tmate.mapper;
 
 import com.tmate.domain.*;
+import com.tmate.domain.driver.AttendListVO;
 import com.tmate.domain.driver.DriverHistoryVO;
 import com.tmate.domain.driver.DriverProfileVO;
 import com.tmate.domain.driver.SidebarProfileVO;
@@ -56,9 +57,6 @@ public interface DriverMapper {
     // 기사 운행이력
     public List<DriverHistoryVO> getAppDriverHistoryList(String d_id);
 
-    // 운행이력의 리뷰 보기
-    public List<ReviewDTO> getAppDriverReviewList(String merchant_uid);
-
     // 기사 프로필 정보
     public DriverProfileVO getDriverDetail(String d_id);
 
@@ -73,6 +71,9 @@ public interface DriverMapper {
 
     // 기사 차량 추가
     public int insertCar(CarDTO carDTO);
+
+    // 블랙리스트에 표시할 데이터 리스트
+    public List<AttendListVO> getAttendList(String dp_id);
 
     // 블랙리스트 추가
     public int insertBlacklist(BanDTO banDTO);

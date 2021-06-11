@@ -1,6 +1,7 @@
 package com.tmate.service.android.driver;
 
 import com.tmate.domain.*;
+import com.tmate.domain.driver.AttendListVO;
 import com.tmate.domain.driver.DriverHistoryVO;
 import com.tmate.domain.driver.DriverProfileVO;
 import com.tmate.domain.driver.SidebarProfileVO;
@@ -71,12 +72,6 @@ public class AppDriverServiceImpl implements AppDriverService{
         return driverMapper.getAppDriverHistoryList(d_id);
     }
 
-    @Override   // 운행이력 클릭 시 나오는 리뷰
-    public List<ReviewDTO> getDriverReviewList(String merchant_uid) {
-        log.info("AppDriverService 기사 이력 리뷰 매칭 코드 : " + merchant_uid);
-        return driverMapper.getAppDriverReviewList(merchant_uid);
-    }
-
     @Override
     public SidebarProfileVO getSidebarProfileById(String d_id) {
         log.info("AppDriverService 기사 사이드바 프로필 가져오기 : " + d_id);
@@ -113,6 +108,13 @@ public class AppDriverServiceImpl implements AppDriverService{
         return driverMapper.insertCar(carDTO) == 1;
     }
 
+    @Override   // 블랙리스트에 표시할 데이터 리스트
+    public List<AttendListVO> searchAttendList(String dp_id) {
+        List<AttendListVO> attendList = driverMapper.getAttendList(dp_id);
+        log.info("AppDriverService 배차 코드에 따른 승객 리스트 : " + attendList);
+        return attendList;
+    }
+
     @Override   // 블랙리스트 추가
     public Boolean blacklistRegister(BanDTO banDTO) {
         log.info("AppDriverService 블랙리스트 추가 : " + banDTO);
@@ -130,6 +132,7 @@ public class AppDriverServiceImpl implements AppDriverService{
         log.info("AppDriverService 기사 상태 변경 : " + d_id + " status : " + d_status);
         return driverMapper.setDriverStatus(d_id, d_status) == 1;
     }
+
 
 
 }

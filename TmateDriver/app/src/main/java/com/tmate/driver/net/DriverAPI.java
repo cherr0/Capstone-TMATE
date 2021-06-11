@@ -1,5 +1,6 @@
 package com.tmate.driver.net;
 
+import com.tmate.driver.data.AttendList;
 import com.tmate.driver.data.Ban;
 import com.tmate.driver.data.Car;
 import com.tmate.driver.data.Driver;
@@ -53,9 +54,8 @@ public interface DriverAPI {
     @GET("/driver/history/{d_id}")
     Call<List<DriverHistory>> driveHistoryList(@Path("d_id") String d_id);
 
-    // 리뷰 리스트 - GET
-    @GET("/driver/history/{merchant_uid}")
-    Call<List<Review>> reviewList(@Path("merchant_uid") String merchant_uid);
+    // 운행기록 블랙리스트 추가 시 표시 데이터 리스트 - GET
+    Call<List<AttendList>> historyAttendList(@Path("dp_id") String dp_id);
 
     // 기사 차량 리스트 - GET
     @GET("/driver/car/list/{d_id}")
