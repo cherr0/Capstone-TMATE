@@ -30,6 +30,10 @@ public interface MemberAPI {
     *  지인 알림 부분
     * */
 
+    // 지인 추가
+    @POST("member/register/friend")
+    Call<Boolean> registerFriend(@Body Notification notification);
+
     // 내가 지인에게 승인을 요청할 시
     @POST("member/approval")
     Call<Boolean> approvalFriend(@Body Approval approval);
@@ -53,6 +57,10 @@ public interface MemberAPI {
     // 활성화&비활성화 상태
     @PUT("member/updatestat")
     Call<Boolean> modifyStat(@Body Notification notification);
+
+    // 지인 삭제
+    @DELETE("member/remove/friend/{m_id}/{n_name}")
+    Call<Boolean> removeFriend(@Path("m_id") String m_id, @Path("n_name") String n_name);
 
     // 요청 거부
     @DELETE("member/removeAppro/{id}/{m_id}")
