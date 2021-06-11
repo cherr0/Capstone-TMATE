@@ -87,6 +87,7 @@
 
     <!--  운행이력  -->
     <select id="getAppDriverHistoryList" resultType="com.tmate.domain.driver.DriverHistoryVO">
+        <![CDATA[
         with
             review AS (
                 select dp_id,
@@ -98,8 +99,10 @@
                 where a.dp_id in (select dp_id from dispatch where d_id = #{d_id})
                 group by a.DP_ID
             )
-        select substr(d.dp_id,19) together, d.d_id, d.dp_id, d.ALL_FARE, d.START_PLACE, d.FINISH_PLACE, d.START_TIME, d.END_TIME, r.name, r.reason, r.like_cnt, r.hate_cnt
+        select CASE WHEN substr(d.dp_id,19) = 1 THEN '일반'
+                    WHEN substr(d.dp_id,19) >= 2 THEN '동승' END together, d.d_id, d.dp_id, d.ALL_FARE, d.START_PLACE, d.FINISH_PLACE, d.START_TIME, d.END_TIME, r.name, r.reason, r.like_cnt, r.hate_cnt
         from DISPATCH d join review r on d.DP_ID = r.DP_ID
+        ]]>
     </select>
 
     <!--  기사 회원 정보  -->
