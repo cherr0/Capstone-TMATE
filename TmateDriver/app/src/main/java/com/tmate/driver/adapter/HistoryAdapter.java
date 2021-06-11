@@ -2,6 +2,7 @@ package com.tmate.driver.adapter;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +17,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.driver.R;
 import com.tmate.driver.activity.BlackListSelectActivity;
+import com.tmate.driver.data.DriverHistory;
 import com.tmate.driver.data.HistoryData;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
-    ArrayList<HistoryData> items = new ArrayList<>();
+    ArrayList<DriverHistory> items = new ArrayList<>();
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
     private int prePosition = -1;
 
@@ -35,24 +38,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
     }
     @Override
     public void onBindViewHolder(@NonNull HistoryHolder holder, int position) {
-        holder.onBind(items.get(position), position, selectedItems);
+        int posit = holder.getLayoutPosition();
+
+        holder.onBind(items.get(posit), posit, selectedItems);
         holder.reasonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedItems.get(position)) {
+                if (selectedItems.get(posit)) {
                     // 펼쳐진 Item을 클릭 시
-                    selectedItems.delete(position);
+                    selectedItems.delete(posit);
                 } else {
                     // 직전의 클릭됐던 Item의 클릭상태를 지움
                     selectedItems.delete(prePosition);
                     // 클릭한 Item의 position을 저장
-                    selectedItems.put(position, true);
+                    selectedItems.put(posit, true);
                 }
                 // 해당 포지션의 변화를 알림
                 if (prePosition != -1) notifyItemChanged(prePosition);
-                notifyItemChanged(position);
+                notifyItemChanged(posit);
                 // 클릭된 position 저장
-                prePosition = position;
+                prePosition = posit;
             }
         });
         holder.black_list_submit.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +73,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
     public int getItemCount() {
         return items.size();
     }
-    public void addItem(HistoryData data) {
+    public void addItem(DriverHistory data) {
         items.add(data);
     }
 
@@ -77,31 +82,48 @@ class HistoryHolder extends RecyclerView.ViewHolder{
     TextView hdate;
     TextView htogether;
     TextView re_amt;
-    TextView history_username;
-    TextView hstart;
-    TextView hfinish;
+    TextView[] username = new TextView[3];
+    TextView start_place, finish_place;
     TextView htime;
     LinearLayout black_list_submit;
-    TextView r_reason1, r_reason2, r_reason3, reasonView, r_code_L, r_code_H;
+    TextView[] r_reason = new TextView[3];
+    TextView reasonView, r_code_L, r_code_H;
     ConstraintLayout const_reason;
     CardView cardview ;
+
+    SimpleDateFormat dateSdf = new SimpleDateFormat("yy/MM/dd");
+    SimpleDateFormat timeSdf = new SimpleDateFormat("hh:mm");
 
 
     OnViewHolderItemClickListener onViewHolderItemClickListener;
 
-    void onBind(HistoryData data, int position, SparseBooleanArray selectedItems) {
-        hdate.setText(data.getHdate());
-        htogether.setText(data.getHtogether());
-        re_amt.setText(data.getRe_amt());
-        history_username.setText(data.getHistory_username());
-        hstart.setText(data.getHstart());
-        hfinish.setText(data.getHfinish());
-        htime.setText(data.getHtime());
-        r_reason1.setText(data.getR_reason1());
-        r_reason2.setText(data.getR_reason2());
-        r_reason3.setText(data.getR_reason3());
-        r_code_L.setText(data.getR_code_L());
-        r_code_H.setText(data.getR_code_H());
+    void onBind(DriverHistory data, int position, SparseBooleanArray selectedItems) {
+        String[] userList;
+        String[] reviewList;
+        if(data.getName() != null) {
+            userList = data.getName().split("/");
+            for(int i=0 ; i<userList.length ; i++) {
+                username[i].setText(userList[i]);
+            }
+        }
+        if(data.getReason() != null) {
+            reviewList = data.getReason().split("/");
+            for(int i=0 ; i<reviewList.length ; i++) {
+                r_reason[i].setText(reviewList[i]);
+            }
+        }
+
+
+        String history_time = timeSdf.format(data.getStart_time()) + " : " + timeSdf.format(data.getEnd_time());
+
+        hdate.setText(dateSdf.format(data.getEnd_time())); // 배차일자
+        htogether.setText(data.getTogether()); // 동승인원
+        re_amt.setText(String.valueOf(data.getAll_fare())); // 금액
+        start_place.setText(data.getStart_place()); // 출발지
+        finish_place.setText(data.getFinish_place()); // 도착지
+        htime.setText(history_time); // 운행 시간
+        r_code_L.setText(String.valueOf(data.getLike_cnt())); // 좋아요 갯수
+        r_code_H.setText(String.valueOf(data.getHate_cnt())); // 싫어요 갯수
 
         changeVisibility(selectedItems.get(position));
     }
@@ -110,14 +132,16 @@ class HistoryHolder extends RecyclerView.ViewHolder{
         hdate = itemView.findViewById(R.id.hdate);
         htogether = itemView.findViewById(R.id.htogether);
         re_amt = itemView.findViewById(R.id.re_amt);
-        history_username = itemView.findViewById(R.id.history_m_name);
-        hstart = itemView.findViewById(R.id.hstart);
-        hfinish = itemView.findViewById(R.id.hfinish);
+        username[0] = itemView.findViewById(R.id.client1);
+        username[1] = itemView.findViewById(R.id.client2);
+        username[2] = itemView.findViewById(R.id.client3);
+        start_place = itemView.findViewById(R.id.hstart);
+        finish_place = itemView.findViewById(R.id.hfinish);
         htime = itemView.findViewById(R.id.htime);
         black_list_submit = itemView.findViewById(R.id.black_list_submit);
-        r_reason1 = itemView.findViewById(R.id.r_reason1);
-        r_reason2 = itemView.findViewById(R.id.r_reason2);
-        r_reason3 = itemView.findViewById(R.id.r_reason3);
+        r_reason[0] = itemView.findViewById(R.id.r_reason1);
+        r_reason[1] = itemView.findViewById(R.id.r_reason2);
+        r_reason[2] = itemView.findViewById(R.id.r_reason3);
         reasonView = itemView.findViewById(R.id.reasonView);
         const_reason = itemView.findViewById(R.id.const_reason);
         cardview = itemView.findViewById(R.id.cardview);
