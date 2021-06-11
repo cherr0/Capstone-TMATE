@@ -66,7 +66,7 @@ public interface DriverAPI {
     Call<Boolean> insertCar(@Body Car carDTO);
 
     // 기사 차량 선택 - PUT
-    @PUT("/dirver/car/{d_id}/{car_no}")
+    @PUT("/driver/car/{d_id}/{car_no}")
     Call<Boolean> selectCar(@Path("d_id") String d_id, @Path("car_no") String car_no);
 
     // 블랙리스트 확인 - GET
