@@ -141,8 +141,8 @@
     <!--  기사 차량 정보  -->
     <select id="getCarList" resultType="com.tmate.domain.CarDTO">
         select c.car_model, c.CAR_NO, c.CAR_COLOR, c.car_kind
-        from car c join corp co on c.CAR_NO = co.CAR_NO
-        where co.D_ID = #{d_id}
+        from car c
+        where M_ID = #{d_id}
     </select>
 
     <!--  기사 차량 선택  -->
