@@ -155,6 +155,10 @@ public class AppMatchServiceImpl implements AppMatchService {
         return dispatchMapper.updateNormalMatchStatus(dispatchDTO) == 1;
     }
 
+    @Override
+    public DispatchDTO getCurrendDispatch(String dp_id) {
+        return dispatchMapper.selectCurrentDispatch(dp_id);
+    }
 
     /*
     * 일반 이용 시 동승 이용 시 업데이트 초기화

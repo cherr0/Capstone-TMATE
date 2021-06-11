@@ -119,6 +119,9 @@ public interface DispatchMapper {
 
     int deleteTogetherAttend(String dp_id);
 
+    // 동승 매칭 대기일때 상세정보
+    DispatchDTO selectCurrentDispatch(String dp_id);
+
 
     // 2. 동승 참가 버튼 (insert 참여) (O)
     int insertAttendApply(AttendDTO attendDTO);
