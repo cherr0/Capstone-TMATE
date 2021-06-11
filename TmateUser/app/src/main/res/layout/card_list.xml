@@ -88,7 +88,7 @@
                 android:id="@+id/card_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="17dp"
                 android:background="@drawable/ic_baseline_clear_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
