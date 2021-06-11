@@ -74,7 +74,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
             @Override
             public void onClick(View v) {
                 inactiveCard(items.get(posit).getSid(),posit);
-                System.out.println("허시현" + items.get(posit).getSid());
                 setPreference("sid",items.get(posit).getSid());
             }
         });
@@ -193,7 +192,7 @@ class CardHolder extends RecyclerView.ViewHolder {
         card_no.setText("**** **** **** ");
         card_rno.setText(data.getCredit_no());
         sid.setText(data.getSid());
-        if(data.getPay_alias() != null) pay_alias.setText(data.getPay_alias());
+        if (data.getPay_alias() != null) pay_alias.setText(data.getPay_alias());
 
     }
 
@@ -205,9 +204,8 @@ class CardHolder extends RecyclerView.ViewHolder {
         card_rno = (TextView) itemView.findViewById(R.id.card_rno);
         sid = (TextView) itemView.findViewById(R.id.sid);
         pay_alias = (TextView) itemView.findViewById(R.id.pay_alias);
-        card_delete=(ImageView) itemView.findViewById(R.id.card_delete);
+        card_delete = (ImageView) itemView.findViewById(R.id.card_delete);
     }
-
-
-
 }
+
+
