@@ -27,32 +27,32 @@ public interface MatchAPI {
     @GET("match/getlist/{slttd}/{slngtd}/{flttd}/{flngtd}")
     Call<List<History>> getMatchingList(@Path("slttd") String slttd, @Path("slngtd") String slngtd, @Path("flttd") String flttd, @Path("flngtd") String flngtd);
 
-//    @GET("match/read/{merchant_uid}/{m_id}")
-//    Call<History> getMatchingDetail(@Path("merchant_uid") String merchant_uid, @Path("m_id") String m_id);
-//
-//    @POST("match/register/matching")
-//    Call<Boolean> registerMatchingRegister(@Body HashMap<String, Object> hashMap);
-//
-//    @DELETE("match/remove/{merchant_uid}")
-//    Call<Boolean> removeMatchingByMaster(@Path("merchant_uid") String merchant_uid);
-//
-//    @GET("match/display/seatNum/{merchant_uid}")
-//    Call<List<Together>> getCurrentSeatNums(@Path("merchant_uid") String merchant_uid);
-//
-//    @GET("match/display/apply/list/{merchant_uid}")
-//    Call<List<Approval>> displayApplyList(@Path("merchant_uid") String merchant_uid);
-//
-//    @POST("match/register/apply")
-//    Call<Boolean> registerApply(@Body Approval approval);
-//
-//    @GET("match/get/approval/{merchant_uid}")
-//    Call<List<TogetherRequest>> getTogetherRequest(@Path("merchant_uid") String merchant_uid);
-//
-//    @DELETE("match/remove/approval/{id}/{merchant_uid}")
-//    Call<Boolean> removeApproval(@Path("id") String id , @Path("merchant_uid") String merchant_uid);
-//
-//    @POST("match/register/together")
-//    Call<Boolean> registerTogether(@Body Approval approval);
+    @GET("match/read/{merchant_uid}/{m_id}")
+    Call<History> getMatchingDetail(@Path("merchant_uid") String merchant_uid, @Path("m_id") String m_id);
+
+    @POST("match/register/matching")
+    Call<Boolean> registerMatchingRegister(@Body HashMap<String, Object> hashMap);
+
+    @DELETE("match/remove/{merchant_uid}")
+    Call<Boolean> removeMatchingByMaster(@Path("merchant_uid") String merchant_uid);
+
+    @GET("match/display/seatNum/{merchant_uid}")
+    Call<List<Together>> getCurrentSeatNums(@Path("merchant_uid") String merchant_uid);
+
+    @GET("match/display/apply/list/{merchant_uid}")
+    Call<List<Approval>> displayApplyList(@Path("merchant_uid") String merchant_uid);
+
+    @POST("match/register/apply")
+    Call<Boolean> registerApply(@Body Approval approval);
+
+    @GET("match/get/approval/{merchant_uid}")
+    Call<List<TogetherRequest>> getTogetherRequest(@Path("merchant_uid") String merchant_uid);
+
+    @DELETE("match/remove/approval/{id}/{merchant_uid}")
+    Call<Boolean> removeApproval(@Path("id") String id , @Path("merchant_uid") String merchant_uid);
+
+    @POST("match/register/together")
+    Call<Boolean> registerTogether(@Body Approval approval);
 
 
     // 일반 호출
@@ -80,6 +80,10 @@ public interface MatchAPI {
     Call<Dispatch> getDriverPosition(@Path("dp_id") String d_id);
 
     // 동승 호출
+
+    // 매칭 대기중
+    @GET("match/get/current/dispatch/{dp_id}")
+    Call<Dispatch> getCurrentDispatchBeforesuccess(@Path("dp_id") String dp_id);
 
     // 출발지 800m, 목적지 가까운 순으로 리스트 뽑아오기
     @GET("match/get/together/list/{s_lat}/{s_lng}/{f_lat}/{f_lng}")
