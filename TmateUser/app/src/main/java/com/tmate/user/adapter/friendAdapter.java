@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
     // 레트로핏
 //    AdapterDataService dataService = new AdapterDataService();
     DataService dataService = DataService.getInstance();
+    Call<Boolean> removeFriendRequest;
 
     // SharedPrefreprences
     private Context context;
@@ -56,8 +58,6 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
 
         notification = new Notification();
         notification.setM_id(m_id);
-        notification.setN_name(items.get(position).getTv_name());
-        notification.setN_phone(items.get(position).getTv_phone());
 
         holder.iv_alert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +68,10 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                            notification.setN_whether("1");
+                        notification.setN_name(items.get(position).getTv_name());
+                        notification.setN_phone(items.get(position).getTv_phone());
+                        notification.setN_whether("1");
+                        Log.d("활성화", notification.toString());
                             dataService.memberAPI.modifyStat(notification).enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -106,8 +109,10 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
                 builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        notification.setN_name(items.get(position).getTv_name());
+                        notification.setN_phone(items.get(position).getTv_phone());
                         notification.setN_whether("0");
-
+                        Log.d("비활성화", notification.toString());
                         dataService.memberAPI.modifyStat(notification).enqueue(new Callback<Boolean>() {
                             @Override
                             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -142,6 +147,21 @@ public class friendAdapter extends  RecyclerView.Adapter<friendHolder> {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //지인삭제
+                        String n_name = items.get(position).getTv_name();
+                        removeFriendRequest = DataService.getInstance().memberAPI.removeFriend(m_id, n_name);
+                        removeFriendRequest.enqueue(new Callback<Boolean>() {
+                            @Override
+                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(context, "지인이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Boolean> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
                     }
                 });
 

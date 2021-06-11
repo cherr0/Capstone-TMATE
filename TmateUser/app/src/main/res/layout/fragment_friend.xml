@@ -33,7 +33,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:fontFamily="@font/ibmplexsanskr_semibold"
-            android:text="지인관리"
+            android:text="안심문자 번호 관리"
             android:textColor="@color/black"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,42 +43,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView43"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/ibmplexsanskr_extralight"
-        android:text="요청한 회원"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout31" />
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/ref_request"
-        android:layout_width="match_parent"
-        android:layout_height="245dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView43">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_request"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/friend_item" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <TextView
         android:id="@+id/textView44"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/ibmplexsanskr_extralight"
         android:text="MY T 지인"
-        app:layout_constraintStart_toStartOf="@+id/ref_request"
-        app:layout_constraintTop_toBottomOf="@+id/ref_request" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout31" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/ref_friend"

@@ -20,6 +20,9 @@ public interface FriendMapper {
     // 알림 활성화 여부
     void updateFlag(NotificationDTO notificationDTO);
 
+    // 지인 번호 삭제
+    int deleteFriendPhoneNo(@Param("m_id") String m_id, @Param("n_name") String n_name);
+
     // 승인요청 클릭시
     void insertMyApproval(ApprovalDTO approvalDTO);
 
@@ -27,7 +30,7 @@ public interface FriendMapper {
     List<ApprovalDTO> findListMyApproval(String m_id);
 
     // 승인 시
-    void insertNotifi(NotificationDTO notificationDTO);
+    int insertNotifi(NotificationDTO notificationDTO);
 
     // 거절 시
     void deleteApproval(@Param("id") String id,@Param("m_id") String m_id);

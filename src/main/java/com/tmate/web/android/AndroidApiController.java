@@ -103,6 +103,13 @@ public class AndroidApiController {
         return new ResponseEntity<>(userService.getSearchList(phone.substring(1,12)), HttpStatus.OK);
     }
 
+    // 지인 추가 -> 나의 안심문자 번호 지인들
+    @PostMapping("/register/friend")
+    public ResponseEntity<Boolean> registerFriend(@RequestBody NotificationDTO notificationDTO) {
+        log.info("안심문자 번호 등록 중 : " + notificationDTO);
+
+        return new ResponseEntity<>(userService.registerNotifi(notificationDTO), HttpStatus.OK);
+    }
     // 지인 알림 -> 나의 지인들
     @GetMapping("/friend/{m_id}")
     public ResponseEntity<List<NotificationDTO>> friendByUser(@PathVariable("m_id") String m_id) {
@@ -138,6 +145,17 @@ public class AndroidApiController {
         userService.removeApproval(id, m_id);
 
         return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+    // 지인 삭제
+    @DeleteMapping("/remove/friend/{m_id}/{n_name}")
+    public ResponseEntity<Boolean> removeFriend(
+            @PathVariable("m_id") String m_id,
+            @PathVariable("n_name") String n_name
+    ) {
+        log.info("지인을 삭제하기 위해 넘어오는 회원번호 : 지인이름 -> " + m_id + ":" + n_name);
+
+        return new ResponseEntity<>(userService.removeFriendPhoneNo(m_id, n_name), HttpStatus.OK);
     }
 
     // 승인 허용할 시
