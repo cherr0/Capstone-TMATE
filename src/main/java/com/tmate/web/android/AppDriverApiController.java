@@ -108,6 +108,12 @@ public class AppDriverApiController {
         return new ResponseEntity<>(appDriverService.selectDriverCar(d_id,car_no), HttpStatus.OK);
     }
 
+    // 기사 차량 제거 - DELETE
+    @DeleteMapping("/car/{car_no}")
+    public ResponseEntity<Boolean> deleteCar(@PathVariable("car_no") String car_no) {
+        return new ResponseEntity<>(appDriverService.deleteDriverCar(car_no), HttpStatus.OK);
+    }
+
     // 블랙리스트 확인 - GET
     @GetMapping("/ban/list/{d_id}")
     public ResponseEntity<List<JoinBanVO>> getBlacklist(@PathVariable("d_id") String d_id) {

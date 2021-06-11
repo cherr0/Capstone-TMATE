@@ -69,6 +69,9 @@ public interface DriverAPI {
     @PUT("/dirver/car/{d_id}/{car_no}")
     Call<Boolean> selectCar(@Path("d_id") String d_id, @Path("car_no") String car_no);
 
+    // 기사 차량 제거 - DELETE
+    Call<Boolean> deleteCar(@Path("car_no") String car_no);
+
     // 블랙리스트 확인 - GET
     @GET("/driver/ban/list/{d_id}")
     Call<List<JoinBan>> getBlacklist(@Path("d_id") String d_id);

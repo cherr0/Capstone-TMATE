@@ -36,6 +36,7 @@ import com.tmate.user.data.CardData;
 import com.tmate.user.data.FriendData;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.RequestFriendData;
+import com.tmate.user.data.UserHistroy;
 import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class FriendFragment extends Fragment {
     private friendAdapter adFriend;
     private Button btn_add;
     private RecyclerView rvFriend;
+    private SwipeRefreshLayout refFriend;
 
 
     // 레트로핏
@@ -81,6 +83,19 @@ public class FriendFragment extends Fragment {
 
         adFriend = new friendAdapter();
         rvFriend.setAdapter(adFriend);
+
+        refFriend = view.findViewById(R.id.ref_friend);
+        refFriend.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ArrayList<FriendData> fd = new ArrayList<>();
+                fd.clear();
+                adFriend.clear();
+                removeScrollPullUpListener();
+                getMyFriendList();
+
+            }
+        });
 
 
 
@@ -128,6 +143,7 @@ public class FriendFragment extends Fragment {
                             FriendData friendData = new FriendData();
                             friendData.setTv_name(notificationList.get(i).getN_name());
                             friendData.setTv_phone(notificationList.get(i).getN_phone());
+
                             switch (notificationList.get(i).getN_whether()) {
                                 case "0":
                                     friendData.setTv_flag("비활성화");
@@ -137,6 +153,7 @@ public class FriendFragment extends Fragment {
                                     break;
                             }
                             adFriend.addItem(friendData);
+                            refFriend.setRefreshing(false);
                         }
 
                         adFriend.notifyDataSetChanged();
@@ -159,13 +176,6 @@ public class FriendFragment extends Fragment {
         return pref.getString(key, "");
     }
 
-    private void freindremoveScrollPullUpListener(){
-        rvFriend.removeOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            }
-        });
-    }
 
 
     /*
@@ -249,6 +259,13 @@ public class FriendFragment extends Fragment {
 
         requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, 100);
         return false;
+    }
+    private void removeScrollPullUpListener(){
+        rvFriend.removeOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            }
+        });
     }
 
 

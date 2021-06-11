@@ -158,6 +158,12 @@
         values (#{car_no}, #{car_model}, #{car_kind}, #{car_color}, #{m_id})
     </insert>
 
+    <!--  기사 차량 제거  -->
+    <delete id="deleteCar">
+        delete from car
+        where car_no = #{car_no}
+    </delete>
+
     <!--  블랙리스트에 표시할 동승 인원 데이터 -->
     <select id="getAttendList" resultType="com.tmate.domain.driver.AttendListVO">
         select m_id, m_name, concat(to_char(m_birth,'rr'), '년생') age,
