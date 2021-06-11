@@ -99,13 +99,31 @@
                 android:text="탑승자\n"
                 android:fontFamily="@font/font_sub_title"/>
             <TextView
-                android:id="@+id/history_m_name"
-                android:layout_width="match_parent"
+                android:id="@+id/client1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15dp"
                 android:textColor="@color/black"
                 android:text="김*치"
                 android:fontFamily="@font/font_sub_title"/>
+
+             <TextView
+                 android:id="@+id/client2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textSize="15dp"
+                 android:textColor="@color/black"
+                 android:fontFamily="@font/font_sub_title"
+                 android:layout_marginLeft="30dp"/>
+
+             <TextView
+                 android:id="@+id/client3"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textSize="15dp"
+                 android:textColor="@color/black"
+                 android:fontFamily="@font/font_sub_title"
+                 android:layout_marginLeft="30dp"/>
 
         </LinearLayout>
 
@@ -242,6 +260,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/reasonView">
 
                 <TextView
+                    android:id="@+id/r_reason1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:drawableLeft="@drawable/ic_circle"
+                    android:drawablePadding="8dp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/font_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/r_reason2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -250,27 +282,11 @@
                     android:layout_marginEnd="16dp"
                     android:drawableLeft="@drawable/ic_circle"
                     android:drawablePadding="8dp"
-                    android:text="택시기사가 그냥 마음에 안들어요"
                     android:textColor="#000000"
                     android:fontFamily="@font/font_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/r_reason1" />
-
-                <TextView
-                    android:id="@+id/r_reason1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:drawableLeft="@drawable/ic_circle"
-                    android:drawablePadding="8dp"
-                    android:text="택시기사가 그냥 마음에 안들어요"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/font_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/r_reason3"
@@ -281,7 +297,6 @@
                     android:layout_marginEnd="16dp"
                     android:drawableLeft="@drawable/ic_circle"
                     android:drawablePadding="8dp"
-                    android:text="택시기사가 그냥 마음에 안들어요"
                     android:textColor="#000000"
                     android:fontFamily="@font/font_content"
                     app:layout_constraintEnd_toEndOf="parent"
