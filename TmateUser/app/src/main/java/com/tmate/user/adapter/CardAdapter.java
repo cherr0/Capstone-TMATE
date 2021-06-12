@@ -74,7 +74,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
             @Override
             public void onClick(View v) {
                 inactiveCard(items.get(posit).getSid(),posit);
-                setPreference("sid",items.get(posit).getSid());
             }
         });
 
@@ -82,13 +81,23 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     }
 
-    private void deleteCard() {
-        deleteCardRequest = dataService.memberAPI.removeCard(getPreferenceString("sid"));
+    private void deleteCard(String sid) {
+        deleteCardRequest = dataService.memberAPI.removeCard(sid);
         deleteCardRequest.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if(response.code() ==200) {
-                    Log.d("CardAdapter","삭제완료");
+                if (response.code() == 200 && response.body() != null) {
+                    Log.d("CardAdapter", "삭제완료");
+                } else {
+                    try {
+                        Log.d("CardAdapter", "삭제에러 : " + response);
+                        if (response.errorBody() != null)
+                            Log.d("CardAdapter", "카드데이터 삭제 실패 : " +
+                                    response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
                 }
             }
 
@@ -113,7 +122,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
                 if (response.code() == 200 && response.body() != null) {
                     InactiveRes result = response.body();
                     Log.d("CardAdapter", "카카오페이 정기 결제 비활성화 완료 : " + result);
-                    deleteCard();
+                    deleteCard(sid);
                 } else {
                     try {
                         Log.d("CardAdapter", "에러 : " + response);
