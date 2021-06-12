@@ -55,6 +55,7 @@ public class CarFragment  extends Fragment {
         b.carAdd.setOnClickListener(v -> {
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             CarAddFragment carAddFragment = new CarAddFragment();
+            MainViewActivity.navbarFlag = 4;
             transaction.replace(R.id.frame, carAddFragment).commit();
         });
 

@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.tmate.driver.Fragment.Blacklist_managementFragment;
+import com.tmate.driver.Fragment.CarFragment;
 import com.tmate.driver.Fragment.HistoryFragment;
 import com.tmate.driver.Fragment.MainViewFragment;
 import com.tmate.driver.Fragment.NoticeFragment;
@@ -38,15 +39,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainViewActivity extends AppCompatActivity  implements View.OnClickListener{
+public class MainViewActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityMainViewBinding binding;
-    private View drawerView ;
+    private View drawerView;
     private TextView profile, history, black_list, notice, statistics, tv_home, car_name, car_num;
     private Button service;
     private CircleImageView profile_img;
     private long backBtnTime = 0;
-    public static int navbarFlag  = R.id.tv_home;
+    public static int navbarFlag = R.id.tv_home;
     private Intent intent;
     private Spinner state;
 
@@ -89,11 +90,11 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         tv_home.setOnClickListener(this);
 
         //Spinner객체 생성
-        final Spinner spinner_field = (Spinner)findViewById(R.id.side_profile_state);
+        final Spinner spinner_field = (Spinner) findViewById(R.id.side_profile_state);
         //1번에서 생성한 field.xml의 item을 String 배열로 가져오기
         String[] str = getResources().getStringArray(R.array.state);
         //2번에서 생성한 spinner_item.xml과 str을 인자로 어댑터 생성.
-        final ArrayAdapter<String> adapter= new ArrayAdapter<>(getApplicationContext(),R.layout.item_spinner,str);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(), R.layout.item_spinner, str);
 
         adapter.setDropDownViewResource(R.layout.simple_spinner_drop_down);
         spinner_field.setAdapter(adapter);
@@ -103,15 +104,16 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 int position = spinner_field.getSelectedItemPosition();
-                statusRequest = DataService.getInstance().driver.setStatus(getPreferenceString("d_id"),position);
+                statusRequest = DataService.getInstance().driver.setStatus(getPreferenceString("d_id"), position);
                 statusRequest.enqueue(new Callback<Boolean>() {
                     @Override
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                        if(response.code() == 200 && response.body() != null) {
+                        if (response.code() == 200 && response.body() != null) {
                             //선택된 항목
-                            Snackbar.make(view,str[position] + " 중 입니다", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(view, str[position] + " 중 입니다", Snackbar.LENGTH_SHORT).show();
                         }
                     }
+
                     @Override
                     public void onFailure(Call<Boolean> call, Throwable t) {
                         t.printStackTrace();
@@ -119,6 +121,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
                 });
 
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -138,13 +141,16 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
         @Override
         public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
         }
+
         @Override
         public void onDrawerOpened(@NonNull View drawerView) {
             sideProfileBinding();
         }
+
         @Override
         public void onDrawerClosed(@NonNull View drawerView) {
         }
+
         @Override
         public void onDrawerStateChanged(int newState) {
         }
@@ -177,42 +183,42 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     @Override
     public void onClick(View v) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        switch (v.getId()){
-            case R.id.circleImageView :
+        switch (v.getId()) {
+            case R.id.circleImageView:
                 ProfileFragment profileFragment = new ProfileFragment();
                 transaction.replace(R.id.frame, profileFragment).commit();
                 binding.drawerLayout.closeDrawers();
                 navbarFlag = R.id.circleImageView;
                 break;
-            case R.id.history :
+            case R.id.history:
                 HistoryFragment historyFragment = new HistoryFragment();
                 transaction.replace(R.id.frame, historyFragment).commit();
                 binding.drawerLayout.closeDrawers();
                 navbarFlag = R.id.history;
                 break;
-            case R.id.notice :
+            case R.id.notice:
                 NoticeFragment noticeFragment = new NoticeFragment();
                 transaction.replace(R.id.frame, noticeFragment).commit();
                 binding.drawerLayout.closeDrawers();
                 navbarFlag = R.id.notice;
                 break;
-            case R.id.black_list :
+            case R.id.black_list:
                 Blacklist_managementFragment blacklistManagementFragment = new Blacklist_managementFragment();
                 transaction.replace(R.id.frame, blacklistManagementFragment).commit();
                 binding.drawerLayout.closeDrawers();
                 navbarFlag = R.id.black_list;
                 break;
-            case R.id.statistics :
+            case R.id.statistics:
                 StatisticsFragment statisticsFragment = new StatisticsFragment();
                 transaction.replace(R.id.frame, statisticsFragment).commit();
                 binding.drawerLayout.closeDrawers();
                 navbarFlag = R.id.statistics;
                 break;
-            case R.id.service :
+            case R.id.service:
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://pf.kakao.com/_tdxjxoK/chat"));
                 startActivity(intent);
                 break;
-            case R.id.tv_home :
+            case R.id.tv_home:
                 MainViewFragment mainViewFragment = new MainViewFragment();
                 transaction.replace(R.id.frame, mainViewFragment).commit();
                 binding.drawerLayout.closeDrawers();
@@ -223,13 +229,27 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
 
     @Override
     public void onBackPressed() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         switch (navbarFlag) {
-            case R.id.circleImageView: case R.id.history: case R.id.black_list: case R.id.notice: case R.id.statistics:
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            case R.id.circleImageView:
+            case R.id.history:
+            case R.id.black_list:
+            case R.id.notice:
+            case R.id.statistics:
                 MainViewFragment mainViewFragment = new MainViewFragment();
                 transaction.replace(R.id.frame, mainViewFragment).commit();
                 binding.drawerLayout.closeDrawers();
                 navbarFlag = R.id.tv_home;
+                break;
+            case 3 :
+                MainViewFragment fragment = new MainViewFragment();
+                transaction.replace(R.id.frame, fragment).commit();
+                navbarFlag = R.id.tv_home;
+                break;
+            case 4 :
+                CarFragment carFragment = new CarFragment();
+                transaction.replace(R.id.frame, carFragment).commit();
+                navbarFlag = 3;
                 break;
             case R.id.tv_home:
                 long curTime = System.currentTimeMillis();
@@ -252,7 +272,7 @@ public class MainViewActivity extends AppCompatActivity  implements View.OnClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(sidebarRequest != null) sidebarRequest.cancel();
-        if(statusRequest != null) statusRequest.cancel();
+        if (sidebarRequest != null) sidebarRequest.cancel();
+        if (statusRequest != null) statusRequest.cancel();
     }
 }
