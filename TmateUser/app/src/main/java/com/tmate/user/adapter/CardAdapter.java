@@ -24,6 +24,7 @@ import com.tmate.user.data.CardData;
 import com.tmate.user.data.InactiveRes;
 import com.tmate.user.net.DataService;
 import com.tmate.user.net.KakaoService;
+import com.tmate.user.net.MemberAPI;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     // 레트로핏 연동
 //    public Call<Boolean> selectCardRequest;
-//    public Call<Boolean> deleteCardRequest;
+    public Call<Boolean> deleteCardRequest;
     public Call<InactiveRes> kakaoInactiveRequest;
     DataService dataService = DataService.getInstance();
 
@@ -69,17 +70,42 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
     public void onBindViewHolder(@NonNull CardHolder holder, int position) {
         int posit = holder.getAdapterPosition();
         holder.onBind(items.get(posit));
-        holder.active.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.card_delete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) { //on
-
-                } else { //off
-
-                }
+            public void onClick(View v) {
+                inactiveCard(items.get(posit).getSid(),posit);
             }
         });
 
+
+
+    }
+
+    private void deleteCard(String sid) {
+        deleteCardRequest = dataService.memberAPI.removeCard(sid);
+        deleteCardRequest.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    Log.d("CardAdapter", "삭제완료");
+                } else {
+                    try {
+                        Log.d("CardAdapter", "삭제에러 : " + response);
+                        if (response.errorBody() != null)
+                            Log.d("CardAdapter", "카드데이터 삭제 실패 : " +
+                                    response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+
+            }
+        });
 
 
     }
@@ -96,6 +122,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
                 if (response.code() == 200 && response.body() != null) {
                     InactiveRes result = response.body();
                     Log.d("CardAdapter", "카카오페이 정기 결제 비활성화 완료 : " + result);
+                    deleteCard(sid);
                 } else {
                     try {
                         Log.d("CardAdapter", "에러 : " + response);
@@ -127,6 +154,21 @@ public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
     public void clear() {
         items.clear();
     }
+
+
+    public String getPreferenceString(String key) {
+        SharedPreferences pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
+        return pref.getString(key, "");
+    }
+
+    // 데이터 저장 함수
+    public void setPreference(String key, String value) {
+        SharedPreferences pref = context.getSharedPreferences("loginUser", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
 }
 
 class CardHolder extends RecyclerView.ViewHolder {
@@ -136,9 +178,9 @@ class CardHolder extends RecyclerView.ViewHolder {
     TextView card_rno;
     TextView sid;
     TextView pay_alias;
+    ImageView card_delete;
 
     //TextView card_rep;
-    Switch active;
 
     void onBind(CardData data) {
         switch (data.getPay_company()) {
@@ -159,15 +201,7 @@ class CardHolder extends RecyclerView.ViewHolder {
         card_no.setText("**** **** **** ");
         card_rno.setText(data.getCredit_no());
         sid.setText(data.getSid());
-        switch (data.getActive()) {
-            case "0":
-                active.setChecked(false);
-                break;
-            case "1":
-                active.setChecked(true);
-                break;
-        }
-        if(data.getPay_alias() != null) pay_alias.setText(data.getPay_alias());
+        if (data.getPay_alias() != null) pay_alias.setText(data.getPay_alias());
 
     }
 
@@ -179,8 +213,8 @@ class CardHolder extends RecyclerView.ViewHolder {
         card_rno = (TextView) itemView.findViewById(R.id.card_rno);
         sid = (TextView) itemView.findViewById(R.id.sid);
         pay_alias = (TextView) itemView.findViewById(R.id.pay_alias);
-        active = (Switch) itemView.findViewById(R.id.active);
+        card_delete = (ImageView) itemView.findViewById(R.id.card_delete);
     }
-
-
 }
+
+
