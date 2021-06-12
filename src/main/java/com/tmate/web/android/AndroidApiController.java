@@ -2,6 +2,7 @@ package com.tmate.web.android;
 
 import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
+import com.tmate.service.PlaceService;
 import com.tmate.service.SMSService;
 import com.tmate.service.UserService;
 import com.tmate.service.android.common.CommonService;
@@ -30,6 +31,9 @@ public class AndroidApiController {
 
     // 휴대폰 인증 서비스
     private final SMSService smsService;
+
+    // 핫플레이스 서비스
+    private final PlaceService placeService;
 
 
     @PostMapping("/register")
@@ -270,8 +274,14 @@ public class AndroidApiController {
     }
 
     // 메인 뷰 최신 공지 리스트 가져오기
-    @GetMapping("board/mainnotice")
+    @GetMapping("/board/mainnotice")
     public ResponseEntity<List<BoardDTO>> getMainNoticeList() {
         return new ResponseEntity<>(appMemberService.getMainNoticeList(), HttpStatus.OK);
+    }
+
+    // 핫플레이스 조회
+    @GetMapping("/hotplace")
+    public ResponseEntity<List<PlaceDTO>> getPlaceList() {
+        return new ResponseEntity<>(placeService.getHotPlaceList(), HttpStatus.OK);
     }
 }

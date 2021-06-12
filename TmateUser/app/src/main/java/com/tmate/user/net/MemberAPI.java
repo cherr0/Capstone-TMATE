@@ -9,6 +9,7 @@ import com.tmate.user.data.Member;
 import com.tmate.user.data.Notice;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.PhoneDTO;
+import com.tmate.user.data.Place;
 import com.tmate.user.data.PointData;
 import com.tmate.user.data.Social;
 import com.tmate.user.data.UserHistroy;
@@ -142,5 +143,10 @@ public interface MemberAPI {
     // 메인 뷰 최신 공지 리스트 가져오기
     @GET("member/board/mainnotice")
     Call<List<Notice>> getMainNoticeList();
+
+
+    // 핫플레이스 조회
+    @GET("/member/hotplace")
+    Call<List<Place>> getPlaceList();
 
 }
