@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -63,6 +64,8 @@ public class MatchingDetailFragment extends Fragment {
     Call<Dispatch> getMasterDispatchDetailInfo;
     Call<Dispatch> getCheckingDispatchStatus;
     Call<Boolean> modifyDispatchInfo;
+    Call<Boolean> removeMatchRequest;
+
     String dp_id;
     DrivingModel mViewModel;
     String user;
@@ -127,9 +130,26 @@ public class MatchingDetailFragment extends Fragment {
                         t.printStackTrace();
                     }
                 });
-            }else{
+            }else if (b.btnMatch.getText().toString().equals("동승하기")){
                 // 넘어가쥬
                 controller.navigate(R.id.action_global_matchingSeatFragment);
+            }
+            else{
+              // 삭제하기 로직 짜야됨
+                removeMatchRequest = DataService.getInstance().matchAPI.removeTogetherMatch(dp_id);
+                removeMatchRequest.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if (response.code() == 200) {
+                            Toast.makeText(getContext(), "매칭이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
             }
         });
 
@@ -178,7 +198,7 @@ public class MatchingDetailFragment extends Fragment {
 
         dp_id = mViewModel.dispatch.getDp_id();
 
-        getMasterDispatchDetailInfo = DataService.getInstance().matchAPI.readCurrentDispatch(dp_id);
+        getMasterDispatchDetailInfo = DataService.getInstance().matchAPI.getCurrentDispatchBeforesuccess(dp_id);
         getMasterDispatchDetailInfo.enqueue(new Callback<Dispatch>() {
             @Override
             public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
@@ -198,11 +218,13 @@ public class MatchingDetailFragment extends Fragment {
 
 
                     if (user.equals(m_id)) {
-                        b.btnMatch.setText("호출하기");
+                        if(b.fmdCurPeople.getText().equals(b.fmdMaxPeople.getText()))
+                            b.btnMatch.setText("호출하기");
+                        else
+                            b.btnMatch.setText("삭제하기");
+                        
                         getData();
-
-
-
+                        
                     }else{
                         b.btnMatch.setText("동승하기");
                         handler = new Handler();

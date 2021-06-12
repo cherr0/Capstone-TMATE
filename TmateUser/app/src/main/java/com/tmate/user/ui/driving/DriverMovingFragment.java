@@ -250,7 +250,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
                             TMapPoint point = new TMapPoint(Double.parseDouble(str3[1]), Double.parseDouble(str3[0]));
                             polyline.addLinePoint(point);
                         } catch (Exception e) {
-
+                            e.printStackTrace();
                         }
                     }
                 }
