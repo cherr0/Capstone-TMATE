@@ -235,8 +235,9 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
                         for(TMapPOIItem item : arrayList) {
                             searchAdapter.addItem(item);
                         }
-                        searchAdapter.notifyDataSetChanged();
                     });
+
+                    searchAdapter.notifyDataSetChanged();
                 }
 
 
