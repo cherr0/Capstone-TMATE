@@ -54,7 +54,6 @@ function setDBMarker(data) {
         <input class="pl_id" type="hidden" value="${target.pl_id}"/>
         <div class='infowindow_title'>${target.pl_name}</div>
         <div>주소 : <span class='infowindow_address'>${target.pl_address}</span></div>
-        <div>출발지 횟수 : ${target.pl_start}</div>
         <div>도착지 횟수 : ${target.pl_finish}</div>
         <button class="btn-default btn-sm" onclick="place.placeRemove($(this).parent())">삭제</button>
         </div>`;
