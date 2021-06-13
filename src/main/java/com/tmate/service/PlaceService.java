@@ -12,4 +12,6 @@ public interface PlaceService {
     public boolean remove(String pl_id);
 
     public boolean register(PlaceDTO placeDTO);
+
+    public boolean updatePlaceCnt(String pl_id);
 }

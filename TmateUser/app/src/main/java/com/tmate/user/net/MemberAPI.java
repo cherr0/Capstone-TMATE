@@ -149,4 +149,8 @@ public interface MemberAPI {
     @GET("/member/hotplace")
     Call<List<Place>> getPlaceList();
 
+    // 핫플레이스 목적지 횟수 업데이트
+    @PUT("/member/hotplace/{pl_id}")
+    Call<Boolean> updatePlaceCnt(@Path("pl_id") String pl_id);
+
 }

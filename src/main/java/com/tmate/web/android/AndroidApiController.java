@@ -284,4 +284,10 @@ public class AndroidApiController {
     public ResponseEntity<List<PlaceDTO>> getPlaceList() {
         return new ResponseEntity<>(placeService.getHotPlaceList(), HttpStatus.OK);
     }
+
+    // 핫 플레이스 도착지 횟수 증가
+    @PutMapping("/hotplace/{pl_id}")
+    public ResponseEntity<Boolean> updatePlaceCnt(@PathVariable("pl_id") String pl_id) {
+        return new ResponseEntity<>(placeService.updatePlaceCnt(pl_id), HttpStatus.OK);
+    }
 }
