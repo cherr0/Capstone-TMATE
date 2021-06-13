@@ -37,6 +37,7 @@ import com.skt.Tmap.TMapView;
 import com.tmate.user.R;
 import com.tmate.user.common.PermissionManager;
 import com.tmate.user.data.Dispatch;
+import com.tmate.user.data.PointData;
 import com.tmate.user.data.SubscriptionRes;
 import com.tmate.user.databinding.FragmentDriverMovingBinding;
 import com.tmate.user.net.DataService;
@@ -92,6 +93,13 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
 
     // 안심문자위해 지인번호 가져오기
     Call<List<String>> getFriendPhoneNoRequest;
+
+    // 결제
+    int amount;
+
+
+    // 적립 포인트
+    Call<Boolean> insertReceivePointRequest;
 
 
 
@@ -282,7 +290,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         map.put("partner_user_id", getPreferenceString("m_id"));
         map.put("item_name","택시 운임 결제");
         map.put("quantity","1");
-        int amount = (dispatch.getAll_fare() / Integer.parseInt(mViewModel.together)) - dispatch.getUse_point() - mViewModel.payCash;
+        amount = (dispatch.getAll_fare() / Integer.parseInt(mViewModel.together)) - mViewModel.use_point - mViewModel.payCash;
         map.put("total_amount",String.valueOf(amount));
         map.put("vat_amount","0");
         map.put("tax_free_amount","0");
@@ -358,6 +366,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
                                 isRunning = false;
                                 // 탑승완료 될 경우 다음 레이아웃으로 이동
                                 kakaoSubscription(dispatch);
+                                insertReceivePoint();
                                 NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                                 controller.navigate(R.id.action_driverMovingFragment_to_driverFinishingFragment);
                                 break;
@@ -419,6 +428,45 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
                 t.printStackTrace();
             }
         });
+    }
+
+    // 포인트 적립한것 DB 연동
+    public void insertReceivePoint() {
+        PointData pointData = new PointData();
+        pointData.setM_id(getPreferenceString("m_id"));
+        pointData.setPo_course("택시요금결제");
+        pointData.setPo_exact("0");
+        // 등급별 다르게 한다.
+        switch (getPreferenceString("m_level")){
+            case "일반":
+                pointData.setPo_result((int) (amount*0.01));
+                break;
+            case "우수":
+                pointData.setPo_result((int) (amount*0.02));
+                break;
+            case "최우수":
+                pointData.setPo_result((int) (amount*0.03));
+                break;
+            default:
+                pointData.setPo_result((int) (amount*0.04));
+                break;
+        }
+
+        insertReceivePointRequest = DataService.getInstance().memberAPI.registerPoint(pointData);
+        insertReceivePointRequest.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(getContext(), "포인트가 적립되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
     }
 
 

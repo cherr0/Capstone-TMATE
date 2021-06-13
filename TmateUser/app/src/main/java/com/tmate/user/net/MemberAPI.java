@@ -113,6 +113,12 @@ public interface MemberAPI {
     @GET("member/unusedPoint/{m_id}")
     Call<Integer> getUnusedPoint(@Path("m_id") String m_id);
 
+    @POST("member/register/point")
+    Call<Boolean> registerPoint(@Body PointData pointData);
+
+    @GET("member/get/useCount/{m_id}")
+    Call<Integer> getUseCount(@Path("m_id") String m_id);
+
     /*
     *  카드 관련 서비스
     * */

@@ -33,8 +33,10 @@ public interface AppMemberService {
     List<BoardDTO> getMainNoticeList();
 
     // 포인트 삽입
+    Boolean registerPoint(PointDTO pointDTO);
 
-    // 포인트 삽입 시 멤버 테이블 총 포인트 업데이트
+    // 등급 가져오기
+    Integer getUsingCount(String m_id);
 
 
     /*

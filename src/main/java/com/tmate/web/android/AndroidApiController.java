@@ -216,6 +216,20 @@ public class AndroidApiController {
         return new ResponseEntity<>(appMemberService.getunusedPoint(m_id), HttpStatus.OK);
     }
 
+    @PostMapping("/register/point")
+    public ResponseEntity<Boolean> registerPoint(@RequestBody PointDTO pointDTO) {
+        log.info("포인트 이력 삽입 : " + pointDTO);
+
+        return new ResponseEntity<>(appMemberService.registerPoint(pointDTO), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/useCount/{m_id}")
+    public ResponseEntity<Integer> getUseCount(@PathVariable("m_id") String m_id) {
+        log.info("사용자 횟수 가져오기 : " + m_id);
+
+        return new ResponseEntity<>(appMemberService.getUsingCount(m_id), HttpStatus.OK);
+    }
+
     @PostMapping("/bookmark")
     public ResponseEntity<Boolean> insertBookmark(@RequestBody BookmarkDTO bookmarkDTO) {
         log.info("북마크 삽입 진행 중");

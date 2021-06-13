@@ -157,6 +157,15 @@ public class AppMemberServiceImpl implements AppMemberService {
         return pointList;
     }
 
+    @Override
+    public Boolean registerPoint(PointDTO pointDTO) {
+        return membermapper.insertPoint(pointDTO) == 1;
+    }
+
+    @Override
+    public Integer getUsingCount(String m_id) {
+        return membermapper.selectUsingCount(m_id);
+    }
 
     /*
     *  즐겨 찾기 DTO
@@ -198,7 +207,7 @@ public class AppMemberServiceImpl implements AppMemberService {
     // 미사용 포인트 조회
     @Override
     public Integer getunusedPoint(String m_id) {
-        int point = membermapper.unusedPointByM_id(m_id);
+        Integer point = membermapper.unusedPointByM_id(m_id);
         log.info("사용자 미사용 포인트 : " + point);
         return point;
     }
