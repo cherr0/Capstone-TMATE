@@ -27,7 +27,11 @@
 
     <insert id="insertBookmark">
         insert into bookmark(bm_id, m_id, bm_name, bm_lat, bm_lng)
-        values (bm_seq.nextval,#{m_id},#{bm_name}, ${bm_lat},${bm_lng})
+        values (bm_seq.nextval,#{m_id},#{bm_name}, #{bm_lat}, #{bm_lng})
     </insert>
+
+    <update id="updateFinish">
+        update place set pl_finish = pl_finish + 1 where pl_id = #{pl_id}
+    </update>
 
 </mapper>

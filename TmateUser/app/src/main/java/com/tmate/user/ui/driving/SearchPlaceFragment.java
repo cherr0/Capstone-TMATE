@@ -70,6 +70,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
 
     Call<List<FavoritesData>> bookmarkRequest;
     Call<List<Place>> placeRequest;
+    Call<Boolean> placeCntRequest;
 
     // gps 및 경로 그리기 위한 변수들
     private boolean m_bTrackingMode = false; // geofencing type save
@@ -235,8 +236,9 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
                         for(TMapPOIItem item : arrayList) {
                             searchAdapter.addItem(item);
                         }
-                        searchAdapter.notifyDataSetChanged();
                     });
+
+                    searchAdapter.notifyDataSetChanged();
                 }
 
 
@@ -435,9 +437,25 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         if(mViewModel.together.equals("1")) { // 일반 탑승 시
             NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
             controller.navigate(R.id.action_searchPlace_to_paymentInformationFragment);
-        } else { // 동승 호출 시 -> 매칭 리스트로 넘어간다.
+        } else if(mViewModel.together.equals("2")) { // 동승 호출 시 -> 매칭 리스트로 넘어간다.
             NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
             controller.navigate(R.id.action_searchPlace_to_matchingFragment);
+        } else { // 3일 경우 핫플레이스 사용하게 되니 핫플레이스 목적지 횟수 증가 시키고 매칭리스트로 넘어간다.
+            placeCntRequest = DataService.getInstance().memberAPI.updatePlaceCnt(mViewModel.pl_id);
+            placeCntRequest.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    if(response.code() == 200 && response.body() != null) {
+                        Log.d("SearchPlaceFragment","목적지 횟수 증가 완료");
+                        NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                        controller.navigate(R.id.action_searchPlace_to_matchingFragment);
+                    }
+                }
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
         }
 
     }
@@ -478,5 +496,6 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         super.onDestroy();
         if(bookmarkRequest != null) bookmarkRequest.cancel();
         if(placeRequest != null) placeRequest.cancel();
+        if(placeCntRequest != null) placeCntRequest.cancel();
     }
 }

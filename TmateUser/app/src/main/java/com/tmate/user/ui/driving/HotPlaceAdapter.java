@@ -66,15 +66,18 @@ public class HotPlaceAdapter extends RecyclerView.Adapter<HotplaceHolder>{
             mViewModel.dispatch.setFinish_lat(data.getPl_lat());
             mViewModel.dispatch.setFinish_lng(data.getPl_lng());
 
-            TMapPoint start = new TMapPoint(mViewModel.dispatch.getStart_lat(), mViewModel.dispatch.getStart_lng());
-            TMapPoint finish = new TMapPoint(data.getPl_lat(),data.getPl_lng());
+            TMapPoint startPoint = new TMapPoint(mViewModel.dispatch.getStart_lat(), mViewModel.dispatch.getStart_lng());
+            TMapPoint finishPoint = new TMapPoint(data.getPl_lat(),data.getPl_lng());
 
             TMapPolyLine polyLine = new TMapPolyLine();
-            polyLine.addLinePoint(start);
-            polyLine.addLinePoint(finish);
+            polyLine.addLinePoint(startPoint);
+            polyLine.addLinePoint(finishPoint);
             double distance = polyLine.getDistance();
             mViewModel.dispatch.setEp_distance((int) distance); // 예상 거리 설정
             mViewModel.dispatch.setAll_fare(getExpectTaxiFare(distance)); // 요금 설정
+            mViewModel.pl_id = data.getPl_id();
+
+            finish.setText(data.getPl_name());
 
             Log.d("HotPlaceAdapter", "출발지 주소 : " + mViewModel.dispatch.getStart_place());
             Log.d("HotPlaceAdapter", "출발지 좌표 : " + mViewModel.dispatch.getStart_lat() + ", " + mViewModel.dispatch.getStart_lng());
