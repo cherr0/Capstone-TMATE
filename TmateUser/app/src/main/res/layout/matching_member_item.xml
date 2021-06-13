@@ -14,7 +14,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="120dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_member_info"
@@ -120,6 +120,15 @@
                 android:text="TextView"
                 android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/member_m_birth"
+                app:layout_constraintTop_toBottomOf="@+id/member_tv" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="노쇼"
+                android:layout_marginRight="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView4"
                 app:layout_constraintTop_toBottomOf="@+id/member_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
