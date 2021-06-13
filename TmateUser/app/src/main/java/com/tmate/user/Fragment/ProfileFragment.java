@@ -91,8 +91,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
     private GoogleApiClient googleApiClient; // 구글 API 클라이언트 객체
     private static final int REQ_SIGN_GOOGLE = 100; // 구글 로그인 결과 코드
 
-    // 카카오 로그인 관련
-    private ISessionCallback mSessionCallback; // 카카오 로그인 관리하는 친구
+
 
     // 계정 연동 DB 연결을 위함
     Social social;
@@ -176,10 +175,12 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                 .requestEmail()
                 .build();
 
-        googleApiClient = new GoogleApiClient.Builder(getContext())
-                .enableAutoManage((FragmentActivity) getActivity(), this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
-                .build();
+        if(googleApiClient == null || !googleApiClient.isConnected()) {
+            googleApiClient = new GoogleApiClient.Builder(getContext())
+                    .enableAutoManage((FragmentActivity) getActivity(), this)
+                    .addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions)
+                    .build();
+        }
 
         auth = FirebaseAuth.getInstance(); // 파이어베이스 인증 객체 초기화.
 
@@ -266,7 +267,6 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Session.getCurrentSession().removeCallback(mSessionCallback);
     }
 
     private void resultLogin(GoogleSignInAccount account) {
@@ -413,5 +413,10 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
 
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        googleApiClient.stopAutoManage(requireActivity());
+        googleApiClient.disconnect();
+    }
 }

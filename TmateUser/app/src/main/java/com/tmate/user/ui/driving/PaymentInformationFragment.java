@@ -143,7 +143,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         Log.d("PayInfoFragment", "사용자 미사용 포인트 : " + unusedPoint);
     }
 
-    // 클릭 리스너 활성화
+    // 클릭 리스너 활성화3
     private void clickListenerApply() {
         b.paymentInformationFinish.setOnClickListener(this);
         b.pointBtnAll.setOnClickListener(this);
@@ -248,13 +248,15 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                     b.paymentInformationMPoint.setText(unusedPoint.toString());
                     b.paymentInformationRestMPoint.setText(unusedPoint.toString());
                 } else {
-                    try {
-                        Log.d("PayInfoFragment", "에러 : " + response);
-                        assert response.errorBody() != null;
-                        Log.d("PayInfoFragment", "데이터 삽입 실패 : " + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        Log.d("PayInfoFragment", "에러 : " + response);
+//                        assert response.errorBody() != null;
+//                        Log.d("PayInfoFragment", "데이터 삽입 실패 : " + response.errorBody().string());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+                    b.paymentInformationMPoint.setText("0");
+                    b.paymentInformationRestMPoint.setText("0");
                 }
             }
 
@@ -312,6 +314,8 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
 
     private void usedPoint(View v) {
         String getUsePoint = b.pointEt.getText().toString();
+
+
         Log.d("PayInfoFragment", "적용하려는 포인트 : " + getUsePoint);
 
         if(getUsePoint.isEmpty()) { // 포인트 값 입력 확인
@@ -326,6 +330,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
             b.payTotalAmount.setText(String.valueOf(price - point));
             b.pointEt.setText("");
             mViewModel.dispatch.setUse_point(point);  // 포인트 적용
+            mViewModel.use_point = point;
             Log.d("PayInfoFragment", "포인트 적용 가격 : " + (price - point));
         }else {
             Snackbar.make(v, "보유 포인트 초과하여 사용은 불가합니다.", Snackbar.LENGTH_SHORT).show();

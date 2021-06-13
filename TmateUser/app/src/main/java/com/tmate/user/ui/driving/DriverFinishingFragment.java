@@ -73,10 +73,10 @@ public class DriverFinishingFragment extends Fragment {
         b.matchingFinishHETime.setText(new SimpleDateFormat("HH:mm:ss").format(mViewModel.dispatch.getEnd_time())); // 도착 시간
         b.matchingFinishHEpDistance.setText(String.valueOf(mViewModel.dispatch.getEp_distance())); // 이동 거리
         b.finishHAllFare.setText(String.valueOf(mViewModel.dispatch.getAll_fare())); // 총합 택시 비용
-        b.finishUsePoint.setText(String.valueOf(mViewModel.dispatch.getUse_point())); // 사용 포인트
+        b.finishUsePoint.setText(String.valueOf(mViewModel.use_point)); // 사용 포인트
         b.togetherCount.setText(mViewModel.together); // 동승 인원
         int totalAmount = mViewModel.dispatch.getAll_fare() - mViewModel.dispatch.getUse_point();
-        totalAmount = (totalAmount / Integer.parseInt(mViewModel.together)) - mViewModel.payCash;
+        totalAmount = (totalAmount / Integer.parseInt(mViewModel.together)) - mViewModel.payCash - mViewModel.use_point;
         b.totalAmount.setText(String.valueOf(totalAmount)); // 최종 결제 금액
 
         b.matchingFinishSubmit.setOnClickListener(v -> { // 확인 완료 버튼

@@ -19,6 +19,11 @@ import com.tmate.user.Fragment.CarInfoFragment;
 import com.tmate.user.Fragment.EventCloseFragment;
 import com.tmate.user.Fragment.My_info_Fragment;
 import com.tmate.user.R;
+import com.tmate.user.net.DataService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainViewActivity extends AppCompatActivity {
@@ -33,6 +38,9 @@ public class MainViewActivity extends AppCompatActivity {
     public static int navbarFlag  = 0;
     private long backBtnTime = 0;
 
+    // 사용자 등급 SharedPreference에 저장하기 위함
+    Call<Integer> getUseCountRequest;
+
 
 
     @Override
@@ -42,6 +50,8 @@ public class MainViewActivity extends AppCompatActivity {
 
         Log.d("MainViewActivity", "m_id : " + getPreferenceString("m_id"));
         Log.d("MainViewActivity", "m_name : " + getPreferenceString("m_name"));
+
+        getUseCount();
 
         fragmentManager.beginTransaction().replace(R.id.frameLayout, callFragment).commitAllowingStateLoss();
 
@@ -117,7 +127,34 @@ public class MainViewActivity extends AppCompatActivity {
             default :
 
         }
+    }
 
+    public void getUseCount() {
+        getUseCountRequest = DataService.getInstance().memberAPI.getUseCount(getPreferenceString("m_id"));
+        getUseCountRequest.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    Integer cnt = response.body();
+                    Log.d("넘어오는 회원횟수", String.valueOf(cnt));
 
+                    if(cnt < 5)
+                        setPreference("m_level","일반");
+                    else if (cnt < 10)
+                        setPreference("m_level","우수");
+                    else if (cnt < 15)
+                        setPreference("m_level","최우수");
+                    else
+                        setPreference("m_level","VIP");
+
+                    Log.d("사용자 등급", getPreferenceString("m_level"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }

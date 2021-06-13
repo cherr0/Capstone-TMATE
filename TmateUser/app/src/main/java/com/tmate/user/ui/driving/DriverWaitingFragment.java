@@ -35,6 +35,7 @@ import com.skt.Tmap.TMapView;
 import com.tmate.user.R;
 import com.tmate.user.common.PermissionManager;
 import com.tmate.user.data.Dispatch;
+import com.tmate.user.data.PointData;
 import com.tmate.user.data.SubscriptionRes;
 import com.tmate.user.databinding.FragmentDriverWaitingBinding;
 import com.tmate.user.net.DataService;
@@ -83,6 +84,9 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
     Call<Dispatch> getDriverRequest; // 기사 위치 가져오는 메서드
     Call<SubscriptionRes> subscriptionRequest;
     boolean isRunning;
+
+    // 포인트 사용 부분 Request
+    Call<Boolean> insertUsePointRequest;
 
     
     @Override
@@ -354,6 +358,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                                 isRunning = false;
                                 // 탑승완료 될 경우 다음 레이아웃으로 이동
                                 kakaoSubscription(mViewModel.dispatch);
+                                insertUsePoint();
                                 NavController controller = Navigation.findNavController(activity, R.id.nav_host_fragment);
                                 controller.navigate(R.id.action_driverWaitingFragment_to_driverMovingFragment);
                                 break;
@@ -369,6 +374,30 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                 }
             });
         }
+    }
+
+    // 사용한 포인트 DB 연동
+    public void insertUsePoint() {
+        PointData pointData = new PointData();
+        pointData.setM_id(getPreferenceString("m_id"));
+        pointData.setPo_course("포인트사용");
+        pointData.setPo_exact("1");
+        pointData.setPo_result(mViewModel.use_point);
+
+        insertUsePointRequest = DataService.getInstance().memberAPI.registerPoint(pointData);
+        insertUsePointRequest.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(getContext(), mViewModel.use_point+"P 가 사용되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     @Override
