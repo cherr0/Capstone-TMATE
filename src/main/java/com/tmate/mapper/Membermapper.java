@@ -78,7 +78,10 @@ public interface Membermapper {
     List<PointDTO> findPointListByM_id(String m_id);
 
     // 미사용 포인트 조회
-    int unusedPointByM_id(String m_id);
+    Integer unusedPointByM_id(String m_id);
+
+    // 횟수 가져오기
+    Integer selectUsingCount(String m_id);
 
     /*
     * 운행 옵션 기능
