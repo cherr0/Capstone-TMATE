@@ -309,4 +309,15 @@
         where m_id = #{m_id} and n_whether = '1'
     </select>
 
+    <!-- 동승 정보 삭제 (방장이 삭제 할시) -->
+    <delete id="deleteTogetherDispatch">
+        delete from dispatch
+        where dp_id = #{dp_id}
+    </delete>
+
+    <delete id="deleteTogetherAttend">
+        delete from attend
+        where dp_id = #{dp_id}
+    </delete>
+
 </mapper>
