@@ -75,6 +75,9 @@ public class MatchingDetailFragment extends Fragment {
     Handler handler;
     Checking checking;
 
+    // 입장하기 위함 성별 체크
+    String gender;
+
 
     @Nullable
     @Override
@@ -88,7 +91,7 @@ public class MatchingDetailFragment extends Fragment {
         pref = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
         b.tvMName.setText(getPreferenceString("m_name"));
-        b.mBirth.setText("20대");
+        b.mBirth.setText(getPreferenceString("age"));
 
         RecyclerView recyclerView = view.findViewById(R.id.matching_recycle);
 
@@ -132,7 +135,10 @@ public class MatchingDetailFragment extends Fragment {
                 });
             }else if (b.btnMatch.getText().toString().equals("동승하기")){
                 // 넘어가쥬
-                controller.navigate(R.id.action_global_matchingSeatFragment);
+                if (gender.equals(getPreferenceString("gender")))
+                    controller.navigate(R.id.action_global_matchingSeatFragment);
+                else
+                    Toast.makeText(getContext(), "동성만 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
             }
             else{
               // 삭제하기 로직 짜야됨
@@ -160,14 +166,14 @@ public class MatchingDetailFragment extends Fragment {
     public class Checking implements Runnable {
         @Override
         public void run() {
-            getCheckingDispatchStatus = DataService.getInstance().matchAPI.readCurrentDispatch(dp_id);
+            getCheckingDispatchStatus = DataService.getInstance().matchAPI.getCurrentDispatchBeforesuccess(dp_id);
             getCheckingDispatchStatus.enqueue(new Callback<Dispatch>() {
                 @Override
                 public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
                     if (response.code() == 200) {
                         Dispatch dispatch = response.body();
                         String dp_status = dispatch.getDp_status();
-
+                        Log.d("동승자입장의DISPATCH", dispatch.toString());
                         if (dp_status.equals("1")) {
                             isRunning = false;
                             NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
@@ -206,6 +212,16 @@ public class MatchingDetailFragment extends Fragment {
                     Dispatch dispatch = response.body();
                     Log.d("MatchingDetail : ", dispatch.toString());
                     user = dispatch.getM_id();
+                    switch (user.substring(1, 2)) {
+                        case "1":
+                        case "3":
+                            gender = "남";
+                            break;
+                        case "2":
+                        case "4":
+                            gender = "여";
+                            break;
+                    }
                     Log.d("MatchingDetail user ", user);
                     b.fmdCurPeople.setText(String.valueOf(dispatch.getCur_people()));
                     b.fmdMaxPeople.setText(dispatch.getDp_id().substring(18));
