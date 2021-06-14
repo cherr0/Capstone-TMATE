@@ -150,7 +150,6 @@ public interface MemberAPI {
     @GET("member/board/mainnotice")
     Call<List<Notice>> getMainNoticeList();
 
-
     // 핫플레이스 조회
     @GET("/member/hotplace")
     Call<List<Place>> getPlaceList();
