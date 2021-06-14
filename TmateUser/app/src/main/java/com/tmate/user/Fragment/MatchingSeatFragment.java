@@ -90,7 +90,7 @@ public class MatchingSeatFragment extends Fragment {
                 public void onClick(View v) {
                     //매칭방 만들때의 경로(자리 선택 후 매칭리스트로 이동)
                         Log.d("찍히긴 찍히냐", "반응은 하냐? 좀 해라 궁금하다 왜 안되냐");
-                        initializeObjects(bundle);
+                        initializeObjects();
 
                         Map<String, Object> hashmap = new HashMap<>();
 
@@ -220,7 +220,7 @@ public class MatchingSeatFragment extends Fragment {
     }
 
     // 두 객체 초기화
-    public void initializeObjects(Bundle bundle) {
+    public void initializeObjects() {
 
 
             try {
@@ -260,6 +260,7 @@ public class MatchingSeatFragment extends Fragment {
                 attend.setM_id(m_id);
                 attend.setAt_status("1");
                 attend.setSeat(to_seat);
+                Log.d("찍히는 번호",String.valueOf(to_seat));
                 attend.setAmount(mViewModel.dispatch.getAll_fare());
 
 

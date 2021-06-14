@@ -29,6 +29,7 @@ import com.tmate.user.adapter.MatchingDetailAdapter;
 import com.tmate.user.adapter.MatchingMemberAdapter;
 import com.tmate.user.adapter.TogetherRequestAdapter;
 import com.tmate.user.data.Dispatch;
+import com.tmate.user.data.Dv_option;
 import com.tmate.user.data.History;
 import com.tmate.user.data.MatchingDetailData;
 import com.tmate.user.data.MatchingMember;
@@ -77,6 +78,9 @@ public class MatchingDetailFragment extends Fragment {
 
     // 입장하기 위함 성별 체크
     String gender;
+
+    // 동승 옵션 가져오기
+    Call<Dv_option> getDv_optionRequest;
 
 
     @Nullable
@@ -228,8 +232,8 @@ public class MatchingDetailFragment extends Fragment {
                     b.mfDpId.setText(dispatch.getDp_id());
                     b.cgStartPlace.setText(dispatch.getStart_place());
                     b.cgEndPlace.setText(dispatch.getFinish_place());
-                    b.hEpFare.setText(mViewModel.dispatch.getAll_fare()+"");
-                    b.hEpDistance.setText((float)(mViewModel.dispatch.getEp_distance())/1000+"");
+                    b.hEpFare.setText(String.valueOf(dispatch.getAll_fare()));
+                    b.hEpDistance.setText(String.valueOf((float)(dispatch.getEp_distance())/1000));
 
 
 
@@ -261,6 +265,52 @@ public class MatchingDetailFragment extends Fragment {
                         isRunning = true;
                         thread.start();
                     }
+
+                    getDv_optionRequest = DataService.getInstance().memberAPI.getDvOptionByM_id(user);
+                    getDv_optionRequest.enqueue(new Callback<Dv_option>() {
+                        @Override
+                        public void onResponse(Call<Dv_option> call, Response<Dv_option> response) {
+                            if (response.code() == 200) {
+                                Dv_option body = response.body();
+
+                                // 반려동물 유무
+                                switch (body.getDo_animal()) {
+                                    case "0":
+                                        b.textView2.setText("반려동물 상관없어요");
+                                        break;
+                                    case "1":
+                                        b.textView2.setText("반려동물 동반 싫어요");
+                                        break;
+                                }
+
+                                // 짐 유무
+                                switch (body.getDo_load()) {
+                                    case "0":
+                                        b.textView3.setText("짐 상관 없어요");
+                                        break;
+                                    case "1":
+                                        b.textView3.setText("짐 많은것 부담스러워요");
+                                        break;
+                                }
+
+                                // 유아동반 유무
+                                switch (body.getDo_child()) {
+                                    case "0":
+                                        b.textView4.setText("유아동반 상관없어요");
+                                        break;
+                                    case "1":
+                                        b.textView4.setText("유아동반 싫어요");
+                                        break;
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Dv_option> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
                 }
             }
 
