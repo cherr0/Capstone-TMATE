@@ -86,23 +86,15 @@ public class BlackListSelectActivity extends AppCompatActivity {
                 final String[] items = new String[]{"너무 시끄러워요", "시간을 안지켜요", "술을 마신거 같아요", "목적지변경을 강요해요", "불친절해요."};
                 AlertDialog.Builder dialog = new AlertDialog.Builder(BlackListSelectActivity.this);
                 dialog.setTitle("항목을 선택해주세요.")
-                        .setMultiChoiceItems(
-                                items
-                                , new boolean[]{false, false, false, false, false}
-                                , new DialogInterface.OnMultiChoiceClickListener() {
+                        .setSingleChoiceItems(
+                                items,
+                                0,
+                                new DialogInterface.OnClickListener(){
                                     @Override
-                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                        if (isChecked) {
-                                            Toast.makeText(BlackListSelectActivity.this
-                                                    , items[which]
-                                                    , Toast.LENGTH_SHORT).show();
-                                            list.add(items[which]);
-                                        } else {
-                                            list.remove(items[which]);
-                                        }
+                                    public void onClick(DialogInterface dialog, int which) {
+
                                     }
-                                }
-                        )
+                                })
                         .setPositiveButton("보내기", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
