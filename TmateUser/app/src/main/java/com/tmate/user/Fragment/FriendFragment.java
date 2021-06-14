@@ -1,23 +1,32 @@
 package com.tmate.user.Fragment;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.tmate.user.R;
 import com.tmate.user.adapter.RequestFriendAdapter;
@@ -27,6 +36,7 @@ import com.tmate.user.data.CardData;
 import com.tmate.user.data.FriendData;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.RequestFriendData;
+import com.tmate.user.data.UserHistroy;
 import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
@@ -38,18 +48,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FriendFragment extends Fragment {
-    ArrayList<String> list;
+//    ArrayList<String> list;
     private View view;
     private friendAdapter adFriend;
-    private RequestFriendAdapter adRequest;
     private Button btn_add;
-    private SwipeRefreshLayout refRequest;
-    private SwipeRefreshLayout refFriend;
     private RecyclerView rvFriend;
-    private RecyclerView rvRequest;
+    private SwipeRefreshLayout refFriend;
+
 
     // 레트로핏
     DataService dataService = DataService.getInstance();
+
+    // 지인 연락처 등록하기
+    Call<Boolean> insertFriendPhoneNoRequest;
 
 
     // 백버튼
@@ -63,34 +74,44 @@ public class FriendFragment extends Fragment {
         btn_back_friend = view.findViewById(R.id.btn_back_friend);
 
         rvFriend = view.findViewById(R.id.rv_friend);
-        rvRequest = view.findViewById(R.id.rv_request);
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvFriend.setLayoutManager(linearLayoutManager);
 
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
-        rvRequest.setLayoutManager(linearLayoutManager2);
+
 
         adFriend = new friendAdapter();
         rvFriend.setAdapter(adFriend);
 
-        adRequest = new RequestFriendAdapter();
-        rvRequest.setAdapter(adRequest);
+        refFriend = view.findViewById(R.id.ref_friend);
+        refFriend.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ArrayList<FriendData> fd = new ArrayList<>();
+                fd.clear();
+                adFriend.clear();
+                removeScrollPullUpListener();
+                getMyFriendList();
+
+            }
+        });
+
+
 
         // 내 친구 리스트 - 데이터서비스이용
         getMyFriendList();
         
-        // 나에게 승인 요청 리스트 - 데이터 서비스이용
-        getReqFreindList();
+
 
 
         btn_add = view.findViewById(R.id.btn_add);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                FriendAddFragment friendAddFragment = new FriendAddFragment();
-                transaction.replace(R.id.frameLayout, friendAddFragment).commit();
+                if(checkAndRequestPermission())
+                    chooseContacts();
+
             }
         });
 
@@ -102,71 +123,12 @@ public class FriendFragment extends Fragment {
                 transaction.replace(R.id.frameLayout, my_info_fragment).commit();
             }
         });
-        refRequest = view.findViewById(R.id.ref_request);
-        refRequest.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                ArrayList<Approval> reqFreind = new ArrayList<>();
-                reqFreind.clear();
-                adRequest.clear();
-                requestremoveScrollPullUpListener(); //스와이프와(위에서 아래로 댕기는 새로고침) 리사이클러뷰 포지션 리스너를 같이 쓰면 에러가나므로 리사이클러뷰 리스너는 잠시 끊어주고 새로고침후 다시연결해준다.
-                getReqFreindList(); // 디비에서 값을 다시불러온다.
 
-            }
-        });
-        refFriend = view.findViewById(R.id.ref_friend);
-        refFriend.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                ArrayList<Notification> friend = new ArrayList<>();
-                friend.clear();
-                adFriend.clear();
-                freindremoveScrollPullUpListener(); //스와이프와(위에서 아래로 댕기는 새로고침) 리사이클러뷰 포지션 리스너를 같이 쓰면 에러가나므로 리사이클러뷰 리스너는 잠시 끊어주고 새로고침후 다시연결해준다.
-                getMyFriendList(); // 디비에서 값을 다시불러온다.
-
-
-            }
-        });
 
         return view;
     }
 
-    // 나에게 요청한 지인 리스트
-    private void getReqFreindList() {
 
-        dataService.memberAPI.myApprovalList(getPreferenceString("m_id")).enqueue(new Callback<List<Approval>>() {
-            @Override
-            public void onResponse(Call<List<Approval>> call, Response<List<Approval>> response) {
-                if (response.isSuccessful()) {
-                    if (response.code() == 200) {
-                        List<Approval> approvalList = response.body();
-                        Log.d("승인요청정보 : ", approvalList.toString());
-                        RequestFriendData data = new RequestFriendData();
-
-                        for (int i = 0; i < approvalList.size(); i++) {
-                            data.setTv_id(approvalList.get(i).getId());
-                            data.setTv_name2(approvalList.get(i).getName());
-                            data.setTv_phone2(approvalList.get(i).getId().substring(2, 13));
-                            adRequest.addItem(data);
-
-
-                        }
-
-                        adRequest.notifyDataSetChanged();
-                        //카드 새로고침 후 로딩중 아이콘 지우기
-                        refRequest.setRefreshing(false);
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Approval>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-    }
 
     // 나의 지인
     private void getMyFriendList(){
@@ -181,6 +143,7 @@ public class FriendFragment extends Fragment {
                             FriendData friendData = new FriendData();
                             friendData.setTv_name(notificationList.get(i).getN_name());
                             friendData.setTv_phone(notificationList.get(i).getN_phone());
+
                             switch (notificationList.get(i).getN_whether()) {
                                 case "0":
                                     friendData.setTv_flag("비활성화");
@@ -190,11 +153,11 @@ public class FriendFragment extends Fragment {
                                     break;
                             }
                             adFriend.addItem(friendData);
+                            refFriend.setRefreshing(false);
                         }
 
                         adFriend.notifyDataSetChanged();
-                        //카드 새로고침 후 로딩중 아이콘 지우기
-                        refFriend.setRefreshing(false);
+
 
                     }
                 }
@@ -212,18 +175,98 @@ public class FriendFragment extends Fragment {
         SharedPreferences pref = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         return pref.getString(key, "");
     }
-    private void requestremoveScrollPullUpListener(){
-        rvRequest.removeOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            }
-        });
+
+
+
+    /*
+    * -------------------------
+    * 연락쳐 가져오기
+    * -------------------------
+    * */
+    public void chooseContacts() {
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.Contacts.CONTENT_URI); // 연락처 화면을 띄우기위한 인텐트 만들기
+        startActivityForResult(contactPickerIntent, 101);
     }
-    private void freindremoveScrollPullUpListener(){
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 101) {
+                try {
+                    Uri contactsUri = data.getData();
+                    String id = contactsUri.getLastPathSegment(); // 선택한 연락처의 id 값 확인
+
+                    getConTacts(id);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void getConTacts(String id) {
+        Cursor cursor = null;
+        String name = "";
+        String phone = "";
+
+        try {
+            cursor = getActivity().getContentResolver().query(ContactsContract.Data.CONTENT_URI,
+                    null,
+                    ContactsContract.Data.CONTACT_ID + "=?",
+                    new String[]{id},
+                    null);
+
+            if (cursor.moveToFirst()) {
+                name = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+                phone = cursor.getString(56);
+                Log.d("연락처 찍히는 이름 : ", name);
+                Log.d("전화번호 ", phone.replace("-",""));
+                cursor.close();
+
+                // 여기서 DB연동
+                Notification notification = new Notification();
+                notification.setN_name(name);
+                notification.setN_phone(phone.replace("-",""));
+                notification.setM_id(getPreferenceString("m_id"));
+                insertFriendPhoneNoRequest = DataService.getInstance().memberAPI.registerFriend(notification);
+                insertFriendPhoneNoRequest.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if (response.code() == 200) {
+                            Toast.makeText(getContext(), "안심번호로 등록되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Boolean checkAndRequestPermission() {
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, 100);
+        return false;
+    }
+    private void removeScrollPullUpListener(){
         rvFriend.removeOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             }
         });
     }
+
+
 }

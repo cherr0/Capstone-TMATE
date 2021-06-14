@@ -24,6 +24,7 @@ public class DrivingModel extends ViewModel {
 
     //DB에 들어갈 거리와 시간에 대한 변수들
     public Dispatch dispatch;
+    public String pl_id;
 
     public int payFlag = 1;  // 1: 성공, 2: 오류, 3: 취소
     public int payCash; // 지불 금액

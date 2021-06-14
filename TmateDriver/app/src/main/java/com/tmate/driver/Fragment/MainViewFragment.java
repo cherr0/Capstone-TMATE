@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.tmate.driver.R;
+import com.tmate.driver.activity.MainViewActivity;
 import com.tmate.driver.activity.WaitingActivity;
 import com.tmate.driver.databinding.FragmentMainViewBinding;
 import com.tmate.driver.net.DataService;
@@ -44,7 +45,9 @@ public class MainViewFragment  extends Fragment {
         b.carFind.setOnClickListener(v -> {
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             CarFragment carFragment = new CarFragment();
-            transaction.replace(R.id.frame, carFragment).commit();
+            MainViewActivity.navbarFlag = 3;
+            transaction.replace(R.id.frame, carFragment).addToBackStack(null).commit();
+
         });
 
         b.dvSt.setOnClickListener(v -> {

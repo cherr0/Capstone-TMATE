@@ -41,6 +41,7 @@ import com.tmate.user.R;
 import com.tmate.user.adapter.FavoritesAdapter;
 import com.tmate.user.common.PermissionManager;
 import com.tmate.user.data.FavoritesData;
+import com.tmate.user.data.Place;
 import com.tmate.user.databinding.FragmentSearchPlaceBinding;
 import com.tmate.user.net.DataService;
 
@@ -55,17 +56,21 @@ import retrofit2.Response;
 public class SearchPlaceFragment extends Fragment implements View.OnClickListener {
 
     private DrivingModel mViewModel;
-    SearchAdapter searchAdapter;
-    FavoritesAdapter favoritesAdapter;
-    ArrayList<TMapPOIItem> searchList;
-    ArrayList<FavoritesData> bookmarkList;
     FragmentSearchPlaceBinding b;
-
     Geocoder geocoder;
 
     private TMapView mMapView; //맵 뷰
 
+    SearchAdapter searchAdapter;
+    FavoritesAdapter favoritesAdapter;
+    HotPlaceAdapter placeAdapter;
+    ArrayList<TMapPOIItem> searchList;
+    ArrayList<FavoritesData> bookmarkList;
+    ArrayList<Place> placeList;
+
     Call<List<FavoritesData>> bookmarkRequest;
+    Call<List<Place>> placeRequest;
+    Call<Boolean> placeCntRequest;
 
     // gps 및 경로 그리기 위한 변수들
     private boolean m_bTrackingMode = false; // geofencing type save
@@ -117,10 +122,16 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
 
         // 리사이클러 뷰 설정
         RecyclerView.LayoutManager searchManager = new LinearLayoutManager(getContext());
-        searchList = new ArrayList<>();
-        searchAdapter = new SearchAdapter(searchList, mViewModel, b.finishPlace);
         b.searchList.setLayoutManager(searchManager);
-        b.searchList.setAdapter(searchAdapter);
+        if(mViewModel.together.equals("3")) {
+            placeList = new ArrayList<>();
+            placeAdapter = new HotPlaceAdapter(placeList, mViewModel, b.finishPlace);
+            b.searchList.setAdapter(placeAdapter);
+        } else{
+            searchList = new ArrayList<>();
+            searchAdapter = new SearchAdapter(searchList, mViewModel, b.finishPlace);
+            b.searchList.setAdapter(searchAdapter);
+        }
 
         RecyclerView.LayoutManager bookmarkManager = new LinearLayoutManager(getContext());
         bookmarkList = new ArrayList<>();
@@ -185,19 +196,52 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
                     b.searchList.setVisibility(View.VISIBLE);
                     b.favoriteList.setVisibility(View.GONE);
                 }
-                if(!searchList.isEmpty())
-                    searchList.clear();
+                if(mViewModel.together.equals("3")){
+                    if(!placeList.isEmpty()) {
+                        placeAdapter.clear();
+                    }
+                }else {
+                    if(!searchList.isEmpty())
+                        searchAdapter.clear();
+                }
 
                 String text = b.finishPlace.getText().toString();
-                TMapPoint tPoint = new TMapPoint(mViewModel.dispatch.getStart_lat(), mViewModel.dispatch.getStart_lng());
-                TMapData mapData = new TMapData();
-                mapData.findAroundKeywordPOI(tPoint, text, 200, 50, arrayList -> {
-                    Log.d("SearchPlaceFragment", "검색 리스트 : " + arrayList);
-                    for(TMapPOIItem item : arrayList) {
-                        searchAdapter.addItem(item);
-                    }
-                });
-                searchAdapter.notifyDataSetChanged();
+                if(mViewModel.together.equals("3")){
+                    placeRequest = DataService.getInstance().memberAPI.getPlaceList();
+                    placeRequest.enqueue(new Callback<List<Place>>() {
+                        @Override
+                        public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
+                            if(response.code() == 200 && response.body() != null) {
+                                Log.d("SearchPlaceFragment", "placeList : " + response.body());
+                                for(Place data : response.body()) {
+                                    String name = data.getPl_name();
+                                    if(name.contains(text)) {
+                                        Log.d("SearchPlaceFragment", "데이터 들어가는 중 : " + data);
+                                        placeAdapter.addItem(data);
+                                    }
+                                    placeAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<List<Place>> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+                }else {
+                    TMapPoint tPoint = new TMapPoint(mViewModel.dispatch.getStart_lat(), mViewModel.dispatch.getStart_lng());
+                    TMapData mapData = new TMapData();
+                    mapData.findAroundKeywordPOI(tPoint, text, 200, 50, arrayList -> {
+                        Log.d("SearchPlaceFragment", "검색 리스트 : " + arrayList);
+                        for(TMapPOIItem item : arrayList) {
+                            searchAdapter.addItem(item);
+                        }
+                    });
+
+                    searchAdapter.notifyDataSetChanged();
+                }
+
+
             }
         });
 
@@ -393,13 +437,27 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
         if(mViewModel.together.equals("1")) { // 일반 탑승 시
             NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
             controller.navigate(R.id.action_searchPlace_to_paymentInformationFragment);
-        }
-
-        // 동승 호출 시 -> 매칭 리스트로 넘어간다.
-        if (mViewModel.together.equals("2") || mViewModel.together.equals("3")) {
+        } else if(mViewModel.together.equals("2")) { // 동승 호출 시 -> 매칭 리스트로 넘어간다.
             NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
             controller.navigate(R.id.action_searchPlace_to_matchingFragment);
+        } else { // 3일 경우 핫플레이스 사용하게 되니 핫플레이스 목적지 횟수 증가 시키고 매칭리스트로 넘어간다.
+            placeCntRequest = DataService.getInstance().memberAPI.updatePlaceCnt(mViewModel.pl_id);
+            placeCntRequest.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    if(response.code() == 200 && response.body() != null) {
+                        Log.d("SearchPlaceFragment","목적지 횟수 증가 완료");
+                        NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                        controller.navigate(R.id.action_searchPlace_to_matchingFragment);
+                    }
+                }
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
         }
+
     }
 
     // 즐겨찾기 가져오기
@@ -437,5 +495,7 @@ public class SearchPlaceFragment extends Fragment implements View.OnClickListene
     public void onDestroy() {
         super.onDestroy();
         if(bookmarkRequest != null) bookmarkRequest.cancel();
+        if(placeRequest != null) placeRequest.cancel();
+        if(placeCntRequest != null) placeCntRequest.cancel();
     }
 }

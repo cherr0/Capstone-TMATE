@@ -46,11 +46,12 @@ public class PaymentAdapter extends  RecyclerView.Adapter<PaymentAdapter.Payment
     }
     @Override
     public void onBindViewHolder(@NonNull PaymentHolder holder, int position) {
-        holder.onBind(items.get(position));
+        int posit = holder.getAdapterPosition();
+        holder.onBind(items.get(posit));
         // 이전 포지션과 현재 포지션 값이 같을 때
-        if(prePosition == position) {
+        if(prePosition == posit) {
             holder.payment_card_check.setChecked(true);
-            prePosition = position;
+            prePosition = posit;
         }else {
             holder.payment_card_check.setChecked(false);
         }
@@ -73,31 +74,31 @@ public class PaymentAdapter extends  RecyclerView.Adapter<PaymentAdapter.Payment
 
         void onBind(CardData data) {
             switch (data.getPay_company()) {
-                case "DG":
+                case "대구":
                     payment_card_image.setImageResource(R.drawable.dgb_card);
                     break;
-                case "HANA":
+                case "하나":
                     payment_card_image.setImageResource(R.drawable.hana_card);
                     break;
-                case "IBK":
+                case "기업":
                     payment_card_image.setImageResource(R.drawable.ibk_card);
                     break;
-                case "KAKAOBANK":
+                case "카카오뱅크":
                     payment_card_image.setImageResource(R.drawable.kakao_card);
                     break;
-                case "KB":
+                case "국민":
                     payment_card_image.setImageResource(R.drawable.kb_card);
                     break;
-                case "NH":
+                case "농협":
                     payment_card_image.setImageResource(R.drawable.nhbank);
                     break;
-                case "SC":
+                case "제일":
                     payment_card_image.setImageResource(R.drawable.sc_card);
                     break;
-                case "SHINHAN":
+                case "신한":
                     payment_card_image.setImageResource(R.drawable.sh_card);
                     break;
-                case "WOORI":
+                case "우리":
                     payment_card_image.setImageResource(R.drawable.woribk);
                     break;
             }

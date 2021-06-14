@@ -9,6 +9,13 @@
     android:layout_marginBottom="10dp"
     android:orientation="vertical"
     app:cardCornerRadius="30dp">
+
+    <TextView
+        android:id="@+id/d_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:visibility="gone"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,7 +46,15 @@
                 android:orientation="horizontal"
                 android:gravity="right"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/car_item_checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="10dp"
@@ -56,28 +71,7 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="차대번호\n"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/font_sub_title"/>
-            <TextView
-                android:id="@+id/car_vin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15dp"
-                android:textColor="@color/black"
-                android:text="KMHSD81VP4U454178"
-                android:fontFamily="@font/font_sub_title"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:text="모델 명\n"
+                android:text="모델명"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/font_sub_title"/>
@@ -99,7 +93,7 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="차종\n"
+                android:text="차종"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/font_sub_title"/>
@@ -121,7 +115,7 @@
             <TextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:text="색상\n"
+                android:text="색상"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/font_sub_title"/>

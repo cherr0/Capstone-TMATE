@@ -112,16 +112,6 @@ public class UserApiController {
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
-    @PutMapping("/updaterep/{c_uid}/{m_id}")
-    public ResponseEntity<Boolean> modifyRep(@PathVariable("c_uid") String customer_uid,@PathVariable("m_id") String m_id) {
-
-        log.info("넘어오는 카드 빌링키 : " + customer_uid);
-        log.info("넘어오는 회원 번호 :" + m_id);
-
-
-        return new ResponseEntity<>(userService.modifyRep(customer_uid, m_id),HttpStatus.OK);
-    }
-
     @PostMapping("/modifymem")
     public ResponseEntity<Boolean> modifymem(@RequestBody MemberDTO memberDTO) {
         log.info("수정 될려는 멤버 정보 " + memberDTO);

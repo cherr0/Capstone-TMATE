@@ -1,5 +1,6 @@
 package com.tmate.service;
 
+import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
 
@@ -54,13 +55,10 @@ public interface UserService {
     public PaymentDTO readPayment(String customer_uid);
 
     // 3. 카드 삭제
-    public boolean removePayment(String customer_uid);
+    public boolean removePayment(String sid);
 
     // 4. 카드 추가
     public boolean registerPayment(PaymentDTO paymentDTO);
-
-    // 5. 카드 대표 설정
-    public boolean modifyRep(String customer_uid, String m_id);
 
     // 프로필 지인 알림전송 관리
     public List<NotificationDTO> getNotifiList(String m_id);
@@ -102,11 +100,14 @@ public interface UserService {
     public void removeApproval(String id, String m_id);
 
     //6 . 승인 시 알림전송 인서트
-    public void registerNotifi(NotificationDTO notificationDTO);
+    Boolean registerNotifi(NotificationDTO notificationDTO);
 
     // 7. 활성화 비활성화 상태 업데이트
-    public void modifyN_whether(NotificationDTO notificationDTO);
+    void modifyN_whether(NotificationDTO notificationDTO);
+
+    // 8. 지인 번호 삭제
+    Boolean removeFriendPhoneNo(String m_id, String n_name);
 
     // 이벤트 리스트
-    public List<BoardImageDTO> getBoardImageList();
+    List<BoardImageDTO> getBoardImageList();
 }

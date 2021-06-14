@@ -107,8 +107,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean removePayment(String customer_uid) {
-        return paymentMapper.delete(customer_uid) == 1;
+    public boolean removePayment(String sid) {
+        return paymentMapper.delete(sid) == 1;
     }
 
     @Override
@@ -132,24 +132,6 @@ public class UserServiceImpl implements UserService {
         return paymentMapper.insert(paymentDTO) == 1;
     }
 
-    // 카드 대표 활성화
-
-    @Transactional
-    @Override
-    public boolean modifyRep(String customer_uid, String m_id) {
-
-        String c_id = paymentMapper.findPayment(m_id);
-
-        if (c_id == customer_uid) {
-            return true;
-        }else if(c_id != null && c_id != customer_uid) {
-            paymentMapper.updateDRep(c_id);
-            return paymentMapper.updateRep(customer_uid) ==1;
-        }else {
-            return paymentMapper.updateRep(customer_uid) == 1;
-        }
-
-    }
 
     // 프로필 수정
 
@@ -196,14 +178,22 @@ public class UserServiceImpl implements UserService {
 
     // 승인 버튼 눌렀을 시 알림전송에 들어가게 된다.
     @Override
-    public void registerNotifi(NotificationDTO notificationDTO) {
-        friendMapper.insertNotifi(notificationDTO);
+    public Boolean registerNotifi(NotificationDTO notificationDTO) {
+        return friendMapper.insertNotifi(notificationDTO) == 1;
     }
 
     // 지인요청 활성화 비활성화 상태 업데이트
     @Override
     public void modifyN_whether(NotificationDTO notificationDTO) {
         friendMapper.updateFlag(notificationDTO);
+    }
+
+    // 지인 번호 삭제
+
+
+    @Override
+    public Boolean removeFriendPhoneNo(String m_id, String n_name) {
+        return friendMapper.deleteFriendPhoneNo(m_id, n_name) == 1;
     }
 
     @Override

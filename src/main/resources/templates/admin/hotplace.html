@@ -37,7 +37,6 @@
                     <tr>
                         <th>우편번호</th>
                         <th>장소명</th>
-                        <th>출발지 선택 횟수</th>
                         <th>도착지 선택 횟수</th>
                     </tr>
                     </thead>
@@ -45,7 +44,6 @@
                     <tr th:each="placeList : ${placeList}">
                         <td th:text="${placeList.pl_id}"></td>
                         <td class="modalBtn" th:text="${placeList.pl_name}"></td>
-                        <td th:text="${placeList.pl_start}">1회</td>
                         <td th:text="${placeList.pl_finish}">1회</td>
                     </tr>
                     </tbody>
@@ -66,8 +64,7 @@
                                 <p th:text="|장소명 : ${placeList.pl_name}|"></p>
                                 <p th:text="|위도 : ${placeList.pl_lttd}|"></p>
                                 <p th:text="|경도 : ${placeList.pl_lngtd}|"></p>
-                                <p th:text="|출발지 횟수 :  ${placeList.pl_start}|"></p>
-                                <p th:text="|도착지 횟수 : ${placeList.pl_start}|"></p>
+                                <p th:text="|도착지 횟수 : ${placeList.pl_finish}|"></p>
                             </div>
                         </div>
                         <div class="modal-footer">

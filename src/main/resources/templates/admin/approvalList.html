@@ -49,37 +49,8 @@
                                             </tr>
                                             </tbody>
                                         </table>
-                                        <nav>
-                                            <ul class="pagination justify-content-center">
-                                                <th:block th:if="${pageMaker.prev}">
-                                                    <li class="page-item">
-                                                        <a class="page-link"
-                                                           th:href="@{/approval(pageNum=${pageMaker.startPage-1})}"
-                                                           aria-label="Previous">
-                                                            <span aria-hidden="true">&laquo;</span>
-                                                        </a>
-                                                    </li>
-                                                </th:block>
 
-                                                <li th:class=" 'page-item ' + ${pageMaker.cri.pageNum == page?'active':''}"
-                                                    th:each="page: ${pageMaker.pageList}">
-                                                    <a class="page-link" th:href="@{/approval(pageNum=${page})}">
-                                                        [[${page}]]
-                                                    </a>
 
-                                                </li>
-
-                                                <th:block th:if="${pageMaker.next}">
-                                                    <li class="page-item">
-                                                        <a class="page-link"
-                                                           th:href="@{/approval(pageNum=${pageMaker.endPage+1})}"
-                                                           aria-label="Next">
-                                                            <span aria-hidden="true">&raquo;</span>
-                                                        </a>
-                                                    </li>
-                                                </th:block>
-                                            </ul>
-                                        </nav>
                                     </div>
                                     <div class="apinfo-size col-md-6 col-sm-12 col-xs-12">
                                         <div class="d_info">
@@ -99,6 +70,37 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <nav>
+                                        <ul class="pagination justify-content-center ap-page">
+                                            <th:block th:if="${pageMaker.prev}">
+                                                <li class="page-item">
+                                                    <a class="page-link"
+                                                       th:href="@{/approval(pageNum=${pageMaker.startPage-1})}"
+                                                       aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                            </th:block>
+
+                                            <li th:class=" 'page-item ' + ${pageMaker.cri.pageNum == page?'active':''}"
+                                                th:each="page: ${pageMaker.pageList}">
+                                                <a class="page-link" th:href="@{/approval(pageNum=${page})}">
+                                                    [[${page}]]
+                                                </a>
+
+                                            </li>
+
+                                            <th:block th:if="${pageMaker.next}">
+                                                <li class="page-item">
+                                                    <a class="page-link"
+                                                       th:href="@{/approval(pageNum=${pageMaker.endPage+1})}"
+                                                       aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </th:block>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
                         </div>

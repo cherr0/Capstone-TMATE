@@ -2,6 +2,7 @@ package com.tmate.web.android;
 
 import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
+import com.tmate.service.PlaceService;
 import com.tmate.service.SMSService;
 import com.tmate.service.UserService;
 import com.tmate.service.android.common.CommonService;
@@ -30,6 +31,9 @@ public class AndroidApiController {
 
     // 휴대폰 인증 서비스
     private final SMSService smsService;
+
+    // 핫플레이스 서비스
+    private final PlaceService placeService;
 
 
     @PostMapping("/register")
@@ -103,6 +107,13 @@ public class AndroidApiController {
         return new ResponseEntity<>(userService.getSearchList(phone.substring(1,12)), HttpStatus.OK);
     }
 
+    // 지인 추가 -> 나의 안심문자 번호 지인들
+    @PostMapping("/register/friend")
+    public ResponseEntity<Boolean> registerFriend(@RequestBody NotificationDTO notificationDTO) {
+        log.info("안심문자 번호 등록 중 : " + notificationDTO);
+
+        return new ResponseEntity<>(userService.registerNotifi(notificationDTO), HttpStatus.OK);
+    }
     // 지인 알림 -> 나의 지인들
     @GetMapping("/friend/{m_id}")
     public ResponseEntity<List<NotificationDTO>> friendByUser(@PathVariable("m_id") String m_id) {
@@ -138,6 +149,17 @@ public class AndroidApiController {
         userService.removeApproval(id, m_id);
 
         return new ResponseEntity<>(true, HttpStatus.OK);
+    }
+
+    // 지인 삭제
+    @DeleteMapping("/remove/friend/{m_id}/{n_name}")
+    public ResponseEntity<Boolean> removeFriend(
+            @PathVariable("m_id") String m_id,
+            @PathVariable("n_name") String n_name
+    ) {
+        log.info("지인을 삭제하기 위해 넘어오는 회원번호 : 지인이름 -> " + m_id + ":" + n_name);
+
+        return new ResponseEntity<>(userService.removeFriendPhoneNo(m_id, n_name), HttpStatus.OK);
     }
 
     // 승인 허용할 시
@@ -194,6 +216,20 @@ public class AndroidApiController {
         return new ResponseEntity<>(appMemberService.getunusedPoint(m_id), HttpStatus.OK);
     }
 
+    @PostMapping("/register/point")
+    public ResponseEntity<Boolean> registerPoint(@RequestBody PointDTO pointDTO) {
+        log.info("포인트 이력 삽입 : " + pointDTO);
+
+        return new ResponseEntity<>(appMemberService.registerPoint(pointDTO), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/useCount/{m_id}")
+    public ResponseEntity<Integer> getUseCount(@PathVariable("m_id") String m_id) {
+        log.info("사용자 횟수 가져오기 : " + m_id);
+
+        return new ResponseEntity<>(appMemberService.getUsingCount(m_id), HttpStatus.OK);
+    }
+
     @PostMapping("/bookmark")
     public ResponseEntity<Boolean> insertBookmark(@RequestBody BookmarkDTO bookmarkDTO) {
         log.info("북마크 삽입 진행 중");
@@ -227,22 +263,11 @@ public class AndroidApiController {
     }
 
     // 카드 삭제
-    @DeleteMapping("/remove/{customer_uid}")
-    public ResponseEntity<Boolean> removeCard(@PathVariable("customer_uid") String customer_uid) {
-        log.info("삭제할려는 카드 빌링키 : " + customer_uid);
+    @DeleteMapping("/remove/{sid}")
+    public ResponseEntity<Boolean> removeCard(@PathVariable("sid") String sid) {
+        log.info("삭제할려는 카드 빌링키 : " + sid);
 
-        return new ResponseEntity<>(userService.removePayment(customer_uid), HttpStatus.OK);
-    }
-
-    // 카드 업데이트 대표 비대표
-    @PutMapping("/updaterep/{customer_uid}/{m_id}")
-    public ResponseEntity<Boolean> modifyRep(@PathVariable("customer_uid") String customer_uid, @PathVariable("m_id") String m_id) {
-
-        log.info("넘어오는 카드 빌링키 : " + customer_uid);
-        log.info("넘어오는 회원 번호 :" + m_id);
-
-
-        return new ResponseEntity<>(userService.modifyRep(customer_uid, m_id),HttpStatus.OK);
+        return new ResponseEntity<>(userService.removePayment(sid), HttpStatus.OK);
     }
 
     /*
@@ -263,8 +288,20 @@ public class AndroidApiController {
     }
 
     // 메인 뷰 최신 공지 리스트 가져오기
-    @GetMapping("board/mainnotice")
+    @GetMapping("/board/mainnotice")
     public ResponseEntity<List<BoardDTO>> getMainNoticeList() {
         return new ResponseEntity<>(appMemberService.getMainNoticeList(), HttpStatus.OK);
+    }
+
+    // 핫플레이스 조회
+    @GetMapping("/hotplace")
+    public ResponseEntity<List<PlaceDTO>> getPlaceList() {
+        return new ResponseEntity<>(placeService.getHotPlaceList(), HttpStatus.OK);
+    }
+
+    // 핫 플레이스 도착지 횟수 증가
+    @PutMapping("/hotplace/{pl_id}")
+    public ResponseEntity<Boolean> updatePlaceCnt(@PathVariable("pl_id") String pl_id) {
+        return new ResponseEntity<>(placeService.updatePlaceCnt(pl_id), HttpStatus.OK);
     }
 }

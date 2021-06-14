@@ -4,12 +4,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class PointData {
-//    private String poTime;
-//    private int poResult;
-//    private int mPoint;
-//    private String poExact;
-//    private String poCourse;
-//
+
+    private String m_id;
+
     private String po_course;
 
     private String po_exact;
@@ -71,44 +68,11 @@ public class PointData {
         this.bd_id = bd_id;
     }
 
-    // 지울 것
-//    public String getPoCourse() {
-//        return poCourse;
-//    }
-//
-//    public void setPoCourse(String poCourse) {
-//        this.poCourse = poCourse;
-//    }
-//
-//    public String getPoTime() {
-//        return poTime;
-//    }
-//
-//    public void setPoTime(String poTime) {
-//        this.poTime = poTime;
-//    }
-//
-//    public int getPoResult() {
-//        return poResult;
-//    }
-//
-//    public void setPoResult(int poResult) {
-//        this.poResult = poResult;
-//    }
-//
-//    public int getmPoint() {
-//        return mPoint;
-//    }
-//
-//    public void setmPoint(int mPoint) {
-//        this.mPoint = mPoint;
-//    }
-//
-//    public String getPoExact() {
-//        return poExact;
-//    }
-//
-//    public void setPoExact(String poExpact) {
-//        this.poExact = poExpact;
-//    }
+    public String getM_id() {
+        return m_id;
+    }
+
+    public void setM_id(String m_id) {
+        this.m_id = m_id;
+    }
 }

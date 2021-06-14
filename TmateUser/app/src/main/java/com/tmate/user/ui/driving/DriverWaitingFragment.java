@@ -35,6 +35,7 @@ import com.skt.Tmap.TMapView;
 import com.tmate.user.R;
 import com.tmate.user.common.PermissionManager;
 import com.tmate.user.data.Dispatch;
+import com.tmate.user.data.PointData;
 import com.tmate.user.data.SubscriptionRes;
 import com.tmate.user.databinding.FragmentDriverWaitingBinding;
 import com.tmate.user.net.DataService;
@@ -84,12 +85,16 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
     Call<SubscriptionRes> subscriptionRequest;
     boolean isRunning;
 
+    // 포인트 사용 부분 Request
+    Call<Boolean> insertUsePointRequest;
+
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mViewModel = new ViewModelProvider(requireActivity()).get(DrivingModel.class);
         b = FragmentDriverWaitingBinding.inflate(getLayoutInflater());
+        geocoder = new Geocoder(getActivity());//지오코더
         return b.getRoot();
     }
 
@@ -122,6 +127,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
         isRunning = true;
         thread.start();
+
     }
 
     @Override
@@ -140,7 +146,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         //gps
         gps = new TMapGpsManager(getActivity());
         mPermissionManager = new PermissionManager();
-        geocoder = new Geocoder(getActivity());//지오코더
 
         //맵 화면에 띄우기
         mMapView = new TMapView(getActivity());
@@ -225,8 +230,8 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                     Log.d("DriverWaitingFragment","가져온 배차 정보 : " + dispatch.toString());
                     String d_id = mViewModel.dispatch.getD_id();
                     driverPhoneNo = d_id.substring(2, 5) + "-" + d_id.substring(5,9) + "-" + d_id.substring(9,13);
-                    tMapPointStart = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
-                    tMapPointEnd = new TMapPoint(dispatch.getFinish_lat(), dispatch.getFinish_lng());
+                    tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
+                    tMapPointEnd = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
                     modelDataBinding();
                     mapSetting(); // 지도 옵션 셋팅 및 활성화
                 }
@@ -343,7 +348,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
                         switch (dispatch.getDp_status()) {
                             case "3" : // 탑승 대기 중
-                                tMapPointStart  = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
+                                tMapPointStart  = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
                                 drawCarPath();
                                 Log.d("DriverWaitingFragment", "맵 그리는 중");
                                 b.dpStatus.setText("탑승 대기중");
@@ -353,6 +358,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                                 isRunning = false;
                                 // 탑승완료 될 경우 다음 레이아웃으로 이동
                                 kakaoSubscription(mViewModel.dispatch);
+                                insertUsePoint();
                                 NavController controller = Navigation.findNavController(activity, R.id.nav_host_fragment);
                                 controller.navigate(R.id.action_driverWaitingFragment_to_driverMovingFragment);
                                 break;
@@ -368,6 +374,30 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                 }
             });
         }
+    }
+
+    // 사용한 포인트 DB 연동
+    public void insertUsePoint() {
+        PointData pointData = new PointData();
+        pointData.setM_id(getPreferenceString("m_id"));
+        pointData.setPo_course("포인트사용");
+        pointData.setPo_exact("1");
+        pointData.setPo_result(mViewModel.use_point);
+
+        insertUsePointRequest = DataService.getInstance().memberAPI.registerPoint(pointData);
+        insertUsePointRequest.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if (response.code() == 200) {
+                    Toast.makeText(getContext(), mViewModel.use_point+"P 가 사용되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     @Override

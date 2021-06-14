@@ -108,6 +108,12 @@ public class AppDriverServiceImpl implements AppDriverService{
         return driverMapper.insertCar(carDTO) == 1;
     }
 
+    @Override   // 기사 차량 제거
+    public Boolean deleteDriverCar(String car_no) {
+        log.info("AppDriverService 기사 차량 제거 car_no : " + car_no);
+        return driverMapper.deleteCar(car_no) == 1;
+    }
+
     @Override   // 블랙리스트에 표시할 데이터 리스트
     public List<AttendListVO> searchAttendList(String dp_id) {
         List<AttendListVO> attendList = driverMapper.getAttendList(dp_id);

@@ -72,6 +72,9 @@ public interface DriverMapper {
     // 기사 차량 추가
     public int insertCar(CarDTO carDTO);
 
+    // 기사 차량 제거
+    public int deleteCar(String car_no);
+
     // 블랙리스트에 표시할 데이터 리스트
     public List<AttendListVO> getAttendList(String dp_id);
 

@@ -106,10 +106,16 @@
         where m_id = #{m_id}
     </select>
 
+    <select id="selectUsingCount" resultType="int">
+        select m_n_use + m_t_use
+        from member
+        where m_id = #{m_id}
+    </select>
+
     <!-- 포인트 작업 -->
     <insert id="insertPoint">
         insert into point(po_id, m_id, po_course, po_exact, po_result, po_time, bd_id)
-        values (p_sec.nextval,#{m_id},#{po_course},#{po_exact},#{po_result},systimestamp,null)
+        values (p_sec.nextval,#{m_id},#{po_course},#{po_exact},#{po_result},to_char(systimestamp,'yyMMddhh24missff'),null)
     </insert>
 
     <select id="findPointListByM_id" resultType="com.tmate.domain.PointDTO">
@@ -149,10 +155,10 @@
     </update>
 
     <!--  회원 미사용 포인트 조회  -->
-    <select id="unusedPointByM_id" resultType="_int">
-        select point-use_point as get_point
+    <select id="unusedPointByM_id" resultType="int">
+        select nvl(point-use_point,0) as get_point
         from (
-                 select m_id, sum(CASE WHEN po_exact = 0 THEN po_result END) as point, sum(CASE WHEN po_exact = 1 THEN po_result END) as use_point
+                 select m_id, nvl(sum(CASE WHEN po_exact = 0 THEN po_result END),0) as point,nvl(sum(CASE WHEN po_exact = 1 THEN po_result END),0) as use_point
                  from POINT
                  where m_id = #{m_id}
                  group by m_id

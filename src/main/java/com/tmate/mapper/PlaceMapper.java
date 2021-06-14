@@ -20,6 +20,8 @@ public interface PlaceMapper {
 
     int delete(String pl_id);
 
+    int updateFinish(String pl_id);
+
 
     /*
     *

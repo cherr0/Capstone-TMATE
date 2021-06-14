@@ -9,6 +9,7 @@ import com.tmate.user.data.Member;
 import com.tmate.user.data.Notice;
 import com.tmate.user.data.Notification;
 import com.tmate.user.data.PhoneDTO;
+import com.tmate.user.data.Place;
 import com.tmate.user.data.PointData;
 import com.tmate.user.data.Social;
 import com.tmate.user.data.UserHistroy;
@@ -29,6 +30,10 @@ public interface MemberAPI {
     /*
     *  지인 알림 부분
     * */
+
+    // 지인 추가
+    @POST("member/register/friend")
+    Call<Boolean> registerFriend(@Body Notification notification);
 
     // 내가 지인에게 승인을 요청할 시
     @POST("member/approval")
@@ -53,6 +58,10 @@ public interface MemberAPI {
     // 활성화&비활성화 상태
     @PUT("member/updatestat")
     Call<Boolean> modifyStat(@Body Notification notification);
+
+    // 지인 삭제
+    @DELETE("member/remove/friend/{m_id}/{n_name}")
+    Call<Boolean> removeFriend(@Path("m_id") String m_id, @Path("n_name") String n_name);
 
     // 요청 거부
     @DELETE("member/removeAppro/{id}/{m_id}")
@@ -104,6 +113,12 @@ public interface MemberAPI {
     @GET("member/unusedPoint/{m_id}")
     Call<Integer> getUnusedPoint(@Path("m_id") String m_id);
 
+    @POST("member/register/point")
+    Call<Boolean> registerPoint(@Body PointData pointData);
+
+    @GET("member/get/useCount/{m_id}")
+    Call<Integer> getUseCount(@Path("m_id") String m_id);
+
     /*
     *  카드 관련 서비스
     * */
@@ -116,12 +131,8 @@ public interface MemberAPI {
     Call<List<CardData>> getUserCard(@Path("m_id") String m_id);
 
     // 카드 삭제
-    @DELETE("member/remove/{customer_uid}")
-    Call<Boolean> removeCard(@Path("customer_uid") String customer_uid);
-
-    // 카드 대표
-    @PUT("member/updaterep/{customer_uid}/{m_id}")
-    Call<Boolean> modifyRep(@Path("customer_uid") String customer_id, @Path("m_id") String m_id);
+    @DELETE("member/remove/{sid}")
+    Call<Boolean> removeCard(@Path("sid") String sid);
 
     /*
     * 운행 옵션
@@ -138,5 +149,14 @@ public interface MemberAPI {
     // 메인 뷰 최신 공지 리스트 가져오기
     @GET("member/board/mainnotice")
     Call<List<Notice>> getMainNoticeList();
+
+
+    // 핫플레이스 조회
+    @GET("/member/hotplace")
+    Call<List<Place>> getPlaceList();
+
+    // 핫플레이스 목적지 횟수 업데이트
+    @PUT("/member/hotplace/{pl_id}")
+    Call<Boolean> updatePlaceCnt(@Path("pl_id") String pl_id);
 
 }
