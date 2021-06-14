@@ -278,6 +278,6 @@ public class Profile_Reg_Fragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        request.cancel();
+        if (request != null ) request.cancel();
     }
 }

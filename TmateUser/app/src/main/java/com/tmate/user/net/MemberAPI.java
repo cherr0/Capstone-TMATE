@@ -14,6 +14,7 @@ import com.tmate.user.data.PointData;
 import com.tmate.user.data.Social;
 import com.tmate.user.data.UserHistroy;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -82,6 +83,10 @@ public interface MemberAPI {
     // 상세 프로필 정보
     @GET("member/select/{m_id}")
     Call<Member> selectProfile(@Path("m_id") String m_id);
+
+    // 회원 생년 월일 정보
+    @GET("member/get/birth/{m_id}")
+    Call<String> getBirth(@Path("m_id") String m_id);
 
     // 유저 이용 내역 정보
     @GET("member/historys/{m_id}")

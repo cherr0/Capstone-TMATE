@@ -13,11 +13,20 @@ import com.pharid.splash.lib.activity.AnimatedSplash;
 import com.pharid.splash.lib.cnst.Flags;
 import com.pharid.splash.lib.model.ConfigSplash;
 import com.tmate.user.R;
+import com.tmate.user.net.DataService;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SplashActivity extends AnimatedSplash {
 
     String imei = "";
 
+    Call<String> getBirthRequest;
 
     @SuppressLint("HardwareIds")
     @Override
@@ -27,8 +36,8 @@ public class SplashActivity extends AnimatedSplash {
 
         imei = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
 
-//        setPreference("m_id", "m2010676819600");
-//        setPreference("m_name", "허시현");
+        setPreference("m_id", "m1010918400420");
+        setPreference("m_name", "하창현");
 //        setPreference("sid", "S2905462887021313232");
 
         //Customize Circular Reveal
@@ -58,6 +67,9 @@ public class SplashActivity extends AnimatedSplash {
         if (!(getPreferenceString("m_id").equals(""))) {
             Intent intent = new Intent(this, MainViewActivity.class);
             intent.putExtra("m_id", getPreferenceString("m_id"));
+            storeGenderByUser();
+            storeAgeByUser();
+            Log.d("찍히는 성별", getPreferenceString("gender"));
             startActivity(intent);
             finish();
         } else {
@@ -80,5 +92,73 @@ public class SplashActivity extends AnimatedSplash {
     public String getPreferenceString(String key) {
         SharedPreferences pref = getSharedPreferences("loginUser", MODE_PRIVATE);
         return pref.getString(key, "");
+    }
+    
+    // 성별 SharedPreference 작업
+    public void storeGenderByUser() {
+        switch (getPreferenceString("m_id").substring(1, 2)) {
+            case "1":
+            case "3":
+                setPreference("gender","남");
+                break;
+            case "2":
+            case "4":
+                setPreference("gender","여");
+                break;
+        }
+    }
+    
+    // 생년 월일 작업
+    public void storeAgeByUser() {
+        getBirthRequest = DataService.getInstance().memberAPI.getBirth(getPreferenceString("m_id"));
+        getBirthRequest.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.code() == 200) {
+                    int year = Calendar.getInstance().get(Calendar.YEAR);
+                    Log.d("넘어오는 회원 생년월일", String.valueOf(response.body()));
+                    Log.d("현재 년도 ", String.valueOf(year).substring(2));
+                    int age = (year-2000) - Integer.parseInt(response.body());
+                    if (age < 0)
+                        age += 100;
+                    Log.d("현재 이분의 나이는 : ", String.valueOf(age));
+
+                    switch (age / 10) {
+                        case 1:
+                            setPreference("age","10대");
+                            break;
+                        case 2:
+                            setPreference("age","20대");
+                            break;
+                        case 3:
+                            setPreference("age","30대");
+                            break;
+                        case 4:
+                            setPreference("age","40대");
+                            break;
+                        case 5:
+                            setPreference("age","50대");
+                            break;
+                        case 6:
+                            setPreference("age","60대");
+                            break;
+                        case 7:
+                            setPreference("age","70대");
+                            break;
+                        default:
+                            setPreference("age","기타");
+                            break;
+                    }
+
+                    Log.d("이분의 나이대는? ", getPreferenceString("age"));
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 }
