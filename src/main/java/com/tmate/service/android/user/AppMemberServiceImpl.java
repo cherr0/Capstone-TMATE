@@ -101,6 +101,12 @@ public class AppMemberServiceImpl implements AppMemberService {
         return member;
     }
 
+    // 회원 생년 월일 가져오기
+    @Override
+    public String getMemberBirthByM_id(String m_id) {
+        return membermapper.getMemberBirth(m_id);
+    }
+
     // 유저 이용내역 리스트
     @Override
     public List<DispatchDTO> getMemberHistoryList(String m_id) {
