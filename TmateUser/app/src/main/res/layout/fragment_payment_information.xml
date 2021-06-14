@@ -149,73 +149,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintVertical_bias="0.0"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/payment_information_request"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/payment_information_embarkation"
-                    app:layout_constraintStart_toStartOf="@+id/payment_information_embarkation"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="16dp">
-
-                    <TextView
-                        android:id="@+id/request_information"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="요청사항"
-                        android:textColor="@color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:layout_marginTop="12dp"/>
-
-                    <EditText
-                        android:id="@+id/request_information_ev"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:hint="예) 도착전 미리 전화주세요."
-                        app:layout_constraintTop_toBottomOf="@+id/request_information"
-                        app:layout_constraintStart_toStartOf="@+id/request_information"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:layout_marginEnd="12dp"
-                        android:layout_marginTop="8dp"/>
-
-                    <CheckBox
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="다음에도 사용"
-                        android:textSize="16sp"
-                        app:layout_constraintTop_toBottomOf="@+id/request_information_ev"
-                        app:layout_constraintStart_toStartOf="@+id/request_information_ev"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginTop="4dp"/>
-
-                    <View
-                        android:id="@+id/request_information_bottom_View"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#CDCDCD"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintVertical_bias="0.0"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/payment_information_payment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    app:layout_constraintTop_toBottomOf="@+id/payment_information_request"
-                    app:layout_constraintStart_toStartOf="@+id/payment_information_request"
+                    app:layout_constraintTop_toBottomOf="@+id/payment_information_embarkation"
+                    app:layout_constraintStart_toStartOf="@+id/payment_information_embarkation"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="16dp">
 
@@ -343,16 +283,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintVertical_bias="0.0"/>
 
-                        <RadioButton
-                            android:id="@+id/event_Roulette"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="룰렛 돌리기"
-                            android:textSize="20sp"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginBottom="12dp"/>
-
-                    </RadioGroup>
+                    </RadioGroup>>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
