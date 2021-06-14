@@ -45,47 +45,67 @@
             app:tib_drawable_off="@drawable/ic_sit_off"
             app:tib_drawable_on="@drawable/ic_sit_off_more" />
 
-        <TextView
-            android:id="@+id/seat_one_m_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/seat_one_info"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/ibmplexsanskr_medium"
-            android:text="박한수"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
+            android:layout_height="0dp"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/seat_one"
             app:layout_constraintEnd_toEndOf="@+id/seat_one"
             app:layout_constraintStart_toStartOf="@+id/seat_one"
-            app:layout_constraintTop_toTopOf="@+id/seat_one" />
+            app:layout_constraintTop_toTopOf="@+id/seat_one">
 
-        <TextView
-            android:id="@+id/seat_one_m_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/ibmplexsanskr_medium"
-            android:text="남"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/seat_one_m_name"
-            app:layout_constraintTop_toBottomOf="@+id/seat_one_m_name" />
+            <TextView
+                android:id="@+id/seat_one_m_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
+                android:text="박한수"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/seat_one_info"
+                app:layout_constraintStart_toStartOf="@+id/seat_one_info"
+                app:layout_constraintTop_toTopOf="@+id/seat_one_info" />
 
-        <TextView
-            android:id="@+id/seat_one_m_"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/ibmplexsanskr_medium"
-            android:text="25살"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/seat_one_m_name"
-            app:layout_constraintTop_toTopOf="@+id/seat_one_m_gender" />
+            <TextView
+                android:id="@+id/seat_one_m_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="남"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/seat_one_m_name"
+                app:layout_constraintTop_toBottomOf="@+id/seat_one_m_name" />
+
+            <TextView
+                android:id="@+id/seat_one_m_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="25살"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/seat_one_m_name"
+                app:layout_constraintTop_toTopOf="@+id/seat_one_m_gender" />
+
+            <TextView
+                android:id="@+id/seat_one_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <net.colindodd.toggleimagebutton.ToggleImageButton
             android:id="@+id/seat_two"
@@ -98,47 +118,65 @@
             app:tib_drawable_off="@drawable/ic_sit_off"
             app:tib_drawable_on="@drawable/ic_sit_off_more" />
 
-        <TextView
-            android:id="@+id/seat_two_m_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/seat_two_info"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/ibmplexsanskr_medium"
-            android:text="박한수"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
+            android:layout_height="0dp"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/seat_two"
             app:layout_constraintEnd_toEndOf="@+id/seat_two"
             app:layout_constraintStart_toStartOf="@+id/seat_two"
-            app:layout_constraintTop_toTopOf="@+id/seat_two" />
+            app:layout_constraintTop_toTopOf="@+id/seat_two">
 
-        <TextView
-            android:id="@+id/seat_two_m_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/ibmplexsanskr_medium"
-            android:text="남"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/seat_two_m_name"
-            app:layout_constraintTop_toBottomOf="@+id/seat_two_m_name" />
+            <TextView
+                android:id="@+id/seat_two_m_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
+                android:text="박한수"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/seat_two_info"
+                app:layout_constraintStart_toStartOf="@+id/seat_two_info"
+                app:layout_constraintTop_toTopOf="@+id/seat_two_info" />
 
-        <TextView
-            android:id="@+id/seat_two_m_birth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/ibmplexsanskr_medium"
-            android:text="25살"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/seat_two_m_name"
-            app:layout_constraintTop_toTopOf="@+id/seat_two_m_gender" />
+            <TextView
+                android:id="@+id/seat_two_m_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="남"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/seat_two_m_name"
+                app:layout_constraintTop_toBottomOf="@+id/seat_two_m_name" />
+
+            <TextView
+                android:id="@+id/seat_two_m_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="25살"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/seat_two_m_name"
+                app:layout_constraintTop_toTopOf="@+id/seat_two_m_gender" />
+
+            <TextView
+                android:id="@+id/seat_two_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <net.colindodd.toggleimagebutton.ToggleImageButton
             android:id="@+id/seat_three"
@@ -151,47 +189,66 @@
             app:tib_drawable_off="@drawable/ic_sit_off"
             app:tib_drawable_on="@drawable/ic_sit_off_more" />
 
-        <TextView
-            android:id="@+id/seat_three_m_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/seat_three_info"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/ibmplexsanskr_medium"
-            android:text="박한수"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
+            android:layout_height="0dp"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/seat_three"
             app:layout_constraintEnd_toEndOf="@+id/seat_three"
             app:layout_constraintStart_toStartOf="@+id/seat_three"
-            app:layout_constraintTop_toTopOf="@+id/seat_three" />
+            app:layout_constraintTop_toTopOf="@+id/seat_three">
 
-        <TextView
-            android:id="@+id/seat_three_m_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/ibmplexsanskr_medium"
-            android:text="남"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/seat_three_m_name"
-            app:layout_constraintTop_toBottomOf="@+id/seat_three_m_name" />
+            <TextView
+                android:id="@+id/seat_three_m_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/ibmplexsanskr_semibold"
+                android:text="박한수"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/seat_three_info"
+                app:layout_constraintStart_toStartOf="@+id/seat_three_info"
+                app:layout_constraintTop_toTopOf="@+id/seat_three_info" />
 
-        <TextView
-            android:id="@+id/seat_three_m_birth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/ibmplexsanskr_medium"
-            android:text="25살"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/seat_three_m_name"
-            app:layout_constraintTop_toTopOf="@+id/seat_three_m_gender" />
+            <TextView
+                android:id="@+id/seat_three_m_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="남"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/seat_three_m_name"
+                app:layout_constraintTop_toBottomOf="@+id/seat_three_m_name" />
+
+            <TextView
+                android:id="@+id/seat_three_m_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:text="25살"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/seat_three_m_name"
+                app:layout_constraintTop_toTopOf="@+id/seat_three_m_gender" />
+
+            <TextView
+                android:id="@+id/seat_three_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

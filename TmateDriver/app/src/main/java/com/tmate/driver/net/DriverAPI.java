@@ -55,6 +55,7 @@ public interface DriverAPI {
     Call<List<DriverHistory>> driveHistoryList(@Path("d_id") String d_id);
 
     // 운행기록 블랙리스트 추가 시 표시 데이터 리스트 - GET
+    @GET("/driver/history/ban/{dp_id}")
     Call<List<AttendList>> historyAttendList(@Path("dp_id") String dp_id);
 
     // 기사 차량 리스트 - GET

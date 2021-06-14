@@ -171,7 +171,7 @@
 
     <!-- 기사가 승객을 블랙리스트에 추가할 시 -->
     <insert id="insertBlacklist">
-        insert into ban (bd_id,d_id,ban_reason,ban_reg_date,m_id)
+        insert into ban (ban_id,d_id,ban_reason,ban_reg_date,m_id)
         values(ban_seq.nextval,#{d_id},#{ban_reason},systimestamp,#{m_id})
     </insert>
 

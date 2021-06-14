@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/normal_black_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -20,7 +20,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout11"
+        android:id="@+id/normal_black_const"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -31,25 +31,23 @@
         android:padding="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10">
+        app:layout_constraintTop_toBottomOf="@+id/normal_black_title">
 
         <ImageView
             android:id="@+id/m_profile"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginBottom="30dp"
             android:src="@drawable/default_profile"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/m_name"
+            android:id="@+id/normal_m_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/font_header"
+            android:fontFamily="@font/ibmplexsanskr_medium"
             android:text="홍길동"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -58,7 +56,31 @@
             app:layout_constraintTop_toBottomOf="@+id/m_profile" />
 
         <TextView
-            android:id="@+id/m_id"
+            android:id="@+id/normal_m_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ibmplexsanskr_medium"
+            android:text="남"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/m_profile"
+            app:layout_constraintTop_toBottomOf="@+id/normal_m_name" />
+
+        <TextView
+            android:id="@+id/normal_m_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/ibmplexsanskr_medium"
+            android:text="99년생"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@+id/normal_m_gender"
+            app:layout_constraintTop_toBottomOf="@+id/normal_m_name" />
+
+
+        <TextView
+            android:id="@+id/normal_m_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -67,7 +89,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/normal_black_list_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -78,7 +100,7 @@
         android:fontFamily="@font/font_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout11" />
+        app:layout_constraintTop_toBottomOf="@+id/normal_black_const" />
 
     <TextView
         android:layout_width="match_parent"
@@ -91,10 +113,10 @@
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/normal_black_list_info" />
 
     <Button
-        android:id="@+id/btn_seat"
+        android:id="@+id/btn_normal_seat"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:text="블랙리스트 등록"
