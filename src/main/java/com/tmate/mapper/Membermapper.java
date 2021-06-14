@@ -4,6 +4,7 @@ import com.tmate.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Mapper
@@ -11,6 +12,9 @@ public interface Membermapper {
 
     // 관리자 페이지 회원리스트
     List<MemberDTO> getList(Criteria cri);
+
+    // 생년월일만 가져오기
+    String getMemberBirth(String m_id);
 
     // 회원 상세 정보
     MemberDTO getMemberByM_id(String m_id);

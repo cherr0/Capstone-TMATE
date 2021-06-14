@@ -9,11 +9,13 @@ import com.tmate.service.android.common.CommonService;
 import com.tmate.service.android.user.AppMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import oracle.sql.TIMESTAMP;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -88,6 +90,14 @@ public class AndroidApiController {
 
             return new ResponseEntity<>(SMSService.REJECT, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    // 회원 생년 월일 가져오는 메서드
+    @GetMapping("/get/birth/{m_id}")
+    public ResponseEntity<String> getBirth(@PathVariable("m_id") String m_id) {
+        log.info("생년월일을 알기위한 : " + m_id);
+
+        return new ResponseEntity<>(appMemberService.getMemberBirthByM_id(m_id), HttpStatus.OK);
     }
 
 

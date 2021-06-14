@@ -19,7 +19,7 @@ public class JoinDriverProfileVO {
 
     private Timestamp d_j_date;
 
-    private String ac_num;
+    private String d_acnum;
 
     private String car_no;
 

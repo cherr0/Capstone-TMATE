@@ -3,6 +3,7 @@ package com.tmate.service.android.user;
 import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,9 @@ public interface AppMemberService {
 
     // 회원 정보 - 프로필 + 좋아요 + 싫어요 횟수
     MemberDTO getMemberProfile(String m_id);
+
+    // 회원 정보 - 생년월일만
+    String getMemberBirthByM_id(String m_id);
 
     // 이용 내역 - 유저 이용 내역
     List<DispatchDTO> getMemberHistoryList(String m_id);

@@ -7,6 +7,15 @@
         <item>대형</item>
     </string-array>
 
+    <string-array name="car_color">
+        <item>black</item>
+        <item>white</item>
+        <item>gray</item>
+        <item>orange</item>
+        <item>yellow</item>
+    </string-array>
+
+
     <string-array name="a_zoomlevel">
         <item>3</item>
         <item>4</item>

@@ -12,6 +12,7 @@
                 from
                     member m inner join driver d on m.m_id = d.d_id
                              inner join car c on d.d_id = c.m_id
+                             inner join corp co on c.CAR_NO = co.CAR_NO
               where d_j_date is not null and  rownum <= #{cri.pageNum} * #{cri.amount})
         where rn > (#{cri.pageNum} - 1) * #{cri.amount}
         ]]>
@@ -21,14 +22,19 @@
         select m.m_id, m.m_name,m.m_profile ,m.m_birth, d.d_license_no, d.d_j_date, d.d_acnum, c.car_no, c.car_model
         from member m inner join driver d on m.m_id = d.d_id
                       inner join car c on d.d_id = c.m_id
-        where d_id  = #{d_id}
+                      inner join corp co on c.CAR_NO = co.CAR_NO
+        where d.d_id  = #{d_id}
     </select>
 
-    <select id="getDriverHistoryList" resultType="com.tmate.domain.HistoryDTO">
+    <select id="getDriverHistoryList" resultType="com.tmate.domain.driver.DriverHistoryVO">
         <![CDATA[
-        select  merchant_uid, h_s_time, h_e_time, h_s_place, h_f_place, h_allfare
-        from (select rownum rn, merchant_uid, h_s_time, h_e_time, h_s_place, h_f_place, h_allfare
-        from history where d_id = #{d_id} and rownum <= #{cri.pageNum} * #{cri.amount})
+        select together, D_ID, DP_ID, ALL_FARE, START_PLACE, FINISH_PLACE, START_TIME, END_TIME
+        from (select CASE WHEN substr(d.dp_id,19) = 1 THEN '일반'
+                          WHEN substr(d.dp_id,19) >= 2 THEN '동승' END together,
+                     rownum rn,
+                     d.d_id, d.dp_id, d.ALL_FARE, d.START_PLACE, d.FINISH_PLACE, d.START_TIME, d.END_TIME
+              from DISPATCH d join member m on d.d_id = m.m_id
+                   and rownum <= #{cri.pageNum} * #{cri.amount})
         where rn > (#{cri.pageNum} - 1) * #{cri.amount}
         ]]>
     </select>
@@ -43,25 +49,27 @@
     </select>
 
     <select id="getLikeCount" resultType="_int">
-        select count(*)
-        from review where substr(r_code,0,14)=#{d_id} and substr(r_code,15) like 'L%'
+        select count(CASE WHEN re_driver = 0 THEN 1 END) like_cnt
+        from attend
+        where dp_id in (select dp_id from dispatch where d_id = #{d_id})
     </select>
 
     <select id="getDisLikeCount" resultType="_int">
-        select count(*)
-        from review where substr(r_code,0,14)=#{d_id} and substr(r_code,15) like 'H%'
+        select count(CASE WHEN re_driver = 1 THEN 1 END) hate_cnt
+        from attend
+        where dp_id in (select dp_id from dispatch where d_id = #{d_id})
     </select>
 
     <select id="getCountHistory" resultType="_int">
         select count(*)
-        from history
+        from dispatch
         where d_id = #{d_id}
     </select>
 
     <select id="getCountReview" resultType="_int">
         select count(*)
-        from review
-        where substr(r_code,0,13) = #{d_id}
+        from attend a join DISPATCH d on a.DP_ID = d.DP_ID
+        where a.RE_DRIVER_REASON is not null and d.d_id = #{d_id};
     </select>
 
     <select id="getBanListByd_id" resultType="com.tmate.domain.JoinBanVO">

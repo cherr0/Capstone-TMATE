@@ -408,6 +408,8 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                     Integer point = response.body();
                     tv_point.setText(point + "P");
                 }
+                else
+                    tv_point.setText("0P");
             }
 
             @Override

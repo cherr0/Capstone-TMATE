@@ -30,7 +30,7 @@ public interface DriverMapper {
     public JoinDriverProfileVO getDriverByd_id(String d_id);
 
     // 운행 내역
-    public List<JoinHistoryVO> getDriverHistoryList(@Param("cri") Criteria cri, String d_id);
+    public List<DriverHistoryVO> getDriverHistoryList(@Param("cri") Criteria cri, String d_id);
 
     // 평점 이력
     public List<ReviewDTO> getDriverReviewList(@Param("cri") Criteria cri, String d_id);

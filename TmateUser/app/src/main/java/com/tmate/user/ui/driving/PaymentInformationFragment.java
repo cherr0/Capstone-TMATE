@@ -363,7 +363,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     // 사용자와 방장을 가리기위해
     public void checkingMasterOrUser(String dp_id) {
 
-        getCheckingMasterOrUser = DataService.getInstance().matchAPI.readCurrentDispatch(dp_id);
+        getCheckingMasterOrUser = DataService.getInstance().matchAPI.getCurrentDispatchBeforesuccess(dp_id);
         getCheckingMasterOrUser.enqueue(new Callback<Dispatch>() {
             @Override
             public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
@@ -428,7 +428,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
     public class Checking2 implements Runnable {
         @Override
         public void run() {
-            getCheckingMasterOrUser = DataService.getInstance().matchAPI.readCurrentDispatch(together_dp_id);
+            getCheckingMasterOrUser = DataService.getInstance().matchAPI.getCurrentDispatchBeforesuccess(together_dp_id);
             getCheckingMasterOrUser.enqueue(new Callback<Dispatch>() {
                 @Override
                 public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {

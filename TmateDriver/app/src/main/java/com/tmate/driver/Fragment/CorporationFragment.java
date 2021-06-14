@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,11 +36,7 @@ public class CorporationFragment extends Fragment implements Validator.Validatio
     @NotEmpty(message = "차량번호를 입력해주세요")
     EditText et_car_num;
 
-    @NotEmpty(message = "분류를 입력해주세요")
-    EditText et_car_kind;
-
-    @NotEmpty(message = "색상을 입력해주세요")
-    EditText et_car_color;
+    Spinner et_car_kind, et_car_color;
 
     public Validator validator;
 

@@ -135,19 +135,20 @@
         app:layout_constraintTop_toBottomOf="@+id/et_corp_num" />
 
 
-    <EditText
+    <Spinner
         android:id="@+id/et_corp_kind"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_box"
-        android:hint="분류를 입력해주세요."
+        android:background="@drawable/spinner"
+        android:entries="@array/car_kind"
         android:paddingStart="10dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/et_corp_num"
         app:layout_constraintStart_toStartOf="@+id/tv_corp_kind"
-        app:layout_constraintTop_toBottomOf="@+id/tv_corp_kind" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_corp_kind">
 
+    </Spinner>
     <TextView
         android:id="@+id/tv_corp_color"
         android:layout_width="wrap_content"
@@ -159,18 +160,20 @@
         app:layout_constraintStart_toStartOf="@+id/et_corp_kind"
         app:layout_constraintTop_toBottomOf="@+id/et_corp_kind" />
 
-    <EditText
+    <Spinner
         android:id="@+id/et_corp_color"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_box"
-        android:hint="색상을 입력해주세요."
+        android:background="@drawable/spinner"
+        android:entries="@array/car_color"
         android:paddingStart="10dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/et_corp_kind"
         app:layout_constraintStart_toStartOf="@+id/tv_corp_color"
-        app:layout_constraintTop_toBottomOf="@+id/tv_corp_color" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_corp_color" >
+
+    </Spinner>
 
 
 
@@ -236,17 +239,19 @@
         app:layout_constraintTop_toBottomOf="@+id/et_car_num" />
 
 
-    <EditText
+    <Spinner
         android:id="@+id/et_car_kind"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/edittext_box"
-        android:hint="분류를 입력해주세요."
+        android:background="@drawable/spinner"
+        android:entries="@array/car_kind"
+        android:paddingStart="10dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/et_car_num"
         app:layout_constraintStart_toStartOf="@+id/tv_car_kind"
-        app:layout_constraintTop_toBottomOf="@+id/tv_car_kind" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_car_kind" >
+    </Spinner>
 
     <TextView
         android:id="@+id/tv_car_color"
@@ -259,17 +264,20 @@
         app:layout_constraintStart_toStartOf="@+id/et_car_kind"
         app:layout_constraintTop_toBottomOf="@+id/et_car_kind" />
 
-    <EditText
+    <Spinner
         android:id="@+id/et_car_color"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/edittext_box"
-        android:hint="색상을 입력해주세요."
+        android:background="@drawable/spinner"
+        android:entries="@array/car_color"
+        android:paddingStart="10dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/et_car_kind"
         app:layout_constraintStart_toStartOf="@+id/tv_car_color"
-        app:layout_constraintTop_toBottomOf="@+id/tv_car_color" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_car_color" >
+    </Spinner>
+
 
     <Button
         android:id="@+id/btn_profile"

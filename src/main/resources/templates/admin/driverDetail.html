@@ -63,7 +63,7 @@
                     <p th:text="|좋아요/싫어요 : ${like}회/${dislike}회|">: 14/1</p>
                   </div>
                   <div class="d-bio-row">
-                    <p th:text="|계좌: ${driver.ac_num}|">: 카카오 3333-06-9548059</p>
+                    <p th:text="|계좌: ${driver.d_acnum}|">: 카카오 3333-06-9548059</p>
                   </div>
                 </div>
               </div>
@@ -97,33 +97,6 @@
           <tr>
 
           </tr>
-        </tbody>
-      </table>
-
-      <!-- 이용내역 페이지 내이션 ajax 처리 해야됨 -->
-      <nav class="history-footer" aria-label="Page navigation">
-
-      </nav>
-
-      <br><br>
-      <!--             평점이력 -->
-      <form class="form-inline mt-2 mb-md-1 justify-content-end" role="search">
-        <h2 class="col-sm-12 col-md-12 col-xs-12">평점 이력</h2>
-      </form>
-      <table class="table table-borderless table-striped table-earning table-bordered">
-
-        <thead>
-        <tr>
-          <th class="text-center">평가</th>
-          <th class="text-center">평가 일자</th>
-          <th class="text-center">사유</th>
-        </tr>
-        </thead>
-        <tbody class="review">
-          <tr>
-
-          </tr>
-
         </tbody>
       </table>
 
@@ -170,6 +143,18 @@
     showList(1);
     showReviewList(1);
 
+    /*
+     * 날짜포맷 yyyy-MM-dd 변환
+     */
+    function getFormatDate(date){
+      var year = date.getFullYear();
+      var month = (1 + date.getMonth());
+      month = month >= 10 ? month : '0' + month;
+      var day = date.getDate();
+      day = day >= 10 ? day : '0' + day;
+      return year + '-' + month + '-' + day;
+    }
+
     // 이용내역 페이징
     function showList(page){
       pageService.getHistoryDList({m_id:mIdValue, page: page|| 1 },function (historyCnt,list) {
@@ -192,22 +177,13 @@
 
         for(let i=0,len=list.length || 0; i < len; i++ ){
           str += "<tr>";
-          switch (list[i].merchant_uid.substr(27,1)){
-            case '0':
-              str += "<td class='text-center'>일반</td>";
-              break;
-            case '1':
-              str += "<td class='text-center'>동승</td>";
-              break;
-          }
-          str += "<td class='text-center'>"+list[i].merchant_uid.substring(9,11)+"/";
-          str += list[i].merchant_uid.substring(11,13)+"/";
-          str += list[i].merchant_uid.substring(13,15)+"</td>";
-          str += "<td class='text-center'>"+"<span>"+list[i].h_s_time.substring(11,19)+"</span>-";
-          str += "<span>"+list[i].h_e_time.substring(11,19)+"</span></td>";
-          str += "<td class='text-center'>"+list[i].h_s_place+"</td>";
-          str += "<td class='text-center'>"+list[i].h_f_place+"</td>";
-          str += "<td class='text-center'>"+list[i].h_allfare+"</td>";
+          str += "<td class='text-center'>" + list[i].together + "</td>";
+          str += "<td class='text-center'>" + getFormatDate(new Date(list[i].end_time))  + "</td>";
+          str += "<td class='text-center'>"+"<span>"+list[i].start_time.substring(11,19)+"</span>-";
+          str += "<span>"+list[i].end_time.substring(11,19)+"</span></td>";
+          str += "<td class='text-center'>"+list[i].start_place+"</td>";
+          str += "<td class='text-center'>"+list[i].finish_place+"</td>";
+          str += "<td class='text-center'>"+list[i].all_fare+"</td>";
           str += "</tr>";
         }
 
@@ -276,106 +252,8 @@
       showList(pageNum);
     });
 
-    // 평점 페이징
-    function showReviewList(page){
-      pageService.getReviewDList({m_id:mIdValue, page: page|| 1 },function (reviewCnt,list) {
 
-        console.log("reviewCnt: " + reviewCnt);
-        console.log("list: " + list);
-
-        if(page == -1){
-          pageNum = Math.ceil(reviewCnt/10.0);
-          showReviewList(pageNum);
-          return;
-        }
-
-        let str="";
-
-        if(list == null || list.length == 0){
-          reviewUL.html("");
-          return;
-        }
-
-        for(let i=0,len=list.length || 0; i < len; i++ ){
-          str += "<tr>";
-          switch (list[i].r_code.substr(13,1)){
-            case 'L':
-              str += "<td class='text-center'>좋아요</td>";
-              break;
-            case 'H':
-              str += "<td class='text-center'>싫어요</td>";
-              break;
-          }
-          str += "<td class='text-center'>"+list[i].merchant_uid.substring(9,11)+"/";
-          str += list[i].merchant_uid.substring(11,13) + "/" + list[i].merchant_uid.substring(13,15)+" ";
-          str += list[i].merchant_uid.substring(15,17) + ":" + list[i].merchant_uid.substring(17,19)+"</td>";
-          str += "<td class='text-center'>"+list[i].r_reason+"</td>";
-          str += "</tr>";
-        }
-
-        reviewUL.html(str);
-
-        showReviewPage(reviewCnt);
-      }); // end history page function
-
-    } // end showList
-
-    function showReviewPage(reviewCnt){
-
-      let endNum = Math.ceil(pageNum / 10.0) * 10;
-      let startNum = endNum - 9;
-
-      let prev = startNum != 1;
-      let next = false;
-
-      if(endNum * 10 >= reviewCnt){
-        endNum = Math.ceil(reviewCnt/10.0);
-      }
-
-      if(endNum * 10 < reviewCnt){
-        next = true;
-      }
-
-      let str = "<ul class='pagination justify-content-center'>";
-
-      if(prev){
-        str += "<li class='page-item'><a class='page-link' href='"+(startNum-1)+"'>Previous</a></li>";
-      }
-
-
-
-      for(let i = startNum ; i <= endNum; i++){
-        let active = pageNum  == i? "active":"";
-
-        str+= "<li class='page-item "+active+" '><a class='page-link' href='"+i+"'>"+i+"</a></li>";
-      }
-
-      if(next){
-        str += "<li class='page-item'><a class='page-link' href='"+(endNum + 1)+"'>Next</a></li>";
-      }
-
-      str += "</ul>";
-
-      console.log(str);
-
-      reviewPageFooter.html(str);
-    }
-
-    reviewPageFooter.on("click","li a",function(e){
-      e.preventDefault();
-      console.log("page click");
-
-      let targetPageNum = $(this).attr("href");
-
-      console.log("targetPageNum: " + targetPageNum);
-
-      pageNum = targetPageNum;
-
-      showReviewList(pageNum);
-    });
-
-
-    });
+  });
 </script>
 <footer th:replace="layout/basic :: footer">
 </footer>
