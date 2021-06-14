@@ -72,13 +72,15 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
 
 
     // 레트로핏2 서비스
-//    DataService dataService = new DataService();
     DataService dataService = DataService.getInstance();
 
     ImageView iv_level;
 
     TextView tv_name, tv_like, tv_dislike, tv_name2, tv_phone, tv_email, tv_gender, tv_birth, tv_grade,
             tv_point, tv_m_n_use, tv_m_t_use, tv_m_count;
+
+    // Call<Integer> 포인트를 가져오는 리퀘스트
+    Call<Integer> getUserTotalPoint;
 
     // 프로필 변경
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -106,6 +108,7 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
 
         initWidget(view); // 위젯 초기화
         findData(); // 프로필 데이터 받아오기
+        getTotalPoint(); // 토탈 포인트 받아오기
 
         //프로필 변경 관련
         m_profile_img = view.findViewById(R.id.m_profile_img);
@@ -377,23 +380,34 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                                 break;
                         }
                         Log.d("넘어오는 생년월일", member.getM_birth().toString());
-//                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-//                        tv_birth.setText(sdf.format(member.getM_birth()));
                         tv_birth.setText(member.getM_birth().toString().substring(0, 10));
-
-                        tv_point.setText(member.getM_point() + "P");
-
                         tv_m_n_use.setText(member.getM_n_use() + "회");
                         tv_m_t_use.setText(member.getM_t_use() + "회");
                         tv_m_count.setText(member.getM_count() + "회");
-
-
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<Member> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void getTotalPoint() {
+        getUserTotalPoint = dataService.memberAPI.getUnusedPoint(getPreferenceString("m_id"));
+        getUserTotalPoint.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (response.code() == 200 && response.body() != null) {
+                    Integer point = response.body();
+                    tv_point.setText(point + "P");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
                 t.printStackTrace();
             }
         });
