@@ -10,7 +10,7 @@ body {
 }
 
 #navbar {
-    height: 8vh;
+    height:100%;
     width: 100%;
     background: #262626;
     color: white;
@@ -64,6 +64,34 @@ body {
     cursor: pointer;
     box-shadow: 0 0 0 rgb(255, 0, 0);
     animation: pulse 1.7s infinite;
+}
+
+#place-logo3 {
+    width: 160px;
+    height: auto;
+    object-fit: cover;
+    align-items: center;
+    margin-top: 20px;
+}
+
+@media (min-width: 992px) {
+    .log3-place {
+        width: 160px;
+        height: auto;
+        object-fit: cover;
+        align-items: center;
+        margin-top: 20px;
+    }
+}
+@media (max-width: 992px) {
+    .log3-place {
+        width: 160px;
+        height: auto;
+        margin-left: 260px;
+        object-fit: cover;
+        align-items: center;
+        margin-top: 20px;
+    }
 }
 
 @-webkit-keyframes pulse {
