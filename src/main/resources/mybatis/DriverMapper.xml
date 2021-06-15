@@ -216,4 +216,11 @@
         where co.D_ID = #{d_id}
     </select>
 
+    <!--  기사 운행 완료 시 정보 가져오기  -->
+    <select id="findDriveFinishById" resultType="com.tmate.domain.DispatchDTO">
+        select *
+        from DISPATCH
+        where DP_ID = #{dp_id}
+    </select>
+
 </mapper>

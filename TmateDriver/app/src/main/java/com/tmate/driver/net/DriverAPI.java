@@ -3,6 +3,7 @@ package com.tmate.driver.net;
 import com.tmate.driver.data.AttendList;
 import com.tmate.driver.data.Ban;
 import com.tmate.driver.data.Car;
+import com.tmate.driver.data.Dispatch;
 import com.tmate.driver.data.Driver;
 import com.tmate.driver.data.DriverHistory;
 import com.tmate.driver.data.DriverProfile;
@@ -84,4 +85,8 @@ public interface DriverAPI {
     // 블랙리스트 제거 - DELETE
     @DELETE("/driver/ban/delete/{d_id}/{m_id}")
     Call<Boolean> removeBlacklist(@Path("d_id")String d_id, @Path("m_id") String m_id);
+
+    // 기사 운행 완료 데이터 - GET
+    @GET("/driver/finish/{dp_id}")
+    Call<Dispatch> getDriveFinish(@Path("dp_id") String dp_id);
 }
