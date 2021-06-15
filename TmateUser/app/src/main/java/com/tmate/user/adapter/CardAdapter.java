@@ -1,20 +1,13 @@
 package com.tmate.user.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +17,6 @@ import com.tmate.user.data.CardData;
 import com.tmate.user.data.InactiveRes;
 import com.tmate.user.net.DataService;
 import com.tmate.user.net.KakaoService;
-import com.tmate.user.net.MemberAPI;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CardAdapter extends RecyclerView.Adapter<CardHolder> {
+public class  CardAdapter extends RecyclerView.Adapter<CardHolder> {
 
     // m_id 얻기 위함
     Context context;
@@ -184,17 +176,44 @@ class CardHolder extends RecyclerView.ViewHolder {
 
     void onBind(CardData data) {
         switch (data.getPay_company()) {
-            case "국민":
-                bank_mark.setImageResource(R.drawable.kb);
+            case "KB":
+                bank_mark.setImageResource(R.drawable.kbbank);
                 break;
-            case "농협":
-                bank_mark.setImageResource(R.drawable.nh_card);
+            case "NH":
+                bank_mark.setImageResource(R.drawable.nhbankcard);
                 break;
             case "신한":
-                bank_mark.setImageResource(R.drawable.sinhan);
+                bank_mark.setImageResource(R.drawable.sinhanbank);
+                break;
+            case "CITI_109":
+                bank_mark.setImageResource(R.drawable.citibank);
+                break;
+            case "하나":
+                bank_mark.setImageResource(R.drawable.hanabank);
+                break;
+            case "현대":
+                bank_mark.setImageResource(R.drawable.hyundaicard);
+                break;
+            case "카카오뱅크":
+                bank_mark.setImageResource(R.drawable.kakaobank);
+                break;
+            case "롯데":
+                bank_mark.setImageResource(R.drawable.lottecard);
+                break;
+            case "삼성":
+                bank_mark.setImageResource(R.drawable.samsungcard);
                 break;
             case "우리":
-                bank_mark.setImageResource(R.drawable.woori_card);
+                bank_mark.setImageResource(R.drawable.wooribank);
+                break;
+            case "SC":
+                bank_mark.setImageResource(R.drawable.scbank);
+                break;
+            case "수협":
+                bank_mark.setImageResource(R.drawable.suhyupbank);
+                break;
+            case "신협":
+                bank_mark.setImageResource(R.drawable.sinhyupbank);
                 break;
         }
         bank_name.setText(data.getPay_company());
