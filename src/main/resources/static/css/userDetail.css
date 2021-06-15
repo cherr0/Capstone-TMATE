@@ -3,7 +3,7 @@
 }
 
 .profile-nav .user-heading {
-    background: #fbc02d;
+    background: #4b7bec;
     color: #fff;
     border-radius: 4px 4px 0 0;
     -webkit-border-radius: 4px 4px 0 0;
@@ -38,6 +38,10 @@
     margin-top: 1em;
     font-size: 15px;
     align-content: center;
+}
+
+.profile-nav .user-heading .profile_name {
+    color: #eeeeee;
 }
 
 .bio-graph-info {

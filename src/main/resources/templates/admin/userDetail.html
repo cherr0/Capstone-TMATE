@@ -17,7 +17,7 @@
                         <div class="panel">
                             <div class="user-heading round">
                                 <a href="#">
-                                    <img th:href="@{${member.m_profile}}" alt="">
+                                    <img th:src="@{${member.m_profile}}" alt="">
                                 </a>
 
                                 <h1 class="profile_name col-sm-auto col-md-auto" th:text="${member.m_name}">하창현</h1>
@@ -27,10 +27,10 @@
                                     <p th:case="a">관리자</p>
                                 </span>
                                 <span class="badge bg-info">
-                                    <p th:if="${member.m_n_use + member.m_t_use < 5}">일반</p>
-                                    <p th:if="${member.m_n_use + member.m_t_use >= 5 && member.m_n_use + member.m_t_use < 10}">우수</p>
-                                    <p th:if="${member.m_n_use + member.m_t_use >= 10 && member.m_n_use + member.m_t_use < 20}">최우수</p>
-                                    <p th:if="${member.m_n_use + member.m_t_use >= 20}">VIP</p>
+                                    <p th:if="${member.use_count < 5}">일반</p>
+                                    <p th:if="${member.use_count >= 5 && member.use_count < 10}">우수</p>
+                                    <p th:if="${member.use_count >= 10 && member.use_count < 20}">최우수</p>
+                                    <p th:if="${member.use_count >= 20}">VIP</p>
                                 </span>
                                 <span class="badge bg-info" th:switch="${#strings.substring(member.m_id, 1, 2)}">
                                     <p th:case="1">남자</p>
@@ -49,19 +49,19 @@
                                         <p>전화번호 : [[${#strings.substring(member.m_id,2,5)}]]-[[${#strings.substring(member.m_id,5,9)}]]-[[${#strings.substring(member.m_id,9,13)}]] </p>
                                     </div>
                                     <div class="bio-row">
-                                        <p>생년월일 : [[${#strings.substring(member.m_birth,2,4)}]].[[${#strings.substring(member.m_birth,5,7)}]].[[${#strings.substring(member.m_birth,8,10)}]]</p>
+                                        <p>생년월일 : [[${member.m_birth}]]</p>
                                     </div>
                                     <div class="bio-row">
-                                        <p th:text="|이용횟수 : ${member.m_n_use}|"> 23회</p>
+                                        <p th:text="|이용횟수 : ${member.use_count}|"> 23회</p>
                                     </div>
                                     <div class="bio-row">
-                                        <p th:text="|노쇼횟수 : ${member.m_count}|"> 0회</p>
+                                        <p th:text="|노쇼횟수 : ${member.noshow_count}|"> 0회</p>
                                     </div>
                                     <div class="bio-row">
-                                        <p th:text="|보유 포인트 : ${member.m_point}|">2500P</p>
+                                        <p th:text="|보유 포인트 : ${member.unused_point}|">2500P</p>
                                     </div>
                                     <div class="bio-row">
-                                        <p th:text="|가입일자 : ${#strings.substring(member.m_regdate,0, 10)}|"> 2021-02-17</p>
+                                        <p th:text="|가입일자 : ${member.m_regdate}|"> 2021-02-17</p>
                                     </div>
                                 </div>
                             </div>

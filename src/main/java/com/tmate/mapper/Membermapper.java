@@ -19,6 +19,9 @@ public interface Membermapper {
     // 회원 상세 정보
     MemberDTO getMemberByM_id(String m_id);
 
+    // 회원 프로필
+    MemberProfileVO getMemberProfile(String m_id);
+
     // 회원 가입
     int insertMember(MemberDTO memberDTO);
 

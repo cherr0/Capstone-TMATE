@@ -39,8 +39,35 @@
     </update>
 
     <select id="getMemberByM_id" resultType="com.tmate.domain.MemberDTO">
-        select * from member
+        select *
+        from member
         where m_id = #{m_id}
+    </select>
+
+    <select id="getMemberProfile" resultType="com.tmate.domain.MemberProfileVO">
+        <![CDATA[
+        with
+            get_count AS
+                (
+                    select m_id, count(*) use_count, count(CASE WHEN NOSHOW is not null THEN 1 END) noshow_count
+                    from attend
+                    group by m_id
+                ),
+            get_point AS
+                (
+                    select m_id ,point-use_point as unused_point
+                    from (
+                             select m_id, nvl(sum(CASE WHEN po_exact = 0 THEN po_result END),0) as point,nvl(sum(CASE WHEN po_exact = 1 THEN po_result END),0) as use_point
+                             from POINT
+                             group by m_id
+                         )
+                )
+        select m.m_id, m.m_name, substr(m.m_id,3,11) phone, to_char(m.m_birth,'yy.MM.dd') m_birth, to_char(m.m_regdate,'yyyy-MM-dd') m_regdate, m.m_profile,
+               gc.use_count, gc.noshow_count, gp.unused_point
+        from member m join get_count gc on m.m_id = gc.m_id
+                      join get_point gp on m.m_id = gp.m_id
+        where m.m_id = #{m_id}
+        ]]>
     </select>
 
     <select id="countMembers" resultType="_int">

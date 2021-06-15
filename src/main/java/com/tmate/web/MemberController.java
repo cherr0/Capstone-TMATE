@@ -3,9 +3,11 @@ package com.tmate.web;
 import com.tmate.domain.Criteria;
 
 import com.tmate.domain.MemberDTO;
+import com.tmate.domain.MemberProfileVO;
 import com.tmate.domain.PageDTO;
 import com.tmate.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
+@Log4j2
 public class MemberController {
 
     private final MemberService memberService;
@@ -40,10 +43,9 @@ public class MemberController {
 
         Criteria cri = new Criteria();
         // 멤버
-        MemberDTO member = memberService.getMember(m_id);
+        MemberProfileVO member = memberService.getMember(m_id);
 
-        System.out.println("member = " + member);
-
+        log.info("member = " + member);
         model.addAttribute("member", member);
 
         return "admin/userDetail";

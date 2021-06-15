@@ -13,7 +13,7 @@ public interface MemberService {
 //    public MemberDTO findSocialMember(String s_email);
 
     // 회원 눌렀을때 나오는 상세페이지 - 회원정보
-    MemberDTO getMember(String m_id);
+    MemberProfileVO getMember(String m_id);
 
     // 페이지 처리용 이용내역
     HistoryPageDTO getListPage(Criteria cri, String m_id);

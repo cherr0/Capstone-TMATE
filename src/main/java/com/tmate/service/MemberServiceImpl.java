@@ -23,8 +23,8 @@ public class MemberServiceImpl implements MemberService {
 
     // 회원 상세 페이지 회원 정보
     @Override
-    public MemberDTO getMember(String m_id) {
-        return membermapper.getMemberByM_id(m_id);
+    public MemberProfileVO getMember(String m_id) {
+        return membermapper.getMemberProfile(m_id);
     }
 
     // 회원 페이지 처리 가능한 이용내역
