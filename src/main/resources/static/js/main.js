@@ -14,7 +14,7 @@
           labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
           type: 'line',
           datasets: [{
-            data: [5, 4, 2, 5, 3, 20, 0],
+            data: [5, 4, 2, 5, 3, 38, 0],
             label: '유저수',
             backgroundColor: 'rgba(255,255,255,.1)',
             borderColor: 'rgba(255,255,255,.55)',
@@ -82,7 +82,7 @@
         labels: ['1월', '2월', '3월', '4월', '5월', '6월'],
         type: 'line',
         datasets: [{
-          data: [2, 3, 5, 2, 4, 19],
+          data: [2, 3, 0, 1, 2, 11],
           label: '기사수',
           backgroundColor: 'transparent',
           borderColor: 'rgba(255,255,255,.55)',
@@ -191,7 +191,7 @@
         datasets: [
           {
             label: "이용수",
-            data: [0, 0, 0, 1, 2, 0, 0],
+            data: [12, 3, 0, 5, 2, 7, 6],
             borderColor: "transparent",
             borderWidth: "0",
             backgroundColor: "rgba(255,255,255,.3)"
