@@ -39,7 +39,7 @@ public class MatchingMemberAdapter extends RecyclerView.Adapter<MatchingMemberHo
             @Override
             public void onClick(View v) {
                 String m_id = holder.m_id.getText().toString();
-                Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(m_id.substring(2, 5) + "-" + m_id.substring(5, 9) + "-" + m_id.substring(9, 13)));
+                Intent mIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+m_id.substring(2, 5) + "-" + m_id.substring(5, 9) + "-" + m_id.substring(9, 13)));
                 context.startActivity(mIntent);
             }
         });
