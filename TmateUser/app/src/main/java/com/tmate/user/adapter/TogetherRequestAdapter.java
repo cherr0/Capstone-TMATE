@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.tmate.user.data.TogetherRequest;
 import com.tmate.user.net.DataService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -163,7 +165,15 @@ class TogetherRequestHolder extends RecyclerView.ViewHolder {
     public void onBind(TogetherRequest data) {
         m_id.setText(data.getM_id());
         m_name.setText(data.getM_name());
-        m_birth.setText("20대");
+        Log.d("넘어오는 생년월일", data.getM_birth().toString());
+        String birthStr = String.valueOf(data.getM_birth()).substring(2, 4);
+        int birth = Integer.parseInt(birthStr);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int age = (year - 2000) - birth;
+        if(age < 0)
+            age += 100;
+
+        m_birth.setText((age/10) + "0대");
         m_t_use.setText(data.getM_t_use() + data.getM_n_use()+"");
         tr_merchant_uid.setText(data.getDp_id());
     }

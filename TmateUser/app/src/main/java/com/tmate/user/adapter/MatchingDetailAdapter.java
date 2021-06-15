@@ -193,6 +193,8 @@ class MatchingDetailHolder extends RecyclerView.ViewHolder {
                             TogetherRequest data = new TogetherRequest();
                             data.setDp_id(body.get(i).getDp_id());
                             data.setM_id(body.get(i).getM_id());
+                            data.setM_birth(body.get(i).getM_birth());
+                            Log.d("찍히는 생년월일 : ", String.valueOf(data.getM_birth()));
                             data.setM_name(body.get(i).getM_name());
                             data.setM_t_use(body.get(i).getM_t_use() + body.get(i).getM_n_use());
                             requestAdapter.addItem(data);
@@ -227,7 +229,7 @@ class MatchingDetailHolder extends RecyclerView.ViewHolder {
                             member.setDp_id(list.get(i).getDp_id());
                             member.setM_id(list.get(i).getM_id());
                             member.setM_name(list.get(i).getM_name());
-                            member.setM_birth(null);
+                            member.setM_birth(list.get(i).getM_birth());
                             member.setM_t_use(list.get(i).getM_t_use() + list.get(i).getM_n_use() + "");
                             memberAdapter.addItem(member);
                         }
