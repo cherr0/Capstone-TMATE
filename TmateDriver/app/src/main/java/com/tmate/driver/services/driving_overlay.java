@@ -150,7 +150,7 @@ public class driving_overlay extends Service implements View.OnLongClickListener
         btn_before_take.setOnLongClickListener(this);
         btn_take_complete.setOnLongClickListener(this);
         call.setOnLongClickListener(this);
-        noShow.setOnClickListener(this);
+        noShow.setOnLongClickListener(this);
 
         mWm.addView(mView, params); // 윈도우에 layout 을 추가 한다.
     }
