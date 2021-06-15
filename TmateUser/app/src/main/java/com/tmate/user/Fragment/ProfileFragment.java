@@ -353,15 +353,15 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                         int sumCnt = normalCnt + togetherCnt;
                         if (sumCnt < 5) {
                             iv_level.setImageResource(R.drawable.slver);
-                            tv_grade.setText("silver");
+                            tv_grade.setText("일반");
                         }
                         if (sumCnt >= 5 && sumCnt < 10) {
                             iv_level.setImageResource(R.drawable.gold);
-                            tv_grade.setText("gold");
+                            tv_grade.setText("우수");
                         }
                         if (sumCnt >= 10 && sumCnt < 20) {
                             iv_level.setImageResource(R.drawable.platinum);
-                            tv_grade.setText("platinum");
+                            tv_grade.setText("최우수");
                         }
                         if (sumCnt >= 20) {
                             iv_level.setImageResource(R.drawable.vip);
