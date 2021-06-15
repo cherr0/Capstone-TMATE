@@ -16,8 +16,8 @@
 
         <Button
             android:id="@+id/btn_before_take"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="85dp"
+            android:layout_height="90dp"
             android:visibility="visible"
             android:background="@drawable/take_complete"
             android:filterTouchesWhenObscured="true"
@@ -29,22 +29,22 @@
 
         <Button
             android:id="@+id/btn_take_complete"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:visibility="gone"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:background="@drawable/driving_finish"
             android:filterTouchesWhenObscured="true"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background"
             android:textColor="#000000"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/overlay_call"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:background="@drawable/ic_call"
         android:filterTouchesWhenObscured="true"
         android:scaleType="centerCrop"
@@ -52,5 +52,12 @@
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout10" />
+    <Button
+        android:id="@+id/overlay_no_show"
+        android:layout_marginTop="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="visible"
+        android:background="@drawable/btn_no_show"/>
 
 </LinearLayout>

@@ -353,15 +353,15 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                         int sumCnt = normalCnt + togetherCnt;
                         if (sumCnt < 5) {
                             iv_level.setImageResource(R.drawable.slver);
-                            tv_grade.setText("silver");
+                            tv_grade.setText("일반");
                         }
                         if (sumCnt >= 5 && sumCnt < 10) {
                             iv_level.setImageResource(R.drawable.gold);
-                            tv_grade.setText("gold");
+                            tv_grade.setText("우수");
                         }
                         if (sumCnt >= 10 && sumCnt < 20) {
                             iv_level.setImageResource(R.drawable.platinum);
-                            tv_grade.setText("platinum");
+                            tv_grade.setText("최우수");
                         }
                         if (sumCnt >= 20) {
                             iv_level.setImageResource(R.drawable.vip);
@@ -384,7 +384,15 @@ public class ProfileFragment extends Fragment implements GoogleApiClient.OnConne
                                 break;
                         }
                         Log.d("넘어오는 생년월일", member.getM_birth().toString());
-                        tv_birth.setText(member.getM_birth().toString().substring(0, 10));
+
+                        // 불러온 생일값에서 1일 더하기
+                        int a = Integer.parseInt(member.getM_birth().substring(9,10));
+                        String oldDay = Integer.toString(a);
+                        String day = Integer.toString(a+1);
+                        String b_birth = member.getM_birth().substring(0,10);
+                        b_birth = b_birth.replace(oldDay,day);
+
+                        tv_birth.setText(b_birth);
                         tv_m_n_use.setText(member.getM_n_use() + "회");
                         tv_m_t_use.setText(member.getM_t_use() + "회");
                         tv_m_count.setText(member.getM_count() + "회");

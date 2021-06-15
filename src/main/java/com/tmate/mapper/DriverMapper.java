@@ -54,6 +54,9 @@ public interface DriverMapper {
     // 회원가입 - 기사 테이블 삽입
     public int addDriverLicense(DriverDTO driverDTO);
 
+    // 회원가입 - 기사 법인 구분 삽입
+    public int addDriverCorp(CorpDTO corpDTO);
+
     // 기사 운행이력
     public List<DriverHistoryVO> getAppDriverHistoryList(String d_id);
 
@@ -92,4 +95,7 @@ public interface DriverMapper {
 
     // 기사 사이드바 프로필
     public SidebarProfileVO findSidebarProfileById(String d_id);
+
+    // 기사 운행 완료 데이터
+    public DispatchDTO findDriveFinishById(String dp_id);
 }

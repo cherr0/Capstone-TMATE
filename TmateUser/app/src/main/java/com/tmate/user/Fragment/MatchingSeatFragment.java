@@ -123,7 +123,7 @@ public class MatchingSeatFragment extends Fragment {
                 }
             });
 
-            seatClickEvent();
+            seatClickEvent2();
         }
         // 기존의 방에서 좌석 선택
         else{
@@ -321,6 +321,53 @@ public class MatchingSeatFragment extends Fragment {
                     b.seatTwo.setChecked(false);
                     b.seatOne.setChecked(false);
                     attend2.setSeat(3);
+                }
+            });
+        }
+    }
+
+    public void seatClickEvent2() {
+
+
+        if(!b.seatOne.isChecked()) {
+            //자리 1번을 선택할 경우
+            b.seatOne.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("1번선택!", "1번을 선택하셨습니다.");
+                    b.seatOne.setChecked(true);
+                    b.seatTwo.setChecked(false);
+                    b.seatThree.setChecked(false);
+                    to_seat = 1;
+                }
+            });
+
+        }
+
+        if(!b.seatTwo.isChecked()) {
+            //자리 2를 선택할 경우
+            b.seatTwo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("2번선택!", "2번을 선택하셨습니다.");
+                    b.seatTwo.setChecked(true);
+                    b.seatOne.setChecked(false);
+                    b.seatThree.setChecked(false);
+                    to_seat = 2;
+                }
+            });
+        }
+
+        if(!b.seatThree.isChecked()) {
+            //자리 3을 선택할 경우
+            b.seatThree.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("3번선택!", "3번을 선택하셨습니다.");
+                    b.seatThree.setChecked(true);
+                    b.seatTwo.setChecked(false);
+                    b.seatOne.setChecked(false);
+                    to_seat = 3;
                 }
             });
         }

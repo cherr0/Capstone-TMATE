@@ -55,6 +55,7 @@ public interface AppDriverService {
     // 택시 기사 상태 바꾸기 - 대기 중, 운행 중, 휴식 중
     Boolean driverModStatus(String d_id, int d_status);
 
-    // 콜대기 팝업 정보 전송
+    // 기사 운행 완료 데이터
+    DispatchDTO getDriveFinish(String dp_id);
 
 }

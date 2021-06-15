@@ -35,7 +35,7 @@
                      d.d_id, d.dp_id, d.ALL_FARE, d.START_PLACE, d.FINISH_PLACE, d.START_TIME, d.END_TIME
               from DISPATCH d join member m on d.d_id = m.m_id
                    and rownum <= #{cri.pageNum} * #{cri.amount})
-        where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+        where rn > (#{cri.pageNum} - 1) * #{cri.amount} and d_id = #{d_id}
         ]]>
     </select>
 
@@ -69,7 +69,7 @@
     <select id="getCountReview" resultType="_int">
         select count(*)
         from attend a join DISPATCH d on a.DP_ID = d.DP_ID
-        where a.RE_DRIVER_REASON is not null and d.d_id = #{d_id};
+        where a.RE_DRIVER_REASON is not null and d.d_id = #{d_id}
     </select>
 
     <select id="getBanListByd_id" resultType="com.tmate.domain.JoinBanVO">
@@ -92,6 +92,13 @@
         insert into driver(d_id, d_license_no, bank_company, d_acnum, d_regdate)
         values (#{d_id}, #{d_license_no}, #{bank_company}, #{d_acnum}, sysdate)
     </insert>
+
+    <!--  기사 법인구분 테이블 삽입  -->
+    <insert id="addDriverCorp">
+        insert into corp(corp_code, car_no, d_id, corp_company)
+        values (#{corp_code}, #{car_no}, #{d_id}, #{corp_company,jdbcType=VARCHAR})
+    </insert>
+
 
     <!--  운행이력  -->
     <select id="getAppDriverHistoryList" resultType="com.tmate.domain.driver.DriverHistoryVO">
@@ -135,7 +142,7 @@
                                  on m.m_id = d.D_ID
                       full outer join fare f
                                       on f.d_id = d.d_id
-        where d.d_id = #{d_id};
+        where d.d_id = #{d_id}
         ]]>
     </select>
 
@@ -214,6 +221,13 @@
                  join car c on m.M_ID = c.M_ID
                  join CORP co on c.CAR_NO = co.CAR_NO
         where co.D_ID = #{d_id}
+    </select>
+
+    <!--  기사 운행 완료 시 정보 가져오기  -->
+    <select id="findDriveFinishById" resultType="com.tmate.domain.DispatchDTO">
+        select *
+        from DISPATCH
+        where DP_ID = #{dp_id}
     </select>
 
 </mapper>

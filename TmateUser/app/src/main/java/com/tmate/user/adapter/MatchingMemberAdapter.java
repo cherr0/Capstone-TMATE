@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.tmate.user.data.MatchingMember;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MatchingMemberAdapter extends RecyclerView.Adapter<MatchingMemberHolder> {
@@ -36,7 +38,8 @@ public class MatchingMemberAdapter extends RecyclerView.Adapter<MatchingMemberHo
         holder.m_call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("010-1234-1960"));
+                String m_id = holder.m_id.getText().toString();
+                Intent mIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+m_id.substring(2, 5) + "-" + m_id.substring(5, 9) + "-" + m_id.substring(9, 13)));
                 context.startActivity(mIntent);
             }
         });
@@ -59,14 +62,20 @@ class MatchingMemberHolder extends RecyclerView.ViewHolder {
     TextView m_name;
     TextView m_birth;
     TextView m_t_use;
-    TextView m_call;
+    ImageView m_call;
 
 
 
     public void onBind(MatchingMember data) {
         m_id.setText(data.getM_id());
         m_name.setText(data.getM_name());
-        m_birth.setText(data.getM_birth());
+        String birthStr = String.valueOf(data.getM_birth()).substring(2, 4);
+        int birth = Integer.parseInt(birthStr);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int age = (year - 2000) - birth;
+        if (age < 0)
+            age += 100;
+        m_birth.setText((age / 10) + "0대");
         m_t_use.setText(data.getM_t_use());
     }
 

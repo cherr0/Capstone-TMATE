@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,7 +51,7 @@ public class AttendDTO {
     // 멤버 관련
     private String m_name;
 
-    private String m_birth;
+    private Timestamp m_birth;
 
     private int m_n_use;
 

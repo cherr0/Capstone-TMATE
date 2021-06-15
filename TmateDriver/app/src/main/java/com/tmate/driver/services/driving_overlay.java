@@ -44,6 +44,7 @@ public class driving_overlay extends Service implements View.OnLongClickListener
     Button btn_before_take;
     Button btn_take_complete;
     Button call;
+    Button noShow;
 
     // 레트로핏 관련
     // 탑승 대기중 -> 탑승 중
@@ -143,10 +144,13 @@ public class driving_overlay extends Service implements View.OnLongClickListener
         btn_before_take =  (Button) mView.findViewById(R.id.btn_before_take);
         btn_take_complete = mView.findViewById(R.id.btn_take_complete);
         call =  (Button) mView.findViewById(R.id.overlay_call);
+        noShow = (Button)mView.findViewById(R.id.overlay_no_show);
+
 
         btn_before_take.setOnLongClickListener(this);
         btn_take_complete.setOnLongClickListener(this);
         call.setOnLongClickListener(this);
+        noShow.setOnLongClickListener(this);
 
         mWm.addView(mView, params); // 윈도우에 layout 을 추가 한다.
     }
@@ -229,6 +233,7 @@ public class driving_overlay extends Service implements View.OnLongClickListener
                             Log.d("도착지 경도", String.valueOf(finish_lng));
                             tmaptapi.invokeNavigate("", (float) finish_lng, (float) finish_lat,0,true);
                             btn_before_take.setVisibility(View.GONE);
+                            noShow.setVisibility(View.GONE);
                             btn_take_complete.setVisibility(View.VISIBLE);
                         }
                     }
@@ -254,6 +259,9 @@ public class driving_overlay extends Service implements View.OnLongClickListener
                 am.killBackgroundProcesses (getPackageName());
                 stopSelf();
                 break;
+            case R.id.overlay_no_show :
+                //노쇼 버튼 클릭 시
+               break;
         }
         return false;
     }

@@ -3,6 +3,7 @@ package com.tmate.service.android.driver;
 import com.tmate.domain.BanDTO;
 import com.tmate.domain.DispatchDTO;
 import com.tmate.domain.DriverDTO;
+import com.tmate.domain.driver.DispatchInfoVO;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public interface AppCallService {
     Boolean modifyDriverStatus(DriverDTO driverDTO);
 
     // 기사 2km 이내 콜 정보 리스트 가져오기
-    List<DispatchDTO> getCallList(double m_lat, double m_lng);
+    List<DispatchInfoVO> getCallList(double m_lat, double m_lng);
 
     // 기사가 콜을 수락 할 시
     /*

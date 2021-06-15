@@ -11,11 +11,21 @@
     </select>
 
     <select id="getCountLike" resultType="_int">
-        select count(*)  from review where substr(r_code,0,14)=#{m_id} and substr(r_code,15) like 'L%'
+        select count(CASE WHEN re_one = 0 then 1
+                          WHEN re_two = 0 then 1
+                          WHEN re_three = 0 then 1 end)
+        from attend
+        where m_id = #{m_id}
+        group by m_id
     </select>
 
     <select id="getCountDisLike" resultType="_int">
-        select count(*)  from review where substr(r_code,0,14)=#{m_id} and substr(r_code,15) like 'H%'
+        select count(CASE WHEN re_one = 1 then 1
+                          WHEN re_two = 1 then 1
+                          WHEN re_three = 1 then 1 end)
+        from attend
+        where m_id = #{m_id}
+        group by m_id
     </select>
 
     <select id="getCountBan" resultType="_int">

@@ -79,6 +79,7 @@ public class PaymentActivity extends AppCompatActivity {
                     public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         if (response.code() == 200) {
                             Intent intent = new Intent(PaymentActivity.this, CheckActivity.class);
+                            intent.putExtra("dp_id",dp_id);
                             startActivity(intent);
                             dialog2.dismiss();
                         }

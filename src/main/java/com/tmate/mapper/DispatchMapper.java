@@ -1,6 +1,7 @@
 package com.tmate.mapper;
 
 import com.tmate.domain.*;
+import com.tmate.domain.driver.DispatchInfoVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -67,7 +68,7 @@ public interface DispatchMapper {
     int updateDriverDriving(String d_id);
 
     // 기사 자기 위치에서 2KM 이내의 호출을 가져온다. (O)
-    List<DispatchDTO> selectCallInfo(double m_lat, double m_lng);
+    List<DispatchInfoVO> selectCallInfo(double m_lat, double m_lng);
 
     // 손님 태웠을시 -> 운행 시간, 탑승 중 (O)
     int updateDispatchBoarding(String dp_id);

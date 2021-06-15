@@ -1,5 +1,7 @@
 package com.tmate.user.data;
 
+import java.sql.Timestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -48,7 +50,7 @@ public class Attend {
     // 멤버 관련
     private String m_name;
 
-    private String m_birth;
+    private Timestamp m_birth;
 
     private int m_n_use;
 

@@ -1,10 +1,12 @@
 package com.tmate.user.data;
 
+import java.sql.Timestamp;
+
 public class MatchingMember {
     String dp_id;
     String m_id;
     String m_name;
-    String m_birth;
+    Timestamp m_birth;
     String m_t_use;
     String like;
     String dislike;
@@ -34,11 +36,11 @@ public class MatchingMember {
         this.m_name = m_name;
     }
 
-    public String getM_birth() {
+    public Timestamp getM_birth() {
         return m_birth;
     }
 
-    public void setM_birth(String m_birth) {
+    public void setM_birth(Timestamp m_birth) {
         this.m_birth = m_birth;
     }
 

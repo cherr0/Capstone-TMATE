@@ -143,6 +143,10 @@ public class AppDriverApiController {
         return new ResponseEntity<>(appDriverService.driverModStatus(d_id, d_status), HttpStatus.OK);
     }
 
-
-
+    // 기사 운행 완료 데이터 조회 - GET
+    @GetMapping("/finish/{dp_id}")
+    public ResponseEntity<DispatchDTO> getFinishData(@PathVariable("dp_id") String dp_id) {
+        log.info("app에서 넘어오는 배차 정보 dp_id : " + dp_id);
+        return new ResponseEntity<>(appDriverService.getDriveFinish(dp_id), HttpStatus.OK);
+    }
 }
