@@ -28,7 +28,7 @@ public class DispatchInfo {
     private double finish_lat;
 
     // 도착지 경도
-    private double finsih_lng;
+    private double finish_lng;
 
     // 방 생성자 회원 코드
     private String m_id;

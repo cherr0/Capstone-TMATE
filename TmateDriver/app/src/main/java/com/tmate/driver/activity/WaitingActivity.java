@@ -62,7 +62,7 @@ public class WaitingActivity extends AppCompatActivity {
     private String d_id;
 
     Call<Boolean> request;
-    Call<List<DispatchInfo>> dispatchRequest;
+    Call<List<Dispatch>> dispatchRequest;
 
     // GpsTracker 자기 위치 가져오기
     private GpsTracker gpsTracker;
@@ -182,21 +182,20 @@ public class WaitingActivity extends AppCompatActivity {
             isRunning = true;
 
             dispatchRequest = DataService.getInstance().call.getCallInfoByPosition(latitude, longitude);
-            dispatchRequest.enqueue(new Callback<List<DispatchInfo>>() {
+            dispatchRequest.enqueue(new Callback<List<Dispatch>>() {
                 @Override
-                public void onResponse(Call<List<DispatchInfo>> call, Response<List<DispatchInfo>> response) {
+                public void onResponse(Call<List<Dispatch>> call, Response<List<Dispatch>> response) {
                     if (response.code() == 200 && response.body() != null) {
-                        List<DispatchInfo> list = response.body();
+                        List<Dispatch> list = response.body();
                         Log.d("넘어오는 리스트 정보 ", list.toString());
                         // list가 널이 아닐 때 리스트 그림 그려준다.
                         if (!list.isEmpty()) {
                             isRunning = false;
                             clWait.setVisibility(View.GONE);
                             recyclerView.setVisibility(View.VISIBLE);
-                            for(DispatchInfo data : list) {
-//                                adapter.addItem(data);
+                            for(Dispatch data : list) {
+                                adapter.addItem(data);
                             }
-
                             adapter.notifyDataSetChanged();
                         }
                         // list 가 null 일 때 계속해서 검색한다.
@@ -210,7 +209,7 @@ public class WaitingActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<List<DispatchInfo>> call, Throwable t) {
+                public void onFailure(Call<List<Dispatch>> call, Throwable t) {
                     t.printStackTrace();
                 }
             });

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ import com.tmate.driver.data.CallHistory;
 import com.tmate.driver.data.Dispatch;
 import com.tmate.driver.net.DataService;
 import com.tmate.driver.services.driving_overlay;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -171,10 +174,14 @@ class WaitingHolder extends RecyclerView.ViewHolder {
     TextView personnel;
     TextView matching_s_place;
     TextView matching_e_place;
+    TextView tv_do_hurry,tv_do_navi, tv_do_quiet;
+    ImageView do_hurry;
+    ImageView do_navi;
+    ImageView do_quiet;
     Button matching_btn_refusal;
     Button matching_btn_accept;
 
-
+    TextView matching_m_id;
     TextView cw_h_s_lttd;
     TextView cw_h_s_lngtd;
     TextView cw_h_f_lttd;
@@ -190,7 +197,33 @@ class WaitingHolder extends RecyclerView.ViewHolder {
                 h_flag.setText("동승");
                 break;
         }
-
+        // 급 운행 옵션
+        Log.d("WaitingAdapter", "급가속 : " + data.getDo_hurry());
+        Log.d("WaitingAdapter", "네비 : " + data.getDo_navi());
+        Log.d("WaitingAdapter", "조용 : " + data.getDo_quiet());
+        if (data.getDo_hurry() == 0) {
+            tv_do_hurry.setText("급정거, 급가속 운행은 괜찮아요");
+            do_hurry.setImageResource(R.drawable.on);
+        } else {
+            tv_do_hurry.setText("급정거, 급가속 운행은 싫어요");
+            do_hurry.setImageResource(R.drawable.off);
+        }
+        // 네비게이션 유무
+        if (data.getDo_navi() == 0) {
+            tv_do_navi.setText("네비게이션 상관없어요");
+            do_navi.setImageResource(R.drawable.on);
+        } else {
+            tv_do_navi.setText("네비게이션 따라 이동해 주세요");
+            do_navi.setImageResource(R.drawable.off);
+        }
+        // 조용운전 유무
+        if (data.getDo_quiet() == 0) {
+            tv_do_quiet.setText("소란스러워도 괜찮아요");
+            do_quiet.setImageResource(R.drawable.on);
+        } else {
+            tv_do_quiet.setText("조용히 가고 싶어요");
+            do_quiet.setImageResource(R.drawable.off);
+        }
         tv_distance.setText(String.valueOf(data.getDistance()));
         personnel.setText(String.valueOf(data.getCur_people()));
         matching_s_place.setText(data.getStart_place());
@@ -200,6 +233,7 @@ class WaitingHolder extends RecyclerView.ViewHolder {
         cw_h_s_lngtd.setText(String.valueOf(data.getStart_lng()));
         cw_h_f_lttd.setText(String.valueOf(data.getFinish_lat()));
         cw_h_f_lngtd.setText(String.valueOf(data.getFinish_lng()));
+        matching_m_id.setText(data.getM_id());
 
     }
 
@@ -210,6 +244,12 @@ class WaitingHolder extends RecyclerView.ViewHolder {
         personnel = itemView.findViewById(R.id.personnel);
         matching_s_place = itemView.findViewById(R.id.matching_s_place);
         matching_e_place = itemView.findViewById(R.id.matching_e_place);
+        do_hurry = itemView.findViewById(R.id.do_hurry);
+        tv_do_hurry = itemView.findViewById(R.id.tv_do_hurry);
+        do_navi = itemView.findViewById(R.id.do_navi);
+        tv_do_navi = itemView.findViewById(R.id.tv_do_navi);
+        do_quiet = itemView.findViewById(R.id.do_quiet);
+        tv_do_quiet = itemView.findViewById(R.id.tv_do_quiet);
         matching_btn_accept = itemView.findViewById(R.id.matching_btn_accept);
         matching_btn_refusal = itemView.findViewById(R.id.matching_btn_refusal);
         cw_dp_id = itemView.findViewById(R.id.cw_dp_id);
@@ -217,6 +257,7 @@ class WaitingHolder extends RecyclerView.ViewHolder {
         cw_h_s_lngtd = itemView.findViewById(R.id.cw_h_s_lngtd);
         cw_h_f_lttd = itemView.findViewById(R.id.cw_h_f_lttd);
         cw_h_f_lngtd = itemView.findViewById(R.id.cw_h_f_lngtd);
+        matching_m_id = itemView.findViewById(R.id.matching_m_id);
 
     }
 }
