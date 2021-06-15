@@ -35,7 +35,7 @@
                      d.d_id, d.dp_id, d.ALL_FARE, d.START_PLACE, d.FINISH_PLACE, d.START_TIME, d.END_TIME
               from DISPATCH d join member m on d.d_id = m.m_id
                    and rownum <= #{cri.pageNum} * #{cri.amount})
-        where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+        where rn > (#{cri.pageNum} - 1) * #{cri.amount} and d_id = #{d_id}
         ]]>
     </select>
 
@@ -69,7 +69,7 @@
     <select id="getCountReview" resultType="_int">
         select count(*)
         from attend a join DISPATCH d on a.DP_ID = d.DP_ID
-        where a.RE_DRIVER_REASON is not null and d.d_id = #{d_id};
+        where a.RE_DRIVER_REASON is not null and d.d_id = #{d_id}
     </select>
 
     <select id="getBanListByd_id" resultType="com.tmate.domain.JoinBanVO">
@@ -135,7 +135,7 @@
                                  on m.m_id = d.D_ID
                       full outer join fare f
                                       on f.d_id = d.d_id
-        where d.d_id = #{d_id};
+        where d.d_id = #{d_id}
         ]]>
     </select>
 
