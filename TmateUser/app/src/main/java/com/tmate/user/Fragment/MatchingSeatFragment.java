@@ -61,13 +61,10 @@ public class MatchingSeatFragment extends Fragment {
     Dispatch dispatch;
     Attend attend;
 
-    private int to_seat;
+    public int to_seat;
+    Attend attend2;
 
-    /*
-    * 기존 방에서 넘어올때 필요한 것들
-    * */
-    private String merchant_uid;
-    private String list_m_id;
+
 
     @Nullable
     @Override
@@ -177,16 +174,17 @@ public class MatchingSeatFragment extends Fragment {
 
 
 
-                    Attend attend = new Attend();
-                    attend.setM_id(getActivity().getSharedPreferences("loginUser",Context.MODE_PRIVATE).getString("m_id",""));
-                    attend.setDp_id(mViewModel.dispatch.getDp_id());
-                    attend.setSeat(to_seat);
+                    attend2 = new Attend();
+                    attend2.setM_id(getActivity().getSharedPreferences("loginUser",Context.MODE_PRIVATE).getString("m_id",""));
+                    attend2.setDp_id(mViewModel.dispatch.getDp_id());
+                    attend2.setSeat(to_seat);
+                    Log.d("신청자가찍는번호", String.valueOf(attend2.getSeat()));
 
 
                     b.btnSeat.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            request3 = DataService.getInstance().matchAPI.registerApplyMatch(attend);
+                            request3 = DataService.getInstance().matchAPI.registerApplyMatch(attend2);
                             request3.enqueue(new Callback<Boolean>() {
                                 @Override
                                 public void onResponse(Call<Boolean> call, Response<Boolean> response) {
@@ -207,7 +205,7 @@ public class MatchingSeatFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<Attend>> call, Throwable t) {
-
+                    t.printStackTrace();
                 }
             });
 
@@ -289,10 +287,11 @@ public class MatchingSeatFragment extends Fragment {
             b.seatOne.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("1번선택!", "1번을 선택하셨습니다.");
                     b.seatOne.setChecked(true);
                     b.seatTwo.setChecked(false);
                     b.seatThree.setChecked(false);
-                    to_seat = 1;
+                    attend2.setSeat(1);
                 }
             });
 
@@ -303,10 +302,11 @@ public class MatchingSeatFragment extends Fragment {
             b.seatTwo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("2번선택!", "2번을 선택하셨습니다.");
                     b.seatTwo.setChecked(true);
                     b.seatOne.setChecked(false);
                     b.seatThree.setChecked(false);
-                    to_seat = 2;
+                    attend2.setSeat(2);
                 }
             });
         }
@@ -316,10 +316,11 @@ public class MatchingSeatFragment extends Fragment {
             b.seatThree.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("3번선택!", "3번을 선택하셨습니다.");
                     b.seatThree.setChecked(true);
                     b.seatTwo.setChecked(false);
                     b.seatOne.setChecked(false);
-                    to_seat = 3;
+                    attend2.setSeat(3);
                 }
             });
         }
