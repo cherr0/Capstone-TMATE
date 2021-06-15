@@ -2,7 +2,6 @@ package com.tmate.user.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.Preference;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -19,8 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmate.user.R;
 import com.tmate.user.data.CardData;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -74,14 +70,8 @@ public class PaymentAdapter extends  RecyclerView.Adapter<PaymentAdapter.Payment
 
         void onBind(CardData data) {
             switch (data.getPay_company()) {
-                case "대구":
-                    payment_card_image.setImageResource(R.drawable.dgb_card);
-                    break;
                 case "하나":
                     payment_card_image.setImageResource(R.drawable.hana_card);
-                    break;
-                case "기업":
-                    payment_card_image.setImageResource(R.drawable.ibk_card);
                     break;
                 case "카카오뱅크":
                     payment_card_image.setImageResource(R.drawable.kakao_card);
@@ -89,10 +79,10 @@ public class PaymentAdapter extends  RecyclerView.Adapter<PaymentAdapter.Payment
                 case "국민":
                     payment_card_image.setImageResource(R.drawable.kb_card);
                     break;
-                case "농협":
+                case "NH":
                     payment_card_image.setImageResource(R.drawable.nhbank);
                     break;
-                case "제일":
+                case "SC":
                     payment_card_image.setImageResource(R.drawable.sc_card);
                     break;
                 case "신한":
@@ -101,6 +91,19 @@ public class PaymentAdapter extends  RecyclerView.Adapter<PaymentAdapter.Payment
                 case "우리":
                     payment_card_image.setImageResource(R.drawable.woribk);
                     break;
+                case "수협":
+                    payment_card_image.setImageResource(R.drawable.suhyup_card);
+                    break;
+                case "롯데":
+                    payment_card_image.setImageResource(R.drawable.lotte_card);
+                    break;
+                case "삼성":
+                    payment_card_image.setImageResource(R.drawable.samsung_card);
+                    break;
+                case "현대":
+                    payment_card_image.setImageResource(R.drawable.hyundai_card);
+                    break;
+
             }
             payment_pay_alias.setText(data.getPay_alias());
             pay_company.setText(data.getPay_company());
