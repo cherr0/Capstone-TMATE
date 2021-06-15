@@ -93,6 +93,13 @@
         values (#{d_id}, #{d_license_no}, #{bank_company}, #{d_acnum}, sysdate)
     </insert>
 
+    <!--  기사 법인구분 테이블 삽입  -->
+    <insert id="addDriverCorp">
+        insert into corp(corp_code, car_no, d_id, corp_company)
+        values (#{corp_code}, #{car_no}, #{d_id}, #{corp_company,jdbcType=VARCHAR})
+    </insert>
+
+
     <!--  운행이력  -->
     <select id="getAppDriverHistoryList" resultType="com.tmate.domain.driver.DriverHistoryVO">
         <![CDATA[

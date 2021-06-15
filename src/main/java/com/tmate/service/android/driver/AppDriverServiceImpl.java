@@ -55,7 +55,22 @@ public class AppDriverServiceImpl implements AppDriverService{
         driverDTO.setD_acnum(map.get("d_acnum"));
 
         log.info("AppDriverService 기사 회원가입 기사 데이터 : " + driverDTO);
-        return driverMapper.addDriverLicense(driverDTO) == 1;
+        driverMapper.addDriverLicense(driverDTO);
+
+        CarDTO carDTO = new CarDTO();
+        carDTO.setM_id(driverDTO.getD_id());
+        carDTO.setCar_no(map.get("car_no"));
+        carDTO.setCar_color(map.get("car_color"));
+        carDTO.setCar_kind(map.get("car_kind"));
+        driverMapper.insertCar(carDTO);
+
+        CorpDTO corpDTO = new CorpDTO();
+        corpDTO.setCorp_code(map.get("corp_code"));
+        corpDTO.setCorp_company(map.get("corp_company"));
+        corpDTO.setD_id(driverDTO.getD_id());
+        corpDTO.setCar_no(carDTO.getCar_no());
+
+        return driverMapper.addDriverCorp(corpDTO) == 1;
     }
 
     @Override // 기사 승인 상태 확인
