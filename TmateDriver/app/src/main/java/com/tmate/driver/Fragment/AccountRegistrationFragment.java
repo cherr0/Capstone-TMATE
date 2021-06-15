@@ -138,7 +138,9 @@ public class AccountRegistrationFragment extends Fragment implements Validator.V
         map.put("car_model", bundle.getString("car_model"));
         map.put("car_color", bundle.getString("car_color"));
         map.put("car_kind", bundle.getString("car_kind"));
-        map.put("corp_company", bundle.getString("corp_company"));
+        if (bundle.getString("car_kind").equals("c")) {
+            map.put("corp_company", bundle.getString("corp_company"));
+        }
 
         Log.d("Final Check", "map 객체 내용" + map);
         request = DataService.getInstance().driver.registerDriver(map);
