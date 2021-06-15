@@ -60,13 +60,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="70dp"
+            android:fontFamily="@font/font_sub_title"
             android:gravity="center"
             android:text="북구 복현동\n영진전문대학교"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:fontFamily="@font/font_sub_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_distance" />
@@ -75,7 +75,7 @@
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             android:src="@drawable/ic_down_arrow"
             app:layout_constraintEnd_toEndOf="@+id/matching_s_place"
             app:layout_constraintStart_toStartOf="@+id/matching_s_place"
@@ -85,24 +85,109 @@
             android:id="@+id/matching_e_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/font_sub_title"
             android:gravity="center"
             android:text="북구 산격동\n 경북대학교 북문"
             android:textColor="@color/black"
             android:textSize="24sp"
-            android:fontFamily="@font/font_sub_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        <LinearLayout
+            android:id="@+id/driving_options_hurry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@+id/matching_e_place"
+            app:layout_constraintStart_toStartOf="@+id/matching_e_place"
+            app:layout_constraintTop_toBottomOf="@+id/matching_e_place">
+
+            <ImageView
+                android:id="@+id/do_hurry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/on" />
+
+            <TextView
+                android:id="@+id/tv_do_hurry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:text="급정거, 급가속 운행은 싫어요"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/driving_options_navi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@+id/driving_options_hurry"
+            app:layout_constraintTop_toBottomOf="@+id/driving_options_hurry">
+
+            <ImageView
+                android:id="@+id/do_navi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/on" />
+
+            <TextView
+                android:id="@+id/tv_do_navi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:text="네비게이션 따라 이동해 주세요"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/driving_options_quiet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@+id/driving_options_navi"
+            app:layout_constraintTop_toBottomOf="@+id/driving_options_navi">
+
+            <ImageView
+                android:id="@+id/do_quiet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/on" />
+
+            <TextView
+                android:id="@+id/tv_do_quiet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ibmplexsanskr_medium"
+                android:gravity="center"
+                android:paddingLeft="5dp"
+                android:text="조용히 가고 싶어요"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/matching_btn_refusal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:backgroundTint="#000000"
-            android:text="거절"
-            android:textColor="@color/white"
             android:fontFamily="@font/font_sub_title"
+            android:text="거절"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/matching_btn_accept"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,15 +197,16 @@
             android:id="@+id/matching_btn_accept"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="32dp"
             android:backgroundTint="#536DFE"
-            android:text="수락"
-            android:textColor="@color/white"
             android:fontFamily="@font/font_sub_title"
+            android:text="수락"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/matching_btn_refusal"
-            app:layout_constraintTop_toBottomOf="@+id/matching_e_place" />
+            app:layout_constraintTop_toBottomOf="@+id/driving_options_quiet" />
 
         <TextView
             android:id="@+id/cw_dp_id"
@@ -176,6 +262,15 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cw_h_f_lttd" />
+
+        <TextView
+            android:id="@+id/matching_m_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

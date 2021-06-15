@@ -32,6 +32,7 @@ import com.tmate.driver.R;
 import com.tmate.driver.adapter.WaitingAdapter;
 import com.tmate.driver.data.CallHistory;
 import com.tmate.driver.data.Dispatch;
+import com.tmate.driver.data.DispatchInfo;
 import com.tmate.driver.data.HistoryData;
 import com.tmate.driver.data.Waiting;
 import com.tmate.driver.net.DataService;
@@ -195,7 +196,6 @@ public class WaitingActivity extends AppCompatActivity {
                             for(Dispatch data : list) {
                                 adapter.addItem(data);
                             }
-
                             adapter.notifyDataSetChanged();
                         }
                         // list 가 null 일 때 계속해서 검색한다.

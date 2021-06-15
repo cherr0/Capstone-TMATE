@@ -2,6 +2,7 @@ package com.tmate.web.android;
 
 import com.tmate.domain.DispatchDTO;
 import com.tmate.domain.DriverDTO;
+import com.tmate.domain.driver.DispatchInfoVO;
 import com.tmate.service.android.driver.AppCallService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -33,7 +34,7 @@ public class AppCallController {
 
     // 2. 기사 2km 콜정보 가져오기
     @GetMapping("/get/callinfo/{m_lat}/{m_lng}")
-    public ResponseEntity<List<DispatchDTO>> getCallInfoByPosition(
+    public ResponseEntity<List<DispatchInfoVO>> getCallInfoByPosition(
             @PathVariable("m_lat") double m_lat,
             @PathVariable("m_lng") double m_lng
     ){

@@ -3,6 +3,7 @@ package com.tmate.service.android.driver;
 import com.tmate.domain.BanDTO;
 import com.tmate.domain.DispatchDTO;
 import com.tmate.domain.DriverDTO;
+import com.tmate.domain.driver.DispatchInfoVO;
 import com.tmate.mapper.DispatchMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,7 +25,7 @@ public class AppCallServiceImpl implements AppCallService {
     }
 
     @Override
-    public List<DispatchDTO> getCallList(double m_lat, double m_lng) {
+    public List<DispatchInfoVO> getCallList(double m_lat, double m_lng) {
         return dispatchMapper.selectCallInfo(m_lat,m_lng);
     }
 

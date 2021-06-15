@@ -85,4 +85,14 @@ public class Dispatch {
 
     // 기사와 출발지와의 거리
     private double distance;
+
+    /* -------------------
+    방 생성자 선호운행옵션
+   ------------------- */
+    private int do_hurry; // 급정거 옵션
+    private int do_navi; // 네비게이션대로 이동
+    private int do_quiet; // 조용히 가고 싶음
+    private int do_animal; // 반려동물 동반
+    private int do_load; // 짐 유무
+    private int do_child; // 유아 동반
 }

@@ -146,11 +146,11 @@
     </update>
 
     <!-- 기사 2KM 이내의 호출정보 가져온다. -->
-    <select id="selectCallInfo" resultType="com.tmate.domain.DispatchDTO">
+    <select id="selectCallInfo" resultType="com.tmate.domain.driver.DispatchInfoVO">
        <![CDATA[
-            SELECT dp_id, start_place, start_lat, start_lng, finish_place, finish_lat, finish_lng,
-                   GOOGLE_DISTANCE(#{m_lat},#{m_lng},start_lat,start_lng) as distance
-            FROM DISPATCH
+            SELECT d.dp_id, d.start_place, d.start_lat, d.start_lng, d.finish_place, d.finish_lat, d.finish_lng,
+                   GOOGLE_DISTANCE(#{m_lat},#{m_lng},d.start_lat,d.start_lng) as distance, opt.*
+            FROM DISPATCH d join DRIVING_OPTION opt on d.M_ID = opt.M_ID
             WHERE dp_status = '2' and GOOGLE_DISTANCE(#{m_lat},#{m_lng},start_lat,start_lng) <= 2
         ]]>
     </select>
