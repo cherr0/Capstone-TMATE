@@ -36,7 +36,11 @@ public class CorporationFragment extends Fragment implements Validator.Validatio
     @NotEmpty(message = "차량번호를 입력해주세요")
     EditText et_car_num;
 
-    Spinner et_car_kind, et_car_color;
+    private String corpSpinner;
+    private String corp;
+
+    String car_color, car_kind;
+    String color, kind;
 
     public Validator validator;
 
@@ -49,8 +53,6 @@ public class CorporationFragment extends Fragment implements Validator.Validatio
         et_corp_name = view.findViewById(R.id.et_corp_name);
         et_car_model = view.findViewById(R.id.et_car_model);
         et_car_num = view.findViewById(R.id.et_car_num);
-        et_car_kind = view.findViewById(R.id.et_car_kind);
-        et_car_color = view.findViewById(R.id.et_car_color);
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -65,62 +67,75 @@ public class CorporationFragment extends Fragment implements Validator.Validatio
         b.btnCorpSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String corp = b.spinnerCorp.getSelectedItem().toString();
-                Log.d("corp", corp);
+               corpSpinner = b.spinnerCorp.getSelectedItem().toString();
+                Log.d("corp", corpSpinner);
                 b.btnProfile.setVisibility(View.VISIBLE);
-                if (corp.equals("법인")) {
-                    b.tvCorpName.setVisibility(View.VISIBLE);
-                    b.etCorpName.setVisibility(View.VISIBLE);
-                    b.tvCorpModel.setVisibility(View.VISIBLE);
-                    b.etCorpModel.setVisibility(View.VISIBLE);
-                    b.tvCorpNum.setVisibility(View.VISIBLE);
-                    b.etCorpNum.setVisibility(View.VISIBLE);
-                    b.tvCorpKind.setVisibility(View.VISIBLE);
-                    b.etCorpKind.setVisibility(View.VISIBLE);
-                    b.tvCorpColor.setVisibility(View.VISIBLE);
-                    b.etCorpColor.setVisibility(View.VISIBLE);
-                    b.tvCarModel.setVisibility(View.GONE);
-                    b.etCarModel.setVisibility(View.GONE);
-                    b.tvCarNum.setVisibility(View.GONE);
-                    b.etCarNum.setVisibility(View.GONE);
-                    b.tvCarKind.setVisibility(View.GONE);
-                    b.etCarKind.setVisibility(View.GONE);
-                    b.tvCarColor.setVisibility(View.GONE);
-                    b.etCarColor.setVisibility(View.GONE);
+                if (corpSpinner.equals("법인")) {
+                    b.corpConst.setVisibility(View.VISIBLE);
+                    b.individualConst.setVisibility(View.GONE);
+                    corp = "c";
                 } else {
-                    b.tvCarModel.setVisibility(View.VISIBLE);
-                    b.etCarModel.setVisibility(View.VISIBLE);
-                    b.tvCarNum.setVisibility(View.VISIBLE);
-                    b.etCarNum.setVisibility(View.VISIBLE);
-                    b.tvCarKind.setVisibility(View.VISIBLE);
-                    b.etCarKind.setVisibility(View.VISIBLE);
-                    b.tvCarColor.setVisibility(View.VISIBLE);
-                    b.etCarColor.setVisibility(View.VISIBLE);
-                    b.tvCorpName.setVisibility(View.GONE);
-                    b.etCorpName.setVisibility(View.GONE);
-                    b.tvCorpModel.setVisibility(View.GONE);
-                    b.etCorpModel.setVisibility(View.GONE);
-                    b.tvCorpNum.setVisibility(View.GONE);
-                    b.etCorpNum.setVisibility(View.GONE);
-                    b.tvCorpKind.setVisibility(View.GONE);
-                    b.etCorpKind.setVisibility(View.GONE);
-                    b.tvCorpColor.setVisibility(View.GONE);
-                    b.etCorpColor.setVisibility(View.GONE);
+                    b.individualConst.setVisibility(View.VISIBLE);
+                    b.corpConst.setVisibility(View.GONE);
+                    corp = "i";
                 }
             }
         });
 
-        b.btnProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validator.validate(); //버튼 클릭시 이벤트 발생 //필수
+        b.btnProfile.setOnClickListener(v -> {
+            car_color = b.spinnerCarColor.getSelectedItem().toString();
+            car_kind = b.spinnerCarKind.getSelectedItem().toString();
+            car_color = b.spinnerCorpColor.getSelectedItem().toString();
+            car_kind = b.spinnerCorpKind.getSelectedItem().toString();
+            // 차량 분류
+            switch (car_kind) {
+                case "소형" :
+                    kind = "0";
+                    break;
+                case "중형" :
+                    kind = "1";
+                    break;
+                case "대형" :
+                    kind = "2";
+                    break;
             }
+            // 차량 색상
+            switch (car_color) {
+                case "검은색" :
+                    color = "black";
+                    break;
+                case "흰색" :
+                    color = "white";
+                    break;
+                case "회색" :
+                    color = "gray";
+                    break;
+                case "주황색" :
+                    color = "orange";
+                    break;
+                case "노란색" :
+                    color = "yellow";
+                    break;
+            }
+            validator.validate(); //버튼 클릭시 이벤트 발생 //필수
         });
 
         return view;
     }
     @Override
     public void onValidationSucceeded() {
+
+        bundle.putString("corp_code",corp);
+        bundle.putString("car_kind",kind);
+        bundle.putString("car_color",color);
+        if (corp.equals("c")) {
+            bundle.putString("corp_company", et_corp_name.getText().toString());
+            bundle.putString("car_no", b.etCorpNum.getText().toString());
+            bundle.putString("car_model", b.etCorpModel.getText().toString());
+        } else {
+            bundle.putString("car_no", et_car_num.getText().toString());
+            bundle.putString("car_model", et_car_model.getText().toString());
+        }
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         CertificateEnrollmentFragment cef = new CertificateEnrollmentFragment();
         cef.setArguments(bundle);

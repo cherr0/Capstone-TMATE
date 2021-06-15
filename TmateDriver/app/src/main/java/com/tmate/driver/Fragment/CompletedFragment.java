@@ -52,7 +52,7 @@ public class CompletedFragment extends Fragment implements OnBackPressedListener
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if(response.code() == 200) {
                     Log.d("레트로핏 값",response.body() + "");
-                    if(response.body()) {
+                    if(response.body() != null) {
                         setPreference("d_approve", response.body().toString());
                         Log.d("CompletedFragment","승인 완료");
                         Toast.makeText(getContext(), "승인 완료 되었습니다.", Toast.LENGTH_SHORT).show();

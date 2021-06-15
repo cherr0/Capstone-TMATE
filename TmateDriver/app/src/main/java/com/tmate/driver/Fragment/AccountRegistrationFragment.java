@@ -132,6 +132,14 @@ public class AccountRegistrationFragment extends Fragment implements Validator.V
         map.put("bank_company", bundle.getString("bank_company"));
         map.put("d_acnum", bundle.getString("d_acnum"));
 
+        // 법인 구분 및 차량
+        map.put("corp_code", bundle.getString("corp_code"));
+        map.put("car_no", bundle.getString("car_no"));
+        map.put("car_model", bundle.getString("car_model"));
+        map.put("car_color", bundle.getString("car_color"));
+        map.put("car_kind", bundle.getString("car_kind"));
+        map.put("corp_company", bundle.getString("corp_company"));
+
         Log.d("Final Check", "map 객체 내용" + map);
         request = DataService.getInstance().driver.registerDriver(map);
         request.enqueue(new Callback<Boolean>() {
@@ -147,7 +155,7 @@ public class AccountRegistrationFragment extends Fragment implements Validator.V
                     transaction.replace(R.id.fm_main, cf);
                     transaction.addToBackStack(null);
                     transaction.commit();
-                }else {
+                } else {
                     Log.i("AccountRegFragment", response.message());
                 }
             }
