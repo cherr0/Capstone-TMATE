@@ -157,8 +157,6 @@ public class FriendFragment extends Fragment {
                         }
 
                         adFriend.notifyDataSetChanged();
-
-
                     }
                 }
             }
@@ -221,9 +219,16 @@ public class FriendFragment extends Fragment {
 
             if (cursor.moveToFirst()) {
                 name = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-                phone = cursor.getString(56);
+                phone = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.DATA1));
+
                 Log.d("연락처 찍히는 이름 : ", name);
-                Log.d("전화번호 ", phone.replace("-",""));
+                String columns[] = cursor.getColumnNames();
+                for (String column : columns) {
+                    int index = cursor.getColumnIndex(column);
+                    String columnOutput = ("#" + index + " -> [" + column + "] " + cursor.getString(index));
+                    Log.d("찍히는 출력물 : ", columnOutput);
+                }
+
                 cursor.close();
 
                 // 여기서 DB연동

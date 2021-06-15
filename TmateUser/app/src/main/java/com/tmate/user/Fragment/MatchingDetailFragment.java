@@ -243,14 +243,14 @@ public class MatchingDetailFragment extends Fragment {
                         else
                             b.btnMatch.setText("삭제하기");
                         
-                        getData();
+                        getDataMaster();
                         
                     }else{
+                        getDataPassenger();
                         b.btnMatch.setText("동승하기");
                         handler = new Handler();
                         checking = new Checking();
                         isRunning = true;
-
                         Thread thread = new Thread(() -> {
                             try {
                                 while (isRunning) {
@@ -261,7 +261,6 @@ public class MatchingDetailFragment extends Fragment {
                                 e.printStackTrace();
                             }
                         });
-
                         isRunning = true;
                         thread.start();
                     }
@@ -321,7 +320,8 @@ public class MatchingDetailFragment extends Fragment {
         });
     }
 
-     public void getData() {
+    // 방장 한테만 보이게
+     public void getDataMaster() {
         List<String> id_num = Arrays.asList(
                 "1",
                 "2"
@@ -338,6 +338,20 @@ public class MatchingDetailFragment extends Fragment {
 
             adapter.addItem(matchingDetailData);
         }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    // 동승자에게 보이게
+    public void getDataPassenger() {
+        String id_num = "1";
+        String situation = "동승자 정보";
+
+        matchingDetailData = new MatchingDetailData();
+        matchingDetailData.setId_num(id_num);
+        matchingDetailData.setSituation(situation);
+
+        adapter.addItem(matchingDetailData);
 
         adapter.notifyDataSetChanged();
     }
