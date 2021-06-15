@@ -14,6 +14,9 @@ public class DispatchDTO {
     // 동승시 필요한 것
     private String keyword;
 
+    // 동승 유무
+    private String together;
+
     // 1. 배차 코드 (PK) : TIMESTAMP + 최대인원(1)
     private String dp_id;
 
