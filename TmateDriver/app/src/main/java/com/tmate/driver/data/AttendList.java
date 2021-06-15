@@ -20,4 +20,7 @@ public class AttendList {
 
     // 성별
     private String gender;
+
+    // 좌석번호
+    private String seat;
 }

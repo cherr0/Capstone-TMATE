@@ -1,69 +1,52 @@
 package com.tmate.driver.activity;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.tmate.driver.R;
 import com.tmate.driver.data.AttendList;
 import com.tmate.driver.data.Ban;
-import com.tmate.driver.data.DriverHistory;
 import com.tmate.driver.databinding.ActivityBlackListSelectBinding;
+import com.tmate.driver.databinding.ActivityNormalBlackListSelectBinding;
 import com.tmate.driver.net.DataService;
 
-import net.colindodd.toggleimagebutton.ToggleImageButton;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BlackListSelectActivity extends AppCompatActivity {
+public class NormalBlackListSelectActivity extends AppCompatActivity {
     private final int blackList = 1;
+    private ActivityNormalBlackListSelectBinding b;
     private String dp_id;
     private String ban_reason;
-    private ActivityBlackListSelectBinding b;
     Call<Boolean> blackListRequest;
     Call<List<AttendList>> attendRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        b = ActivityBlackListSelectBinding.inflate(getLayoutInflater());
+        b = ActivityNormalBlackListSelectBinding.inflate(getLayoutInflater());
         setContentView(b.getRoot());
 
-
         Intent intent = getIntent();
-        int blackList = intent.getExtras().getInt("blackList");
         dp_id = intent.getExtras().getString("dp_id");
-        Log.d("BlackListActivity", "dp_id : " + dp_id);
-        Log.d("blackList","뭐넘어오냐"+ blackList);
-        attendList(); // 블랙리스트 좌석 별 승객 정보
 
+        attendList();
 
-
-        final List<String> list = new ArrayList<String>();
-        b.btnSeat.setOnClickListener(v -> {
-            blackListAdd();
+        b.btnNormalSeat.setOnClickListener(v -> {
+            AddBlackList();
         });
     }
-
-
-    // 사유 다이얼로그
     private void reasonDialog() {
         final String[] items = new String[]{"너무 시끄러워요", "시간을 안지켜요", "술을 마신거 같아요", "목적지변경을 강요해요", "불친절해요."};
-        AlertDialog.Builder dialog = new AlertDialog.Builder(BlackListSelectActivity.this);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(NormalBlackListSelectActivity.this);
         dialog.setTitle("항목을 선택해주세요.");
         dialog.setSingleChoiceItems(
                 items,
@@ -86,8 +69,9 @@ public class BlackListSelectActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    // 블랙리스트 등록
-    private void blackListAdd() {
+
+    //블랙리스트 등록
+    private void AddBlackList() {
         Ban ban = new Ban();
         ban.setD_id(getPreferenceString("d_id"));
         ban.setBan_reason(ban_reason);
@@ -97,11 +81,11 @@ public class BlackListSelectActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (response.code() == 200 && response.body() != null) {
-                    Log.d("BlackListActivity", "바디 값 : " + response.body());
-                    Intent requestIntent = new Intent(BlackListSelectActivity.this, MainViewActivity.class);
-                    startActivity(requestIntent);
+                    Intent addIntent = new Intent(NormalBlackListSelectActivity.this, MainViewActivity.class);
+                    startActivity(addIntent);
                 }
             }
+
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
                 t.printStackTrace();
@@ -109,53 +93,20 @@ public class BlackListSelectActivity extends AppCompatActivity {
         });
     }
 
-    // 좌석 별 승객 정보
+    // 승객 정보
     private void attendList() {
         attendRequest = DataService.getInstance().driver.historyAttendList(dp_id);
         attendRequest.enqueue(new Callback<List<AttendList>>() {
             @Override
             public void onResponse(Call<List<AttendList>> call, Response<List<AttendList>> response) {
                 if (response.code() == 200 && response.body() != null) {
-                    Log.d("BlackListActivity", "바디 값 : " + response.body());
                     for (AttendList data : response.body()) {
-                        switch (data.getSeat()) {
-                            case "0" :
-                                b.seatOneMName.setText(data.getM_name());
-                                b.seatOneMGender.setText(data.getGender());
-                                b.seatOneMBirth.setText(data.getAge());
-                                b.seatOneInfo.setVisibility(View.VISIBLE);
-                                b.seatOne.setOnClickListener(v -> {
-                                    setPreference("m_id",data.getM_id());
-                                    if (b.seatOne.isChecked())
-                                    reasonDialog();
-                                    b.seatOneReason.setText(ban_reason);
-                                });
-                                break;
-                            case "1" :
-                                b.seatTwoMName.setText(data.getM_name());
-                                b.seatTwoMGender.setText(data.getGender());
-                                b.seatTwoMBirth.setText(data.getAge());
-                                b.seatTwoInfo.setVisibility(View.VISIBLE);
-                                b.seatTwo.setOnClickListener(v -> {
-                                    setPreference("m_id",data.getM_id());
-                                    if (b.seatTwo.isChecked())
-                                    reasonDialog();
-                                    b.seatTwoReason.setText(ban_reason);
-                                });
-                                break;
-                            case "2" :
-                                b.seatThreeMName.setText(data.getM_name());
-                                b.seatThreeMGender.setText(data.getGender());
-                                b.seatThreeMBirth.setText(data.getAge());
-                                b.seatThreeInfo.setVisibility(View.VISIBLE);
-                                b.seatThree.setOnClickListener(v -> {
-                                    setPreference("m_id",data.getM_id());
-                                    if (b.seatThree.isChecked())
-                                    reasonDialog();
-                                    b.seatThreeReason.setText(ban_reason);
-                                });
-                                break;
-                        }
+                        b.normalMName.setText(data.getM_name());
+                        b.normalMGender.setText(data.getGender());
+                        b.normalMBirth.setText(data.getAge());
+                        b.normalMName.setOnClickListener(v -> {
+                            reasonDialog();
+                        });
                     }
                 }
             }
@@ -184,6 +135,6 @@ public class BlackListSelectActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         if (attendRequest != null) attendRequest.cancel();
-        if (blackListRequest != null) attendRequest.cancel();
+        if (blackListRequest != null) blackListRequest.cancel();
     }
 }
