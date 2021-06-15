@@ -4,8 +4,8 @@
 
     <select id="getWeeklyUsers" resultType="_int">
         select count(*)
-        from history
-        where to_date(substr(merchant_uid,10,6),'yyMMdd') between  sysdate - 7 and sysdate
+        from dispatch
+        where END_TIME between  sysdate - 7 and sysdate
     </select>
 
     <select id="getMonthlyUsers" resultType="com.tmate.domain.MonthlyUsersVO">
@@ -48,19 +48,19 @@
     </select>
 
     <select id="getCountNormal" resultType="com.tmate.domain.ChartDTO">
-        select to_date(substr(merchant_uid,10,4),'yyMM') as standard,  count(*) as count
-        from history
-        where m_id = #{m_id} and substr(merchant_uid,28,1) = '1'
-        group by to_date(substr(merchant_uid,10,4),'yyMM')
-        order by to_date(substr(merchant_uid,10,4),'yyMM')
+        select to_char(end_time,'yyMM') as standard, count(*) as count
+        from DISPATCH
+        where m_id = #{m_id} and substr(dp_id,19) = '1'
+        group by to_char(end_time, 'yyMM')
+        order by to_char(end_time, 'yyMM')
     </select>
 
     <select id="getCountTogether" resultType="com.tmate.domain.ChartDTO">
-        select to_date(substr(merchant_uid,10,4),'yyMM') as standard,  count(*) as count
-        from history
-        where m_id = #{m_id} and substr(merchant_uid,28,1) = '0'
-        group by to_date(substr(merchant_uid,10,4),'yyMM')
-        order by to_date(substr(merchant_uid,10,4),'yyMM')
+        select to_char(end_time,'yyMM') as standard, count(*) as count
+        from DISPATCH
+        where m_id = #{m_id} and substr(dp_id,19) != '1'
+        group by to_char(END_TIME, 'yyMM')
+        order by to_char(end_time, 'yyMM')
     </select>
 
     <select id="getCountUseCard" resultType="com.tmate.domain.ChartDTO">
@@ -82,9 +82,9 @@
     <select id="getStartRankList" resultType="com.tmate.domain.HistoryDTO">
         <![CDATA[
             select *
-            from (select h_s_place ,count(h_s_place) as cnt, row_number() over (order by count(h_s_place) desc) as ranking
-            from history
-            group by h_s_place)
+            from (select start_place ,count(start_place) as cnt, row_number() over (order by count(start_place) desc) as ranking
+                  from dispatch
+                  group by start_place)
             where ranking <= 5
         ]]>
     </select>

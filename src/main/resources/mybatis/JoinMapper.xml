@@ -10,8 +10,10 @@
                           join car c on co.CAR_NO = c.car_no
                           join MEMBER m on d.d_id = m.m_id
         )
-        select dp_id, start_place, finish_place, end_time, m_name, car_no, car_model
-        from (select rownum rn, d.dp_id, d.start_place, d.finish_place, d.end_time, i.m_name, i.car_no, i.car_model
+        select CASE WHEN substr(dp_id,19) = 1 THEN '일반'
+                           WHEN substr(dp_id,19) >= 2 THEN '동승' END together,
+               dp_id, start_place, finish_place, start_time, end_time, m_name, car_no, car_model
+        from (select rownum rn, d.dp_id, d.start_place, d.finish_place, d.start_time, d.end_time, i.m_name, i.car_no, i.car_model
               from dispatch d, driver_info i, attend a
               where d.D_ID = i.D_ID and d.dp_id = a.dp_id and a.m_id = #{m_id} and d.DP_STATUS = '5' and rownum <= #{cri.pageNum} * #{cri.amount})
         where rn > (#{cri.pageNum} - 1) * #{cri.amount}

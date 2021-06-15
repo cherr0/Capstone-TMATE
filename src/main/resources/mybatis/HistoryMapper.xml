@@ -56,7 +56,7 @@
     <!-- 기사 위치 갱신 -->
     <update id="updateDriverLocation">
         update member
-        set m_lttd = #{m_lttd}, m_lngtd = #{m_lngtd}
+        set m_lat = #{m_lttd}, m_lng = #{m_lngtd}
         where m_id = #{d_id}
     </update>
 
