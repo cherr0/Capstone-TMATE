@@ -1070,17 +1070,18 @@
       console.log(result.normal.length);
       const nlen = result.normal.length;
       const tlen = result.together.length;
-      const standard = result.normal[0].standard.substr(6,1);
+      const standard = result.normal[0].standard.substr(2);
       console.log(standard);
 
       for (let i = 0; i < nlen; i++) {
-        chartData3[parseInt(result.normal[i].standard.substr(6,1))-1]=result.normal[i].count;
-        console.log(chartData3);
+        console.log(result.normal[i].standard.substr(2));
+        chartData3[parseInt(result.normal[i].standard.substr(2))-1]=result.normal[i].count;
+        console.log("chart normal data : " + chartData3);
       }
 
       for (let j = 0; j < tlen; j++) {
-        chartData4[parseInt(result.together[j].standard.substr(6,1))-1]=result.normal[j].count;
-        console.log(chartData4);
+        chartData4[parseInt(result.together[j].standard.substr(2))-1]=result.together[j].count;
+        console.log("chart together data : " + chartData4);
       }
 
       createChart3();
@@ -1102,7 +1103,7 @@
           datasets: [
             {
               label: "일반 횟수",
-              data: [1,0,1,0,0,1,0,0,0,0,0,0],
+              data: chartData3,
               borderColor: "rgba(0, 123, 255, 0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(0, 123, 255, 0.5)",
@@ -1110,7 +1111,7 @@
             },
             {
               label: "동승 횟수",
-              data: [0,1,0,1,1,3,0,0,0,0,0,0],
+              data: chartData4,
               borderColor: "rgba(123,195,243,0.9)",
               borderWidth: "0",
               backgroundColor: "rgba(123,195,243,0.5)",
