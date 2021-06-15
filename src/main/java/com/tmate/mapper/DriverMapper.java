@@ -92,4 +92,7 @@ public interface DriverMapper {
 
     // 기사 사이드바 프로필
     public SidebarProfileVO findSidebarProfileById(String d_id);
+
+    // 기사 운행 완료 데이터
+    public DispatchDTO findDriveFinishById(String dp_id);
 }

@@ -139,6 +139,10 @@ public class AppDriverServiceImpl implements AppDriverService{
         return driverMapper.setDriverStatus(d_id, d_status) == 1;
     }
 
-
-
+    @Override
+    public DispatchDTO getDriveFinish(String dp_id) {
+        DispatchDTO driveFinishById = driverMapper.findDriveFinishById(dp_id);
+        log.info("AppDriverService 기사 운행 완료 데이터 : " + driveFinishById);
+        return driveFinishById;
+    }
 }
