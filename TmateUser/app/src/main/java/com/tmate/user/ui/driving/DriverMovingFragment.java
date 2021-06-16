@@ -351,6 +351,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
                         mViewModel.dispatch = dispatch;
                         Log.d("넘어오는 기사 정보", dispatch.toString());
                         tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
+
                         modelDataBinding();
 
                         switch (dispatch.getDp_status()) {

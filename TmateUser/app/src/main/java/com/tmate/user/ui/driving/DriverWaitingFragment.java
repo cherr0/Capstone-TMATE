@@ -230,6 +230,8 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                     mViewModel.dispatch = dispatch;
                     Log.d("DriverWaitingFragment","가져온 배차 정보 : " + dispatch.toString());
                     String d_id = mViewModel.dispatch.getD_id();
+                    mViewModel.dispatch.setCar_no(dispatch.getCar_no());
+                    mViewModel.dispatch.setCar_model(dispatch.getCar_model());
                     driverPhoneNo = d_id.substring(2, 5) + "-" + d_id.substring(5,9) + "-" + d_id.substring(9,13);
                     tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
                     tMapPointEnd = new TMapPoint(dispatch.getStart_lat(), dispatch.getStart_lng());
