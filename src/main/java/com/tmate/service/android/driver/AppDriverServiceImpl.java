@@ -62,6 +62,7 @@ public class AppDriverServiceImpl implements AppDriverService{
         carDTO.setCar_no(map.get("car_no"));
         carDTO.setCar_color(map.get("car_color"));
         carDTO.setCar_kind(map.get("car_kind"));
+        carDTO.setCar_model(map.get("car_model"));
         driverMapper.insertCar(carDTO);
 
         CorpDTO corpDTO = new CorpDTO();

@@ -8,11 +8,11 @@
     </string-array>
 
     <string-array name="car_color">
-        <item>black</item>
-        <item>white</item>
-        <item>gray</item>
-        <item>orange</item>
-        <item>yellow</item>
+        <item>검은색</item>
+        <item>흰색</item>
+        <item>회색</item>
+        <item>주황색</item>
+        <item>노란색</item>
     </string-array>
 
 
