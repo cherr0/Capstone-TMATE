@@ -207,7 +207,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                     modifyTogetherStatus.enqueue(new Callback<Boolean>() {
                         @Override
                         public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                            if (response.code() == 200) {
+                            if (response.code() == 200 && response.body() != null) {
                                 NavController controller = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                                 controller.navigate(R.id.action_paymentInformationFragment_to_callWaitingFragment);
                             }
@@ -298,21 +298,34 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
        ------------------------ */
     private void allUsedPoint(View v) {
         Log.d("PayInfoFragment", "포인트 모두 적용");
+        if(price < unusedPoint) {
+            Log.d("PayInfoFragment","포인트 적용 실패 price : " + price);
+            Snackbar.make(v,"기본 요금을 넘는 포인트는 사용이 불가합니다.", Snackbar.LENGTH_SHORT).show();
+            return;
+        }else {
+            b.payTotalAmount.setText(String.valueOf(price - unusedPoint));
+        }
+
+
         b.paymentInformationRestMPoint.setText("0");
         b.payPoResult.setText(unusedPoint + "원");
         mViewModel.dispatch.setUse_point(unusedPoint); // 모두 사용이라 모든 포인트 사용포인트로 적용
-        b.payTotalAmount.setText(String.valueOf(price - unusedPoint));
+
         hideKeyBoard(); // 키보드 비활성화
     }
 
     private void usedPoint(View v) {
         String getUsePoint = b.pointEt.getText().toString();
 
-
         Log.d("PayInfoFragment", "적용하려는 포인트 : " + getUsePoint);
 
         if(getUsePoint.isEmpty()) { // 포인트 값 입력 확인
             Snackbar.make(v, "포인트 값을 입력해주세요", Snackbar.LENGTH_SHORT).show();
+            return;
+        }
+        if(price < Integer.parseInt(getUsePoint)){
+            Log.d("PayInfoFragment","포인트 적용 실패 price : " + price);
+            Snackbar.make(v,"기본 요금을 넘는 포인트는 사용이 불가합니다.", Snackbar.LENGTH_SHORT).show();
             return;
         }
         point = Integer.parseInt(getUsePoint);
@@ -360,11 +373,12 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         getCheckingMasterOrUser.enqueue(new Callback<Dispatch>() {
             @Override
             public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
-                if (response.code() == 200) {
+                if (response.code() == 200 && response.body() != null) {
                     Dispatch di = response.body();
                     master = di.getM_id();
                     user = getPreferenceString("m_id");
                     together = di.getDp_id().substring(18);
+                    price = di.getAll_fare();
                     mViewModel.together = together;
                     mViewModel.dispatch.setStart_place(di.getStart_place());
                     mViewModel.dispatch.setFinish_place(di.getFinish_place());
@@ -425,7 +439,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
             getCheckingMasterOrUser.enqueue(new Callback<Dispatch>() {
                 @Override
                 public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
-                    if (response.code() == 200) {
+                    if (response.code() == 200 && response.body() != null) {
                         Dispatch dispatch = response.body();
                         String dp_status = dispatch.getDp_status();
 
