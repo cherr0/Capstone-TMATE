@@ -82,13 +82,13 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewHolder>{
                 holder.member_dislike.setChecked(true);
                 switch (position) {
                     case 1:
-                        reviewVO.setRe_one("0");
+                        reviewVO.setRe_one("1");
                         break;
                     case 2:
-                        reviewVO.setRe_two("0");
+                        reviewVO.setRe_two("1");
                         break;
                     case 3:
-                        reviewVO.setRe_three("0");
+                        reviewVO.setRe_three("1");
                         break;
                 }
             } else {
