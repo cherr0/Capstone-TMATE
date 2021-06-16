@@ -228,6 +228,7 @@ class MatchingDetailHolder extends RecyclerView.ViewHolder {
                             MatchingMember member = new MatchingMember();
                             member.setDp_id(list.get(i).getDp_id());
                             member.setM_id(list.get(i).getM_id());
+                            member.setDp_id(list.get(i).getDp_id());
                             member.setM_name(list.get(i).getM_name());
                             member.setM_birth(list.get(i).getM_birth());
                             member.setM_t_use(list.get(i).getM_t_use() + list.get(i).getM_n_use() + "");

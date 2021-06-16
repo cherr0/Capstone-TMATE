@@ -38,7 +38,7 @@ public class SNFragment extends Fragment implements Validator.ValidationListener
     // 시간 타이머
     TextView time_counter;
     CountDownTimer countDownTimer;
-    final int MILLISINFUTURE = 180 * 1000; //총 시간 (180초 = 5분)
+    final int MILLISINFUTURE = 180 * 1000; //총 시간 (180초 = 3분)
 //    final  int MILLISINFUTURE = 5 * 1000;
     final int COUNT_DOWN_INTERVAL = 1000; //onTick 메소드를 호출할 간격 (1초)
 
