@@ -25,8 +25,8 @@ public class AppCallServiceImpl implements AppCallService {
     }
 
     @Override
-    public List<DispatchInfoVO> getCallList(double m_lat, double m_lng) {
-        return dispatchMapper.selectCallInfo(m_lat,m_lng);
+    public List<DispatchInfoVO> getCallList(double m_lat, double m_lng, String d_id) {
+        return dispatchMapper.selectCallInfo(m_lat,m_lng,d_id);
     }
 
     @Transactional

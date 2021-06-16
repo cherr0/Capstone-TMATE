@@ -175,13 +175,14 @@ public class WaitingActivity extends AppCompatActivity {
 
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
+            String d_id = getSharedPreferences("loginDriver", MODE_PRIVATE).getString("d_id", "");
 
             lat.setText(String.valueOf(latitude));
             lng.setText(String.valueOf(longitude));
 
             isRunning = true;
 
-            dispatchRequest = DataService.getInstance().call.getCallInfoByPosition(latitude, longitude);
+            dispatchRequest = DataService.getInstance().call.getCallInfoByPosition(latitude, longitude,d_id);
             dispatchRequest.enqueue(new Callback<List<Dispatch>>() {
                 @Override
                 public void onResponse(Call<List<Dispatch>> call, Response<List<Dispatch>> response) {
