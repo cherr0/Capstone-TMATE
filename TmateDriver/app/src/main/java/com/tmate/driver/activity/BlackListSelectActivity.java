@@ -120,11 +120,15 @@ public class BlackListSelectActivity extends AppCompatActivity {
                     for (AttendList data : response.body()) {
                         switch (data.getSeat()) {
                             case "0" :
+
                                 b.seatOneMName.setText(data.getM_name());
                                 b.seatOneMGender.setText(data.getGender());
                                 b.seatOneMBirth.setText(data.getAge());
                                 b.seatOneInfo.setVisibility(View.VISIBLE);
                                 b.seatOne.setOnClickListener(v -> {
+                                    b.seatOne.setChecked(true);
+                                    b.seatTwo.setChecked(false);
+                                    b.seatThree.setChecked(false);
                                     setPreference("m_id",data.getM_id());
                                     if (b.seatOne.isChecked())
                                     reasonDialog();
@@ -137,6 +141,9 @@ public class BlackListSelectActivity extends AppCompatActivity {
                                 b.seatTwoMBirth.setText(data.getAge());
                                 b.seatTwoInfo.setVisibility(View.VISIBLE);
                                 b.seatTwo.setOnClickListener(v -> {
+                                    b.seatOne.setChecked(false);
+                                    b.seatTwo.setChecked(true);
+                                    b.seatThree.setChecked(false);
                                     setPreference("m_id",data.getM_id());
                                     if (b.seatTwo.isChecked())
                                     reasonDialog();
@@ -149,6 +156,9 @@ public class BlackListSelectActivity extends AppCompatActivity {
                                 b.seatThreeMBirth.setText(data.getAge());
                                 b.seatThreeInfo.setVisibility(View.VISIBLE);
                                 b.seatThree.setOnClickListener(v -> {
+                                    b.seatOne.setChecked(false);
+                                    b.seatTwo.setChecked(false);
+                                    b.seatThree.setChecked(true);
                                     setPreference("m_id",data.getM_id());
                                     if (b.seatThree.isChecked())
                                     reasonDialog();

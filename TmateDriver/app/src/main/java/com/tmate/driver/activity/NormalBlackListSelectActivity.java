@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.tmate.driver.R;
 import com.tmate.driver.data.AttendList;
@@ -15,6 +16,7 @@ import com.tmate.driver.databinding.ActivityBlackListSelectBinding;
 import com.tmate.driver.databinding.ActivityNormalBlackListSelectBinding;
 import com.tmate.driver.net.DataService;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,6 +30,7 @@ public class NormalBlackListSelectActivity extends AppCompatActivity {
     private String ban_reason;
     Call<Boolean> blackListRequest;
     Call<List<AttendList>> attendRequest;
+    final String[] items = new String[]{"너무 시끄러워요", "시간을 안지켜요", "술을 마신거 같아요", "목적지변경을 강요해요", "불친절해요."};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +47,9 @@ public class NormalBlackListSelectActivity extends AppCompatActivity {
             AddBlackList();
         });
     }
+
     private void reasonDialog() {
-        final String[] items = new String[]{"너무 시끄러워요", "시간을 안지켜요", "술을 마신거 같아요", "목적지변경을 강요해요", "불친절해요."};
+
         AlertDialog.Builder dialog = new AlertDialog.Builder(NormalBlackListSelectActivity.this);
         dialog.setTitle("항목을 선택해주세요.");
         dialog.setSingleChoiceItems(
@@ -55,14 +59,13 @@ public class NormalBlackListSelectActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ban_reason = items[which];
+                        Log.d("NormalBlackActivity", "which : " + which);
                     }
                 });
         dialog.setPositiveButton("보내기", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-                if (blackList == 0)
-                    finish();
+                    dialog.dismiss();
             }
         });
         dialog.create();
@@ -75,6 +78,7 @@ public class NormalBlackListSelectActivity extends AppCompatActivity {
         Ban ban = new Ban();
         ban.setD_id(getPreferenceString("d_id"));
         ban.setBan_reason(ban_reason);
+        Log.d("NormalBlackActivity", "ban_reason : " + ban_reason);
         ban.setM_id(getPreferenceString("m_id"));
         blackListRequest = DataService.getInstance().driver.addBlacklist(ban);
         blackListRequest.enqueue(new Callback<Boolean>() {
@@ -83,6 +87,14 @@ public class NormalBlackListSelectActivity extends AppCompatActivity {
                 if (response.code() == 200 && response.body() != null) {
                     Intent addIntent = new Intent(NormalBlackListSelectActivity.this, MainViewActivity.class);
                     startActivity(addIntent);
+                }else {
+                    try {
+                        Log.d("NormalBlackActivity", "에러 : " + response);
+                        assert response.errorBody() != null;
+                        Log.d("NormalBlackActivity", "데이터 삽입 실패 : " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -105,6 +117,7 @@ public class NormalBlackListSelectActivity extends AppCompatActivity {
                         b.normalMGender.setText(data.getGender());
                         b.normalMBirth.setText(data.getAge());
                         b.normalMName.setOnClickListener(v -> {
+                            setPreference("m_id",data.getM_id());
                             reasonDialog();
                         });
                     }

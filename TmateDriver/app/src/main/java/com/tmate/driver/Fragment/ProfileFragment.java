@@ -53,7 +53,7 @@ public class ProfileFragment extends Fragment {
                     b.profileName.setText(result.getM_name());
                     b.mName.setText(result.getM_name());
                     b.profilePhone.setText(result.getPhone());
-                    b.profileEmail.setText("adsl1664@gmail.com");
+                    b.profileEmail.setText(result.getM_email());
                     b.profileAllFare.setText(String.valueOf(result.getAll_fare()));
                     b.profileMonthFare.setText(String.valueOf(result.getMonth_fare()));
                     b.profileNoCnt.setText(String.valueOf(result.getNo_cnt()));

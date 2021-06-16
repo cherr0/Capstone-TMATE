@@ -245,16 +245,9 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
                 if (response.code() == 200 && response.body() != null) {
                     unusedPoint = response.body();
                     Log.d("PaymentFragment", "사용자 사용가능 포인트  " + unusedPoint);
-                    b.paymentInformationMPoint.setText(unusedPoint.toString());
-                    b.paymentInformationRestMPoint.setText(unusedPoint.toString());
+                    b.paymentInformationMPoint.setText(String.valueOf(unusedPoint));
+                    b.paymentInformationRestMPoint.setText(String.valueOf(unusedPoint));
                 } else {
-//                    try {
-//                        Log.d("PayInfoFragment", "에러 : " + response);
-//                        assert response.errorBody() != null;
-//                        Log.d("PayInfoFragment", "데이터 삽입 실패 : " + response.errorBody().string());
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
                     b.paymentInformationMPoint.setText("0");
                     b.paymentInformationRestMPoint.setText("0");
                 }
