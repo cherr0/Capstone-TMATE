@@ -32,6 +32,7 @@ import com.skt.Tmap.TMapInfo;
 import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapPolyLine;
 import com.skt.Tmap.TMapView;
+import com.tmate.user.Activity.MainViewActivity;
 import com.tmate.user.R;
 import com.tmate.user.common.PermissionManager;
 import com.tmate.user.data.Dispatch;
@@ -362,7 +363,12 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                                 NavController controller = Navigation.findNavController(activity, R.id.nav_host_fragment);
                                 controller.navigate(R.id.action_driverWaitingFragment_to_driverMovingFragment);
                                 break;
-
+                            case "6":
+                                isRunning = false;
+                                // 노쇼인 경우 MainViewActivity 이동
+                                Intent intent = new Intent(activity, MainViewActivity.class);
+                                startActivity(intent);
+                                break;
                         }
 
                     }

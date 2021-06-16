@@ -27,7 +27,9 @@ import androidx.core.content.ContextCompat;
 import com.skt.Tmap.TMapTapi;
 import com.tmate.driver.GpsTracker;
 import com.tmate.driver.R;
+import com.tmate.driver.activity.MainViewActivity;
 import com.tmate.driver.activity.PaymentActivity;
+import com.tmate.driver.activity.WaitingActivity;
 import com.tmate.driver.data.Dispatch;
 import com.tmate.driver.net.DataService;
 
@@ -254,16 +256,38 @@ public class driving_overlay extends Service implements View.OnLongClickListener
                 startActivity(mIntent.addFlags(FLAG_ACTIVITY_NEW_TASK));
                 break;
             case R.id.btn_take_complete :
+                ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
+                am.killBackgroundProcesses (getPackageName());
+                stopSelf();
                 Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
                 intent.putExtra("dp_id", dp_id);
                 intent.putExtra("m_id", m_id);
                 startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
-                ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
-                am.killBackgroundProcesses (getPackageName());
-                stopSelf();
                 break;
             case R.id.overlay_no_show :
                 //노쇼 버튼 클릭 시
+                customerNoShowRequest = DataService.getInstance().call.modifyDriverNoshow(m_id, dp_id);
+                customerNoShowRequest.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if (response.code() == 200) {
+                            ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
+                            am.killBackgroundProcesses (getPackageName());
+                            stopSelf();
+                            Log.d("drivingOverlay","노쇼처리된거같은데");
+                            btn_before_take.setVisibility(View.GONE);
+                            btn_take_complete.setVisibility(View.GONE);
+                            noShow.setVisibility(View.GONE);
+                            Intent intent1 = new Intent(getApplicationContext(), WaitingActivity.class);
+                            startActivity(intent1);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
                break;
         }
         return false;
@@ -275,8 +299,6 @@ public class driving_overlay extends Service implements View.OnLongClickListener
         killAWindowService();
         if(request != null) request.cancel();
         if(request2 != null) request2.cancel();
-
-
     }
 
 }
