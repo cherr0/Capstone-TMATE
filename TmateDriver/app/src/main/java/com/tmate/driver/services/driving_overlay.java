@@ -276,12 +276,10 @@ public class driving_overlay extends Service implements View.OnLongClickListener
                             ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
                             am.killBackgroundProcesses (getPackageName());
                             stopSelf();
+                            isRunning = false;
                             Log.d("drivingOverlay","노쇼처리된거같은데");
-                            btn_before_take.setVisibility(View.GONE);
-                            btn_take_complete.setVisibility(View.GONE);
-                            noShow.setVisibility(View.GONE);
                             Intent intent1 = new Intent(getApplicationContext(), WaitingActivity.class);
-                            startActivity(intent1);
+                            startActivity(intent1.addFlags(FLAG_ACTIVITY_NEW_TASK));
                         }
                     }
 
