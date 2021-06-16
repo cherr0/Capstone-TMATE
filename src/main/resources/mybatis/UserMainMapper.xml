@@ -10,7 +10,7 @@
         order by to_date(substr(merchant_uid,10,4),'yyMM')
     </select>
 
-    <select id="getCountLike" resultType="_int">
+    <select id="getCountLike" resultType="Integer">
         select NVL(count(CASE WHEN re_one = 0 then 1
                           WHEN re_two = 0 then 1
                           WHEN re_three = 0 then 1 end), 0)
@@ -19,7 +19,7 @@
         group by m_id
     </select>
 
-    <select id="getCountDisLike" resultType="_int">
+    <select id="getCountDisLike" resultType="Integer">
         select NVL(count(CASE WHEN re_one = 1 then 1
                           WHEN re_two = 1 then 1
                           WHEN re_three = 1 then 1 end),0)
