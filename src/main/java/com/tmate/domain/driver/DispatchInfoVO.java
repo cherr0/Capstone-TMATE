@@ -21,6 +21,8 @@ public class DispatchInfoVO {
     // 출발지 경도
     private double start_lng;
 
+    private double distance;
+
     // 도착지
     private String finish_place;
 

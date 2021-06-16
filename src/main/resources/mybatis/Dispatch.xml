@@ -151,7 +151,7 @@
             SELECT d.dp_id, d.start_place, d.start_lat, d.start_lng, d.finish_place, d.finish_lat, d.finish_lng,
                    GOOGLE_DISTANCE(#{m_lat},#{m_lng},d.start_lat,d.start_lng) as distance, opt.*
             FROM DISPATCH d join DRIVING_OPTION opt on d.M_ID = opt.M_ID
-            WHERE dp_status = '2' and GOOGLE_DISTANCE(#{m_lat},#{m_lng},start_lat,start_lng) <= 2
+            WHERE dp_status = '2' and GOOGLE_DISTANCE(#{m_lat},#{m_lng},start_lat,start_lng) <= 2 and d.m_id NOT IN (select m_id from ban b where b.d_id = #{d_id})
         ]]>
     </select>
 

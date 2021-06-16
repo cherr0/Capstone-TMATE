@@ -33,13 +33,14 @@ public class AppCallController {
     }
 
     // 2. 기사 2km 콜정보 가져오기
-    @GetMapping("/get/callinfo/{m_lat}/{m_lng}")
+    @GetMapping("/get/callinfo/{m_lat}/{m_lng}/{d_id}")
     public ResponseEntity<List<DispatchInfoVO>> getCallInfoByPosition(
             @PathVariable("m_lat") double m_lat,
-            @PathVariable("m_lng") double m_lng
+            @PathVariable("m_lng") double m_lng,
+            @PathVariable("d_id") String d_id
     ){
-        log.info("콜 정보를 찾습니다." + m_lat + m_lng);
-        return new ResponseEntity<>(appCallService.getCallList(m_lat, m_lng), HttpStatus.OK);
+        log.info("콜 정보를 찾습니다." + m_lat + m_lng + d_id);
+        return new ResponseEntity<>(appCallService.getCallList(m_lat, m_lng, d_id), HttpStatus.OK);
     }
 
     // 3. 기사가 이용정보 수락시
