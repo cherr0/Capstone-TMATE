@@ -280,9 +280,9 @@ public class CallFragment extends Fragment implements View.OnClickListener {
                 long noShowStopCount = millisUntilFinished / 1000;
 
                 if ((noShowStopCount - ((noShowStopCount / 60) * 60)) >= 10) { //초가 10보다 크면 그냥 출력
-                    b.fcTimer.setText((noShowStopCount / 60) + " : " + (noShowStopCount - ((noShowStopCount / 60) * 60)));
+                    b.fcTimer.setText((noShowStopCount / 60) + " : " + (noShowStopCount - ((noShowStopCount / 60) * 60)) + "후에 이용이 가능합니다.");
                 } else { //초가 10보다 작으면 앞에 '0' 붙여서 같이 출력. ex) 02,03,04...
-                    b.fcTimer.setText((noShowStopCount / 60) + " : 0" + (noShowStopCount - ((noShowStopCount / 60) * 60)));
+                    b.fcTimer.setText((noShowStopCount / 60) + " : 0" + (noShowStopCount - ((noShowStopCount / 60) * 60)) + "후에 이용이 가능합니다.");
                 }
             }
 
