@@ -259,10 +259,12 @@ public class driving_overlay extends Service implements View.OnLongClickListener
                 ActivityManager am = (ActivityManager)getSystemService(ACTIVITY_SERVICE);
                 am.killBackgroundProcesses (getPackageName());
                 stopSelf();
+                isRunning = false;
                 Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
                 intent.putExtra("dp_id", dp_id);
                 intent.putExtra("m_id", m_id);
                 startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
+
                 break;
             case R.id.overlay_no_show :
                 //노쇼 버튼 클릭 시
