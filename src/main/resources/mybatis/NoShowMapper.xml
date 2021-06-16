@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tmate.mapper.NoShowMapper">
+
+    <update id="updateAttendStatus">
+        update attend
+        set at_status = '3'
+        where m_id = #{m_id} and dp_id = #{dp_id}
+    </update>
+
+    <update id="updateCurPeople">
+        update dispatch
+        set cur_people = cur_people - 1
+        where dp_id = #{dp_id}
+    </update>
+
+    <update id="updateUserCnt">
+        update member
+        set   m_count = m_count +1, m_n_use = m_n_use - 1, m_status = '2'
+        where m_id = #{m_id}
+    </update>
+
+    <update id="updateNoshowDpStatus">
+        update dispatch
+        set dp_status = '6'
+        where dp_id = #{dp_id}
+    </update>
+
+    <update id="updateUserNormalStatus">
+        update member
+        set m_status = '0'
+        where m_id = #{m_id}
+    </update>
+
+    <select id="selectMemberStatus" resultType="string">
+        select m_status
+        from member
+        where m_id = #{m_id}
+    </select>
+
+
+</mapper>
