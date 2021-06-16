@@ -117,6 +117,8 @@
         select CASE WHEN substr(d.dp_id,19) = 1 THEN '일반'
                     WHEN substr(d.dp_id,19) >= 2 THEN '동승' END together, d.d_id, d.dp_id, d.ALL_FARE, d.START_PLACE, d.FINISH_PLACE, d.START_TIME, d.END_TIME, r.name, r.reason, r.like_cnt, r.hate_cnt
         from DISPATCH d join review r on d.DP_ID = r.DP_ID
+        where DP_STATUS = '5'
+        order by dp_id desc
         ]]>
     </select>
 
