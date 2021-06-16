@@ -158,19 +158,8 @@ public class AppMemberMatchServiceImpl implements AppMemberMatchService{
         log.info("AppMemberService 동승 신청한 사람 정보 얻어오기 서비스 중");
 
         MemberDTO member = membermapper.getMemberByM_id(m_id);
-        Integer like = userMainMapper.getCountLike(m_id);
-        if(like != null) {
-            member.setLike(like);
-        }else {
-            member.setLike(0);
-        }
-        Integer disLike = userMainMapper.getCountDisLike(m_id);
-        if(disLike != null) {
-            member.setDislike(disLike);
-        }else {
-            member.setDislike(0);
-        }
-
+        member.setLike(userMainMapper.getCountLike(m_id));
+        member.setDislike(userMainMapper.getCountDisLike(m_id));
 
         log.info("AppMemberService 동승 신청한 사람 정보 : " +  member);
 

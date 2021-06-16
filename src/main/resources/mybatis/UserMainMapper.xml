@@ -10,21 +10,35 @@
         order by to_date(substr(merchant_uid,10,4),'yyMM')
     </select>
 
-    <select id="getCountLike" resultType="Integer">
-        select NVL(count(CASE WHEN re_one = 0 then 1
-                          WHEN re_two = 0 then 1
-                          WHEN re_three = 0 then 1 end), 0)
-        from attend
-        where m_id = #{m_id}
+    <select id="getCountLike" resultType="_int">
+        select sum(count)-1
+        from (select m_id, count(CASE WHEN re_one = 0 then 1
+                                      WHEN re_two = 0 then 1
+                                      WHEN re_three = 0 then 1 end) as count
+              from attend
+              group by m_id
+              UNION
+              select m_id, count(*) count
+              from member
+              group by m_id
+             )
+        where m_id = 'm1010467898340'
         group by m_id
     </select>
 
-    <select id="getCountDisLike" resultType="Integer">
-        select NVL(count(CASE WHEN re_one = 1 then 1
-                          WHEN re_two = 1 then 1
-                          WHEN re_three = 1 then 1 end),0)
-        from attend
-        where m_id = #{m_id}
+    <select id="getCountDisLike" resultType="_int">
+        select sum(count)-1
+        from (select m_id, count(CASE WHEN re_one = 1 then 1
+                                      WHEN re_two = 1 then 1
+                                      WHEN re_three = 1 then 1 end) as count
+              from attend
+              group by m_id
+              UNION
+              select m_id, count(*) count
+              from member
+              group by m_id
+             )
+        where m_id = 'm1010467898340'
         group by m_id
     </select>
 
