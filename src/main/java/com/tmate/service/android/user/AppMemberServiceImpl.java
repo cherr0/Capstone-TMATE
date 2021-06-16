@@ -92,11 +92,20 @@ public class AppMemberServiceImpl implements AppMemberService {
 
         MemberDTO member = membermapper.getMemberByM_id(m_id);
 
-        int like = userMainMapper.getCountLike(m_id);
-        int dislike = userMainMapper.getCountDisLike(m_id);
+        Integer like = userMainMapper.getCountLike(m_id);
+        Integer dislike = userMainMapper.getCountDisLike(m_id);
 
-        member.setLike(like);
-        member.setDislike(dislike);
+        if(like != null) {
+            member.setLike(like);
+        }else {
+            member.setLike(0);
+        }
+        if(dislike != null) {
+            member.setDislike(dislike);
+        }else {
+            member.setDislike(0);
+        }
+
 
         return member;
     }
