@@ -22,7 +22,7 @@
               from member
               group by m_id
              )
-        where m_id = 'm1010467898340'
+        where m_id = #{m_id}
         group by m_id
     </select>
 
@@ -38,7 +38,7 @@
               from member
               group by m_id
              )
-        where m_id = 'm1010467898340'
+        where m_id = #{m_id}
         group by m_id
     </select>
 
