@@ -38,23 +38,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int totalCountLike(String m_id) {
-        Integer like = userMainMapper.getCountLike(m_id);
-
-        if(like == null) {
-            like = 0;
-        }
-
-        return like;
+        return userMainMapper.getCountLike(m_id);
     }
 
     @Override
     public int totalCountDislike(String m_id) {
-        Integer dislike = userMainMapper.getCountDisLike(m_id);
-
-        if(dislike == null) {
-            dislike = 0;
-        }
-        return dislike;
+        return userMainMapper.getCountDisLike(m_id);
     }
 
     @Override
