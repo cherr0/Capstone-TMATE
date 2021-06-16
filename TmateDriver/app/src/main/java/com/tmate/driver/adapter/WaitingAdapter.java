@@ -178,7 +178,6 @@ class WaitingHolder extends RecyclerView.ViewHolder {
     ImageView do_hurry;
     ImageView do_navi;
     ImageView do_quiet;
-    Button matching_btn_refusal;
     Button matching_btn_accept;
 
     TextView matching_m_id;
@@ -251,7 +250,6 @@ class WaitingHolder extends RecyclerView.ViewHolder {
         do_quiet = itemView.findViewById(R.id.do_quiet);
         tv_do_quiet = itemView.findViewById(R.id.tv_do_quiet);
         matching_btn_accept = itemView.findViewById(R.id.matching_btn_accept);
-        matching_btn_refusal = itemView.findViewById(R.id.matching_btn_refusal);
         cw_dp_id = itemView.findViewById(R.id.cw_dp_id);
         cw_h_s_lttd = itemView.findViewById(R.id.cw_h_s_lttd);
         cw_h_s_lngtd = itemView.findViewById(R.id.cw_h_s_lngtd);

@@ -180,24 +180,12 @@
 
 
         <Button
-            android:id="@+id/matching_btn_refusal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:fontFamily="@font/font_sub_title"
-            android:text="거절"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/matching_btn_accept"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/matching_btn_accept" />
-
-        <Button
             android:id="@+id/matching_btn_accept"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
             android:backgroundTint="#536DFE"
             android:fontFamily="@font/font_sub_title"
             android:text="수락"
@@ -205,7 +193,7 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/matching_btn_refusal"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/driving_options_quiet" />
 
         <TextView

@@ -60,87 +60,6 @@ public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
 
         holder.itemView.setTag(posit);
 
-        holder.more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog = new Dialog(holder.itemView.getContext(),android.R.style.Theme_Translucent_NoTitleBar_Fullscreen );
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dialog_history_more);
-                dialog.show();
-
-                Button exit = dialog.findViewById(R.id.h_clear);
-                exit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                TextView hCall = dialog.findViewById(R.id.h_call);
-                hCall.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("tel:012-3456-7890"));
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        v.getContext().startActivity(intent);
-                        dialog.dismiss();
-                    }
-                });
-                TextView hReview = dialog.findViewById(R.id.h_review);
-                hReview.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-//                        Intent intent = new Intent(v.getContext(), ReviewFragment.class);
-//                        v.getContext().startActivity(intent);
-                        dialog.dismiss();
-                        //리뷰로 이동
-                    }
-                });
-
-                TextView hDelete = dialog.findViewById(R.id.h_delete);
-                hDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
-                        builder.setTitle("이용기록");
-                        builder.setMessage("삭제하시겠습니까");
-                        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                DataService.getInstance().memberAPI.removeHistoryByM_id(holder.cv_merchant_uid.getText().toString(),m_id).enqueue(new Callback<Boolean>() {
-                                    @Override
-                                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                                        if(response.code() == 200) {
-                                            Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                                            items.remove(posit);
-                                            notifyItemRemoved(posit);
-                                            notifyItemChanged(posit, items.size());
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<Boolean> call, Throwable t) {
-                                        t.printStackTrace();
-                                    }
-                                });
-                            }
-                        });
-                        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                        builder.show();
-
-                        dialog.dismiss();
-                    }
-                });
-
-
-            }
-
-            ;
-        });
     }
 
     @Override
@@ -149,15 +68,13 @@ public class historyAdapter extends RecyclerView.Adapter<HistoryHolder> {
     }
 
 
-
     public void addItem(Dispatch data) {
         items.add(data);
     }
+
     public void clear() {
         items.clear();
     }
-
-
 
 
 }
@@ -170,7 +87,6 @@ class HistoryHolder extends RecyclerView.ViewHolder {
     TextView time;
     TextView drivername;
     TextView carinfo;
-    ImageView more;
     TextView cv_merchant_uid;
 
     public HistoryHolder(@NonNull View itemView) {
@@ -182,17 +98,16 @@ class HistoryHolder extends RecyclerView.ViewHolder {
         time = itemView.findViewById(R.id.htime);
         drivername = itemView.findViewById(R.id.hdrivername);
         carinfo = itemView.findViewById(R.id.hcarinfo);
-        more = itemView.findViewById(R.id.more);
         cv_merchant_uid = itemView.findViewById(R.id.cv_merchant_uid);
     }
 
     void onBind(Dispatch data) {
         start.setText(data.getStart_place());
-        switch(data.getDp_id().substring(18)){
-            case "1" :
+        switch (data.getDp_id().substring(18)) {
+            case "1":
                 together.setText("일반");
                 break;
-            case "2" :
+            case "2":
                 together.setText("동승");
         }
         String meet = new SimpleDateFormat("yy/MM/dd").format(data.getStart_time());
@@ -200,10 +115,10 @@ class HistoryHolder extends RecyclerView.ViewHolder {
         finish.setText(data.getFinish_place());
         String startTime = new SimpleDateFormat("HH:mm").format(data.getStart_time());
         String finishTime;
-        if(data.getEnd_time() !=null) {
+        if (data.getEnd_time() != null) {
             finishTime = new SimpleDateFormat("HH:mm").format(data.getEnd_time());
             time.setText(startTime + " : " + finishTime);
-        }else {
+        } else {
             time.setText(startTime);
         }
 
