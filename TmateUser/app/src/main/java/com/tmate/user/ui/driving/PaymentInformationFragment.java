@@ -373,11 +373,12 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
         getCheckingMasterOrUser.enqueue(new Callback<Dispatch>() {
             @Override
             public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
-                if (response.code() == 200) {
+                if (response.code() == 200 && response.body() != null) {
                     Dispatch di = response.body();
                     master = di.getM_id();
                     user = getPreferenceString("m_id");
                     together = di.getDp_id().substring(18);
+                    price = di.getAll_fare();
                     mViewModel.together = together;
                     mViewModel.dispatch.setStart_place(di.getStart_place());
                     mViewModel.dispatch.setFinish_place(di.getFinish_place());
@@ -438,7 +439,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
             getCheckingMasterOrUser.enqueue(new Callback<Dispatch>() {
                 @Override
                 public void onResponse(Call<Dispatch> call, Response<Dispatch> response) {
-                    if (response.code() == 200) {
+                    if (response.code() == 200 && response.body() != null) {
                         Dispatch dispatch = response.body();
                         String dp_status = dispatch.getDp_status();
 
