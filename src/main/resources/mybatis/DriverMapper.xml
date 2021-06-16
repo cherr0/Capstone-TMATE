@@ -129,8 +129,8 @@
             fare as (
                 select d_id, sum(all_fare) as all_fare,
                        sum(CASE WHEN end_time between TRUNC(SYSDATE, 'MM') and LAST_DAY(SYSDATE) THEN all_fare END) AS month_fare,
-                       count(CASE WHEN substr(dp_id, 19) = 0 THEN 1 END) AS to_cnt,
-                       count(CASE WHEN substr(dp_id, 19) <= 1 THEN 1 END) AS no_cnt
+                       count(CASE WHEN substr(dp_id, 19) > 1 THEN 1 END) AS to_cnt,
+                       count(CASE WHEN substr(dp_id, 19) = 1 THEN 1 END) AS no_cnt
                 from dispatch
                 group by d_id
             )
