@@ -73,9 +73,38 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarHolder> {
         void onBind(Car data) {
             carNo.setText(data.getCar_no());
             carColor.setText(data.getCar_color());
-            carKind.setText(data.getCar_kind());
             carModel.setText(data.getCar_model());
             d_id.setText(data.getM_id());
+
+            switch (data.getCar_kind()) {
+                case "0" :
+                    carKind.setText("소형");
+                    break;
+                case "1" :
+                    carKind.setText("중형");
+                    break;
+                case "2" :
+                    carKind.setText("대형");
+                    break;
+            }
+
+            switch (data.getCar_color()) {
+                case "black":
+                    carColor.setText("검은색");
+                    break;
+                case "gray":
+                    carColor.setText("회색");
+                    break;
+                case "white":
+                    carColor.setText("흰색");
+                    break;
+                case "orange":
+                    carColor.setText("주황색");
+                    break;
+                case "yellow":
+                    carColor.setText("노란색");
+                    break;
+            }
 
             car_card_view.setOnClickListener(v -> {
                 position = getAdapterPosition();
@@ -99,6 +128,7 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.CarHolder> {
             car_item_checkBox = itemView.findViewById(R.id.car_item_checkBox);
             car_card_view = itemView.findViewById(R.id.car_card_view);
             d_id = itemView.findViewById(R.id.d_id);
+
         }
 
         public String getPreferenceString(String key) {
