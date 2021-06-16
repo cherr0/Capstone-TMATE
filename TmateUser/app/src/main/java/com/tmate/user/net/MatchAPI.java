@@ -49,7 +49,7 @@ public interface MatchAPI {
     Call<List<TogetherRequest>> getTogetherRequest(@Path("merchant_uid") String merchant_uid);
 
     @DELETE("match/remove/approval/{id}/{merchant_uid}")
-    Call<Boolean> removeApproval(@Path("id") String id , @Path("merchant_uid") String merchant_uid);
+    Call<Boolean> removeApproval(@Path("id") String id, @Path("merchant_uid") String merchant_uid);
 
     @POST("match/register/together")
     Call<Boolean> registerTogether(@Body Approval approval);
@@ -150,4 +150,21 @@ public interface MatchAPI {
     @GET("match/get/friend/phone/{m_id}")
     Call<List<String>> getFriendPhoneNo(@Path("m_id") String m_id);
 
+    /*
+     *  노쇼 관련 API
+     * */
+    // 1.  방장이 동승자 노쇼 버튼 눌렀을 시 사용자 APP
+    @PUT("noshow/modify/together/noshow/{m_id}/{dp_id}")
+    Call<Boolean> modifyTogetherNoShow(
+            @Path("m_id") String m_id,
+            @Path("dp_id") String dp_id
+    );
+
+    // 2. 멤버 정상 상태로 돌리는 것 사용자 APP
+    @PUT("noshow/modify/member/status/{m_id}")
+    Call<Boolean> modifyMemberStatus(@Path("m_id") String m_id);
+
+    // 3. 회원 정보 가져오기 사용자 APP
+    @GET("noshow/get/member/status/{m_id}")
+    Call<String> getMemberStatus(@Path("m_id") String m_id);
 }

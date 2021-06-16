@@ -67,6 +67,9 @@ public class driving_overlay extends Service implements View.OnLongClickListener
     Handler handler;
     Positioning positioning;
 
+    // 노쇼 관련 Request
+    Call<Boolean> customerNoShowRequest;
+
     @Override
     public IBinder onBind(Intent intent) { return null; }
 

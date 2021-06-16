@@ -52,4 +52,19 @@ public interface CallAPI {
             @Path("all_fare") int all_fare,
             @Path("dp_status") String dp_status
     );
+
+
+    /*
+    *  노쇼 관련
+    * */
+
+    // 1. 기사가 승객 노쇼 버튼 눌렀을 시 기사 APP
+    @PUT("/noshow/modify/driver/noshow/{m_id}/{dp_id}")
+    Call<Boolean> modifyDriverNoshow(
+            @Path("m_id") String m_id,
+            @Path("dp_id") String dp_id
+    );
+
+
+
 }

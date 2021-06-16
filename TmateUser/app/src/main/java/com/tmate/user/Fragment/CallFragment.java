@@ -1,8 +1,11 @@
 package com.tmate.user.Fragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +17,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
@@ -69,6 +73,19 @@ public class CallFragment extends Fragment implements View.OnClickListener {
     List<Notice> noticeList;
     Call<List<Notice>> noticeRequest;
 
+    // 회원 정보 상태 가져오기 Request
+    Call<String> getUserStatusRequest;
+
+    // 타이머 끝난 후 정상 상태로 돌리는 Request
+    Call<Boolean> modifyUserStatusRequest;
+
+    // 시간 타이머 구현 -> 노쇼 정지용
+    CountDownTimer countDownTimer;
+//    final int MILLISINFUTURE = 600 * 1000; // 총시간 600초 = 10분
+    final int MILLISINFUTURE = 60 * 1000;
+    final int COUNT_DOWN_INTERVAL = 1000; // onTick 메소드를 호출할 간격 (1초)
+
+
     // 타임스탬프 String 변환용
     SimpleDateFormat sdf = new SimpleDateFormat("yy.MM.dd", Locale.KOREA);
 
@@ -77,8 +94,22 @@ public class CallFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         b = FragmentCallBinding.inflate(getLayoutInflater());
         view = b.getRoot();
-        clickListener();
+
+        // 멤버 상태 가져와서 정상인지 , 정지인지 판단
+        getUserStatus();
+
+        // 공지사항
         getMainLoticeList();
+
+        // 멤버가 정상일 때
+        if (getPreferenceString("m_status").equals("0")) {
+            clickListener(); // 클릭 리스너 발동
+        }
+        // 멤버가 정지일 때
+        else {
+            if(countDownTimer == null)
+                countDownTimer();
+        }
 
         //로고 애니메이션
         call_logo = view.findViewById(R.id.call_logo);
@@ -216,6 +247,78 @@ public class CallFragment extends Fragment implements View.OnClickListener {
                 t.printStackTrace();
             }
         });
+    }
+
+    // 멤버 상태 가져오는 Retrofit Method
+    private void getUserStatus() {
+        getUserStatusRequest = DataService.getInstance()
+                .matchAPI
+                .getMemberStatus(getPreferenceString("m_id"));
+
+        getUserStatusRequest.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.code() == 200) {
+                    String m_status = response.body();
+                    setPreference("m_status",m_status);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    // 카운트 다운
+    public void countDownTimer() {
+
+        countDownTimer = new CountDownTimer(MILLISINFUTURE,COUNT_DOWN_INTERVAL) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long noShowStopCount = millisUntilFinished / 1000;
+
+                if ((noShowStopCount - ((noShowStopCount / 60) * 60)) >= 10) { //초가 10보다 크면 그냥 출력
+                    b.fcTimer.setText((noShowStopCount / 60) + " : " + (noShowStopCount - ((noShowStopCount / 60) * 60)));
+                } else { //초가 10보다 작으면 앞에 '0' 붙여서 같이 출력. ex) 02,03,04...
+                    b.fcTimer.setText((noShowStopCount / 60) + " : 0" + (noShowStopCount - ((noShowStopCount / 60) * 60)));
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                modifyUserStatusRequest = DataService.getInstance().matchAPI.modifyMemberStatus(getPreferenceString("m_id"));
+                modifyUserStatusRequest.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if (response.code() == 200) {
+                            Toast.makeText(getContext(), "정지 시간이 끝났습니다. 사용이 가능합니다!", Toast.LENGTH_SHORT).show();
+                            countDownTimer.cancel();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+            }
+        }.start();
+    }
+
+    // 데이터 저장 함수
+    public void setPreference(String key, String value){
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
+
+    // 데이터 불러오기 함수
+    public String getPreferenceString(String key){
+        SharedPreferences pref = getActivity().getSharedPreferences("loginUser", getContext().MODE_PRIVATE);
+        return pref.getString(key, "");
     }
 
     @Override
