@@ -63,7 +63,7 @@
                          )
                 )
         select m.m_id, m.m_name, substr(m.m_id,3,11) phone, to_char(m.m_birth,'yy.MM.dd') m_birth, to_char(m.m_regdate,'yyyy-MM-dd') m_regdate, m.m_profile,
-               nvl(gc.use_count,0) use_count, nvl(gc.noshow_count,0) noshow_count, nvl(gp.unused_point,0) unused_count
+               nvl(gc.use_count,0) use_count, nvl(gc.noshow_count,0) noshow_count, nvl(gp.unused_point,0) unused_point
         from member m left outer join get_count gc on m.m_id = gc.m_id
                       left outer join get_point gp on m.m_id = gp.m_id
         where m.m_id = #{m_id}
