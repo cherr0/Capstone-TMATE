@@ -105,12 +105,11 @@ public class AppMatchServiceImpl implements AppMatchService {
     @Transactional
     @Override
     public Boolean removeMatch(String dp_id) {
-        int flag = 0;
-        if(dispatchMapper.deleteTogetherAttend(dp_id) == 1) {
-            flag = dispatchMapper.deleteTogetherDispatch(dp_id);
-        }
 
-        return flag == 1;
+        dispatchMapper.deleteTogetherAttend(dp_id);
+
+
+        return dispatchMapper.deleteTogetherDispatch(dp_id) == 1;
     }
 
     @Override
