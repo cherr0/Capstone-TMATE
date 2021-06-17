@@ -92,11 +92,12 @@
     </select>
 
     <select id="getMainWeeklyHistoryList" resultType="com.tmate.domain.DispatchDTO">
-        select  d.dp_id, d.start_place, d.finish_place, d.all_fare ,d.start_time, d.end_time, m.m_name, c.car_no, c.car_model
+        select  d.dp_id, d.start_place, d.finish_place, d.all_fare ,d.start_time, d.end_time, m.m_name, co.car_no, c.car_model
         from dispatch d join attend a on d.dp_id = a.dp_id
                         join member m on d.d_id = m.m_id
-                        join car c on d.d_id = c.m_id
-        where a.m_id = 'm1010918400420' and d.dp_status = '5' and to_date(substr(d.dp_id,1,6),'yyMMdd') between  sysdate - 7 and sysdate
+                        join corp co on co.d_id = d.d_id
+                        join car c on co.CAR_NO = c.CAR_NO
+        where a.m_id = #{m_id} and d.dp_status = '5' and to_date(substr(d.dp_id,1,6),'yyMMdd') between  sysdate - 7 and sysdate
         order by start_time desc
     </select>
 
