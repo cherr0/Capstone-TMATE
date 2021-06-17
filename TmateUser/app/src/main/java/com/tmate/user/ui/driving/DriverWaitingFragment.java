@@ -213,7 +213,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 //                mMapView.setZoomLevel(zoom);
                 mMapView.setCenterPoint(info.getTMapPoint().getLongitude(), info.getTMapPoint().getLatitude());
             }
-            b.infoEpTime.setText(String.valueOf(totalTime));
         });
     }
 
@@ -304,7 +303,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
 
         b.infoTogether.setText(mViewModel.together); // 현재 인원
         b.maxPeople.setText(mViewModel.dispatch.getDp_id().substring(18)); // 최대 인원
-        b.amount.setText(mViewModel.dispatch.getAll_fare() / Integer.parseInt(mViewModel.together) + "원");
 
     }
 

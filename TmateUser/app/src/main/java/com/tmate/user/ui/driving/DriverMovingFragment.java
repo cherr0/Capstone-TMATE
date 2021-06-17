@@ -184,7 +184,6 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
 
         if(mViewModel.together.equals("1")) {
             Log.d("DriverMovingFragment","배차 정보 : " + mViewModel.dispatch.toString());
-            b.amount.setText(String.valueOf(mViewModel.dispatch.getAll_fare()));
             message = "차량번호 : " + mViewModel.dispatch.getCar_no() + "/" +
                     mViewModel.dispatch.getCar_model() + " 차량을 현시간부로 탑승하였습니다.";
         }else {

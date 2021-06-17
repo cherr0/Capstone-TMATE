@@ -53,7 +53,7 @@
             android:id="@+id/constraintLayout36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout40"
+            app:layout_constraintStart_toStartOf="@+id/move_dp_status"
             app:layout_constraintTop_toBottomOf="@+id/move_dp_status">
 
             <TextView
@@ -95,52 +95,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout36">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="예상요금"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout40"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout38"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout38"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout38">
-
-            <TextView
-                android:id="@+id/amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10,000원"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout36"/>
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="해당 도착 시간과 요금은 "
+            android:text="등록한 번호로 "
             android:textColor="#E91E63"
-            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout40" />
+            tools:layout_editor_absoluteY="143dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="실시간 교통상황에 따라 달라질 수 있습니다."
+            android:text="지인에게 안심문자 전송이 가능합니다"
             android:textColor="#E91E63"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
