@@ -173,6 +173,7 @@ public class PaymentInformationFragment extends Fragment implements View.OnClick
             @Override
             public void onResponse(Call<List<CardData>> call, Response<List<CardData>> response) {
                 if(response.code() == 200 && response.body() != null) {
+                    adapter.clear();
                     cardList = response.body();
                     Log.d("PayInfoFragment", "바디 : " + response.body());
                     Log.d("PayInfoFragment", "코드 : " + response.code());

@@ -60,6 +60,7 @@ public class PaymentAdapter extends  RecyclerView.Adapter<PaymentAdapter.Payment
     public void addItem(CardData data) {
         items.add(data);
     }
+    public void clear() { items.clear(); }
     public class PaymentHolder extends RecyclerView.ViewHolder {
         ImageView payment_card_image;
         TextView payment_pay_alias;
