@@ -101,14 +101,14 @@ public class CallFragment extends Fragment implements View.OnClickListener {
         // 공지사항
         getMainLoticeList();
 
-        // 멤버가 정상일 때
-        if (getPreferenceString("m_status").equals("0")) {
-            clickListener(); // 클릭 리스너 발동
-        }
+
+
         // 멤버가 정지일 때
-        else {
+        if (getPreferenceString("m_status").equals("2")){
             if(countDownTimer == null)
                 countDownTimer();
+        }else{ // 멤버 정상일 때
+            clickListener(); // 클릭 리스너 발동
         }
 
         //로고 애니메이션
