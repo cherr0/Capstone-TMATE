@@ -47,6 +47,7 @@ public class MemberController {
 
         log.info("member = " + member);
         model.addAttribute("member", member);
+        model.addAttribute("noshow", memberService.getNoShowByUser(m_id));
 
         return "admin/userDetail";
     }

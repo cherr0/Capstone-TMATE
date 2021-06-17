@@ -55,7 +55,7 @@
                                         <p th:text="|이용횟수 : ${member.use_count}|"> 23회</p>
                                     </div>
                                     <div class="bio-row">
-                                        <p th:text="|노쇼횟수 : ${member.noshow_count}|"> 0회</p>
+                                        <p th:text="|노쇼횟수 : ${noshow}|"> 0회</p>
                                     </div>
                                     <div class="bio-row">
                                         <p th:text="|보유 포인트 : ${member.unused_point}|">2500P</p>
@@ -115,8 +115,7 @@
                     <th class="text-center">구분</th>
                     <th class="text-center">금액</th>
                     <th class="text-center">내용</th>
-                    <th class="text-center">변동시간</th>
-                    <th class="text-center">보유포인트</th>
+                    <th class="text-center">변동코드</th>
                 </tr>
                 </thead>
                 <tbody class="point">
@@ -286,7 +285,6 @@ $(document).ready(function(){
                 str += "<td class='text-center'>"+list[i].po_result+"</td>";
                 str += "<td class='text-center'>"+list[i].po_course+"</td>";
                 str += "<td class='text-center'>"+list[i].po_time.substring(0,10)+" "+list[i].po_time.substring(11,19)+"</td>";
-                str += "<td class='text-center'>"+list[i].m_point+"</td>";
                 str += "</tr>";
             }
 

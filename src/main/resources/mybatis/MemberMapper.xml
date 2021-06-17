@@ -44,6 +44,12 @@
         where m_id = #{m_id}
     </select>
 
+    <select id="getNoshowCount" resultType="_int">
+        select m_count
+        from member
+        where m_id = #{m_id}
+    </select>
+
     <select id="getMemberProfile" resultType="com.tmate.domain.MemberProfileVO">
         <![CDATA[
         with

@@ -66,4 +66,11 @@ public class MemberServiceImpl implements MemberService {
     public int getTotalPointCount(String m_id) {
         return joinMapper.getTotalPointCount(m_id);
     }
+
+    // 노쇼 가져오는것
+    @Override
+    public int getNoShowByUser(String m_id) {
+        return membermapper.getNoshowCount(m_id);
+    }
+
 }

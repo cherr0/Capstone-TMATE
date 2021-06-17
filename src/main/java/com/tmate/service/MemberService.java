@@ -15,6 +15,9 @@ public interface MemberService {
     // 회원 눌렀을때 나오는 상세페이지 - 회원정보
     MemberProfileVO getMember(String m_id);
 
+    // 멤버 노쇼 가져오는 것.
+    int getNoShowByUser(String m_id);
+
     // 페이지 처리용 이용내역
     HistoryPageDTO getListPage(Criteria cri, String m_id);
 

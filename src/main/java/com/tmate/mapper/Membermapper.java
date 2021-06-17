@@ -13,6 +13,9 @@ public interface Membermapper {
     // 관리자 페이지 회원리스트
     List<MemberDTO> getList(Criteria cri);
 
+    // 노쇼횟수 가져오기
+    int getNoshowCount(String m_id);
+
     // 생년월일만 가져오기
     String getMemberBirth(String m_id);
 
