@@ -17,6 +17,7 @@ public class HistoryDTO {
     // 출발지
     private String h_s_place;
     private String start_place;
+    private String finish_place;
     private double h_s_lttd;
     private double h_s_lngtd;
 

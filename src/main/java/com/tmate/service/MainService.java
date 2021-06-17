@@ -31,6 +31,9 @@ public interface MainService {
     // 탑승지 순위
     public List<HistoryDTO> rankStartByCnt();
 
+    // 목적지 순위
+    List<HistoryDTO> rankFinishByCnt();
+
     // 미사용 포인트 조회
     public int getUnused(String m_id);
 

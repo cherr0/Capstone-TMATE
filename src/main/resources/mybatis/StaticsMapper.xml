@@ -89,4 +89,14 @@
             where ranking <= 5
         ]]>
     </select>
+
+    <select id="getEndRankList" resultType="com.tmate.domain.HistoryDTO">
+        <![CDATA[
+        select *
+        from (select finish_place ,count(finish_place) as cnt, row_number() over (order by count(finish_place) desc) as ranking
+              from dispatch
+              group by finish_place)
+        where ranking <= 5
+        ]]>
+    </select>
 </mapper>

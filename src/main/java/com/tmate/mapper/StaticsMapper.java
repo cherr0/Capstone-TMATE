@@ -41,4 +41,7 @@ public interface StaticsMapper {
 
     // 탑승지 순위 리스트
     List<HistoryDTO> getStartRankList();
+
+    // 목적지 순위 리스트
+    List<HistoryDTO> getEndRankList();
 }
