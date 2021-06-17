@@ -897,12 +897,12 @@
 
       for (let i = 0; i < nlen; i++) {
         chartData7[parseInt(result.use[i].standard.substr(6,1))-1]=result.use[i].count;
-        console.log(chartData5);
+        console.log(chartData7);
       }
 
       for (let j = 0; j < tlen; j++) {
         chartData8[parseInt(result.get[j].standard.substr(6,1))-1]=result.get[j].count;
-        console.log(chartData6);
+        console.log(chartData8);
       }
 
       createChart5();
@@ -922,7 +922,7 @@
             datasets: [
               {
                 label: "적립 포인트",
-                data:[0,0,0,5,0,1,0,0,0,0,0,0],
+                data:chartData8,
                 borderColor: "rgba(0, 123, 255, 0.9)",
                 borderWidth: "0",
                 backgroundColor: "rgba(0, 123, 255, 0.5)",
