@@ -227,7 +227,7 @@
 
     <delete id="deleteAttendInfo">
         DELETE FROM ATTEND
-        WHERE dp_id = #{dp_id}, m_id = #{m_id}
+        WHERE dp_id = #{dp_id} and m_id = #{m_id}
     </delete>
 
     <!-- 매칭 대기일시 동승 정보 -->
