@@ -11,6 +11,7 @@
     <select id="getMonthlyUsers" resultType="com.tmate.domain.MonthlyUsersVO">
         select to_date(substr(dp_id,1,4),'yyMM') as standard,  count(*) as users
         from dispatch
+        where DP_STATUS = '5'
         group by to_date(substr(dp_id,1,4),'yyMM')
         order by to_date(substr(dp_id,1,4),'yyMM')
     </select>

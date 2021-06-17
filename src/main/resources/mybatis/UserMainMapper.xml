@@ -99,4 +99,14 @@
         where a.m_id = 'm1010918400420' and d.dp_status = '5' and to_date(substr(d.dp_id,1,6),'yyMMdd') between  sysdate - 7 and sysdate
         order by start_time desc
     </select>
+
+    <select id="getUnusedPoint" resultType="_int">
+        select point-use_point as unused_point
+        from (
+                 select m_id, nvl(sum(CASE WHEN po_exact = 0 THEN po_result END),0) as point,nvl(sum(CASE WHEN po_exact = 1 THEN po_result END),0) as use_point
+                 from POINT
+                 group by m_id
+             )
+        where m_id = #{m_id}
+    </select>
 </mapper>

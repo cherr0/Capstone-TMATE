@@ -45,4 +45,7 @@ public interface UserMainMapper {
 
     // 결제 이력 페이징 처리 리스트
     public List<JoinReceiptVO> getReceiptListPaging(@Param("cri") Criteria cri, String m_id);
+
+    // 미사용 포인트 확인
+    public int getUnusedPoint(String m_id);
 }

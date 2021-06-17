@@ -4,6 +4,7 @@ import com.tmate.domain.*;
 import com.tmate.domain.user.ApprovalDTO;
 import com.tmate.security.dto.AuthMemberDTO;
 import com.tmate.service.BoardService;
+import com.tmate.service.MainService;
 import com.tmate.service.MemberService;
 import com.tmate.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,8 @@ public class UserController {
 
     private final BoardService boardService;
 
+    private final MainService mainService;
+
     // 메인화면
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/main")
@@ -36,6 +39,7 @@ public class UserController {
         String m_id = authMemberDTO.getM_id();
         log.info("넘어오는 회원번호 : " + m_id);
         model.addAttribute("memberp", userService.getMainPage(m_id));
+        model.addAttribute("unusedpoint", mainService.getUnused(m_id));
         model.addAttribute("like", userService.totalCountLike(m_id));
         model.addAttribute("dislike", userService.totalCountDislike(m_id));
         model.addAttribute("ban", userService.totalCountBan(m_id));

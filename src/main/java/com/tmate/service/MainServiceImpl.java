@@ -7,6 +7,7 @@ import com.tmate.domain.PlaceDTO;
 import com.tmate.domain.UsersByAgeVO;
 import com.tmate.mapper.Membermapper;
 import com.tmate.mapper.StaticsMapper;
+import com.tmate.mapper.UserMainMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ public class MainServiceImpl implements MainService {
     private final Membermapper membermapper;
 
     private final StaticsMapper staticsMapper;
+
+    private final UserMainMapper userMainMapper;
 
     // 전체 사용자 수
     @Override
@@ -57,9 +60,14 @@ public class MainServiceImpl implements MainService {
     }
 
     // 탑승지 순위
-
     @Override
     public List<HistoryDTO> rankStartByCnt() {
         return staticsMapper.getStartRankList();
+    }
+
+    // 미사용 포인트 조회
+    @Override
+    public int getUnused(String m_id) {
+        return userMainMapper.getUnusedPoint(m_id);
     }
 }

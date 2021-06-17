@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-4 col-md-4 col-xs-4 user-bar-content" id="user-bar-point">
-                                <div class="text-right">현재 보유 포인트: <span class="u-point" th:text="${memberp?.m_point}">500</span><span class="u-point-p">P</span></div>
+                                <div class="text-right">현재 보유 포인트: <span class="u-point" th:text="${unusedpoint}">500</span><span class="u-point-p">P</span></div>
                                 <button class="btn btn-dark float-right mt-2"><a th:href="@{/tuser/pointd(m_id=${memberp?.m_id})}">포인트 내역</a></button>
                             </div>
                         </div>
