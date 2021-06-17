@@ -37,7 +37,7 @@ public class IndexController {
         int weeklyUsers = mainService.countWeeklyUsers();   // 주간 이용자 수
         List<MonthlyUsersVO> monthlyUsers = mainService.countMonthlyUsers(); // 월간 이용자 수
         List<UsersByAgeVO> usersByAge = mainService.countUsersByAge();  // 연령별 이용자 수
-        List<PlaceDTO> placeByStart = mainService.rankHotplaceByStart();    // 핫플레이스 이용 순위
+        List<HistoryDTO> finishByCnt = mainService.rankFinishByCnt();
         // 탑승지 순위
         List<HistoryDTO> rankStart = mainService.rankStartByCnt();
 
@@ -46,13 +46,13 @@ public class IndexController {
         System.out.println("drivers = " + drivers);
         System.out.println("weeklyUsers = " + weeklyUsers);
         System.out.println("monthlyUsers = " + monthlyUsers);
-        System.out.println("placeByStart = " + placeByStart);
+        System.out.println("finishByCnt = " + finishByCnt);
         System.out.println("usersByAge = " + usersByAge);
 
         model.addAttribute("members", members);
         model.addAttribute("drivers", drivers);
         model.addAttribute("weeklyUsers", weeklyUsers);
-        model.addAttribute("placeByStart", placeByStart);
+        model.addAttribute("finishByCnt", finishByCnt);
         model.addAttribute("rankStart", rankStart);
         return "admin/main";
     }

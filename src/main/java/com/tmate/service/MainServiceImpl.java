@@ -65,6 +65,12 @@ public class MainServiceImpl implements MainService {
         return staticsMapper.getStartRankList();
     }
 
+    // 목적지 순위
+    @Override
+    public List<HistoryDTO> rankFinishByCnt() {
+        return staticsMapper.getEndRankList();
+    }
+
     // 미사용 포인트 조회
     @Override
     public int getUnused(String m_id) {
