@@ -297,7 +297,7 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
        ----------------------- */
     // 뷰에 데이터 연결
     private void modelDataBinding() {
-        b.carNo.setText(mViewModel.dispatch.getCar_no()); // 기사 차 번호
+        b.carNo.setText(mViewModel.dispatch.getCar_no() + ":" + mViewModel.dispatch.getCar_model()); // 기사 차 번호
         b.infoStartPlace.setText(mViewModel.dispatch.getStart_place()); // 출발지
         b.infoFinishPlace.setText(mViewModel.dispatch.getFinish_place()); // 도착지
 
