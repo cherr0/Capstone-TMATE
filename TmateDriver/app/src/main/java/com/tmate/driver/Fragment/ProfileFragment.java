@@ -20,8 +20,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.tmate.driver.data.DriverProfile;
+
 import com.tmate.driver.databinding.FragmentProfileBinding;
 import com.tmate.driver.net.DataService;
+
+import java.text.DecimalFormat;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,14 +53,17 @@ public class ProfileFragment extends Fragment {
                     DriverProfile result = response.body();
                     Log.d("ProfileFragment", "기사 프로필 내용 : " + result);
 
+                    DecimalFormat df = new DecimalFormat("###,###");
+
+
                     b.profileName.setText(result.getM_name());
                     b.mName.setText(result.getM_name());
                     b.profilePhone.setText(result.getPhone());
                     b.profileEmail.setText(result.getM_email());
-                    b.profileAllFare.setText(String.valueOf(result.getAll_fare()));
-                    b.profileMonthFare.setText(String.valueOf(result.getMonth_fare()));
-                    b.profileNoCnt.setText(String.valueOf(result.getNo_cnt()));
-                    b.profileToCnt.setText(String.valueOf(result.getTo_cnt()));
+                    b.profileAllFare.setText(df.format(result.getAll_fare()) + " 원");
+                    b.profileMonthFare.setText(df.format(result.getMonth_fare()) + " 원");
+                    b.profileNoCnt.setText(String.valueOf(result.getNo_cnt()) + " 회");
+                    b.profileToCnt.setText(String.valueOf(result.getTo_cnt()) + " 회");
 
 
 //                    SimpleDateFormat df = new SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREAN);

@@ -68,7 +68,7 @@ public interface DispatchMapper {
     int updateDriverDriving(String d_id);
 
     // 기사 자기 위치에서 2KM 이내의 호출을 가져온다. (O)
-    List<DispatchInfoVO> selectCallInfo(double m_lat, double m_lng);
+    List<DispatchInfoVO> selectCallInfo(@Param("m_lat") double m_lat, @Param("m_lng") double m_lng, @Param("d_id") String d_id);
 
     // 손님 태웠을시 -> 운행 시간, 탑승 중 (O)
     int updateDispatchBoarding(String dp_id);

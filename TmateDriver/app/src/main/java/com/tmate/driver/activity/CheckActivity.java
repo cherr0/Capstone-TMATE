@@ -66,14 +66,7 @@ public class CheckActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-
-        b.ivBlackList.setOnClickListener(v -> {
-            Intent intent = new Intent(CheckActivity.this, BlackListSelectActivity.class);
-            intent.putExtra("blackList", 1);
-            startActivity(intent);
-            finish();
-        });
-
+        
         b.drivingFinish.setOnClickListener(v -> {
             Intent intent = new Intent(CheckActivity.this, WaitingActivity.class);
             startActivity(intent);

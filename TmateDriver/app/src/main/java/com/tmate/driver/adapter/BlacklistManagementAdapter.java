@@ -107,7 +107,7 @@ class BlackListHolder extends RecyclerView.ViewHolder {
 
     void onBind(JoinBan data) {
         black_name.setText(data.getM_name());
-        black_date.setText(data.getBan_reg_date().toString());
+        black_date.setText(data.getBan_reg_date().toString().substring(0,10));
         black_content.setText(data.getBan_reason());
     }
 

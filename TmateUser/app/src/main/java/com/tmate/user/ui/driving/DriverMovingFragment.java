@@ -109,6 +109,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         b = FragmentDriverMovingBinding.inflate(getLayoutInflater());
         mViewModel = new ViewModelProvider(requireActivity()).get(DrivingModel.class);
         geocoder = new Geocoder(getActivity());//지오코더
+        getFriendPhoneNo();
         return b.getRoot();
     }
 
@@ -145,7 +146,6 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
         // SMS 안심 문자보내기 클릭 이벤트 연결
         b.messageButton.setOnClickListener(v -> {
             if(checkAndRequestPermission()) {
-                getFriendPhoneNo();
 
                 if (phoneNoList != null && phoneNoList.size() != 0) {
                     for (int i = 0; i < phoneNoList.size(); i++) {
@@ -351,6 +351,7 @@ public class DriverMovingFragment extends Fragment implements TMapGpsManager.onL
                         mViewModel.dispatch = dispatch;
                         Log.d("넘어오는 기사 정보", dispatch.toString());
                         tMapPointStart = new TMapPoint(dispatch.getM_lat(), dispatch.getM_lng());
+
                         modelDataBinding();
 
                         switch (dispatch.getDp_status()) {

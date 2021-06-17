@@ -306,13 +306,6 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
         b.maxPeople.setText(mViewModel.dispatch.getDp_id().substring(18)); // 최대 인원
         b.amount.setText(mViewModel.dispatch.getAll_fare() / Integer.parseInt(mViewModel.together) + "원");
 
-
-        // 만나는 시간
-        if(mViewModel.together.equals("1")) {
-            b.meetTime.setText("동승 시 이용");
-        }else {
-            b.meetTime.setText("보류");
-        }
     }
 
     // 클릭 리스너 관리

@@ -223,7 +223,9 @@ class WaitingHolder extends RecyclerView.ViewHolder {
             tv_do_quiet.setText("조용히 가고 싶어요");
             do_quiet.setImageResource(R.drawable.off);
         }
-        tv_distance.setText(String.valueOf(data.getDistance()));
+//        tv_distance.setText(String.valueOf(data.getDistance()));
+        Log.d("WaitingAdapter", "거리 : " + data.getDistance());
+        tv_distance.setText(String.format("%.3f",data.getDistance())+"KM");
         personnel.setText(String.valueOf(data.getCur_people()));
         matching_s_place.setText(data.getStart_place());
         matching_e_place.setText(data.getFinish_place());
