@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,12 +104,15 @@ class HistoryHolder extends RecyclerView.ViewHolder {
 
     void onBind(Dispatch data) {
         start.setText(data.getStart_place());
+        Log.d("historyAdapter ", "이용내역구분 " + data.getDp_id().substring(18));
         switch (data.getDp_id().substring(18)) {
             case "1":
                 together.setText("일반");
                 break;
             case "2":
+            case "3":
                 together.setText("동승");
+                break;
         }
         String meet = new SimpleDateFormat("yy/MM/dd").format(data.getStart_time());
         date.setText(meet);
