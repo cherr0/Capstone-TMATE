@@ -43,7 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tib_drawable_off="@drawable/ic_sit_off"
-            app:tib_drawable_on="@drawable/ic_sit_on" />
+            app:tib_drawable_on="@drawable/ic_sit_off_more" />
 
         <net.colindodd.toggleimagebutton.ToggleImageButton
             android:id="@+id/seat_two"
@@ -55,7 +55,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tib_drawable_off="@drawable/ic_sit_off"
-            app:tib_drawable_on="@drawable/ic_sit_on" />
+            app:tib_drawable_on="@drawable/ic_sit_off_more" />
 
         <net.colindodd.toggleimagebutton.ToggleImageButton
             android:id="@+id/seat_three"
@@ -67,7 +67,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tib_drawable_off="@drawable/ic_sit_off"
-            app:tib_drawable_on="@drawable/ic_sit_on" />
+            app:tib_drawable_on="@drawable/ic_sit_off_more" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
