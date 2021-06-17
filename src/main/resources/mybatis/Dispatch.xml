@@ -91,9 +91,11 @@
 
     <!-- 기사 위치 실시간으로 가져오기 - 수정 버전 (O) -->
     <select id="getRealTimeDriverPosition" resultType="com.tmate.domain.DispatchDTO">
-        select d.dp_status,d.start_time, d.end_time, m.m_lat, m.m_lng, d.start_lat, d.start_lng, d.finish_lat, d.finish_lng, d.all_fare, d.dp_id, d.d_id,d.ep_distance, d.start_place, d.finish_place
+        select d.dp_status,d.start_time, d.end_time, m.m_lat, m.m_lng, d.start_lat, d.start_lng, d.finish_lat, d.finish_lng, d.all_fare, d.dp_id, d.d_id,d.ep_distance, d.start_place, d.finish_place, c.car_no, c.car_model
         from dispatch d left outer join member m on d.d_id = m.m_id
-        where d.dp_id = #{dp_id}
+                        left outer join car c on d.d_id = c.m_id
+                        left outer join corp cr on d.d_id = cr.d_id
+        where d.dp_id = #{dp_id} and c.car_no = cr.car_no
     </select>
 
     <!-- 손님 태웠을시 -> 운행 시간, 탑승 중 (O) -->
