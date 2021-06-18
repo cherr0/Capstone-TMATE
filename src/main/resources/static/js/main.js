@@ -1075,12 +1075,12 @@
 
       for (let i = 0; i < nlen; i++) {
         console.log(result.normal[i].standard.substr(2));
-        chartData3[parseInt(result.normal[i].standard.substr(2))-1]=result.normal[i].count;
+        chartData3[parseInt(result.normal[i].standard.substr(6,1))-1]=result.normal[i].count;
         console.log("chart normal data : " + chartData3);
       }
 
       for (let j = 0; j < tlen; j++) {
-        chartData4[parseInt(result.together[j].standard.substr(2))-1]=result.together[j].count;
+        chartData4[parseInt(result.together[j].standard.substr(6,1))-1]=result.together[j].count;
         console.log("chart together data : " + chartData4);
       }
 
