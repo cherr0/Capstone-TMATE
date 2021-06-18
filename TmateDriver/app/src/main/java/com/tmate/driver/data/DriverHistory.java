@@ -14,7 +14,7 @@ public class DriverHistory {
         기사 운행이력 리스트 가져오기
      */
 
-    // 동승 수
+    // 동승 구분
     private String together;
 
     // 기사 코드
