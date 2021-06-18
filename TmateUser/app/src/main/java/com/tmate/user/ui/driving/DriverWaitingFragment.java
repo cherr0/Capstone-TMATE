@@ -350,7 +350,10 @@ public class DriverWaitingFragment extends Fragment implements TMapGpsManager.on
                                 isRunning = false;
                                 // 탑승완료 될 경우 다음 레이아웃으로 이동
                                 kakaoSubscription(mViewModel.dispatch);
-                                insertUsePoint();
+                                
+                                if(mViewModel.use_point != 0)
+                                        insertUsePoint();
+
                                 NavController controller = Navigation.findNavController(activity, R.id.nav_host_fragment);
                                 controller.navigate(R.id.action_driverWaitingFragment_to_driverMovingFragment);
                                 break;
