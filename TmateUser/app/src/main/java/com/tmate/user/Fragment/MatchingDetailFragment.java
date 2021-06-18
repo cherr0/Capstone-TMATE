@@ -36,6 +36,7 @@ import com.tmate.user.data.History;
 import com.tmate.user.data.MatchingDetailData;
 import com.tmate.user.data.MatchingMember;
 import com.tmate.user.data.TogetherRequest;
+
 import com.tmate.user.databinding.FragmentMatchingDetailBinding;
 import com.tmate.user.net.DataService;
 import com.tmate.user.ui.driving.DrivingModel;
@@ -303,7 +304,7 @@ public class MatchingDetailFragment extends Fragment {
                     if (user.equals(m_id)) {
                         if(b.fmdCurPeople.getText().equals(b.fmdMaxPeople.getText())) {
                             b.btnMatch.setText("호출하기");
-                            b.btnRemove.setVisibility(View.INVISIBLE);
+                            b.btnRemove.setVisibility(View.VISIBLE);
                         }
                         else {
                             b.btnMatch.setText("삭제하기");
