@@ -116,6 +116,7 @@ public class SplashActivity extends AnimatedSplash {
             public void onResponse(Call<String> call, Response<String> response) {
                 if (response.code() == 200) {
                     int year = Calendar.getInstance().get(Calendar.YEAR);
+
                     Log.d("넘어오는 회원 생년월일", String.valueOf(response.body()));
                     Log.d("현재 년도 ", String.valueOf(year).substring(2));
                     int age = (year-2000) - Integer.parseInt(response.body());

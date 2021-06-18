@@ -98,7 +98,7 @@ public class MatchingDetailFragment extends Fragment {
         pref = getActivity().getSharedPreferences("loginUser", Context.MODE_PRIVATE);
         m_id = pref.getString("m_id", "");
         b.tvMName.setText(getPreferenceString("m_name"));
-        b.mBirth.setText(getPreferenceString("age"));
+
 
         RecyclerView recyclerView = view.findViewById(R.id.matching_recycle);
 
@@ -305,11 +305,13 @@ public class MatchingDetailFragment extends Fragment {
                         if(b.fmdCurPeople.getText().equals(b.fmdMaxPeople.getText())) {
                             b.btnMatch.setText("호출하기");
                             b.btnRemove.setVisibility(View.VISIBLE);
+
                         }
                         else {
                             b.btnMatch.setText("삭제하기");
                         }
-                        
+
+                        b.mBirth.setText("방장");
                         getDataMaster();
                         
                     }else{
@@ -318,6 +320,7 @@ public class MatchingDetailFragment extends Fragment {
                         else
                             b.btnMatch.setText("동승하기");
 
+                        b.mBirth.setText("동승자");
                         getDataPassenger();
                         handler = new Handler();
                         checking = new Checking();
