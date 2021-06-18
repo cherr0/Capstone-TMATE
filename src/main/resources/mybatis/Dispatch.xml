@@ -263,6 +263,12 @@
         WHERE dp_id = #{dp_id}
     </update>
 
+    <update id="minusCurPeople">
+        UPDATE DISPATCH
+        SET cur_people = cur_people - 1
+        WHERE dp_id = #{dp_id}
+    </update>
+
     <!-- 6.동승자 정보 -->
     <select id="getPassengerList" resultType="com.tmate.domain.AttendDTO">
         SELECT *
@@ -322,4 +328,16 @@
         where dp_id = #{dp_id}
     </delete>
 
+    <!-- 동승 횟수 -1 회 감소 -->
+    <update id="updateReduceTCnt">
+        update member
+        set m_t_use = m_t_use - 1
+        where m_id = #{m_id}
+    </update>
+
+    <!-- 동승자 참여 테이블 삭제  -->
+    <delete id="removeMyAttend">
+        delete from attend
+        where dp_id = #{dp_id} and m_id = #{m_id}
+    </delete>
 </mapper>

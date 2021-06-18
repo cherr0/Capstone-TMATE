@@ -86,4 +86,10 @@ public interface AppMatchService {
      * 지인 번호 가져오기
      * */
     List<String> getMyFriend(String m_id);
+
+    // 인원 다찼을시 방장이 삭제 누를때
+    Boolean removeTogetherMatchByMaster(String dp_id, String m_id);
+
+    // 동승자가 방 나갈때
+    Boolean removeTogetherPassenger(String dp_id, String m_id);
 }
