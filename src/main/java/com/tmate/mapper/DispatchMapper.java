@@ -169,4 +169,19 @@ public interface DispatchMapper {
      *  ------------------------
      * */
     List<String> selectMyFriend(String m_id);
+
+
+    /*
+     *  -------------------------
+     *   삭제 이벤트
+     *  -------------------------
+     * */
+    // 1. 멤버 동승횟수 -1
+    int updateReduceTCnt(String m_id);
+
+    // 2. 동승 인원 -1
+    int minusCurPeople(String dp_id);
+
+    // 3. 내 참여 테이블 삭제
+    int removeMyAttend(String dp_id, String m_id);
 }

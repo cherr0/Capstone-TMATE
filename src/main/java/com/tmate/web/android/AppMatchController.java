@@ -215,4 +215,27 @@ public class AppMatchController {
         return new ResponseEntity<>(appMatchService.getMyFriend(m_id), HttpStatus.OK);
     }
 
+
+    // 방삭제
+    @DeleteMapping("/remove/together/master/{dp_id}/{m_id}")
+    public ResponseEntity<Boolean> removeTogetherMaster(
+            @PathVariable("dp_id") String dp_id,
+            @PathVariable("m_id") String m_id
+    ) {
+        log.info(" 방장이 방을 삭제합니다. " + dp_id + " : " + m_id);
+
+        return new ResponseEntity<>(appMatchService.removeTogetherMatchByMaster(dp_id, m_id), HttpStatus.OK);
+    }
+
+    // 방 나가기 - 동승자
+    @DeleteMapping("/remove/attend/my/{dp_id}/{m_id}")
+    public ResponseEntity<Boolean> removeMyAttend(
+            @PathVariable("dp_id") String dp_id,
+            @PathVariable("m_id") String m_id
+    ) {
+        log.info(" 방을 나갑니다. " + dp_id + " : " + m_id);
+
+        return new ResponseEntity<>(appMatchService.removeTogetherPassenger(dp_id, m_id), HttpStatus.OK);
+    }
+
 }

@@ -180,4 +180,32 @@ public class AppMatchServiceImpl implements AppMatchService {
     public List<String> getMyFriend(String m_id) {
         return dispatchMapper.selectMyFriend(m_id);
     }
+
+
+    @Transactional
+    @Override
+    public Boolean removeTogetherMatchByMaster(String dp_id, String m_id) {
+
+        // 참여 테이블 지우고
+        dispatchMapper.deleteTogetherAttend(dp_id);
+        // 배차 테이블 지우고
+        dispatchMapper.deleteTogetherDispatch(dp_id);
+
+        // 동승 횟수 -1 회
+        return dispatchMapper.updateReduceTCnt(m_id) == 1;
+    }
+
+    @Transactional
+    @Override
+    public Boolean removeTogetherPassenger(String dp_id, String m_id) {
+
+        // 배차 테이블 인원 -1
+        dispatchMapper.minusCurPeople(dp_id);
+
+        // 참여테이블 지우고
+        dispatchMapper.removeMyAttend(dp_id, m_id);
+
+        // 동승 횟수 -1회
+        return dispatchMapper.updateReduceTCnt(m_id) == 1;
+    }
 }
