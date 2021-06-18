@@ -1,7 +1,9 @@
 package com.tmate.user.Fragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -143,9 +145,38 @@ public class MatchingDetailFragment extends Fragment {
                     controller.navigate(R.id.action_global_matchingSeatFragment);
                 else
                     Toast.makeText(getContext(), "동성만 이용할 수 있습니다.", Toast.LENGTH_SHORT).show();
-            }
-            else{
-              // 삭제하기 로직 짜야됨
+            } else if (b.btnMatch.getText().toString().equals("나가기")) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("나가기");
+                builder.setMessage("방을 나가시겠습니까? \n" + "동승횟수 1회 차감됩니다.");
+                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        removeMatchRequest = DataService.getInstance().matchAPI.removeMyAttend(dp_id, m_id);
+                        removeMatchRequest.enqueue(new Callback<Boolean>() {
+                            @Override
+                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                                if (response.code() == 200) {
+                                    Toast.makeText(getContext(), "방을 나가셨습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Boolean> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
+                    }
+                });
+                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            } else {
+                // 삭제하기 로직 짜야됨
                 removeMatchRequest = DataService.getInstance().matchAPI.removeTogetherMatch(dp_id);
                 removeMatchRequest.enqueue(new Callback<Boolean>() {
                     @Override
@@ -161,6 +192,38 @@ public class MatchingDetailFragment extends Fragment {
                     }
                 });
             }
+        });
+
+        b.btnRemove.setOnClickListener(v -> {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("방 삭제");
+            builder.setMessage("지금 방을 삭제하시면 동승횟수 1회 차감됩니다. \n" + "그래도 하시겠습니까?");
+            builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    removeMatchRequest = DataService.getInstance().matchAPI.removeTogetherMaster(dp_id,m_id);
+                    removeMatchRequest.enqueue(new Callback<Boolean>() {
+                        @Override
+                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                            if (response.code() == 200) {
+                                Toast.makeText(getContext(), "매칭이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Boolean> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+                }
+            });
+            builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
         });
 
         return view;
@@ -238,16 +301,23 @@ public class MatchingDetailFragment extends Fragment {
 
 
                     if (user.equals(m_id)) {
-                        if(b.fmdCurPeople.getText().equals(b.fmdMaxPeople.getText()))
+                        if(b.fmdCurPeople.getText().equals(b.fmdMaxPeople.getText())) {
                             b.btnMatch.setText("호출하기");
-                        else
+                            b.btnRemove.setVisibility(View.INVISIBLE);
+                        }
+                        else {
                             b.btnMatch.setText("삭제하기");
+                        }
                         
                         getDataMaster();
                         
                     }else{
+                        if (b.fmdCurPeople.getText().equals(b.fmdMaxPeople.getText()))
+                            b.btnMatch.setText("나가기");
+                        else
+                            b.btnMatch.setText("동승하기");
+
                         getDataPassenger();
-                        b.btnMatch.setText("동승하기");
                         handler = new Handler();
                         checking = new Checking();
                         isRunning = true;

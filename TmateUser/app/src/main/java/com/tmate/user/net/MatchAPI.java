@@ -167,4 +167,21 @@ public interface MatchAPI {
     // 3. 회원 정보 가져오기 사용자 APP
     @GET("noshow/get/member/status/{m_id}")
     Call<String> getMemberStatus(@Path("m_id") String m_id);
+
+
+    /*
+    *  방삭제
+    *  방 나가기
+    * */
+    @DELETE("match/remove/together/master/{dp_id}/{m_id}")
+    Call<Boolean> removeTogetherMaster(
+            @Path("dp_id") String dp_id,
+            @Path("m_id") String m_id
+    );
+
+    @DELETE("match/remove/attend/my/{dp_id}/{m_id}")
+    Call<Boolean> removeMyAttend(
+            @Path("dp_id") String dp_id,
+            @Path("m_id") String m_id
+    );
 }
